@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
+
         let environmentViewModel = EnvironmentViewModel(title: "Srbija", image: "hammer_icon", url: "www.apple.com")
         let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
                                                         labelsViewModel: LoginLabelsViewModel(),
@@ -30,7 +31,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                                         onRegisterTapped: { _ in },
                                                         onForgotPasswordTapped: { _ in })
         let loginScreen = LoginScreen(viewModel: loginScreenViewModel)
-
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
