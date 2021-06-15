@@ -21,7 +21,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                                         userNameTextFieldViewModel: UserNameTextFieldViewModel(),
                                                         passwordTextFieldViewModel: PasswordTextFieldViewModel(),
                                                         onSelectEnvironmentTapped: { _ in },
-                                                        onLoginTapped: { _ in },
+                                                        onLoginTapped: onLoginTapped,
                                                         onRegisterTapped: { _ in },
                                                         onForgotPasswordTapped: { _ in })
         let loginScreen = LoginScreen(viewModel: loginScreenViewModel)

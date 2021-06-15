@@ -21,14 +21,22 @@ public final class AppNavigationRouter: NavigationRouter {
                                    navigationController: mainNavigationController)
     }()
     
+    private lazy var dashboardRouter: DashboardRouter = {
+        return DashboardRouter(navigationController: dashboardNavigationController,
+                               factory: SwiftUIDashboardViewControllerFactory())
+    }()
+    
+    
     init(mainNavigationController: UINavigationController) {
         self.mainNavigationController = mainNavigationController
     }
     
     public func start() {
         authorizationRouter.start()
-        authorizationRouter.onLoginTapped = { _ in
-            
+        authorizationRouter.onLoginTapped = { [weak self] _ in
+            guard let self = self else { return }
+            self.dashboardRouter.start()
+            self.mainNavigationController.pushViewController(self.dashboardNavigationController, animated: true)
         }
     }
 }

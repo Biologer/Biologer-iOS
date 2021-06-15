@@ -23,7 +23,9 @@ public final class AuthorizationRouter: NavigationRouter {
     
     private func showLoginScreen() {
         let loginViewController = factory.presentLoginScreen(onSelectEnvironmentTapped: { _ in },
-                                                             onLoginTapped: { [weak self] _ in self?.onLoginTapped?(()) },
+                                                             onLoginTapped: {  _ in
+                                                                self.onLoginTapped?(())
+                                                             },
                                                              onRegisterTapped: { _ in },
                                                              onForgotPasswordTapped: { _ in })
         self.navigationController.setViewControllers([loginViewController], animated: false)
