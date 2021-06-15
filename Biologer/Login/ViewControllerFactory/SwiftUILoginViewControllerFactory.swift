@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-public final class SwiftUILoginViewControllerFactory: LoginViewControllerFactory {
+public final class SwiftUILoginViewControllerFactory: AuthorizationViewControllerFactory {
     public func presentLoginScreen(onSelectEnvironmentTapped: @escaping Observer<Void>,
                                    onLoginTapped: @escaping Observer<Void>,
                                    onRegisterTapped: @escaping Observer<Void>,

@@ -36,15 +36,17 @@
 		93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC0267894820094A483 /* UIScreen+Extensions.swift */; };
 		93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */; };
 		93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */; };
+		93334ECA267924A50094A483 /* AppNavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC9267924A50094A483 /* AppNavigationRouter.swift */; };
+		93334ECC2679259E0094A483 /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334ECB2679259E0094A483 /* AuthorizationRouter.swift */; };
+		93334ED126793D810094A483 /* DashboardViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334ED026793D810094A483 /* DashboardViewControllerFactory.swift */; };
 		93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */; };
 		93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */; };
 		93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF629D262B807D00DDFB44 /* LoginButton.swift */; };
 		93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62A2262B838A00DDFB44 /* EnvironmentLoginView.swift */; };
 		93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62AD262C451400DDFB44 /* EnvironmentScreenViewModel.swift */; };
 		93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */; };
-		93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */; };
 		93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */; };
-		93BF62C2262C559700DDFB44 /* LoginViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62C1262C559700DDFB44 /* LoginViewControllerFactory.swift */; };
+		93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */; };
 		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
 		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
 		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
@@ -109,15 +111,17 @@
 		93334EC0267894820094A483 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreenViewModel.swift; sourceTree = "<group>"; };
 		93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuScreenViewModel.swift; sourceTree = "<group>"; };
+		93334EC9267924A50094A483 /* AppNavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationRouter.swift; sourceTree = "<group>"; };
+		93334ECB2679259E0094A483 /* AuthorizationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouter.swift; sourceTree = "<group>"; };
+		93334ED026793D810094A483 /* DashboardViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewControllerFactory.swift; sourceTree = "<group>"; };
 		93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		93BF629D262B807D00DDFB44 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		93BF62A2262B838A00DDFB44 /* EnvironmentLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentLoginView.swift; sourceTree = "<group>"; };
 		93BF62AD262C451400DDFB44 /* EnvironmentScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentScreenViewModel.swift; sourceTree = "<group>"; };
 		93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentScreen.swift; sourceTree = "<group>"; };
-		93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationRouter.swift; sourceTree = "<group>"; };
 		93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILoginViewControllerFactory.swift; sourceTree = "<group>"; };
-		93BF62C1262C559700DDFB44 /* LoginViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerFactory.swift; sourceTree = "<group>"; };
+		93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewControllerFactory.swift; sourceTree = "<group>"; };
 		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 		931426E2262B53AD00542EFC /* Biologer */ = {
 			isa = PBXGroup;
 			children = (
+				93334EC8267924930094A483 /* App */,
 				93334EA72677DC2D0094A483 /* Dashboard */,
 				93142716262B57C300542EFC /* Login */,
 				93BF628C262B7B3E00DDFB44 /* Extensions */,
@@ -241,6 +246,7 @@
 		93142716262B57C300542EFC /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				93334ECD26793BAC0094A483 /* Router */,
 				93BF62C9262C55A700DDFB44 /* ViewControllerFactory */,
 				93142728262B5A8100542EFC /* ViewModel */,
 				93142727262B5A7B00542EFC /* UI */,
@@ -288,7 +294,6 @@
 				9314273B262B684B00542EFC /* Color.xcassets */,
 				931426E9262B53B000542EFC /* Assets.xcassets */,
 				93142733262B5C6600542EFC /* ViewHelper.swift */,
-				93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 		93334EA72677DC2D0094A483 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				93334ECF26793D610094A483 /* ViewControllerFactory */,
 				93334EB32677E1520094A483 /* Entity */,
 				93334EB22677E1340094A483 /* ViewModel */,
 				93334EAA2677DCA70094A483 /* UI */,
@@ -352,6 +358,30 @@
 			path = SideMenuListScreen;
 			sourceTree = "<group>";
 		};
+		93334EC8267924930094A483 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				93334EC9267924A50094A483 /* AppNavigationRouter.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		93334ECD26793BAC0094A483 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				93334ECB2679259E0094A483 /* AuthorizationRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		93334ECF26793D610094A483 /* ViewControllerFactory */ = {
+			isa = PBXGroup;
+			children = (
+				93334ED026793D810094A483 /* DashboardViewControllerFactory.swift */,
+			);
+			path = ViewControllerFactory;
+			sourceTree = "<group>";
+		};
 		93BF628C262B7B3E00DDFB44 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,7 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */,
-				93BF62C1262C559700DDFB44 /* LoginViewControllerFactory.swift */,
+				93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */,
 			);
 			path = ViewControllerFactory;
 			sourceTree = "<group>";
@@ -611,6 +641,7 @@
 			files = (
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */,
+				93334ECA267924A50094A483 /* AppNavigationRouter.swift in Sources */,
 				9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */,
 				9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */,
 				93334EB52677E17B0094A483 /* Item.swift in Sources */,
@@ -619,21 +650,22 @@
 				93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */,
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
 				931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */,
+				93334ECC2679259E0094A483 /* AuthorizationRouter.swift in Sources */,
 				93334EA92677DC490094A483 /* SideMenuScreen.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
 				93142741262B6B3D00542EFC /* UserNameTextFieldViewModel.swift in Sources */,
 				9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
-				93BF62C2262C559700DDFB44 /* LoginViewControllerFactory.swift in Sources */,
+				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
 				93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */,
 				93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
 				93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */,
 				93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
+				93334ED126793D810094A483 /* DashboardViewControllerFactory.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
 				93142750262B6DEA00542EFC /* EnvironmentViewModel.swift in Sources */,
-				93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */,
 				93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */,
