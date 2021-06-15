@@ -35,6 +35,7 @@
 		93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */; };
 		93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC0267894820094A483 /* UIScreen+Extensions.swift */; };
 		93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */; };
+		93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */; };
 		93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */; };
 		93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */; };
 		93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF629D262B807D00DDFB44 /* LoginButton.swift */; };
@@ -107,6 +108,7 @@
 		93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListHeaderView.swift; sourceTree = "<group>"; };
 		93334EC0267894820094A483 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreenViewModel.swift; sourceTree = "<group>"; };
+		93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuScreenViewModel.swift; sourceTree = "<group>"; };
 		93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		93BF629D262B807D00DDFB44 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 			children = (
 				93334EB82677E8590094A483 /* SideMenuMainScreenViewModel.swift */,
 				93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */,
+				93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */,
 				93334EB92677E8590094A483 /* SideMenuMainScreenViewModel.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
+				93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */,
 				93334EB72677E4E40094A483 /* NoItemsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

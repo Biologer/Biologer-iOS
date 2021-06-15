@@ -15,22 +15,26 @@ struct SideMenuListHeaderView: View {
     
     var body: some View {
         ZStack {
-            Image(image)
-                .resizable()
-                .frame(height: 200)
             HStack {
-                VStack(alignment:.leading, spacing: 10) {
+                Image(image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.screenWidth/2)
+                Spacer()
+            }
+            HStack {
+                VStack(alignment:.leading, spacing: 0) {
                     Text(email)
                         .foregroundColor(.white)
-                        .font(.system(size: 28))
+                        .font(.system(size: 18))
                     Text(username)
                             .foregroundColor(.white)
-                            .font(.system(size: 20))
+                            .font(.system(size: 10))
                 }
                 .padding()
                 Spacer()
             }
-            .padding(.top, 100)
+            .padding(.top, 60)
             .frame(width: UIScreen.screenWidth)
         }
     }

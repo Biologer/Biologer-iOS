@@ -20,6 +20,9 @@ struct SideMenuMainScreen<ScreenLoader>: View where ScreenLoader: SideMenuMainSc
     
     var body: some View {
         return generateView(loader)
+            .onAppear {
+                loader.getData()
+            }
     }
     
     private func generateView(_ screenLoader: ScreenLoader) -> AnyView {

@@ -30,7 +30,7 @@ struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListSc
                 Divider()
                 Text("About us")
                     .padding(.leading, 10)
-                //genereateItems(items: loader.items[1])
+                genereateItems(items: loader.items[1])
             }
         }
     }
