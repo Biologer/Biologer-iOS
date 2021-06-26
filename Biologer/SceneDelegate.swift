@@ -11,6 +11,7 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var navigationController: UINavigationController!
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -20,24 +21,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
 
-        let environmentViewModel = EnvironmentViewModel(title: "Srbija", image: "hammer_icon", url: "www.apple.com")
-        let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
-                                                        labelsViewModel: LoginLabelsViewModel(),
-                                                        environmentViewModel: environmentViewModel,
-                                                        userNameTextFieldViewModel: UserNameTextFieldViewModel(),
-                                                        passwordTextFieldViewModel: PasswordTextFieldViewModel(),
-                                                        onSelectEnvironmentTapped: { _ in },
-                                                        onLoginTapped: { _ in },
-                                                        onRegisterTapped: { _ in },
-                                                        onForgotPasswordTapped: { _ in })
-        let loginScreen = LoginScreen(viewModel: loginScreenViewModel)
+//        let environmentViewModel = EnvironmentViewModel(title: "Srbija", image: "hammer_icon", url: "www.apple.com")
+//        let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
+//                                                        labelsViewModel: LoginLabelsViewModel(),
+//                                                        environmentViewModel: environmentViewModel,
+//                                                        userNameTextFieldViewModel: UserNameTextFieldViewModel(),
+//                                                        passwordTextFieldViewModel: PasswordTextFieldViewModel(),
+//                                                        onSelectEnvironmentTapped: { _ in },
+//                                                        onLoginTapped: { _ in },
+//                                                        onRegisterTapped: { _ in },
+//                                                        onForgotPasswordTapped: { _ in })
+//        let loginScreen = LoginScreen(viewModel: loginScreenViewModel)
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
+            navigationController = UINavigationController()
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: loginScreen)
+            let appRouter = AppNavigationRouter(mainNavigationController: navigationController)
+            appRouter.start()
+            window.rootViewController = navigationController
             self.window = window
             window.makeKeyAndVisible()
         }
+    }
+    
+    private func startApp() {
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

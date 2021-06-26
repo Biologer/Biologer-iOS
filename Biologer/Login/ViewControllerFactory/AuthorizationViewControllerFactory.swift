@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol LoginViewControllerFactory {
+public protocol AuthorizationViewControllerFactory {
     func presentLoginScreen(onSelectEnvironmentTapped: @escaping Observer<Void>,
                                    onLoginTapped: @escaping Observer<Void>,
                                    onRegisterTapped: @escaping Observer<Void>,

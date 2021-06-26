@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757226877BDE005A4DE0 /* AuthorizationRouter.swift */; };
+		9300757626877C6B005A4DE0 /* DashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757526877C6B005A4DE0 /* DashboardRouter.swift */; };
+		9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */; };
 		931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E3262B53AD00542EFC /* AppDelegate.swift */; };
 		931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E5262B53AD00542EFC /* SceneDelegate.swift */; };
 		931426EA262B53B000542EFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426E9262B53B000542EFC /* Assets.xcassets */; };
@@ -44,7 +47,7 @@
 		93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */; };
 		93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */; };
 		93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */; };
-		93BF62C2262C559700DDFB44 /* LoginViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62C1262C559700DDFB44 /* LoginViewControllerFactory.swift */; };
+		93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */; };
 		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
 		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
 		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
@@ -74,6 +77,9 @@
 		56F4E9D04F054E60B925362C /* Pods-Biologer-BiologerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer-BiologerUITests.release.xcconfig"; path = "Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		587324BB1511E727E00BCB3C /* Pods-Biologer-BiologerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer-BiologerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		880FE57049F9C25404FF0017 /* Pods-BiologerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.debug.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9300757226877BDE005A4DE0 /* AuthorizationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouter.swift; sourceTree = "<group>"; };
+		9300757526877C6B005A4DE0 /* DashboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRouter.swift; sourceTree = "<group>"; };
+		9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewControllerFactory.swift; sourceTree = "<group>"; };
 		931426E0262B53AD00542EFC /* Biologer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biologer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426E3262B53AD00542EFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		931426E5262B53AD00542EFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,7 +123,7 @@
 		93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentScreen.swift; sourceTree = "<group>"; };
 		93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationRouter.swift; sourceTree = "<group>"; };
 		93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILoginViewControllerFactory.swift; sourceTree = "<group>"; };
-		93BF62C1262C559700DDFB44 /* LoginViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerFactory.swift; sourceTree = "<group>"; };
+		93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewControllerFactory.swift; sourceTree = "<group>"; };
 		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -172,6 +178,30 @@
 				C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9300757126877BAB005A4DE0 /* Ruter */ = {
+			isa = PBXGroup;
+			children = (
+				9300757226877BDE005A4DE0 /* AuthorizationRouter.swift */,
+			);
+			path = Ruter;
+			sourceTree = "<group>";
+		};
+		9300757426877C5B005A4DE0 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				9300757526877C6B005A4DE0 /* DashboardRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		9300757926877C9F005A4DE0 /* ViewControllerFactory */ = {
+			isa = PBXGroup;
+			children = (
+				9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */,
+			);
+			path = ViewControllerFactory;
 			sourceTree = "<group>";
 		};
 		931426D7262B53AD00542EFC = {
@@ -241,6 +271,7 @@
 		93142716262B57C300542EFC /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				9300757126877BAB005A4DE0 /* Ruter */,
 				93BF62C9262C55A700DDFB44 /* ViewControllerFactory */,
 				93142728262B5A8100542EFC /* ViewModel */,
 				93142727262B5A7B00542EFC /* UI */,
@@ -296,6 +327,8 @@
 		93334EA72677DC2D0094A483 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				9300757926877C9F005A4DE0 /* ViewControllerFactory */,
+				9300757426877C5B005A4DE0 /* Router */,
 				93334EB32677E1520094A483 /* Entity */,
 				93334EB22677E1340094A483 /* ViewModel */,
 				93334EAA2677DCA70094A483 /* UI */,
@@ -365,7 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */,
-				93BF62C1262C559700DDFB44 /* LoginViewControllerFactory.swift */,
+				93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */,
 			);
 			path = ViewControllerFactory;
 			sourceTree = "<group>";
@@ -620,11 +653,13 @@
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
 				931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */,
 				93334EA92677DC490094A483 /* SideMenuScreen.swift in Sources */,
+				9300757626877C6B005A4DE0 /* DashboardRouter.swift in Sources */,
+				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
 				93142741262B6B3D00542EFC /* UserNameTextFieldViewModel.swift in Sources */,
 				9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
-				93BF62C2262C559700DDFB44 /* LoginViewControllerFactory.swift in Sources */,
+				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
 				93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */,
 				93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
@@ -637,6 +672,7 @@
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */,
 				93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */,
+				9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */,
 				93334EB92677E8590094A483 /* SideMenuMainScreenViewModel.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */,
