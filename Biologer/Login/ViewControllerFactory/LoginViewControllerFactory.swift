@@ -1,5 +1,5 @@
 //
-//  AuthorizationViewControllerFactory.swift
+//  LoginViewControllerFactory.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 18.4.21..
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol AuthorizationViewControllerFactory {
+public protocol LoginViewControllerFactory {
     func presentLoginScreen(onSelectEnvironmentTapped: @escaping Observer<Void>,
                                    onLoginTapped: @escaping Observer<Void>,
                                    onRegisterTapped: @escaping Observer<Void>,
