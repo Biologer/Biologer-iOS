@@ -17,32 +17,50 @@ protocol SideMenuListScreenLoader: ObservableObject {
 
 struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListScreenLoader {
     
+    let width: CGFloat
+    let isOpen: Bool
+    let menuClose: () -> Void
+    
     @ObservedObject public var loader: ScreenLoader
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                SideMenuListHeaderView(image: loader.image,
-                                       email: loader.email,
-                                       username: loader.username)
-                    .listRowInsets(EdgeInsets())
-                genereateItems(items: loader.items[0])
-                Divider()
-                    .frame(width: UIScreen.screenWidth / 2)
-                Text("About us")
-                    .padding(.leading, 10)
-                genereateItems(items: loader.items[1])
+        ZStack {
+            GeometryReader { _ in
+                EmptyView()
             }
-            .padding(.leading, UIScreen.screenWidth / 2)
-            .frame(width: UIScreen.screenWidth / 2)
-            .background(Color.red)
+            .background(Color.gray.opacity(0.3))
+            .opacity(self.isOpen ? 1.0 : 0.0)
+            .animation(Animation.easeIn.delay(0.25))
+            .onTapGesture {
+                self.menuClose()
+            }
+            
+            HStack {
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        SideMenuListHeaderView(image: loader.image,
+                                               email: loader.email,
+                                               username: loader.username)
+                        genereateItems(items: loader.items[0])
+                        Divider()
+                        Text("About us")
+                            .padding(.leading, 10)
+                        genereateItems(items: loader.items[1])
+                    }
+                }
+                    .frame(width: self.width)
+                    .background(Color.white)
+                    .offset(x: self.isOpen ? 0 : -self.width)
+                    .animation(.default)
+                
+                Spacer()
+            }
         }
     }
     
     private func genereateItems(items: [SideMenuItem]) -> AnyView {
         return AnyView(ForEach(items, id: \.id) { item in
             HStack {
-                //Spacer()
                 MenuItemView(title: item.title, image: item.image)
                     .padding(.leading, 20)
             }
@@ -50,12 +68,14 @@ struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListSc
                 loader.onItemTapped(item)
             }
         })
-    }
-}
+    }}
 
 struct SideMenuListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuListScreen(loader: StubSideMenuListScreenLoader(onItemTapped: { _ in }))
+        SideMenuListScreen(width: 270,
+                           isOpen: true,
+                           menuClose: {},
+                           loader: StubSideMenuListScreenLoader(onItemTapped: { _ in }))
     }
     
     private class StubSideMenuListScreenLoader: SideMenuListScreenLoader {
