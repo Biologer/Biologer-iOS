@@ -15,13 +15,9 @@ struct SideMenuListHeaderView: View {
     
     var body: some View {
         ZStack {
-            HStack {
-                Image(image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: UIScreen.screenWidth/2)
-                Spacer()
-            }
+            Image(image)
+                .resizable()
+                .scaledToFill()
             HStack {
                 VStack(alignment:.leading, spacing: 0) {
                     Text(email)
@@ -35,7 +31,6 @@ struct SideMenuListHeaderView: View {
                 Spacer()
             }
             .padding(.top, 60)
-            .frame(width: UIScreen.screenWidth)
         }
     }
 }

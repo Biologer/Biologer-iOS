@@ -23,10 +23,12 @@ struct MenuContent: View {
     }
 }
 
-struct SideMenu: View {
+struct SideMenu<ScreenLoader>: View where ScreenLoader: SideMenuListScreenLoader {
     let width: CGFloat
     let isOpen: Bool
     let menuClose: () -> Void
+    
+    @ObservedObject public var loader: ScreenLoader
     
     var body: some View {
         ZStack {
@@ -41,7 +43,18 @@ struct SideMenu: View {
             }
             
             HStack {
-                MenuContent()
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        SideMenuListHeaderView(image: loader.image,
+                                               email: loader.email,
+                                               username: loader.username)
+                        genereateItems(items: loader.items[0])
+                        Divider()
+                        Text("About us")
+                            .padding(.leading, 10)
+                        genereateItems(items: loader.items[1])
+                    }
+                }
                     .frame(width: self.width)
                     .background(Color.white)
                     .offset(x: self.isOpen ? 0 : -self.width)
@@ -51,10 +64,24 @@ struct SideMenu: View {
             }
         }
     }
+    
+    private func genereateItems(items: [SideMenuItem]) -> AnyView {
+        return AnyView(ForEach(items, id: \.id) { item in
+            HStack {
+                MenuItemView(title: item.title, image: item.image)
+                    .padding(.leading, 20)
+            }
+            .onTapGesture {
+                loader.onItemTapped(item)
+            }
+        })
+    }
 }
 
-struct ContentView: View {
+struct TestSideMenu<ScreenLoader>: View where ScreenLoader: SideMenuScreenLoader {
     @State var menuOpen: Bool = false
+    
+    @ObservedObject public var loader: ScreenLoader
     
     var body: some View {
         ZStack {
@@ -68,7 +95,7 @@ struct ContentView: View {
             
             SideMenu(width: 270,
                      isOpen: self.menuOpen,
-                     menuClose: self.openMenu)
+                     menuClose: self.openMenu, loader: loader.sideMenuListLoader)
         }
     }
     
@@ -77,8 +104,9 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct TestSideMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        //ContentView()
+        Text("")
     }
 }

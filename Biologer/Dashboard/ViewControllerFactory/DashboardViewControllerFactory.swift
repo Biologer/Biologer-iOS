@@ -41,7 +41,7 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
                                                         onItemTapped: { _ in },
                                                         onNewItemTapped: { _ in })
         
-        let screen = SideMenuScreen(loader: sideMenuViewModel)
+        let screen = TestSideMenu(loader: sideMenuViewModel)
         let viewController = UIHostingController(rootView: screen)
         
         return viewController
