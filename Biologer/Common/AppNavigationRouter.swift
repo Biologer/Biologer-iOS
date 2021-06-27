@@ -36,6 +36,7 @@ public final class AppNavigationRouter: NavigationRouter {
         authorizationRouter.start()
         authorizationRouter.onLoginTapped = { _ in
             self.dashboardRouter.start()
+            self.dashboardNavigationController.modalPresentationStyle = .overFullScreen
             self.mainNavigationController.present(self.dashboardNavigationController,
                                                   animated: true,
                                                   completion: nil)

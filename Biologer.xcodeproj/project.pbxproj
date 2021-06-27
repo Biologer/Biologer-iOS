@@ -39,6 +39,7 @@
 		93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC0267894820094A483 /* UIScreen+Extensions.swift */; };
 		93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */; };
 		93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */; };
+		936035C4268874620080C771 /* TextUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C3268874620080C771 /* TextUI.swift */; };
 		93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */; };
 		93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */; };
 		93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF629D262B807D00DDFB44 /* LoginButton.swift */; };
@@ -115,6 +116,7 @@
 		93334EC0267894820094A483 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreenViewModel.swift; sourceTree = "<group>"; };
 		93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuScreenViewModel.swift; sourceTree = "<group>"; };
+		936035C3268874620080C771 /* TextUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUI.swift; sourceTree = "<group>"; };
 		93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		93BF629D262B807D00DDFB44 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 				93334EC326789B920094A483 /* SideMenuListScreen */,
 				93334EC226789B660094A483 /* SideMenuMainScreen */,
 				93334EA82677DC490094A483 /* SideMenuScreen.swift */,
+				936035C3268874620080C771 /* TextUI.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */,
 				93334EB52677E17B0094A483 /* Item.swift in Sources */,
 				93334EAF2677DE720094A483 /* SideMenuMainScreen.swift in Sources */,
+				936035C4268874620080C771 /* TextUI.swift in Sources */,
 				93334EB12677E1220094A483 /* ItemsListView.swift in Sources */,
 				93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */,
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,

@@ -21,23 +21,28 @@ struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListSc
     
     var body: some View {
         ScrollView {
-            LazyVStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 SideMenuListHeaderView(image: loader.image,
                                        email: loader.email,
                                        username: loader.username)
                     .listRowInsets(EdgeInsets())
                 genereateItems(items: loader.items[0])
                 Divider()
+                    .frame(width: UIScreen.screenWidth / 2)
                 Text("About us")
                     .padding(.leading, 10)
                 genereateItems(items: loader.items[1])
             }
+            .padding(.leading, UIScreen.screenWidth / 2)
+            .frame(width: UIScreen.screenWidth / 2)
+            .background(Color.red)
         }
     }
     
     private func genereateItems(items: [SideMenuItem]) -> AnyView {
         return AnyView(ForEach(items, id: \.id) { item in
             HStack {
+                //Spacer()
                 MenuItemView(title: item.title, image: item.image)
                     .padding(.leading, 20)
             }
