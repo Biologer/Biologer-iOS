@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import SwiftUI
 
 public final class DashboardRouter: NavigationRouter {
     
     private let navigationController: UINavigationController
     private let factory: DashboardViewControllerFactory
+    private var dashboardScreen: UIHostingController<SideMenu<SideMenuScreenViewModel>>?
     
     init(navigationController: UINavigationController,
          factory: DashboardViewControllerFactory) {
@@ -23,9 +25,18 @@ public final class DashboardRouter: NavigationRouter {
     }
     
     private func showDashboardScreen() {
-        let dashboardScreen = factory.createDashboardViewController(onNewItemTapped: { _ in},
+        let dashboardViewController = factory.createDashboardViewController(onNewItemTapped: { _ in},
                                                                     onItemTapped: { item in },
                                                                     onSideMenuItemTapped: { item in })
-        self.navigationController.setViewControllers([dashboardScreen], animated: true)
+        dashboardScreen = dashboardViewController as? UIHostingController<SideMenu<SideMenuScreenViewModel>>
+        
+        dashboardViewController.setBiologerBackBarButtonItem(image: UIImage(named: "side_menu_icon")!,
+                                                               target: self,
+                                                               action: #selector(self.sideMenuAction))
+        self.navigationController.setViewControllers([dashboardViewController], animated: true)
+    }
+    
+    @objc private func sideMenuAction() {
+        dashboardScreen?.rootView.menuOpen = true
     }
 }

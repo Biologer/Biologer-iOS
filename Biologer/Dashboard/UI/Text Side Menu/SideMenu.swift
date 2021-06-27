@@ -15,7 +15,7 @@ protocol SideMenuScreenLoader: ObservableObject {
 }
 
 struct SideMenu<ScreenLoader>: View where ScreenLoader: SideMenuScreenLoader {
-    @State var menuOpen: Bool = false
+    @State public var menuOpen: Bool = false
     
     @ObservedObject public var loader: ScreenLoader
     
