@@ -19,8 +19,8 @@ struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListSc
     
     let width: CGFloat
     let isOpen: Bool
-    let menuClose: () -> Void
-    
+    let menuClose: Observer<Bool>
+
     @ObservedObject public var loader: ScreenLoader
     
     var body: some View {
@@ -29,10 +29,10 @@ struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListSc
                 EmptyView()
             }
             .background(Color.gray.opacity(0.3))
-            .opacity(self.isOpen ? 1.0 : 0.0)
+            .opacity(isOpen ? 1.0 : 0.0)
             .animation(Animation.easeIn.delay(0.25))
             .onTapGesture {
-                self.menuClose()
+                menuClose(isOpen)
             }
             
             HStack {
@@ -48,9 +48,9 @@ struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListSc
                         genereateItems(items: loader.items[1])
                     }
                 }
-                    .frame(width: self.width)
+                    .frame(width: width)
                     .background(Color.white)
-                    .offset(x: self.isOpen ? 0 : -self.width)
+                    .offset(x: isOpen ? 0 : -width)
                     .animation(.default)
                 
                 Spacer()
@@ -74,7 +74,7 @@ struct SideMenuListScreen_Previews: PreviewProvider {
     static var previews: some View {
         SideMenuListScreen(width: 270,
                            isOpen: true,
-                           menuClose: {},
+                           menuClose: { isOpen in },
                            loader: StubSideMenuListScreenLoader(onItemTapped: { _ in }))
     }
     

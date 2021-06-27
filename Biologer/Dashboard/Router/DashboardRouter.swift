@@ -37,6 +37,6 @@ public final class DashboardRouter: NavigationRouter {
     }
     
     @objc private func sideMenuAction() {
-        dashboardScreen?.rootView.menuOpen = true
+        dashboardScreen?.rootView.loader.menuOpen = true
     }
 }

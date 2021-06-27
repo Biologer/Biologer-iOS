@@ -341,7 +341,7 @@
 		93334EAA2677DCA70094A483 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				936035C5268879AA0080C771 /* Text Side Menu */,
+				936035C5268879AA0080C771 /*  Side Menu */,
 				93334EC326789B920094A483 /* SideMenuListScreen */,
 				93334EC226789B660094A483 /* SideMenuMainScreen */,
 			);
@@ -387,12 +387,12 @@
 			path = SideMenuListScreen;
 			sourceTree = "<group>";
 		};
-		936035C5268879AA0080C771 /* Text Side Menu */ = {
+		936035C5268879AA0080C771 /*  Side Menu */ = {
 			isa = PBXGroup;
 			children = (
 				936035C3268874620080C771 /* SideMenu.swift */,
 			);
-			path = "Text Side Menu";
+			path = " Side Menu";
 			sourceTree = "<group>";
 		};
 		93BF628C262B7B3E00DDFB44 /* Extensions */ = {

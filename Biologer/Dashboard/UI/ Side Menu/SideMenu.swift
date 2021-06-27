@@ -10,33 +10,32 @@ import SwiftUI
 protocol SideMenuScreenLoader: ObservableObject {
     var sideMenuListLoader: SideMenuListScreenViewModel { get }
     var sideMenuMainLoader: SideMenuMainScreenViewModel { get }
+    var menuOpen: Bool { get set }
     var onItemTapped: Observer<SideMenuItem> { get }
     var onNewItemTapped: Observer<Void> { get }
 }
 
 struct SideMenu<ScreenLoader>: View where ScreenLoader: SideMenuScreenLoader {
-    @State public var menuOpen: Bool = false
     
     @ObservedObject public var loader: ScreenLoader
     
     var body: some View {
         ZStack {
-            if !self.menuOpen {
-                Button(action: {
-                    self.openMenu()
-                }, label: {
-                    Text("Open")
-                })
+            if !loader.menuOpen {
+                SideMenuMainScreen(loader: loader.sideMenuMainLoader)
             }
             
             SideMenuListScreen(width: 270,
-                     isOpen: self.menuOpen,
-                     menuClose: self.openMenu, loader: loader.sideMenuListLoader)
+                     isOpen: loader.menuOpen,
+                     menuClose: { isOpen in
+                        openMenu()
+                     },
+                     loader: loader.sideMenuListLoader)
         }
     }
     
     func openMenu() {
-        self.menuOpen.toggle()
+        loader.menuOpen.toggle()
     }
 }
 

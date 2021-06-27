@@ -7,7 +7,8 @@
 
 import Foundation
 
-public final class SideMenuScreenViewModel: SideMenuScreenLoader {
+public final class SideMenuScreenViewModel: SideMenuScreenLoader, ObservableObject {
+    @Published var menuOpen: Bool = false
     var sideMenuListLoader: SideMenuListScreenViewModel
     var sideMenuMainLoader: SideMenuMainScreenViewModel
     var onItemTapped: Observer<SideMenuItem>

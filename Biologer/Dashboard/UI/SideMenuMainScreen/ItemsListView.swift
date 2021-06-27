@@ -31,7 +31,10 @@ struct ItemsListView: View {
                 Button(action: {
                     onNewItemTapped(())
                 }, label: {
-                    Text("Add")
+                    Image("add_token")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
                 })
                 .padding()
             }
