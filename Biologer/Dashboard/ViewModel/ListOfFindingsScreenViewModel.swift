@@ -1,5 +1,5 @@
 //
-//  SideMenuMainScreenViewModel.swift
+//  ListOfFindingsScreenViewModel.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 14.6.21..
@@ -12,7 +12,7 @@ public enum SideMenuMainScreenPreview {
     case iregular(String)
 }
 
-public final class SideMenuMainScreenViewModel: SideMenuMainScreenLoader, ObservableObject {
+public final class ListOfFindingsScreenViewModel: ListOfFindingsScreenLoader, ObservableObject {
     var onNewItemTapped: Observer<Void>
     var onItemTapped: Observer<Item>
     

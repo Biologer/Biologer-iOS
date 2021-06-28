@@ -7,8 +7,17 @@
 
 import Foundation
 
+public enum SideMenuItemType {
+    case listOfFindings
+    case setup
+    case logout
+    case about
+    case help
+}
+
 public struct SideMenuItem {
     var id: Int
     var image: String
     var title: String
+    var type: SideMenuItemType
 }

@@ -27,7 +27,12 @@ public final class DashboardRouter: NavigationRouter {
     private func showDashboardScreen() {
         let dashboardViewController = factory.createDashboardViewController(onNewItemTapped: { _ in},
                                                                     onItemTapped: { item in },
-                                                                    onSideMenuItemTapped: { item in })
+                                                                    onSideMenuItemTapped: { item in
+                                                                        
+                                                                        self.dashboardScreen?.rootView.loader.selectedItemType = item.type
+                                                                        
+                                                                        self.dashboardScreen?.rootView.loader.menuOpen = false
+                                                                    })
         dashboardScreen = dashboardViewController as? UIHostingController<SideMenu<SideMenuScreenViewModel>>
         
         dashboardViewController.setBiologerBackBarButtonItem(image: UIImage(named: "side_menu_icon")!,

@@ -8,18 +8,32 @@
 import Foundation
 
 public final class SideMenuScreenViewModel: SideMenuScreenLoader, ObservableObject {
+
+    
+    @Published var selectedItemType: SideMenuItemType
     @Published var menuOpen: Bool = false
     var sideMenuListLoader: SideMenuListScreenViewModel
-    var sideMenuMainLoader: SideMenuMainScreenViewModel
+    var listOfFindingsLoader: ListOfFindingsScreenViewModel
+    var setupScreenLoader: SetupScreenViewModel
+    var aboutScreenLoader: AboutBiologerScreenViewModel
+    var helpScreenLoader: HelpScreenViewModel
     var onItemTapped: Observer<SideMenuItem>
     var onNewItemTapped: Observer<Void>
     
     init(sideMenuListLoader: SideMenuListScreenViewModel,
-         sideMenuMainLoader: SideMenuMainScreenViewModel,
+         listOfFindingsLoader: ListOfFindingsScreenViewModel,
+         setupScreenLoader: SetupScreenViewModel,
+         aboutScreenLoader: AboutBiologerScreenViewModel,
+         helpScreenLoader: HelpScreenViewModel,
+         selectedItemType: SideMenuItemType,
          onItemTapped: @escaping Observer<SideMenuItem>,
          onNewItemTapped: @escaping Observer<Void>) {
-        self.sideMenuMainLoader = sideMenuMainLoader
         self.sideMenuListLoader = sideMenuListLoader
+        self.listOfFindingsLoader = listOfFindingsLoader
+        self.setupScreenLoader = setupScreenLoader
+        self.aboutScreenLoader = aboutScreenLoader
+        self.helpScreenLoader = helpScreenLoader
+        self.selectedItemType = selectedItemType
         self.onItemTapped = onItemTapped
         self.onNewItemTapped = onNewItemTapped
     }

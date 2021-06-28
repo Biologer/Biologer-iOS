@@ -1,5 +1,5 @@
 //
-//  SideMenuMainScreen.swift
+//  ListOfFindingsScreen.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 14.6.21..
@@ -7,14 +7,14 @@
 
 import SwiftUI
  
-protocol SideMenuMainScreenLoader: ObservableObject {
+protocol ListOfFindingsScreenLoader: ObservableObject {
     func getData()
     var onNewItemTapped: Observer<Void> { get }
     var onItemTapped: Observer<Item> { get }
     var preview: SideMenuMainScreenPreview { get }
 }
 
-struct SideMenuMainScreen<ScreenLoader>: View where ScreenLoader: SideMenuMainScreenLoader {
+struct ListOfFindingsScreen<ScreenLoader>: View where ScreenLoader: ListOfFindingsScreenLoader {
     
     @ObservedObject public var loader: ScreenLoader
     
@@ -28,7 +28,7 @@ struct SideMenuMainScreen<ScreenLoader>: View where ScreenLoader: SideMenuMainSc
     private func generateView(_ screenLoader: ScreenLoader) -> AnyView {
         switch loader.preview {
         case .regular(let items):
-            return AnyView(ItemsListView(items: items,
+            return AnyView(FindingsListView(items: items,
                                          onItemTapped: loader.onItemTapped,
                                          onNewItemTapped: loader.onNewItemTapped))
         case .iregular(let title):
@@ -39,11 +39,11 @@ struct SideMenuMainScreen<ScreenLoader>: View where ScreenLoader: SideMenuMainSc
 
 struct SideMenuMainScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuMainScreen(loader: StubSideMenuMainScreenViewModel(onNewItemTapped: { _ in },
+        ListOfFindingsScreen(loader: StubSideMenuMainScreenViewModel(onNewItemTapped: { _ in },
                                                                    onItemTapped: { _ in}))
     }
     
-    private class StubSideMenuMainScreenViewModel: SideMenuMainScreenLoader {
+    private class StubSideMenuMainScreenViewModel: ListOfFindingsScreenLoader {
         func getData() {}
         
         var onNewItemTapped: Observer<Void>

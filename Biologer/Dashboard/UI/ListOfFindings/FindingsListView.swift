@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ItemsListView: View {
+struct FindingsListView: View {
     
     var items: [Item]
     var onItemTapped: Observer<Item>
@@ -45,7 +45,7 @@ struct ItemsListView: View {
 struct ItemsListView_Previews: PreviewProvider {
     
     static var previews: some View {
-        ItemsListView(items: [Item(id: 1, name: "Item 1"),
+        FindingsListView(items: [Item(id: 1, name: "Item 1"),
                               Item(id: 2, name: "Item 2"),
                               Item(id: 3, name: "Item 3"),
                               Item(id: 4, name: "Item 4"),

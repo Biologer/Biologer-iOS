@@ -79,11 +79,26 @@ struct SideMenuListScreen_Previews: PreviewProvider {
     }
     
     private class StubSideMenuListScreenLoader: SideMenuListScreenLoader {
-        var items: [[SideMenuItem]] = [[SideMenuItem(id: 1, image: "env_icon", title: "List of findings"),
-                                        SideMenuItem(id: 2, image: "env_icon", title: "Setup"),
-                                        SideMenuItem(id: 3, image: "env_icon", title: "Logout")],
-        [SideMenuItem(id: 1, image: "env_icon", title: "About Biologer"),
-         SideMenuItem(id: 2, image: "env_icon", title: "Help")]]
+        var items: [[SideMenuItem]] = [[SideMenuItem(id: 1,
+                                                     image: "env_icon",
+                                                     title: "List of findings",
+                                                     type: .listOfFindings),
+                                        SideMenuItem(id: 2,
+                                                     image: "env_icon",
+                                                     title: "Setup",
+                                                     type: .setup),
+                                        SideMenuItem(id: 3,
+                                                     image: "env_icon",
+                                                     title: "Logout",
+                                                     type: .logout)],
+        [SideMenuItem(id: 1,
+                      image: "env_icon",
+                      title: "About Biologer",
+                      type: .about),
+         SideMenuItem(id: 2,
+                      image: "env_icon",
+                      title: "Help",
+                      type: .help)]]
         var email: String = "test@test.com"
         var username: String = "Nikola"
         var image: String = "biloger_background"
