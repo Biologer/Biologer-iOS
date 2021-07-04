@@ -12,6 +12,7 @@ public protocol RegisterStepThreeScreenLoader: ObservableObject {
     var dataLicense: DataLicense { get }
     var imageLicense: DataLicense { get }
     var acceptPPTitle: String { get }
+    var registerButtonTitle: String { get }
     var acceptPPChceckMark: Bool { get }
     var privacyPolicyDescription: String { get }
     var onReadPrivacyPolicy: Observer<Void> { get }
@@ -26,22 +27,31 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: 20) {
                 Image(loader.topImage)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 60, height: 60)
                 Text(loader.privacyPolicyDescription)
-                    .padding(.top, 10)
-                DataLicenseView(dataLicense: loader.dataLicense,
+                RegisterLicenseView(dataLicense: loader.dataLicense,
                                 onDataTapped: loader.onDataLicense)
-                    .padding(.top, 10)
-                DataLicenseView(dataLicense: loader.imageLicense,
+                RegisterLicenseView(dataLicense: loader.imageLicense,
                                 onDataTapped: loader.onImageLicense)
-                    .padding(.top, 10)
+                HStack {
+                    CheckView(isChecked: false,
+                              onToggle: { isChecked in
+                                
+                              })
+                    Text(loader.acceptPPTitle)
+                    Spacer()
+                }
+                LoginButton(title: loader.registerButtonTitle,
+                            onTapped: { _ in
+                                loader.registerTapped()
+                            })
             }
         }
-        .padding()
+        .padding(.all, 30)
     }
 }
 
@@ -54,6 +64,7 @@ struct RegisterStepThreeScreen_Previews: PreviewProvider {
         var topImage = "serbia_flag"
         var dataLicense: DataLicense = DataLicense(id: 11, title: "Free (CC BY-SA)“ int vrednost", placeholder: "Data License")
         var imageLicense: DataLicense = DataLicense(id: 10, title: "Share images for free (CC-BY-SA)", placeholder: "Image License")
+        var registerButtonTitle = "Register"
         var acceptPPTitle: String = "I accept privary policy"
         var acceptPPChceckMark: Bool = false
         var privacyPolicyDescription: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."

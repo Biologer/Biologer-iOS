@@ -56,7 +56,6 @@
 		93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */; };
 		93A7E27C2691F78D001D6AEF /* RegisterStepTwoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */; };
 		93A7E27E2691F7D4001D6AEF /* RegisterStepThreeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */; };
-		93A7E2802691FEAB001D6AEF /* DataLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E27F2691FEAB001D6AEF /* DataLicenseView.swift */; };
 		93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */; };
 		93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */; };
 		93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF629D262B807D00DDFB44 /* LoginButton.swift */; };
@@ -80,6 +79,8 @@
 		93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14222692264C00A7A977 /* LoginUserResponse.swift */; };
 		93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */; };
 		93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14262692268F00A7A977 /* ForgotPasswordService.swift */; };
+		93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */; };
+		93DF142D269253B900A7A977 /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142C269253B900A7A977 /* CheckView.swift */; };
 		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
 		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
 		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
@@ -164,7 +165,6 @@
 		93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepOneScreen.swift; sourceTree = "<group>"; };
 		93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreen.swift; sourceTree = "<group>"; };
 		93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepThreeScreen.swift; sourceTree = "<group>"; };
-		93A7E27F2691FEAB001D6AEF /* DataLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicenseView.swift; sourceTree = "<group>"; };
 		93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		93BF629D262B807D00DDFB44 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
@@ -188,6 +188,8 @@
 		93DF14222692264C00A7A977 /* LoginUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserResponse.swift; sourceTree = "<group>"; };
 		93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordResponse.swift; sourceTree = "<group>"; };
 		93DF14262692268F00A7A977 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
+		93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLicenseView.swift; sourceTree = "<group>"; };
+		93DF142C269253B900A7A977 /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				9314272A262B5AEE00542EFC /* MaterialDesignTextField.swift */,
 				93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */,
 				93BF62A2262B838A00DDFB44 /* EnvironmentLoginView.swift */,
+				93DF142C269253B900A7A977 /* CheckView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -498,8 +501,8 @@
 				93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */,
 				93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */,
 				93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */,
-				93A7E27F2691FEAB001D6AEF /* DataLicenseView.swift */,
 				93DF141326920D0700A7A977 /* DataLicenseScreen.swift */,
+				93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -836,6 +839,7 @@
 				9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */,
 				936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */,
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
+				93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */,
 				93334EB52677E17B0094A483 /* Item.swift in Sources */,
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
 				936035C4268874620080C771 /* SideMenu.swift in Sources */,
@@ -845,7 +849,6 @@
 				93A7E27E2691F7D4001D6AEF /* RegisterStepThreeScreen.swift in Sources */,
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
 				93A7E2782691E1A4001D6AEF /* EmailTextFieldViewModel.swift in Sources */,
-				93A7E2802691FEAB001D6AEF /* DataLicenseView.swift in Sources */,
 				93A7E2672691D77E001D6AEF /* DataLicense.swift in Sources */,
 				931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */,
 				9300757626877C6B005A4DE0 /* DashboardRouter.swift in Sources */,
@@ -877,6 +880,7 @@
 				93142750262B6DEA00542EFC /* EnvironmentViewModel.swift in Sources */,
 				936035D3268929920080C771 /* SetupScreenViewModel.swift in Sources */,
 				93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */,
+				93DF142D269253B900A7A977 /* CheckView.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
 				93DF14092692069600A7A977 /* User.swift in Sources */,

@@ -66,8 +66,8 @@ public final class AuthorizationRouter: NavigationRouter {
     
     private func showRegisterThirdStepScreen(user: User) {
         
-        let dataLicense = DataLicense(id: 1, title: "", placeholder: "")
-        let imageLicense = DataLicense(id: 1, title: "", placeholder: " ")
+        let dataLicense = DataLicense(id: 1, title: "Free, NonCommercial (CC BY-SA-NC)", placeholder: "Data License")
+        let imageLicense = DataLicense(id: 1, title: "Share images for free (CC-BY-SA)", placeholder: "Image License")
         
         let stepThirdViewController = factory.makeRegisterThreeStepScreen(user: user,
                                                                           service: registerService,

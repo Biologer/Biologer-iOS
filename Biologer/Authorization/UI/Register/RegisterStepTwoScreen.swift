@@ -19,31 +19,26 @@ struct RegisterStepTwoScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
     
     @ObservedObject var loader: ScreenLoader
     
-    private let topSpacingTextField: CGFloat = 10
-    
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: 30) {
                 MaterialDesignTextField(viewModel: loader.emailTextFieldViewModel,
                                         onTextChanged: { text in
                                             
                                         })
-                    .padding(.top, topSpacingTextField)
                 MaterialDesignTextField(viewModel: loader.passwordTextFieldViewModel,
                                         onTextChanged: { text in
                                             
                                         })
-                    .padding(.top, topSpacingTextField)
                 MaterialDesignTextField(viewModel: loader.repeatPasswordTextFieldViewModel,
                                         onTextChanged: { text in
                                             
                                         })
-                    .padding(.top, topSpacingTextField)
                 LoginButton(title: loader.buttonTitle,
                             onTapped: { _ in
                                 loader.nextButtonTapped()
                             })
-                    .padding(.top, 30)
+                    .padding(.top, 20)
             }
         }
         .padding(.all, 30)

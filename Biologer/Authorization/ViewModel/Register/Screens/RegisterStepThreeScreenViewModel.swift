@@ -8,6 +8,7 @@
 import Foundation
 
 public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoader {
+    public var registerButtonTitle: String = "Register"
     public var topImage = "serbia_flag"
     public var dataLicense: DataLicense
     public var imageLicense: DataLicense
