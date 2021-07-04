@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol AuthorizationService {
+public protocol AuthorizationService {
     
 }

@@ -71,6 +71,7 @@
 		93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */; };
 		93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */; };
 		93DF141026920A4600A7A977 /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140F26920A4600A7A977 /* AuthorizationService.swift */; };
+		93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF141326920D0700A7A977 /* DataLicenseScreen.swift */; };
 		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
 		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
 		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
@@ -170,6 +171,7 @@
 		93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreenViewModel.swift; sourceTree = "<group>"; };
 		93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepThreeScreenViewModel.swift; sourceTree = "<group>"; };
 		93DF140F26920A4600A7A977 /* AuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
+		93DF141326920D0700A7A977 /* DataLicenseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicenseScreen.swift; sourceTree = "<group>"; };
 		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */,
 				93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */,
 				93A7E27F2691FEAB001D6AEF /* DataLicenseView.swift */,
+				93DF141326920D0700A7A977 /* DataLicenseScreen.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
 				93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
+				93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
 				93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */,
 				93142750262B6DEA00542EFC /* EnvironmentViewModel.swift in Sources */,

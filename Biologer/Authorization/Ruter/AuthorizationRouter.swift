@@ -22,7 +22,7 @@ public final class AuthorizationRouter: NavigationRouter {
     }
     
     private func showLoginScreen() {
-        let loginViewController = factory.presentLoginScreen(onSelectEnvironmentTapped: { _ in },
+        let loginViewController = factory.makeLoginScreen(onSelectEnvironmentTapped: { _ in },
                                                              onLoginTapped: {  _ in
                                                                 self.onLoginTapped?(())
                                                              },
