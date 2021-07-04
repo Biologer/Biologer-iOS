@@ -32,15 +32,23 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
                     .resizable()
                     .scaledToFit()
                     .frame(width: 60, height: 60)
-                Text(loader.privacyPolicyDescription)
                 RegisterLicenseView(dataLicense: loader.dataLicense,
                                 onDataTapped: loader.onDataLicense)
                 RegisterLicenseView(dataLicense: loader.imageLicense,
                                 onDataTapped: loader.onImageLicense)
+                Text(loader.privacyPolicyDescription)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                Link(destination: URL(string: "https://www.apple.com")!, label: {
+                    Text("Privacy Policy")
+                        .foregroundColor(Color.biologerGreenColor)
+                        .underline()
+                })
                 HStack {
                     CheckView(isChecked: false,
                               onToggle: { isChecked in
-                                
+
                               })
                     Text(loader.acceptPPTitle)
                     Spacer()
@@ -50,8 +58,19 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
                                 loader.registerTapped()
                             })
             }
-        }
+       }
         .padding(.all, 30)
+    }
+    
+    public func createAttributeString() -> NSMutableAttributedString {
+        let text = NSMutableAttributedString(string: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+        let interactableText = NSMutableAttributedString(string: "Sign in!")
+        interactableText.addAttribute(.link,
+                                      value: "SignInPseudoLink",
+                                      range: NSRange(location: 0, length: interactableText.length))
+        text.append(interactableText)
+        
+        return text
     }
 }
 

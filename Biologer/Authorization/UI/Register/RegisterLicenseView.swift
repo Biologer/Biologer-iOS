@@ -23,6 +23,9 @@ struct RegisterLicenseView: View {
                 }, label: {
                     Text(dataLicense.title)
                         .foregroundColor(Color.black)
+                        .lineLimit(nil)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
                 })
                 Spacer()
                 Button(action: {
