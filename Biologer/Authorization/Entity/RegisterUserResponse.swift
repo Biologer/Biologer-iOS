@@ -1,5 +1,5 @@
 //
-//  AuthorizationService.swift
+//  RegisterUserResponse.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 4.7.21..
@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol AuthorizationService {
+public struct RegisterUserResponse: Codable {
     
 }

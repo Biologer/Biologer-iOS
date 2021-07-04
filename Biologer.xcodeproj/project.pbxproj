@@ -70,8 +70,16 @@
 		93DF14092692069600A7A977 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14082692069600A7A977 /* User.swift */; };
 		93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */; };
 		93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */; };
-		93DF141026920A4600A7A977 /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140F26920A4600A7A977 /* AuthorizationService.swift */; };
+		93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140F26920A4600A7A977 /* RegisterUserService.swift */; };
 		93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF141326920D0700A7A977 /* DataLicenseScreen.swift */; };
+		93DF14172692224D00A7A977 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14162692224D00A7A977 /* HTTPClient.swift */; };
+		93DF14192692228900A7A977 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14182692228900A7A977 /* URLSessionHTTPClient.swift */; };
+		93DF141B269222AF00A7A977 /* CodableParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF141A269222AF00A7A977 /* CodableParser.swift */; };
+		93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF141E2692249200A7A977 /* RegisterUserResponse.swift */; };
+		93DF14212692262900A7A977 /* LoginUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14202692262900A7A977 /* LoginUserService.swift */; };
+		93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14222692264C00A7A977 /* LoginUserResponse.swift */; };
+		93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */; };
+		93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14262692268F00A7A977 /* ForgotPasswordService.swift */; };
 		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
 		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
 		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
@@ -170,8 +178,16 @@
 		93DF14082692069600A7A977 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreenViewModel.swift; sourceTree = "<group>"; };
 		93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepThreeScreenViewModel.swift; sourceTree = "<group>"; };
-		93DF140F26920A4600A7A977 /* AuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
+		93DF140F26920A4600A7A977 /* RegisterUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserService.swift; sourceTree = "<group>"; };
 		93DF141326920D0700A7A977 /* DataLicenseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicenseScreen.swift; sourceTree = "<group>"; };
+		93DF14162692224D00A7A977 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		93DF14182692228900A7A977 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
+		93DF141A269222AF00A7A977 /* CodableParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableParser.swift; sourceTree = "<group>"; };
+		93DF141E2692249200A7A977 /* RegisterUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserResponse.swift; sourceTree = "<group>"; };
+		93DF14202692262900A7A977 /* LoginUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserService.swift; sourceTree = "<group>"; };
+		93DF14222692264C00A7A977 /* LoginUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserResponse.swift; sourceTree = "<group>"; };
+		93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordResponse.swift; sourceTree = "<group>"; };
+		93DF14262692268F00A7A977 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
 		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -228,12 +244,12 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		9300757126877BAB005A4DE0 /* Ruter */ = {
+		9300757126877BAB005A4DE0 /* Router */ = {
 			isa = PBXGroup;
 			children = (
 				9300757226877BDE005A4DE0 /* AuthorizationRouter.swift */,
 			);
-			path = Ruter;
+			path = Router;
 			sourceTree = "<group>";
 		};
 		9300757426877C5B005A4DE0 /* Router */ = {
@@ -277,6 +293,7 @@
 		931426E2262B53AD00542EFC /* Biologer */ = {
 			isa = PBXGroup;
 			children = (
+				93DF14152692223F00A7A977 /* Network */,
 				93334EA72677DC2D0094A483 /* Dashboard */,
 				93142716262B57C300542EFC /* Authorization */,
 				93BF628C262B7B3E00DDFB44 /* Extensions */,
@@ -321,7 +338,7 @@
 			children = (
 				93DF140E26920A2C00A7A977 /* Service */,
 				93A7E2652691D768001D6AEF /* Entity */,
-				9300757126877BAB005A4DE0 /* Ruter */,
+				9300757126877BAB005A4DE0 /* Router */,
 				93BF62C9262C55A700DDFB44 /* ViewControllerFactory */,
 				93142728262B5A8100542EFC /* ViewModel */,
 				93142727262B5A7B00542EFC /* UI */,
@@ -492,6 +509,9 @@
 			children = (
 				93A7E2662691D77E001D6AEF /* DataLicense.swift */,
 				93DF14082692069600A7A977 /* User.swift */,
+				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
+				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
+				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -550,9 +570,21 @@
 		93DF140E26920A2C00A7A977 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				93DF140F26920A4600A7A977 /* AuthorizationService.swift */,
+				93DF140F26920A4600A7A977 /* RegisterUserService.swift */,
+				93DF14202692262900A7A977 /* LoginUserService.swift */,
+				93DF14262692268F00A7A977 /* ForgotPasswordService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		93DF14152692223F00A7A977 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				93DF14162692224D00A7A977 /* HTTPClient.swift */,
+				93DF14182692228900A7A977 /* URLSessionHTTPClient.swift */,
+				93DF141A269222AF00A7A977 /* CodableParser.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -800,6 +832,7 @@
 				93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */,
 				93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */,
 				9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */,
+				93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */,
 				9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */,
 				936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */,
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
@@ -817,12 +850,15 @@
 				931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */,
 				9300757626877C6B005A4DE0 /* DashboardRouter.swift in Sources */,
 				936035C9268916B20080C771 /* SetupScreen.swift in Sources */,
-				93DF141026920A4600A7A977 /* AuthorizationService.swift in Sources */,
+				93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
+				93DF14212692262900A7A977 /* LoginUserService.swift in Sources */,
+				93DF14172692224D00A7A977 /* HTTPClient.swift in Sources */,
 				93142741262B6B3D00542EFC /* UserNameTextFieldViewModel.swift in Sources */,
 				9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */,
 				93A7E2702691E055001D6AEF /* InsititutionTextFieldViewModel.swift in Sources */,
+				93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */,
 				93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
 				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
@@ -832,8 +868,10 @@
 				93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
 				93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */,
+				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
 				93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */,
+				93DF141B269222AF00A7A977 /* CodableParser.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
 				93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */,
 				93142750262B6DEA00542EFC /* EnvironmentViewModel.swift in Sources */,
@@ -846,9 +884,11 @@
 				93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */,
 				936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */,
 				9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */,
+				93DF14192692228900A7A977 /* URLSessionHTTPClient.swift in Sources */,
 				93A7E2762691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift in Sources */,
 				93334EB92677E8590094A483 /* ListOfFindingsScreenViewModel.swift in Sources */,
 				93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */,
+				93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */,
 				93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */,

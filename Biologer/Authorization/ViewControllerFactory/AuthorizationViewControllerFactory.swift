@@ -8,7 +8,8 @@
 import UIKit
 
 public protocol AuthorizationViewControllerFactory {
-    func makeLoginScreen(onSelectEnvironmentTapped: @escaping Observer<Void>,
+    func makeLoginScreen(service: LoginUserService,
+                         onSelectEnvironmentTapped: @escaping Observer<Void>,
                                    onLoginTapped: @escaping Observer<Void>,
                                    onRegisterTapped: @escaping Observer<Void>,
                                    onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController
@@ -17,7 +18,7 @@ public protocol AuthorizationViewControllerFactory {
     func makeRegisterSecondStepScreen(user: User,
                                       onNextTapped: @escaping Observer<User>) -> UIViewController
     func makeRegisterThreeStepScreen(user: User,
-                                     service: AuthorizationService,
+                                     service: RegisterUserService,
                                      dataLicense: DataLicense,
                                      imageLicense: DataLicense,
                                      onReadPrivacyPolicy: @escaping Observer<Void>,

@@ -46,6 +46,7 @@ struct RegisterStepTwoScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
                     .padding(.top, 30)
             }
         }
+        .padding(.all, 30)
     }
 }
 

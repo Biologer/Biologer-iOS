@@ -17,9 +17,26 @@ public final class AppNavigationRouter: NavigationRouter {
     private let dashboardNavigationController = UINavigationController()
     private let mainNavigationController: UINavigationController
     
+    private lazy var httpClient: HTTPClient = {
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 20
+        sessionConfig.timeoutIntervalForResource = 20
+        let session = URLSession(configuration: sessionConfig)
+        let client = URLSessionHTTPClient(session: session)
+        let mainQueueDecorator = MainQueueHTTPClientDecorator(decoratee: client)
+        return mainQueueDecorator
+    }()
+    
     private lazy var authorizationRouter: AuthorizationRouter = {
+        let loginService = RemoteLoginUserService(client: httpClient)
+        let registerService = RemoteRegisterUserService(client: httpClient)
+        let forgotPasswordService = RemoteForgotPasswordService(client: httpClient)
+        
         return AuthorizationRouter(factory: SwiftUILoginViewControllerFactory(),
-                                   navigationController: mainNavigationController)
+                                   navigationController: mainNavigationController,
+                                   loginService: loginService,
+                                   registerService: registerService,
+                                   forgotPasswordService: forgotPasswordService)
     }()
     
     private lazy var dashboardRouter: DashboardRouter = {

@@ -44,14 +44,9 @@ struct RegisterStepOneScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
                                 loader.nextButtonTapped()
                             })
                     .padding(.top, 30)
-                
-                LoginButton(title: loader.buttonTitle,
-                            onTapped: { _ in
-                                loader.nextButtonTapped()
-                            })
             }
         }
-        .padding()
+        .padding(.all, 30)
     }
 }
 

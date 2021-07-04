@@ -15,6 +15,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     public var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
     public var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
     
+    private let service: LoginUserService
     private let onSelectEnvironmentTapped: Observer<Void>
     private let onLoginTapped: Observer<Void>
     private let onRegisterTapped: Observer<Void>
@@ -25,6 +26,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
          environmentViewModel: EnvironmentViewModelProtocol,
          userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
+         service: LoginUserService,
          onSelectEnvironmentTapped: @escaping Observer<Void>,
          onLoginTapped: @escaping Observer<Void>,
          onRegisterTapped: @escaping Observer<Void>,
@@ -36,6 +38,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         self.userNameTextFieldViewModel = userNameTextFieldViewModel
         self.passwordTextFieldViewModel = passwordTextFieldViewModel
         self.onSelectEnvironmentTapped = onSelectEnvironmentTapped
+        self.service = service
         self.onLoginTapped = onLoginTapped
         self.onRegisterTapped = onRegisterTapped
         self.onForgotPasswordTapped = onForgotPasswordTapped

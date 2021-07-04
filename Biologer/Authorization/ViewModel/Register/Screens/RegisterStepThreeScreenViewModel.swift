@@ -21,10 +21,10 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     private let onSuccess: Observer<Void>
     private let onError: Observer<Void>
     private let user: User
-    private let service: AuthorizationService
+    private let service: RegisterUserService
     
     init(user: User,
-         service: AuthorizationService,
+         service: RegisterUserService,
          dataLicense: DataLicense,
          imageLicense: DataLicense,
          onReadPrivacyPolicy: @escaping Observer<Void>,

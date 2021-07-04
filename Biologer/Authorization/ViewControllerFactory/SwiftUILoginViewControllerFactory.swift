@@ -9,7 +9,8 @@ import UIKit
 import SwiftUI
 
 public final class SwiftUILoginViewControllerFactory: AuthorizationViewControllerFactory {
-    public func makeLoginScreen(onSelectEnvironmentTapped: @escaping Observer<Void>,
+    public func makeLoginScreen(service: LoginUserService,
+                                onSelectEnvironmentTapped: @escaping Observer<Void>,
                                    onLoginTapped: @escaping Observer<Void>,
                                    onRegisterTapped: @escaping Observer<Void>,
                                    onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController {
@@ -19,10 +20,11 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                                         environmentViewModel: environmentViewModel,
                                                         userNameTextFieldViewModel: UserNameTextFieldViewModel(),
                                                         passwordTextFieldViewModel: PasswordTextFieldViewModel(),
-                                                        onSelectEnvironmentTapped: { _ in },
+                                                        service: service,
+                                                        onSelectEnvironmentTapped: onSelectEnvironmentTapped,
                                                         onLoginTapped: onLoginTapped,
-                                                        onRegisterTapped: { _ in },
-                                                        onForgotPasswordTapped: { _ in })
+                                                        onRegisterTapped: onRegisterTapped,
+                                                        onForgotPasswordTapped: onForgotPasswordTapped)
         let loginScreen = LoginScreen(viewModel: loginScreenViewModel)
         return UIHostingController(rootView: loginScreen)
     }
@@ -46,7 +48,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     }
     
     public func makeRegisterThreeStepScreen(user: User,
-                                            service: AuthorizationService,
+                                            service: RegisterUserService,
                                             dataLicense: DataLicense,
                                             imageLicense: DataLicense,
                                             onReadPrivacyPolicy: @escaping Observer<Void>,
