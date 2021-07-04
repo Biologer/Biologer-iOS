@@ -56,8 +56,8 @@ public final class AuthorizationRouter: NavigationRouter {
     
     private func showRegisterStepTwoScreen(user: User) {
         let stepTwoViewController = factory.makeRegisterSecondStepScreen(user: user,
-                                                                         onNextTapped: { user in
-                                                                            
+                                                                         onNextTapped: { [weak self] user in
+                                                                            self?.showRegisterThirdStepScreen(user: user)
                                                                          })
         stepTwoViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         stepTwoViewController.setBiologerTitle(text: "REGISTER STEP TWO")
@@ -66,6 +66,23 @@ public final class AuthorizationRouter: NavigationRouter {
     
     private func showRegisterThirdStepScreen(user: User) {
         
+        let dataLicense = DataLicense(id: 1, title: "", placeholder: "")
+        let imageLicense = DataLicense(id: 1, title: "", placeholder: " ")
+        
+        let stepThirdViewController = factory.makeRegisterThreeStepScreen(user: user,
+                                                                          service: registerService,
+                                                                          dataLicense: dataLicense,
+                                                                          imageLicense: imageLicense,
+                                                                          onReadPrivacyPolicy: { _ in
+                                                                            
+                                                                          },
+                                                                          onDataLicense: { _ in },
+                                                                          onImageLicense: { _ in },
+                                                                          onSuccess: { _ in },
+                                                                          onError: { _ in })
+        stepThirdViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
+        stepThirdViewController.setBiologerTitle(text: "REGISTER STEP THREE")
+        self.navigationController.pushViewController(stepThirdViewController, animated: true)
     }
     
     @objc func goBack() {
