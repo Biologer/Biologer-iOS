@@ -10,4 +10,5 @@ import Foundation
 public struct DataLicense {
     var id: Int
     var title: String
+    var placeholder: String
 }

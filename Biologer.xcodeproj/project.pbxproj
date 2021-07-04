@@ -46,7 +46,6 @@
 		936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CE26891E670080C771 /* HelpScreenViewModel.swift */; };
 		936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */; };
 		936035D3268929920080C771 /* SetupScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035D2268929920080C771 /* SetupScreenViewModel.swift */; };
-		93A7E2622691D603001D6AEF /* RegisterScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2612691D603001D6AEF /* RegisterScreen.swift */; };
 		93A7E2672691D77E001D6AEF /* DataLicense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2662691D77E001D6AEF /* DataLicense.swift */; };
 		93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */; };
 		93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */; };
@@ -54,6 +53,10 @@
 		93A7E2742691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2732691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift */; };
 		93A7E2762691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2752691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift */; };
 		93A7E2782691E1A4001D6AEF /* EmailTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2772691E1A4001D6AEF /* EmailTextFieldViewModel.swift */; };
+		93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */; };
+		93A7E27C2691F78D001D6AEF /* RegisterStepTwoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */; };
+		93A7E27E2691F7D4001D6AEF /* RegisterStepThreeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */; };
+		93A7E2802691FEAB001D6AEF /* DataLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E27F2691FEAB001D6AEF /* DataLicenseView.swift */; };
 		93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */; };
 		93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */; };
 		93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF629D262B807D00DDFB44 /* LoginButton.swift */; };
@@ -63,6 +66,11 @@
 		93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */; };
 		93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */; };
 		93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */; };
+		93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */; };
+		93DF14092692069600A7A977 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14082692069600A7A977 /* User.swift */; };
+		93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */; };
+		93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */; };
+		93DF141026920A4600A7A977 /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140F26920A4600A7A977 /* AuthorizationService.swift */; };
 		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
 		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
 		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
@@ -137,7 +145,6 @@
 		936035CE26891E670080C771 /* HelpScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewModel.swift; sourceTree = "<group>"; };
 		936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBiologerScreenViewModel.swift; sourceTree = "<group>"; };
 		936035D2268929920080C771 /* SetupScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScreenViewModel.swift; sourceTree = "<group>"; };
-		93A7E2612691D603001D6AEF /* RegisterScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreen.swift; sourceTree = "<group>"; };
 		93A7E2662691D77E001D6AEF /* DataLicense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicense.swift; sourceTree = "<group>"; };
 		93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextFieldViewModel.swift; sourceTree = "<group>"; };
 		93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurnameTextFieldViewModel.swift; sourceTree = "<group>"; };
@@ -145,6 +152,10 @@
 		93A7E2732691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordTextFieldViewModel.swift; sourceTree = "<group>"; };
 		93A7E2752691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatPasswordTextFieldViewModel.swift; sourceTree = "<group>"; };
 		93A7E2772691E1A4001D6AEF /* EmailTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextFieldViewModel.swift; sourceTree = "<group>"; };
+		93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepOneScreen.swift; sourceTree = "<group>"; };
+		93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreen.swift; sourceTree = "<group>"; };
+		93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepThreeScreen.swift; sourceTree = "<group>"; };
+		93A7E27F2691FEAB001D6AEF /* DataLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicenseView.swift; sourceTree = "<group>"; };
 		93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		93BF629D262B807D00DDFB44 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
@@ -154,6 +165,11 @@
 		93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationRouter.swift; sourceTree = "<group>"; };
 		93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILoginViewControllerFactory.swift; sourceTree = "<group>"; };
 		93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewControllerFactory.swift; sourceTree = "<group>"; };
+		93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepOneScreenViewModel.swift; sourceTree = "<group>"; };
+		93DF14082692069600A7A977 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreenViewModel.swift; sourceTree = "<group>"; };
+		93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepThreeScreenViewModel.swift; sourceTree = "<group>"; };
+		93DF140F26920A4600A7A977 /* AuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
 		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -301,6 +317,7 @@
 		93142716262B57C300542EFC /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
+				93DF140E26920A2C00A7A977 /* Service */,
 				93A7E2652691D768001D6AEF /* Entity */,
 				9300757126877BAB005A4DE0 /* Ruter */,
 				93BF62C9262C55A700DDFB44 /* ViewControllerFactory */,
@@ -440,6 +457,7 @@
 		93A7E25E2691D5CB001D6AEF /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				93DF14052692061200A7A977 /* Screens */,
 				93A7E26A2691DFCF001D6AEF /* TextFields */,
 			);
 			path = Register;
@@ -458,7 +476,10 @@
 		93A7E2602691D5E3001D6AEF /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				93A7E2612691D603001D6AEF /* RegisterScreen.swift */,
+				93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */,
+				93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */,
+				93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */,
+				93A7E27F2691FEAB001D6AEF /* DataLicenseView.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -467,6 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				93A7E2662691D77E001D6AEF /* DataLicense.swift */,
+				93DF14082692069600A7A977 /* User.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -510,6 +532,24 @@
 				93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */,
 			);
 			path = ViewControllerFactory;
+			sourceTree = "<group>";
+		};
+		93DF14052692061200A7A977 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */,
+				93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */,
+				93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		93DF140E26920A2C00A7A977 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				93DF140F26920A4600A7A977 /* AuthorizationService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -751,6 +791,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */,
 				93A7E2742691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */,
@@ -759,23 +800,27 @@
 				9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */,
 				936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */,
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
-				93A7E2622691D603001D6AEF /* RegisterScreen.swift in Sources */,
 				93334EB52677E17B0094A483 /* Item.swift in Sources */,
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
 				936035C4268874620080C771 /* SideMenu.swift in Sources */,
 				93334EB12677E1220094A483 /* FindingsListView.swift in Sources */,
+				93A7E27C2691F78D001D6AEF /* RegisterStepTwoScreen.swift in Sources */,
 				93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */,
+				93A7E27E2691F7D4001D6AEF /* RegisterStepThreeScreen.swift in Sources */,
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
 				93A7E2782691E1A4001D6AEF /* EmailTextFieldViewModel.swift in Sources */,
+				93A7E2802691FEAB001D6AEF /* DataLicenseView.swift in Sources */,
 				93A7E2672691D77E001D6AEF /* DataLicense.swift in Sources */,
 				931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */,
 				9300757626877C6B005A4DE0 /* DashboardRouter.swift in Sources */,
 				936035C9268916B20080C771 /* SetupScreen.swift in Sources */,
+				93DF141026920A4600A7A977 /* AuthorizationService.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
 				93142741262B6B3D00542EFC /* UserNameTextFieldViewModel.swift in Sources */,
 				9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */,
 				93A7E2702691E055001D6AEF /* InsititutionTextFieldViewModel.swift in Sources */,
+				93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
 				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
 				93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */,
@@ -786,17 +831,20 @@
 				93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
+				93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */,
 				93142750262B6DEA00542EFC /* EnvironmentViewModel.swift in Sources */,
 				936035D3268929920080C771 /* SetupScreenViewModel.swift in Sources */,
 				93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
+				93DF14092692069600A7A977 /* User.swift in Sources */,
 				93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */,
 				93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */,
 				936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */,
 				9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */,
 				93A7E2762691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift in Sources */,
 				93334EB92677E8590094A483 /* ListOfFindingsScreenViewModel.swift in Sources */,
+				93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */,
 				93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */,

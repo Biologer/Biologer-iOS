@@ -9,7 +9,7 @@ import Foundation
 
 public final class InsititutionTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol {
     public var text: String = ""
-    public var placeholder: String = "Surname"
+    public var placeholder: String = "Institution"
     public var errorText: String = ""
     public var isCodeEntry: Bool = false
     public var tralingImage: String? = nil

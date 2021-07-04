@@ -11,7 +11,7 @@ public final class EmailTextFieldViewModel: MaterialDesignTextFieldViewMoodelPro
         public var text: String = ""
         public var placeholder: String = "Email"
         public var errorText: String = ""
-        public var isCodeEntry: Bool = false
+        public var isCodeEntry: Bool = false    
         public var tralingImage: String? = "user_icon"
         public var tralingErrorImage: String? = nil
         public var isUserInteractionEnabled: Bool = true
