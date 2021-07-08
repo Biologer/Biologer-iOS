@@ -21,19 +21,22 @@ struct RegisterStepTwoScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 30) {
+            VStack() {
                 MaterialDesignTextField(viewModel: loader.emailTextFieldViewModel,
                                         onTextChanged: { text in
                                             
                                         })
+                    .padding()
                 MaterialDesignTextField(viewModel: loader.passwordTextFieldViewModel,
                                         onTextChanged: { text in
                                             
                                         })
+                    .padding()
                 MaterialDesignTextField(viewModel: loader.repeatPasswordTextFieldViewModel,
                                         onTextChanged: { text in
                                             
                                         })
+                    .padding()
                 LoginButton(title: loader.buttonTitle,
                             onTapped: { _ in
                                 loader.nextButtonTapped()
