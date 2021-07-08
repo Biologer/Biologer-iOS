@@ -22,6 +22,39 @@ public final class RegisterStepOneScreenViewModel: RegisterStepOneScreenLoader, 
     }
     
     func nextButtonTapped() {
+        validateFields()
+    }
+    
+    private func validateFields() {
+        if userNameTextFieldViewModel.text.isEmpty {
+            setNameIsRequired()
+            return 
+        }
+        
+        if lastNameTextFieldViewModel.text.isEmpty {
+            setLastNameIsRequired()
+            return
+        }
+        setAllFieldsAreValid()
         onNextTapped((user))
+    }
+}
+
+extension RegisterStepOneScreenViewModel {
+    private func setNameIsRequired() {
+        userNameTextFieldViewModel.errorText = "Field is required"
+        userNameTextFieldViewModel.type = .failure
+    }
+    
+    private func setLastNameIsRequired() {
+        lastNameTextFieldViewModel.errorText = "Field is required"
+        lastNameTextFieldViewModel.type = .failure
+    }
+    
+    private func setAllFieldsAreValid() {
+        userNameTextFieldViewModel.errorText = ""
+        userNameTextFieldViewModel.type = .success
+        lastNameTextFieldViewModel.errorText = ""
+        lastNameTextFieldViewModel.type = .success
     }
 }
