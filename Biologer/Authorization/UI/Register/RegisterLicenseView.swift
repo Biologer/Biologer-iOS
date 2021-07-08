@@ -16,7 +16,6 @@ struct RegisterLicenseView: View {
         VStack(alignment: .leading) {
             Text(dataLicense.placeholder)
                 .font(.system(size: 12))
-                .foregroundColor(Color.gray)
             HStack {
                 Button(action: {
                     onDataTapped(())

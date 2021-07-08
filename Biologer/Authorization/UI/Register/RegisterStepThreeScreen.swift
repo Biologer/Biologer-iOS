@@ -26,40 +26,40 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
     @ObservedObject var loader: ScreenLoader
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                Image(loader.topImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                RegisterLicenseView(dataLicense: loader.dataLicense,
-                                onDataTapped: loader.onDataLicense)
-                RegisterLicenseView(dataLicense: loader.imageLicense,
-                                onDataTapped: loader.onImageLicense)
-                Text(loader.privacyPolicyDescription)
-                    .lineLimit(nil)
-                    .multilineTextAlignment(.leading)
-                    .fixedSize(horizontal: false, vertical: true)
-                Link(destination: URL(string: "https://www.apple.com")!, label: {
-                    Text("Privacy Policy")
-                        .foregroundColor(Color.biologerGreenColor)
-                        .underline()
-                })
-                HStack {
-                    CheckView(isChecked: false,
-                              onToggle: { isChecked in
+            ScrollView {
+                VStack(spacing: 20) {
+                    Image(loader.topImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                    RegisterLicenseView(dataLicense: loader.dataLicense,
+                                    onDataTapped: loader.onDataLicense)
+                    RegisterLicenseView(dataLicense: loader.imageLicense,
+                                    onDataTapped: loader.onImageLicense)
+                    Text(loader.privacyPolicyDescription)
+                        .lineLimit(nil)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Link(destination: URL(string: "https://www.apple.com")!, label: {
+                        Text("Privacy Policy")
+                            .foregroundColor(Color.biologerGreenColor)
+                            .underline()
+                    })
+                    HStack {
+                        CheckView(isChecked: false,
+                                  onToggle: { isChecked in
 
-                              })
-                    Text(loader.acceptPPTitle)
-                    Spacer()
+                                  })
+                        Text(loader.acceptPPTitle)
+                        Spacer()
+                    }
+                    LoginButton(title: loader.registerButtonTitle,
+                                onTapped: { _ in
+                                    loader.registerTapped()
+                                })
                 }
-                LoginButton(title: loader.registerButtonTitle,
-                            onTapped: { _ in
-                                loader.registerTapped()
-                            })
-            }
-       }
-        .padding(.all, 30)
+           }
+            .padding(.all, 30)
     }
     
     public func createAttributeString() -> NSMutableAttributedString {
