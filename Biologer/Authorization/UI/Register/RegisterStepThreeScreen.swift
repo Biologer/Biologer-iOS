@@ -13,8 +13,9 @@ public protocol RegisterStepThreeScreenLoader: ObservableObject {
     var imageLicense: DataLicense { get }
     var acceptPPTitle: String { get }
     var registerButtonTitle: String { get }
-    var acceptPPChceckMark: Bool { get }
+    var acceptPPChceckMark: Bool { get set }
     var privacyPolicyDescription: String { get }
+    var errorLabel: String { get set }
     var onReadPrivacyPolicy: Observer<Void> { get }
     func dataLicenseTapped()
     func imageLicenseTapped()
@@ -48,7 +49,7 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
                     HStack {
                         CheckView(isChecked: false,
                                   onToggle: { isChecked in
-
+                                    loader.acceptPPChceckMark = isChecked
                                   })
                         Text(loader.acceptPPTitle)
                         Spacer()
@@ -57,6 +58,8 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
                                 onTapped: { _ in
                                     loader.registerTapped()
                                 })
+                    ErrorLabelView(text: loader.errorLabel)
+                        .padding()
                 }
            }
             .padding(.all, 30)
@@ -80,7 +83,7 @@ struct RegisterStepThreeScreen_Previews: PreviewProvider {
     }
     
     private class StubRegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoader {
-        
+        var errorLabel: String = ""
         var topImage = "serbia_flag"
         var dataLicense: DataLicense = DataLicense(id: 11, title: "Free (CC BY-SA)“ int vrednost", placeholder: "Data License", licenseType: .data)
         var imageLicense: DataLicense = DataLicense(id: 10, title: "Share images for free (CC-BY-SA)", placeholder: "Image License", licenseType: .data)

@@ -15,6 +15,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     public var acceptPPTitle: String = "I accept privary policy"
     public var acceptPPChceckMark: Bool = false
     public var privacyPolicyDescription: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    @Published public var errorLabel: String = ""
     public var onReadPrivacyPolicy: Observer<Void>
     private let onDataLicense: Observer<DataLicense>
     private let onImageLicense: Observer<DataLicense>
@@ -45,7 +46,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     }
     
     public func registerTapped() {
-        
+        validationFields()
     }
     
     public func dataLicenseTapped() {
@@ -54,6 +55,14 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     
     public func imageLicenseTapped() {
         onImageLicense((imageLicense))
+    }
+    
+    private func validationFields() {
+        if !acceptPPChceckMark {
+            errorLabel = "For registration you must accept privacy policy!"
+            return
+        }
+        errorLabel = ""
     }
 }
 
