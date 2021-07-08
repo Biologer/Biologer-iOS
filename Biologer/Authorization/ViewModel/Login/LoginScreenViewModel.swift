@@ -12,8 +12,8 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     public let logoImage: String
     public var labelsViewModel: LoginLabelsViewModel
     public var environmentViewModel: EnvironmentViewModelProtocol
-    public var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
-    public var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
+    @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
+    @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
     
     private let service: LoginUserService
     private let onSelectEnvironmentTapped: Observer<Void>
@@ -49,7 +49,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     }
     
     public func login() {
-        onLoginTapped(())
+        validateFields()
     }
     
     public func register() {
@@ -59,5 +59,58 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     public func forgotPassword() {
         onForgotPasswordTapped(())
     }
+    
+    private func validateFields() {
+        if userNameTextFieldViewModel.text.isEmpty {
+            setEmailRequired()
+           return
+        }
+        
+        if !isEmailValid(email: userNameTextFieldViewModel.text) {
+            setEmailIsNotValidFormat()
+            return
+        }
+        
+        setEmilIsValid()
+        
+        if passwordTextFieldViewModel.text.isEmpty {
+            setPasswordIsNotValid()
+            return
+        }
+        
+        setPasswordValid()
+        onLoginTapped(())
+    }
+    
+    private func isEmailValid(email: String) -> Bool {
+        return NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}").evaluate(with: email)
+    }
 }
 
+extension LoginScreenViewModel {
+    private func setEmailRequired() {
+        userNameTextFieldViewModel.errorText = "Field is required"
+        userNameTextFieldViewModel.type = .failure
+    }
+    
+    private func setEmailIsNotValidFormat() {
+        userNameTextFieldViewModel.errorText = "Email is not in valid format"
+        userNameTextFieldViewModel.type = .failure
+    }
+
+    
+    private func setPasswordIsNotValid() {
+        passwordTextFieldViewModel.errorText = "Field is required"
+        passwordTextFieldViewModel.type = .failure
+    }
+        
+    private func setEmilIsValid() {
+        userNameTextFieldViewModel.errorText = ""
+        userNameTextFieldViewModel.type = .success
+    }
+    
+    private func setPasswordValid() {
+        passwordTextFieldViewModel.errorText = ""
+        passwordTextFieldViewModel.type = .success
+    }
+}
