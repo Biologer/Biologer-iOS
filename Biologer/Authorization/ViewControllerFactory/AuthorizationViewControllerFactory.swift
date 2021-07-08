@@ -22,8 +22,11 @@ public protocol AuthorizationViewControllerFactory {
                                      dataLicense: DataLicense,
                                      imageLicense: DataLicense,
                                      onReadPrivacyPolicy: @escaping Observer<Void>,
-                                     onDataLicense: @escaping Observer<Void>,
-                                     onImageLicense: @escaping Observer<Void>,
+                                     onDataLicense: @escaping Observer<DataLicense>,
+                                     onImageLicense: @escaping Observer<DataLicense>,
                                      onSuccess: @escaping Observer<Void>,
                                      onError: @escaping Observer<Void>) -> UIViewController
+    func makeLicenseScreen(dataLicenses: [DataLicense],
+                           delegate: DataLicenseScreenDelegate?,
+                           onLicenseTapped: @escaping Observer<Void>) -> UIViewController
 }

@@ -52,8 +52,8 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                             dataLicense: DataLicense,
                                             imageLicense: DataLicense,
                                             onReadPrivacyPolicy: @escaping Observer<Void>,
-                                            onDataLicense: @escaping Observer<Void>,
-                                            onImageLicense: @escaping Observer<Void>,
+                                            onDataLicense: @escaping Observer<DataLicense>,
+                                            onImageLicense: @escaping Observer<DataLicense>,
                                             onSuccess: @escaping Observer<Void>,
                                             onError: @escaping Observer<Void>) -> UIViewController {
         
@@ -67,6 +67,19 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                                          onSuccess: onSuccess,
                                                          onError: onError)
         let screen = RegisterStepThreeScreen(loader: viewModel)
+        let viewController = UIHostingController(rootView: screen)
+        return viewController
+    }
+    
+    public func makeLicenseScreen(dataLicenses: [DataLicense],
+                                  delegate: DataLicenseScreenDelegate?,
+                                  onLicenseTapped: @escaping Observer<Void>) -> UIViewController {
+        
+        let viewModel = DataLicenseScreenViewModel(dataLicenses: dataLicenses,
+                                                   delegate: delegate,
+                                                   onLicenseTapped: onLicenseTapped)
+        
+        let screen = DataLicenseScreen(loader: viewModel)
         let viewController = UIHostingController(rootView: screen)
         return viewController
     }

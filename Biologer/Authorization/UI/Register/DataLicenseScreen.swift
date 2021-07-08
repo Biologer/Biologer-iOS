@@ -7,16 +7,27 @@
 
 import SwiftUI
 
-struct DataLicenseScreen: View {
+protocol DataLicenseScreenLoader: ObservableObject {
+    var dataLicenses: [DataLicense] { get }
+    func licenseTapped(license: DataLicense)
+}
+
+struct DataLicenseScreen<ScreenLoader>: View where ScreenLoader: DataLicenseScreenLoader {
     
-    public let dataLicenses: [DataLicense]
+    @ObservedObject var loader: ScreenLoader
     
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(dataLicenses, id: \.id) { license in
-                    Text(license.title)
-                        .multilineTextAlignment(.leading)
+                ForEach(loader.dataLicenses, id: \.id) { license in
+                    Button(action: {
+                        loader.licenseTapped(license: license)
+                    }, label: {
+                        Text(license.title)
+                            .foregroundColor(Color.black)
+                            .multilineTextAlignment(.leading)
+                    })
+                    .padding()
                     Divider()
                 }
             }
@@ -26,15 +37,20 @@ struct DataLicenseScreen: View {
 
 struct DataLicenseScreen_Previews: PreviewProvider {
     static var previews: some View {
-        let dataLicenses = [DataLicense(id: 1,
-                                        title: "Free (CC BY-SA)",
-                                        placeholder: ""),
-                            DataLicense(id: 1,
-                                                            title: "Free (CC BY-SA)",
-                                                            placeholder: ""),
-                            DataLicense(id: 1,
-                                                            title: "Free (CC BY-SA)",
-                                                            placeholder: "")]
-        DataLicenseScreen(dataLicenses: dataLicenses)
+        DataLicenseScreen(loader: StubDataLicenseScreenViewModel())
+    }
+    
+    private class StubDataLicenseScreenViewModel: DataLicenseScreenLoader {
+        var dataLicenses: [DataLicense] = [DataLicense(id: 1,
+                                                       title: "Free (CC BY-SA)",
+                                                       placeholder: "", licenseType: .data),
+                                           DataLicense(id: 1,
+                                                                           title: "Free (CC BY-SA)",
+                                                                           placeholder: "", licenseType: .data),
+                                           DataLicense(id: 1,
+                                                                           title: "Free (CC BY-SA)",
+                                                                           placeholder: "", licenseType: .data)]
+        
+        func licenseTapped(license: DataLicense) {}
     }
 }
