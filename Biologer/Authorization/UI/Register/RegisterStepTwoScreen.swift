@@ -30,11 +30,17 @@ struct RegisterStepTwoScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
                 MaterialDesignTextField(viewModel: loader.passwordTextFieldViewModel,
                                         onTextChanged: { text in
                                             
+                                        },
+                                        onIconTapped: { _ in
+                                            loader.toggleIsCodeEntryPassword()
                                         })
                     .padding()
                 MaterialDesignTextField(viewModel: loader.repeatPasswordTextFieldViewModel,
                                         onTextChanged: { text in
                                             
+                                        },
+                                        onIconTapped: { _ in
+                                            loader.toggleIsCodeEntryRepeatPassword()
                                         })
                     .padding()
                 LoginButton(title: loader.buttonTitle,

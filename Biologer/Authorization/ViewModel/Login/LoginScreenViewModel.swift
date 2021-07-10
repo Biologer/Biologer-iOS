@@ -114,3 +114,9 @@ extension LoginScreenViewModel {
         passwordTextFieldViewModel.type = .success
     }
 }
+
+extension LoginScreenLoader {
+    public func toggleIsCodeEntryPassword() {
+        passwordTextFieldViewModel.isCodeEntry.toggle()
+    }
+}

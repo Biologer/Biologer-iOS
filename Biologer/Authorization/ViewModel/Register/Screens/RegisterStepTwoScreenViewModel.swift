@@ -74,7 +74,7 @@ extension RegisterStepTwoScreenViewModel {
     }
     
     private func setEmailIsNotValid() {
-        emailTextFieldViewModel.errorText = "Email is not valid"
+        emailTextFieldViewModel.errorText = "Email is not in valid format"
         emailTextFieldViewModel.type = .failure
     }
     
@@ -84,7 +84,7 @@ extension RegisterStepTwoScreenViewModel {
     }
     
     private func setPasswordIsNotValid() {
-        passwordTextFieldViewModel.errorText = "Password is not valid"
+        passwordTextFieldViewModel.errorText = "Password must contain an uppercase letter, a number, and be at least 8 characters long"
         passwordTextFieldViewModel.type = .failure
     }
     
@@ -108,5 +108,15 @@ extension RegisterStepTwoScreenViewModel {
     private func setRepeatPasswordValid() {
         repeatPasswordTextFieldViewModel.errorText = ""
         repeatPasswordTextFieldViewModel.type = .success
+    }
+}
+
+extension RegisterStepTwoScreenLoader {
+    public func toggleIsCodeEntryPassword() {
+        passwordTextFieldViewModel.isCodeEntry.toggle()
+    }
+    
+    public func toggleIsCodeEntryRepeatPassword() {
+        repeatPasswordTextFieldViewModel.isCodeEntry.toggle()
     }
 }

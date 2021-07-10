@@ -87,6 +87,9 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                                         onTextChanged: { text in
                                             viewModel.passwordTextFieldViewModel.text = text
                                             viewModel.passwordTextFieldViewModel.type = .success
+                                        },
+                                        onIconTapped: { _ in
+                                            viewModel.toggleIsCodeEntryPassword()
                                         })
                     .padding(.bottom, 20)
                 

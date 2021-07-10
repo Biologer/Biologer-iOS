@@ -12,7 +12,7 @@ public final class RepeatPasswordTextFieldViewModel: MaterialDesignTextFieldView
     public var placeholder: String = "Repeat Password"
     public var errorText: String = ""
     public var isCodeEntry: Bool = true
-    public var tralingImage: String? = "user_icon"
+    public var tralingImage: String? = "password_icon"
     public var tralingErrorImage: String? = nil
     public var isUserInteractionEnabled: Bool = true
     public var type: MaterialDesignTextFieldType = .success
