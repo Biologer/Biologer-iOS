@@ -68,6 +68,7 @@
 		93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */; };
 		93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */; };
 		93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65842697A52000949534 /* ErrorLabelView.swift */; };
+		93CC65872699941A00949534 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65862699941900949534 /* View+Extensions.swift */; };
 		93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */; };
 		93DF14092692069600A7A977 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14082692069600A7A977 /* User.swift */; };
 		93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */; };
@@ -180,6 +181,7 @@
 		93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewControllerFactory.swift; sourceTree = "<group>"; };
 		93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicenseScreenViewModel.swift; sourceTree = "<group>"; };
 		93CC65842697A52000949534 /* ErrorLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabelView.swift; sourceTree = "<group>"; };
+		93CC65862699941900949534 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepOneScreenViewModel.swift; sourceTree = "<group>"; };
 		93DF14082692069600A7A977 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreenViewModel.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				93DF142C269253B900A7A977 /* CheckView.swift */,
 				9342575826925B9F00B8C912 /* AttributedTextView.swift */,
 				93CC65842697A52000949534 /* ErrorLabelView.swift */,
+				93CC65862699941900949534 /* View+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -884,6 +887,7 @@
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
 				93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */,
+				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
 				93DF141B269222AF00A7A977 /* CodableParser.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
 				93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */,

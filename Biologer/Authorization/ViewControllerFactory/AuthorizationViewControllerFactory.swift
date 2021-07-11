@@ -9,10 +9,13 @@ import UIKit
 
 public protocol AuthorizationViewControllerFactory {
     func makeLoginScreen(service: LoginUserService,
-                         onSelectEnvironmentTapped: @escaping Observer<Void>,
-                                   onLoginTapped: @escaping Observer<Void>,
-                                   onRegisterTapped: @escaping Observer<Void>,
-                                   onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController
+                         onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModelProtocol>,
+                         onLoginTapped: @escaping Observer<Void>,
+                         onRegisterTapped: @escaping Observer<Void>,
+                         onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController
+    func makeEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
+                               delegate: EnvironmentScreenViewModelProtocol?,
+                               onSelectedEnvironment: @escaping Observer<Void>) -> UIViewController
     func makeRegisterFirstStepScreen(user: User,
                                      onNextTapped: @escaping Observer<User>) -> UIViewController
     func makeRegisterSecondStepScreen(user: User,

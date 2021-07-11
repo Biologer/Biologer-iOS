@@ -13,53 +13,52 @@ public protocol EnvironmentScreenLoader: ObservableObject {
     func selectedEnvironment(envViewModel: EnvironmentViewModel)
 }
 
-struct EnvironmentScreen<ViewModel>: View where ViewModel: EnvironmentScreenLoader {
+struct EnvironmentScreen<ScreenLoader>: View where ScreenLoader: EnvironmentScreenLoader {
     
-    @ObservedObject var viewModel: ViewModel
+    @ObservedObject var loader: ScreenLoader
     
     var body: some View {
-        VStack {
-            Text(viewModel.title)
-                .padding(.top, 10)
-                .padding(.leading, 10)
-                .padding(.trailing, 10)
-            Divider()
+        
+        ScrollView {
             VStack {
-                ScrollView(.vertical) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        ForEach(viewModel.environmentsViewModel) { env in
-                            environmentView(environmentViewModel: env)
-                        }
+                ForEach(loader.environmentsViewModel, id: \.id) { env in
+                    HStack {
+                        Image(env.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+                        Button(action: {
+                            loader.selectedEnvironment(envViewModel: env)
+                        }, label: {
+                            Text(env.title)
+                                .foregroundColor(Color.black)
+                                .multilineTextAlignment(.leading)
+                        })
+                        .padding()
+                        Spacer()
+                        Button(action: {
+                            loader.selectedEnvironment(envViewModel: env)
+                        }, label: {
+                            Image("check_mark")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .isHidden(!env.isSelected)
+                            
+                        })
                     }
+                    .frame(height: 25)
+                    .padding()
+                    Divider()
                 }
             }
-            .padding(.bottom, 10)
-        }
-        .fixedSize()
-        .overlay(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(Color.gray, lineWidth: 1)
-        )
-    }
-    
-    private func environmentView(environmentViewModel: EnvironmentViewModel) -> some View {
-        HStack {
-            Image(environmentViewModel.image)
-                .resizable()
-                .frame(width: 35, height: 35)
-            Text(environmentViewModel.title)
-                .font(.system(size: 13))
-                .foregroundColor(Color.gray)
-        }
-        .onTapGesture {
-            viewModel.selectedEnvironment(envViewModel: environmentViewModel)
         }
     }
 }
 
 struct EnvironmentScreen_Previews: PreviewProvider {
     static var previews: some View {
-        EnvironmentScreen(viewModel: StubEnvironmentScreenViewModel())
+        EnvironmentScreen(loader: StubEnvironmentScreenViewModel())
     }
     
     private class StubEnvironmentScreenViewModel: EnvironmentScreenLoader {
@@ -68,9 +67,10 @@ struct EnvironmentScreen_Previews: PreviewProvider {
         
         init() {
             self.environmentsViewModel = [
-                EnvironmentViewModel(title: "Serbia", image: "serbia_flag", url: "www.serbia.com"),
-                EnvironmentViewModel(title: "Croatia", image: "croatia_flag", url: "www.croatia.com"),
-                EnvironmentViewModel(title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com"),EnvironmentViewModel(title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com")
+                EnvironmentViewModel(title: "Serbia", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
+                EnvironmentViewModel(title: "Croatia", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
+                EnvironmentViewModel(title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: true),
+                EnvironmentViewModel(title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)
             ]
         }
         

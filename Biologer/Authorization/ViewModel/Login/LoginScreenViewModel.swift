@@ -11,12 +11,12 @@ import Combine
 public final class LoginScreenViewModel: LoginScreenLoader {
     public let logoImage: String
     public var labelsViewModel: LoginLabelsViewModel
-    public var environmentViewModel: EnvironmentViewModelProtocol
+    @Published public var environmentViewModel: EnvironmentViewModelProtocol
     @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
     @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
     
     private let service: LoginUserService
-    private let onSelectEnvironmentTapped: Observer<Void>
+    private let onSelectEnvironmentTapped: Observer<EnvironmentViewModelProtocol>
     private let onLoginTapped: Observer<Void>
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
@@ -27,7 +27,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
          userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          service: LoginUserService,
-         onSelectEnvironmentTapped: @escaping Observer<Void>,
+         onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModelProtocol>,
          onLoginTapped: @escaping Observer<Void>,
          onRegisterTapped: @escaping Observer<Void>,
          onForgotPasswordTapped: @escaping Observer<Void>
@@ -45,7 +45,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     }
     
     public func selectEnvironment() {
-        onSelectEnvironmentTapped(())
+        onSelectEnvironmentTapped((environmentViewModel))
     }
     
     public func login() {
@@ -84,6 +84,13 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     
     private func isEmailValid(email: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}").evaluate(with: email)
+    }
+}
+
+extension LoginScreenViewModel: EnvironmentScreenViewModelProtocol {
+    public func getEnvironment(environmentViewModel: EnvironmentViewModel) {
+        print("ENV SLECTED: \(environmentViewModel.title)")
+        self.environmentViewModel = environmentViewModel
     }
 }
 

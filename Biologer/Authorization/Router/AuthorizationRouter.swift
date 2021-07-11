@@ -33,16 +33,40 @@ public final class AuthorizationRouter: NavigationRouter {
     }
     
     private func showLoginScreen() {
+        
+        var envDelegate: EnvironmentScreenViewModelProtocol?
+        
         let loginViewController = factory.makeLoginScreen(service: loginService,
-                                                             onSelectEnvironmentTapped: { _ in },
+                                                             onSelectEnvironmentTapped: { [weak self] env in
+                                                                self?.showEnvironmentScreen(selectedViewModel: env as! EnvironmentViewModel,
+                                                                    delegate: envDelegate)
+                                                             },
                                                              onLoginTapped: { [weak self]  _ in
                                                                 self?.onLoginTapped?(())
                                                              },
-                                                             onRegisterTapped: { [weak self] _ in                                                                self?.showRegisterStepOneScreen()
+                                                             onRegisterTapped: { [weak self] _ in                                              self?.showRegisterStepOneScreen()
                                                              },
                                                              onForgotPasswordTapped: { _ in })
+        
+        let viewController = loginViewController as? UIHostingController<LoginScreen<LoginScreenViewModel>>
+        envDelegate = viewController?.rootView.viewModel
+        
         self.navigationController.setViewControllers([loginViewController], animated: false)
         self.navigationController.setNavigationBarHidden(true, animated: false)
+    }
+    
+    private func showEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
+                                       delegate: EnvironmentScreenViewModelProtocol? = nil) {
+        
+        let enviViewController = factory.makeEnvironmentScreen(selectedViewModel: selectedViewModel,
+                                                       delegate: delegate,
+                                                       onSelectedEnvironment: { _ in
+                                                            self.navigationController.popViewController(animated: true)
+                                                       })
+        
+        enviViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
+        enviViewController.setBiologerTitle(text: "CHOOSE ENVIRONMENT")
+        self.navigationController.pushViewController(enviViewController, animated: true)
     }
     
     private func showRegisterStepOneScreen() {

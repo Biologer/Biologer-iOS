@@ -11,10 +11,12 @@ public final class EnvironmentViewModel: EnvironmentViewModelProtocol, Identifia
     public var title: String
     public var image: String
     public var url: String
+    public var isSelected: Bool
     
-    init(title: String, image: String, url: String) {
+    init(title: String, image: String, url: String, isSelected: Bool) {
         self.title = title
         self.image = image
         self.url = url
+        self.isSelected = isSelected
     }
 }

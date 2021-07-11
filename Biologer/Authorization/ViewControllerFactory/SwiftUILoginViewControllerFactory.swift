@@ -10,11 +10,11 @@ import SwiftUI
 
 public final class SwiftUILoginViewControllerFactory: AuthorizationViewControllerFactory {
     public func makeLoginScreen(service: LoginUserService,
-                                onSelectEnvironmentTapped: @escaping Observer<Void>,
+                                onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModelProtocol>,
                                    onLoginTapped: @escaping Observer<Void>,
                                    onRegisterTapped: @escaping Observer<Void>,
                                    onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController {
-        let environmentViewModel = EnvironmentViewModel(title: "Srbija", image: "hammer_icon", url: "www.apple.com")
+        let environmentViewModel = EnvironmentViewModel(title: "Srbija", image: "hammer_icon", url: "www.apple.com", isSelected: true)
         let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
                                                         labelsViewModel: LoginLabelsViewModel(),
                                                         environmentViewModel: environmentViewModel,
@@ -27,6 +27,20 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                                         onForgotPasswordTapped: onForgotPasswordTapped)
         let loginScreen = LoginScreen(viewModel: loginScreenViewModel)
         return UIHostingController(rootView: loginScreen)
+    }
+    
+    public func makeEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
+                                      delegate: EnvironmentScreenViewModelProtocol?,
+                                      onSelectedEnvironment: @escaping Observer<Void>) -> UIViewController {
+        
+        let viewModel = EnvironmentScreenViewModel(selectedViewModel: selectedViewModel,
+                                                   delegate: delegate,
+                                                   onSelectedEnvironment: onSelectedEnvironment)
+        
+        let envScreen = EnvironmentScreen(loader: viewModel)
+        let viewController = UIHostingController(rootView: envScreen)
+        
+        return viewController
     }
     
     public func makeRegisterFirstStepScreen(user: User,

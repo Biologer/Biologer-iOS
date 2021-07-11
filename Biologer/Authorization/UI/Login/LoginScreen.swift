@@ -77,6 +77,9 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                     .padding(.bottom, 30)
                 EnvironmentLoginView(environmentViewModel: viewModel.environmentViewModel, envImage: "env_icon")
                     .padding(.bottom, 20)
+                    .onTapGesture {
+                        viewModel.selectEnvironment()
+                    }
                 MaterialDesignTextField(viewModel: viewModel.userNameTextFieldViewModel,
                                         onTextChanged: { text in
                                             viewModel.userNameTextFieldViewModel.text = text
@@ -131,7 +134,7 @@ struct LoginScreen_Previews: PreviewProvider {
     
     private class StubLoginScreenViewModel: LoginScreenLoader {
         var logoImage: String = "biologer_logo_icon"
-        var environmentViewModel: EnvironmentViewModelProtocol = EnvironmentViewModel(title: "Srbija", image: "serbia_flag", url: "www.apple.com")
+        var environmentViewModel: EnvironmentViewModelProtocol = EnvironmentViewModel(title: "Srbija", image: "serbia_flag", url: "www.apple.com", isSelected: false)
         var labelsViewModel: LoginLabelsViewModel = LoginLabelsViewModel()
         var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = UserNameTextFieldViewModel()
         var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = PasswordTextFieldViewModel()
