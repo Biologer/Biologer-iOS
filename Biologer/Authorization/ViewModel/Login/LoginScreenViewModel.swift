@@ -11,23 +11,23 @@ import Combine
 public final class LoginScreenViewModel: LoginScreenLoader {
     public let logoImage: String
     public var labelsViewModel: LoginLabelsViewModel
-    @Published public var environmentViewModel: EnvironmentViewModelProtocol
+    @Published public var environmentViewModel: EnvironmentViewModel
     @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
     @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
     
     private let service: LoginUserService
-    private let onSelectEnvironmentTapped: Observer<EnvironmentViewModelProtocol>
+    private let onSelectEnvironmentTapped: Observer<EnvironmentViewModel>
     private let onLoginTapped: Observer<Void>
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
     
     init(logoImage: String,
          labelsViewModel: LoginLabelsViewModel,
-         environmentViewModel: EnvironmentViewModelProtocol,
+         environmentViewModel: EnvironmentViewModel,
          userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          service: LoginUserService,
-         onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModelProtocol>,
+         onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
          onLoginTapped: @escaping Observer<Void>,
          onRegisterTapped: @escaping Observer<Void>,
          onForgotPasswordTapped: @escaping Observer<Void>

@@ -10,7 +10,7 @@ import SwiftUI
 
 public final class SwiftUILoginViewControllerFactory: AuthorizationViewControllerFactory {
     public func makeLoginScreen(service: LoginUserService,
-                                onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModelProtocol>,
+                                onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
                                    onLoginTapped: @escaping Observer<Void>,
                                    onRegisterTapped: @escaping Observer<Void>,
                                    onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController {
@@ -33,7 +33,14 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                       delegate: EnvironmentScreenViewModelProtocol?,
                                       onSelectedEnvironment: @escaping Observer<Void>) -> UIViewController {
         
-        let viewModel = EnvironmentScreenViewModel(selectedViewModel: selectedViewModel,
+        let envViewModel = [
+            EnvironmentViewModel(title: "Serbia", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
+            EnvironmentViewModel(title: "Croatia", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
+            EnvironmentViewModel(title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: false),
+            EnvironmentViewModel(title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)]
+        
+        let viewModel = EnvironmentScreenViewModel(environmentsViewModel: envViewModel,
+                                                   selectedViewModel: selectedViewModel,
                                                    delegate: delegate,
                                                    onSelectedEnvironment: onSelectedEnvironment)
         

@@ -11,22 +11,19 @@ public protocol EnvironmentScreenViewModelProtocol {
     func getEnvironment(environmentViewModel: EnvironmentViewModel)
 }
 
-public final class EnvironmentScreenViewModel: EnvironmentScreenLoader {
+public final class EnvironmentScreenViewModel: EnvironmentScreenLoader, ObservableObject {
     public let title: String = "SELECT ENVIRONMENT"
-    public let environmentsViewModel: [EnvironmentViewModel] = [
-        EnvironmentViewModel(title: "Serbia", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
-        EnvironmentViewModel(title: "Croatia", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
-        EnvironmentViewModel(title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: false),
-        EnvironmentViewModel(title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)
-    ]
+    @Published public var environmentsViewModel: [EnvironmentViewModel]
     
     private let delegate: EnvironmentScreenViewModelProtocol?
     private let onSelectedEnvironment: Observer<Void>
     
     
-    init(selectedViewModel: EnvironmentViewModel,
+    init(environmentsViewModel: [EnvironmentViewModel],
+        selectedViewModel: EnvironmentViewModel,
          delegate: EnvironmentScreenViewModelProtocol? = nil,
          onSelectedEnvironment: @escaping Observer<Void>) {
+        self.environmentsViewModel = environmentsViewModel
         self.delegate = delegate
         self.onSelectedEnvironment = onSelectedEnvironment
         updateSelectedViewModel(envViewModel: selectedViewModel)
@@ -35,10 +32,24 @@ public final class EnvironmentScreenViewModel: EnvironmentScreenLoader {
     public func selectedEnvironment(envViewModel: EnvironmentViewModel) {
         updateSelectedViewModel(envViewModel: envViewModel)
         delegate?.getEnvironment(environmentViewModel: envViewModel)
-        onSelectedEnvironment(())
+//        onSelectedEnvironment(())
     }
     
     public func updateSelectedViewModel(envViewModel: EnvironmentViewModel) {
+        
+//        environmentsViewModel = [
+//            EnvironmentViewModel(title: "Serbia", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
+//            EnvironmentViewModel(title: "Croatia", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
+//            EnvironmentViewModel(title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: false),
+//            EnvironmentViewModel(title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)
+//        ]
+//
+//        for (index, env) in environmentsViewModel.enumerated() {
+//            if env.id == envViewModel.id {
+//                environmentsViewModel[index] = EnvironmentViewModel(title: env.title, image: env.image, url: env.url, isSelected: env.isSelected)
+//            }
+//        }
+
         environmentsViewModel.forEach({
             if $0.id == envViewModel.id {
                 $0.isSelected = true

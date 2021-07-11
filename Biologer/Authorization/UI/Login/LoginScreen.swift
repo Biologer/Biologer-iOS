@@ -54,7 +54,7 @@ extension MaterialDesignTextFieldViewMoodelProtocol {
 
 public protocol LoginScreenLoader: ObservableObject {
     var logoImage: String { get }
-    var environmentViewModel: EnvironmentViewModelProtocol { get }
+    var environmentViewModel: EnvironmentViewModel { get }
     var labelsViewModel: LoginLabelsViewModel { get set }
     var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
     var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
@@ -134,7 +134,7 @@ struct LoginScreen_Previews: PreviewProvider {
     
     private class StubLoginScreenViewModel: LoginScreenLoader {
         var logoImage: String = "biologer_logo_icon"
-        var environmentViewModel: EnvironmentViewModelProtocol = EnvironmentViewModel(title: "Srbija", image: "serbia_flag", url: "www.apple.com", isSelected: false)
+        var environmentViewModel: EnvironmentViewModel = EnvironmentViewModel(title: "Srbija", image: "serbia_flag", url: "www.apple.com", isSelected: false)
         var labelsViewModel: LoginLabelsViewModel = LoginLabelsViewModel()
         var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = UserNameTextFieldViewModel()
         var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = PasswordTextFieldViewModel()

@@ -9,7 +9,7 @@ import UIKit
 
 public protocol AuthorizationViewControllerFactory {
     func makeLoginScreen(service: LoginUserService,
-                         onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModelProtocol>,
+                         onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
                          onLoginTapped: @escaping Observer<Void>,
                          onRegisterTapped: @escaping Observer<Void>,
                          onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController

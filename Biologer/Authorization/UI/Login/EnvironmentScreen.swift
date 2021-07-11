@@ -9,7 +9,7 @@ import SwiftUI
 
 public protocol EnvironmentScreenLoader: ObservableObject {
     var title: String { get }
-    var environmentsViewModel: [EnvironmentViewModel] { get }
+    var environmentsViewModel: [EnvironmentViewModel] { get set }
     func selectedEnvironment(envViewModel: EnvironmentViewModel)
 }
 
@@ -74,6 +74,15 @@ struct EnvironmentScreen_Previews: PreviewProvider {
             ]
         }
         
-        func selectedEnvironment(envViewModel: EnvironmentViewModel) {}
+        func selectedEnvironment(envViewModel: EnvironmentViewModel) {
+            environmentsViewModel.forEach({
+                if $0.id == envViewModel.id {
+                    $0.isSelected = true
+                } else {
+                    $0.isSelected = false
+                }
+            })
+
+        }
     }
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-public final class EnvironmentViewModel: EnvironmentViewModelProtocol, Identifiable {
-    public var title: String
-    public var image: String
-    public var url: String
-    public var isSelected: Bool
+public final class EnvironmentViewModel: EnvironmentViewModelProtocol, Identifiable, ObservableObject {
+    @Published public var title: String
+    @Published public var image: String
+    @Published public var url: String
+    @Published public var isSelected: Bool
     
     init(title: String, image: String, url: String, isSelected: Bool) {
         self.title = title
