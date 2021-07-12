@@ -15,6 +15,7 @@ public final class AuthorizationRouter: NavigationRouter {
     private let registerService: RegisterUserService
     private let forgotPasswordService: ForgotPasswordService
     private let commonViewControllerFactory: CommonViewControllerFactory
+    private let environmentStorage: EnvironmentStorage
     public var onLoginSuccess: Observer<Void>?
     
     init(factory: AuthorizationViewControllerFactory,
@@ -22,13 +23,15 @@ public final class AuthorizationRouter: NavigationRouter {
          navigationController: UINavigationController,
          loginService: LoginUserService,
          registerService: RegisterUserService,
-         forgotPasswordService: ForgotPasswordService) {
+         forgotPasswordService: ForgotPasswordService,
+         environmentStorage: EnvironmentStorage) {
         self.factory = factory
         self.commonViewControllerFactory = commonViewControllerFactory
         self.navigationController = navigationController
         self.loginService = loginService
         self.registerService = registerService
         self.forgotPasswordService = forgotPasswordService
+        self.environmentStorage = environmentStorage
     }
     
     public func start() {
@@ -50,6 +53,7 @@ public final class AuthorizationRouter: NavigationRouter {
         var envDelegate: EnvironmentScreenViewModelProtocol?
         
         let loginViewController = factory.makeLoginScreen(service: loginService,
+                                                          environmentStorage: environmentStorage,
                                                              onSelectEnvironmentTapped: { [weak self] env in
                                                                 self?.showEnvironmentScreen(selectedViewModel: env,
                                                                                             delegate: envDelegate)

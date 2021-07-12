@@ -9,20 +9,28 @@ import UIKit
 import SwiftUI
 
 public final class SwiftUILoginViewControllerFactory: AuthorizationViewControllerFactory {
+    
+    private let envFactory: EnvironmentViewModelFactory
+    
+    init(envFactory: EnvironmentViewModelFactory) {
+        self.envFactory = envFactory
+    }
 
     public func makeLoginScreen(service: LoginUserService,
+                                environmentStorage: EnvironmentStorage,
                                 onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
                                 onLoginSuccess: @escaping Observer<Void>,
-                                   onRegisterTapped: @escaping Observer<Void>,
-                                   onForgotPasswordTapped: @escaping Observer<Void>,
-                                   onLoading: @escaping Observer<Bool>) -> UIViewController {
-        let environmentViewModel = EnvironmentViewModel(id: 1, title: "Serbia", placeholder: "Select Environment", image: "serbia_flag", url: "www.serbia.com", isSelected: true)
+                                onRegisterTapped: @escaping Observer<Void>,
+                                onForgotPasswordTapped: @escaping Observer<Void>,
+                                onLoading: @escaping Observer<Bool>) -> UIViewController {
+        let environmentViewModel = envFactory.createEnvironment(type: .serbia)
         let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
                                                         labelsViewModel: LoginLabelsViewModel(),
                                                         environmentViewModel: environmentViewModel,
                                                         userNameTextFieldViewModel: UserNameTextFieldViewModel(),
                                                         passwordTextFieldViewModel: PasswordTextFieldViewModel(),
                                                         service: service,
+                                                        environmentStorage: environmentStorage,
                                                         onSelectEnvironmentTapped: onSelectEnvironmentTapped,
                                                         onLoginSuccess: onLoginSuccess,
                                                         onRegisterTapped: onRegisterTapped,
@@ -36,11 +44,10 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                       delegate: EnvironmentScreenViewModelProtocol?,
                                       onSelectedEnvironment: @escaping Observer<Void>) -> UIViewController {
         
-        let envViewModel = [
-            EnvironmentViewModel(id: 1, title: "Serbia", placeholder: "Select Environment", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
-            EnvironmentViewModel(id: 2, title: "Croatia", placeholder: "Select Environment", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
-            EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina", placeholder: "Select Environment", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: false),
-            EnvironmentViewModel(id: 4, title: "For Developers", placeholder: "Select Environment", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)]
+        let envViewModel = [envFactory.createEnvironment(type: .serbia),
+                            envFactory.createEnvironment(type: .croatia),
+                            envFactory.createEnvironment(type: .bosniaAndHerzegovina),
+                            envFactory.createEnvironment(type: .develop)]
         
         let viewModel = EnvironmentScreenViewModel(environmentsViewModel: envViewModel,
                                                    selectedViewModel: selectedViewModel,

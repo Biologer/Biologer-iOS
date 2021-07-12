@@ -29,15 +29,18 @@ public final class RemoteLoginUserService: LoginUserService {
     public typealias Result = Swift.Result<LoginUserResponse, Error>
     
     private let client: HTTPClient
+    private let environmentStorage: EnvironmentStorage
     
-    public init(client: HTTPClient) {
+    public init(client: HTTPClient,
+                environmentStorage: EnvironmentStorage) {
         self.client = client
+        self.environmentStorage = environmentStorage
     }
     
     public func loadSearch(email: String,
                            password: String,
                            completion: @escaping (Result) -> Void) {
-        let request = try! LoginUserRequest(email: email, password: password).asURLRequest()
+        let request = try! LoginUserRequest(email: email, password: password, host: environmentStorage.getEnvironment() ?? "").asURLRequest()
         client.perform(from: request) { result in
             switch result {
             case .failure(let error):
@@ -67,11 +70,11 @@ public final class RemoteLoginUserService: LoginUserService {
         
         var headers: HTTPHeaders?
         
-        init(email: String, password: String) {
+        init(email: String, password: String, host: String) {
             var headers = HTTPHeaders()
             headers.add(name: HTTPHeaderName.contentType, value: "application/json; charset=utf-8")
             self.headers = headers
-            
+            self.host = host
             let requestBody = LoginRequestModel(username: email, password: password)
             let json = try! JSONEncoder().encode(requestBody)
             body = json

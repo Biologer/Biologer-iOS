@@ -8,6 +8,8 @@ target 'Biologer' do
   # Pods for Biologer
 
   pod 'MaterialComponents/TextControls+OutlinedTextFields'
+  pod 'SwiftKeychainWrapper'
+  
   target 'BiologerTests' do
     inherit! :search_paths
     # Pods for testing

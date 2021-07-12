@@ -75,6 +75,8 @@
 		93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */; };
 		93CC6591269C55EC00949534 /* BlokingProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */; };
 		93CC6593269C564F00949534 /* CircularProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6592269C564F00949534 /* CircularProgressViewController.swift */; };
+		93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6594269C61E900949534 /* EnvironmentStorage.swift */; };
+		93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */; };
 		93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */; };
 		93DF14092692069600A7A977 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14082692069600A7A977 /* User.swift */; };
 		93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */; };
@@ -194,6 +196,8 @@
 		93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokingProgressViewController.swift; sourceTree = "<group>"; };
 		93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlokingProgressViewController.xib; sourceTree = "<group>"; };
 		93CC6592269C564F00949534 /* CircularProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressViewController.swift; sourceTree = "<group>"; };
+		93CC6594269C61E900949534 /* EnvironmentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentStorage.swift; sourceTree = "<group>"; };
+		93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainEnvironmentStorage.swift; sourceTree = "<group>"; };
 		93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepOneScreenViewModel.swift; sourceTree = "<group>"; };
 		93DF14082692069600A7A977 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreenViewModel.swift; sourceTree = "<group>"; };
@@ -315,6 +319,7 @@
 		931426E2262B53AD00542EFC /* Biologer */ = {
 			isa = PBXGroup;
 			children = (
+				93CC6596269C622E00949534 /* Storage */,
 				93DF14152692223F00A7A977 /* Network */,
 				93334EA72677DC2D0094A483 /* Dashboard */,
 				93142716262B57C300542EFC /* Authorization */,
@@ -586,6 +591,15 @@
 				93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */,
 			);
 			path = ViewControllerFactory;
+			sourceTree = "<group>";
+		};
+		93CC6596269C622E00949534 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				93CC6594269C61E900949534 /* EnvironmentStorage.swift */,
+				93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		93DF14052692061200A7A977 /* Screens */ = {
@@ -904,6 +918,7 @@
 				93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
 				93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */,
+				93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
 				93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */,
 				93CC658D269C552C00949534 /* CommonViewControllerFactory.swift in Sources */,
@@ -935,6 +950,7 @@
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */,
 				93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */,
+				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
 				93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */,
 				93334EB72677E4E40094A483 /* NoItemsView.swift in Sources */,
 			);

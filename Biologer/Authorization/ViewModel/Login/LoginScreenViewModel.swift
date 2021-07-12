@@ -21,6 +21,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
     private let onLoading: Observer<Bool>
+    private let environmentStorage: EnvironmentStorage
     private let email: String = ""
     private let password: String = ""
     
@@ -30,6 +31,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
          userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          service: LoginUserService,
+         environmentStorage: EnvironmentStorage,
          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
          onLoginSuccess: @escaping Observer<Void>,
          onRegisterTapped: @escaping Observer<Void>,
@@ -47,6 +49,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         self.onRegisterTapped = onRegisterTapped
         self.onForgotPasswordTapped = onForgotPasswordTapped
         self.onLoading = onLoading
+        self.environmentStorage = environmentStorage
     }
     
     public func selectEnvironment() {
@@ -84,6 +87,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         }
         
         setPasswordValid()
+        environmentStorage.saveEnvironment(env: environmentViewModel.url)
         
         onLoading((true))
         service.loadSearch(email: email,

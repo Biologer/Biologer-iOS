@@ -28,13 +28,16 @@ public final class RemoteRegisterUserService: RegisterUserService {
     public typealias Result = Swift.Result<RegisterUserResponse, Error>
     
     private let client: HTTPClient
+    private let environmentStorage: EnvironmentStorage
     
-    public init(client: HTTPClient) {
+    public init(client: HTTPClient,
+                environmentStorage: EnvironmentStorage) {
         self.client = client
+        self.environmentStorage = environmentStorage
     }
     
     public func loadSearch(user: User, completion: @escaping (Result) -> Void) {
-        let request = try! CreateUserRequest(user: user).asURLRequest()
+        let request = try! CreateUserRequest(user: user, host: environmentStorage.getEnvironment() ?? "").asURLRequest()
         client.perform(from: request) { result in
             switch result {
             case .failure(let error):
@@ -64,11 +67,11 @@ public final class RemoteRegisterUserService: RegisterUserService {
         
         var headers: HTTPHeaders?
         
-        init(user: User) {
+        init(user: User, host: String) {
             var headers = HTTPHeaders()
             headers.add(name: HTTPHeaderName.contentType, value: "application/json; charset=utf-8")
             self.headers = headers
-            
+            self.host = host
             let requestBody = RemoteRegisterRequestModel(first_name: user.username,
                                                          last_name: user.lastname,
                                                          data_license: user.dataLicense.id,
