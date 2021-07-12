@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-public protocol EnvironmentScreenLoader: ObservableObject {
-    var title: String { get }
-    var environmentsViewModel: [EnvironmentViewModel] { get set }
-    func selectedEnvironment(envViewModel: EnvironmentViewModel)
-}
+//public protocol EnvironmentScreenLoader: ObservableObject {
+//    var title: String { get }
+//    var environmentsViewModel: [EnvironmentViewModel] { get set }
+//    func selectedEnvironment(envViewModel: EnvironmentViewModel)
+//}
 
-struct EnvironmentScreen<ScreenLoader>: View where ScreenLoader: EnvironmentScreenLoader {
+struct EnvironmentScreen: View  {
     
-    @ObservedObject var loader: ScreenLoader
+    @ObservedObject var loader: EnvironmentScreenViewModel
     
     var body: some View {
         
@@ -58,31 +58,32 @@ struct EnvironmentScreen<ScreenLoader>: View where ScreenLoader: EnvironmentScre
 
 struct EnvironmentScreen_Previews: PreviewProvider {
     static var previews: some View {
-        EnvironmentScreen(loader: StubEnvironmentScreenViewModel())
+//        EnvironmentScreen(loader: EnvironmentScreenViewModel()
+        Text("")
     }
     
-    private class StubEnvironmentScreenViewModel: EnvironmentScreenLoader {
-        let title: String = "Select desired environment"
-        var environmentsViewModel: [EnvironmentViewModel]
-        
-        init() {
-            self.environmentsViewModel = [
-                EnvironmentViewModel(title: "Serbia", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
-                EnvironmentViewModel(title: "Croatia", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
-                EnvironmentViewModel(title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: true),
-                EnvironmentViewModel(title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)
-            ]
-        }
-        
-        func selectedEnvironment(envViewModel: EnvironmentViewModel) {
-            environmentsViewModel.forEach({
-                if $0.id == envViewModel.id {
-                    $0.isSelected = true
-                } else {
-                    $0.isSelected = false
-                }
-            })
-
-        }
-    }
+//    private class StubEnvironmentScreenViewModel: EnvironmentScreenLoader {
+//        let title: String = "Select desired environment"
+//        var environmentsViewModel: [EnvironmentViewModel]
+//
+//        init() {
+//            self.environmentsViewModel = [
+//                EnvironmentViewModel(title: "Serbia", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
+//                EnvironmentViewModel(title: "Croatia", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
+//                EnvironmentViewModel(title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: true),
+//                EnvironmentViewModel(title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)
+//            ]
+//        }
+//
+//        func selectedEnvironment(envViewModel: EnvironmentViewModel) {
+//            environmentsViewModel.forEach({
+//                if $0.id == envViewModel.id {
+//                    $0.isSelected = true
+//                } else {
+//                    $0.isSelected = false
+//                }
+//            })
+//
+//        }
+//    }
 }

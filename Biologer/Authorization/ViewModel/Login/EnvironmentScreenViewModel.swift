@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Combine
 
 public protocol EnvironmentScreenViewModelProtocol {
     func getEnvironment(environmentViewModel: EnvironmentViewModel)
 }
 
-public final class EnvironmentScreenViewModel: EnvironmentScreenLoader, ObservableObject {
+public final class EnvironmentScreenViewModel: ObservableObject {
     public let title: String = "SELECT ENVIRONMENT"
     @Published public var environmentsViewModel: [EnvironmentViewModel]
     
@@ -32,30 +33,17 @@ public final class EnvironmentScreenViewModel: EnvironmentScreenLoader, Observab
     public func selectedEnvironment(envViewModel: EnvironmentViewModel) {
         updateSelectedViewModel(envViewModel: envViewModel)
         delegate?.getEnvironment(environmentViewModel: envViewModel)
-//        onSelectedEnvironment(())
+        onSelectedEnvironment(())
     }
     
     public func updateSelectedViewModel(envViewModel: EnvironmentViewModel) {
-        
-//        environmentsViewModel = [
-//            EnvironmentViewModel(title: "Serbia", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
-//            EnvironmentViewModel(title: "Croatia", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
-//            EnvironmentViewModel(title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: false),
-//            EnvironmentViewModel(title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)
-//        ]
-//
-//        for (index, env) in environmentsViewModel.enumerated() {
-//            if env.id == envViewModel.id {
-//                environmentsViewModel[index] = EnvironmentViewModel(title: env.title, image: env.image, url: env.url, isSelected: env.isSelected)
-//            }
-//        }
 
-        environmentsViewModel.forEach({
-            if $0.id == envViewModel.id {
-                $0.isSelected = true
+        for (index, env) in environmentsViewModel.enumerated() {
+            if env.id == envViewModel.id {
+                environmentsViewModel[index].changeIsSelected(value: true)
             } else {
-                $0.isSelected = false
+                environmentsViewModel[index].changeIsSelected(value: false)
             }
-        })
+        }
     }
 }

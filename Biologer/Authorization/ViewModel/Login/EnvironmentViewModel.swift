@@ -7,16 +7,22 @@
 
 import Foundation
 
-public final class EnvironmentViewModel: EnvironmentViewModelProtocol, Identifiable, ObservableObject {
-    @Published public var title: String
-    @Published public var image: String
-    @Published public var url: String
-    @Published public var isSelected: Bool
+public struct EnvironmentViewModel: EnvironmentViewModelProtocol, Identifiable {
+     public var id: Int
+     public var title: String
+     public var image: String
+     public var url: String
+     public var isSelected: Bool
     
-    init(title: String, image: String, url: String, isSelected: Bool) {
+    init(id: Int, title: String, image: String, url: String, isSelected: Bool) {
+        self.id = id
         self.title = title
         self.image = image
         self.url = url
         self.isSelected = isSelected
+    }
+    
+    public mutating func changeIsSelected(value: Bool ) {
+        isSelected = value
     }
 }
