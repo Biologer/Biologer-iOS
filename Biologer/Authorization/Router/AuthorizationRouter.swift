@@ -38,8 +38,8 @@ public final class AuthorizationRouter: NavigationRouter {
         
         let loginViewController = factory.makeLoginScreen(service: loginService,
                                                              onSelectEnvironmentTapped: { [weak self] env in
-                                                                self?.showEnvironmentScreen(selectedViewModel: env as! EnvironmentViewModel,
-                                                                    delegate: envDelegate)
+                                                                self?.showEnvironmentScreen(selectedViewModel: env,
+                                                                                            delegate: envDelegate)
                                                              },
                                                              onLoginTapped: { [weak self]  _ in
                                                                 self?.onLoginTapped?(())
@@ -65,7 +65,7 @@ public final class AuthorizationRouter: NavigationRouter {
                                                        })
         
         enviViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
-        enviViewController.setBiologerTitle(text: "CHOOSE ENVIRONMENT")
+        enviViewController.setBiologerTitle(text: "SELECT ENVIRONMENT")
         self.navigationController.pushViewController(enviViewController, animated: true)
     }
     

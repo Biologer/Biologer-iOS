@@ -15,7 +15,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                    onLoginTapped: @escaping Observer<Void>,
                                    onRegisterTapped: @escaping Observer<Void>,
                                    onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController {
-        let environmentViewModel = EnvironmentViewModel(id: 1, title: "Srbija", image: "hammer_icon", url: "www.apple.com", isSelected: true)
+        let environmentViewModel = EnvironmentViewModel(id: 1, title: "Serbia", placeholder: "Select Environment", image: "serbia_flag", url: "www.serbia.com", isSelected: true)
         let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
                                                         labelsViewModel: LoginLabelsViewModel(),
                                                         environmentViewModel: environmentViewModel,
@@ -35,10 +35,10 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                       onSelectedEnvironment: @escaping Observer<Void>) -> UIViewController {
         
         let envViewModel = [
-            EnvironmentViewModel(id: 1, title: "Serbia", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
-            EnvironmentViewModel(id: 2, title: "Croatia", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
-            EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: false),
-            EnvironmentViewModel(id: 4, title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)]
+            EnvironmentViewModel(id: 1, title: "Serbia", placeholder: "Select Environment", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
+            EnvironmentViewModel(id: 2, title: "Croatia", placeholder: "Select Environment", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
+            EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina", placeholder: "Select Environment", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: false),
+            EnvironmentViewModel(id: 4, title: "For Developers", placeholder: "Select Environment", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)]
         
         let viewModel = EnvironmentScreenViewModel(environmentsViewModel: envViewModel,
                                                    selectedViewModel: selectedViewModel,

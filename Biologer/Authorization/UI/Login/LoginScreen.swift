@@ -75,11 +75,11 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                     .resizable()
                     .frame(height: 130)
                     .padding(.bottom, 30)
-                EnvironmentLoginView(environmentViewModel: viewModel.environmentViewModel, envImage: "env_icon")
-                    .padding(.bottom, 20)
-                    .onTapGesture {
-                        viewModel.selectEnvironment()
-                    }
+//                EnvironmentLoginView(environmentViewModel: viewModel.environmentViewModel, envImage: "env_icon")
+//                    .padding(.bottom, 20)
+//                    .onTapGesture {
+//                        viewModel.selectEnvironment()
+//                    }
                 MaterialDesignTextField(viewModel: viewModel.userNameTextFieldViewModel,
                                         onTextChanged: { text in
                                             viewModel.userNameTextFieldViewModel.text = text
@@ -95,6 +95,13 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                                             viewModel.toggleIsCodeEntryPassword()
                                         })
                     .padding(.bottom, 20)
+                
+                LoginEnvView(viewModel: viewModel.environmentViewModel,
+                             onEnvTapped: { env in
+                                viewModel.selectEnvironment()
+                             })
+                    .padding(.bottom, 20)
+                
                 
                 LoginButton(title: viewModel.labelsViewModel.loginButtonTitle,
                             onTapped: { _ in
@@ -134,7 +141,7 @@ struct LoginScreen_Previews: PreviewProvider {
     
     private class StubLoginScreenViewModel: LoginScreenLoader {
         var logoImage: String = "biologer_logo_icon"
-        var environmentViewModel: EnvironmentViewModel = EnvironmentViewModel(id: 1, title: "Srbija", image: "serbia_flag", url: "www.apple.com", isSelected: false)
+        var environmentViewModel: EnvironmentViewModel = EnvironmentViewModel(id: 1, title: "Srbija", placeholder: "Select Environment", image: "serbia_flag", url: "www.apple.com", isSelected: false)
         var labelsViewModel: LoginLabelsViewModel = LoginLabelsViewModel()
         var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = UserNameTextFieldViewModel()
         var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = PasswordTextFieldViewModel()
