@@ -71,6 +71,10 @@
 		93CC65872699941A00949534 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65862699941900949534 /* View+Extensions.swift */; };
 		93CC6589269C2C5F00949534 /* LoginEnvView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6588269C2C5E00949534 /* LoginEnvView.swift */; };
 		93CC658B269C401300949534 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC658A269C401300949534 /* APIRequest.swift */; };
+		93CC658D269C552C00949534 /* CommonViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC658C269C552C00949534 /* CommonViewControllerFactory.swift */; };
+		93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */; };
+		93CC6591269C55EC00949534 /* BlokingProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */; };
+		93CC6593269C564F00949534 /* CircularProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6592269C564F00949534 /* CircularProgressViewController.swift */; };
 		93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */; };
 		93DF14092692069600A7A977 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14082692069600A7A977 /* User.swift */; };
 		93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */; };
@@ -186,6 +190,10 @@
 		93CC65862699941900949534 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		93CC6588269C2C5E00949534 /* LoginEnvView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEnvView.swift; sourceTree = "<group>"; };
 		93CC658A269C401300949534 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		93CC658C269C552C00949534 /* CommonViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewControllerFactory.swift; sourceTree = "<group>"; };
+		93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokingProgressViewController.swift; sourceTree = "<group>"; };
+		93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlokingProgressViewController.xib; sourceTree = "<group>"; };
+		93CC6592269C564F00949534 /* CircularProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressViewController.swift; sourceTree = "<group>"; };
 		93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepOneScreenViewModel.swift; sourceTree = "<group>"; };
 		93DF14082692069600A7A977 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreenViewModel.swift; sourceTree = "<group>"; };
@@ -400,6 +408,10 @@
 				931426E9262B53B000542EFC /* Assets.xcassets */,
 				93142733262B5C6600542EFC /* ViewHelper.swift */,
 				93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */,
+				93CC658C269C552C00949534 /* CommonViewControllerFactory.swift */,
+				93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */,
+				93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */,
+				93CC6592269C564F00949534 /* CircularProgressViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -719,6 +731,7 @@
 				931426F0262B53B000542EFC /* LaunchScreen.storyboard in Resources */,
 				9314273C262B684B00542EFC /* Color.xcassets in Resources */,
 				931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */,
+				93CC6591269C55EC00949534 /* BlokingProgressViewController.xib in Resources */,
 				931426EA262B53B000542EFC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -857,6 +870,7 @@
 				93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */,
 				9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */,
 				936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */,
+				93CC6593269C564F00949534 /* CircularProgressViewController.swift in Sources */,
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
 				93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */,
 				93334EB52677E17B0094A483 /* Item.swift in Sources */,
@@ -891,6 +905,8 @@
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
 				93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
+				93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */,
+				93CC658D269C552C00949534 /* CommonViewControllerFactory.swift in Sources */,
 				93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */,
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,

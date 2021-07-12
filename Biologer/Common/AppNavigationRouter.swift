@@ -33,11 +33,16 @@ public final class AppNavigationRouter: NavigationRouter {
         let forgotPasswordService = RemoteForgotPasswordService(client: httpClient)
         
         return AuthorizationRouter(factory: SwiftUILoginViewControllerFactory(),
+                                   commonViewControllerFactory: commonViewControllerFactory,
                                    navigationController: mainNavigationController,
                                    loginService: loginService,
                                    registerService: registerService,
                                    forgotPasswordService: forgotPasswordService)
     }()
+    
+    private lazy var commonViewControllerFactory: CommonViewControllerFactory = {
+        return IOSUIKitCommonViewControllerFactory()
+    } ()
     
     private lazy var dashboardRouter: DashboardRouter = {
         return DashboardRouter(navigationController: dashboardNavigationController,
@@ -51,7 +56,7 @@ public final class AppNavigationRouter: NavigationRouter {
     
     public func start() {
         authorizationRouter.start()
-        authorizationRouter.onLoginTapped = { _ in
+        authorizationRouter.onLoginSuccess = { _ in
             self.dashboardRouter.start()
             UINavigationBar.appearance().barTintColor = .biologerGreenColor
             self.dashboardNavigationController.modalPresentationStyle = .overFullScreen

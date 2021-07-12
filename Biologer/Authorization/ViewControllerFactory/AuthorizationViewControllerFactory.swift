@@ -10,9 +10,10 @@ import UIKit
 public protocol AuthorizationViewControllerFactory {
     func makeLoginScreen(service: LoginUserService,
                          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
-                         onLoginTapped: @escaping Observer<Void>,
+                         onLoginSuccess: @escaping Observer<Void>,
                          onRegisterTapped: @escaping Observer<Void>,
-                         onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController
+                         onForgotPasswordTapped: @escaping Observer<Void>,
+                         onLoading: @escaping Observer<Bool>) -> UIViewController
     func makeEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
                                delegate: EnvironmentScreenViewModelProtocol?,
                                onSelectedEnvironment: @escaping Observer<Void>) -> UIViewController
@@ -28,7 +29,8 @@ public protocol AuthorizationViewControllerFactory {
                                      onDataLicense: @escaping Observer<DataLicense>,
                                      onImageLicense: @escaping Observer<DataLicense>,
                                      onSuccess: @escaping Observer<Void>,
-                                     onError: @escaping Observer<Void>) -> UIViewController
+                                     onError: @escaping Observer<Void>,
+                                     onLoading: @escaping Observer<Bool>) -> UIViewController
     func makeLicenseScreen(dataLicenses: [DataLicense],
                            selectedDataLicense: DataLicense,
                            delegate: DataLicenseScreenDelegate?,

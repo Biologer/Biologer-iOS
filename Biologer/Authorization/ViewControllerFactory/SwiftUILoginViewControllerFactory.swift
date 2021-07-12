@@ -12,9 +12,10 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
 
     public func makeLoginScreen(service: LoginUserService,
                                 onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
-                                   onLoginTapped: @escaping Observer<Void>,
+                                onLoginSuccess: @escaping Observer<Void>,
                                    onRegisterTapped: @escaping Observer<Void>,
-                                   onForgotPasswordTapped: @escaping Observer<Void>) -> UIViewController {
+                                   onForgotPasswordTapped: @escaping Observer<Void>,
+                                   onLoading: @escaping Observer<Bool>) -> UIViewController {
         let environmentViewModel = EnvironmentViewModel(id: 1, title: "Serbia", placeholder: "Select Environment", image: "serbia_flag", url: "www.serbia.com", isSelected: true)
         let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
                                                         labelsViewModel: LoginLabelsViewModel(),
@@ -23,9 +24,10 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                                         passwordTextFieldViewModel: PasswordTextFieldViewModel(),
                                                         service: service,
                                                         onSelectEnvironmentTapped: onSelectEnvironmentTapped,
-                                                        onLoginTapped: onLoginTapped,
+                                                        onLoginSuccess: onLoginSuccess,
                                                         onRegisterTapped: onRegisterTapped,
-                                                        onForgotPasswordTapped: onForgotPasswordTapped)
+                                                        onForgotPasswordTapped: onForgotPasswordTapped,
+                                                        onLoading: onLoading)
         let loginScreen = LoginScreen(viewModel: loginScreenViewModel)
         return UIHostingController(rootView: loginScreen)
     }
@@ -77,7 +79,8 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                             onDataLicense: @escaping Observer<DataLicense>,
                                             onImageLicense: @escaping Observer<DataLicense>,
                                             onSuccess: @escaping Observer<Void>,
-                                            onError: @escaping Observer<Void>) -> UIViewController {
+                                            onError: @escaping Observer<Void>,
+                                            onLoading: @escaping Observer<Bool>) -> UIViewController {
         
         let viewModel = RegisterStepThreeScreenViewModel(user: user,
                                                          service: service,
@@ -87,7 +90,8 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                                          onDataLicense: onDataLicense,
                                                          onImageLicense: onImageLicense,
                                                          onSuccess: onSuccess,
-                                                         onError: onError)
+                                                         onError: onError,
+                                                         onLoading: onLoading)
         let screen = RegisterStepThreeScreen(loader: viewModel)
         let viewController = UIHostingController(rootView: screen)
         return viewController

@@ -17,9 +17,12 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     
     private let service: LoginUserService
     private let onSelectEnvironmentTapped: Observer<EnvironmentViewModel>
-    private let onLoginTapped: Observer<Void>
+    private let onLoginSuccess: Observer<Void>
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
+    private let onLoading: Observer<Bool>
+    private let email: String = ""
+    private let password: String = ""
     
     init(logoImage: String,
          labelsViewModel: LoginLabelsViewModel,
@@ -28,9 +31,10 @@ public final class LoginScreenViewModel: LoginScreenLoader {
          passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          service: LoginUserService,
          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
-         onLoginTapped: @escaping Observer<Void>,
+         onLoginSuccess: @escaping Observer<Void>,
          onRegisterTapped: @escaping Observer<Void>,
-         onForgotPasswordTapped: @escaping Observer<Void>
+         onForgotPasswordTapped: @escaping Observer<Void>,
+         onLoading: @escaping Observer<Bool>
          ) {
         self.logoImage = logoImage
         self.labelsViewModel = labelsViewModel
@@ -39,9 +43,10 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         self.passwordTextFieldViewModel = passwordTextFieldViewModel
         self.onSelectEnvironmentTapped = onSelectEnvironmentTapped
         self.service = service
-        self.onLoginTapped = onLoginTapped
+        self.onLoginSuccess = onLoginSuccess
         self.onRegisterTapped = onRegisterTapped
         self.onForgotPasswordTapped = onForgotPasswordTapped
+        self.onLoading = onLoading
     }
     
     public func selectEnvironment() {
@@ -79,7 +84,20 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         }
         
         setPasswordValid()
-        onLoginTapped(())
+        
+        onLoading((true))
+        service.loadSearch(email: email,
+                           password: password) { [weak self] result in
+            self?.onLoading((false))
+            switch result {
+            case .success(let response):
+                print("Response login: \(response)")
+            case .failure(let error):
+                print("Error login: \(error.localizedDescription)")
+            }
+        }
+        
+        onLoginSuccess(())
     }
     
     private func isEmailValid(email: String) -> Bool {

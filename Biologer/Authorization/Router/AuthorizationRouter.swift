@@ -14,14 +14,17 @@ public final class AuthorizationRouter: NavigationRouter {
     private let loginService: LoginUserService
     private let registerService: RegisterUserService
     private let forgotPasswordService: ForgotPasswordService
-    public var onLoginTapped: Observer<Void>?
+    private let commonViewControllerFactory: CommonViewControllerFactory
+    public var onLoginSuccess: Observer<Void>?
     
     init(factory: AuthorizationViewControllerFactory,
+         commonViewControllerFactory: CommonViewControllerFactory,
          navigationController: UINavigationController,
          loginService: LoginUserService,
          registerService: RegisterUserService,
          forgotPasswordService: ForgotPasswordService) {
         self.factory = factory
+        self.commonViewControllerFactory = commonViewControllerFactory
         self.navigationController = navigationController
         self.loginService = loginService
         self.registerService = registerService
@@ -30,6 +33,16 @@ public final class AuthorizationRouter: NavigationRouter {
     
     public func start() {
         showLoginScreen()
+    }
+    
+    lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
+        guard let self = self else { return }
+        if isLoading {
+            let loader  = self.commonViewControllerFactory.createBlockingProgress()
+            self.navigationController.present(loader, animated: false, completion: nil)
+        } else {
+            self.navigationController.dismiss(animated: false, completion: nil)
+        }
     }
     
     private func showLoginScreen() {
@@ -41,12 +54,13 @@ public final class AuthorizationRouter: NavigationRouter {
                                                                 self?.showEnvironmentScreen(selectedViewModel: env,
                                                                                             delegate: envDelegate)
                                                              },
-                                                             onLoginTapped: { [weak self]  _ in
-                                                                self?.onLoginTapped?(())
+                                                             onLoginSuccess: { [weak self]  _ in
+                                                                self?.onLoginSuccess?(())
                                                              },
                                                              onRegisterTapped: { [weak self] _ in                                              self?.showRegisterStepOneScreen()
                                                              },
-                                                             onForgotPasswordTapped: { _ in })
+                                                             onForgotPasswordTapped: { _ in },
+                                                             onLoading: onLoading)
         
         let viewController = loginViewController as? UIHostingController<LoginScreen<LoginScreenViewModel>>
         envDelegate = viewController?.rootView.viewModel
@@ -154,7 +168,8 @@ public final class AuthorizationRouter: NavigationRouter {
                                                                                                     presentDatePicker: dataLicenseDelegate)
                                                                           },
                                                                           onSuccess: { _ in },
-                                                                          onError: { _ in })
+                                                                          onError: { _ in },
+                                                                          onLoading: onLoading)
         
         let viewController = stepThirdViewController as? UIHostingController<RegisterStepThreeScreen<RegisterStepThreeScreenViewModel>>
         dataLicenseDelegate = viewController?.rootView.loader

@@ -22,6 +22,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     
     private let onSuccess: Observer<Void>
     private let onError: Observer<Void>
+    private let onLoading: Observer<Bool>
     private let user: User
     private let service: RegisterUserService
     
@@ -33,7 +34,8 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
          onDataLicense: @escaping Observer<DataLicense>,
          onImageLicense: @escaping Observer<DataLicense>,
          onSuccess: @escaping Observer<Void>,
-         onError: @escaping Observer<Void>) {
+         onError: @escaping Observer<Void>,
+         onLoading: @escaping Observer<Bool>) {
         self.user = user
         self.service = service
         self.dataLicense = dataLicense
@@ -43,6 +45,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
         self.onImageLicense = onImageLicense
         self.onSuccess = onSuccess
         self.onError = onError
+        self.onLoading = onLoading
     }
     
     public func registerTapped() {
@@ -66,7 +69,9 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
         user.imageLicense = imageLicense
         errorLabel = ""
         
+        onLoading((true))
         service.loadSearch(user: user) { [weak self] result in
+            self?.onLoading((false))
             switch result {
             case .success(let response):
                 print("Response: \(response)")

@@ -9,7 +9,7 @@ import Foundation
 
 public protocol LoginUserService {
     typealias Result = Swift.Result<LoginUserResponse, Error>
-    func loadSearch(onCompletion: @escaping (Result) -> Void)
+    func loadSearch(email: String, password: String, onCompletion: @escaping (Result) -> Void)
 }
 
 public final class RemoteLoginUserService: LoginUserService {
@@ -22,7 +22,9 @@ public final class RemoteLoginUserService: LoginUserService {
         self.client = client
     }
     
-    public func loadSearch(onCompletion: @escaping (Result) -> Void) {
+    public func loadSearch(email: String,
+                           password: String,
+                           onCompletion: @escaping (Result) -> Void) {
         
     }
 }
