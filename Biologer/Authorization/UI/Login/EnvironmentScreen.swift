@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-//public protocol EnvironmentScreenLoader: ObservableObject {
-//    var title: String { get }
-//    var environmentsViewModel: [EnvironmentViewModel] { get set }
-//    func selectedEnvironment(envViewModel: EnvironmentViewModel)
-//}
-
 struct EnvironmentScreen: View  {
     
     @ObservedObject var loader: EnvironmentScreenViewModel
@@ -58,32 +52,17 @@ struct EnvironmentScreen: View  {
 
 struct EnvironmentScreen_Previews: PreviewProvider {
     static var previews: some View {
-//        EnvironmentScreen(loader: EnvironmentScreenViewModel()
-        Text("")
+        
+        let envViewModels = [
+            EnvironmentViewModel(id: 1, title: "Serbia", placeholder: "", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
+            EnvironmentViewModel(id: 2, title: "Croatia", placeholder: "", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
+            EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina", placeholder: "", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: true),
+            EnvironmentViewModel(id: 4, title: "For Developers", placeholder: "", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)
+        ]
+        
+        let selectedEnv = EnvironmentViewModel(id: 1, title: "Serbia", placeholder: "", image: "serbia_flag", url: "www.serbia.com", isSelected: true)
+        
+        EnvironmentScreen(loader: EnvironmentScreenViewModel(environmentsViewModel: envViewModels, selectedViewModel: selectedEnv, onSelectedEnvironment: { _ in}))
+
     }
-    
-//    private class StubEnvironmentScreenViewModel: EnvironmentScreenLoader {
-//        let title: String = "Select desired environment"
-//        var environmentsViewModel: [EnvironmentViewModel]
-//
-//        init() {
-//            self.environmentsViewModel = [
-//                EnvironmentViewModel(title: "Serbia", image: "serbia_flag", url: "www.serbia.com", isSelected: false),
-//                EnvironmentViewModel(title: "Croatia", image: "croatia_flag", url: "www.croatia.com", isSelected: false),
-//                EnvironmentViewModel(title: "Bosnia and Herzegovina", image: "bosnia_flag_icon", url: "www.bosniaandherzegovina.com", isSelected: true),
-//                EnvironmentViewModel(title: "For Developers", image: "hammer_icon", url: "www.bosniaandherzegovina.com", isSelected: false)
-//            ]
-//        }
-//
-//        func selectedEnvironment(envViewModel: EnvironmentViewModel) {
-//            environmentsViewModel.forEach({
-//                if $0.id == envViewModel.id {
-//                    $0.isSelected = true
-//                } else {
-//                    $0.isSelected = false
-//                }
-//            })
-//
-//        }
-//    }
 }
