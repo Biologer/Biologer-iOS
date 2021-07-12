@@ -69,9 +69,9 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
 extension RegisterStepThreeScreenViewModel: DataLicenseScreenDelegate {
     public func get(license: DataLicense) {
         if license.licenseType == .data {
-            dataLicense = DataLicense(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .data)
+            dataLicense = DataLicense(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .data, isSelected: license.isSelected)
         } else {
-            imageLicense = DataLicense(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .image)
+            imageLicense = DataLicense(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .image, isSelected: license.isSelected)
         }
     }
 }

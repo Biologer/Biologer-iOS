@@ -94,40 +94,40 @@ public final class AuthorizationRouter: NavigationRouter {
         let dataLicenses = [DataLicense(id: 10,
                                         title: "Free (CC BY-SA)",
                                         placeholder: "Data License",
-                                        licenseType: .data),
+                                        licenseType: .data, isSelected: true),
                             DataLicense(id: 20,
                                         title: "Free, NonCommercial (CC BY-SA-NC)",
                                         placeholder: "Data License",
-                                        licenseType: .data),
+                                        licenseType: .data, isSelected: false),
                             DataLicense(id: 30,
                                         title: "Partially Open (restricted to 10km)",
                                         placeholder: "Data License",
-                                        licenseType: .data),
+                                        licenseType: .data, isSelected: false),
                             DataLicense(id: 11,
                                         title: "Temporary closed (publish as free after 3 years)",
                                         placeholder: "Data License",
-                                        licenseType: .data),
+                                        licenseType: .data, isSelected: false),
                             DataLicense(id: 40,
                                         title: "Closed (available to you and the editors)",
                                         placeholder: "Data License",
-                                        licenseType: .data)]
+                                        licenseType: .data, isSelected: false)]
         
         let imageLicenses = [DataLicense(id: 10,
                                         title: "Share images for free (CC-BY-SA)",
                                         placeholder: "Image License",
-                                        licenseType: .image),
+                                        licenseType: .image, isSelected: true),
                             DataLicense(id: 20,
                                         title: "Share images as noncommercial (CC-BY-SA-NC)",
                                         placeholder: "Image License",
-                                        licenseType: .image),
+                                        licenseType: .image, isSelected: false),
                             DataLicense(id: 30,
                                         title: "Keep authorship and share online with watermark",
                                         placeholder: "Image License",
-                                        licenseType: .image),
+                                        licenseType: .image, isSelected: false),
                             DataLicense(id: 40,
                                         title: "Keep authorship and restrict images from public domain",
                                         placeholder: "Image License",
-                                        licenseType: .image)]
+                                        licenseType: .image, isSelected: false)]
         
         let dataLicense = dataLicenses[0]
         let imageLicense = imageLicenses[0]
@@ -143,11 +143,13 @@ public final class AuthorizationRouter: NavigationRouter {
                                                                           },
                                                                           onDataLicense: { [weak self] dataLicense in
                                                                             self?.showLicenseScreen(isDataLicense: true,
+                                                                                                    selectedDataLicense: dataLicense,
                                                                                                     dataLicenses: dataLicenses,
                                                                                                     presentDatePicker: dataLicenseDelegate)
                                                                           },
                                                                           onImageLicense: { [weak self] imageLicense in
                                                                             self?.showLicenseScreen(isDataLicense: false,
+                                                                                                    selectedDataLicense: imageLicense,
                                                                                                     dataLicenses: imageLicenses,
                                                                                                     presentDatePicker: dataLicenseDelegate)
                                                                           },
@@ -163,10 +165,12 @@ public final class AuthorizationRouter: NavigationRouter {
     }
     
     private func showLicenseScreen(isDataLicense: Bool,
+                                   selectedDataLicense: DataLicense,
                                    dataLicenses: [DataLicense],
                                    presentDatePicker: DataLicenseScreenDelegate?) {
         
         let dataLicenseViewController = factory.makeLicenseScreen(dataLicenses: dataLicenses,
+                                                                  selectedDataLicense: selectedDataLicense,
                                                                   delegate: presentDatePicker) { [weak self] dataLicenses in
             self?.navigationController.popViewController(animated: true)
         }

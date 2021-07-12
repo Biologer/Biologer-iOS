@@ -20,14 +20,28 @@ struct DataLicenseScreen<ScreenLoader>: View where ScreenLoader: DataLicenseScre
         ScrollView {
             VStack {
                 ForEach(loader.dataLicenses, id: \.id) { license in
-                    Button(action: {
-                        loader.licenseTapped(license: license)
-                    }, label: {
-                        Text(license.title)
-                            .foregroundColor(Color.black)
-                            .multilineTextAlignment(.leading)
-                    })
-                    .padding()
+                    HStack {
+                        Button(action: {
+                            loader.licenseTapped(license: license)
+                        }, label: {
+                            Text(license.title)
+                                .foregroundColor(Color.black)
+                                .multilineTextAlignment(.leading)
+                        })
+                        .padding()
+                        Spacer()
+                        Button(action: {
+                            loader.licenseTapped(license: license)
+                        }, label: {
+                            Image("check_mark")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .isHidden(!license.isSelected)
+                            
+                        })
+                        .padding()
+                    }
                     Divider()
                 }
             }
@@ -43,13 +57,13 @@ struct DataLicenseScreen_Previews: PreviewProvider {
     private class StubDataLicenseScreenViewModel: DataLicenseScreenLoader {
         var dataLicenses: [DataLicense] = [DataLicense(id: 1,
                                                        title: "Free (CC BY-SA)",
-                                                       placeholder: "", licenseType: .data),
+                                                       placeholder: "", licenseType: .data, isSelected: true),
                                            DataLicense(id: 1,
                                                                            title: "Free (CC BY-SA)",
-                                                                           placeholder: "", licenseType: .data),
+                                                                           placeholder: "", licenseType: .data, isSelected: false),
                                            DataLicense(id: 1,
                                                                            title: "Free (CC BY-SA)",
-                                                                           placeholder: "", licenseType: .data)]
+                                                                           placeholder: "", licenseType: .data, isSelected: false)]
         
         func licenseTapped(license: DataLicense) {}
     }

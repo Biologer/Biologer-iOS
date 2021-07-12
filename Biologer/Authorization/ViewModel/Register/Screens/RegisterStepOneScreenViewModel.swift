@@ -26,16 +26,16 @@ public final class RegisterStepOneScreenViewModel: RegisterStepOneScreenLoader, 
     }
     
     private func validateFields() {
-        if userNameTextFieldViewModel.text.isEmpty {
-            setNameIsRequired()
-            return
-        }
-        
-        if lastNameTextFieldViewModel.text.isEmpty {
-            setLastNameIsRequired()
-            return
-        }
-        setAllFieldsAreValid()
+//        if userNameTextFieldViewModel.text.isEmpty {
+//            setNameIsRequired()
+//            return
+//        }
+//        
+//        if lastNameTextFieldViewModel.text.isEmpty {
+//            setLastNameIsRequired()
+//            return
+//        }
+//        setAllFieldsAreValid()
         onNextTapped((user))
     }
 }

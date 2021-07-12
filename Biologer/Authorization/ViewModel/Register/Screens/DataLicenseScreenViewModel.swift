@@ -18,15 +18,28 @@ public final class DataLicenseScreenViewModel: DataLicenseScreenLoader {
     private let delegate: DataLicenseScreenDelegate?
     
     init(dataLicenses: [DataLicense],
+         selectedDataLicense: DataLicense,
          delegate: DataLicenseScreenDelegate? = nil,
          onLicenseTapped: @escaping Observer<Void>) {
         self.dataLicenses = dataLicenses
         self.delegate = delegate
         self.onLicenseTapped = onLicenseTapped
+        updateSelectedViewModel(license: selectedDataLicense)
     }
     
     func licenseTapped(license: DataLicense) {
         delegate?.get(license: license)
         onLicenseTapped(())
+    }
+    
+    public func updateSelectedViewModel(license: DataLicense) {
+
+        for (index, lic) in dataLicenses.enumerated() {
+            if lic.id == license.id {
+                dataLicenses[index].changeIsSelected(value: true)
+            } else {
+                dataLicenses[index].changeIsSelected(value: false)
+            }
+        }
     }
 }

@@ -12,19 +12,24 @@ public enum LicenseType {
     case image
 }
 
-public final class DataLicense: ObservableObject {
+public struct DataLicense {
     var id: Int
     var title: String
     var placeholder: String
     var licenseType: LicenseType
+    var isSelected: Bool
     
-    init(id: Int,
-         title: String,
-         placeholder: String,
-         licenseType: LicenseType) {
-        self.id = id
-        self.title = title
-        self.placeholder = placeholder
-        self.licenseType = licenseType
+//    init(id: Int,
+//         title: String,
+//         placeholder: String,
+//         licenseType: LicenseType) {
+//        self.id = id
+//        self.title = title
+//        self.placeholder = placeholder
+//        self.licenseType = licenseType
+//    }
+    
+    public mutating func changeIsSelected(value: Bool) {
+        isSelected = value
     }
 }

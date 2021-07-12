@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 
 public final class SwiftUILoginViewControllerFactory: AuthorizationViewControllerFactory {
+
     public func makeLoginScreen(service: LoginUserService,
                                 onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
                                    onLoginTapped: @escaping Observer<Void>,
@@ -93,10 +94,12 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     }
     
     public func makeLicenseScreen(dataLicenses: [DataLicense],
+                                  selectedDataLicense: DataLicense,
                                   delegate: DataLicenseScreenDelegate?,
                                   onLicenseTapped: @escaping Observer<Void>) -> UIViewController {
         
         let viewModel = DataLicenseScreenViewModel(dataLicenses: dataLicenses,
+                                                   selectedDataLicense: selectedDataLicense,
                                                    delegate: delegate,
                                                    onLicenseTapped: onLicenseTapped)
         

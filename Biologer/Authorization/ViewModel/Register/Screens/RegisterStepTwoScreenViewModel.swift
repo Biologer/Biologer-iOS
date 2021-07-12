@@ -26,34 +26,34 @@ public final class RegisterStepTwoScreenViewModel: RegisterStepTwoScreenLoader {
     }
     
     private func validateFields() {
-        if emailTextFieldViewModel.text.isEmpty {
-            setEmailRequired()
-            return
-        }
-        
-        if !isEmailValid(email: emailTextFieldViewModel.text) {
-            setEmailIsNotValid()
-            return
-        }
-        setEmailValid()
-        
-        if passwordTextFieldViewModel.text.isEmpty {
-            setPasswordIsRequired()
-            return
-        }
-        
-        if !isPasswordValid(password: passwordTextFieldViewModel.text) {
-            setPasswordIsNotValid()
-            return
-        }
-        
-        setPasswordValid()
-        
-        if repeatPasswordTextFieldViewModel.text != passwordTextFieldViewModel.text {
-            setPasswordDoesntMatches()
-            return
-        }
-        setRepeatPasswordValid()
+//        if emailTextFieldViewModel.text.isEmpty {
+//            setEmailRequired()
+//            return
+//        }
+//
+//        if !isEmailValid(email: emailTextFieldViewModel.text) {
+//            setEmailIsNotValid()
+//            return
+//        }
+//        setEmailValid()
+//        
+//        if passwordTextFieldViewModel.text.isEmpty {
+//            setPasswordIsRequired()
+//            return
+//        }
+//
+//        if !isPasswordValid(password: passwordTextFieldViewModel.text) {
+//            setPasswordIsNotValid()
+//            return
+//        }
+//
+//        setPasswordValid()
+//
+//        if repeatPasswordTextFieldViewModel.text != passwordTextFieldViewModel.text {
+//            setPasswordDoesntMatches()
+//            return
+//        }
+//        setRepeatPasswordValid()
         onNextTapped((user))
     }
     

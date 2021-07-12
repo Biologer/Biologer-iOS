@@ -30,6 +30,7 @@ public protocol AuthorizationViewControllerFactory {
                                      onSuccess: @escaping Observer<Void>,
                                      onError: @escaping Observer<Void>) -> UIViewController
     func makeLicenseScreen(dataLicenses: [DataLicense],
+                           selectedDataLicense: DataLicense,
                            delegate: DataLicenseScreenDelegate?,
                            onLicenseTapped: @escaping Observer<Void>) -> UIViewController
 }
