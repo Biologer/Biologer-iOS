@@ -54,7 +54,7 @@ public final class RemoteRegisterUserService: RegisterUserService {
         
         var method: HTTPMethod = .post
         
-        var host: String = "www..."
+        var host: String = ""
         
         var path: String = ""
         
