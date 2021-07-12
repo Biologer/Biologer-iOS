@@ -37,17 +37,19 @@ public final class RemoteRegisterUserService: RegisterUserService {
     }
     
     public func loadSearch(user: User, completion: @escaping (Result) -> Void) {
-        let request = try! CreateUserRequest(user: user, host: environmentStorage.getEnvironment() ?? "").asURLRequest()
-        client.perform(from: request) { result in
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success(let result):
-                if result.1.statusCode == 200, let response = try? JSONDecoder().decode(RegisterUserResponse.self,
-                                                                                from: result.0) {
-                    completion(.success(response))
-                } else {
-                    completion(.failure(CreateUserServiceError.parsingError))
+        if let env = environmentStorage.getEnvironment() {
+            let request = try! CreateUserRequest(user: user, host: env.host).asURLRequest()
+            client.perform(from: request) { result in
+                switch result {
+                case .failure(let error):
+                    completion(.failure(error))
+                case .success(let result):
+                    if result.1.statusCode == 200, let response = try? JSONDecoder().decode(RegisterUserResponse.self,
+                                                                                    from: result.0) {
+                        completion(.success(response))
+                    } else {
+                        completion(.failure(CreateUserServiceError.parsingError))
+                    }
                 }
             }
         }

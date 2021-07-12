@@ -50,6 +50,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         self.onForgotPasswordTapped = onForgotPasswordTapped
         self.onLoading = onLoading
         self.environmentStorage = environmentStorage
+        environmentStorage.saveEnvironment(env: environmentViewModel)
     }
     
     public func selectEnvironment() {
@@ -87,7 +88,6 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         }
         
         setPasswordValid()
-        environmentStorage.saveEnvironment(env: environmentViewModel.url)
         
         onLoading((true))
         service.loadSearch(email: email,
@@ -113,6 +113,7 @@ extension LoginScreenViewModel: EnvironmentScreenViewModelProtocol {
     public func getEnvironment(environmentViewModel: EnvironmentViewModel) {
         print("ENV SLECTED: \(environmentViewModel.title)")
         self.environmentViewModel = environmentViewModel
+        environmentStorage.saveEnvironment(env: environmentViewModel)
     }
 }
 

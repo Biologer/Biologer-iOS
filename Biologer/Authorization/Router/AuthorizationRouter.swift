@@ -61,9 +61,12 @@ public final class AuthorizationRouter: NavigationRouter {
                                                              onLoginSuccess: { [weak self]  _ in
                                                                 self?.onLoginSuccess?(())
                                                              },
-                                                             onRegisterTapped: { [weak self] _ in                                              self?.showRegisterStepOneScreen()
+                                                             onRegisterTapped: { [weak self] _ in
+                                                                self?.showRegisterStepOneScreen()
                                                              },
-                                                             onForgotPasswordTapped: { _ in },
+                                                             onForgotPasswordTapped: { [weak self] _ in
+                                                                self?.showSafari(path: "/password/reset")
+                                                             },
                                                              onLoading: onLoading)
         
         let viewController = loginViewController as? UIHostingController<LoginScreen<LoginScreenViewModel>>
@@ -156,8 +159,8 @@ public final class AuthorizationRouter: NavigationRouter {
                                                                           service: registerService,
                                                                           dataLicense: dataLicense,
                                                                           imageLicense: imageLicense,
-                                                                          onReadPrivacyPolicy: { _ in
-                                                                            
+                                                                          onReadPrivacyPolicy: { [weak self] _ in
+                                                                            self?.showSafari(path: "/pages/privacy-policy")
                                                                           },
                                                                           onDataLicense: { [weak self] dataLicense in
                                                                             self?.showLicenseScreen(isDataLicense: true,
@@ -200,5 +203,14 @@ public final class AuthorizationRouter: NavigationRouter {
     
     @objc func goBack() {
         navigationController.popViewController(animated: true)
+    }
+    
+    private func showSafari(path: String) {
+        if let env = environmentStorage.getEnvironment() {
+            let url = "https://\(env.host)\(env.path)\(path)"
+            if let url = URL(string: url) {
+                UIApplication.shared.open(url)
+            }
+        }
     }
 }

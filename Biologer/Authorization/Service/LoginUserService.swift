@@ -40,17 +40,19 @@ public final class RemoteLoginUserService: LoginUserService {
     public func loadSearch(email: String,
                            password: String,
                            completion: @escaping (Result) -> Void) {
-        let request = try! LoginUserRequest(email: email, password: password, host: environmentStorage.getEnvironment() ?? "").asURLRequest()
-        client.perform(from: request) { result in
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success(let result):
-                if result.1.statusCode == 200, let response = try? JSONDecoder().decode(LoginUserResponse.self,
-                                                                                from: result.0) {
-                    completion(.success(response))
-                } else {
-                    completion(.failure(LoginServiceError.parsingError))
+        if let env = environmentStorage.getEnvironment() {
+            let request = try! LoginUserRequest(email: email, password: password, host: env.host).asURLRequest()
+            client.perform(from: request) { result in
+                switch result {
+                case .failure(let error):
+                    completion(.failure(error))
+                case .success(let result):
+                    if result.1.statusCode == 200, let response = try? JSONDecoder().decode(LoginUserResponse.self,
+                                                                                    from: result.0) {
+                        completion(.success(response))
+                    } else {
+                        completion(.failure(LoginServiceError.parsingError))
+                    }
                 }
             }
         }

@@ -43,6 +43,6 @@ struct EnvironmentLoginView_Previews: PreviewProvider {
     private class StubEnvironmentViewModel: EnvironmentViewModelProtocol {
         var title: String = "Serbia"
         var image: String = "hammer_icon"
-        var url: String = "www.apple.com"
+        var host: String = "www.apple.com"
     }
 }

@@ -22,37 +22,41 @@ public final class EnvironmentViewModelFactory {
                                         title: "Serbia",
                                         placeholder: "Select Environment",
                                         image: "serbia_flag",
-                                        url: "biologer.org",
+                                        host: "biologer.org",
+                                        path: "/sr",
                                         isSelected: false)
         case .croatia:
-            return EnvironmentViewModel(id: 2, title: "Croatia", placeholder: "Select Environment", image: "croatia_flag", url: "biologer.hr", isSelected: false)
+            return EnvironmentViewModel(id: 2, title: "Croatia", placeholder: "Select Environment", image: "croatia_flag", host: "biologer.hr", path: "/hr", isSelected: false)
         case .bosniaAndHerzegovina:
-            return EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina", placeholder: "Select Environment", image: "bosnia_flag_icon", url: "biologer.ba", isSelected: false)
+            return EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina", placeholder: "Select Environment", image: "bosnia_flag_icon", host: "biologer.ba", path: "/ba", isSelected: false)
         case .develop:
-            return EnvironmentViewModel(id: 4, title: "For Developers", placeholder: "Select Environment", image: "hammer_icon", url: "dev.biologer.org", isSelected: false)
+            return EnvironmentViewModel(id: 4, title: "For Developers", placeholder: "Select Environment", image: "hammer_icon", host: "dev.biologer.org", path: "/sr", isSelected: false)
         }
     }
 }
 
-public struct EnvironmentViewModel: EnvironmentViewModelProtocol, Identifiable {
+public struct EnvironmentViewModel: EnvironmentViewModelProtocol, Identifiable, Codable {
      public let id: Int
      public let title: String
      public let placeholder: String
      public let image: String
-     public let url: String
+     public let host: String
+    public let path: String
      public var isSelected: Bool
     
     init(id: Int,
          title: String,
          placeholder: String,
          image: String,
-         url: String,
+         host: String,
+         path: String,
          isSelected: Bool) {
         self.id = id
         self.title = title
         self.placeholder = placeholder
         self.image = image
-        self.url = url
+        self.host = host
+        self.path = path
         self.isSelected = isSelected
     }
     

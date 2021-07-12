@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol EnvironmentStorage {
-    func getEnvironment() -> String?
-    func saveEnvironment(env: String)
+    func getEnvironment() -> EnvironmentViewModel?
+    func saveEnvironment(env: EnvironmentViewModel)
     func delete()
 }

@@ -44,6 +44,6 @@ struct LoginEnvView: View {
 
 struct LoginEnvView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginEnvView(viewModel: EnvironmentViewModel(id: 1, title: "Srbija", placeholder: "Select Environment", image: "serbia_flag", url: "www.apple.com", isSelected: false), onEnvTapped: { _ in })
+        LoginEnvView(viewModel: EnvironmentViewModel(id: 1, title: "Srbija", placeholder: "Select Environment", image: "serbia_flag", host: "www.apple.com", path: "/sr", isSelected: false), onEnvTapped: { _ in })
     }
 }
