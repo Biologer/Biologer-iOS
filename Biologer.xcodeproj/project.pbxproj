@@ -70,6 +70,7 @@
 		93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65842697A52000949534 /* ErrorLabelView.swift */; };
 		93CC65872699941A00949534 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65862699941900949534 /* View+Extensions.swift */; };
 		93CC6589269C2C5F00949534 /* LoginEnvView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6588269C2C5E00949534 /* LoginEnvView.swift */; };
+		93CC658B269C401300949534 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC658A269C401300949534 /* APIRequest.swift */; };
 		93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */; };
 		93DF14092692069600A7A977 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14082692069600A7A977 /* User.swift */; };
 		93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */; };
@@ -184,6 +185,7 @@
 		93CC65842697A52000949534 /* ErrorLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabelView.swift; sourceTree = "<group>"; };
 		93CC65862699941900949534 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		93CC6588269C2C5E00949534 /* LoginEnvView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEnvView.swift; sourceTree = "<group>"; };
+		93CC658A269C401300949534 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepOneScreenViewModel.swift; sourceTree = "<group>"; };
 		93DF14082692069600A7A977 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreenViewModel.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				93DF14162692224D00A7A977 /* HTTPClient.swift */,
 				93DF14182692228900A7A977 /* URLSessionHTTPClient.swift */,
 				93DF141A269222AF00A7A977 /* CodableParser.swift */,
+				93CC658A269C401300949534 /* APIRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -846,6 +849,7 @@
 			files = (
 				93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */,
 				93A7E2742691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift in Sources */,
+				93CC658B269C401300949534 /* APIRequest.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */,
 				93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */,

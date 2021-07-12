@@ -62,7 +62,20 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
             errorLabel = "For registration you must accept privacy policy!"
             return
         }
+        user.dataLicense = dataLicense
+        user.imageLicense = imageLicense
         errorLabel = ""
+        
+        service.loadSearch(user: user) { [weak self] result in
+            switch result {
+            case .success(let response):
+                print("Response: \(response)")
+                self?.onSuccess(())
+            case .failure(let error):
+                self?.onError(())
+                print("Error: \(error)")
+            }
+        }
     }
 }
 
