@@ -41,11 +41,17 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
                         .lineLimit(nil)
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
-                    Link(destination: URL(string: "https://www.apple.com")!, label: {
-                        Text("Privacy Policy")
-                            .foregroundColor(Color.biologerGreenColor)
-                            .underline()
+                    Button(action: {
+                        loader.onReadPrivacyPolicy(())
+                    }, label: {
+                        AttributedTextView(configuration: { label in
+                            label.attributedText = createUnderlinePrivacyPolicy(text: "Privacy Policy")
+                            label.numberOfLines = 0
+                            label.textAlignment = .center
+                            label.textColor = UIColor.biologerGreenColor
+                        })
                     })
+                    
                     HStack {
                         CheckView(isChecked: false,
                                   onToggle: { isChecked in
@@ -65,16 +71,21 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
             .padding(.all, 30)
     }
     
-    public func createAttributeString() -> NSMutableAttributedString {
-        let text = NSMutableAttributedString(string: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
-        let interactableText = NSMutableAttributedString(string: "Sign in!")
-        interactableText.addAttribute(.link,
-                                      value: "SignInPseudoLink",
-                                      range: NSRange(location: 0, length: interactableText.length))
-        text.append(interactableText)
-        
-        return text
+    public func createUnderlinePrivacyPolicy(text: String) -> NSMutableAttributedString {
+        let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue]
+        return NSMutableAttributedString(string: text, attributes: underlineAttribute)
     }
+    
+//    public func createAttributeString(text: String) -> NSMutableAttributedString {
+//        let text = NSMutableAttributedString(string: text)
+//        let interactableText = NSMutableAttributedString(string: "Sign in!")
+//        interactableText.addAttribute(.link,
+//                                      value: "SignInPseudoLink",
+//                                      range: NSRange(location: 0, length: interactableText.length))
+//        text.append(interactableText)
+//
+//        return text
+//    }
 }
 
 struct RegisterStepThreeScreen_Previews: PreviewProvider {
