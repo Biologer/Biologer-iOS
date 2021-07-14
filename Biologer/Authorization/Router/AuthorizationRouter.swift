@@ -16,7 +16,10 @@ public final class AuthorizationRouter: NavigationRouter {
     private let forgotPasswordService: ForgotPasswordService
     private let commonViewControllerFactory: CommonViewControllerFactory
     private let environmentStorage: EnvironmentStorage
+    private let tokenStorage: TokenStorage
+    private let envFactory = EnvironmentViewModelFactory()
     public var onLoginSuccess: Observer<Void>?
+    private var selectedEnvironmentImage: String = ""
     
     init(factory: AuthorizationViewControllerFactory,
          commonViewControllerFactory: CommonViewControllerFactory,
@@ -24,7 +27,8 @@ public final class AuthorizationRouter: NavigationRouter {
          loginService: LoginUserService,
          registerService: RegisterUserService,
          forgotPasswordService: ForgotPasswordService,
-         environmentStorage: EnvironmentStorage) {
+         environmentStorage: EnvironmentStorage,
+         tokenStorage: TokenStorage) {
         self.factory = factory
         self.commonViewControllerFactory = commonViewControllerFactory
         self.navigationController = navigationController
@@ -32,6 +36,7 @@ public final class AuthorizationRouter: NavigationRouter {
         self.registerService = registerService
         self.forgotPasswordService = forgotPasswordService
         self.environmentStorage = environmentStorage
+        self.tokenStorage = tokenStorage
     }
     
     public func start() {
@@ -52,8 +57,10 @@ public final class AuthorizationRouter: NavigationRouter {
         
         var envDelegate: EnvironmentScreenViewModelProtocol?
         
+        let defaultEnv = envFactory.createEnvironment(type: .serbia)
+        
         let loginViewController = factory.makeLoginScreen(service: loginService,
-                                                          environmentStorage: environmentStorage,
+                                                          environmentViewModel: defaultEnv,
                                                              onSelectEnvironmentTapped: { [weak self] env in
                                                                 self?.showEnvironmentScreen(selectedViewModel: env,
                                                                                             delegate: envDelegate)
@@ -79,10 +86,19 @@ public final class AuthorizationRouter: NavigationRouter {
     private func showEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
                                        delegate: EnvironmentScreenViewModelProtocol? = nil) {
         
+        let envs = [envFactory.createEnvironment(type: .serbia),
+                    envFactory.createEnvironment(type: .croatia),
+                    envFactory.createEnvironment(type: .bosniaAndHerzegovina),
+                    envFactory.createEnvironment(type: .develop)
+        ]
+        
         let enviViewController = factory.makeEnvironmentScreen(selectedViewModel: selectedViewModel,
-                                                       delegate: delegate,
-                                                       onSelectedEnvironment: { _ in
-                                                            self.navigationController.popViewController(animated: true)
+                                                               envViewModels: envs,
+                                                               delegate: delegate,
+                                                               onSelectedEnvironment: { [weak self] env in
+                                                                    self?.environmentStorage.saveEnvironment(env: env.env)
+                                                                    self?.selectedEnvironmentImage = env.image
+                                                                    self?.navigationController.popViewController(animated: true)
                                                        })
         
         enviViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
@@ -156,6 +172,7 @@ public final class AuthorizationRouter: NavigationRouter {
         var dataLicenseDelegate: DataLicenseScreenDelegate?
         
         let stepThirdViewController = factory.makeRegisterThreeStepScreen(user: user,
+                                                                          topImage: self.selectedEnvironmentImage,
                                                                           service: registerService,
                                                                           dataLicense: dataLicense,
                                                                           imageLicense: imageLicense,

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginEnvView: View {
     
+    public var environmentPlacehoder: String
     public var viewModel: EnvironmentViewModel
     public var onEnvTapped: Observer<EnvironmentViewModel>
     
@@ -18,7 +19,7 @@ struct LoginEnvView: View {
             onEnvTapped((viewModel))
         }, label: {
             VStack(alignment: .leading) {
-                Text(viewModel.placeholder)
+                Text(environmentPlacehoder)
                     .font(.system(size: 12))
                     .foregroundColor(Color.black)
                     .lineLimit(nil)
@@ -44,6 +45,11 @@ struct LoginEnvView: View {
 
 struct LoginEnvView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginEnvView(viewModel: EnvironmentViewModel(id: 1, title: "Srbija", placeholder: "Select Environment", image: "serbia_flag", host: "www.apple.com", path: "/sr", isSelected: false), onEnvTapped: { _ in })
+        LoginEnvView(environmentPlacehoder: "Selecte Environment",
+                     viewModel: EnvironmentViewModel(id: 1,
+                                                     title: "Serbia",
+                                                     image: "serbia_flag",
+                                                     env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
+                                                      isSelected: false), onEnvTapped: { _ in })
     }
 }

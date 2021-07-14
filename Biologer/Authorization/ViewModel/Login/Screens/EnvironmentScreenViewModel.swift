@@ -17,13 +17,13 @@ public final class EnvironmentScreenViewModel: ObservableObject {
     @Published public var environmentsViewModel: [EnvironmentViewModel]
     
     private let delegate: EnvironmentScreenViewModelProtocol?
-    private let onSelectedEnvironment: Observer<Void>
+    private let onSelectedEnvironment: Observer<EnvironmentViewModel>
     
     
     init(environmentsViewModel: [EnvironmentViewModel],
         selectedViewModel: EnvironmentViewModel,
          delegate: EnvironmentScreenViewModelProtocol? = nil,
-         onSelectedEnvironment: @escaping Observer<Void>) {
+         onSelectedEnvironment: @escaping Observer<EnvironmentViewModel>) {
         self.environmentsViewModel = environmentsViewModel
         self.delegate = delegate
         self.onSelectedEnvironment = onSelectedEnvironment
@@ -33,7 +33,7 @@ public final class EnvironmentScreenViewModel: ObservableObject {
     public func selectedEnvironment(envViewModel: EnvironmentViewModel) {
         updateSelectedViewModel(envViewModel: envViewModel)
         delegate?.getEnvironment(environmentViewModel: envViewModel)
-        onSelectedEnvironment(())
+        onSelectedEnvironment((envViewModel))
     }
     
     public func updateSelectedViewModel(envViewModel: EnvironmentViewModel) {

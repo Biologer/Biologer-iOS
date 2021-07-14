@@ -32,17 +32,22 @@ public final class AppNavigationRouter: NavigationRouter {
         let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
         let forgotPasswordService = RemoteForgotPasswordService(client: httpClient)
         
-        return AuthorizationRouter(factory: SwiftUILoginViewControllerFactory(envFactory: EnvironmentViewModelFactory()),
+        return AuthorizationRouter(factory: SwiftUILoginViewControllerFactory(),
                                    commonViewControllerFactory: commonViewControllerFactory,
                                    navigationController: mainNavigationController,
                                    loginService: loginService,
                                    registerService: registerService,
                                    forgotPasswordService: forgotPasswordService,
-                                   environmentStorage: environmentStorage)
+                                   environmentStorage: environmentStorage,
+                                   tokenStorage: tokenStorage)
     }()
     
     private lazy var environmentStorage: EnvironmentStorage = {
         return KeychainEnvironmentStorage()
+    }()
+    
+    private lazy var tokenStorage: TokenStorage = {
+        return KeychainTokenStorage()
     }()
     
     private lazy var commonViewControllerFactory: CommonViewControllerFactory = {

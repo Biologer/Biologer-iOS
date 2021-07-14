@@ -14,11 +14,14 @@ public protocol LoginUserService {
 
 public enum LoginServiceError: LocalizedError {
     case parsingError
+    case noEnvironment
     
     public var errorDescription: String? {
         switch self {
         case .parsingError:
             return "Could not parse user response"
+        case .noEnvironment:
+            return "Please selecte desired environment"
         }
     }
 }
@@ -55,6 +58,8 @@ public final class RemoteLoginUserService: LoginUserService {
                     }
                 }
             }
+        } else {
+            completion(.failure(LoginServiceError.noEnvironment))
         }
     }
     

@@ -53,16 +53,31 @@ struct EnvironmentScreen: View  {
 struct EnvironmentScreen_Previews: PreviewProvider {
     static var previews: some View {
         
-        let envViewModels = [
-            EnvironmentViewModel(id: 1, title: "Serbia", placeholder: "", image: "serbia_flag", host: "www.serbia.com", path: "/sr", isSelected: false),
-            EnvironmentViewModel(id: 2, title: "Croatia", placeholder: "", image: "croatia_flag", host: "www.croatia.com", path: "/hr", isSelected: false),
-            EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina", placeholder: "", image: "bosnia_flag_icon", host: "www.bosniaandherzegovina.com",
-                                 path: "/ba", isSelected: true),
-            EnvironmentViewModel(id: 4, title: "For Developers", placeholder: "", image: "hammer_icon", host: "www.bosniaandherzegovina.com",
-                                 path: "/org",isSelected: false)
-        ]
+        let envViewModels = [EnvironmentViewModel(id: 1,
+                                                  title: "Serbia",
+                                                  image: "serbia_flag",
+                                                  env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
+                                                  isSelected: false),
+                             EnvironmentViewModel(id: 2,
+                                                  title: "Croatia",
+                                                  image: "croatia_flag",
+                                                  env: Environment(host: croatiaHost, path: croatiaPath, clientSecret: croatiaClientSecret),
+                                                  isSelected: false),
+                             
+                             EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina",
+                                                  image: "bosnia_flag_icon",
+                                                  env: Environment(host: bosnianAndHerzegovinHost, path: bosnianAndHerzegovinaPath, clientSecret: bosnianAndHercegovinaClientSecret),
+                                                  isSelected: false),
+                             EnvironmentViewModel(id: 4, title: "For Developers",
+                                                  image: "hammer_icon",
+                                                  env: Environment(host: devHost, path: devPath, clientSecret: devClientSecret),
+                                                  isSelected: false)]
         
-        let selectedEnv = EnvironmentViewModel(id: 1, title: "Serbia", placeholder: "", image: "serbia_flag", host: "www.serbia.com", path: "/sr", isSelected: true)
+        let selectedEnv = EnvironmentViewModel(id: 1,
+                                               title: "Serbia",
+                                               image: "serbia_flag",
+                                               env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
+                                               isSelected: false)
         
         EnvironmentScreen(loader: EnvironmentScreenViewModel(environmentsViewModel: envViewModels, selectedViewModel: selectedEnv, onSelectedEnvironment: { _ in}))
 

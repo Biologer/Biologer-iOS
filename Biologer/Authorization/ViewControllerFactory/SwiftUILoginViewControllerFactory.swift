@@ -9,28 +9,20 @@ import UIKit
 import SwiftUI
 
 public final class SwiftUILoginViewControllerFactory: AuthorizationViewControllerFactory {
-    
-    private let envFactory: EnvironmentViewModelFactory
-    
-    init(envFactory: EnvironmentViewModelFactory) {
-        self.envFactory = envFactory
-    }
 
     public func makeLoginScreen(service: LoginUserService,
-                                environmentStorage: EnvironmentStorage,
+                                environmentViewModel: EnvironmentViewModel,
                                 onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
                                 onLoginSuccess: @escaping Observer<Void>,
                                 onRegisterTapped: @escaping Observer<Void>,
                                 onForgotPasswordTapped: @escaping Observer<Void>,
                                 onLoading: @escaping Observer<Bool>) -> UIViewController {
-        let environmentViewModel = envFactory.createEnvironment(type: .serbia)
         let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
                                                         labelsViewModel: LoginLabelsViewModel(),
                                                         environmentViewModel: environmentViewModel,
                                                         userNameTextFieldViewModel: UserNameTextFieldViewModel(),
                                                         passwordTextFieldViewModel: PasswordTextFieldViewModel(),
                                                         service: service,
-                                                        environmentStorage: environmentStorage,
                                                         onSelectEnvironmentTapped: onSelectEnvironmentTapped,
                                                         onLoginSuccess: onLoginSuccess,
                                                         onRegisterTapped: onRegisterTapped,
@@ -41,15 +33,11 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     }
     
     public func makeEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
+                                      envViewModels: [EnvironmentViewModel],
                                       delegate: EnvironmentScreenViewModelProtocol?,
-                                      onSelectedEnvironment: @escaping Observer<Void>) -> UIViewController {
+                                      onSelectedEnvironment: @escaping Observer<EnvironmentViewModel>) -> UIViewController {
         
-        let envViewModel = [envFactory.createEnvironment(type: .serbia),
-                            envFactory.createEnvironment(type: .croatia),
-                            envFactory.createEnvironment(type: .bosniaAndHerzegovina),
-                            envFactory.createEnvironment(type: .develop)]
-        
-        let viewModel = EnvironmentScreenViewModel(environmentsViewModel: envViewModel,
+        let viewModel = EnvironmentScreenViewModel(environmentsViewModel: envViewModels,
                                                    selectedViewModel: selectedViewModel,
                                                    delegate: delegate,
                                                    onSelectedEnvironment: onSelectedEnvironment)
@@ -79,6 +67,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     }
     
     public func makeRegisterThreeStepScreen(user: User,
+                                            topImage: String,
                                             service: RegisterUserService,
                                             dataLicense: DataLicense,
                                             imageLicense: DataLicense,
@@ -90,6 +79,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                             onLoading: @escaping Observer<Bool>) -> UIViewController {
         
         let viewModel = RegisterStepThreeScreenViewModel(user: user,
+                                                         topImage: topImage,
                                                          service: service,
                                                          dataLicense: dataLicense,
                                                          imageLicense: imageLicense,

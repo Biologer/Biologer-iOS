@@ -66,6 +66,11 @@
 		93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */; };
 		93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */; };
 		93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */; };
+		93C2D1E9269EFF2D00123216 /* EnvironmentConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1E8269EFF2D00123216 /* EnvironmentConstants.swift */; };
+		93C2D1EB269F020600123216 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EA269F020600123216 /* Environment.swift */; };
+		93C2D1ED269F1BEC00123216 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EC269F1BEC00123216 /* TokenStorage.swift */; };
+		93C2D1EF269F1BFF00123216 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EE269F1BFF00123216 /* Token.swift */; };
+		93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */; };
 		93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */; };
 		93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65842697A52000949534 /* ErrorLabelView.swift */; };
 		93CC65872699941A00949534 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65862699941900949534 /* View+Extensions.swift */; };
@@ -187,6 +192,11 @@
 		93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationRouter.swift; sourceTree = "<group>"; };
 		93BF62BC262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILoginViewControllerFactory.swift; sourceTree = "<group>"; };
 		93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewControllerFactory.swift; sourceTree = "<group>"; };
+		93C2D1E8269EFF2D00123216 /* EnvironmentConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConstants.swift; sourceTree = "<group>"; };
+		93C2D1EA269F020600123216 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		93C2D1EC269F1BEC00123216 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
+		93C2D1EE269F1BFF00123216 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTokenStorage.swift; sourceTree = "<group>"; };
 		93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicenseScreenViewModel.swift; sourceTree = "<group>"; };
 		93CC65842697A52000949534 /* ErrorLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabelView.swift; sourceTree = "<group>"; };
 		93CC65862699941900949534 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -419,6 +429,7 @@
 				93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */,
 				93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */,
 				93CC6592269C564F00949534 /* CircularProgressViewController.swift */,
+				93C2D1E8269EFF2D00123216 /* EnvironmentConstants.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -547,6 +558,8 @@
 				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
 				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
 				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
+				93C2D1EA269F020600123216 /* Environment.swift */,
+				93C2D1EE269F1BFF00123216 /* Token.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -597,6 +610,8 @@
 			children = (
 				93CC6594269C61E900949534 /* EnvironmentStorage.swift */,
 				93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */,
+				93C2D1EC269F1BEC00123216 /* TokenStorage.swift */,
+				93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -899,6 +914,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */,
+				93C2D1ED269F1BEC00123216 /* TokenStorage.swift in Sources */,
 				93A7E2742691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift in Sources */,
 				93CC658B269C401300949534 /* APIRequest.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
@@ -952,6 +968,7 @@
 				93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */,
 				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
 				93DF141B269222AF00A7A977 /* CodableParser.swift in Sources */,
+				93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
 				93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */,
 				93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */,
@@ -962,6 +979,7 @@
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
 				93DF14092692069600A7A977 /* User.swift in Sources */,
+				93C2D1EF269F1BFF00123216 /* Token.swift in Sources */,
 				93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */,
 				93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */,
 				936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */,
@@ -969,10 +987,12 @@
 				93DF14192692228900A7A977 /* URLSessionHTTPClient.swift in Sources */,
 				93A7E2762691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift in Sources */,
 				93334EB92677E8590094A483 /* ListOfFindingsScreenViewModel.swift in Sources */,
+				93C2D1E9269EFF2D00123216 /* EnvironmentConstants.swift in Sources */,
 				93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */,
 				93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */,
+				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
 				93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */,
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
 				93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */,

@@ -20,43 +20,45 @@ public final class EnvironmentViewModelFactory {
         case .serbia:
             return EnvironmentViewModel(id: 1,
                                         title: "Serbia",
-                                        placeholder: "Select Environment",
                                         image: "serbia_flag",
-                                        host: "biologer.org",
-                                        path: "/sr",
+                                        env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
                                         isSelected: false)
         case .croatia:
-            return EnvironmentViewModel(id: 2, title: "Croatia", placeholder: "Select Environment", image: "croatia_flag", host: "biologer.hr", path: "/hr", isSelected: false)
+            return EnvironmentViewModel(id: 2,
+                                        title: "Croatia",
+                                        image: "croatia_flag",
+                                        env: Environment(host: croatiaHost, path: croatiaPath, clientSecret: croatiaClientSecret),
+                                        isSelected: false)
         case .bosniaAndHerzegovina:
-            return EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina", placeholder: "Select Environment", image: "bosnia_flag_icon", host: "biologer.ba", path: "/ba", isSelected: false)
+            return EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina",
+                                        image: "bosnia_flag_icon",
+                                        env: Environment(host: bosnianAndHerzegovinHost, path: bosnianAndHerzegovinaPath, clientSecret: bosnianAndHercegovinaClientSecret),
+                                        isSelected: false)
         case .develop:
-            return EnvironmentViewModel(id: 4, title: "For Developers", placeholder: "Select Environment", image: "hammer_icon", host: "dev.biologer.org", path: "/sr", isSelected: false)
+            return EnvironmentViewModel(id: 4, title: "For Developers",
+                                        image: "hammer_icon",
+                                        env: Environment(host: devHost, path: devPath, clientSecret: devClientSecret),
+                                        isSelected: false)
         }
     }
 }
 
-public struct EnvironmentViewModel: EnvironmentViewModelProtocol, Identifiable, Codable {
+public struct EnvironmentViewModel: Identifiable, Codable {
      public let id: Int
      public let title: String
-     public let placeholder: String
      public let image: String
-     public let host: String
-    public let path: String
+     public let env: Environment
      public var isSelected: Bool
     
     init(id: Int,
          title: String,
-         placeholder: String,
          image: String,
-         host: String,
-         path: String,
+         env: Environment,
          isSelected: Bool) {
         self.id = id
         self.title = title
-        self.placeholder = placeholder
+        self.env = env
         self.image = image
-        self.host = host
-        self.path = path
         self.isSelected = isSelected
     }
     

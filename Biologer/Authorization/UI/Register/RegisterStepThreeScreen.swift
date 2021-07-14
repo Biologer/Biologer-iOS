@@ -75,17 +75,6 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
         let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue]
         return NSMutableAttributedString(string: text, attributes: underlineAttribute)
     }
-    
-//    public func createAttributeString(text: String) -> NSMutableAttributedString {
-//        let text = NSMutableAttributedString(string: text)
-//        let interactableText = NSMutableAttributedString(string: "Sign in!")
-//        interactableText.addAttribute(.link,
-//                                      value: "SignInPseudoLink",
-//                                      range: NSRange(location: 0, length: interactableText.length))
-//        text.append(interactableText)
-//
-//        return text
-//    }
 }
 
 struct RegisterStepThreeScreen_Previews: PreviewProvider {

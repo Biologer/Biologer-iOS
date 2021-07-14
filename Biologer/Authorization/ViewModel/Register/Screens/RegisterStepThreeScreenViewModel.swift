@@ -9,7 +9,7 @@ import Foundation
 
 public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoader, ObservableObject {
     public var registerButtonTitle: String = "Register"
-    public var topImage = "serbia_flag"
+    public var topImage: String
     @Published public var dataLicense: DataLicense
     @Published public var imageLicense: DataLicense
     public var acceptPPTitle: String = "I accept privary policy"
@@ -27,6 +27,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     private let service: RegisterUserService
     
     init(user: User,
+         topImage: String,
          service: RegisterUserService,
          dataLicense: DataLicense,
          imageLicense: DataLicense,
@@ -37,6 +38,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
          onError: @escaping Observer<Void>,
          onLoading: @escaping Observer<Bool>) {
         self.user = user
+        self.topImage = topImage
         self.service = service
         self.dataLicense = dataLicense
         self.imageLicense = imageLicense

@@ -9,20 +9,22 @@ import UIKit
 
 public protocol AuthorizationViewControllerFactory {
     func makeLoginScreen(service: LoginUserService,
-                         environmentStorage: EnvironmentStorage,
+                         environmentViewModel: EnvironmentViewModel,
                          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
                          onLoginSuccess: @escaping Observer<Void>,
                          onRegisterTapped: @escaping Observer<Void>,
                          onForgotPasswordTapped: @escaping Observer<Void>,
                          onLoading: @escaping Observer<Bool>) -> UIViewController
     func makeEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
+                               envViewModels: [EnvironmentViewModel],
                                delegate: EnvironmentScreenViewModelProtocol?,
-                               onSelectedEnvironment: @escaping Observer<Void>) -> UIViewController
+                               onSelectedEnvironment: @escaping Observer<EnvironmentViewModel>) -> UIViewController
     func makeRegisterFirstStepScreen(user: User,
                                      onNextTapped: @escaping Observer<User>) -> UIViewController
     func makeRegisterSecondStepScreen(user: User,
                                       onNextTapped: @escaping Observer<User>) -> UIViewController
     func makeRegisterThreeStepScreen(user: User,
+                                     topImage: String,
                                      service: RegisterUserService,
                                      dataLicense: DataLicense,
                                      imageLicense: DataLicense,

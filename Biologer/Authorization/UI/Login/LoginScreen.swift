@@ -54,6 +54,7 @@ extension MaterialDesignTextFieldViewMoodelProtocol {
 
 public protocol LoginScreenLoader: ObservableObject {
     var logoImage: String { get }
+    var environmentPlaceholder: String { get }
     var environmentViewModel: EnvironmentViewModel { get }
     var labelsViewModel: LoginLabelsViewModel { get set }
     var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
@@ -75,11 +76,6 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                     .resizable()
                     .frame(height: 130)
                     .padding(.bottom, 30)
-//                EnvironmentLoginView(environmentViewModel: viewModel.environmentViewModel, envImage: "env_icon")
-//                    .padding(.bottom, 20)
-//                    .onTapGesture {
-//                        viewModel.selectEnvironment()
-//                    }
                 MaterialDesignTextField(viewModel: viewModel.userNameTextFieldViewModel,
                                         onTextChanged: { text in
                                             viewModel.userNameTextFieldViewModel.text = text
@@ -96,7 +92,8 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                                         })
                     .padding(.bottom, 20)
                 
-                LoginEnvView(viewModel: viewModel.environmentViewModel,
+                LoginEnvView(environmentPlacehoder: viewModel.environmentPlaceholder,
+                             viewModel: viewModel.environmentViewModel,
                              onEnvTapped: { env in
                                 viewModel.selectEnvironment()
                              })
@@ -140,8 +137,13 @@ struct LoginScreen_Previews: PreviewProvider {
     }
     
     private class StubLoginScreenViewModel: LoginScreenLoader {
+        var environmentPlaceholder: String = "Select Environment"
         var logoImage: String = "biologer_logo_icon"
-        var environmentViewModel: EnvironmentViewModel = EnvironmentViewModel(id: 1, title: "Srbija", placeholder: "Select Environment", image: "serbia_flag", host: "www.apple.com", path: "/sr", isSelected: false)
+        var environmentViewModel: EnvironmentViewModel = EnvironmentViewModel(id: 1,
+                                                       title: "Serbia",
+                                                       image: "serbia_flag",
+                                                       env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
+                                                        isSelected: false)
         var labelsViewModel: LoginLabelsViewModel = LoginLabelsViewModel()
         var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = UserNameTextFieldViewModel()
         var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = PasswordTextFieldViewModel()

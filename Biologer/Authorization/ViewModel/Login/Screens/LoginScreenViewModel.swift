@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 public final class LoginScreenViewModel: LoginScreenLoader {
+    public var environmentPlaceholder: String = "Select Environment"
     public let logoImage: String
     public var labelsViewModel: LoginLabelsViewModel
     @Published public var environmentViewModel: EnvironmentViewModel
@@ -21,7 +22,6 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
     private let onLoading: Observer<Bool>
-    private let environmentStorage: EnvironmentStorage
     private let email: String = ""
     private let password: String = ""
     
@@ -31,7 +31,6 @@ public final class LoginScreenViewModel: LoginScreenLoader {
          userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          service: LoginUserService,
-         environmentStorage: EnvironmentStorage,
          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
          onLoginSuccess: @escaping Observer<Void>,
          onRegisterTapped: @escaping Observer<Void>,
@@ -49,8 +48,6 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         self.onRegisterTapped = onRegisterTapped
         self.onForgotPasswordTapped = onForgotPasswordTapped
         self.onLoading = onLoading
-        self.environmentStorage = environmentStorage
-        environmentStorage.saveEnvironment(env: environmentViewModel)
     }
     
     public func selectEnvironment() {
@@ -113,7 +110,6 @@ extension LoginScreenViewModel: EnvironmentScreenViewModelProtocol {
     public func getEnvironment(environmentViewModel: EnvironmentViewModel) {
         print("ENV SLECTED: \(environmentViewModel.title)")
         self.environmentViewModel = environmentViewModel
-        environmentStorage.saveEnvironment(env: environmentViewModel)
     }
 }
 

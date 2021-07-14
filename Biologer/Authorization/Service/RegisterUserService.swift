@@ -14,11 +14,14 @@ public protocol RegisterUserService {
 
 public enum CreateUserServiceError: LocalizedError {
     case parsingError
+    case noEnvironment
     
     public var errorDescription: String? {
         switch self {
         case .parsingError:
             return "Could not parse user response"
+        case .noEnvironment:
+            return "Please select environment"
         }
     }
 }
@@ -38,7 +41,10 @@ public final class RemoteRegisterUserService: RegisterUserService {
     
     public func loadSearch(user: User, completion: @escaping (Result) -> Void) {
         if let env = environmentStorage.getEnvironment() {
-            let request = try! CreateUserRequest(user: user, host: env.host).asURLRequest()
+            let request = try! CreateUserRequest(user: user,
+                                                 host: env.host,
+                                                 clientId: env.clientId,
+                                                 clientSecret: env.clientSecret).asURLRequest()
             client.perform(from: request) { result in
                 switch result {
                 case .failure(let error):
@@ -52,6 +58,8 @@ public final class RemoteRegisterUserService: RegisterUserService {
                     }
                 }
             }
+        } else {
+            completion(.failure(CreateUserServiceError.noEnvironment))
         }
     }
     
@@ -61,7 +69,7 @@ public final class RemoteRegisterUserService: RegisterUserService {
         
         var host: String = ""
         
-        var path: String = ""
+        var path: String = "/api/register"
         
         var queryParameters: [URLQueryItem]? = nil
         
@@ -69,12 +77,18 @@ public final class RemoteRegisterUserService: RegisterUserService {
         
         var headers: HTTPHeaders?
         
-        init(user: User, host: String) {
+        init(user: User,
+             host: String,
+             clientId: String,
+             clientSecret: String) {
             var headers = HTTPHeaders()
-            headers.add(name: HTTPHeaderName.contentType, value: "application/json; charset=utf-8")
+            headers.add(name: HTTPHeaderName.contentType, value: "application/json")
+            headers.add(name: HTTPHeaderName.acceept, value: "application/json")
             self.headers = headers
             self.host = host
-            let requestBody = RemoteRegisterRequestModel(first_name: user.username,
+            let requestBody = RemoteRegisterRequestModel(client_id: clientId,
+                                                         client_secret: clientSecret,
+                                                         first_name: user.username,
                                                          last_name: user.lastname,
                                                          data_license: user.dataLicense.id,
                                                          image_license: user.imageLicense.id,
@@ -87,6 +101,8 @@ public final class RemoteRegisterUserService: RegisterUserService {
     }
     
     private struct RemoteRegisterRequestModel: Codable {
+        let client_id: String
+        let client_secret: String
         let first_name: String
         let last_name: String
         let data_license: Int
