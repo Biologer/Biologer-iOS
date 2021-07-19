@@ -11,12 +11,15 @@ import SwiftUI
 public final class DashboardRouter: NavigationRouter {
     
     private let navigationController: UINavigationController
+    private let mainNavigationController: UINavigationController
     private let factory: DashboardViewControllerFactory
     private var dashboardScreen: UIHostingController<SideMenu<SideMenuScreenViewModel>>?
     
     init(navigationController: UINavigationController,
+         mainNavigationController: UINavigationController,
          factory: DashboardViewControllerFactory) {
         self.navigationController = navigationController
+        self.mainNavigationController = mainNavigationController
         self.factory = factory
     }
     
@@ -33,8 +36,8 @@ public final class DashboardRouter: NavigationRouter {
                                                                         
                                                                         self.dashboardScreen?.rootView.loader.menuOpen = false
                                                                     },
-                                                                    onLogoutTapped: { _ in
-                                                                        
+                                                                    onLogoutTapped: { [weak self] _ in
+                                                                        self?.mainNavigationController.dismiss(animated: true, completion: nil)
                                                                     })
         dashboardScreen = dashboardViewController as? UIHostingController<SideMenu<SideMenuScreenViewModel>>
         

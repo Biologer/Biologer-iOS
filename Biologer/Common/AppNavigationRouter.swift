@@ -56,12 +56,14 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var dashboardRouter: DashboardRouter = {
         return DashboardRouter(navigationController: dashboardNavigationController,
+                               mainNavigationController: mainNavigationController,
                                factory: SwiftUIDashboardViewControllerFactory())
     }()
     
     
     init(mainNavigationController: UINavigationController) {
         self.mainNavigationController = mainNavigationController
+        self.mainNavigationController.setNavigationBarTransparency()
     }
     
     public func start() {

@@ -73,6 +73,7 @@
 		93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */; };
 		93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */; };
 		93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */; };
+		93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */; };
 		93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */; };
 		93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65842697A52000949534 /* ErrorLabelView.swift */; };
 		93CC65872699941A00949534 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65862699941900949534 /* View+Extensions.swift */; };
@@ -201,6 +202,7 @@
 		93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTokenStorage.swift; sourceTree = "<group>"; };
 		93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreen.swift; sourceTree = "<group>"; };
 		93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreenViewModel.swift; sourceTree = "<group>"; };
+		93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationViewControler+Extensions.swift"; sourceTree = "<group>"; };
 		93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicenseScreenViewModel.swift; sourceTree = "<group>"; };
 		93CC65842697A52000949534 /* ErrorLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabelView.swift; sourceTree = "<group>"; };
 		93CC65862699941900949534 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 				93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */,
 				93334EC0267894820094A483 /* UIScreen+Extensions.swift */,
 				936035C6268889D60080C771 /* UIViewController+Extensions.swift */,
+				93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -969,6 +972,7 @@
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
 				936035C4268874620080C771 /* SideMenu.swift in Sources */,
 				93334EB12677E1220094A483 /* FindingsListView.swift in Sources */,
+				93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */,
 				93A7E27C2691F78D001D6AEF /* RegisterStepTwoScreen.swift in Sources */,
 				93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */,
 				93A7E27E2691F7D4001D6AEF /* RegisterStepThreeScreen.swift in Sources */,
