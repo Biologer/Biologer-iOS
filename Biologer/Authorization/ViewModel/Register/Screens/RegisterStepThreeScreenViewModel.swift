@@ -20,7 +20,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     private let onDataLicense: Observer<DataLicense>
     private let onImageLicense: Observer<DataLicense>
     
-    private let onSuccess: Observer<Void>
+    private let onSuccess: Observer<Token>
     private let onError: Observer<Void>
     private let onLoading: Observer<Bool>
     private let user: User
@@ -34,7 +34,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
          onReadPrivacyPolicy: @escaping Observer<Void>,
          onDataLicense: @escaping Observer<DataLicense>,
          onImageLicense: @escaping Observer<DataLicense>,
-         onSuccess: @escaping Observer<Void>,
+         onSuccess: @escaping Observer<Token>,
          onError: @escaping Observer<Void>,
          onLoading: @escaping Observer<Bool>) {
         self.user = user
@@ -77,7 +77,8 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
             switch result {
             case .success(let response):
                 print("Response: \(response)")
-                self?.onSuccess(())
+                let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
+                self?.onSuccess((token))
             case .failure(let error):
                 self?.onError(())
                 print("Error: \(error)")

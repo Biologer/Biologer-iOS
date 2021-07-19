@@ -9,7 +9,7 @@ import Foundation
 
 public protocol LoginUserService {
     typealias Result = Swift.Result<LoginUserResponse, Error>
-    func loadSearch(email: String, password: String, completion: @escaping (Result) -> Void)
+    func login(email: String, password: String, completion: @escaping (Result) -> Void)
 }
 
 public enum LoginServiceError: LocalizedError {
@@ -40,11 +40,15 @@ public final class RemoteLoginUserService: LoginUserService {
         self.environmentStorage = environmentStorage
     }
     
-    public func loadSearch(email: String,
+    public func login(email: String,
                            password: String,
                            completion: @escaping (Result) -> Void) {
         if let env = environmentStorage.getEnvironment() {
-            let request = try! LoginUserRequest(email: email, password: password, host: env.host).asURLRequest()
+            let request = try! LoginUserRequest(email: email,
+                                                password: password,
+                                                host: env.host,
+                                                cliendId: env.clientId,
+                                                clientSecret: env.clientSecret).asURLRequest()
             client.perform(from: request) { result in
                 switch result {
                 case .failure(let error):
@@ -69,7 +73,7 @@ public final class RemoteLoginUserService: LoginUserService {
         
         var host: String = ""
         
-        var path: String = ""
+        var path: String = "/oauth/token"
         
         var queryParameters: [URLQueryItem]? = nil
         
@@ -77,12 +81,18 @@ public final class RemoteLoginUserService: LoginUserService {
         
         var headers: HTTPHeaders?
         
-        init(email: String, password: String, host: String) {
+        init(email: String, password: String, host: String, cliendId: String, clientSecret: String) {
             var headers = HTTPHeaders()
-            headers.add(name: HTTPHeaderName.contentType, value: "application/json; charset=utf-8")
+            headers.add(name: HTTPHeaderName.contentType, value: "application/json")
+            headers.add(name: HTTPHeaderName.acceept, value: "application/json")
             self.headers = headers
             self.host = host
-            let requestBody = LoginRequestModel(username: email, password: password)
+            let requestBody = LoginRequestModel(username: email,
+                                                password: password,
+                                                scope: "*",
+                                                client_secret: clientSecret,
+                                                client_id: cliendId,
+                                                grant_type: "password")
             let json = try! JSONEncoder().encode(requestBody)
             body = json
         }
@@ -91,5 +101,9 @@ public final class RemoteLoginUserService: LoginUserService {
     private struct LoginRequestModel: Codable {
         let username: String
         let password: String
+        let scope: String
+        let client_secret: String
+        let client_id: String
+        let grant_type: String
     }
 }

@@ -65,7 +65,8 @@ public final class AuthorizationRouter: NavigationRouter {
                                                                 self?.showEnvironmentScreen(selectedViewModel: env,
                                                                                             delegate: envDelegate)
                                                              },
-                                                             onLoginSuccess: { [weak self]  _ in
+                                                             onLoginSuccess: { [weak self]  token in
+                                                                self?.tokenStorage.saveToken(token: token)
                                                                 self?.onLoginSuccess?(())
                                                              },
                                                              onRegisterTapped: { [weak self] _ in
@@ -191,7 +192,10 @@ public final class AuthorizationRouter: NavigationRouter {
                                                                                                     dataLicenses: imageLicenses,
                                                                                                     presentDatePicker: dataLicenseDelegate)
                                                                           },
-                                                                          onSuccess: { _ in },
+                                                                          onSuccess: { [weak self] token in
+                                                                            self?.tokenStorage.saveToken(token: token)
+                                                                            self?.onLoginSuccess?(())
+                                                                          },
                                                                           onError: { _ in },
                                                                           onLoading: onLoading)
         

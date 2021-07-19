@@ -17,9 +17,9 @@ let croatiaPath = "/hr"
 let bosnianAndHerzegovinaPath = "/ba"
 let devPath = "/sr"
 
-let cliendId = ""
+let cliendId = "5"
 
 let serbiaClientSecret = ""
 let croatiaClientSecret = ""
 let bosnianAndHercegovinaClientSecret = ""
-let devClientSecret = ""
+let devClientSecret = "xUPWkif74Y26EnSumHQzyTbusY91uf4pwKfv4ZEp"

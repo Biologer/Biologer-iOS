@@ -13,7 +13,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     public func makeLoginScreen(service: LoginUserService,
                                 environmentViewModel: EnvironmentViewModel,
                                 onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
-                                onLoginSuccess: @escaping Observer<Void>,
+                                onLoginSuccess: @escaping Observer<Token>,
                                 onRegisterTapped: @escaping Observer<Void>,
                                 onForgotPasswordTapped: @escaping Observer<Void>,
                                 onLoading: @escaping Observer<Bool>) -> UIViewController {
@@ -74,7 +74,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                             onReadPrivacyPolicy: @escaping Observer<Void>,
                                             onDataLicense: @escaping Observer<DataLicense>,
                                             onImageLicense: @escaping Observer<DataLicense>,
-                                            onSuccess: @escaping Observer<Void>,
+                                            onSuccess: @escaping Observer<Token>,
                                             onError: @escaping Observer<Void>,
                                             onLoading: @escaping Observer<Bool>) -> UIViewController {
         

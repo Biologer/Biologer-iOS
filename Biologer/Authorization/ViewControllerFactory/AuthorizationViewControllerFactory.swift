@@ -11,7 +11,7 @@ public protocol AuthorizationViewControllerFactory {
     func makeLoginScreen(service: LoginUserService,
                          environmentViewModel: EnvironmentViewModel,
                          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
-                         onLoginSuccess: @escaping Observer<Void>,
+                         onLoginSuccess: @escaping Observer<Token>,
                          onRegisterTapped: @escaping Observer<Void>,
                          onForgotPasswordTapped: @escaping Observer<Void>,
                          onLoading: @escaping Observer<Bool>) -> UIViewController
@@ -31,7 +31,7 @@ public protocol AuthorizationViewControllerFactory {
                                      onReadPrivacyPolicy: @escaping Observer<Void>,
                                      onDataLicense: @escaping Observer<DataLicense>,
                                      onImageLicense: @escaping Observer<DataLicense>,
-                                     onSuccess: @escaping Observer<Void>,
+                                     onSuccess: @escaping Observer<Token>,
                                      onError: @escaping Observer<Void>,
                                      onLoading: @escaping Observer<Bool>) -> UIViewController
     func makeLicenseScreen(dataLicenses: [DataLicense],

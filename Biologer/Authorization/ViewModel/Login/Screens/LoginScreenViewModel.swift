@@ -18,12 +18,12 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     
     private let service: LoginUserService
     private let onSelectEnvironmentTapped: Observer<EnvironmentViewModel>
-    private let onLoginSuccess: Observer<Void>
+    private let onLoginSuccess: Observer<Token>
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
     private let onLoading: Observer<Bool>
-    private let email: String = ""
-    private let password: String = ""
+    private var email: String = ""
+    private var password: String = ""
     
     init(logoImage: String,
          labelsViewModel: LoginLabelsViewModel,
@@ -32,7 +32,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
          passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
          service: LoginUserService,
          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
-         onLoginSuccess: @escaping Observer<Void>,
+         onLoginSuccess: @escaping Observer<Token>,
          onRegisterTapped: @escaping Observer<Void>,
          onForgotPasswordTapped: @escaping Observer<Void>,
          onLoading: @escaping Observer<Bool>
@@ -67,38 +67,43 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     }
     
     private func validateFields() {
-        if userNameTextFieldViewModel.text.isEmpty {
-            setEmailRequired()
-           return
-        }
+//        if userNameTextFieldViewModel.text.isEmpty {
+//            setEmailRequired()
+//           return
+//        }
+//        
+//        if !isEmailValid(email: userNameTextFieldViewModel.text) {
+//            setEmailIsNotValidFormat()
+//            return
+//        }
+//        
+//        setEmilIsValid()
+//        
+//        if passwordTextFieldViewModel.text.isEmpty {
+//            setPasswordIsNotValid()
+//            return
+//        }
+//        
+//        setPasswordValid()
+//        
+//        email = userNameTextFieldViewModel.text
+//        password = passwordTextFieldViewModel.text
         
-        if !isEmailValid(email: userNameTextFieldViewModel.text) {
-            setEmailIsNotValidFormat()
-            return
-        }
-        
-        setEmilIsValid()
-        
-        if passwordTextFieldViewModel.text.isEmpty {
-            setPasswordIsNotValid()
-            return
-        }
-        
-        setPasswordValid()
-        
-        onLoading((true))
-        service.loadSearch(email: email,
-                           password: password) { [weak self] result in
-            self?.onLoading((false))
-            switch result {
-            case .success(let response):
-                print("Response login: \(response)")
-            case .failure(let error):
-                print("Error login: \(error.localizedDescription)")
-            }
-        }
-        
-        onLoginSuccess(())
+        onLoading((false))
+        let token = Token(accessToken: "", refreshToken: "")
+        self.onLoginSuccess((token))
+//        service.login(email: email,
+//                           password: password) { [weak self] result in
+//            self?.onLoading((false))
+//            switch result {
+//            case .success(let response):
+//                print("Response login: \(response)")
+//                let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
+//                self?.onLoginSuccess((token))
+//            case .failure(let error):
+//                print("Error login: \(error.localizedDescription)")
+//            }
+//        }
     }
     
     private func isEmailValid(email: String) -> Bool {
