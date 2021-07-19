@@ -1,5 +1,5 @@
 //
-//  LoginButton.swift
+//  BiologerButton.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 17.4.21..
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoginButton: View {
+struct BiologerButton: View {
     
     var title: String
     var onTapped: Observer<Void>
@@ -28,6 +28,6 @@ struct LoginButton: View {
 
 struct LoginButton_Previews: PreviewProvider {
     static var previews: some View {
-        LoginButton(title: "LOG IN", onTapped: { _ in })
+        BiologerButton(title: "LOG IN", onTapped: { _ in })
     }
 }
