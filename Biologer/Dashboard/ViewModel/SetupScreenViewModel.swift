@@ -8,5 +8,5 @@
 import Foundation
 
 public final class SetupScreenViewModel: SetupScreenLoader {
-    
+
 }

@@ -47,6 +47,12 @@ public final class DashboardRouter: NavigationRouter {
         self.navigationController.setViewControllers([dashboardViewController], animated: true)
     }
     
+    private func showSafari(path: String) {
+        if let url = URL(string: path) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
     @objc private func sideMenuAction() {
         dashboardScreen?.rootView.loader.menuOpen = true
     }
