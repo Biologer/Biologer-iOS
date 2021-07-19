@@ -10,13 +10,15 @@ import SwiftUI
 protocol DashboardViewControllerFactory {
     func createDashboardViewController(onNewItemTapped: @escaping Observer<Void>,
                                        onItemTapped: @escaping Observer<Item>,
-                                       onSideMenuItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController
+                                       onSideMenuItemTapped: @escaping Observer<SideMenuItem>,
+                                       onLogoutTapped: @escaping Observer<Void>) -> UIViewController
 }
 
 public final class SwiftUIDashboardViewControllerFactory: DashboardViewControllerFactory {
     func createDashboardViewController(onNewItemTapped: @escaping Observer<Void>,
                                        onItemTapped: @escaping Observer<Item>,
-                                       onSideMenuItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController {
+                                       onSideMenuItemTapped: @escaping Observer<SideMenuItem>,
+                                       onLogoutTapped: @escaping Observer<Void>) -> UIViewController {
      
         let firstSectionListSideMenu = [SideMenuItem(id: 1, image: "list_of_findings_icon",
                                                      title: "List of findings",
@@ -50,12 +52,14 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
                                                                 onItemTapped: onItemTapped)
         
         let setupViewModel = SetupScreenViewModel()
+        let logoutViewModel = LogoutScreenViewModel(onLogoutTapped: onLogoutTapped)
         let aboutViewModel = AboutBiologerScreenViewModel()
         let helpViewModel = HelpScreenViewModel()
         
         let sideMenuViewModel = SideMenuScreenViewModel(sideMenuListLoader: sideMenuListViewModel,
                                                         listOfFindingsLoader: sideMenuMainViewModel,
                                                         setupScreenLoader: setupViewModel,
+                                                        logoutScreenLoader: logoutViewModel,
                                                         aboutScreenLoader: aboutViewModel,
                                                         helpScreenLoader: helpViewModel,
                                                         selectedItemType: .listOfFindings,

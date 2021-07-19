@@ -32,6 +32,9 @@ public final class DashboardRouter: NavigationRouter {
                                                                         self.dashboardScreen?.rootView.loader.selectedItemType = item.type
                                                                         
                                                                         self.dashboardScreen?.rootView.loader.menuOpen = false
+                                                                    },
+                                                                    onLogoutTapped: { _ in
+                                                                        
                                                                     })
         dashboardScreen = dashboardViewController as? UIHostingController<SideMenu<SideMenuScreenViewModel>>
         

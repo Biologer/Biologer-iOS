@@ -11,6 +11,7 @@ protocol SideMenuScreenLoader: ObservableObject {
     var sideMenuListLoader: SideMenuListScreenViewModel { get }
     var listOfFindingsLoader: ListOfFindingsScreenViewModel { get }
     var setupScreenLoader: SetupScreenViewModel { get }
+    var logoutScreenLoader: LogoutScreenViewModel { get }
     var aboutScreenLoader: AboutBiologerScreenViewModel { get }
     var helpScreenLoader: HelpScreenViewModel { get }
     var menuOpen: Bool { get set }
@@ -32,7 +33,7 @@ struct SideMenu<ScreenLoader>: View where ScreenLoader: SideMenuScreenLoader {
                 case .setup:
                     SetupScreen(loader: loader.setupScreenLoader)
                 case .logout:
-                    Text("Logout")
+                    LogoutScreen(loader: loader.logoutScreenLoader)
                 case .about:
                     AboutBiologerScreen(loader: loader.aboutScreenLoader)
                 case .help:

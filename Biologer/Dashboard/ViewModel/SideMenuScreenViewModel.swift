@@ -9,12 +9,12 @@ import Foundation
 
 public final class SideMenuScreenViewModel: SideMenuScreenLoader, ObservableObject {
 
-    
     @Published var selectedItemType: SideMenuItemType
     @Published var menuOpen: Bool = false
     var sideMenuListLoader: SideMenuListScreenViewModel
     var listOfFindingsLoader: ListOfFindingsScreenViewModel
     var setupScreenLoader: SetupScreenViewModel
+    var logoutScreenLoader: LogoutScreenViewModel
     var aboutScreenLoader: AboutBiologerScreenViewModel
     var helpScreenLoader: HelpScreenViewModel
     var onItemTapped: Observer<SideMenuItem>
@@ -23,6 +23,7 @@ public final class SideMenuScreenViewModel: SideMenuScreenLoader, ObservableObje
     init(sideMenuListLoader: SideMenuListScreenViewModel,
          listOfFindingsLoader: ListOfFindingsScreenViewModel,
          setupScreenLoader: SetupScreenViewModel,
+         logoutScreenLoader: LogoutScreenViewModel,
          aboutScreenLoader: AboutBiologerScreenViewModel,
          helpScreenLoader: HelpScreenViewModel,
          selectedItemType: SideMenuItemType,
@@ -31,6 +32,7 @@ public final class SideMenuScreenViewModel: SideMenuScreenLoader, ObservableObje
         self.sideMenuListLoader = sideMenuListLoader
         self.listOfFindingsLoader = listOfFindingsLoader
         self.setupScreenLoader = setupScreenLoader
+        self.logoutScreenLoader = logoutScreenLoader
         self.aboutScreenLoader = aboutScreenLoader
         self.helpScreenLoader = helpScreenLoader
         self.selectedItemType = selectedItemType

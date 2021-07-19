@@ -37,7 +37,7 @@ struct RegisterStepOneScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
                                             
                                         })
                     .padding()
-                LoginButton(title: loader.buttonTitle,
+                BiologerButton(title: loader.buttonTitle,
                             onTapped: { _ in
                                 loader.nextButtonTapped()
                             })

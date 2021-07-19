@@ -59,7 +59,7 @@
 		93A7E27E2691F7D4001D6AEF /* RegisterStepThreeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */; };
 		93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */; };
 		93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */; };
-		93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF629D262B807D00DDFB44 /* LoginButton.swift */; };
+		93BF629E262B807D00DDFB44 /* BiologerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF629D262B807D00DDFB44 /* BiologerButton.swift */; };
 		93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62A2262B838A00DDFB44 /* EnvironmentLoginView.swift */; };
 		93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62AD262C451400DDFB44 /* EnvironmentScreenViewModel.swift */; };
 		93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */; };
@@ -71,6 +71,8 @@
 		93C2D1ED269F1BEC00123216 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EC269F1BEC00123216 /* TokenStorage.swift */; };
 		93C2D1EF269F1BFF00123216 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EE269F1BFF00123216 /* Token.swift */; };
 		93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */; };
+		93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */; };
+		93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */; };
 		93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */; };
 		93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65842697A52000949534 /* ErrorLabelView.swift */; };
 		93CC65872699941A00949534 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65862699941900949534 /* View+Extensions.swift */; };
@@ -185,7 +187,7 @@
 		93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepThreeScreen.swift; sourceTree = "<group>"; };
 		93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
-		93BF629D262B807D00DDFB44 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		93BF629D262B807D00DDFB44 /* BiologerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerButton.swift; sourceTree = "<group>"; };
 		93BF62A2262B838A00DDFB44 /* EnvironmentLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentLoginView.swift; sourceTree = "<group>"; };
 		93BF62AD262C451400DDFB44 /* EnvironmentScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentScreenViewModel.swift; sourceTree = "<group>"; };
 		93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentScreen.swift; sourceTree = "<group>"; };
@@ -197,6 +199,8 @@
 		93C2D1EC269F1BEC00123216 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		93C2D1EE269F1BFF00123216 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTokenStorage.swift; sourceTree = "<group>"; };
+		93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreen.swift; sourceTree = "<group>"; };
+		93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreenViewModel.swift; sourceTree = "<group>"; };
 		93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicenseScreenViewModel.swift; sourceTree = "<group>"; };
 		93CC65842697A52000949534 /* ErrorLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabelView.swift; sourceTree = "<group>"; };
 		93CC65862699941900949534 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -452,9 +456,10 @@
 				936035C5268879AA0080C771 /*  Side Menu */,
 				93334EC326789B920094A483 /* SideMenuListScreen */,
 				93334EC226789B660094A483 /* ListOfFindings */,
-				936035CA26891A240080C771 /* AboutBiologerScreen.swift */,
-				936035C8268916B20080C771 /* SetupScreen.swift */,
-				936035CC26891DC50080C771 /* HelpScreen.swift */,
+				93C2D1F826A5EAE400123216 /* HelpScreen */,
+				93C2D1F726A5EADA00123216 /* SetupScreen */,
+				93C2D1F926A5EAFD00123216 /* LogoutScreen */,
+				93C2D1F626A5EAC300123216 /* AboutScreen */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -468,6 +473,7 @@
 				936035CE26891E670080C771 /* HelpScreenViewModel.swift */,
 				936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */,
 				936035D2268929920080C771 /* SetupScreenViewModel.swift */,
+				93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -532,7 +538,7 @@
 			children = (
 				9314271A262B58AA00542EFC /* LoginScreen.swift */,
 				93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */,
-				93BF629D262B807D00DDFB44 /* LoginButton.swift */,
+				93BF629D262B807D00DDFB44 /* BiologerButton.swift */,
 				93CC6588269C2C5E00949534 /* LoginEnvView.swift */,
 			);
 			path = Login;
@@ -603,6 +609,38 @@
 				93BF62C1262C559700DDFB44 /* AuthorizationViewControllerFactory.swift */,
 			);
 			path = ViewControllerFactory;
+			sourceTree = "<group>";
+		};
+		93C2D1F626A5EAC300123216 /* AboutScreen */ = {
+			isa = PBXGroup;
+			children = (
+				936035CA26891A240080C771 /* AboutBiologerScreen.swift */,
+			);
+			path = AboutScreen;
+			sourceTree = "<group>";
+		};
+		93C2D1F726A5EADA00123216 /* SetupScreen */ = {
+			isa = PBXGroup;
+			children = (
+				936035C8268916B20080C771 /* SetupScreen.swift */,
+			);
+			path = SetupScreen;
+			sourceTree = "<group>";
+		};
+		93C2D1F826A5EAE400123216 /* HelpScreen */ = {
+			isa = PBXGroup;
+			children = (
+				936035CC26891DC50080C771 /* HelpScreen.swift */,
+			);
+			path = HelpScreen;
+			sourceTree = "<group>";
+		};
+		93C2D1F926A5EAFD00123216 /* LogoutScreen */ = {
+			isa = PBXGroup;
+			children = (
+				93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */,
+			);
+			path = LogoutScreen;
 			sourceTree = "<group>";
 		};
 		93CC6596269C622E00949534 /* Storage */ = {
@@ -957,7 +995,7 @@
 				9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */,
 				93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
-				93BF629E262B807D00DDFB44 /* LoginButton.swift in Sources */,
+				93BF629E262B807D00DDFB44 /* BiologerButton.swift in Sources */,
 				93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
 				93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */,
@@ -965,9 +1003,11 @@
 				93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */,
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
+				93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */,
 				93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */,
 				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
 				93DF141B269222AF00A7A977 /* CodableParser.swift in Sources */,
+				93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */,
 				93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
 				93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */,

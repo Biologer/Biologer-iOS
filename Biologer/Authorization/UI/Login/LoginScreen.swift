@@ -100,7 +100,7 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                     .padding(.bottom, 20)
                 
                 
-                LoginButton(title: viewModel.labelsViewModel.loginButtonTitle,
+                BiologerButton(title: viewModel.labelsViewModel.loginButtonTitle,
                             onTapped: { _ in
                                 viewModel.login()
                             })

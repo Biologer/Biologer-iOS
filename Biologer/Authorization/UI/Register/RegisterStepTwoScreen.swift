@@ -43,7 +43,7 @@ struct RegisterStepTwoScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
                                             loader.toggleIsCodeEntryRepeatPassword()
                                         })
                     .padding()
-                LoginButton(title: loader.buttonTitle,
+                BiologerButton(title: loader.buttonTitle,
                             onTapped: { _ in
                                 loader.nextButtonTapped()
                             })

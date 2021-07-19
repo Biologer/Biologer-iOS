@@ -60,7 +60,7 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
                         Text(loader.acceptPPTitle)
                         Spacer()
                     }
-                    LoginButton(title: loader.registerButtonTitle,
+                    BiologerButton(title: loader.registerButtonTitle,
                                 onTapped: { _ in
                                     loader.registerTapped()
                                 })
