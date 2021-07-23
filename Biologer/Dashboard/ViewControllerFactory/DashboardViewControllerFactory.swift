@@ -54,7 +54,7 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
         let setupViewModel = SetupScreenViewModel()
         let logoutViewModel = LogoutScreenViewModel(onLogoutTapped: onLogoutTapped)
         let aboutViewModel = AboutBiologerScreenViewModel()
-        let helpViewModel = HelpScreenViewModel()
+        let helpViewModel = HelpScreenViewModel(onDone: { _ in })
         
         let sideMenuViewModel = SideMenuScreenViewModel(sideMenuListLoader: sideMenuListViewModel,
                                                         listOfFindingsLoader: sideMenuMainViewModel,
