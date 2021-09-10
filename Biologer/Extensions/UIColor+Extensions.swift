@@ -12,4 +12,8 @@ extension UIColor {
     static var biologerGreenColor: UIColor {
         UIColor(named: "biologer_green_color")!
     }
+    
+    static var biologerLightGreenColor: UIColor {
+        UIColor(named: "biologer_light_green")!
+    }
 }
