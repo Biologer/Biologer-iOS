@@ -9,6 +9,7 @@ target 'Biologer' do
 
   pod 'MaterialComponents/TextControls+OutlinedTextFields'
   pod 'SwiftKeychainWrapper'
+  pod 'SideMenu'
   
   target 'BiologerTests' do
     inherit! :search_paths

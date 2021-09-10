@@ -17,44 +17,26 @@ protocol SideMenuListScreenLoader: ObservableObject {
 
 struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListScreenLoader {
     
-    let width: CGFloat
-    let isOpen: Bool
-    let menuClose: Observer<Bool>
-
     @ObservedObject public var loader: ScreenLoader
     
     var body: some View {
-        ZStack {
-            GeometryReader { _ in
-                EmptyView()
-            }
-            .background(Color.gray.opacity(0.3))
-            .opacity(isOpen ? 1.0 : 0.0)
-            .animation(Animation.easeIn.delay(0.25))
-            .onTapGesture {
-                menuClose(isOpen)
-            }
-            
-            HStack {
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        SideMenuListHeaderView(image: loader.image,
-                                               email: loader.email,
-                                               username: loader.username)
-                        genereateItems(items: loader.items[0])
-                        Divider()
-                        Text("About us")
-                            .padding(.leading, 10)
-                        genereateItems(items: loader.items[1])
-                    }
+        HStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    SideMenuListHeaderView(image: loader.image,
+                                           email: loader.email,
+                                           username: loader.username)
+                    genereateItems(items: loader.items[0])
+                    Divider()
+                    Text("About us")
+                        .padding(.leading, 10)
+                    genereateItems(items: loader.items[1])
                 }
-                    .frame(width: width)
-                    .background(Color.white)
-                    .offset(x: isOpen ? 0 : -width)
-                    .animation(.default)
-                
-                Spacer()
             }
+            .background(Color.white)
+            .animation(.default)
+            
+            Spacer()
         }
     }
     
@@ -72,10 +54,7 @@ struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListSc
 
 struct SideMenuListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuListScreen(width: 270,
-                           isOpen: true,
-                           menuClose: { isOpen in },
-                           loader: StubSideMenuListScreenLoader(onItemTapped: { _ in }))
+        SideMenuListScreen(loader: StubSideMenuListScreenLoader(onItemTapped: { _ in }))
     }
     
     private class StubSideMenuListScreenLoader: SideMenuListScreenLoader {

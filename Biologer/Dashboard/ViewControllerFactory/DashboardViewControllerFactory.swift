@@ -8,18 +8,16 @@
 import SwiftUI
 
 protocol DashboardViewControllerFactory {
-    func createDashboardViewController(onNewItemTapped: @escaping Observer<Void>,
-                                       onItemTapped: @escaping Observer<Item>,
-                                       onSideMenuItemTapped: @escaping Observer<SideMenuItem>,
-                                       onLogoutTapped: @escaping Observer<Void>) -> UIViewController
+    func makeSideMenuListScreen(onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController
+    func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
+                                       onItemTapped: @escaping Observer<Item>) -> UIViewController
+    func makeSetupScreen() -> UIViewController
 }
 
 public final class SwiftUIDashboardViewControllerFactory: DashboardViewControllerFactory {
-    func createDashboardViewController(onNewItemTapped: @escaping Observer<Void>,
-                                       onItemTapped: @escaping Observer<Item>,
-                                       onSideMenuItemTapped: @escaping Observer<SideMenuItem>,
-                                       onLogoutTapped: @escaping Observer<Void>) -> UIViewController {
-     
+    
+    func makeSideMenuListScreen(onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController {
+        
         let firstSectionListSideMenu = [SideMenuItem(id: 1, image: "list_of_findings_icon",
                                                      title: "List of findings",
                                                      type: .listOfFindings),
@@ -46,29 +44,27 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
                                                                 email: "test@test.com",
                                                                 username: "Nikola",
                                                                 image: "biloger_background",
-                                                                onItemTapped: onSideMenuItemTapped)
+                                                                onItemTapped: onItemTapped)
         
+        let screen = SideMenuListScreen(loader: sideMenuListViewModel)
+        let viewController = UIHostingController(rootView: screen)
+        return viewController
+    }
+    
+    func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
+                                       onItemTapped: @escaping Observer<Item>) -> UIViewController {
         let sideMenuMainViewModel = ListOfFindingsScreenViewModel(onNewItemTapped: onNewItemTapped,
                                                                 onItemTapped: onItemTapped)
         
-        let setupViewModel = SetupScreenViewModel()
-        let logoutViewModel = LogoutScreenViewModel(onLogoutTapped: onLogoutTapped)
-        let aboutViewModel = AboutBiologerScreenViewModel()
-        let helpViewModel = HelpScreenViewModel(onDone: { _ in })
-        
-        let sideMenuViewModel = SideMenuScreenViewModel(sideMenuListLoader: sideMenuListViewModel,
-                                                        listOfFindingsLoader: sideMenuMainViewModel,
-                                                        setupScreenLoader: setupViewModel,
-                                                        logoutScreenLoader: logoutViewModel,
-                                                        aboutScreenLoader: aboutViewModel,
-                                                        helpScreenLoader: helpViewModel,
-                                                        selectedItemType: .listOfFindings,
-                                                        onItemTapped: onSideMenuItemTapped,
-                                                        onNewItemTapped: onNewItemTapped)
-        
-        let screen = SideMenu(loader: sideMenuViewModel)
+        let screen = ListOfFindingsScreen(loader: sideMenuMainViewModel)
         let viewController = UIHostingController(rootView: screen)
-        
         return viewController
+    }
+    
+    func makeSetupScreen() -> UIViewController {
+        let viewModel = SetupScreenViewModel()
+        let screen = SetupScreen(loader: viewModel)
+        let vc = UIHostingController(rootView: screen)
+        return vc
     }
 }

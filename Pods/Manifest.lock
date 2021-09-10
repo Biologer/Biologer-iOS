@@ -29,23 +29,27 @@ PODS:
     - "MaterialComponents/private/TextControlsPrivate+OutlinedStyle"
     - "MaterialComponents/TextControls+BaseTextFields"
   - MDFInternationalization (2.0.0)
+  - SideMenu (6.5.0)
   - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
   - "MaterialComponents/TextControls+OutlinedTextFields"
+  - SideMenu
   - SwiftKeychainWrapper
 
 SPEC REPOS:
   trunk:
     - MaterialComponents
     - MDFInternationalization
+    - SideMenu
     - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   MaterialComponents: b9f58f24bf74588a83b2dce05802a11aaed5257d
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
+  SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 493ece5413f4db2bcea4155d9b9160640d57b459
+PODFILE CHECKSUM: a0b036fdcaf2471e5abaed90713b71cb06158fa0
 
 COCOAPODS: 1.10.1

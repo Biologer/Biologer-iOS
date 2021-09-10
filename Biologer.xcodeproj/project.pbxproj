@@ -37,9 +37,7 @@
 		93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */; };
 		93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC0267894820094A483 /* UIScreen+Extensions.swift */; };
 		93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */; };
-		93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */; };
 		9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342575826925B9F00B8C912 /* AttributedTextView.swift */; };
-		936035C4268874620080C771 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C3268874620080C771 /* SideMenu.swift */; };
 		936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C6268889D60080C771 /* UIViewController+Extensions.swift */; };
 		936035C9268916B20080C771 /* SetupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C8268916B20080C771 /* SetupScreen.swift */; };
 		936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CA26891A240080C771 /* AboutBiologerScreen.swift */; };
@@ -166,9 +164,7 @@
 		93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListHeaderView.swift; sourceTree = "<group>"; };
 		93334EC0267894820094A483 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreenViewModel.swift; sourceTree = "<group>"; };
-		93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuScreenViewModel.swift; sourceTree = "<group>"; };
 		9342575826925B9F00B8C912 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
-		936035C3268874620080C771 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		936035C6268889D60080C771 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		936035C8268916B20080C771 /* SetupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScreen.swift; sourceTree = "<group>"; };
 		936035CA26891A240080C771 /* AboutBiologerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBiologerScreen.swift; sourceTree = "<group>"; };
@@ -455,7 +451,6 @@
 		93334EAA2677DCA70094A483 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				936035C5268879AA0080C771 /*  Side Menu */,
 				93334EC326789B920094A483 /* SideMenuListScreen */,
 				93334EC226789B660094A483 /* ListOfFindings */,
 				93C2D1F826A5EAE400123216 /* HelpScreen */,
@@ -471,7 +466,6 @@
 			children = (
 				93334EB82677E8590094A483 /* ListOfFindingsScreenViewModel.swift */,
 				93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */,
-				93334EC626790A620094A483 /* SideMenuScreenViewModel.swift */,
 				936035CE26891E670080C771 /* HelpScreenViewModel.swift */,
 				936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */,
 				936035D2268929920080C771 /* SetupScreenViewModel.swift */,
@@ -507,14 +501,6 @@
 				93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */,
 			);
 			path = SideMenuListScreen;
-			sourceTree = "<group>";
-		};
-		936035C5268879AA0080C771 /*  Side Menu */ = {
-			isa = PBXGroup;
-			children = (
-				936035C3268874620080C771 /* SideMenu.swift */,
-			);
-			path = " Side Menu";
 			sourceTree = "<group>";
 		};
 		93A7E25D2691D5B0001D6AEF /* Login */ = {
@@ -970,7 +956,6 @@
 				93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */,
 				93334EB52677E17B0094A483 /* Item.swift in Sources */,
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
-				936035C4268874620080C771 /* SideMenu.swift in Sources */,
 				93334EB12677E1220094A483 /* FindingsListView.swift in Sources */,
 				93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */,
 				93A7E27C2691F78D001D6AEF /* RegisterStepTwoScreen.swift in Sources */,
@@ -1037,7 +1022,6 @@
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */,
 				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
-				93334EC726790A620094A483 /* SideMenuScreenViewModel.swift in Sources */,
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
 				93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */,
 				93334EB72677E4E40094A483 /* NoItemsView.swift in Sources */,
