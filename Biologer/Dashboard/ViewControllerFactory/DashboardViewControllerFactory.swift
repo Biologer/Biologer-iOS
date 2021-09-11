@@ -12,6 +12,9 @@ protocol DashboardViewControllerFactory {
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
                                        onItemTapped: @escaping Observer<Item>) -> UIViewController
     func makeSetupScreen() -> UIViewController
+    func makeLogoutScreen(onLogoutTapped: @escaping Observer<Void>) -> UIViewController
+    func makeAboutScreen() -> UIViewController
+    func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController
 }
 
 public final class SwiftUIDashboardViewControllerFactory: DashboardViewControllerFactory {
@@ -64,6 +67,27 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
     func makeSetupScreen() -> UIViewController {
         let viewModel = SetupScreenViewModel()
         let screen = SetupScreen(loader: viewModel)
+        let vc = UIHostingController(rootView: screen)
+        return vc
+    }
+    
+    func makeLogoutScreen(onLogoutTapped: @escaping Observer<Void>) -> UIViewController {
+        let viewModel = LogoutScreenViewModel(onLogoutTapped: onLogoutTapped)
+        let screen = LogoutScreen(loader: viewModel)
+        let vc = UIHostingController(rootView: screen)
+        return vc
+    }
+    
+    func makeAboutScreen() -> UIViewController {
+        let viewModel = AboutBiologerScreenViewModel()
+        let screen = AboutBiologerScreen(loader: viewModel)
+        let vc = UIHostingController(rootView: screen)
+        return vc
+    }
+        
+    func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController {
+        let viewModel = HelpScreenViewModel(onDone: onDone)
+        let screen = HelpScreen(loader: viewModel)
         let vc = UIHostingController(rootView: screen)
         return vc
     }

@@ -27,10 +27,10 @@ public final class DashboardRouter: NavigationRouter {
         showDashboardScreen()
     }
     
-    private func sideMenu() {
+    private func showSideMenu() {
         let sideMenuListScreen = factory.makeSideMenuListScreen(onItemTapped: { item in
             self.navigationController.dismiss(animated: true, completion: nil)
-            self.presentItemFormSideMenu(item: item.type)
+            self.showScreenFormSideMenu(item: item.type)
         })
         let menu = SideMenuNavigationController(rootViewController: sideMenuListScreen)
         menu.leftSide = true
@@ -48,20 +48,46 @@ public final class DashboardRouter: NavigationRouter {
         self.navigationController.setViewControllers([dashboardViewController], animated: false)
     }
     
-    private func presentSetupScreen() {
+    private func showSetupScreen() {
         let vc = factory.makeSetupScreen()
         addSideMenuIcon(vc: vc)
         self.navigationController.setViewControllers([vc], animated: false)
     }
     
-    private func presentItemFormSideMenu(item: SideMenuItemType) {
+    private func showLogoutScreen() {
+        let vc = factory.makeLogoutScreen(onLogoutTapped: { _ in
+            
+        })
+        addSideMenuIcon(vc: vc)
+        self.navigationController.setViewControllers([vc], animated: false)
+    }
+    
+    private func showAboutBiologerScreen() {
+        let vc = factory.makeAboutScreen()
+        addSideMenuIcon(vc: vc)
+        self.navigationController.setViewControllers([vc], animated: false)
+    }
+    
+    private func showHelpScreen() {
+        let vc = factory.makeHelpScreen(onDone: { _ in
+            
+        })
+        addSideMenuIcon(vc: vc)
+        self.navigationController.setViewControllers([vc], animated: false)
+    }
+    
+    private func showScreenFormSideMenu(item: SideMenuItemType) {
         switch item {
         case .listOfFindings:
             showDashboardScreen()
         case .setup:
-            presentSetupScreen()
-        default:
-            break
+            showSetupScreen()
+        case .logout:
+            showLogoutScreen()
+        case .about:
+            showAboutBiologerScreen()
+        case .help:
+            showHelpScreen()
         }
     }
     
@@ -72,7 +98,7 @@ public final class DashboardRouter: NavigationRouter {
     }
     
     @objc private func sideMenuAction() {
-        self.sideMenu()
+        self.showSideMenu()
     }
     
     private func showSafari(path: String) {
