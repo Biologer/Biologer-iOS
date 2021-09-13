@@ -67,43 +67,43 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     }
     
     private func validateFields() {
-//        if userNameTextFieldViewModel.text.isEmpty {
-//            setEmailRequired()
-//           return
-//        }
-//        
-//        if !isEmailValid(email: userNameTextFieldViewModel.text) {
-//            setEmailIsNotValidFormat()
-//            return
-//        }
-//        
-//        setEmilIsValid()
-//        
-//        if passwordTextFieldViewModel.text.isEmpty {
-//            setPasswordIsNotValid()
-//            return
-//        }
-//        
-//        setPasswordValid()
-//        
-//        email = userNameTextFieldViewModel.text
-//        password = passwordTextFieldViewModel.text
+        if userNameTextFieldViewModel.text.isEmpty {
+            setEmailRequired()
+           return
+        }
         
-        onLoading((false))
-        let token = Token(accessToken: "", refreshToken: "")
-        self.onLoginSuccess((token))
-//        service.login(email: email,
-//                           password: password) { [weak self] result in
-//            self?.onLoading((false))
-//            switch result {
-//            case .success(let response):
-//                print("Response login: \(response)")
-//                let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
-//                self?.onLoginSuccess((token))
-//            case .failure(let error):
-//                print("Error login: \(error.localizedDescription)")
-//            }
-//        }
+        if !isEmailValid(email: userNameTextFieldViewModel.text) {
+            setEmailIsNotValidFormat()
+            return
+        }
+        
+        setEmilIsValid()
+        
+        if passwordTextFieldViewModel.text.isEmpty {
+            setPasswordIsNotValid()
+            return
+        }
+        
+        setPasswordValid()
+        
+        email = userNameTextFieldViewModel.text
+        password = passwordTextFieldViewModel.text
+        
+//        onLoading((false))
+//        let token = Token(accessToken: "", refreshToken: "")
+//        self.onLoginSuccess((token))
+        service.login(email: email,
+                           password: password) { [weak self] result in
+            self?.onLoading((false))
+            switch result {
+            case .success(let response):
+                print("Response login: \(response)")
+                let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
+                self?.onLoginSuccess((token))
+            case .failure(let error):
+                print("Error login: \(error.localizedDescription)")
+            }
+        }
     }
     
     private func isEmailValid(email: String) -> Bool {

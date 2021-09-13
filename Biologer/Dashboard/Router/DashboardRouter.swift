@@ -14,6 +14,7 @@ public final class DashboardRouter: NavigationRouter {
     private let navigationController: UINavigationController
     private let mainNavigationController: UINavigationController
     private let factory: DashboardViewControllerFactory
+    public var onLogout: Observer<Void>?
     
     init(navigationController: UINavigationController,
          mainNavigationController: UINavigationController,
@@ -56,7 +57,7 @@ public final class DashboardRouter: NavigationRouter {
     
     private func showLogoutScreen() {
         let vc = factory.makeLogoutScreen(onLogoutTapped: { _ in
-            
+            self.onLogout?(())
         })
         addSideMenuIcon(vc: vc)
         self.navigationController.setViewControllers([vc], animated: false)

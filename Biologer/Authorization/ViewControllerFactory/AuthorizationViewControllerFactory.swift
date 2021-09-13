@@ -38,4 +38,5 @@ public protocol AuthorizationViewControllerFactory {
                            selectedDataLicense: DataLicense,
                            delegate: DataLicenseScreenDelegate?,
                            onLicenseTapped: @escaping Observer<Void>) -> UIViewController
+    func makeSplashScreen(onSplashScreenDone: @escaping Observer<Void>) -> UIViewController
 }

@@ -67,14 +67,31 @@ public final class AppNavigationRouter: NavigationRouter {
     }
     
     public func start() {
-        authorizationRouter.start()
-        authorizationRouter.onLoginSuccess = { _ in
-            self.dashboardRouter.start()
-            UINavigationBar.appearance().barTintColor = .biologerGreenColor
-            self.dashboardNavigationController.modalPresentationStyle = .overFullScreen
-            self.mainNavigationController.present(self.dashboardNavigationController,
-                                                  animated: true,
-                                                  completion: nil)
+        launchApp()
+    }
+    
+    private func showDashboardRouter() {
+        self.dashboardRouter.start()
+        UINavigationBar.appearance().barTintColor = .biologerGreenColor
+        self.dashboardNavigationController.modalPresentationStyle = .overFullScreen
+        self.mainNavigationController.present(self.dashboardNavigationController,
+                                              animated: true,
+                                              completion: nil)
+        self.dashboardRouter.onLogout = { _ in
+            self.tokenStorage.delete()
+            self.mainNavigationController.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    private func launchApp() {
+        if let _ = tokenStorage.getToken() {
+            authorizationRouter.start()
+            showDashboardRouter()
+        } else {
+            authorizationRouter.start()
+            authorizationRouter.onLoginSuccess = { _ in
+                self.showDashboardRouter()
+            }
         }
     }
 }

@@ -37,6 +37,8 @@
 		93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */; };
 		93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC0267894820094A483 /* UIScreen+Extensions.swift */; };
 		93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */; };
+		933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */; };
+		933EF7E526EE33F000F1EBC4 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */; };
 		9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342575826925B9F00B8C912 /* AttributedTextView.swift */; };
 		936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C6268889D60080C771 /* UIViewController+Extensions.swift */; };
 		936035C9268916B20080C771 /* SetupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C8268916B20080C771 /* SetupScreen.swift */; };
@@ -164,6 +166,8 @@
 		93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListHeaderView.swift; sourceTree = "<group>"; };
 		93334EC0267894820094A483 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreenViewModel.swift; sourceTree = "<group>"; };
+		933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
 		9342575826925B9F00B8C912 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
 		936035C6268889D60080C771 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		936035C8268916B20080C771 /* SetupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScreen.swift; sourceTree = "<group>"; };
@@ -389,6 +393,7 @@
 		93142727262B5A7B00542EFC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				933EF7E626EE365E00F1EBC4 /* Splash Screen */,
 				93A7E25F2691D5DD001D6AEF /* Login */,
 				93A7E2602691D5E3001D6AEF /* Register */,
 				93142729262B5A8A00542EFC /* Helpers */,
@@ -399,6 +404,7 @@
 		93142728262B5A8100542EFC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				933EF7E326EE33DA00F1EBC4 /* Splash */,
 				93A7E25D2691D5B0001D6AEF /* Login */,
 				93A7E25E2691D5CB001D6AEF /* Register */,
 				93CC659D269CED5A00949534 /* Helpers */,
@@ -501,6 +507,22 @@
 				93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */,
 			);
 			path = SideMenuListScreen;
+			sourceTree = "<group>";
+		};
+		933EF7E326EE33DA00F1EBC4 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		933EF7E626EE365E00F1EBC4 /* Splash Screen */ = {
+			isa = PBXGroup;
+			children = (
+				933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */,
+			);
+			path = "Splash Screen";
 			sourceTree = "<group>";
 		};
 		93A7E25D2691D5B0001D6AEF /* Login */ = {
@@ -948,6 +970,7 @@
 				93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */,
 				93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */,
 				9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */,
+				933EF7E526EE33F000F1EBC4 /* SplashScreenViewModel.swift in Sources */,
 				93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */,
 				9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */,
 				936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */,
@@ -964,6 +987,7 @@
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
 				93A7E2782691E1A4001D6AEF /* EmailTextFieldViewModel.swift in Sources */,
 				93A7E2672691D77E001D6AEF /* DataLicense.swift in Sources */,
+				933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */,
 				931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */,
 				9300757626877C6B005A4DE0 /* DashboardRouter.swift in Sources */,
 				936035C9268916B20080C771 /* SetupScreen.swift in Sources */,

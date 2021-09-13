@@ -40,7 +40,7 @@ public final class AuthorizationRouter: NavigationRouter {
     }
     
     public func start() {
-        showLoginScreen()
+        showSplashScreen()
     }
     
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
@@ -80,8 +80,8 @@ public final class AuthorizationRouter: NavigationRouter {
         let viewController = loginViewController as? UIHostingController<LoginScreen<LoginScreenViewModel>>
         envDelegate = viewController?.rootView.viewModel
         
-        self.navigationController.setViewControllers([loginViewController], animated: false)
-        self.navigationController.setNavigationBarHidden(true, animated: false)
+        loginViewController.navigationItem.hidesBackButton = true
+        self.navigationController.pushViewController(loginViewController, animated: true)
     }
     
     private func showEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
@@ -220,6 +220,13 @@ public final class AuthorizationRouter: NavigationRouter {
         dataLicenseViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         dataLicenseViewController.setBiologerTitle(text: isDataLicense ? "DATA LICENSE" : "IMAGE LICENSE")
         self.navigationController.pushViewController(dataLicenseViewController, animated: true)
+    }
+    
+    private func showSplashScreen() {
+        let vc = factory.makeSplashScreen(onSplashScreenDone: {
+            self.showLoginScreen()
+        })
+        self.navigationController.setViewControllers([vc], animated: false)
     }
     
     @objc func goBack() {
