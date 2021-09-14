@@ -39,6 +39,10 @@
 		93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */; };
 		933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */; };
 		933EF7E526EE33F000F1EBC4 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */; };
+		933EF7F626EFBAD800F1EBC4 /* PopUpErrorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F526EFBAD800F1EBC4 /* PopUpErrorScreen.swift */; };
+		933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */; };
+		933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift */; };
+		933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7FB26F08AC000F1EBC4 /* APIError.swift */; };
 		9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342575826925B9F00B8C912 /* AttributedTextView.swift */; };
 		936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C6268889D60080C771 /* UIViewController+Extensions.swift */; };
 		936035C9268916B20080C771 /* SetupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C8268916B20080C771 /* SetupScreen.swift */; };
@@ -168,6 +172,10 @@
 		93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreenViewModel.swift; sourceTree = "<group>"; };
 		933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
+		933EF7F526EFBAD800F1EBC4 /* PopUpErrorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpErrorScreen.swift; sourceTree = "<group>"; };
+		933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerFactory.swift; sourceTree = "<group>"; };
+		933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAlertViewController.swift; sourceTree = "<group>"; };
+		933EF7FB26F08AC000F1EBC4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		9342575826925B9F00B8C912 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
 		936035C6268889D60080C771 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		936035C8268916B20080C771 /* SetupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScreen.swift; sourceTree = "<group>"; };
@@ -438,6 +446,9 @@
 				93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */,
 				93CC6592269C564F00949534 /* CircularProgressViewController.swift */,
 				93C2D1E8269EFF2D00123216 /* EnvironmentConstants.swift */,
+				933EF7F526EFBAD800F1EBC4 /* PopUpErrorScreen.swift */,
+				933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */,
+				933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -718,6 +729,7 @@
 				93DF14182692228900A7A977 /* URLSessionHTTPClient.swift */,
 				93DF141A269222AF00A7A977 /* CodableParser.swift */,
 				93CC658A269C401300949534 /* APIRequest.swift */,
+				933EF7FB26F08AC000F1EBC4 /* APIError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1010,6 +1022,7 @@
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
 				93BF629E262B807D00DDFB44 /* BiologerButton.swift in Sources */,
 				93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */,
+				933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
 				93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */,
 				93CC658D269C552C00949534 /* CommonViewControllerFactory.swift in Sources */,
@@ -1017,6 +1030,7 @@
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
 				93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */,
+				933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift in Sources */,
 				93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */,
 				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
 				93DF141B269222AF00A7A977 /* CodableParser.swift in Sources */,
@@ -1041,6 +1055,7 @@
 				93A7E2762691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift in Sources */,
 				93334EB92677E8590094A483 /* ListOfFindingsScreenViewModel.swift in Sources */,
 				93C2D1E9269EFF2D00123216 /* EnvironmentConstants.swift in Sources */,
+				933EF7F626EFBAD800F1EBC4 /* PopUpErrorScreen.swift in Sources */,
 				93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */,
 				93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
@@ -1049,6 +1064,7 @@
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
 				93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */,
 				93334EB72677E4E40094A483 /* NoItemsView.swift in Sources */,
+				933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

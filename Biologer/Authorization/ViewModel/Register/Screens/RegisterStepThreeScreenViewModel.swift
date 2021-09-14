@@ -21,7 +21,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     private let onImageLicense: Observer<DataLicense>
     
     private let onSuccess: Observer<Token>
-    private let onError: Observer<Void>
+    private let onError: Observer<APIError>
     private let onLoading: Observer<Bool>
     private let user: User
     private let service: RegisterUserService
@@ -35,7 +35,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
          onDataLicense: @escaping Observer<DataLicense>,
          onImageLicense: @escaping Observer<DataLicense>,
          onSuccess: @escaping Observer<Token>,
-         onError: @escaping Observer<Void>,
+         onError: @escaping Observer<APIError>,
          onLoading: @escaping Observer<Bool>) {
         self.user = user
         self.topImage = topImage
@@ -80,7 +80,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
                 let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
                 self?.onSuccess((token))
             case .failure(let error):
-                self?.onError(())
+                self?.onError((error))
                 print("Error: \(error)")
             }
         }

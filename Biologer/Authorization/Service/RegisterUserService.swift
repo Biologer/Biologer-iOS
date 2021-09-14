@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol RegisterUserService {
-    typealias Result = Swift.Result<RegisterUserResponse, Error>
+    typealias Result = Swift.Result<RegisterUserResponse, APIError>
     func loadSearch(user: User, completion: @escaping (Result) -> Void)
 }
 
@@ -28,7 +28,7 @@ public enum CreateUserServiceError: LocalizedError {
 
 public final class RemoteRegisterUserService: RegisterUserService {
     
-    public typealias Result = Swift.Result<RegisterUserResponse, Error>
+    public typealias Result = Swift.Result<RegisterUserResponse, APIError>
     
     private let client: HTTPClient
     private let environmentStorage: EnvironmentStorage
@@ -48,18 +48,22 @@ public final class RemoteRegisterUserService: RegisterUserService {
             client.perform(from: request) { result in
                 switch result {
                 case .failure(let error):
-                    completion(.failure(error))
+                    completion(.failure(APIError(description: error.localizedDescription)))
                 case .success(let result):
                     if result.1.statusCode == 200, let response = try? JSONDecoder().decode(RegisterUserResponse.self,
                                                                                     from: result.0) {
                         completion(.success(response))
                     } else {
-                        completion(.failure(CreateUserServiceError.parsingError))
+                        if let response = try? JSONDecoder().decode(RegisterErrorResponse.self,from: result.0) {
+                            completion(.failure(APIError(title: response.message, description: "")))
+                        } else {
+                            completion(.failure(APIError(description: parsingErrorConstant)))
+                        }
                     }
                 }
             }
         } else {
-            completion(.failure(CreateUserServiceError.noEnvironment))
+            completion(.failure(APIError(description: environmentNotSelected)))
         }
     }
     
@@ -110,5 +114,9 @@ public final class RemoteRegisterUserService: RegisterUserService {
         let institution: String?
         let email: String
         let password: String
+    }
+    
+    private struct RegisterErrorResponse: Codable {
+        let message: String
     }
 }

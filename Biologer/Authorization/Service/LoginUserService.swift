@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol LoginUserService {
-    typealias Result = Swift.Result<LoginUserResponse, Error>
+    typealias Result = Swift.Result<LoginUserResponse, APIError>
     func login(email: String, password: String, completion: @escaping (Result) -> Void)
 }
 
@@ -29,7 +29,7 @@ public enum LoginServiceError: LocalizedError {
 
 public final class RemoteLoginUserService: LoginUserService {
     
-    public typealias Result = Swift.Result<LoginUserResponse, Error>
+    public typealias Result = Swift.Result<LoginUserResponse, APIError>
     
     private let client: HTTPClient
     private let environmentStorage: EnvironmentStorage
@@ -52,18 +52,22 @@ public final class RemoteLoginUserService: LoginUserService {
             client.perform(from: request) { result in
                 switch result {
                 case .failure(let error):
-                    completion(.failure(error))
+                    completion(.failure(APIError(description: error.localizedDescription)))
                 case .success(let result):
                     if result.1.statusCode == 200, let response = try? JSONDecoder().decode(LoginUserResponse.self,
                                                                                     from: result.0) {
                         completion(.success(response))
                     } else {
-                        completion(.failure(LoginServiceError.parsingError))
+                        if let response = try? JSONDecoder().decode(APIErrorResponse.self,from: result.0) {
+                            completion(.failure(APIError(title: response.error, description: response.error_description)))
+                        } else {
+                            completion(.failure(APIError(description: parsingErrorConstant)))
+                        }
                     }
                 }
             }
         } else {
-            completion(.failure(LoginServiceError.noEnvironment))
+            completion(.failure(APIError(description: environmentNotSelected)))
         }
     }
     

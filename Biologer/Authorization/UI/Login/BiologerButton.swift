@@ -10,6 +10,8 @@ import SwiftUI
 struct BiologerButton: View {
     
     var title: String
+    var width: CGFloat?
+    private let defaultWidth: CGFloat = UIScreen.main.bounds.width * 0.6
     var onTapped: Observer<Void>
     
     var body: some View {
@@ -19,7 +21,7 @@ struct BiologerButton: View {
             Text(title)
                 .bold()
                 .foregroundColor(Color.white)
-                .frame(width: UIScreen.main.bounds.width * 0.6, height: 50, alignment: .center)
+                .frame(width: width ?? defaultWidth, height: 50, alignment: .center)
         })
         .background(Color.biologerGreenColor)
         .cornerRadius(5)

@@ -8,6 +8,7 @@
 import Foundation
 
 import UIKit
+import SwiftUI
 
 public protocol NavigationRouter {
     func start()
@@ -32,18 +33,27 @@ public final class AppNavigationRouter: NavigationRouter {
         let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
         let forgotPasswordService = RemoteForgotPasswordService(client: httpClient)
         
-        return AuthorizationRouter(factory: SwiftUILoginViewControllerFactory(),
+        let authorization =  AuthorizationRouter(factory: authorizationFactory,
                                    commonViewControllerFactory: commonViewControllerFactory,
+                                   swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                    navigationController: mainNavigationController,
                                    loginService: loginService,
                                    registerService: registerService,
                                    forgotPasswordService: forgotPasswordService,
                                    environmentStorage: environmentStorage,
                                    tokenStorage: tokenStorage)
+        authorization.onLoginSuccess = { _ in
+            self.showDashboardRouter()
+        }
+        return authorization
     }()
     
     private lazy var environmentStorage: EnvironmentStorage = {
         return KeychainEnvironmentStorage()
+    }()
+    
+    private lazy var authorizationFactory: AuthorizationViewControllerFactory = {
+        return SwiftUILoginViewControllerFactory()
     }()
     
     private lazy var tokenStorage: TokenStorage = {
@@ -54,12 +64,27 @@ public final class AppNavigationRouter: NavigationRouter {
         return IOSUIKitCommonViewControllerFactory()
     } ()
     
-    private lazy var dashboardRouter: DashboardRouter = {
-        return DashboardRouter(navigationController: dashboardNavigationController,
-                               mainNavigationController: mainNavigationController,
-                               factory: SwiftUIDashboardViewControllerFactory())
+    private lazy var swiftUIAlertViewControllerFactory: AlertViewControllerFactory = {
+        return SwiftUIAlertViewController()
     }()
     
+    private lazy var dashboardRouter: DashboardRouter = {
+        let dashboardRouter = DashboardRouter(navigationController: dashboardNavigationController,
+                               mainNavigationController: mainNavigationController,
+                               factory: SwiftUIDashboardViewControllerFactory())
+        
+        dashboardRouter.onLogout = { _ in
+            self.tokenStorage.delete()
+            self.mainNavigationController.dismiss(animated: true, completion: {
+                if let vc = self.mainNavigationController.viewControllers.filter({ $0 is UIHostingController<LoginScreen<LoginScreenViewModel>> }).first {
+                    self.mainNavigationController.popToViewController(vc, animated: false)
+                } else {
+                    self.authorizationRouter.start()
+                }
+            })
+        }
+        return dashboardRouter
+    }()
     
     init(mainNavigationController: UINavigationController) {
         self.mainNavigationController = mainNavigationController
@@ -77,21 +102,19 @@ public final class AppNavigationRouter: NavigationRouter {
         self.mainNavigationController.present(self.dashboardNavigationController,
                                               animated: true,
                                               completion: nil)
-        self.dashboardRouter.onLogout = { _ in
-            self.tokenStorage.delete()
-            self.mainNavigationController.dismiss(animated: true, completion: nil)
-        }
     }
     
     private func launchApp() {
         if let _ = tokenStorage.getToken() {
-            authorizationRouter.start()
-            showDashboardRouter()
-        } else {
-            authorizationRouter.start()
-            authorizationRouter.onLoginSuccess = { _ in
+            let vc = authorizationFactory.makeSplashScreen(onSplashScreenDone: { _ in
                 self.showDashboardRouter()
-            }
+            })
+            self.mainNavigationController.setViewControllers([vc], animated: false)
+        } else {
+            let vc = authorizationFactory.makeSplashScreen(onSplashScreenDone: { _ in
+                self.authorizationRouter.start()
+            })
+            self.mainNavigationController.setViewControllers([vc], animated: false)
         }
     }
 }

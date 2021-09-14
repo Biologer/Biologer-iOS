@@ -14,6 +14,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                 environmentViewModel: EnvironmentViewModel,
                                 onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
                                 onLoginSuccess: @escaping Observer<Token>,
+                                onLoginError: @escaping Observer<APIError>,
                                 onRegisterTapped: @escaping Observer<Void>,
                                 onForgotPasswordTapped: @escaping Observer<Void>,
                                 onLoading: @escaping Observer<Bool>) -> UIViewController {
@@ -25,6 +26,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                                         service: service,
                                                         onSelectEnvironmentTapped: onSelectEnvironmentTapped,
                                                         onLoginSuccess: onLoginSuccess,
+                                                        onLoginError: onLoginError,
                                                         onRegisterTapped: onRegisterTapped,
                                                         onForgotPasswordTapped: onForgotPasswordTapped,
                                                         onLoading: onLoading)
@@ -75,7 +77,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                             onDataLicense: @escaping Observer<DataLicense>,
                                             onImageLicense: @escaping Observer<DataLicense>,
                                             onSuccess: @escaping Observer<Token>,
-                                            onError: @escaping Observer<Void>,
+                                            onError: @escaping Observer<APIError>,
                                             onLoading: @escaping Observer<Bool>) -> UIViewController {
         
         let viewModel = RegisterStepThreeScreenViewModel(user: user,

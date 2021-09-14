@@ -19,6 +19,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     private let service: LoginUserService
     private let onSelectEnvironmentTapped: Observer<EnvironmentViewModel>
     private let onLoginSuccess: Observer<Token>
+    private let onLoginError: Observer<APIError>
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
     private let onLoading: Observer<Bool>
@@ -33,6 +34,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
          service: LoginUserService,
          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
          onLoginSuccess: @escaping Observer<Token>,
+         onLoginError: @escaping Observer<APIError>,
          onRegisterTapped: @escaping Observer<Void>,
          onForgotPasswordTapped: @escaping Observer<Void>,
          onLoading: @escaping Observer<Bool>
@@ -45,6 +47,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         self.onSelectEnvironmentTapped = onSelectEnvironmentTapped
         self.service = service
         self.onLoginSuccess = onLoginSuccess
+        self.onLoginError = onLoginError
         self.onRegisterTapped = onRegisterTapped
         self.onForgotPasswordTapped = onForgotPasswordTapped
         self.onLoading = onLoading
@@ -89,9 +92,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         email = userNameTextFieldViewModel.text
         password = passwordTextFieldViewModel.text
         
-//        onLoading((false))
-//        let token = Token(accessToken: "", refreshToken: "")
-//        self.onLoginSuccess((token))
+        onLoading((true))
         service.login(email: email,
                            password: password) { [weak self] result in
             self?.onLoading((false))
@@ -101,7 +102,8 @@ public final class LoginScreenViewModel: LoginScreenLoader {
                 let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
                 self?.onLoginSuccess((token))
             case .failure(let error):
-                print("Error login: \(error.localizedDescription)")
+                print("Error login: \(error.description)")
+                self?.onLoginError((error))
             }
         }
     }

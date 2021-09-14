@@ -15,6 +15,7 @@ public final class AuthorizationRouter: NavigationRouter {
     private let registerService: RegisterUserService
     private let forgotPasswordService: ForgotPasswordService
     private let commonViewControllerFactory: CommonViewControllerFactory
+    private let swiftUIAlertViewControllerFactory: AlertViewControllerFactory
     private let environmentStorage: EnvironmentStorage
     private let tokenStorage: TokenStorage
     private let envFactory = EnvironmentViewModelFactory()
@@ -23,6 +24,7 @@ public final class AuthorizationRouter: NavigationRouter {
     
     init(factory: AuthorizationViewControllerFactory,
          commonViewControllerFactory: CommonViewControllerFactory,
+         swiftUIAlertViewControllerFactory: AlertViewControllerFactory,
          navigationController: UINavigationController,
          loginService: LoginUserService,
          registerService: RegisterUserService,
@@ -31,6 +33,7 @@ public final class AuthorizationRouter: NavigationRouter {
          tokenStorage: TokenStorage) {
         self.factory = factory
         self.commonViewControllerFactory = commonViewControllerFactory
+        self.swiftUIAlertViewControllerFactory = swiftUIAlertViewControllerFactory
         self.navigationController = navigationController
         self.loginService = loginService
         self.registerService = registerService
@@ -40,7 +43,7 @@ public final class AuthorizationRouter: NavigationRouter {
     }
     
     public func start() {
-        showSplashScreen()
+        showLoginScreen()
     }
     
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
@@ -68,6 +71,10 @@ public final class AuthorizationRouter: NavigationRouter {
                                                              onLoginSuccess: { [weak self]  token in
                                                                 self?.tokenStorage.saveToken(token: token)
                                                                 self?.onLoginSuccess?(())
+                                                             },
+                                                             onLoginError: { error in
+                                                                self.showErrorAlert(title: error.title,
+                                                                                    description: error.description)
                                                              },
                                                              onRegisterTapped: { [weak self] _ in
                                                                 self?.showRegisterStepOneScreen()
@@ -196,7 +203,10 @@ public final class AuthorizationRouter: NavigationRouter {
                                                                             self?.tokenStorage.saveToken(token: token)
                                                                             self?.onLoginSuccess?(())
                                                                           },
-                                                                          onError: { _ in },
+                                                                          onError: { [weak self] error in
+                                                                            self?.showErrorAlert(title: error.title,
+                                                                                                 description: error.description)
+                                                                          },
                                                                           onLoading: onLoading)
         
         let viewController = stepThirdViewController as? UIHostingController<RegisterStepThreeScreen<RegisterStepThreeScreenViewModel>>
@@ -220,6 +230,15 @@ public final class AuthorizationRouter: NavigationRouter {
         dataLicenseViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         dataLicenseViewController.setBiologerTitle(text: isDataLicense ? "DATA LICENSE" : "IMAGE LICENSE")
         self.navigationController.pushViewController(dataLicenseViewController, animated: true)
+    }
+    
+    private func showErrorAlert(title: String, description: String) {
+        let vc = swiftUIAlertViewControllerFactory.makeErrorAlert(title: title,
+                                                                  description: description,
+                                                                  onTapp: { _ in
+                                                                    self.navigationController.dismiss(animated: true, completion: nil)
+                                                                  })
+        self.navigationController.present(vc, animated: true, completion: nil)
     }
     
     private func showSplashScreen() {
