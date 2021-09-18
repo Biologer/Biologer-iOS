@@ -5,9 +5,11 @@
 //  Created by Nikola Popovic on 4.7.21..
 //
 
-import Foundation
+import UIKit
 
-public final class RegisterPasswordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol {
+public final class RegisterPasswordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol {
+    public var textAligment: NSTextAlignment = .left
+    public var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>?
     public var text: String = ""
     public var placeholder: String = "Password"
     public var errorText: String = ""

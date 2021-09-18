@@ -18,10 +18,11 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                 onRegisterTapped: @escaping Observer<Void>,
                                 onForgotPasswordTapped: @escaping Observer<Void>,
                                 onLoading: @escaping Observer<Bool>) -> UIViewController {
+        let u = UserNameTextFieldViewModel()
         let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
                                                         labelsViewModel: LoginLabelsViewModel(),
                                                         environmentViewModel: environmentViewModel,
-                                                        userNameTextFieldViewModel: UserNameTextFieldViewModel(),
+                                                        userNameTextFieldViewModel: u,
                                                         passwordTextFieldViewModel: PasswordTextFieldViewModel(),
                                                         service: service,
                                                         onSelectEnvironmentTapped: onSelectEnvironmentTapped,

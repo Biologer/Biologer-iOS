@@ -8,9 +8,9 @@
 import SwiftUI
 
 protocol RegisterStepTwoScreenLoader: ObservableObject {
-    var emailTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
-    var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
-    var repeatPasswordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
+    var emailTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
+    var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
+    var repeatPasswordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
     var buttonTitle: String { get }
     func nextButtonTapped()
 }
@@ -25,7 +25,8 @@ struct RegisterStepTwoScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
                 MaterialDesignTextField(viewModel: loader.emailTextFieldViewModel,
                                         onTextChanged: { text in
                                             
-                                        })
+                                        },
+                                        textAligment: .left)
                     .padding()
                 MaterialDesignTextField(viewModel: loader.passwordTextFieldViewModel,
                                         onTextChanged: { text in
@@ -33,7 +34,8 @@ struct RegisterStepTwoScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
                                         },
                                         onIconTapped: { _ in
                                             loader.toggleIsCodeEntryPassword()
-                                        })
+                                        },
+                                        textAligment: .left)
                     .padding()
                 MaterialDesignTextField(viewModel: loader.repeatPasswordTextFieldViewModel,
                                         onTextChanged: { text in
@@ -41,7 +43,8 @@ struct RegisterStepTwoScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
                                         },
                                         onIconTapped: { _ in
                                             loader.toggleIsCodeEntryRepeatPassword()
-                                        })
+                                        },
+                                        textAligment: .left)
                     .padding()
                 BiologerButton(title: loader.buttonTitle,
                             onTapped: { _ in
@@ -60,9 +63,9 @@ struct RegisterStepTwoScreen_Previews: PreviewProvider {
     }
     
     public class StubRegisterTwoScreenViewModel: RegisterStepTwoScreenLoader {
-        var emailTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = EmailTextFieldViewModel()
-        var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = RegisterPasswordTextFieldViewModel()
-        var repeatPasswordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = RepeatPasswordTextFieldViewModel()
+        var emailTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = EmailTextFieldViewModel()
+        var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = RegisterPasswordTextFieldViewModel()
+        var repeatPasswordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = RepeatPasswordTextFieldViewModel()
         var buttonTitle = "Next"
         func nextButtonTapped() {}
     }

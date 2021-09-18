@@ -5,9 +5,11 @@
 //  Created by Nikola Popovic on 17.4.21..
 //
 
-import Foundation
+import UIKit
 
-public final class UserNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol {
+public final class UserNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol {
+    public var textAligment: NSTextAlignment = .left
+    public var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>?
     public var text: String = ""
     public var placeholder: String = "Username (email)"
     public var errorText: String = ""

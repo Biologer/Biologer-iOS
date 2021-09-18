@@ -13,8 +13,8 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     public let logoImage: String
     public var labelsViewModel: LoginLabelsViewModel
     @Published public var environmentViewModel: EnvironmentViewModel
-    @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
-    @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol
+    @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
+    @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
     
     private let service: LoginUserService
     private let onSelectEnvironmentTapped: Observer<EnvironmentViewModel>
@@ -29,8 +29,8 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     init(logoImage: String,
          labelsViewModel: LoginLabelsViewModel,
          environmentViewModel: EnvironmentViewModel,
-         userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
-         passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol,
+         userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol,
+         passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol,
          service: LoginUserService,
          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
          onLoginSuccess: @escaping Observer<Token>,

@@ -28,7 +28,7 @@ public final class SetupRouter {
     
     // MARK: - Private Functions
     private func showSetupScreen() {
-        let vc = factory.makeSetupScreen(onItemTapped: { item in
+        let vc = factory.makeSetupScreen(onItemTapped: { [weak self] item in
             switch item.type {
             case .chooseGropups:
                 print("Choosen groups tapped")
@@ -39,17 +39,24 @@ public final class SetupRouter {
             case .observationEntry:
                 print("Observation entry")
             case .projectName:
-                print("Project name tapped")
+                self?.showSetupProjectNameScreen(projectName: "Some project")
             case .dataLicense:
-                print("Data license tapped")
+                let dataLicense = CheckMarkItemMapper.getDataLicense()
+                self?.showLicenseScreen(navBarTitle: "DATA LICENSE",
+                                       selectedItem: dataLicense[0],
+                                       items: dataLicense,
+                                       presentDatePicker: nil,
+                                       onItemTapped: { [weak self] item in
+                                            self?.navigationController.popViewController(animated: true)
+                                       })
             case .imageLicense:
                 let imageLicense = CheckMarkItemMapper.getImageLicense()
-                self.showLicenseScreen(navBarTitle: "IMAGE LICENSE",
+                self?.showLicenseScreen(navBarTitle: "IMAGE LICENSE",
                                        selectedItem: imageLicense[0],
                                        items: imageLicense,
                                        presentDatePicker: nil,
-                                       onItemTapped: { item in
-                                            self.navigationController.popViewController(animated: true)
+                                       onItemTapped: { [weak self] item in
+                                            self?.navigationController.popViewController(animated: true)
                                        })
             case .downloadUpload:
                 print("Download and upload tapped")
@@ -77,6 +84,17 @@ public final class SetupRouter {
         dataLicenseViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         dataLicenseViewController.setBiologerTitle(text: navBarTitle)
         self.navigationController.pushViewController(dataLicenseViewController, animated: true)
+    }
+    
+    private func showSetupProjectNameScreen(projectName: String) {
+        let vc = factory.makeSetupProjectNameScreen(projectName: projectName,
+                                                    onCancelTapped: { _ in
+                                                        self.navigationController.dismiss(animated: true, completion: nil)
+                                                    },
+                                                    onOkTapped: { newProjectName in
+                                                        self.navigationController.dismiss(animated: true, completion: nil)
+                                                    })
+        self.navigationController.present(vc, animated: true, completion: nil)
     }
     
     @objc func goBack() {

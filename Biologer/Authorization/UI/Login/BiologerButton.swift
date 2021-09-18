@@ -25,6 +25,9 @@ struct BiologerButton: View {
         })
         .background(Color.biologerGreenColor)
         .cornerRadius(5)
+        .clipped()
+        .shadow(color: Color.gray, radius: 5, x: 0, y: 0)
+
     }
 }
 

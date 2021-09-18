@@ -47,6 +47,8 @@
 		935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */; };
 		935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66326F6386800C56D46 /* SetupRouter.swift */; };
 		935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */; };
+		935AF66826F66F6C00C56D46 /* SetupProjectNameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66726F66F6C00C56D46 /* SetupProjectNameScreen.swift */; };
+		935AF66A26F66FB000C56D46 /* SetupProjectNameScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66926F66FB000C56D46 /* SetupProjectNameScreenViewModel.swift */; };
 		936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C6268889D60080C771 /* UIViewController+Extensions.swift */; };
 		936035C9268916B20080C771 /* SetupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C8268916B20080C771 /* SetupScreen.swift */; };
 		936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CA26891A240080C771 /* AboutBiologerScreen.swift */; };
@@ -188,6 +190,8 @@
 		935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewControllerFactory.swift; sourceTree = "<group>"; };
 		935AF66326F6386800C56D46 /* SetupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRouter.swift; sourceTree = "<group>"; };
 		935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItemMapper.swift; sourceTree = "<group>"; };
+		935AF66726F66F6C00C56D46 /* SetupProjectNameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProjectNameScreen.swift; sourceTree = "<group>"; };
+		935AF66926F66FB000C56D46 /* SetupProjectNameScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProjectNameScreenViewModel.swift; sourceTree = "<group>"; };
 		936035C6268889D60080C771 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		936035C8268916B20080C771 /* SetupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScreen.swift; sourceTree = "<group>"; };
 		936035CA26891A240080C771 /* AboutBiologerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBiologerScreen.swift; sourceTree = "<group>"; };
@@ -562,6 +566,7 @@
 				9389464226F61BBC0000D850 /* SetupSectionViewModel.swift */,
 				9389463E26F6156F0000D850 /* SetupItemViewModel.swift */,
 				9389464426F621440000D850 /* SetupDataMapper.swift */,
+				935AF66926F66FB000C56D46 /* SetupProjectNameScreenViewModel.swift */,
 			);
 			path = SetupScreen;
 			sourceTree = "<group>";
@@ -717,6 +722,7 @@
 				936035C8268916B20080C771 /* SetupScreen.swift */,
 				9389464026F616280000D850 /* SetupSectionView.swift */,
 				9389463626F60FE00000D850 /* SetupItemView.swift */,
+				935AF66726F66F6C00C56D46 /* SetupProjectNameScreen.swift */,
 			);
 			path = SetupScreen;
 			sourceTree = "<group>";
@@ -1052,6 +1058,7 @@
 				93A7E2742691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift in Sources */,
 				93CC658B269C401300949534 /* APIRequest.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
+				935AF66826F66F6C00C56D46 /* SetupProjectNameScreen.swift in Sources */,
 				93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */,
 				93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */,
 				9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */,
@@ -1110,6 +1117,7 @@
 				93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */,
 				933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift in Sources */,
 				93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */,
+				935AF66A26F66FB000C56D46 /* SetupProjectNameScreenViewModel.swift in Sources */,
 				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
 				93DF141B269222AF00A7A977 /* CodableParser.swift in Sources */,
 				9389464526F621440000D850 /* SetupDataMapper.swift in Sources */,

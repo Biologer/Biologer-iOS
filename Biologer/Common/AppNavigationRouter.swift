@@ -77,6 +77,7 @@ public final class AppNavigationRouter: NavigationRouter {
         
         dashboardRouter.onLogout = { _ in
             self.tokenStorage.delete()
+            self.environmentStorage.delete()
             self.mainNavigationController.dismiss(animated: true, completion: {
                 if let vc = self.mainNavigationController.viewControllers.filter({ $0 is UIHostingController<LoginScreen<LoginScreenViewModel>> }).first {
                     self.mainNavigationController.popToViewController(vc, animated: false)

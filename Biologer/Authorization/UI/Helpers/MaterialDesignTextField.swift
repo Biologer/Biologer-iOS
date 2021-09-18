@@ -10,22 +10,29 @@ import MaterialComponents.MaterialTextControls_OutlinedTextFields
 
 public final class MaterialDesignTextField: UIViewRepresentable {
     
-    private var viewModel: MaterialDesignTextFieldViewMoodelProtocol
+    private var viewModel: MaterialDesignTextFieldViewModelProtocol
     private let onTextChanged: Observer<String>
     private let onIconTapped: Observer<Void>?
+    private let keyboardType: UIKeyboardType
+    private let textAligment: NSTextAlignment
     
-    init(viewModel: MaterialDesignTextFieldViewMoodelProtocol,
+    init(viewModel: MaterialDesignTextFieldViewModelProtocol,
+         keyboardType: UIKeyboardType = .default,
          onTextChanged: @escaping Observer<String>,
-         onIconTapped: Observer<Void>? = nil) {
+         onIconTapped: Observer<Void>? = nil, textAligment: NSTextAlignment) {
         self.viewModel = viewModel
         self.onTextChanged = onTextChanged
+        self.keyboardType = keyboardType
         self.onIconTapped = onIconTapped
+        self.textAligment = textAligment
     }
     
     public func makeUIView(context: Context) -> MDCOutlinedTextField {
         let textField = MDCOutlinedTextField()
         textField.returnKeyType = .done
-        //textField.isUserInteractionEnabled = viewModel.isUserInteractionEnabled
+        textField.keyboardType = keyboardType
+        textField.isUserInteractionEnabled = viewModel.isUserInteractionEnabled
+        textField.autocapitalizationType = keyboardType == .emailAddress ? .none : .sentences
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textViewDidChange), for: .editingChanged)
         textField.delegate = context.coordinator
         return textField
@@ -40,8 +47,13 @@ public final class MaterialDesignTextField: UIViewRepresentable {
     }
     
     private func setTextFieldTexts(textField: MDCOutlinedTextField) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = viewModel.textAligment
+        textField.text = viewModel.text
+        textField.textAlignment = textAligment
         textField.label.text = viewModel.placeholder
-        textField.placeholder = viewModel.placeholder
+        textField.attributedPlaceholder = NSAttributedString(string: viewModel.placeholder,
+                                                             attributes: [.paragraphStyle: paragraphStyle])
         textField.leadingAssistiveLabel.text = viewModel.getErrorText()
     }
     
@@ -93,11 +105,11 @@ public final class MaterialDesignTextField: UIViewRepresentable {
     }
     
     public class MaterialDesignTextFieldDelegate: NSObject, UITextFieldDelegate {
-        private var viewModel: MaterialDesignTextFieldViewMoodelProtocol
+        private var viewModel: MaterialDesignTextFieldViewModelProtocol
         private var onTextChanged: Observer<String>
         private var onIconTapped: Observer<Void>?
         
-        init(viewModel: MaterialDesignTextFieldViewMoodelProtocol,
+        init(viewModel: MaterialDesignTextFieldViewModelProtocol,
              onTextChanged: @escaping Observer<String>,
              onIconTapped: Observer<Void>?) {
             self.viewModel = viewModel

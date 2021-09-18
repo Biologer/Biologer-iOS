@@ -19,7 +19,7 @@ public enum MaterialDesignTextFieldTralingViewType {
     case other
 }
 
-public protocol MaterialDesignTextFieldViewMoodelProtocol {
+public protocol MaterialDesignTextFieldViewModelProtocol {
     var text: String { get set }
     var placeholder: String { get }
     var errorText: String { get set }
@@ -28,6 +28,8 @@ public protocol MaterialDesignTextFieldViewMoodelProtocol {
     var tralingErrorImage: String? { get }
     var isUserInteractionEnabled: Bool { get }
     var type: MaterialDesignTextFieldType { get set }
+    var textAligment: NSTextAlignment { get }
+    var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>? { get set }
 }
 
 public protocol EnvironmentViewModelProtocol {
@@ -36,7 +38,7 @@ public protocol EnvironmentViewModelProtocol {
     var host: String { get }
 }
 
-extension MaterialDesignTextFieldViewMoodelProtocol {
+extension MaterialDesignTextFieldViewModelProtocol {
     func getErrorText() -> String {
         return type == .failure ? errorText : ""
     }
@@ -57,8 +59,8 @@ public protocol LoginScreenLoader: ObservableObject {
     var environmentPlaceholder: String { get }
     var environmentViewModel: EnvironmentViewModel { get }
     var labelsViewModel: LoginLabelsViewModel { get set }
-    var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
-    var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
+    var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
+    var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
     func selectEnvironment()
     func login()
     func register()
@@ -80,7 +82,8 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                                         onTextChanged: { text in
                                             viewModel.userNameTextFieldViewModel.text = text
                                             viewModel.userNameTextFieldViewModel.type = .success
-                                        })
+                                        },
+                                        textAligment: .left)
                     .padding(.bottom, 20)
                 MaterialDesignTextField(viewModel: viewModel.passwordTextFieldViewModel,
                                         onTextChanged: { text in
@@ -89,7 +92,8 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                                         },
                                         onIconTapped: { _ in
                                             viewModel.toggleIsCodeEntryPassword()
-                                        })
+                                        },
+                                        textAligment: .left)
                     .padding(.bottom, 20)
                 
                 LoginEnvView(environmentPlacehoder: viewModel.environmentPlaceholder,
@@ -145,8 +149,8 @@ struct LoginScreen_Previews: PreviewProvider {
                                                        env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
                                                         isSelected: false)
         var labelsViewModel: LoginLabelsViewModel = LoginLabelsViewModel()
-        var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = UserNameTextFieldViewModel()
-        var passwordTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = PasswordTextFieldViewModel()
+        var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = UserNameTextFieldViewModel()
+        var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = PasswordTextFieldViewModel()
         
         func selectEnvironment() {}
         func login() {}

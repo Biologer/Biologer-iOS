@@ -5,9 +5,11 @@
 //  Created by Nikola Popovic on 4.7.21..
 //
 
-import Foundation
+import UIKit
 
-public final class InsititutionTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol {
+public final class InsititutionTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol {
+    public var textAligment: NSTextAlignment = .left
+    public var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>?
     public var text: String = ""
     public var placeholder: String = "Institution"
     public var errorText: String = ""

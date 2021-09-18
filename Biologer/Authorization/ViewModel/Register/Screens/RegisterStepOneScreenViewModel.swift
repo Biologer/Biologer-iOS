@@ -8,9 +8,9 @@
 import Foundation
 
 public final class RegisterStepOneScreenViewModel: RegisterStepOneScreenLoader, ObservableObject {
-    @Published var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = NameTextFieldViewModel()
-    @Published var lastNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = SurnameTextFieldViewModel()
-    @Published var institutionTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = InsititutionTextFieldViewModel()
+    @Published var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = NameTextFieldViewModel()
+    @Published var lastNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = SurnameTextFieldViewModel()
+    @Published var institutionTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = InsititutionTextFieldViewModel()
     var buttonTitle = "Next"
     
     private let user: User

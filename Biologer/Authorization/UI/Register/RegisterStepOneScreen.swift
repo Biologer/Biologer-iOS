@@ -8,9 +8,9 @@
 import SwiftUI
 
 protocol RegisterStepOneScreenLoader: ObservableObject {
-    var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
-    var lastNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
-    var institutionTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol { get set }
+    var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
+    var lastNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
+    var institutionTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
     var buttonTitle: String { get }
     func nextButtonTapped()
 }
@@ -25,17 +25,20 @@ struct RegisterStepOneScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
                 MaterialDesignTextField(viewModel: loader.userNameTextFieldViewModel,
                                         onTextChanged: { text in
                                             
-                                        })
+                                        },
+                                        textAligment: .left)
                     .padding()
                 MaterialDesignTextField(viewModel: loader.lastNameTextFieldViewModel,
                                         onTextChanged: { text in
                                             
-                                        })
+                                        },
+                                        textAligment: .left)
                     .padding()
                 MaterialDesignTextField(viewModel: loader.institutionTextFieldViewModel,
                                         onTextChanged: { text in
                                             
-                                        })
+                                        },
+                                        textAligment: .left)
                     .padding()
                 BiologerButton(title: loader.buttonTitle,
                             onTapped: { _ in
@@ -54,9 +57,9 @@ struct RegisterStepOneScreen_Previews: PreviewProvider {
     }
     
     private class StubRegisterStepScreenViewModel: RegisterStepOneScreenLoader {
-        var userNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = NameTextFieldViewModel()
-        var lastNameTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = SurnameTextFieldViewModel()
-        var institutionTextFieldViewModel: MaterialDesignTextFieldViewMoodelProtocol = InsititutionTextFieldViewModel()
+        var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = NameTextFieldViewModel()
+        var lastNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = SurnameTextFieldViewModel()
+        var institutionTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = InsititutionTextFieldViewModel()
         var buttonTitle = "Next"
         func nextButtonTapped() {}
     }
