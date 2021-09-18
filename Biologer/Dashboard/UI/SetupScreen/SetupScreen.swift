@@ -14,11 +14,12 @@ struct SetupScreen: View  {
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(viewModel.sections.indices, id: \.self) { index in
-                    let section = viewModel.sections[index]
+                ForEach(viewModel.sections.indices, id: \.self) { sectionIndex in
+                    let section = viewModel.sections[sectionIndex]
                     SetupSectionView(viewModel: section,
-                                     onItemTapped: { item in
-                                        viewModel.itemTapped(item: item)
+                                     onItemTapped: { itemIndex in
+                                        viewModel.itemTapped(sectionIndex: sectionIndex,
+                                                             itemIndex: itemIndex)
                                      })
                 }
             }

@@ -10,7 +10,7 @@ import SwiftUI
 struct SetupSectionView: View {
     
     @ObservedObject var viewModel: SetupSectionViewModel
-    var onItemTapped: Observer<SetupItemViewModel>
+    var onItemTapped: Observer<Int>
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -18,9 +18,13 @@ struct SetupSectionView: View {
                 .foregroundColor(Color.biologerGreenColor)
                 .font(.title3).bold()
                 .padding(.vertical, 20)
-            ForEach(viewModel.items) { item in
-                SetupItemView(viewModel: item,
-                              onItemTapped: onItemTapped)
+            ForEach(viewModel.items.indices) { index in
+                let item = viewModel.items[index]
+                Button(action: {
+                    onItemTapped(index)
+                }, label: {
+                    SetupItemView(viewModel: item)
+                })
                     .padding(.bottom, 20)
             }
             Divider()

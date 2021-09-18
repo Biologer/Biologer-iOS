@@ -8,6 +8,7 @@
 import Foundation
 
 public final class SetupItemViewModel: ObservableObject, Identifiable {
+    
     public let id = UUID()
     public let title: String
     public let description: String

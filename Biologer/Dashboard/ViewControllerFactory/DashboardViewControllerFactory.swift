@@ -11,7 +11,7 @@ protocol DashboardViewControllerFactory {
     func makeSideMenuListScreen(onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
                                        onItemTapped: @escaping Observer<Item>) -> UIViewController
-    func makeSetupScreen() -> UIViewController
+    func makeSetupScreen(onItemTapped: @escaping Observer<SetupItemViewModel>) -> UIViewController
     func makeLogoutScreen(onLogoutTapped: @escaping Observer<Void>) -> UIViewController
     func makeAboutScreen() -> UIViewController
     func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController
@@ -64,11 +64,9 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
         return viewController
     }
     
-    func makeSetupScreen() -> UIViewController {
+    func makeSetupScreen(onItemTapped: @escaping Observer<SetupItemViewModel>) -> UIViewController {
         let viewModel = SetupScreenViewModel(sections: SetupDataMapper.getSetupData(),
-                                             onItemTapped: { item in
-                                                
-                                             })
+                                             onItemTapped: onItemTapped)
         let screen = SetupScreen(viewModel: viewModel)
         let vc = UIHostingController(rootView: screen)
         return vc

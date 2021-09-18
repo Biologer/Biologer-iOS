@@ -50,7 +50,9 @@ public final class DashboardRouter: NavigationRouter {
     }
     
     private func showSetupScreen() {
-        let vc = factory.makeSetupScreen()
+        let vc = factory.makeSetupScreen(onItemTapped: { item in
+            // Present some screen by item type
+        })
         addSideMenuIcon(vc: vc)
         self.navigationController.setViewControllers([vc], animated: false)
     }

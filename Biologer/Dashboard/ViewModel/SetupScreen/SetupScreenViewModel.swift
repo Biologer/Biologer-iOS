@@ -18,7 +18,8 @@ public final class SetupScreenViewModel: ObservableObject, Identifiable {
         self.onItemTapped = onItemTapped
     }
     
-    public func itemTapped(item: SetupItemViewModel) {
-        onItemTapped((item))
+    public func itemTapped(sectionIndex: Int, itemIndex: Int) {
+        let item = sections[sectionIndex].items[itemIndex]
+        item.isSelected?.toggle()
     }
 }
