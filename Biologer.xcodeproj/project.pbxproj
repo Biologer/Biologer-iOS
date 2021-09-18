@@ -46,6 +46,7 @@
 		9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342575826925B9F00B8C912 /* AttributedTextView.swift */; };
 		935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */; };
 		935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66326F6386800C56D46 /* SetupRouter.swift */; };
+		935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */; };
 		936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C6268889D60080C771 /* UIViewController+Extensions.swift */; };
 		936035C9268916B20080C771 /* SetupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C8268916B20080C771 /* SetupScreen.swift */; };
 		936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CA26891A240080C771 /* AboutBiologerScreen.swift */; };
@@ -58,7 +59,7 @@
 		9389464126F616280000D850 /* SetupSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389464026F616280000D850 /* SetupSectionView.swift */; };
 		9389464326F61BBC0000D850 /* SetupSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389464226F61BBC0000D850 /* SetupSectionViewModel.swift */; };
 		9389464526F621440000D850 /* SetupDataMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389464426F621440000D850 /* SetupDataMapper.swift */; };
-		93A7E2672691D77E001D6AEF /* DataLicense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2662691D77E001D6AEF /* DataLicense.swift */; };
+		93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */; };
 		93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */; };
 		93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */; };
 		93A7E2702691E055001D6AEF /* InsititutionTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26F2691E055001D6AEF /* InsititutionTextFieldViewModel.swift */; };
@@ -186,6 +187,7 @@
 		9342575826925B9F00B8C912 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
 		935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewControllerFactory.swift; sourceTree = "<group>"; };
 		935AF66326F6386800C56D46 /* SetupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRouter.swift; sourceTree = "<group>"; };
+		935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItemMapper.swift; sourceTree = "<group>"; };
 		936035C6268889D60080C771 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		936035C8268916B20080C771 /* SetupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScreen.swift; sourceTree = "<group>"; };
 		936035CA26891A240080C771 /* AboutBiologerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBiologerScreen.swift; sourceTree = "<group>"; };
@@ -198,7 +200,7 @@
 		9389464026F616280000D850 /* SetupSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupSectionView.swift; sourceTree = "<group>"; };
 		9389464226F61BBC0000D850 /* SetupSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupSectionViewModel.swift; sourceTree = "<group>"; };
 		9389464426F621440000D850 /* SetupDataMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupDataMapper.swift; sourceTree = "<group>"; };
-		93A7E2662691D77E001D6AEF /* DataLicense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicense.swift; sourceTree = "<group>"; };
+		93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItem.swift; sourceTree = "<group>"; };
 		93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextFieldViewModel.swift; sourceTree = "<group>"; };
 		93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurnameTextFieldViewModel.swift; sourceTree = "<group>"; };
 		93A7E26F2691E055001D6AEF /* InsititutionTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsititutionTextFieldViewModel.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				933EF7F526EFBAD800F1EBC4 /* PopUpErrorScreen.swift */,
 				933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */,
 				933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift */,
+				935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -647,7 +650,7 @@
 		93A7E2652691D768001D6AEF /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				93A7E2662691D77E001D6AEF /* DataLicense.swift */,
+				93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */,
 				93DF14082692069600A7A977 /* User.swift */,
 				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
 				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
@@ -1067,8 +1070,9 @@
 				93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */,
 				93A7E27E2691F7D4001D6AEF /* RegisterStepThreeScreen.swift in Sources */,
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
+				935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */,
 				93A7E2782691E1A4001D6AEF /* EmailTextFieldViewModel.swift in Sources */,
-				93A7E2672691D77E001D6AEF /* DataLicense.swift in Sources */,
+				93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */,
 				933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */,
 				931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */,
 				9300757626877C6B005A4DE0 /* DashboardRouter.swift in Sources */,

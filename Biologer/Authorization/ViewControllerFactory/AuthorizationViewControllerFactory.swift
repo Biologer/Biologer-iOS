@@ -27,17 +27,13 @@ public protocol AuthorizationViewControllerFactory {
     func makeRegisterThreeStepScreen(user: User,
                                      topImage: String,
                                      service: RegisterUserService,
-                                     dataLicense: DataLicense,
-                                     imageLicense: DataLicense,
+                                     dataLicense: CheckMarkItem,
+                                     imageLicense: CheckMarkItem,
                                      onReadPrivacyPolicy: @escaping Observer<Void>,
-                                     onDataLicense: @escaping Observer<DataLicense>,
-                                     onImageLicense: @escaping Observer<DataLicense>,
+                                     onDataLicense: @escaping Observer<CheckMarkItem>,
+                                     onImageLicense: @escaping Observer<CheckMarkItem>,
                                      onSuccess: @escaping Observer<Token>,
                                      onError: @escaping Observer<APIError>,
                                      onLoading: @escaping Observer<Bool>) -> UIViewController
-    func makeLicenseScreen(dataLicenses: [DataLicense],
-                           selectedDataLicense: DataLicense,
-                           delegate: DataLicenseScreenDelegate?,
-                           onLicenseTapped: @escaping Observer<Void>) -> UIViewController
     func makeSplashScreen(onSplashScreenDone: @escaping Observer<Void>) -> UIViewController
 }

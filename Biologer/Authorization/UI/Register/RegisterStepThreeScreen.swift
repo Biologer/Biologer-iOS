@@ -9,8 +9,8 @@ import SwiftUI
 
 public protocol RegisterStepThreeScreenLoader: ObservableObject {
     var topImage: String { get }
-    var dataLicense: DataLicense { get }
-    var imageLicense: DataLicense { get }
+    var dataLicense: CheckMarkItem { get }
+    var imageLicense: CheckMarkItem { get }
     var acceptPPTitle: String { get }
     var registerButtonTitle: String { get }
     var acceptPPChceckMark: Bool { get set }
@@ -85,8 +85,8 @@ struct RegisterStepThreeScreen_Previews: PreviewProvider {
     private class StubRegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoader {
         var errorLabel: String = ""
         var topImage = "serbia_flag"
-        var dataLicense: DataLicense = DataLicense(id: 11, title: "Free (CC BY-SA)“ int vrednost", placeholder: "Data License", licenseType: .data, isSelected: true)
-        var imageLicense: DataLicense = DataLicense(id: 10, title: "Share images for free (CC-BY-SA)", placeholder: "Image License", licenseType: .data, isSelected: true)
+        var dataLicense: CheckMarkItem = CheckMarkItem(id: 11, title: "Free (CC BY-SA)“ int vrednost", placeholder: "Data License", licenseType: .data, isSelected: true)
+        var imageLicense: CheckMarkItem = CheckMarkItem(id: 10, title: "Share images for free (CC-BY-SA)", placeholder: "Image License", licenseType: .data, isSelected: true)
         var registerButtonTitle = "Register"
         var acceptPPTitle: String = "I accept privary policy"
         var acceptPPChceckMark: Bool = false

@@ -25,7 +25,7 @@ public final class SetupItemViewModel: ObservableObject, Identifiable {
     public let title: String
     public let description: String
     @Published public var isSelected: Bool?
-    private let type: SetupItemType
+    public let type: SetupItemType
     
     init(title: String,
          description: String,

@@ -13,6 +13,6 @@ public final class User {
     public var insitution: String = ""
     public var email: String = ""
     public var password: String = ""
-    public var dataLicense: DataLicense = DataLicense(id: 1, title: "", placeholder: "", licenseType: .data, isSelected: false)
-    public var imageLicense: DataLicense = DataLicense(id: 1, title: "", placeholder: "", licenseType: .image, isSelected: false)
+    public var dataLicense: CheckMarkItem = CheckMarkItem(id: 1, title: "", placeholder: "", licenseType: .data, isSelected: false)
+    public var imageLicense: CheckMarkItem = CheckMarkItem(id: 1, title: "", placeholder: "", licenseType: .image, isSelected: false)
 }

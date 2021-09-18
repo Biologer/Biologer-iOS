@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-protocol DataLicenseScreenLoader: ObservableObject {
-    var dataLicenses: [DataLicense] { get }
-    func licenseTapped(license: DataLicense)
+protocol CheckMarkScreenLoader: ObservableObject {
+    var dataLicenses: [CheckMarkItem] { get }
+    func licenseTapped(license: CheckMarkItem)
 }
 
-struct DataLicenseScreen<ScreenLoader>: View where ScreenLoader: DataLicenseScreenLoader {
+struct CheckMarkScreen<ScreenLoader>: View where ScreenLoader: CheckMarkScreenLoader {
     
     @ObservedObject var loader: ScreenLoader
     
@@ -51,20 +51,20 @@ struct DataLicenseScreen<ScreenLoader>: View where ScreenLoader: DataLicenseScre
 
 struct DataLicenseScreen_Previews: PreviewProvider {
     static var previews: some View {
-        DataLicenseScreen(loader: StubDataLicenseScreenViewModel())
+        CheckMarkScreen(loader: StubCheckMarkScreenViewModel())
     }
     
-    private class StubDataLicenseScreenViewModel: DataLicenseScreenLoader {
-        var dataLicenses: [DataLicense] = [DataLicense(id: 1,
+    private class StubCheckMarkScreenViewModel: CheckMarkScreenLoader {
+        var dataLicenses: [CheckMarkItem] = [CheckMarkItem(id: 1,
                                                        title: "Free (CC BY-SA)",
                                                        placeholder: "", licenseType: .data, isSelected: true),
-                                           DataLicense(id: 1,
+                                           CheckMarkItem(id: 1,
                                                                            title: "Free (CC BY-SA)",
                                                                            placeholder: "", licenseType: .data, isSelected: false),
-                                           DataLicense(id: 1,
+                                           CheckMarkItem(id: 1,
                                                                            title: "Free (CC BY-SA)",
                                                                            placeholder: "", licenseType: .data, isSelected: false)]
         
-        func licenseTapped(license: DataLicense) {}
+        func licenseTapped(license: CheckMarkItem) {}
     }
 }

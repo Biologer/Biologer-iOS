@@ -35,6 +35,7 @@ public final class AppNavigationRouter: NavigationRouter {
         
         let authorization =  AuthorizationRouter(factory: authorizationFactory,
                                    commonViewControllerFactory: commonViewControllerFactory,
+                                   swiftUICommonViewControllerFactory: SwiftUICommonViewControllerFactrory(),
                                    swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                    navigationController: mainNavigationController,
                                    loginService: loginService,
@@ -89,7 +90,8 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var setupRouter: SetupRouter = {
        let setupRouter = SetupRouter(navigationController: dashboardNavigationController,
-                                     factory: SwiftUISetupViewControllerFactory())
+                                     factory: SwiftUISetupViewControllerFactory(),
+                                     swiftUICommonFactory: SwiftUICommonViewControllerFactrory())
         return setupRouter
     }()
     

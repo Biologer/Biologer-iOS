@@ -8,31 +8,31 @@
 import Foundation
 
 public protocol DataLicenseScreenDelegate {
-    func get(license: DataLicense)
+    func get(license: CheckMarkItem)
 }
 
-public final class DataLicenseScreenViewModel: DataLicenseScreenLoader {
-    var dataLicenses: [DataLicense]
+public final class CheckMarkScreenViewModel: CheckMarkScreenLoader {
+    var dataLicenses: [CheckMarkItem]
     
-    private let onLicenseTapped: Observer<Void>
+    private let onLicenseTapped: Observer<CheckMarkItem>
     private let delegate: DataLicenseScreenDelegate?
     
-    init(dataLicenses: [DataLicense],
-         selectedDataLicense: DataLicense,
+    init(dataLicenses: [CheckMarkItem],
+         selectedDataLicense: CheckMarkItem,
          delegate: DataLicenseScreenDelegate? = nil,
-         onLicenseTapped: @escaping Observer<Void>) {
+         onLicenseTapped: @escaping Observer<CheckMarkItem>) {
         self.dataLicenses = dataLicenses
         self.delegate = delegate
         self.onLicenseTapped = onLicenseTapped
         updateSelectedViewModel(license: selectedDataLicense)
     }
     
-    func licenseTapped(license: DataLicense) {
+    func licenseTapped(license: CheckMarkItem) {
         delegate?.get(license: license)
-        onLicenseTapped(())
+        onLicenseTapped((license))
     }
     
-    public func updateSelectedViewModel(license: DataLicense) {
+    public func updateSelectedViewModel(license: CheckMarkItem) {
 
         for (index, lic) in dataLicenses.enumerated() {
             if lic.id == license.id {

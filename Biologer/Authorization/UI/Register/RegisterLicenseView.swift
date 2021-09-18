@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegisterLicenseView: View {
     
-    var dataLicense: DataLicense
+    var dataLicense: CheckMarkItem
     var onDataTapped: Observer<Void>
     
     var body: some View {
@@ -41,6 +41,6 @@ struct RegisterLicenseView: View {
 
 struct RegisterLicenseView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterLicenseView(dataLicense: DataLicense(id: 1, title: "", placeholder: "", licenseType: .data, isSelected: true), onDataTapped: { _ in})
+        RegisterLicenseView(dataLicense: CheckMarkItem(id: 1, title: "", placeholder: "", licenseType: .data, isSelected: true), onDataTapped: { _ in})
     }
 }

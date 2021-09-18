@@ -10,15 +10,15 @@ import Foundation
 public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoader, ObservableObject {
     public var registerButtonTitle: String = "Register"
     public var topImage: String
-    @Published public var dataLicense: DataLicense
-    @Published public var imageLicense: DataLicense
+    @Published public var dataLicense: CheckMarkItem
+    @Published public var imageLicense: CheckMarkItem
     public var acceptPPTitle: String = "I accept privary policy"
     public var acceptPPChceckMark: Bool = false
     public var privacyPolicyDescription: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
     @Published public var errorLabel: String = ""
     public var onReadPrivacyPolicy: Observer<Void>
-    private let onDataLicense: Observer<DataLicense>
-    private let onImageLicense: Observer<DataLicense>
+    private let onDataLicense: Observer<CheckMarkItem>
+    private let onImageLicense: Observer<CheckMarkItem>
     
     private let onSuccess: Observer<Token>
     private let onError: Observer<APIError>
@@ -29,11 +29,11 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     init(user: User,
          topImage: String,
          service: RegisterUserService,
-         dataLicense: DataLicense,
-         imageLicense: DataLicense,
+         dataLicense: CheckMarkItem,
+         imageLicense: CheckMarkItem,
          onReadPrivacyPolicy: @escaping Observer<Void>,
-         onDataLicense: @escaping Observer<DataLicense>,
-         onImageLicense: @escaping Observer<DataLicense>,
+         onDataLicense: @escaping Observer<CheckMarkItem>,
+         onImageLicense: @escaping Observer<CheckMarkItem>,
          onSuccess: @escaping Observer<Token>,
          onError: @escaping Observer<APIError>,
          onLoading: @escaping Observer<Bool>) {
@@ -88,11 +88,11 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
 }
 
 extension RegisterStepThreeScreenViewModel: DataLicenseScreenDelegate {
-    public func get(license: DataLicense) {
+    public func get(license: CheckMarkItem) {
         if license.licenseType == .data {
-            dataLicense = DataLicense(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .data, isSelected: license.isSelected)
+            dataLicense = CheckMarkItem(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .data, isSelected: license.isSelected)
         } else {
-            imageLicense = DataLicense(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .image, isSelected: license.isSelected)
+            imageLicense = CheckMarkItem(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .image, isSelected: license.isSelected)
         }
     }
 }
