@@ -65,8 +65,11 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
     }
     
     func makeSetupScreen() -> UIViewController {
-        let viewModel = SetupScreenViewModel()
-        let screen = SetupScreen(loader: viewModel)
+        let viewModel = SetupScreenViewModel(sections: SetupDataMapper.getSetupData(),
+                                             onItemTapped: { item in
+                                                
+                                             })
+        let screen = SetupScreen(viewModel: viewModel)
         let vc = UIHostingController(rootView: screen)
         return vc
     }
