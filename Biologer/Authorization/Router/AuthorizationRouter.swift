@@ -146,7 +146,7 @@ public final class AuthorizationRouter: NavigationRouter {
         let dataLicense = dataLicenses[0]
         let imageLicense = imageLicenses[0]
         
-        var dataLicenseDelegate: DataLicenseScreenDelegate?
+        var dataLicenseDelegate: CheckMarkScreenDelegate?
         
         let stepThirdViewController = factory.makeRegisterThreeStepScreen(user: user,
                                                                           topImage: self.selectedEnvironmentImage,
@@ -158,14 +158,14 @@ public final class AuthorizationRouter: NavigationRouter {
                                                                           },
                                                                           onDataLicense: { [weak self] dataLicense in
                                                                             self?.showLicenseScreen(isDataLicense: true,
-                                                                                                    selectedDataLicense: dataLicense,
-                                                                                                    dataLicenses: dataLicenses,
+                                                                                                    selectedItem: dataLicense,
+                                                                                                    items: dataLicenses,
                                                                                                     presentDatePicker: dataLicenseDelegate)
                                                                           },
                                                                           onImageLicense: { [weak self] imageLicense in
                                                                             self?.showLicenseScreen(isDataLicense: false,
-                                                                                                    selectedDataLicense: imageLicense,
-                                                                                                    dataLicenses: imageLicenses,
+                                                                                                    selectedItem: imageLicense,
+                                                                                                    items: imageLicenses,
                                                                                                     presentDatePicker: dataLicenseDelegate)
                                                                           },
                                                                           onSuccess: { [weak self] token in
@@ -187,12 +187,12 @@ public final class AuthorizationRouter: NavigationRouter {
     }
     
     private func showLicenseScreen(isDataLicense: Bool,
-                                   selectedDataLicense: CheckMarkItem,
-                                   dataLicenses: [CheckMarkItem],
-                                   presentDatePicker: DataLicenseScreenDelegate?) {
+                                   selectedItem: CheckMarkItem,
+                                   items: [CheckMarkItem],
+                                   presentDatePicker: CheckMarkScreenDelegate?) {
         
-        let dataLicenseViewController = swiftUICommonViewControllerFactory.makeLicenseScreen(dataLicenses: dataLicenses,
-                                                                  selectedDataLicense: selectedDataLicense,
+        let dataLicenseViewController = swiftUICommonViewControllerFactory.makeLicenseScreen(items: items,
+                                                                                             selectedItem: selectedItem,
                                                                   delegate: presentDatePicker) { [weak self] dataLicenses in
             self?.navigationController.popViewController(animated: true)
         }

@@ -8,8 +8,8 @@
 import SwiftUI
 
 protocol CheckMarkScreenLoader: ObservableObject {
-    var dataLicenses: [CheckMarkItem] { get }
-    func licenseTapped(license: CheckMarkItem)
+    var items: [CheckMarkItem] { get }
+    func itemTapped(item: CheckMarkItem)
 }
 
 struct CheckMarkScreen<ScreenLoader>: View where ScreenLoader: CheckMarkScreenLoader {
@@ -19,25 +19,25 @@ struct CheckMarkScreen<ScreenLoader>: View where ScreenLoader: CheckMarkScreenLo
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(loader.dataLicenses, id: \.id) { license in
+                ForEach(loader.items, id: \.id) { item in
                     HStack {
                         Button(action: {
-                            loader.licenseTapped(license: license)
+                            loader.itemTapped(item: item)
                         }, label: {
-                            Text(license.title)
+                            Text(item.title)
                                 .foregroundColor(Color.black)
                                 .multilineTextAlignment(.leading)
                         })
                         .padding()
                         Spacer()
                         Button(action: {
-                            loader.licenseTapped(license: license)
+                            loader.itemTapped(item: item)
                         }, label: {
                             Image("check_mark")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
-                                .isHidden(!license.isSelected)
+                                .isHidden(!item.isSelected)
                             
                         })
                         .padding()
@@ -55,16 +55,17 @@ struct DataLicenseScreen_Previews: PreviewProvider {
     }
     
     private class StubCheckMarkScreenViewModel: CheckMarkScreenLoader {
-        var dataLicenses: [CheckMarkItem] = [CheckMarkItem(id: 1,
-                                                       title: "Free (CC BY-SA)",
-                                                       placeholder: "", licenseType: .data, isSelected: true),
-                                           CheckMarkItem(id: 1,
-                                                                           title: "Free (CC BY-SA)",
-                                                                           placeholder: "", licenseType: .data, isSelected: false),
-                                           CheckMarkItem(id: 1,
-                                                                           title: "Free (CC BY-SA)",
-                                                                           placeholder: "", licenseType: .data, isSelected: false)]
         
-        func licenseTapped(license: CheckMarkItem) {}
+        var items: [CheckMarkItem] = [CheckMarkItem(id: 1,
+                                                       title: "Free (CC BY-SA)",
+                                                       placeholder: "", type: .data, isSelected: true),
+                                           CheckMarkItem(id: 1,
+                                                                           title: "Free (CC BY-SA)",
+                                                                           placeholder: "", type: .data, isSelected: false),
+                                           CheckMarkItem(id: 1,
+                                                                           title: "Free (CC BY-SA)",
+                                                                           placeholder: "", type: .data, isSelected: false)]
+        
+        func itemTapped(item: CheckMarkItem){}
     }
 }

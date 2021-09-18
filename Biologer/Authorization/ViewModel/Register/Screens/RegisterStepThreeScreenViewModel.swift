@@ -87,12 +87,12 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     }
 }
 
-extension RegisterStepThreeScreenViewModel: DataLicenseScreenDelegate {
-    public func get(license: CheckMarkItem) {
-        if license.licenseType == .data {
-            dataLicense = CheckMarkItem(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .data, isSelected: license.isSelected)
+extension RegisterStepThreeScreenViewModel: CheckMarkScreenDelegate {
+    public func get(item: CheckMarkItem) {
+        if item.type == .data {
+            dataLicense = CheckMarkItem(id: item.id, title: item.title, placeholder: item.placeholder, type: .data, isSelected: item.isSelected)
         } else {
-            imageLicense = CheckMarkItem(id: license.id, title: license.title, placeholder: license.placeholder, licenseType: .image, isSelected: license.isSelected)
+            imageLicense = CheckMarkItem(id: item.id, title: item.title, placeholder: item.placeholder, type: .image, isSelected: item.isSelected)
         }
     }
 }

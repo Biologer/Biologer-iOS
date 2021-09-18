@@ -43,12 +43,14 @@ public final class SetupRouter {
             case .dataLicense:
                 print("Data license tapped")
             case .imageLicense:
-                print("Image license tapped")
                 let imageLicense = CheckMarkItemMapper.getImageLicense()
                 self.showLicenseScreen(navBarTitle: "IMAGE LICENSE",
-                                       selectedDataLicense: imageLicense[0],
-                                       dataLicenses: imageLicense,
-                                       presentDatePicker: nil)
+                                       selectedItem: imageLicense[0],
+                                       items: imageLicense,
+                                       presentDatePicker: nil,
+                                       onItemTapped: { item in
+                                            self.navigationController.popViewController(animated: true)
+                                       })
             case .downloadUpload:
                 print("Download and upload tapped")
             case .downloadAllTaxa:
@@ -63,15 +65,15 @@ public final class SetupRouter {
     }
     
     private func showLicenseScreen(navBarTitle: String,
-                                   selectedDataLicense: CheckMarkItem,
-                                   dataLicenses: [CheckMarkItem],
-                                   presentDatePicker: DataLicenseScreenDelegate?) {
+                                   selectedItem: CheckMarkItem,
+                                   items: [CheckMarkItem],
+                                   presentDatePicker: CheckMarkScreenDelegate?,
+                                   onItemTapped: @escaping Observer<CheckMarkItem>) {
         
-        let dataLicenseViewController = swiftUICommonFactory.makeLicenseScreen(dataLicenses: dataLicenses,
-                                                                  selectedDataLicense: selectedDataLicense,
-                                                                  delegate: presentDatePicker) { [weak self] dataLicenses in
-            self?.navigationController.popViewController(animated: true)
-        }
+        let dataLicenseViewController = swiftUICommonFactory.makeLicenseScreen(items: items,
+                                                                  selectedItem: selectedItem,
+                                                                  delegate: presentDatePicker,
+                                                                  onItemTapped: onItemTapped)
         dataLicenseViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         dataLicenseViewController.setBiologerTitle(text: navBarTitle)
         self.navigationController.pushViewController(dataLicenseViewController, animated: true)

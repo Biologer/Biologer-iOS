@@ -41,6 +41,6 @@ struct RegisterLicenseView: View {
 
 struct RegisterLicenseView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterLicenseView(dataLicense: CheckMarkItem(id: 1, title: "", placeholder: "", licenseType: .data, isSelected: true), onDataTapped: { _ in})
+        RegisterLicenseView(dataLicense: CheckMarkItem(id: 1, title: "", placeholder: "", type: .data, isSelected: true), onDataTapped: { _ in})
     }
 }

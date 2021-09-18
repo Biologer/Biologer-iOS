@@ -16,7 +16,7 @@ public struct CheckMarkItem {
     var id: Int
     var title: String
     var placeholder: String
-    var licenseType: CheckMarkItemType
+    var type: CheckMarkItemType
     var isSelected: Bool
     
     public mutating func changeIsSelected(value: Bool) {

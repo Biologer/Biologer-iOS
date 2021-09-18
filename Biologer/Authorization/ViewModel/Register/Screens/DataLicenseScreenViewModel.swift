@@ -7,38 +7,38 @@
 
 import Foundation
 
-public protocol DataLicenseScreenDelegate {
-    func get(license: CheckMarkItem)
+public protocol CheckMarkScreenDelegate {
+    func get(item: CheckMarkItem)
 }
 
 public final class CheckMarkScreenViewModel: CheckMarkScreenLoader {
-    var dataLicenses: [CheckMarkItem]
+    var items: [CheckMarkItem]
     
-    private let onLicenseTapped: Observer<CheckMarkItem>
-    private let delegate: DataLicenseScreenDelegate?
+    private let onItemTapped: Observer<CheckMarkItem>
+    private let delegate: CheckMarkScreenDelegate?
     
-    init(dataLicenses: [CheckMarkItem],
-         selectedDataLicense: CheckMarkItem,
-         delegate: DataLicenseScreenDelegate? = nil,
-         onLicenseTapped: @escaping Observer<CheckMarkItem>) {
-        self.dataLicenses = dataLicenses
+    init(items: [CheckMarkItem],
+         selectedItem: CheckMarkItem,
+         delegate: CheckMarkScreenDelegate? = nil,
+         onItemTapped: @escaping Observer<CheckMarkItem>) {
+        self.items = items
         self.delegate = delegate
-        self.onLicenseTapped = onLicenseTapped
-        updateSelectedViewModel(license: selectedDataLicense)
+        self.onItemTapped = onItemTapped
+        updateSelectedViewModel(with: selectedItem)
     }
     
-    func licenseTapped(license: CheckMarkItem) {
-        delegate?.get(license: license)
-        onLicenseTapped((license))
+    func itemTapped(item: CheckMarkItem) {
+        delegate?.get(item: item)
+        onItemTapped((item))
     }
     
-    public func updateSelectedViewModel(license: CheckMarkItem) {
+    public func updateSelectedViewModel(with item: CheckMarkItem) {
 
-        for (index, lic) in dataLicenses.enumerated() {
-            if lic.id == license.id {
-                dataLicenses[index].changeIsSelected(value: true)
+        for (index, lic) in items.enumerated() {
+            if lic.id == item.id {
+                items[index].changeIsSelected(value: true)
             } else {
-                dataLicenses[index].changeIsSelected(value: false)
+                items[index].changeIsSelected(value: false)
             }
         }
     }

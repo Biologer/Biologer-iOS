@@ -9,17 +9,17 @@ import SwiftUI
 
 public protocol CommonViewControllerFactory {
     func createBlockingProgress() -> UIViewController
-    func makeLicenseScreen(dataLicenses: [CheckMarkItem],
-                           selectedDataLicense: CheckMarkItem,
-                           delegate: DataLicenseScreenDelegate?,
-                           onLicenseTapped: @escaping Observer<CheckMarkItem>) -> UIViewController
+    func makeLicenseScreen(items: [CheckMarkItem],
+                           selectedItem: CheckMarkItem,
+                           delegate: CheckMarkScreenDelegate?,
+                           onItemTapped: @escaping Observer<CheckMarkItem>) -> UIViewController
 }
 
 public final class IOSUIKitCommonViewControllerFactory: CommonViewControllerFactory {
-    public func makeLicenseScreen(dataLicenses: [CheckMarkItem],
-                                  selectedDataLicense: CheckMarkItem,
-                                  delegate: DataLicenseScreenDelegate?,
-                                  onLicenseTapped: @escaping Observer<CheckMarkItem>) -> UIViewController {
+    public func makeLicenseScreen(items: [CheckMarkItem],
+                                      selectedItem: CheckMarkItem,
+                                      delegate: CheckMarkScreenDelegate?,
+                                      onItemTapped: @escaping Observer<CheckMarkItem>) -> UIViewController {
         fatalError("There is no UIKit license screen")
     }
     
@@ -37,16 +37,15 @@ public final class SwiftUICommonViewControllerFactrory: CommonViewControllerFact
         fatalError("There is no swiftUI progress loader")
     }
     
-    public func makeLicenseScreen(dataLicenses: [CheckMarkItem],
-                                  selectedDataLicense: CheckMarkItem,
-                                  delegate: DataLicenseScreenDelegate?,
-                                  onLicenseTapped: @escaping Observer<CheckMarkItem>) -> UIViewController {
+    public func makeLicenseScreen(items: [CheckMarkItem],
+                                  selectedItem: CheckMarkItem,
+                                  delegate: CheckMarkScreenDelegate?,
+                                  onItemTapped: @escaping Observer<CheckMarkItem>) -> UIViewController {
         
-        
-        let viewModel = CheckMarkScreenViewModel(dataLicenses: dataLicenses,
-                                                   selectedDataLicense: selectedDataLicense,
-                                                   delegate: delegate,
-                                                   onLicenseTapped: onLicenseTapped)
+        let viewModel = CheckMarkScreenViewModel(items: items,
+                                                 selectedItem: selectedItem,
+                                                 delegate: delegate,
+                                                 onItemTapped: onItemTapped)
         
         let screen = CheckMarkScreen(loader: viewModel)
         let viewController = UIHostingController(rootView: screen)
