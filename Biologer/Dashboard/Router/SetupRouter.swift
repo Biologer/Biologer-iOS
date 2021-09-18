@@ -59,7 +59,7 @@ public final class SetupRouter {
                                             self?.navigationController.popViewController(animated: true)
                                        })
             case .downloadUpload:
-                print("Download and upload tapped")
+                self?.showSetupDownloadAndUploadScreen(items: SetupDownloadAndUploadMapper.getItems())
             case .downloadAllTaxa:
                 print("Download all taxa")
             }
@@ -94,6 +94,17 @@ public final class SetupRouter {
                                                     onOkTapped: { newProjectName in
                                                         self.navigationController.dismiss(animated: true, completion: nil)
                                                     })
+        self.navigationController.present(vc, animated: true, completion: nil)
+    }
+    
+    private func showSetupDownloadAndUploadScreen(items: [SetupRadioAndTitleModel]) {
+        let vc = factory.makeSetupDownloadAndUploadScreen(items: items,
+                                                          onCancelTapped: { [weak self] _ in
+                                                                self?.navigationController.dismiss(animated: true, completion: nil)
+                                                          },
+                                                          onItemTapped: { [weak self] item in
+                                                                self?.navigationController.dismiss(animated: true, completion: nil)
+                                                          })
         self.navigationController.present(vc, animated: true, completion: nil)
     }
     
