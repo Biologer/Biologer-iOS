@@ -40,6 +40,6 @@ struct SetupItemView_Previews: PreviewProvider {
         SetupItemView(viewModel: SetupItemViewModel(title: "Project Name",
                                                     description: "Sets the project title if your data was collected during a project",
                                                     isSelected: true,
-                                                    onItemTapped: { _ in }))
+                                                    type: .projectName))
     }
 }

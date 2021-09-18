@@ -44,6 +44,8 @@
 		933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift */; };
 		933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7FB26F08AC000F1EBC4 /* APIError.swift */; };
 		9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342575826925B9F00B8C912 /* AttributedTextView.swift */; };
+		935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */; };
+		935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66326F6386800C56D46 /* SetupRouter.swift */; };
 		936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C6268889D60080C771 /* UIViewController+Extensions.swift */; };
 		936035C9268916B20080C771 /* SetupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C8268916B20080C771 /* SetupScreen.swift */; };
 		936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CA26891A240080C771 /* AboutBiologerScreen.swift */; };
@@ -182,6 +184,8 @@
 		933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAlertViewController.swift; sourceTree = "<group>"; };
 		933EF7FB26F08AC000F1EBC4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		9342575826925B9F00B8C912 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
+		935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewControllerFactory.swift; sourceTree = "<group>"; };
+		935AF66326F6386800C56D46 /* SetupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRouter.swift; sourceTree = "<group>"; };
 		936035C6268889D60080C771 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		936035C8268916B20080C771 /* SetupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScreen.swift; sourceTree = "<group>"; };
 		936035CA26891A240080C771 /* AboutBiologerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBiologerScreen.swift; sourceTree = "<group>"; };
@@ -316,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				9300757526877C6B005A4DE0 /* DashboardRouter.swift */,
+				935AF66326F6386800C56D46 /* SetupRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */,
+				935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */,
 			);
 			path = ViewControllerFactory;
 			sourceTree = "<group>";
@@ -1069,6 +1075,7 @@
 				936035C9268916B20080C771 /* SetupScreen.swift in Sources */,
 				93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
+				935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
 				93CC6589269C2C5F00949534 /* LoginEnvView.swift in Sources */,
 				93DF14212692262900A7A977 /* LoginUserService.swift in Sources */,
@@ -1111,6 +1118,7 @@
 				936035D3268929920080C771 /* SetupScreenViewModel.swift in Sources */,
 				93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */,
 				93DF142D269253B900A7A977 /* CheckView.swift in Sources */,
+				935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
 				93DF14092692069600A7A977 /* User.swift in Sources */,

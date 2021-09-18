@@ -7,27 +7,33 @@
 
 import Foundation
 
+public enum SetupItemType {
+    case chooseGropups
+    case englishNames
+    case adultByDefault
+    case observationEntry
+    case projectName
+    case dataLicense
+    case imageLicense
+    case downloadUpload
+    case downloadAllTaxa
+}
+
 public final class SetupItemViewModel: ObservableObject, Identifiable {
     
     public let id = UUID()
     public let title: String
     public let description: String
     @Published public var isSelected: Bool?
-    
-    private let onItemTapped: Observer<Void>
+    private let type: SetupItemType
     
     init(title: String,
          description: String,
          isSelected: Bool?,
-         onItemTapped: @escaping Observer<Void>) {
+         type: SetupItemType) {
         self.title = title
         self.description = description
         self.isSelected = isSelected
-        self.onItemTapped = onItemTapped
-    }
-    
-    public func itemTapped() {
-        isSelected?.toggle()
-        onItemTapped(())
+        self.type = type
     }
 }

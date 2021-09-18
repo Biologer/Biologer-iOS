@@ -39,15 +39,15 @@ struct SetupSectionView_Previews: PreviewProvider {
         let items = [SetupItemViewModel(title: "Project Name",
                                         description: "Sets the project title if your data was collected during a project",
                                         isSelected: true,
-                                        onItemTapped: { _ in }),
+                                        type: .projectName),
                      SetupItemViewModel(title: "Data License",
                                                      description: "Choose diffeten license four your data collected through the application",
                                                      isSelected: true,
-                                                     onItemTapped: { _ in }),
+                                                     type: .dataLicense),
                      SetupItemViewModel(title: "Image License",
                                                      description: "Choose diffeten license four your iamge sent through the application",
                                                      isSelected: true,
-                                                     onItemTapped: { _ in })]
+                                                     type: .imageLicense)]
         SetupSectionView(viewModel: SetupSectionViewModel(title: title,
                                                           items: items),
                          onItemTapped: { item in })

@@ -13,14 +13,17 @@ public final class DashboardRouter: NavigationRouter {
     
     private let navigationController: UINavigationController
     private let mainNavigationController: UINavigationController
+    private let setupRouter: SetupRouter
     private let factory: DashboardViewControllerFactory
     public var onLogout: Observer<Void>?
     
     init(navigationController: UINavigationController,
          mainNavigationController: UINavigationController,
+         setupRouter: SetupRouter,
          factory: DashboardViewControllerFactory) {
         self.navigationController = navigationController
         self.mainNavigationController = mainNavigationController
+        self.setupRouter = setupRouter
         self.factory = factory
     }
     
@@ -50,11 +53,10 @@ public final class DashboardRouter: NavigationRouter {
     }
     
     private func showSetupScreen() {
-        let vc = factory.makeSetupScreen(onItemTapped: { item in
-            // Present some screen by item type
-        })
-        addSideMenuIcon(vc: vc)
-        self.navigationController.setViewControllers([vc], animated: false)
+        setupRouter.start()
+        setupRouter.onSideMenuTapped = { [weak self] _ in
+            self?.showSideMenu()
+        }
     }
     
     private func showLogoutScreen() {

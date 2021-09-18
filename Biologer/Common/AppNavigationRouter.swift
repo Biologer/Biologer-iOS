@@ -71,6 +71,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private lazy var dashboardRouter: DashboardRouter = {
         let dashboardRouter = DashboardRouter(navigationController: dashboardNavigationController,
                                mainNavigationController: mainNavigationController,
+                               setupRouter: setupRouter,
                                factory: SwiftUIDashboardViewControllerFactory())
         
         dashboardRouter.onLogout = { _ in
@@ -84,6 +85,12 @@ public final class AppNavigationRouter: NavigationRouter {
             })
         }
         return dashboardRouter
+    }()
+    
+    private lazy var setupRouter: SetupRouter = {
+       let setupRouter = SetupRouter(navigationController: dashboardNavigationController,
+                                     factory: SwiftUISetupViewControllerFactory())
+        return setupRouter
     }()
     
     init(mainNavigationController: UINavigationController) {

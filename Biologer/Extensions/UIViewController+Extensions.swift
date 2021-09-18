@@ -14,6 +14,12 @@ extension UIViewController {
         navigationItem.leftBarButtonItems = [barButtonItem]
     }
     
+    public func setBiologerBackBarButtonItem(image: UIImage, action: @escaping () -> Void) {
+        let barButtonItem = UIBarButtonItem(image: image, style: .plain, action: action)
+        barButtonItem.tintColor = .white
+        navigationItem.leftBarButtonItems = [barButtonItem]
+    }
+    
     public func setBiologerBackBarButtonItem(target: Any, action: Selector) {
         let image = UIImage(named: "back_arrow")
         let barButtonItem = UIBarButtonItem(image: image, style: .plain, target: target, action: action)
@@ -31,4 +37,29 @@ extension UIViewController {
         titleLbl.sizeToFit()
         self.navigationItem.titleView = titleLbl
     }
+}
+
+private var actionKey: Void?
+
+extension UIBarButtonItem {
+
+    private var _action: () -> () {
+        get {
+            return objc_getAssociatedObject(self, &actionKey) as! () -> ()
+        }
+        set {
+            objc_setAssociatedObject(self, &actionKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    convenience init(image: UIImage, style: UIBarButtonItem.Style, action: @escaping () -> ()) {
+        self.init(image: image, style: style, target: nil, action: #selector(pressed))
+        self.target = self
+        self._action = action
+    }
+
+    @objc private func pressed(sender: UIBarButtonItem) {
+        _action()
+    }
+
 }
