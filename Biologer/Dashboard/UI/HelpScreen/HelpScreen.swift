@@ -22,7 +22,7 @@ struct HelpScreen<ScreenLoader>: View where ScreenLoader: HelpScreenLoader {
     
     var body: some View {
         ZStack {
-            Color.biologerLightGreenColor
+            Color.biologerHelpBacgroundGreen
             LazyHStack {
                 PageView(selection: $loader.currentPageIndex,
                          items: loader.items)
@@ -33,7 +33,7 @@ struct HelpScreen<ScreenLoader>: View where ScreenLoader: HelpScreenLoader {
                     Button(action: {
                         loader.previousTapped()
                     }, label: {
-                        Image("forward_icon")
+                        Image("forward_icon_1")
                             .resizable()
                             .frame(width: 50, height: 50)
                     })
@@ -43,13 +43,14 @@ struct HelpScreen<ScreenLoader>: View where ScreenLoader: HelpScreenLoader {
                     Button(action: {
                         loader.nextTapped()
                     }, label: {
-                        Image("forward_icon")
+                        Image("forward_icon_1")
                             .resizable()
                             .frame(width: 50, height: 50)
                     })
                     .padding(20)
                 }
             }
+            .padding(.bottom, 20)
         }
         .ignoresSafeArea()
     }
@@ -59,28 +60,29 @@ struct PageView: View {
     
     @Binding var selection: Int
     var items: [HelpItemViewModel]
+    let imageMultiplier: CGFloat = 0.5
+    let imageSize = UIScreen.screenWidth * 0.6
     
     var body: some View {
         TabView(selection: $selection) {
             ForEach(0..<items.count) { i in
                 ZStack {
-                    Color.biologerLightGreenColor
+                    Color.biologerHelpBacgroundGreen
                     VStack(alignment: .center) {
                         Text(items[i].title)
                             .foregroundColor(.white)
-                            .font(.system(size: 32)).bold()
-                            .padding(.top, 30)
-                            .padding(.bottom, 30)
+                            .font(.title).bold()
+                            .padding(.top, 20)
                         Image(items[i].image)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 300, height: 300)
-                            .padding()
+                            .frame(width: imageSize, height: imageSize)
                         Text(items[i].description)
                             .foregroundColor(.white)
-                            .font(.system(size: 26))
-                            .padding(.top, 30)
+                            .font(.title2)
+                            .padding(.top, 0)
                             .multilineTextAlignment(.center)
+                            .padding(.top, 30)
                         Spacer()
                     }
                     .padding()

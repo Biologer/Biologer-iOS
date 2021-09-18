@@ -15,4 +15,8 @@ extension Color {
     static var biologerLightGreenColor: Color {
         Color.init("biologer_light_green")
     }
+    
+    static var biologerHelpBacgroundGreen: Color {
+        Color.init("biologer_help_bacground_green")
+    }
 }
