@@ -94,6 +94,13 @@
 "DownloadAndUpload.nav.onAnyNetwork" = "On any network";
 "DownloadAndUpload.nav.alwaysAsk" = "Always ask user";
 
+// MARK: - Logout Screen
+"Logout.lb.currentlyDB" = "You are currently loged into a database:";
+"Logout.lb.asUser" = "As user:";
+"Logout.lb.doYouWantLogout" = "Do you want to logout from this Biologer database?";
+"Logout.btn.logout" = "Logout";
+
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "SELECT ENVIRONMENT";
 "Env.lb.seribia" = "Serbia";

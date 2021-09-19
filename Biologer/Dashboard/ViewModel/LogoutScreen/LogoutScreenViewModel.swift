@@ -8,13 +8,13 @@
 import Foundation
 
 public final class LogoutScreenViewModel: LogoutScreenLoader {
-    let currentEnvDescription: String = "You are currently loged into a datebase:"
+    let currentEnvDescription: String = "Logout.lb.currentlyDB".localized
     let currentEnv: String = "https://dev.biologer.org"
-    let asUser: String = "As user:"
+    let asUser: String = "Logout.lb.asUser".localized
     let userEmail: String = "test@gmail.com"
     let username: String = "Pera Peric"
-    let bottomLogoutDescription: String = "Do you want to logout from this Biologer database?"
-    let logoutButtonTitle: String = "LOGOUT"
+    let bottomLogoutDescription: String = "Logout.lb.doYouWantLogout".localized
+    let logoutButtonTitle: String = "Logout.btn.logout".localized
     
     private let onLogoutTapped: Observer<Void>
     

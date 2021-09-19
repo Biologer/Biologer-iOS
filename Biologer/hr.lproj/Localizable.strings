@@ -94,6 +94,12 @@
 "DownloadAndUpload.nav.onAnyNetwork" = "Na bilo kojoj mrezi";
 "DownloadAndUpload.nav.alwaysAsk" = "Uvek pitaj korisnika";
 
+// MARK: - Logout Screen
+"Logout.lb.currentlyDB" = "Trenutno ste povezani sa bazom podataka:";
+"Logout.lb.asUser" = "Kao korisnik:";
+"Logout.lb.doYouWantLogout" = "Da li zelite da se izlogujete sa Biologer baze podataka?";
+"Logout.btn.logout" = "Izloguje se";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "IZABERI OKRUZENJE";
 "Env.lb.seribia" = "Srbija";
