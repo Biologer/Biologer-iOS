@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 public final class LoginScreenViewModel: LoginScreenLoader {
-    public var environmentPlaceholder: String = "Select Environment"
+    public var environmentPlaceholder: String = "Login.env.placeholder".localized
     public let logoImage: String
     public var labelsViewModel: LoginLabelsViewModel
     @Published public var environmentViewModel: EnvironmentViewModel
@@ -122,18 +122,18 @@ extension LoginScreenViewModel: EnvironmentScreenViewModelProtocol {
 
 extension LoginScreenViewModel {
     private func setEmailRequired() {
-        userNameTextFieldViewModel.errorText = "Field is required"
+        userNameTextFieldViewModel.errorText = "Login.tf.username.error.required".localized
         userNameTextFieldViewModel.type = .failure
     }
     
     private func setEmailIsNotValidFormat() {
-        userNameTextFieldViewModel.errorText = "Email is not in valid format"
+        userNameTextFieldViewModel.errorText = "Login.tf.username.error.email".localized
         userNameTextFieldViewModel.type = .failure
     }
 
     
     private func setPasswordIsNotValid() {
-        passwordTextFieldViewModel.errorText = "Field is required"
+        passwordTextFieldViewModel.errorText = "Login.tf.username.error.required".localized
         passwordTextFieldViewModel.type = .failure
     }
         

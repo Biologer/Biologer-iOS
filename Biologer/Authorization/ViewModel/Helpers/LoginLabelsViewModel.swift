@@ -8,8 +8,8 @@
 import Foundation
 
 public struct LoginLabelsViewModel {
-    var loginButtonTitle: String = "LOG IN"
-    var registerButtonTitle: String = "Register"
-    var forgotPasswordTitle: String = "Forgot Password"
-    var dontHaveAccountTitle: String = "Don't have an account?"
+    var loginButtonTitle: String = "Login.btn.login".localized
+    var registerButtonTitle: String = "Login.btn.register".localized
+    var forgotPasswordTitle: String = "Login.btn.forgotPassword".localized
+    var dontHaveAccountTitle: String = "Login.lb.noAccount".localized
 }

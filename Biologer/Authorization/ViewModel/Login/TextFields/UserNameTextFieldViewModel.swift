@@ -11,7 +11,7 @@ public final class UserNameTextFieldViewModel: MaterialDesignTextFieldViewModelP
     public var textAligment: NSTextAlignment = .left
     public var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>?
     public var text: String = ""
-    public var placeholder: String = "Username (email)"
+    public var placeholder: String = "Login.tf.username.placeholder".localized
     public var errorText: String = ""
     public var isCodeEntry: Bool = false
     public var tralingImage: String? = "user_icon"
