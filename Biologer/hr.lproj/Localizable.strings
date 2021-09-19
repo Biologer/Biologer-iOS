@@ -35,6 +35,16 @@
 "Register.two.tf.repeatPassword.error" = "Sifre se ne poklapaju";
 "Register.two.btn.next" = "Dalje";
 
+// MARK: - Registration Step Three
+"Register.three.nav.title" = "REGISTRUJ SE (TRECI KORAK)";
+"Register.three.dataLicense.placeholder" = "Dozvola za prenos podataka";
+"Register.three.imageLicense.placeholder" = "Dozvola za prenos slika";
+"Register.three.lb.description" = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+"Register.three.btn.privacyPolicy" = "Pravila o privatnosi";
+"Register.three.lb.acceptPrivacyPolicy" = "Privhatam pravila o privatnosti";
+"Register.three.btn.register" = "Registruj se";
+"Register.three.lb.error" = "Da bi uspesno izvrsili registraciju, morate prihvatiti pravila o privatnosi";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "IZABERI OKRUZENJE";
 "Env.lb.seribia" = "Srbija";

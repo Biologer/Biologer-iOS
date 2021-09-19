@@ -8,13 +8,13 @@
 import Foundation
 
 public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoader, ObservableObject {
-    public var registerButtonTitle: String = "Register"
+    public var registerButtonTitle: String = "Register.three.btn.register".localized
     public var topImage: String
     @Published public var dataLicense: CheckMarkItem
     @Published public var imageLicense: CheckMarkItem
-    public var acceptPPTitle: String = "I accept privary policy"
+    public var acceptPPTitle: String = "Register.three.lb.acceptPrivacyPolicy".localized
     public var acceptPPChceckMark: Bool = false
-    public var privacyPolicyDescription: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    public var privacyPolicyDescription: String = "Register.three.lb.description".localized
     @Published public var errorLabel: String = ""
     public var onReadPrivacyPolicy: Observer<Void>
     private let onDataLicense: Observer<CheckMarkItem>
@@ -64,7 +64,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     
     private func validationFields() {
         if !acceptPPChceckMark {
-            errorLabel = "For registration you must accept privacy policy!"
+            errorLabel = "Register.three.lb.error".localized
             return
         }
         user.dataLicense = dataLicense

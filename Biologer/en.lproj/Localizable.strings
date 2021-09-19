@@ -35,6 +35,16 @@
 "Register.two.tf.repeatPassword.error" = "Password doesn't matches";
 "Register.two.btn.next" = "Next";
 
+// MARK: - Registration Step Three
+"Register.three.nav.title" = "REGISTER (STEP THREE)";
+"Register.three.dataLicense.placeholder" = "Data License";
+"Register.three.imageLicense.placeholder" = "Image License";
+"Register.three.lb.description" = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+"Register.three.btn.privacyPolicy" = "Privacy Policy";
+"Register.three.lb.acceptPrivacyPolicy" = "I accept privacy policy";
+"Register.three.btn.register" = "Register";
+"Register.three.lb.error" = "For registration you must accept privacy policy!";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "SELECT ENVIRONMENT";
 "Env.lb.seribia" = "Serbia";

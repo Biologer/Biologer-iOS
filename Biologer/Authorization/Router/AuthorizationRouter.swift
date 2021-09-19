@@ -46,7 +46,8 @@ public final class AuthorizationRouter: NavigationRouter {
     }
     
     public func start() {
-        showLoginScreen()
+        //showLoginScreen()
+        showRegisterThirdStepScreen(user: User())
     }
     
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
@@ -182,7 +183,7 @@ public final class AuthorizationRouter: NavigationRouter {
         dataLicenseDelegate = viewController?.rootView.loader
         
         stepThirdViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
-        stepThirdViewController.setBiologerTitle(text: "REGISTER STEP THREE")
+        stepThirdViewController.setBiologerTitle(text: "Register.three.nav.title".localized)
         self.navigationController.pushViewController(stepThirdViewController, animated: true)
     }
     
