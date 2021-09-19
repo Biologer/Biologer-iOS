@@ -50,6 +50,8 @@
 		93565D2526F7275D00A588E6 /* NewTaxonScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */; };
 		93565D2B26F72BD500A588E6 /* NoInternetConnectionValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */; };
 		93565D2D26F730C300A588E6 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2C26F730C300A588E6 /* APIConstants.swift */; };
+		93565D3026F736B900A588E6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93565D3226F736B900A588E6 /* Localizable.strings */; };
+		93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D3626F7397000A588E6 /* String+Extensions.swift */; };
 		935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */; };
 		935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66326F6386800C56D46 /* SetupRouter.swift */; };
 		935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */; };
@@ -203,6 +205,10 @@
 		93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonScreenViewModel.swift; sourceTree = "<group>"; };
 		93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetConnectionValidator.swift; sourceTree = "<group>"; };
 		93565D2C26F730C300A588E6 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		93565D3126F736B900A588E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		93565D3326F7372300A588E6 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		93565D3526F7378600A588E6 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		93565D3626F7397000A588E6 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewControllerFactory.swift; sourceTree = "<group>"; };
 		935AF66326F6386800C56D46 /* SetupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRouter.swift; sourceTree = "<group>"; };
 		935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItemMapper.swift; sourceTree = "<group>"; };
@@ -398,6 +404,7 @@
 				931426EE262B53B000542EFC /* LaunchScreen.storyboard */,
 				931426F1262B53B000542EFC /* Info.plist */,
 				931426EB262B53B000542EFC /* Preview Content */,
+				93565D3226F736B900A588E6 /* Localizable.strings */,
 			);
 			path = Biologer;
 			sourceTree = "<group>";
@@ -755,6 +762,7 @@
 				93334EC0267894820094A483 /* UIScreen+Extensions.swift */,
 				936035C6268889D60080C771 /* UIViewController+Extensions.swift */,
 				93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */,
+				93565D3626F7397000A588E6 /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -964,6 +972,7 @@
 			knownRegions = (
 				en,
 				Base,
+				hr,
 			);
 			mainGroup = 931426D7262B53AD00542EFC;
 			productRefGroup = 931426E1262B53AD00542EFC /* Products */;
@@ -983,6 +992,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				931426F0262B53B000542EFC /* LaunchScreen.storyboard in Resources */,
+				93565D3026F736B900A588E6 /* Localizable.strings in Resources */,
 				9314273C262B684B00542EFC /* Color.xcassets in Resources */,
 				931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */,
 				93CC6591269C55EC00949534 /* BlokingProgressViewController.xib in Resources */,
@@ -1150,6 +1160,7 @@
 				93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
 				935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */,
+				93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
 				93CC6589269C2C5F00949534 /* LoginEnvView.swift in Sources */,
 				93DF14212692262900A7A977 /* LoginUserService.swift in Sources */,
@@ -1264,8 +1275,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				931426EF262B53B000542EFC /* Base */,
+				93565D3326F7372300A588E6 /* hr */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		93565D3226F736B900A588E6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93565D3126F736B900A588E6 /* en */,
+				93565D3526F7378600A588E6 /* hr */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1275,6 +1296,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1336,6 +1358,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
