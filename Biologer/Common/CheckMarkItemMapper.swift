@@ -11,44 +11,45 @@ public final class CheckMarkItemMapper {
     public static func getDataLicense() -> [CheckMarkItem] {
         let placeholder = "Register.three.dataLicense.placeholder".localized
         let dataLicenses = [CheckMarkItem(id: 10,
-                                        title: "Free (CC BY-SA)",
+                                        title: "DataLicense.lb.one".localized,
                                         placeholder: placeholder,
                                         type: .data, isSelected: true),
                             CheckMarkItem(id: 20,
-                                        title: "Free, NonCommercial (CC BY-SA-NC)",
+                                          title: "DataLicense.lb.two".localized,
                                         placeholder: placeholder,
                                         type: .data, isSelected: false),
                             CheckMarkItem(id: 30,
-                                        title: "Partially Open (restricted to 10km)",
+                                        title: "DataLicense.lb.three".localized,
                                         placeholder: placeholder,
                                         type: .data, isSelected: false),
                             CheckMarkItem(id: 11,
-                                        title: "Temporary closed (publish as free after 3 years)",
+                                          title: "DataLicense.lb.four".localized,
                                         placeholder: placeholder,
                                         type: .data, isSelected: false),
                             CheckMarkItem(id: 40,
-                                        title: "Closed (available to you and the editors)",
+                                          title: "DataLicense.lb.five".localized,
                                         placeholder: placeholder,
                                         type: .data, isSelected: false)]
         return dataLicenses
     }
     
     public static func getImageLicense() -> [CheckMarkItem] {
+                
         let placeholder = "Register.three.imageLicense.placeholder".localized
         let imageLicenses = [CheckMarkItem(id: 10,
-                                        title: "Share images for free (CC-BY-SA)",
+                                        title: "ImgLicense.lb.one".localized,
                                         placeholder: placeholder,
                                         type: .image, isSelected: true),
                             CheckMarkItem(id: 20,
-                                        title: "Share images as noncommercial (CC-BY-SA-NC)",
+                                          title: "ImgLicense.lb.two".localized,
                                         placeholder: placeholder,
                                         type: .image, isSelected: false),
                             CheckMarkItem(id: 30,
-                                        title: "Keep authorship and share online with watermark",
+                                          title: "ImgLicense.lb.three".localized,
                                         placeholder: placeholder,
                                         type: .image, isSelected: false),
                             CheckMarkItem(id: 40,
-                                        title: "Keep authorship and restrict images from public domain",
+                                          title: "ImgLicense.lb.four".localized,
                                         placeholder: placeholder,
                                         type: .image, isSelected: false)]
         return imageLicenses

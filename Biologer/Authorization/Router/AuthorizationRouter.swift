@@ -46,8 +46,7 @@ public final class AuthorizationRouter: NavigationRouter {
     }
     
     public func start() {
-        //showLoginScreen()
-        showRegisterThirdStepScreen(user: User())
+        showLoginScreen()
     }
     
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
@@ -198,7 +197,8 @@ public final class AuthorizationRouter: NavigationRouter {
             self?.navigationController.popViewController(animated: true)
         }
         dataLicenseViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
-        dataLicenseViewController.setBiologerTitle(text: isDataLicense ? "DATA LICENSE" : "IMAGE LICENSE")
+        dataLicenseViewController.setBiologerTitle(text: isDataLicense ? "DataLicense.nav.title".localized : "ImgLicense.nav.title".localized
+        )
         self.navigationController.pushViewController(dataLicenseViewController, animated: true)
     }
     

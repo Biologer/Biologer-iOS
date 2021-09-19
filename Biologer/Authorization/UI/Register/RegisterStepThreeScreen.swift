@@ -87,8 +87,8 @@ struct RegisterStepThreeScreen_Previews: PreviewProvider {
     private class StubRegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoader {
         var errorLabel: String = ""
         var topImage = "serbia_flag"
-        var dataLicense: CheckMarkItem = CheckMarkItem(id: 11, title: "Free (CC BY-SA)“ int vrednost", placeholder: "Data License", type: .data, isSelected: true)
-        var imageLicense: CheckMarkItem = CheckMarkItem(id: 10, title: "Share images for free (CC-BY-SA)", placeholder: "Image License", type: .data, isSelected: true)
+        var dataLicense: CheckMarkItem = CheckMarkItemMapper.getDataLicense()[0]
+        var imageLicense: CheckMarkItem = CheckMarkItemMapper.getImageLicense()[0]
         var registerButtonTitle = "Register.three.btn.register".localized
         var acceptPPTitle: String = "Register.three.lb.acceptPrivacyPolicy".localized
         var acceptPPChceckMark: Bool = false

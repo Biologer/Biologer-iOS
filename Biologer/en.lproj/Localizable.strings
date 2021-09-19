@@ -51,3 +51,18 @@
 "Env.lb.croatia" = "Croatia";
 "Env.lb.bosniaAndHerzegovina" = "Bosnian and Herzegovina";
 "Env.lb.developer" = "For Developers";
+
+// MARK: - Image License
+"ImgLicense.nav.title" = "IMAGE LICENSE";
+"ImgLicense.lb.one" = "Share images for free (CC-BY-SA)";
+"ImgLicense.lb.two" = "Share images as noncommercial (CC-BY-SA-NC)";
+"ImgLicense.lb.three" = "Keep authorship and share online with watermark";
+"ImgLicense.lb.four" = "Keep authorship and restrict images from public domain";
+
+// MARKL: - Data License
+"DataLicense.nav.title" = "DATA LICENSE";
+"DataLicense.lb.one" = "Free (CC BY-SA)";
+"DataLicense.lb.two" = "Free, NonCommercial (CC BY-SA-NC)";
+"DataLicense.lb.three" = "Partially Open (restricted to 10km)";
+"DataLicense.lb.four" = "Temporary closed (publish as free after 3 years)";
+"DataLicense.lb.five" = "Closed (available to you and the editors)";
