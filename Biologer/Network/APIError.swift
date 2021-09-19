@@ -15,12 +15,20 @@ public struct APIErrorResponse: Codable {
 public final class APIError: Error {
     let title: String
     let description: String
+    let isInternetConnectionAvailable: Bool
     
-    init(title: String = "Error", description: String) {
+    init(title: String = "Error",
+         description: String,
+         isInternetConnectionAvailable: Bool = true) {
         self.title = title
         self.description = description
+        self.isInternetConnectionAvailable = isInternetConnectionAvailable
     }
 }
 
-let parsingErrorConstant = "Parsing error"
-let environmentNotSelected = "Environment is not selected"
+public final class ErrorConstant {
+    public static let parsingErrorConstant = "Parsing error"
+    public static let environmentNotSelected = "Environment is not selected"
+    public static let noInternetConnectionTitle = "No Internet connection"
+    public static let noInternetConnectionDescription = "Please check your internet connection and try again"
+}

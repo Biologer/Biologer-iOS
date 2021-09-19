@@ -12,20 +12,6 @@ public protocol RegisterUserService {
     func loadSearch(user: User, completion: @escaping (Result) -> Void)
 }
 
-public enum CreateUserServiceError: LocalizedError {
-    case parsingError
-    case noEnvironment
-    
-    public var errorDescription: String? {
-        switch self {
-        case .parsingError:
-            return "Could not parse user response"
-        case .noEnvironment:
-            return "Please select environment"
-        }
-    }
-}
-
 public final class RemoteRegisterUserService: RegisterUserService {
     
     public typealias Result = Swift.Result<RegisterUserResponse, APIError>
@@ -57,13 +43,13 @@ public final class RemoteRegisterUserService: RegisterUserService {
                         if let response = try? JSONDecoder().decode(RegisterErrorResponse.self,from: result.0) {
                             completion(.failure(APIError(title: response.message, description: "")))
                         } else {
-                            completion(.failure(APIError(description: parsingErrorConstant)))
+                            completion(.failure(APIError(description: ErrorConstant.parsingErrorConstant)))
                         }
                     }
                 }
             }
         } else {
-            completion(.failure(APIError(description: environmentNotSelected)))
+            completion(.failure(APIError(description: ErrorConstant.environmentNotSelected)))
         }
     }
     
@@ -73,7 +59,7 @@ public final class RemoteRegisterUserService: RegisterUserService {
         
         var host: String = ""
         
-        var path: String = "/api/register"
+        var path: String = APIConstants.registerUserPath
         
         var queryParameters: [URLQueryItem]? = nil
         
@@ -86,8 +72,8 @@ public final class RemoteRegisterUserService: RegisterUserService {
              clientId: String,
              clientSecret: String) {
             var headers = HTTPHeaders()
-            headers.add(name: HTTPHeaderName.contentType, value: "application/json")
-            headers.add(name: HTTPHeaderName.acceept, value: "application/json")
+            headers.add(name: HTTPHeaderName.contentType, value: APIConstants.applicationJson)
+            headers.add(name: HTTPHeaderName.acceept, value: APIConstants.applicationJson)
             self.headers = headers
             self.host = host
             let requestBody = RemoteRegisterRequestModel(client_id: clientId,

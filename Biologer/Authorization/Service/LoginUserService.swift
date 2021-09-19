@@ -12,21 +12,6 @@ public protocol LoginUserService {
     func login(email: String, password: String, completion: @escaping (Result) -> Void)
 }
 
-public enum LoginServiceError: LocalizedError {
-    case parsingError
-    case noEnvironment
-    
-    public var errorDescription: String? {
-        switch self {
-        case .parsingError:
-            return "Could not parse user response"
-        case .noEnvironment:
-            return "Please selecte desired environment"
-        }
-    }
-}
-
-
 public final class RemoteLoginUserService: LoginUserService {
     
     public typealias Result = Swift.Result<LoginUserResponse, APIError>
@@ -52,7 +37,13 @@ public final class RemoteLoginUserService: LoginUserService {
             client.perform(from: request) { result in
                 switch result {
                 case .failure(let error):
-                    completion(.failure(APIError(description: error.localizedDescription)))
+                    if NoInternetConnectionValidator.noInternetConnection(errorCode: (error as NSError).code) {
+                        completion(.failure(APIError(title: ErrorConstant.noInternetConnectionTitle,
+                                                     description: ErrorConstant.noInternetConnectionDescription,
+                                                     isInternetConnectionAvailable: false)))
+                    } else {
+                        completion(.failure(APIError(description: error.localizedDescription)))
+                    }
                 case .success(let result):
                     if result.1.statusCode == 200, let response = try? JSONDecoder().decode(LoginUserResponse.self,
                                                                                     from: result.0) {
@@ -61,13 +52,13 @@ public final class RemoteLoginUserService: LoginUserService {
                         if let response = try? JSONDecoder().decode(APIErrorResponse.self,from: result.0) {
                             completion(.failure(APIError(title: response.error, description: response.error_description)))
                         } else {
-                            completion(.failure(APIError(description: parsingErrorConstant)))
+                            completion(.failure(APIError(description: ErrorConstant.parsingErrorConstant)))
                         }
                     }
                 }
             }
         } else {
-            completion(.failure(APIError(description: environmentNotSelected)))
+            completion(.failure(APIError(description: ErrorConstant.environmentNotSelected)))
         }
     }
     
@@ -77,7 +68,7 @@ public final class RemoteLoginUserService: LoginUserService {
         
         var host: String = ""
         
-        var path: String = "/oauth/token"
+        var path: String = APIConstants.loginUserPath
         
         var queryParameters: [URLQueryItem]? = nil
         
@@ -87,16 +78,16 @@ public final class RemoteLoginUserService: LoginUserService {
         
         init(email: String, password: String, host: String, cliendId: String, clientSecret: String) {
             var headers = HTTPHeaders()
-            headers.add(name: HTTPHeaderName.contentType, value: "application/json")
-            headers.add(name: HTTPHeaderName.acceept, value: "application/json")
+            headers.add(name: HTTPHeaderName.contentType, value: APIConstants.applicationJson)
+            headers.add(name: HTTPHeaderName.acceept, value: APIConstants.applicationJson)
             self.headers = headers
             self.host = host
             let requestBody = LoginRequestModel(username: email,
                                                 password: password,
-                                                scope: "*",
+                                                scope: APIConstants.scope,
                                                 client_secret: clientSecret,
                                                 client_id: cliendId,
-                                                grant_type: "password")
+                                                grant_type: APIConstants.grantType)
             let json = try! JSONEncoder().encode(requestBody)
             body = json
         }

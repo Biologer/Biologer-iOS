@@ -19,15 +19,18 @@ struct PopUpErrorScreen: View {
         VStack {
             Text("Error")
                 .font(.title2).bold()
+                .multilineTextAlignment(.center)
                 .frame(width: popUpWidth)
                 .padding(20)
             Text(title)
+                .font(.title3)
+                .multilineTextAlignment(.center)
                 .padding(.bottom, 5)
                 .padding(.horizontal, 10)
-                .font(.title3)
             Text(description)
-                .padding(.horizontal, 10)
+                .multilineTextAlignment(.center)
                 .font(.subheadline)
+                .padding(.horizontal, 10)
             BiologerButton(title: buttonTitle,
                            width: popUpWidth / 3,
                            onTapped: onButtonTapped)
