@@ -123,7 +123,7 @@ public final class AuthorizationRouter: NavigationRouter {
                                                                             self?.showRegisterStepTwoScreen(user: user)
                                                                         })
         stepOneViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
-        stepOneViewController.setBiologerTitle(text: "REGISTER STEP ONE")
+        stepOneViewController.setBiologerTitle(text: "Register.one.nav.title".localized)
         self.navigationController.pushViewController(stepOneViewController, animated: true)
     }
     

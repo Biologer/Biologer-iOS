@@ -6,16 +6,25 @@
   
 */
 
+// MARK: - Common
+"Common.tf.error.required" = "Polje je obavezno";
+
 // MARK: - Login Screen
 "Login.tf.username.placeholder" = "Username (email)";
 "Login.tf.password.placeholder" = "Password";
-"Login.tf.username.error.required" = "Field is required";
 "Login.tf.username.error.email" = "Email is not in valid format";
 "Login.env.placeholder" = "Select Environment";
 "Login.btn.login" = "Log in";
 "Login.lb.noAccount" = "Don't have an account?";
 "Login.btn.register" = "Register";
 "Login.btn.forgotPassword" = "Forgot Password";
+
+// MARK: - Register Step One
+"Register.one.nav.title" = "REGISTER (STEP ONE)";
+"Register.one.tf.name.placeholder" = "Name";
+"Register.one.tf.surname.placeholder" = "Surname";
+"Register.one.tf.institution.placeholder" = "Institution";
+"Register.one.btn.next" = "Next";
 
 // MARK: - Select Environment Screen
 "Env.nav.title" = "SELECT ENVIRONMENT";

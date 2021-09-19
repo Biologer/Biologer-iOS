@@ -11,7 +11,7 @@ public final class InsititutionTextFieldViewModel: MaterialDesignTextFieldViewMo
     public var textAligment: NSTextAlignment = .left
     public var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>?
     public var text: String = ""
-    public var placeholder: String = "Institution"
+    public var placeholder: String = "Register.one.tf.institution.placeholder".localized
     public var errorText: String = ""
     public var isCodeEntry: Bool = false
     public var tralingImage: String? = nil

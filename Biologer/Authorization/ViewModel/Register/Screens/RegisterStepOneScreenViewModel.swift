@@ -11,7 +11,7 @@ public final class RegisterStepOneScreenViewModel: RegisterStepOneScreenLoader, 
     @Published var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = NameTextFieldViewModel()
     @Published var lastNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = SurnameTextFieldViewModel()
     @Published var institutionTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = InsititutionTextFieldViewModel()
-    var buttonTitle = "Next"
+    var buttonTitle = "Register.one.btn.next".localized
     
     private let user: User
     private let onNextTapped: Observer<User>
@@ -46,12 +46,12 @@ public final class RegisterStepOneScreenViewModel: RegisterStepOneScreenLoader, 
 
 extension RegisterStepOneScreenViewModel {
     private func setNameIsRequired() {
-        userNameTextFieldViewModel.errorText = "Field is required"
+        userNameTextFieldViewModel.errorText = "Common.tf.error.required".localized
         userNameTextFieldViewModel.type = .failure
     }
     
     private func setLastNameIsRequired() {
-        lastNameTextFieldViewModel.errorText = "Field is required"
+        lastNameTextFieldViewModel.errorText = "Common.tf.error.required".localized
         lastNameTextFieldViewModel.type = .failure
     }
     

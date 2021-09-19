@@ -11,7 +11,7 @@ public final class NameTextFieldViewModel: MaterialDesignTextFieldViewModelProto
     public var textAligment: NSTextAlignment = .left
     public var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>?
     public var text: String = ""
-    public var placeholder: String = "Name"
+    public var placeholder: String = "Register.one.tf.name.placeholder".localized
     public var errorText: String = ""
     public var isCodeEntry: Bool = false
     public var tralingImage: String? = "user_icon"

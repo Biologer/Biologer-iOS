@@ -6,16 +6,25 @@
   
 */
 
+// MARK: - Common
+"Common.tf.error.required" = "Polje je obavezno";
+
 // MARK: - Login Screen
 "Login.tf.username.placeholder" = "Ime korisnika (email)";
 "Login.tf.password.placeholder" = "Šifra";
-"Login.tf.username.error.required" = "Polje je obavezno";
 "Login.tf.username.error.email" = "Email nije u validnom formatu";
 "Login.env.placeholder" = "Izaberi okruzenje";
 "Login.btn.login" = "Uloguj se";
 "Login.lb.noAccount" = "Nema te nalog?";
 "Login.btn.register" = "Registruj se";
 "Login.btn.forgotPassword" = "Resetuj sifru";
+
+// MARK: - Register Step One
+"Register.one.nav.title" = "Registruj se (prvi korak)";
+"Register.one.tf.name.placeholder" = "Ime";
+"Register.one.tf.surname.placeholder" = "Prezime";
+"Register.one.tf.institution.placeholder" = "Institucija";
+"Register.one.btn.next" = "Dalje";
 
 // MARK: - Select Environment Screen
 "Env.nav.title" = "IZABERI OKRUZENJE";

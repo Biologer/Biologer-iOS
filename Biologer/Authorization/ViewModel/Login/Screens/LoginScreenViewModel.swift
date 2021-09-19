@@ -122,18 +122,18 @@ extension LoginScreenViewModel: EnvironmentScreenViewModelProtocol {
 
 extension LoginScreenViewModel {
     private func setEmailRequired() {
-        userNameTextFieldViewModel.errorText = "Login.tf.username.error.required".localized
+        userNameTextFieldViewModel.errorText = "Common.tf.error.required".localized
         userNameTextFieldViewModel.type = .failure
     }
     
     private func setEmailIsNotValidFormat() {
-        userNameTextFieldViewModel.errorText = "Login.tf.username.error.email".localized
+        userNameTextFieldViewModel.errorText = "Common.tf.error.required".localized
         userNameTextFieldViewModel.type = .failure
     }
 
     
     private func setPasswordIsNotValid() {
-        passwordTextFieldViewModel.errorText = "Login.tf.username.error.required".localized
+        passwordTextFieldViewModel.errorText = "Common.tf.error.required".localized
         passwordTextFieldViewModel.type = .failure
     }
         
