@@ -1,34 +1,34 @@
 PODS:
-  - MaterialComponents/AnimationTiming (124.1.1)
-  - MaterialComponents/Availability (124.1.1)
-  - MaterialComponents/private/Math (124.1.1)
-  - "MaterialComponents/private/TextControlsPrivate+BaseStyle (124.1.1)":
+  - MaterialComponents/AnimationTiming (124.2.0)
+  - MaterialComponents/Availability (124.2.0)
+  - MaterialComponents/private/Math (124.2.0)
+  - "MaterialComponents/private/TextControlsPrivate+BaseStyle (124.2.0)":
     - MaterialComponents/AnimationTiming
     - MaterialComponents/private/Math
     - "MaterialComponents/private/TextControlsPrivate+Shared"
-  - "MaterialComponents/private/TextControlsPrivate+OutlinedStyle (124.1.1)":
+  - "MaterialComponents/private/TextControlsPrivate+OutlinedStyle (124.2.0)":
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Availability
     - MaterialComponents/private/Math
     - "MaterialComponents/private/TextControlsPrivate+Shared"
-  - "MaterialComponents/private/TextControlsPrivate+Shared (124.1.1)":
+  - "MaterialComponents/private/TextControlsPrivate+Shared (124.2.0)":
     - MaterialComponents/AnimationTiming
     - MaterialComponents/private/Math
     - "MaterialComponents/TextControls+Enums"
-  - "MaterialComponents/private/TextControlsPrivate+TextFields (124.1.1)":
+  - "MaterialComponents/private/TextControlsPrivate+TextFields (124.2.0)":
     - MaterialComponents/private/Math
     - "MaterialComponents/private/TextControlsPrivate+Shared"
-  - "MaterialComponents/TextControls+BaseTextFields (124.1.1)":
+  - "MaterialComponents/TextControls+BaseTextFields (124.2.0)":
     - "MaterialComponents/private/TextControlsPrivate+BaseStyle"
     - "MaterialComponents/private/TextControlsPrivate+Shared"
     - "MaterialComponents/private/TextControlsPrivate+TextFields"
     - MDFInternationalization
-  - "MaterialComponents/TextControls+Enums (124.1.1)"
-  - "MaterialComponents/TextControls+OutlinedTextFields (124.1.1)":
+  - "MaterialComponents/TextControls+Enums (124.2.0)"
+  - "MaterialComponents/TextControls+OutlinedTextFields (124.2.0)":
     - MaterialComponents/Availability
     - "MaterialComponents/private/TextControlsPrivate+OutlinedStyle"
     - "MaterialComponents/TextControls+BaseTextFields"
-  - MDFInternationalization (2.0.0)
+  - MDFInternationalization (3.0.0)
   - SideMenu (6.5.0)
   - SwiftKeychainWrapper (4.0.1)
 
@@ -45,11 +45,11 @@ SPEC REPOS:
     - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
-  MaterialComponents: b9f58f24bf74588a83b2dce05802a11aaed5257d
-  MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
+  MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
+  MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: a0b036fdcaf2471e5abaed90713b71cb06158fa0
+PODFILE CHECKSUM: bca59f43f4812c5675e081ed730962b58278c837
 
 COCOAPODS: 1.10.1
