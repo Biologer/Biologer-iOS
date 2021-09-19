@@ -100,6 +100,12 @@
 "Logout.lb.doYouWantLogout" = "Do you want to logout from this Biologer database?";
 "Logout.btn.logout" = "Logout";
 
+// MARK: - About Biologer Screen
+"AboutBiologer.lb.currentlyDB" = "You are currently logged into a database:";
+"AboutBiologer.lb.desc.one" = "Biologer is Open Source application issued under MIT license and designed to collect data on biodiversity in Eastern Europe.";
+"AboutBiologer.lb.desc.two" = "Biologer was developed with founds from Rufford Small Grands (project Nos.20507-B and 24652-B) and MAVA (project No. 15097)";
+"AboutBiologer.lb.toFingMoreDetails" = "To find out more details aboud Biologer, visit our web page:";
+"AboutBiologer.lb.appVersion" = "App Version: ";
 
 // MARK: - Select Environment Screen
 "Env.nav.title" = "SELECT ENVIRONMENT";

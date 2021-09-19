@@ -100,6 +100,13 @@
 "Logout.lb.doYouWantLogout" = "Da li zelite da se izlogujete sa Biologer baze podataka?";
 "Logout.btn.logout" = "Izloguje se";
 
+// MARK: - About Biologer Screen
+"AboutBiologer.lb.currentlyDB" = "Trenutno ste povezani sa bazom podataka:";
+"AboutBiologer.lb.desc.one" = "Biologer is Open Source application issued under MIT license and designed to collect data on biodiversity in Eastern Europe.";
+"AboutBiologer.lb.desc.two" = "Biologer was developed with founds from Rufford Small Grands (project Nos.20507-B and 24652-B) and MAVA (project No. 15097)";
+"AboutBiologer.lb.toFingMoreDetails" = "Za vise informacija o Biologer-u, posetite nasu web stranicu:";
+"AboutBiologer.lb.appVersion" = "Verzija aplikacije: ";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "IZABERI OKRUZENJE";
 "Env.lb.seribia" = "Srbija";

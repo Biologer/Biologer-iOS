@@ -77,7 +77,8 @@ public final class DashboardRouter: NavigationRouter {
         }
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String{
-            appVersion = "App Version: \(version) (\(build))"
+            let appVersionString = "AboutBiologer.lb.appVersion".localized
+            appVersion = "\(appVersionString) \(version) (\(build))"
         }
         let vc = factory.makeAboutScreen(currentEnv: currentEnv,
                                          version: appVersion,
