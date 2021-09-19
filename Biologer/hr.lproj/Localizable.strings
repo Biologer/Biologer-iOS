@@ -8,11 +8,12 @@
 
 // MARK: - Common
 "Common.tf.error.required" = "Polje je obavezno";
+"Common.tf.email.error.notValid" = "Email nije u validnom formatu";
+"Common.tf.password.error.notValid" = "Sifra mora da sadrzi veliko slovo, broj i da poseduje duzinu najmanje 8 karaktera!";
 
 // MARK: - Login Screen
-"Login.tf.username.placeholder" = "Ime korisnika (email)";
+"Login.tf.username.placeholder" = "Ime korisnika (Imejl)";
 "Login.tf.password.placeholder" = "Šifra";
-"Login.tf.username.error.email" = "Email nije u validnom formatu";
 "Login.env.placeholder" = "Izaberi okruzenje";
 "Login.btn.login" = "Uloguj se";
 "Login.lb.noAccount" = "Nema te nalog?";
@@ -20,11 +21,19 @@
 "Login.btn.forgotPassword" = "Resetuj sifru";
 
 // MARK: - Register Step One
-"Register.one.nav.title" = "Registruj se (prvi korak)";
+"Register.one.nav.title" = "REGISTRUJ SE (PRVI KORAK)";
 "Register.one.tf.name.placeholder" = "Ime";
 "Register.one.tf.surname.placeholder" = "Prezime";
 "Register.one.tf.institution.placeholder" = "Institucija";
 "Register.one.btn.next" = "Dalje";
+
+// MARK: - Register Step Two
+"Register.two.nav.title" = "REGISTRUJ SE (DRUGI KORAK)";
+"Register.two.tf.email.placeholder" = "Imejl";
+"Register.two.tf.password.placeholder" = "Sifra";
+"Register.two.tf.repeatPassword.placeholder" = "Ponovi Sifru";
+"Register.two.tf.repeatPassword.error" = "Sifre se ne poklapaju";
+"Register.two.btn.next" = "Dalje";
 
 // MARK: - Select Environment Screen
 "Env.nav.title" = "IZABERI OKRUZENJE";

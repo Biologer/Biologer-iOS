@@ -7,12 +7,13 @@
 */
 
 // MARK: - Common
-"Common.tf.error.required" = "Polje je obavezno";
+"Common.tf.error.required" = "This field is required";
+"Common.tf.email.error.notValid" = "Email is not in valid format";
+"Common.tf.password.error.notValid" = "Password must contain an uppercase letter, a number, and be at least 8 characters long!";
 
 // MARK: - Login Screen
 "Login.tf.username.placeholder" = "Username (email)";
 "Login.tf.password.placeholder" = "Password";
-"Login.tf.username.error.email" = "Email is not in valid format";
 "Login.env.placeholder" = "Select Environment";
 "Login.btn.login" = "Log in";
 "Login.lb.noAccount" = "Don't have an account?";
@@ -25,6 +26,14 @@
 "Register.one.tf.surname.placeholder" = "Surname";
 "Register.one.tf.institution.placeholder" = "Institution";
 "Register.one.btn.next" = "Next";
+
+// MARK: - Register Step Two
+"Register.two.nav.title" = "REGISTER (STEP TWO)";
+"Register.two.tf.email.placeholder" = "Email";
+"Register.two.tf.password.placeholder" = "Password";
+"Register.two.tf.repeatPassword.placeholder" = "Repeat Password";
+"Register.two.tf.repeatPassword.error" = "Password doesn't matches";
+"Register.two.btn.next" = "Next";
 
 // MARK: - Select Environment Screen
 "Env.nav.title" = "SELECT ENVIRONMENT";

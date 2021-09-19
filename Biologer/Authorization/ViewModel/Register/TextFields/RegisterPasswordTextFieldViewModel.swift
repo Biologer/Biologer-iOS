@@ -11,7 +11,7 @@ public final class RegisterPasswordTextFieldViewModel: MaterialDesignTextFieldVi
     public var textAligment: NSTextAlignment = .left
     public var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>?
     public var text: String = ""
-    public var placeholder: String = "Password"
+    public var placeholder: String = "Register.two.tf.password.placeholder".localized
     public var errorText: String = ""
     public var isCodeEntry: Bool = true
     public var tralingImage: String? = "password_icon"

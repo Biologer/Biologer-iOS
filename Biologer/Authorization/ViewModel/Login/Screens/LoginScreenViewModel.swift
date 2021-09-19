@@ -127,7 +127,7 @@ extension LoginScreenViewModel {
     }
     
     private func setEmailIsNotValidFormat() {
-        userNameTextFieldViewModel.errorText = "Common.tf.error.required".localized
+        userNameTextFieldViewModel.errorText = "Common.tf.email.error.notValid".localized
         userNameTextFieldViewModel.type = .failure
     }
 

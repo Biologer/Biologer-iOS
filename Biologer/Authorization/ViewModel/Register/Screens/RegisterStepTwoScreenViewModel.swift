@@ -11,7 +11,7 @@ public final class RegisterStepTwoScreenViewModel: RegisterStepTwoScreenLoader {
     @Published var emailTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = EmailTextFieldViewModel()
     @Published var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = RegisterPasswordTextFieldViewModel()
     @Published var repeatPasswordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = RepeatPasswordTextFieldViewModel()
-    var buttonTitle = "Next"
+    var buttonTitle = "Register.two.btn.next".localized
     
     private let user: User
     private let onNextTapped: Observer<User>
@@ -72,27 +72,27 @@ public final class RegisterStepTwoScreenViewModel: RegisterStepTwoScreenLoader {
 
 extension RegisterStepTwoScreenViewModel {
     private func setEmailRequired() {
-        emailTextFieldViewModel.errorText = "Field is required"
+        emailTextFieldViewModel.errorText = "Common.tf.error.required".localized
         emailTextFieldViewModel.type = .failure
     }
     
     private func setEmailIsNotValid() {
-        emailTextFieldViewModel.errorText = "Email is not in valid format"
+        emailTextFieldViewModel.errorText = "Common.tf.email.error.notValid" .localized
         emailTextFieldViewModel.type = .failure
     }
     
     private func setPasswordIsRequired() {
-        passwordTextFieldViewModel.errorText = "Field is required"
+        passwordTextFieldViewModel.errorText = "Common.tf.error.required".localized
         passwordTextFieldViewModel.type = .failure
     }
     
     private func setPasswordIsNotValid() {
-        passwordTextFieldViewModel.errorText = "Password must contain an uppercase letter, a number, and be at least 8 characters long"
+        passwordTextFieldViewModel.errorText = "Common.tf.password.error.notValid".localized
         passwordTextFieldViewModel.type = .failure
     }
     
     private func setPasswordDoesntMatches() {
-        repeatPasswordTextFieldViewModel.errorText = "Password doesn't matches"
+        repeatPasswordTextFieldViewModel.errorText = "Register.two.tf.repeatPassword.error".localized
         repeatPasswordTextFieldViewModel.type = .failure
     }
     
