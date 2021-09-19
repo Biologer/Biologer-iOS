@@ -13,7 +13,7 @@ public protocol EnvironmentScreenViewModelProtocol {
 }
 
 public final class EnvironmentScreenViewModel: ObservableObject {
-    public let title: String = "SELECT ENVIRONMENT"
+    public let title: String = "Env.nav.title".localized
     @Published public var environmentsViewModel: [EnvironmentViewModel]
     
     private let delegate: EnvironmentScreenViewModelProtocol?

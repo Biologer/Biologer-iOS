@@ -113,7 +113,7 @@ public final class AuthorizationRouter: NavigationRouter {
                                                        })
         
         enviViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
-        enviViewController.setBiologerTitle(text: "SELECT ENVIRONMENT")
+        enviViewController.setBiologerTitle(text: "Env.nav.title".localized)
         self.navigationController.pushViewController(enviViewController, animated: true)
     }
     

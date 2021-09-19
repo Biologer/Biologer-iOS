@@ -17,3 +17,10 @@
 "Login.btn.register" = "Registruj se";
 "Login.btn.forgotPassword" = "Resetuj sifru";
 
+// MARK: - Select Environment Screen
+"Env.nav.title" = "IZABERI OKRUZENJE";
+"Env.lb.seribia" = "Srbija";
+"Env.lb.croatia" = "Hrvatska";
+"Env.lb.bosniaAndHerzegovina" = "Bosna i Hercegovina";
+"Env.lb.developer" = "Za Programere";
+

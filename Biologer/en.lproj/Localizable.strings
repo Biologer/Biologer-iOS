@@ -16,3 +16,10 @@
 "Login.lb.noAccount" = "Don't have an account?";
 "Login.btn.register" = "Register";
 "Login.btn.forgotPassword" = "Forgot Password";
+
+// MARK: - Select Environment Screen
+"Env.nav.title" = "SELECT ENVIRONMENT";
+"Env.lb.seribia" = "Serbia";
+"Env.lb.croatia" = "Croatia";
+"Env.lb.bosniaAndHerzegovina" = "Bosnian and Herzegovina";
+"Env.lb.developer" = "For Developers";
