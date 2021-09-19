@@ -10,6 +10,14 @@
 "Common.tf.error.required" = "Polje je obavezno";
 "Common.tf.email.error.notValid" = "Email nije u validnom formatu";
 "Common.tf.password.error.notValid" = "Sifra mora da sadrzi veliko slovo, broj i da poseduje duzinu najmanje 8 karaktera!";
+"Common.btn.ok" = "UREDU";
+
+// MARK: - API Error
+"API.lb.error" = "Greska!";
+"API.lb.parsingError" = "Greska pri parsiranju!";
+"API.lb.envError" = "Okruzenje nije selektovano!";
+"API.lb.noInternetError" = "Nema internet konekcije!";
+"API.lb.noInternetDescriptionError" = "Molimo vas, proverite internet konekciju i pokusajte ponovo.";
 
 // MARK: - Login Screen
 "Login.tf.username.placeholder" = "Ime korisnika (Imejl)";

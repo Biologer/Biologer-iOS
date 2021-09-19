@@ -10,6 +10,14 @@
 "Common.tf.error.required" = "This field is required";
 "Common.tf.email.error.notValid" = "Email is not in valid format";
 "Common.tf.password.error.notValid" = "Password must contain an uppercase letter, a number, and be at least 8 characters long!";
+"Common.btn.ok" = "OK";
+
+// MARK: - API Error
+"API.lb.error" = "Error!";
+"API.lb.parsingError" = "Parsing Error!";
+"API.lb.envError" = "Environment is not selected!";
+"API.lb.noInternetError" = "No Internet connection!";
+"API.lb.noInternetDescriptionError" = "Please check your internet connection and try again.";
 
 // MARK: - Login Screen
 "Login.tf.username.placeholder" = "Username (email)";

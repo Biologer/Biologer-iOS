@@ -17,7 +17,7 @@ public final class APIError: Error {
     let description: String
     let isInternetConnectionAvailable: Bool
     
-    init(title: String = "Error",
+    init(title: String = "API.lb.error".localized,
          description: String,
          isInternetConnectionAvailable: Bool = true) {
         self.title = title
@@ -27,8 +27,8 @@ public final class APIError: Error {
 }
 
 public final class ErrorConstant {
-    public static let parsingErrorConstant = "Parsing error"
-    public static let environmentNotSelected = "Environment is not selected"
-    public static let noInternetConnectionTitle = "No Internet connection"
-    public static let noInternetConnectionDescription = "Please check your internet connection and try again"
+    public static let parsingErrorConstant = "API.lb.parsingError".localized
+    public static let environmentNotSelected = "API.lb.envError".localized
+    public static let noInternetConnectionTitle = "API.lb.noInternetError".localized
+    public static let noInternetConnectionDescription = "API.lb.noInternetDescriptionError".localized
 }

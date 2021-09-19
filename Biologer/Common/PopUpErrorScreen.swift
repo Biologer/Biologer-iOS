@@ -12,12 +12,12 @@ struct PopUpErrorScreen: View {
     var title: String
     var description: String
     var onButtonTapped: Observer<Void>
-    var buttonTitle: String = "OK"
+    var buttonTitle: String = "Common.btn.ok".localized
     let popUpWidth: CGFloat = UIScreen.screenWidth * 0.7
     
     var body: some View {
         VStack {
-            Text("Error")
+            Text("API.lb.error".localized)
                 .font(.title2).bold()
                 .multilineTextAlignment(.center)
                 .frame(width: popUpWidth)
