@@ -46,6 +46,8 @@
 		9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342575826925B9F00B8C912 /* AttributedTextView.swift */; };
 		93565D1D26F723BF00A588E6 /* TaxonViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1C26F723BF00A588E6 /* TaxonViewControllerFactory.swift */; };
 		93565D1F26F7243800A588E6 /* TaxonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1E26F7243800A588E6 /* TaxonRouter.swift */; };
+		93565D2326F7270B00A588E6 /* NewTaxonScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */; };
+		93565D2526F7275D00A588E6 /* NewTaxonScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */; };
 		935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */; };
 		935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66326F6386800C56D46 /* SetupRouter.swift */; };
 		935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */; };
@@ -195,6 +197,8 @@
 		9342575826925B9F00B8C912 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
 		93565D1C26F723BF00A588E6 /* TaxonViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonViewControllerFactory.swift; sourceTree = "<group>"; };
 		93565D1E26F7243800A588E6 /* TaxonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonRouter.swift; sourceTree = "<group>"; };
+		93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonScreen.swift; sourceTree = "<group>"; };
+		93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonScreenViewModel.swift; sourceTree = "<group>"; };
 		935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewControllerFactory.swift; sourceTree = "<group>"; };
 		935AF66326F6386800C56D46 /* SetupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRouter.swift; sourceTree = "<group>"; };
 		935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItemMapper.swift; sourceTree = "<group>"; };
@@ -507,7 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				93334EC326789B920094A483 /* SideMenuScreen */,
-				93334EC226789B660094A483 /* ListOfFindingsScreen */,
+				93334EC226789B660094A483 /* TaxonScreens */,
 				93C2D1F826A5EAE400123216 /* HelpScreen */,
 				93C2D1F726A5EADA00123216 /* SetupScreen */,
 				93C2D1F926A5EAFD00123216 /* LogoutScreen */,
@@ -520,7 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				9389463926F614BE0000D850 /* SideMenuScreen */,
-				9389463A26F614CD0000D850 /* ListOfLindingsScreen */,
+				9389463A26F614CD0000D850 /* TaxonScreens */,
 				9389463B26F614D60000D850 /* HelpScreen */,
 				9389463826F614B20000D850 /* SetupScreen */,
 				9389463D26F614E30000D850 /* LogoutScreen */,
@@ -538,14 +542,13 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		93334EC226789B660094A483 /* ListOfFindingsScreen */ = {
+		93334EC226789B660094A483 /* TaxonScreens */ = {
 			isa = PBXGroup;
 			children = (
-				93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */,
-				93334EB02677E1220094A483 /* FindingsListView.swift */,
-				93334EB62677E4E40094A483 /* NoItemsView.swift */,
+				93565D2626F7278600A588E6 /* ListOfFindings */,
+				93565D2726F7279400A588E6 /* NewTaxon */,
 			);
-			path = ListOfFindingsScreen;
+			path = TaxonScreens;
 			sourceTree = "<group>";
 		};
 		93334EC326789B920094A483 /* SideMenuScreen */ = {
@@ -574,6 +577,40 @@
 			path = "Splash Screen";
 			sourceTree = "<group>";
 		};
+		93565D2626F7278600A588E6 /* ListOfFindings */ = {
+			isa = PBXGroup;
+			children = (
+				93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */,
+				93334EB02677E1220094A483 /* FindingsListView.swift */,
+				93334EB62677E4E40094A483 /* NoItemsView.swift */,
+			);
+			path = ListOfFindings;
+			sourceTree = "<group>";
+		};
+		93565D2726F7279400A588E6 /* NewTaxon */ = {
+			isa = PBXGroup;
+			children = (
+				93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */,
+			);
+			path = NewTaxon;
+			sourceTree = "<group>";
+		};
+		93565D2826F727A400A588E6 /* ListOfFindings */ = {
+			isa = PBXGroup;
+			children = (
+				93334EB82677E8590094A483 /* ListOfFindingsScreenViewModel.swift */,
+			);
+			path = ListOfFindings;
+			sourceTree = "<group>";
+		};
+		93565D2926F727B000A588E6 /* NewTaxon */ = {
+			isa = PBXGroup;
+			children = (
+				93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */,
+			);
+			path = NewTaxon;
+			sourceTree = "<group>";
+		};
 		9389463826F614B20000D850 /* SetupScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -595,12 +632,13 @@
 			path = SideMenuScreen;
 			sourceTree = "<group>";
 		};
-		9389463A26F614CD0000D850 /* ListOfLindingsScreen */ = {
+		9389463A26F614CD0000D850 /* TaxonScreens */ = {
 			isa = PBXGroup;
 			children = (
-				93334EB82677E8590094A483 /* ListOfFindingsScreenViewModel.swift */,
+				93565D2826F727A400A588E6 /* ListOfFindings */,
+				93565D2926F727B000A588E6 /* NewTaxon */,
 			);
-			path = ListOfLindingsScreen;
+			path = TaxonScreens;
 			sourceTree = "<group>";
 		};
 		9389463B26F614D60000D850 /* HelpScreen */ = {
@@ -1142,6 +1180,7 @@
 				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
 				93DF141B269222AF00A7A977 /* CodableParser.swift in Sources */,
 				9389464526F621440000D850 /* SetupDataMapper.swift in Sources */,
+				93565D2526F7275D00A588E6 /* NewTaxonScreenViewModel.swift in Sources */,
 				93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */,
 				93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
@@ -1165,6 +1204,7 @@
 				93DF14192692228900A7A977 /* URLSessionHTTPClient.swift in Sources */,
 				93A7E2762691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift in Sources */,
 				93334EB92677E8590094A483 /* ListOfFindingsScreenViewModel.swift in Sources */,
+				93565D2326F7270B00A588E6 /* NewTaxonScreen.swift in Sources */,
 				93C2D1E9269EFF2D00123216 /* EnvironmentConstants.swift in Sources */,
 				933EF7F626EFBAD800F1EBC4 /* PopUpErrorScreen.swift in Sources */,
 				93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */,

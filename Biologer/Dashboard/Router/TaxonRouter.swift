@@ -28,21 +28,33 @@ public final class TaxonRouter {
     }
     
     func start() {
-        showLiftOfFindings()
+        showLiftOfFindingsScreen()
     }
     
     // MARK: - Private Functions
-    private func showLiftOfFindings() {
-        let vc = factory.makeListOfFindingsScreen(onNewItemTapped: { _ in
-                            
-                                                  },
-                                                  onItemTapped: { item in
-                                                                        
-                                                  })
+    private func showLiftOfFindingsScreen() {
+        
+        let vc = factory.makeListOfFindingsScreen(onNewItemTapped: { [weak self] _ in
+            self?.showNewTaxonScreen()
+        },
+        onItemTapped: { item in
+            
+        })
         vc.setBiologerBackBarButtonItem(image: UIImage(named: "side_menu_icon")!,
                                         action: {
                                             self.onSideMenuTapped?(())
                                         })
+
         self.navigationController.setViewControllers([vc], animated: false)
+    }
+    
+    private func showNewTaxonScreen() {
+        let vc = factory.makeNewTaxonScreen(onButtonTapped: { _ in })
+        vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
+        self.navigationController.pushViewController(vc, animated: true)
+    }
+    
+    @objc func goBack() {
+        navigationController.popViewController(animated: true)
     }
 }
