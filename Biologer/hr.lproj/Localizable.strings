@@ -53,6 +53,14 @@
 "Register.three.btn.register" = "Registruj se";
 "Register.three.lb.error" = "Da bi uspesno izvrsili registraciju, morate prihvatiti pravila o privatnosi";
 
+// MARK: - Side Menu
+"SideMenu.lb.listOfFindings" = "List";
+"SideMenu.lb.setup" = "Postavke";
+"SideMenu.lb.Logout" = "Izloguj se";
+"SideMenu.lb.aboutUs" = "O name";
+"SideMenu.lb.AboutBiologer" = "O Biologer-u";
+"SideMenu.lb.Help" = "Pomoc";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "IZABERI OKRUZENJE";
 "Env.lb.seribia" = "Srbija";

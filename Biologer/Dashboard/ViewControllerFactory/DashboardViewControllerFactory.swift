@@ -23,29 +23,7 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
     
     func makeSideMenuListScreen(onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController {
         
-        let firstSectionListSideMenu = [SideMenuItem(id: 1, image: "list_of_findings_icon",
-                                                     title: "List of findings",
-                                                     type: .listOfFindings),
-                                        SideMenuItem(id: 2, image: "setup_icon",
-                                                     title: "Setup",
-                                                     type: .setup),
-                                        SideMenuItem(id: 3,
-                                                     image: "logout_icon",
-                                                     title: "Logout",
-                                                     type: .logout)]
-        
-        let secondSectionListSideMenu = [SideMenuItem(id: 1,
-                                                      image: "about_icon",
-                                                      title: "About Biologer",
-                                                      type: .about),
-                                         SideMenuItem(id: 2,
-                                                      image: "help_icon",
-                                                      title: "Help",
-                                                      type: .help)]
-        
-        let itemsForSideMenu = [firstSectionListSideMenu, secondSectionListSideMenu]
-        
-        let sideMenuListViewModel = SideMenuListScreenViewModel(items: itemsForSideMenu,
+        let sideMenuListViewModel = SideMenuListScreenViewModel(items: SideMenuMapper.items,
                                                                 email: "test@test.com",
                                                                 username: "Nikola",
                                                                 image: "biloger_background",

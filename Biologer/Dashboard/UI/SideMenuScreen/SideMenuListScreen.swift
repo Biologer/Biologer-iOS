@@ -28,7 +28,7 @@ struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListSc
                                            username: loader.username)
                     genereateItems(items: loader.items[0])
                     Divider()
-                    Text("About us")
+                    Text("SideMenu.lb.aboutUs".localized)
                         .padding(.leading, 10)
                     genereateItems(items: loader.items[1])
                 }

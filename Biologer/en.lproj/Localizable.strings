@@ -53,6 +53,14 @@
 "Register.three.btn.register" = "Register";
 "Register.three.lb.error" = "For registration you must accept privacy policy!";
 
+// MARK: - Side Menu
+"SideMenu.lb.listOfFindings" = "List of findings";
+"SideMenu.lb.setup" = "Setup";
+"SideMenu.lb.Logout" = "Logout";
+"SideMenu.lb.aboutUs" = "About us";
+"SideMenu.lb.AboutBiologer" = "About Biologer";
+"SideMenu.lb.Help" = "Help";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "SELECT ENVIRONMENT";
 "Env.lb.seribia" = "Serbia";
