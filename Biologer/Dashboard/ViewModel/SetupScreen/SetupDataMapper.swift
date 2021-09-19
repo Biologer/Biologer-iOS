@@ -10,51 +10,51 @@ import Foundation
 public final class SetupDataMapper {
     public static func getSetupData() -> [SetupSectionViewModel] {
         
-        let firstSection = [SetupItemViewModel(title: "Choose Species groups",
-                                                description: "By selecting only certain groups (i.e. birds, butterflies or plants) it will be easier to find species for data entry. Other species will not pop up in the drop down menu.",
-                                                isSelected: nil,
-                                                type: .chooseGropups),
-                                SetupItemViewModel(title: "Always list english names",
-                                                description: "Allows Biologer list english names for thespecies even if the phone locale is set to other language",
-                                                isSelected: false,
-                                                type: .englishNames),
-                                SetupItemViewModel(title: "Set as adult by degault",
-                                                   description: "Sets the life stage to adult by default, if adult stage exist for observed taxa.",
-                                                   isSelected: true,
-                                                   type: .adultByDefault),
-                                SetupItemViewModel(title: "Advance observation entry",
-                                                   description: "Enables adnvace opstions that could be entered with your occurrence (i.e. number of individuals, stage, sex).",
-                                                   isSelected: true,
-                                                   type: .observationEntry)
-        ]
-        
-        let secondSection = [SetupItemViewModel(title: "Project Name",
-                                               description: "Sets the project title if your data was collected during a project",
+        let firstSection = [SetupItemViewModel(title: "Settings.lb.chooseSpecisGroup.title".localized,
+                                               description: "Settings.lb.chooseSpecisGroup.desc".localized,
                                                isSelected: nil,
-                                               type: .projectName),
-                            SetupItemViewModel(title: "Data License",
-                                                            description: "Choose diffeten license four your data collected through the application",
-                                                            isSelected: nil,
-                                                            type: .dataLicense),
-                            SetupItemViewModel(title: "Image License",
-                                                            description: "Choose diffeten license four your iamge sent through the application",
-                                                            isSelected: nil,
-                                                            type: .imageLicense)
+                                               type: .chooseGropups),
+                            SetupItemViewModel(title: "Settings.lb.awayListEnglish.title".localized,
+                                               description: "Settings.lb.awayListEnglish.desc".localized,
+                                               isSelected: false,
+                                               type: .englishNames),
+                            SetupItemViewModel(title: "Settings.lb.adultDefault.title".localized,
+                                               description: "Settings.lb.adultDefault.desc".localized,
+                                               isSelected: true,
+                                               type: .adultByDefault),
+                            SetupItemViewModel(title: "Settings.lb.advanceObservation.title".localized,
+                                               description: "Settings.lb.advanceObservation.desc".localized,
+                                               isSelected: true,
+                                               type: .observationEntry)
         ]
         
-        let thirdSection = [SetupItemViewModel(title: "Auto download and upload",
-                                               description: "Allows data to be automatically downloaded and uploaded without user intervation. By default the data will be transferred only on WiFi.",
+        let secondSection = [SetupItemViewModel(title: "Settings.lb.projectName.title".localized,
+                                                description: "Settings.lb.projectName.desc".localized,
+                                                isSelected: nil,
+                                                type: .projectName),
+                             SetupItemViewModel(title: "Settings.lb.dataLicense.title".localized,
+                                                description: "Settings.lb.dataLicense.desc".localized,
+                                                isSelected: nil,
+                                                type: .dataLicense),
+                             SetupItemViewModel(title: "Settings.lb.imageLicense.title".localized,
+                                                description: "Settings.lb.imageLicense.desc".localized,
+                                                isSelected: nil,
+                                                type: .imageLicense)
+        ]
+        
+        let thirdSection = [SetupItemViewModel(title: "Settings.lb.autoDownloadUpload.title".localized,
+                                               description: "Settings.lb.autoDownloadUpload.desc".localized,
                                                isSelected: nil,
                                                type: .downloadUpload),
-                            SetupItemViewModel(title: "Download all taxa",
-                                               description: "Re-downloads entire taxonomic tree in your application from Biologer server",
+                            SetupItemViewModel(title: "Settings.lb.downloadTaxa.title".localized,
+                                               description: "Settings.lb.downloadTaxa.desc".localized,
                                                isSelected: nil,
                                                type: .downloadAllTaxa)
         ]
         
-        let result = [SetupSectionViewModel(title: "Data Entry", items: firstSection),
-                      SetupSectionViewModel(title: "User Account", items: secondSection),
-                      SetupSectionViewModel(title: "Other downloads", items: thirdSection)
+        let result = [SetupSectionViewModel(title: "Settings.lb.dataEntry".localized, items: firstSection),
+                      SetupSectionViewModel(title: "Settings.lb.userAccount".localized, items: secondSection),
+                      SetupSectionViewModel(title: "Settings.lb.otherDownloads".localized, items: thirdSection)
         ]
         
         return result

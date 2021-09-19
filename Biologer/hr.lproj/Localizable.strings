@@ -61,6 +61,29 @@
 "SideMenu.lb.AboutBiologer" = "O Biologer-u";
 "SideMenu.lb.Help" = "Pomoc";
 
+// MARK: - Settings
+"Settings.lb.dataEntry" = "Data Entry";
+"Settings.lb.chooseSpecisGroup.title" = "Choose Species groups";
+"Settings.lb.chooseSpecisGroup.desc" = "By selecting only certain groups (i.e. birds, butterflies or plants) it will be easier to find species for data entry. Other species will not pop up in the drop down menu.";
+"Settings.lb.awayListEnglish.title" = "Always list english names";
+"Settings.lb.awayListEnglish.desc" = "Allows Biologer list english names for thespecies even if the phone locale is set to other language";
+"Settings.lb.adultDefault.title" = "Set as adult by default";
+"Settings.lb.adultDefault.desc" = "Sets the life stage to adult by default, if adult stage exist for observed taxa.";
+"Settings.lb.advanceObservation.title" = "Advance observation entry";
+"Settings.lb.advanceObservation.desc" = "Enables adnvace opstions that could be entered with your occurrence (i.e. number of individuals, stage, sex).";
+"Settings.lb.userAccount" = "User Account";
+"Settings.lb.projectName.title" = "Project Name";
+"Settings.lb.projectName.desc" = "Sets the project title if your data was collected during a project";
+"Settings.lb.dataLicense.title" = "Data License";
+"Settings.lb.dataLicense.desc" = "Choose diffeten license four your data collected through the application";
+"Settings.lb.imageLicense.title" = "Image License";
+"Settings.lb.imageLicense.desc" = "Choose diffeten license four your iamge sent through the application";
+"Settings.lb.otherDownloads" = "Other downloads";
+"Settings.lb.autoDownloadUpload.title" = "Auto download and upload";
+"Settings.lb.autoDownloadUpload.desc" = "Allows data to be automatically downloaded and uploaded without user intervation. By default the data will be transferred only on WiFi.";
+"Settings.lb.downloadTaxa.title" = "Download all taxa";
+"Settings.lb.downloadTaxa.desc" = "Re-downloads entire taxonomic tree in your application from Biologer server";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "IZABERI OKRUZENJE";
 "Env.lb.seribia" = "Srbija";

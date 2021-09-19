@@ -42,7 +42,7 @@ public final class SetupRouter {
                 self?.showSetupProjectNameScreen(projectName: "Some project")
             case .dataLicense:
                 let dataLicense = CheckMarkItemMapper.getDataLicense()
-                self?.showLicenseScreen(navBarTitle: "DATA LICENSE",
+                self?.showLicenseScreen(navBarTitle: "DataLicense.nav.title".localized,
                                        selectedItem: dataLicense[0],
                                        items: dataLicense,
                                        presentDatePicker: nil,
@@ -51,7 +51,7 @@ public final class SetupRouter {
                                        })
             case .imageLicense:
                 let imageLicense = CheckMarkItemMapper.getImageLicense()
-                self?.showLicenseScreen(navBarTitle: "IMAGE LICENSE",
+                self?.showLicenseScreen(navBarTitle: "ImgLicense.nav.title".localized,
                                        selectedItem: imageLicense[0],
                                        items: imageLicense,
                                        presentDatePicker: nil,
