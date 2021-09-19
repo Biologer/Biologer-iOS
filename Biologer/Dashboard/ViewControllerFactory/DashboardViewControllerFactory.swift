@@ -13,7 +13,9 @@ protocol DashboardViewControllerFactory {
                                        onItemTapped: @escaping Observer<Item>) -> UIViewController
     func makeSetupScreen(onItemTapped: @escaping Observer<SetupItemViewModel>) -> UIViewController
     func makeLogoutScreen(onLogoutTapped: @escaping Observer<Void>) -> UIViewController
-    func makeAboutScreen() -> UIViewController
+    func makeAboutScreen(currentEnv: String,
+                         version: String,
+                         onEnvTapped: @escaping Observer<String>) -> UIViewController
     func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController
 }
 
@@ -79,8 +81,12 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
         return vc
     }
     
-    func makeAboutScreen() -> UIViewController {
-        let viewModel = AboutBiologerScreenViewModel()
+    func makeAboutScreen(currentEnv: String,
+                         version: String,
+                         onEnvTapped: @escaping Observer<String>) -> UIViewController {
+        let viewModel = AboutBiologerScreenViewModel(currentEnv: currentEnv,
+                                                     version: version,
+                                                     onEnvTapped: onEnvTapped)
         let screen = AboutBiologerScreen(loader: viewModel)
         let vc = UIHostingController(rootView: screen)
         return vc

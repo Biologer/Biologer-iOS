@@ -73,6 +73,7 @@ public final class AppNavigationRouter: NavigationRouter {
         let dashboardRouter = DashboardRouter(navigationController: dashboardNavigationController,
                                mainNavigationController: mainNavigationController,
                                setupRouter: setupRouter,
+                               environmentStorage: environmentStorage,
                                factory: SwiftUIDashboardViewControllerFactory())
         
         dashboardRouter.onLogout = { _ in

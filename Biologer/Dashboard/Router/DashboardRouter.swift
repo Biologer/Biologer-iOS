@@ -15,15 +15,18 @@ public final class DashboardRouter: NavigationRouter {
     private let mainNavigationController: UINavigationController
     private let setupRouter: SetupRouter
     private let factory: DashboardViewControllerFactory
+    private let environmentStorage: EnvironmentStorage
     public var onLogout: Observer<Void>?
     
     init(navigationController: UINavigationController,
          mainNavigationController: UINavigationController,
          setupRouter: SetupRouter,
+         environmentStorage: EnvironmentStorage,
          factory: DashboardViewControllerFactory) {
         self.navigationController = navigationController
         self.mainNavigationController = mainNavigationController
         self.setupRouter = setupRouter
+        self.environmentStorage = environmentStorage
         self.factory = factory
     }
     
@@ -68,7 +71,20 @@ public final class DashboardRouter: NavigationRouter {
     }
     
     private func showAboutBiologerScreen() {
-        let vc = factory.makeAboutScreen()
+        var currentEnv = ""
+        var appVersion = ""
+        if let env = environmentStorage.getEnvironment() {
+            currentEnv = "https://\(env.host)"
+        }
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+           let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String{
+            appVersion = "App Version: \(version) (\(build))"
+        }
+        let vc = factory.makeAboutScreen(currentEnv: currentEnv,
+                                         version: appVersion,
+                                         onEnvTapped: { [weak self] urlString in
+                                            self?.showSafari(path: urlString)
+                                         })
         addSideMenuIcon(vc: vc)
         self.navigationController.setViewControllers([vc], animated: false)
     }
