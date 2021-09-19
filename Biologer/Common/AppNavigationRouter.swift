@@ -73,6 +73,7 @@ public final class AppNavigationRouter: NavigationRouter {
         let dashboardRouter = DashboardRouter(navigationController: dashboardNavigationController,
                                mainNavigationController: mainNavigationController,
                                setupRouter: setupRouter,
+                               taxonRouter: taxonRouter,
                                environmentStorage: environmentStorage,
                                factory: SwiftUIDashboardViewControllerFactory())
         
@@ -88,6 +89,15 @@ public final class AppNavigationRouter: NavigationRouter {
             })
         }
         return dashboardRouter
+    }()
+    
+    private lazy var taxonRouter: TaxonRouter = {
+        let taxonRouter = TaxonRouter(navigationController: dashboardNavigationController,
+                                 factory: SwiftUITaxonViewControllerFactory(),
+                                 swiftUICommonFactory: SwiftUICommonViewControllerFactrory(),
+                                 uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
+                                 alertFactory: swiftUIAlertViewControllerFactory)
+        return taxonRouter
     }()
     
     private lazy var setupRouter: SetupRouter = {

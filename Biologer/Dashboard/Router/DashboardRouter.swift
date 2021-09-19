@@ -14,6 +14,7 @@ public final class DashboardRouter: NavigationRouter {
     private let navigationController: UINavigationController
     private let mainNavigationController: UINavigationController
     private let setupRouter: SetupRouter
+    private let taxonRouter: TaxonRouter
     private let factory: DashboardViewControllerFactory
     private let environmentStorage: EnvironmentStorage
     public var onLogout: Observer<Void>?
@@ -21,17 +22,19 @@ public final class DashboardRouter: NavigationRouter {
     init(navigationController: UINavigationController,
          mainNavigationController: UINavigationController,
          setupRouter: SetupRouter,
+         taxonRouter: TaxonRouter,
          environmentStorage: EnvironmentStorage,
          factory: DashboardViewControllerFactory) {
         self.navigationController = navigationController
         self.mainNavigationController = mainNavigationController
         self.setupRouter = setupRouter
+        self.taxonRouter = taxonRouter
         self.environmentStorage = environmentStorage
         self.factory = factory
     }
     
     public func start() {
-        showDashboardScreen()
+        showListOfFindings()
     }
     
     private func showSideMenu() {
@@ -44,15 +47,11 @@ public final class DashboardRouter: NavigationRouter {
         self.navigationController.present(menu, animated: true, completion: nil)
     }
     
-    private func showDashboardScreen() {
-        let dashboardViewController = factory.makeListOfFindingsScreen(onNewItemTapped: { _ in
-                            
-                                                                            },
-                                                                            onItemTapped: { item in
-                                                                        
-                                                                            })
-        addSideMenuIcon(vc: dashboardViewController)
-        self.navigationController.setViewControllers([dashboardViewController], animated: false)
+    private func showListOfFindings() {
+        taxonRouter.start()
+        taxonRouter.onSideMenuTapped = { [weak self] _ in
+            self?.showSideMenu()
+        }
     }
     
     private func showSetupScreen() {
@@ -100,7 +99,7 @@ public final class DashboardRouter: NavigationRouter {
     private func showScreenFormSideMenu(item: SideMenuItemType) {
         switch item {
         case .listOfFindings:
-            showDashboardScreen()
+            showListOfFindings()
         case .setup:
             showSetupScreen()
         case .logout:

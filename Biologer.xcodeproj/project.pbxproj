@@ -44,6 +44,8 @@
 		933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift */; };
 		933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7FB26F08AC000F1EBC4 /* APIError.swift */; };
 		9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342575826925B9F00B8C912 /* AttributedTextView.swift */; };
+		93565D1D26F723BF00A588E6 /* TaxonViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1C26F723BF00A588E6 /* TaxonViewControllerFactory.swift */; };
+		93565D1F26F7243800A588E6 /* TaxonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1E26F7243800A588E6 /* TaxonRouter.swift */; };
 		935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */; };
 		935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66326F6386800C56D46 /* SetupRouter.swift */; };
 		935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */; };
@@ -191,6 +193,8 @@
 		933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAlertViewController.swift; sourceTree = "<group>"; };
 		933EF7FB26F08AC000F1EBC4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		9342575826925B9F00B8C912 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
+		93565D1C26F723BF00A588E6 /* TaxonViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonViewControllerFactory.swift; sourceTree = "<group>"; };
+		93565D1E26F7243800A588E6 /* TaxonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonRouter.swift; sourceTree = "<group>"; };
 		935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewControllerFactory.swift; sourceTree = "<group>"; };
 		935AF66326F6386800C56D46 /* SetupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRouter.swift; sourceTree = "<group>"; };
 		935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItemMapper.swift; sourceTree = "<group>"; };
@@ -335,6 +339,7 @@
 			children = (
 				9300757526877C6B005A4DE0 /* DashboardRouter.swift */,
 				935AF66326F6386800C56D46 /* SetupRouter.swift */,
+				93565D1E26F7243800A588E6 /* TaxonRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 			children = (
 				9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */,
 				935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */,
+				93565D1C26F723BF00A588E6 /* TaxonViewControllerFactory.swift */,
 			);
 			path = ViewControllerFactory;
 			sourceTree = "<group>";
@@ -1113,6 +1119,7 @@
 				93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */,
 				93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
+				93565D1F26F7243800A588E6 /* TaxonRouter.swift in Sources */,
 				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
 				93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */,
 				9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */,
@@ -1162,6 +1169,7 @@
 				933EF7F626EFBAD800F1EBC4 /* PopUpErrorScreen.swift in Sources */,
 				93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */,
 				93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */,
+				93565D1D26F723BF00A588E6 /* TaxonViewControllerFactory.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */,
 				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
