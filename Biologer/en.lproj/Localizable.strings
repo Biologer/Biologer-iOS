@@ -10,16 +10,17 @@
 "Common.tf.error.required" = "This field is required";
 "Common.tf.email.error.notValid" = "Email is not in valid format";
 "Common.tf.password.error.notValid" = "Password must contain an uppercase letter, a number, and be at least 8 characters long!";
-"Common.btn.ok" = "OK";
+"Common.btn.ok" = "Ok";
+"Common.btn.cancel" = "Cancel";
 
-// MARK: - API Error
+// MARK: - API Error 
 "API.lb.error" = "Error!";
 "API.lb.parsingError" = "Parsing Error!";
 "API.lb.envError" = "Environment is not selected!";
 "API.lb.noInternetError" = "No Internet connection!";
 "API.lb.noInternetDescriptionError" = "Please check your internet connection and try again.";
 
-// MARK: - Login Screen
+// MARK: - Login Screen Screen
 "Login.tf.username.placeholder" = "Username (email)";
 "Login.tf.password.placeholder" = "Password";
 "Login.env.placeholder" = "Select Environment";
@@ -28,14 +29,14 @@
 "Login.btn.register" = "Register";
 "Login.btn.forgotPassword" = "Forgot Password";
 
-// MARK: - Register Step One
+// MARK: - Register Step One Screen
 "Register.one.nav.title" = "REGISTER (STEP ONE)";
 "Register.one.tf.name.placeholder" = "Name";
 "Register.one.tf.surname.placeholder" = "Surname";
 "Register.one.tf.institution.placeholder" = "Institution";
 "Register.one.btn.next" = "Next";
 
-// MARK: - Register Step Two
+// MARK: - Register Step Two Screen
 "Register.two.nav.title" = "REGISTER (STEP TWO)";
 "Register.two.tf.email.placeholder" = "Email";
 "Register.two.tf.password.placeholder" = "Password";
@@ -43,7 +44,7 @@
 "Register.two.tf.repeatPassword.error" = "Password doesn't matches";
 "Register.two.btn.next" = "Next";
 
-// MARK: - Registration Step Three
+// MARK: - Registration Step Three Screen
 "Register.three.nav.title" = "REGISTER (STEP THREE)";
 "Register.three.dataLicense.placeholder" = "Data License";
 "Register.three.imageLicense.placeholder" = "Image License";
@@ -53,7 +54,7 @@
 "Register.three.btn.register" = "Register";
 "Register.three.lb.error" = "For registration you must accept privacy policy!";
 
-// MARK: - Side Menu
+// MARK: - Side Menu Screen
 "SideMenu.lb.listOfFindings" = "List of findings";
 "SideMenu.lb.setup" = "Setup";
 "SideMenu.lb.Logout" = "Logout";
@@ -61,7 +62,7 @@
 "SideMenu.lb.AboutBiologer" = "About Biologer";
 "SideMenu.lb.Help" = "Help";
 
-// MARK: - Settings
+// MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";
 "Settings.lb.chooseSpecisGroup.title" = "Choose Species groups";
 "Settings.lb.chooseSpecisGroup.desc" = "By selecting only certain groups (i.e. birds, butterflies or plants) it will be easier to find species for data entry. Other species will not pop up in the drop down menu.";
@@ -84,6 +85,15 @@
 "Settings.lb.downloadTaxa.title" = "Download all taxa";
 "Settings.lb.downloadTaxa.desc" = "Re-downloads entire taxonomic tree in your application from Biologer server";
 
+// MARK: - Project Name Screen
+"ProjectName.tf.placeholder" = "Project Name";
+
+// MARK: - Download And Upload Screen
+"DownloadAndUpload.nav.title" = "Auto download and upload";
+"DownloadAndUpload.nav.onlyWifi" = "Only on WiFi network";
+"DownloadAndUpload.nav.onAnyNetwork" = "On any network";
+"DownloadAndUpload.nav.alwaysAsk" = "Always ask user";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "SELECT ENVIRONMENT";
 "Env.lb.seribia" = "Serbia";
@@ -91,14 +101,14 @@
 "Env.lb.bosniaAndHerzegovina" = "Bosnian and Herzegovina";
 "Env.lb.developer" = "For Developers";
 
-// MARK: - Image License
+// MARK: - Image License Screen
 "ImgLicense.nav.title" = "IMAGE LICENSE";
 "ImgLicense.lb.one" = "Share images for free (CC-BY-SA)";
 "ImgLicense.lb.two" = "Share images as noncommercial (CC-BY-SA-NC)";
 "ImgLicense.lb.three" = "Keep authorship and share online with watermark";
 "ImgLicense.lb.four" = "Keep authorship and restrict images from public domain";
 
-// MARKL: - Data License
+// MARK: - Data License Screen
 "DataLicense.nav.title" = "DATA LICENSE";
 "DataLicense.lb.one" = "Free (CC BY-SA)";
 "DataLicense.lb.two" = "Free, NonCommercial (CC BY-SA-NC)";

@@ -10,7 +10,8 @@
 "Common.tf.error.required" = "Polje je obavezno";
 "Common.tf.email.error.notValid" = "Email nije u validnom formatu";
 "Common.tf.password.error.notValid" = "Sifra mora da sadrzi veliko slovo, broj i da poseduje duzinu najmanje 8 karaktera!";
-"Common.btn.ok" = "UREDU";
+"Common.btn.ok" = "Uredu";
+"Common.btn.cancel" = "Nazad";
 
 // MARK: - API Error
 "API.lb.error" = "Greska!";
@@ -19,7 +20,7 @@
 "API.lb.noInternetError" = "Nema internet konekcije!";
 "API.lb.noInternetDescriptionError" = "Molimo vas, proverite internet konekciju i pokusajte ponovo.";
 
-// MARK: - Login Screen
+// MARK: - Login Screen Screen
 "Login.tf.username.placeholder" = "Ime korisnika (Imejl)";
 "Login.tf.password.placeholder" = "Šifra";
 "Login.env.placeholder" = "Izaberi okruzenje";
@@ -28,14 +29,14 @@
 "Login.btn.register" = "Registruj se";
 "Login.btn.forgotPassword" = "Resetuj sifru";
 
-// MARK: - Register Step One
+// MARK: - Register Step One Screen
 "Register.one.nav.title" = "REGISTRUJ SE (PRVI KORAK)";
 "Register.one.tf.name.placeholder" = "Ime";
 "Register.one.tf.surname.placeholder" = "Prezime";
 "Register.one.tf.institution.placeholder" = "Institucija";
 "Register.one.btn.next" = "Dalje";
 
-// MARK: - Register Step Two
+// MARK: - Register Step Two Screen
 "Register.two.nav.title" = "REGISTRUJ SE (DRUGI KORAK)";
 "Register.two.tf.email.placeholder" = "Imejl";
 "Register.two.tf.password.placeholder" = "Sifra";
@@ -43,7 +44,7 @@
 "Register.two.tf.repeatPassword.error" = "Sifre se ne poklapaju";
 "Register.two.btn.next" = "Dalje";
 
-// MARK: - Registration Step Three
+// MARK: - Registration Step Three Screen
 "Register.three.nav.title" = "REGISTRUJ SE (TRECI KORAK)";
 "Register.three.dataLicense.placeholder" = "Dozvola za prenos podataka";
 "Register.three.imageLicense.placeholder" = "Dozvola za prenos slika";
@@ -53,7 +54,7 @@
 "Register.three.btn.register" = "Registruj se";
 "Register.three.lb.error" = "Da bi uspesno izvrsili registraciju, morate prihvatiti pravila o privatnosi";
 
-// MARK: - Side Menu
+// MARK: - Side Menu Screen
 "SideMenu.lb.listOfFindings" = "List";
 "SideMenu.lb.setup" = "Postavke";
 "SideMenu.lb.Logout" = "Izloguj se";
@@ -61,7 +62,7 @@
 "SideMenu.lb.AboutBiologer" = "O Biologer-u";
 "SideMenu.lb.Help" = "Pomoc";
 
-// MARK: - Settings
+// MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";
 "Settings.lb.chooseSpecisGroup.title" = "Choose Species groups";
 "Settings.lb.chooseSpecisGroup.desc" = "By selecting only certain groups (i.e. birds, butterflies or plants) it will be easier to find species for data entry. Other species will not pop up in the drop down menu.";
@@ -72,7 +73,7 @@
 "Settings.lb.advanceObservation.title" = "Advance observation entry";
 "Settings.lb.advanceObservation.desc" = "Enables adnvace opstions that could be entered with your occurrence (i.e. number of individuals, stage, sex).";
 "Settings.lb.userAccount" = "User Account";
-"Settings.lb.projectName.title" = "Project Name";
+"Settings.lb.projectName.title" = "Ime Projekta";
 "Settings.lb.projectName.desc" = "Sets the project title if your data was collected during a project";
 "Settings.lb.dataLicense.title" = "Data License";
 "Settings.lb.dataLicense.desc" = "Choose diffeten license four your data collected through the application";
@@ -84,6 +85,15 @@
 "Settings.lb.downloadTaxa.title" = "Download all taxa";
 "Settings.lb.downloadTaxa.desc" = "Re-downloads entire taxonomic tree in your application from Biologer server";
 
+// MARK: - Project Name Screen
+"ProjectName.tf.placeholder" = "Ime Projekta";
+
+// MARK: - Download And Upload Screen
+"DownloadAndUpload.nav.title" = "Automatsko skidanje i slanje";
+"DownloadAndUpload.nav.onlyWifi" = "Samo na WiFi mrezi";
+"DownloadAndUpload.nav.onAnyNetwork" = "Na bilo kojoj mrezi";
+"DownloadAndUpload.nav.alwaysAsk" = "Uvek pitaj korisnika";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "IZABERI OKRUZENJE";
 "Env.lb.seribia" = "Srbija";
@@ -91,14 +101,14 @@
 "Env.lb.bosniaAndHerzegovina" = "Bosna i Hercegovina";
 "Env.lb.developer" = "Za Programere";
 
-// MARK: - Image License
+// MARK: - Image License Screen
 "ImgLicense.nav.title" = "IMAGE LICENSE";
 "ImgLicense.lb.one" = "Share images for free (CC-BY-SA)";
 "ImgLicense.lb.two" = "Share images as noncommercial (CC-BY-SA-NC)";
 "ImgLicense.lb.three" = "Keep authorship and share online with watermark";
 "ImgLicense.lb.four" = "Keep authorship and restrict images from public domain";
 
-// MARKL: - Data License
+// MARK: - Data License Screen
 "DataLicense.nav.title" = "DATA LICENSE";
 "DataLicense.lb.one" = "Free (CC BY-SA)";
 "DataLicense.lb.two" = "Free, NonCommercial (CC BY-SA-NC)";

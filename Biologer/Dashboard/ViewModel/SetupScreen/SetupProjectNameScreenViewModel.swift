@@ -9,8 +9,8 @@ import UIKit
 
 public final class SetupProjectNameScreenViewModel: ObservableObject {
     @Published var textField: MaterialDesignTextFieldViewModelProtocol
-    public let okButtonTitle = "Ok"
-    public let cancelTitle = "Cancel"
+    public let okButtonTitle = "Common.btn.ok".localized
+    public let cancelTitle = "Common.btn.cancel".localized
     
     private let onCancelTapped: Observer<Void>
     private let onOkTapped: Observer<String>
@@ -35,7 +35,7 @@ public final class SetupProjectNameScreenViewModel: ObservableObject {
         public var textAligment: NSTextAlignment = .left
         public var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>?
         public var text: String
-        public var placeholder: String = "Project Name"
+        public var placeholder: String = "ProjectName.tf.placeholder".localized
         public var errorText: String = ""
         public var isCodeEntry: Bool = false
         public var tralingImage: String? = nil

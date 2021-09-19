@@ -9,8 +9,8 @@ import Foundation
 
 public final class SetupDownloadAndUploadMapper {
     public static func getItems() -> [SetupRadioAndTitleModel] {
-        return [SetupRadioAndTitleModel(isSelected: false, title: "Only on WiFi network"),
-                SetupRadioAndTitleModel(isSelected: false, title: "On any network"),
-                SetupRadioAndTitleModel(isSelected: true, title: "Always ask user")]
+        return [SetupRadioAndTitleModel(isSelected: false, title: "DownloadAndUpload.nav.onlyWifi".localized),
+                SetupRadioAndTitleModel(isSelected: false, title: "DownloadAndUpload.nav.onAnyNetwork".localized),
+                SetupRadioAndTitleModel(isSelected: true, title: "DownloadAndUpload.nav.alwaysAsk".localized)]
     }
 }

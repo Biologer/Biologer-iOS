@@ -20,8 +20,8 @@ public final class SetupRadioAndTitleModel: Identifiable, ObservableObject {
 
 public final class SetupDownloadAndUploadScreenViewModel: ObservableObject {
     @Published var items: [SetupRadioAndTitleModel]
-    public let cancelButtonTitle = "Cancel"
-    public let title = "Auto download and upload"
+    public let cancelButtonTitle = "Common.btn.cancel".localized
+    public let title = "DownloadAndUpload.nav.title".localized
     private let onCancelTapped: Observer<Void>
     private let onItemTapped: Observer<SetupRadioAndTitleModel>
     
