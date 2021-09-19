@@ -17,20 +17,25 @@ struct PopUpErrorScreen: View {
     
     var body: some View {
         VStack {
-            Text(title)
+            Text("Error")
+                .font(.title2).bold()
+                .frame(width: popUpWidth)
                 .padding(20)
-                .font(.headline)
+            Text(title)
+                .padding(.bottom, 5)
+                .padding(.horizontal, 10)
+                .font(.title3)
             Text(description)
-                .padding()
+                .padding(.horizontal, 10)
                 .font(.subheadline)
             BiologerButton(title: buttonTitle,
-                           width: popUpWidth / 2,
+                           width: popUpWidth / 3,
                            onTapped: onButtonTapped)
                 .padding()
         }
         .background(Color.white)
-        .cornerRadius(20)
         .frame(width: popUpWidth)
+        .cornerRadius(20)
         .clipped()
         .shadow(color: Color.gray, radius: 10, x: 0, y: 0)
     }
@@ -38,8 +43,8 @@ struct PopUpErrorScreen: View {
 
 struct PopUpErrorScreen_Previews: PreviewProvider {
     static var previews: some View {
-        PopUpErrorScreen(title: "Error",
-                         description: "Some description about error Some description about error Some description about error Some description about error Some description about error Some description about error",
+        PopUpErrorScreen(title: " Authentication issue",
+                         description: "Please try again later..",
                          onButtonTapped: { _ in })
     }
 }

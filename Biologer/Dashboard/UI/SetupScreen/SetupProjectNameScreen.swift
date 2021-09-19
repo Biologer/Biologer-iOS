@@ -24,6 +24,7 @@ struct SetupProjectNameScreen: View {
                                     textAligment: .left)
                 .padding(.vertical, 20)
                 .padding(.horizontal, 20)
+                .frame(height: 100)
             HStack(spacing: 20) {
                 BiologerButton(title: viewModel.cancelTitle,
                                width: widthButtons,
@@ -40,7 +41,7 @@ struct SetupProjectNameScreen: View {
         }
         .background(Color.white)
         .cornerRadius(20)
-        .frame(width: widthOfPopUp, height: heightOfPopUp, alignment: .center)
+        .frame(width: widthOfPopUp, alignment: .center)
         .clipped()
         .shadow(color: Color.gray, radius: 10, x: 0, y: 0)
     }
