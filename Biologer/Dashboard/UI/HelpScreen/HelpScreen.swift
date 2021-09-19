@@ -8,8 +8,6 @@
 import SwiftUI
 
 protocol HelpScreenLoader: ObservableObject {
-    var title: String { get }
-    var description: String { get }
     var currentPageIndex: Int { get set }
     var items: [HelpItemViewModel] { get }
     func nextTapped()
@@ -103,8 +101,6 @@ struct HelpScreen_Previews: PreviewProvider {
     
     private class StubHelpScreenViewModel: HelpScreenLoader {
         var items: [HelpItemViewModel] = HelpItemManager.createHelpItems()
-        var title: String = "Database option"
-        var description: String = "Biologer application can connected to multiple datebase. You should start by choosing your preferred datebase and registering online."
         var numerOfPages: Int = 5
         var currentPageIndex: Int = 0
         func nextTapped() {}

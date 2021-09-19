@@ -107,6 +107,16 @@
 "AboutBiologer.lb.toFingMoreDetails" = "To find out more details aboud Biologer, visit our web page:";
 "AboutBiologer.lb.appVersion" = "App Version: ";
 
+// MARK: - Help Screen
+"Help.title.first" = "Database option";
+"Help.desc.first" = "Biologer application can connected to multiple datebase. You should start by choosing your preferred datebase and registering online.";
+"Help.title.second" = "Navigation is easy";
+"Help.desc.second" = "Side panel provides all the shortcuts and settings you need. Just swipe screen to the right and you are ready to go.";
+"Help.title.third" = "The main screen";
+"Help.desc.third" = "From the main screen you can add, edit or delete your observation and send data to one of our service.";
+"Help.title.fourth" = "New observations";
+"Help.desc.fourth" = "Adding data is easy! Suggest the species, add some photos and Biologer do the rest. Advance optios can also be unlocked from the Preferences.";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "SELECT ENVIRONMENT";
 "Env.lb.seribia" = "Serbia";

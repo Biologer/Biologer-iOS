@@ -107,6 +107,16 @@
 "AboutBiologer.lb.toFingMoreDetails" = "Za vise informacija o Biologer-u, posetite nasu web stranicu:";
 "AboutBiologer.lb.appVersion" = "Verzija aplikacije: ";
 
+// MARK: - Help Screen
+"Help.title.first" = "Opcije baze podataka";
+"Help.desc.first" = "Biologer application can connected to multiple datebase. You should start by choosing your preferred datebase and registering online.";
+"Help.title.second" = "Navigacija je jednostavna";
+"Help.desc.second" = "Side panel provides all the shortcuts and settings you need. Just swipe screen to the right and you are ready to go.";
+"Help.title.third" = "Glavni ekran";
+"Help.desc.third" = "From the main screen you can add, edit or delete your observation and send data to one of our service.";
+"Help.title.fourth" = "New observations";
+"Help.desc.fourth" = "Adding data is easy! Suggest the species, add some photos and Biologer do the rest. Advance optios can also be unlocked from the Preferences.";
+
 // MARK: - Select Environment Screen
 "Env.nav.title" = "IZABERI OKRUZENJE";
 "Env.lb.seribia" = "Srbija";
