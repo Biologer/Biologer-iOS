@@ -8,11 +8,16 @@
 import SwiftUI
 
 protocol DashboardViewControllerFactory {
-    func makeSideMenuListScreen(onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController
+    func makeSideMenuListScreen(email: String,
+                                username: String,
+                                onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
                                        onItemTapped: @escaping Observer<Item>) -> UIViewController
     func makeSetupScreen(onItemTapped: @escaping Observer<SetupItemViewModel>) -> UIViewController
-    func makeLogoutScreen(onLogoutTapped: @escaping Observer<Void>) -> UIViewController
+    func makeLogoutScreen(userEmail: String,
+                          username: String,
+                          currentEnv: String,
+                          onLogoutTapped: @escaping Observer<Void>) -> UIViewController
     func makeAboutScreen(currentEnv: String,
                          version: String,
                          onEnvTapped: @escaping Observer<String>) -> UIViewController
@@ -21,11 +26,13 @@ protocol DashboardViewControllerFactory {
 
 public final class SwiftUIDashboardViewControllerFactory: DashboardViewControllerFactory {
     
-    func makeSideMenuListScreen(onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController {
+    func makeSideMenuListScreen(email: String,
+                                username: String,
+                                onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController {
         
         let sideMenuListViewModel = SideMenuListScreenViewModel(items: SideMenuMapper.items,
-                                                                email: "test@test.com",
-                                                                username: "Nikola",
+                                                                email: email,
+                                                                username: username,
                                                                 image: "biloger_background",
                                                                 onItemTapped: onItemTapped)
         
@@ -52,8 +59,14 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
         return vc
     }
     
-    func makeLogoutScreen(onLogoutTapped: @escaping Observer<Void>) -> UIViewController {
-        let viewModel = LogoutScreenViewModel(onLogoutTapped: onLogoutTapped)
+    func makeLogoutScreen(userEmail: String,
+                          username: String,
+                          currentEnv: String,
+                          onLogoutTapped: @escaping Observer<Void>) -> UIViewController {
+        let viewModel = LogoutScreenViewModel(userEmail: userEmail,
+                                              username: username,
+                                              currentEnv: currentEnv,
+                                              onLogoutTapped: onLogoutTapped)
         let screen = LogoutScreen(loader: viewModel)
         let vc = UIHostingController(rootView: screen)
         return vc

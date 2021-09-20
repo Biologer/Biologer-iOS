@@ -12,6 +12,7 @@ public final class APIConstants {
     // MARK: - Paths
     public static let registerUserPath = "/api/register"
     public static let loginUserPath = "/oauth/token"
+    public static let myProfilePath = "/api/my/profile"
     
     // MARK: - Common
     public static let applicationJson = "application/json"

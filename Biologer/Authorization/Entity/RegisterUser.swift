@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class User {
+public final class RegisterUser {
     public var username: String = ""
     public var lastname: String = ""
     public var insitution: String = ""

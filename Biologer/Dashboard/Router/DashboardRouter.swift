@@ -16,7 +16,10 @@ public final class DashboardRouter: NavigationRouter {
     private let setupRouter: SetupRouter
     private let taxonRouter: TaxonRouter
     private let factory: DashboardViewControllerFactory
+    private let uiKitCommonViewControllerFactory: CommonViewControllerFactory
     private let environmentStorage: EnvironmentStorage
+    private let userStorage: UserStorage
+    private let profileService: ProfileService
     public var onLogout: Observer<Void>?
     
     init(navigationController: UINavigationController,
@@ -24,21 +27,39 @@ public final class DashboardRouter: NavigationRouter {
          setupRouter: SetupRouter,
          taxonRouter: TaxonRouter,
          environmentStorage: EnvironmentStorage,
-         factory: DashboardViewControllerFactory) {
+         userStorage: UserStorage,
+         profileService: ProfileService,
+         factory: DashboardViewControllerFactory,
+         uiKitCommonViewControllerFactory: CommonViewControllerFactory) {
         self.navigationController = navigationController
         self.mainNavigationController = mainNavigationController
         self.setupRouter = setupRouter
         self.taxonRouter = taxonRouter
         self.environmentStorage = environmentStorage
+        self.userStorage = userStorage
+        self.profileService = profileService
         self.factory = factory
+        self.uiKitCommonViewControllerFactory = uiKitCommonViewControllerFactory
     }
     
     public func start() {
         showListOfFindings()
     }
     
+    lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
+        guard let self = self else { return }
+        if isLoading {
+            let loader  = self.uiKitCommonViewControllerFactory.createBlockingProgress()
+            self.navigationController.present(loader, animated: false, completion: nil)
+        } else {
+            self.navigationController.dismiss(animated: false, completion: nil)
+        }
+    }
+    
     private func showSideMenu() {
-        let sideMenuListScreen = factory.makeSideMenuListScreen(onItemTapped: { item in
+        let sideMenuListScreen = factory.makeSideMenuListScreen(email: userStorage.getUser()?.email ?? "",
+                                                                username: userStorage.getUser()?.fullName ?? "",
+                                                                onItemTapped: { item in
             self.navigationController.dismiss(animated: true, completion: nil)
             self.showScreenFormSideMenu(item: item.type)
         })
@@ -62,7 +83,10 @@ public final class DashboardRouter: NavigationRouter {
     }
     
     private func showLogoutScreen() {
-        let vc = factory.makeLogoutScreen(onLogoutTapped: { _ in
+        let vc = factory.makeLogoutScreen(userEmail: userStorage.getUser()?.email ??  "",
+                                          username: userStorage.getUser()?.fullName ?? "",
+                                          currentEnv: "https://\(environmentStorage.getEnvironment()?.host ?? "")",
+                                          onLogoutTapped: { _ in
             self.onLogout?(())
         })
         addSideMenuIcon(vc: vc)

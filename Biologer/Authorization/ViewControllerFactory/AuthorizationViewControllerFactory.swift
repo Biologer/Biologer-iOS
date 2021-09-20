@@ -20,11 +20,11 @@ public protocol AuthorizationViewControllerFactory {
                                envViewModels: [EnvironmentViewModel],
                                delegate: EnvironmentScreenViewModelProtocol?,
                                onSelectedEnvironment: @escaping Observer<EnvironmentViewModel>) -> UIViewController
-    func makeRegisterFirstStepScreen(user: User,
-                                     onNextTapped: @escaping Observer<User>) -> UIViewController
-    func makeRegisterSecondStepScreen(user: User,
-                                      onNextTapped: @escaping Observer<User>) -> UIViewController
-    func makeRegisterThreeStepScreen(user: User,
+    func makeRegisterFirstStepScreen(user: RegisterUser,
+                                     onNextTapped: @escaping Observer<RegisterUser>) -> UIViewController
+    func makeRegisterSecondStepScreen(user: RegisterUser,
+                                      onNextTapped: @escaping Observer<RegisterUser>) -> UIViewController
+    func makeRegisterThreeStepScreen(user: RegisterUser,
                                      topImage: String,
                                      service: RegisterUserService,
                                      dataLicense: CheckMarkItem,

@@ -118,7 +118,7 @@ public final class AuthorizationRouter: NavigationRouter {
     }
     
     private func showRegisterStepOneScreen() {
-        let stepOneViewController = factory.makeRegisterFirstStepScreen(user: User(),
+        let stepOneViewController = factory.makeRegisterFirstStepScreen(user: RegisterUser(),
                                                                         onNextTapped: { [weak self] user in
                                                                             self?.showRegisterStepTwoScreen(user: user)
                                                                         })
@@ -127,7 +127,7 @@ public final class AuthorizationRouter: NavigationRouter {
         self.navigationController.pushViewController(stepOneViewController, animated: true)
     }
     
-    private func showRegisterStepTwoScreen(user: User) {
+    private func showRegisterStepTwoScreen(user: RegisterUser) {
         let stepTwoViewController = factory.makeRegisterSecondStepScreen(user: user,
                                                                          onNextTapped: { [weak self] user in
                                                                             self?.showRegisterThirdStepScreen(user: user)
@@ -137,7 +137,7 @@ public final class AuthorizationRouter: NavigationRouter {
         self.navigationController.pushViewController(stepTwoViewController, animated: true)
     }
     
-    private func showRegisterThirdStepScreen(user: User) {
+    private func showRegisterThirdStepScreen(user: RegisterUser) {
         
         let dataLicenses = CheckMarkItemMapper.getDataLicense()
         

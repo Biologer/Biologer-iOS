@@ -50,17 +50,17 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
         return viewController
     }
     
-    public func makeRegisterFirstStepScreen(user: User,
-                                            onNextTapped: @escaping Observer<User>) -> UIViewController {
-        let viewModel = RegisterStepOneScreenViewModel(user: User(),
+    public func makeRegisterFirstStepScreen(user: RegisterUser,
+                                            onNextTapped: @escaping Observer<RegisterUser>) -> UIViewController {
+        let viewModel = RegisterStepOneScreenViewModel(user: RegisterUser(),
                                                        onNextTapped: onNextTapped)
         let screen = RegisterStepOneScreen(loader: viewModel)
         let viewController = UIHostingController(rootView: screen)
         return viewController
     }
     
-    public func makeRegisterSecondStepScreen(user: User,
-                                             onNextTapped: @escaping Observer<User>) -> UIViewController {
+    public func makeRegisterSecondStepScreen(user: RegisterUser,
+                                             onNextTapped: @escaping Observer<RegisterUser>) -> UIViewController {
         let viewModel = RegisterStepTwoScreenViewModel(user: user,
                                                        onNextTapped: onNextTapped)
         let screen = RegisterStepTwoScreen(loader: viewModel)
@@ -68,7 +68,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
         return viewController
     }
     
-    public func makeRegisterThreeStepScreen(user: User,
+    public func makeRegisterThreeStepScreen(user: RegisterUser,
                                             topImage: String,
                                             service: RegisterUserService,
                                             dataLicense: CheckMarkItem,

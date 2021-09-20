@@ -13,10 +13,10 @@ public final class RegisterStepTwoScreenViewModel: RegisterStepTwoScreenLoader {
     @Published var repeatPasswordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = RepeatPasswordTextFieldViewModel()
     var buttonTitle = "Register.two.btn.next".localized
     
-    private let user: User
-    private let onNextTapped: Observer<User>
+    private let user: RegisterUser
+    private let onNextTapped: Observer<RegisterUser>
     
-    init(user: User, onNextTapped: @escaping Observer<User>) {
+    init(user: RegisterUser, onNextTapped: @escaping Observer<RegisterUser>) {
         self.onNextTapped = onNextTapped
         self.user = user
     }

@@ -23,10 +23,10 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
     private let onSuccess: Observer<Token>
     private let onError: Observer<APIError>
     private let onLoading: Observer<Bool>
-    private let user: User
+    private let user: RegisterUser
     private let service: RegisterUserService
     
-    init(user: User,
+    init(user: RegisterUser,
          topImage: String,
          service: RegisterUserService,
          dataLicense: CheckMarkItem,

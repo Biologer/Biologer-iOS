@@ -24,7 +24,8 @@ public final class AppNavigationRouter: NavigationRouter {
         sessionConfig.timeoutIntervalForResource = 20
         let session = URLSession(configuration: sessionConfig)
         let client = URLSessionHTTPClient(session: session)
-        let mainQueueDecorator = MainQueueHTTPClientDecorator(decoratee: client)
+        let auth2HttpClientDecorator = Auth2HttpClientDecorator(decoratee: client, tokenStorage: tokenStorage)
+        let mainQueueDecorator = MainQueueHTTPClientDecorator(decoratee: auth2HttpClientDecorator)
         return mainQueueDecorator
     }()
     
@@ -61,6 +62,10 @@ public final class AppNavigationRouter: NavigationRouter {
         return KeychainTokenStorage()
     }()
     
+    private lazy var userStorage: UserStorage = {
+        return UserDefaultsUserStorage()
+    }()
+    
     private lazy var commonViewControllerFactory: CommonViewControllerFactory = {
         return IOSUIKitCommonViewControllerFactory()
     } ()
@@ -69,24 +74,23 @@ public final class AppNavigationRouter: NavigationRouter {
         return SwiftUIAlertViewController()
     }()
     
+    private lazy var remoteProfileService: ProfileService = {
+       return RemoteProfileService(client: httpClient, environmentStorage: environmentStorage)
+    }()
+    
     private lazy var dashboardRouter: DashboardRouter = {
         let dashboardRouter = DashboardRouter(navigationController: dashboardNavigationController,
                                mainNavigationController: mainNavigationController,
                                setupRouter: setupRouter,
                                taxonRouter: taxonRouter,
                                environmentStorage: environmentStorage,
-                               factory: SwiftUIDashboardViewControllerFactory())
+                               userStorage: userStorage,
+                               profileService: remoteProfileService,
+                               factory: SwiftUIDashboardViewControllerFactory(),
+                               uiKitCommonViewControllerFactory: commonViewControllerFactory)
         
         dashboardRouter.onLogout = { _ in
-            self.tokenStorage.delete()
-            self.environmentStorage.delete()
-            self.mainNavigationController.dismiss(animated: true, completion: {
-                if let vc = self.mainNavigationController.viewControllers.filter({ $0 is UIHostingController<LoginScreen<LoginScreenViewModel>> }).first {
-                    self.mainNavigationController.popToViewController(vc, animated: false)
-                } else {
-                    self.authorizationRouter.start()
-                }
-            })
+            self.logout()
         }
         return dashboardRouter
     }()
@@ -122,7 +126,20 @@ public final class AppNavigationRouter: NavigationRouter {
         self.dashboardNavigationController.modalPresentationStyle = .overFullScreen
         self.mainNavigationController.present(self.dashboardNavigationController,
                                               animated: true,
-                                              completion: nil)
+                                              completion: {
+                                                self.getMyProfile()
+                                              })
+    }
+    
+    private func logout() {
+        self.environmentStorage.delete()
+        self.mainNavigationController.dismiss(animated: true, completion: {
+            if let vc = self.mainNavigationController.viewControllers.filter({ $0 is UIHostingController<LoginScreen<LoginScreenViewModel>> }).first {
+                self.mainNavigationController.popToViewController(vc, animated: false)
+            } else {
+                self.authorizationRouter.start()
+            }
+        })
     }
     
     private func launchApp() {
@@ -136,6 +153,40 @@ public final class AppNavigationRouter: NavigationRouter {
                 self.authorizationRouter.start()
             })
             self.mainNavigationController.setViewControllers([vc], animated: false)
+        }
+    }
+    
+    lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
+        guard let self = self else { return }
+        if isLoading {
+            let loader  = self.commonViewControllerFactory.createBlockingProgress()
+            self.dashboardNavigationController.present(loader, animated: false, completion: nil)
+        } else {
+            self.dashboardNavigationController.dismiss(animated: false, completion: nil)
+        }
+    }
+    
+    private func getMyProfile() {
+        onLoading((true))
+        remoteProfileService.getMyProfile { result in
+            self.onLoading((false))
+            switch result {
+            case .failure(let error):
+                print("My profile error: \(error.description)")
+                if !error.isInternetConnectionAvailable {
+                    print("You don't have a internte connection")
+                }
+            case .success(let response):
+                let user = User(id: response.data.id,
+                                firstName: response.data.first_name,
+                                lastName: response.data.last_name,
+                                email: response.data.email,
+                                fullName: response.data.full_name,
+                                settings: User.Settings(dataLicense: response.data.settings.data_license,
+                                                        imageLicense: response.data.settings.image_license,
+                                                        language: response.data.settings.language))
+                self.userStorage.save(user: user)
+            }
         }
     }
 }

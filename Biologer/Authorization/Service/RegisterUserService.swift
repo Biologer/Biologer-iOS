@@ -9,7 +9,7 @@ import Foundation
 
 public protocol RegisterUserService {
     typealias Result = Swift.Result<RegisterUserResponse, APIError>
-    func loadSearch(user: User, completion: @escaping (Result) -> Void)
+    func loadSearch(user: RegisterUser, completion: @escaping (Result) -> Void)
 }
 
 public final class RemoteRegisterUserService: RegisterUserService {
@@ -25,7 +25,7 @@ public final class RemoteRegisterUserService: RegisterUserService {
         self.environmentStorage = environmentStorage
     }
     
-    public func loadSearch(user: User, completion: @escaping (Result) -> Void) {
+    public func loadSearch(user: RegisterUser, completion: @escaping (Result) -> Void) {
         if let env = environmentStorage.getEnvironment() {
             let request = try! CreateUserRequest(user: user,
                                                  host: env.host,
@@ -67,7 +67,7 @@ public final class RemoteRegisterUserService: RegisterUserService {
         
         var headers: HTTPHeaders?
         
-        init(user: User,
+        init(user: RegisterUser,
              host: String,
              clientId: String,
              clientSecret: String) {

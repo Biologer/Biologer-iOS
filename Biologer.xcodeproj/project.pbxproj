@@ -68,6 +68,12 @@
 		936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CE26891E670080C771 /* HelpScreenViewModel.swift */; };
 		936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */; };
 		936035D3268929920080C771 /* SetupScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035D2268929920080C771 /* SetupScreenViewModel.swift */; };
+		9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81926F9133200C18F91 /* ProfileService.swift */; };
+		9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81B26F9136B00C18F91 /* UserResponse.swift */; };
+		9373F81E26F9175100C18F91 /* Auth2HttpClientDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */; };
+		9373F82026F924E800C18F91 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81F26F924E800C18F91 /* UserStorage.swift */; };
+		9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F82326F9259D00C18F91 /* UserDefaultsUserStorage.swift */; };
+		9373F82626F926CD00C18F91 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F82526F926CD00C18F91 /* User.swift */; };
 		937F828026F7A2B200593786 /* SideMenuMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F827F26F7A2B200593786 /* SideMenuMapper.swift */; };
 		937F828226F7B6B500593786 /* HelpItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F828126F7B6B500593786 /* HelpItemManager.swift */; };
 		9389463726F60FE00000D850 /* SetupItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389463626F60FE00000D850 /* SetupItemView.swift */; };
@@ -114,7 +120,7 @@
 		93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6594269C61E900949534 /* EnvironmentStorage.swift */; };
 		93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */; };
 		93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */; };
-		93DF14092692069600A7A977 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14082692069600A7A977 /* User.swift */; };
+		93DF14092692069600A7A977 /* RegisterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14082692069600A7A977 /* RegisterUser.swift */; };
 		93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */; };
 		93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */; };
 		93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF140F26920A4600A7A977 /* RegisterUserService.swift */; };
@@ -227,6 +233,12 @@
 		936035CE26891E670080C771 /* HelpScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewModel.swift; sourceTree = "<group>"; };
 		936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBiologerScreenViewModel.swift; sourceTree = "<group>"; };
 		936035D2268929920080C771 /* SetupScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScreenViewModel.swift; sourceTree = "<group>"; };
+		9373F81926F9133200C18F91 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		9373F81B26F9136B00C18F91 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth2HttpClientDecorator.swift; sourceTree = "<group>"; };
+		9373F81F26F924E800C18F91 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
+		9373F82326F9259D00C18F91 /* UserDefaultsUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsUserStorage.swift; sourceTree = "<group>"; };
+		9373F82526F926CD00C18F91 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		937F827F26F7A2B200593786 /* SideMenuMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuMapper.swift; sourceTree = "<group>"; };
 		937F828126F7B6B500593786 /* HelpItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpItemManager.swift; sourceTree = "<group>"; };
 		9389463626F60FE00000D850 /* SetupItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupItemView.swift; sourceTree = "<group>"; };
@@ -273,7 +285,7 @@
 		93CC6594269C61E900949534 /* EnvironmentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentStorage.swift; sourceTree = "<group>"; };
 		93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainEnvironmentStorage.swift; sourceTree = "<group>"; };
 		93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepOneScreenViewModel.swift; sourceTree = "<group>"; };
-		93DF14082692069600A7A977 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		93DF14082692069600A7A977 /* RegisterUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUser.swift; sourceTree = "<group>"; };
 		93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoScreenViewModel.swift; sourceTree = "<group>"; };
 		93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepThreeScreenViewModel.swift; sourceTree = "<group>"; };
 		93DF140F26920A4600A7A977 /* RegisterUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserService.swift; sourceTree = "<group>"; };
@@ -508,6 +520,7 @@
 				935AF67326F68C7D00C56D46 /* SetupDownloadAndUploadMapper.swift */,
 				93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */,
 				93565D2C26F730C300A588E6 /* APIConstants.swift */,
+				9373F82526F926CD00C18F91 /* User.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -515,6 +528,7 @@
 		93334EA72677DC2D0094A483 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				9373F81826F9131000C18F91 /* Service */,
 				9300757926877C9F005A4DE0 /* ViewControllerFactory */,
 				9300757426877C5B005A4DE0 /* Router */,
 				93334EB32677E1520094A483 /* Entity */,
@@ -555,6 +569,7 @@
 			children = (
 				93334EB42677E17B0094A483 /* Item.swift */,
 				93334EBC2677FDBF0094A483 /* SideMenuItem.swift */,
+				9373F81B26F9136B00C18F91 /* UserResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -627,6 +642,14 @@
 				93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */,
 			);
 			path = NewTaxon;
+			sourceTree = "<group>";
+		};
+		9373F81826F9131000C18F91 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				9373F81926F9133200C18F91 /* ProfileService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		9389463826F614B20000D850 /* SetupScreen */ = {
@@ -729,7 +752,7 @@
 			isa = PBXGroup;
 			children = (
 				93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */,
-				93DF14082692069600A7A977 /* User.swift */,
+				93DF14082692069600A7A977 /* RegisterUser.swift */,
 				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
 				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
 				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
@@ -826,6 +849,8 @@
 				93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */,
 				93C2D1EC269F1BEC00123216 /* TokenStorage.swift */,
 				93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */,
+				9373F81F26F924E800C18F91 /* UserStorage.swift */,
+				9373F82326F9259D00C18F91 /* UserDefaultsUserStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -884,6 +909,7 @@
 				93DF141A269222AF00A7A977 /* CodableParser.swift */,
 				93CC658A269C401300949534 /* APIRequest.swift */,
 				933EF7FB26F08AC000F1EBC4 /* APIError.swift */,
+				9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1149,6 +1175,7 @@
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
 				93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */,
 				93334EB52677E17B0094A483 /* Item.swift in Sources */,
+				9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */,
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
 				93334EB12677E1220094A483 /* FindingsListView.swift in Sources */,
 				93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */,
@@ -1167,6 +1194,7 @@
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
 				935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */,
 				93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */,
+				9373F81E26F9175100C18F91 /* Auth2HttpClientDecorator.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
 				93CC6589269C2C5F00949534 /* LoginEnvView.swift in Sources */,
 				93DF14212692262900A7A977 /* LoginUserService.swift in Sources */,
@@ -1178,12 +1206,14 @@
 				9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */,
 				9389463726F60FE00000D850 /* SetupItemView.swift in Sources */,
 				93A7E2702691E055001D6AEF /* InsititutionTextFieldViewModel.swift in Sources */,
+				9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */,
 				93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */,
 				93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
 				93565D1F26F7243800A588E6 /* TaxonRouter.swift in Sources */,
 				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
 				93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */,
+				9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */,
 				9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */,
 				93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
@@ -1194,6 +1224,7 @@
 				93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */,
 				93CC658D269C552C00949534 /* CommonViewControllerFactory.swift in Sources */,
 				93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */,
+				9373F82626F926CD00C18F91 /* User.swift in Sources */,
 				9389464326F61BBC0000D850 /* SetupSectionViewModel.swift in Sources */,
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
@@ -1205,6 +1236,7 @@
 				93DF141B269222AF00A7A977 /* CodableParser.swift in Sources */,
 				9389464526F621440000D850 /* SetupDataMapper.swift in Sources */,
 				93565D2526F7275D00A588E6 /* NewTaxonScreenViewModel.swift in Sources */,
+				9373F82026F924E800C18F91 /* UserStorage.swift in Sources */,
 				93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */,
 				93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
@@ -1219,7 +1251,7 @@
 				935AF67226F6875000C56D46 /* RadioAndTitleView.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
-				93DF14092692069600A7A977 /* User.swift in Sources */,
+				93DF14092692069600A7A977 /* RegisterUser.swift in Sources */,
 				937F828026F7A2B200593786 /* SideMenuMapper.swift in Sources */,
 				93C2D1EF269F1BFF00123216 /* Token.swift in Sources */,
 				93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */,
