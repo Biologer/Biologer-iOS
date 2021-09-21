@@ -76,6 +76,8 @@
 		9373F82626F926CD00C18F91 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F82526F926CD00C18F91 /* User.swift */; };
 		937F828026F7A2B200593786 /* SideMenuMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F827F26F7A2B200593786 /* SideMenuMapper.swift */; };
 		937F828226F7B6B500593786 /* HelpItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F828126F7B6B500593786 /* HelpItemManager.swift */; };
+		93842AF426FA4449008ECA80 /* ObservationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93842AF326FA4449008ECA80 /* ObservationService.swift */; };
+		93842AF626FA4465008ECA80 /* ObserverResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93842AF526FA4465008ECA80 /* ObserverResponse.swift */; };
 		9389463726F60FE00000D850 /* SetupItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389463626F60FE00000D850 /* SetupItemView.swift */; };
 		9389463F26F6156F0000D850 /* SetupItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389463E26F6156F0000D850 /* SetupItemViewModel.swift */; };
 		9389464126F616280000D850 /* SetupSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389464026F616280000D850 /* SetupSectionView.swift */; };
@@ -241,6 +243,8 @@
 		9373F82526F926CD00C18F91 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		937F827F26F7A2B200593786 /* SideMenuMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuMapper.swift; sourceTree = "<group>"; };
 		937F828126F7B6B500593786 /* HelpItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpItemManager.swift; sourceTree = "<group>"; };
+		93842AF326FA4449008ECA80 /* ObservationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationService.swift; sourceTree = "<group>"; };
+		93842AF526FA4465008ECA80 /* ObserverResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverResponse.swift; sourceTree = "<group>"; };
 		9389463626F60FE00000D850 /* SetupItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupItemView.swift; sourceTree = "<group>"; };
 		9389463E26F6156F0000D850 /* SetupItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupItemViewModel.swift; sourceTree = "<group>"; };
 		9389464026F616280000D850 /* SetupSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupSectionView.swift; sourceTree = "<group>"; };
@@ -570,6 +574,7 @@
 				93334EB42677E17B0094A483 /* Item.swift */,
 				93334EBC2677FDBF0094A483 /* SideMenuItem.swift */,
 				9373F81B26F9136B00C18F91 /* UserResponse.swift */,
+				93842AF526FA4465008ECA80 /* ObserverResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -648,6 +653,7 @@
 			isa = PBXGroup;
 			children = (
 				9373F81926F9133200C18F91 /* ProfileService.swift */,
+				93842AF326FA4449008ECA80 /* ObservationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1204,6 +1210,7 @@
 				93142741262B6B3D00542EFC /* UserNameTextFieldViewModel.swift in Sources */,
 				9389463F26F6156F0000D850 /* SetupItemViewModel.swift in Sources */,
 				9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */,
+				93842AF426FA4449008ECA80 /* ObservationService.swift in Sources */,
 				9389463726F60FE00000D850 /* SetupItemView.swift in Sources */,
 				93A7E2702691E055001D6AEF /* InsititutionTextFieldViewModel.swift in Sources */,
 				9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */,
@@ -1219,6 +1226,7 @@
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
 				93BF629E262B807D00DDFB44 /* BiologerButton.swift in Sources */,
 				93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */,
+				93842AF626FA4465008ECA80 /* ObserverResponse.swift in Sources */,
 				933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
 				93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */,

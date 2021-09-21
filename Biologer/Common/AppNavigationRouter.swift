@@ -78,6 +78,10 @@ public final class AppNavigationRouter: NavigationRouter {
        return RemoteProfileService(client: httpClient, environmentStorage: environmentStorage)
     }()
     
+    private lazy var remoteObservationService: ObservationService = {
+       return RemoteObservationService(client: httpClient, environmentStorage: environmentStorage)
+    }()
+    
     private lazy var dashboardRouter: DashboardRouter = {
         let dashboardRouter = DashboardRouter(navigationController: dashboardNavigationController,
                                mainNavigationController: mainNavigationController,
@@ -167,11 +171,11 @@ public final class AppNavigationRouter: NavigationRouter {
     }
     
     private func getMyProfile() {
-        onLoading((true))
+        //onLoading((true))
         remoteProfileService.getMyProfile { result in
-            self.onLoading((false))
             switch result {
             case .failure(let error):
+          //      self.onLoading((false))
                 print("My profile error: \(error.description)")
                 if !error.isInternetConnectionAvailable {
                     print("You don't have a internte connection")
@@ -186,7 +190,19 @@ public final class AppNavigationRouter: NavigationRouter {
                                                         imageLicense: response.data.settings.image_license,
                                                         language: response.data.settings.language))
                 self.userStorage.save(user: user)
+                self.getObservation()
             }
         }
+    }
+    
+    private func getObservation() {
+        remoteObservationService.getObservation(completion: { result in
+            switch result {
+            case .failure(let error):
+                print("Observation error: \(error.description)")
+            case .success(let response):
+                print("Observation response: \(response)")
+            }
+        })
     }
 }
