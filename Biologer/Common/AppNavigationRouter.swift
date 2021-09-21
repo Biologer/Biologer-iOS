@@ -82,6 +82,10 @@ public final class AppNavigationRouter: NavigationRouter {
        return RemoteObservationService(client: httpClient, environmentStorage: environmentStorage)
     }()
     
+    private lazy var getTokenService: RemoteGetTokenService = {
+        return RemoteGetTokenService(client: httpClient, environmentStorage: environmentStorage)
+    }()
+    
     private lazy var dashboardRouter: DashboardRouter = {
         let dashboardRouter = DashboardRouter(navigationController: dashboardNavigationController,
                                mainNavigationController: mainNavigationController,
@@ -190,7 +194,7 @@ public final class AppNavigationRouter: NavigationRouter {
                                                         imageLicense: response.data.settings.image_license,
                                                         language: response.data.settings.language))
                 self.userStorage.save(user: user)
-                self.getObservation()
+                self.getRefreshToken()
             }
         }
     }
@@ -204,5 +208,19 @@ public final class AppNavigationRouter: NavigationRouter {
                 print("Observation response: \(response)")
             }
         })
+    }
+    
+    private func getRefreshToken() {
+        if let refreshToken = tokenStorage.getToken() {
+            getTokenService.getToken(refreshToken: refreshToken.refreshToken) { result in
+                switch result {
+                case .failure(let error):
+                    print("Refresh token error: \(error.description)")
+                case .success(let token):
+                    print("Refresh token: \(token.refreshToken)")
+                    print("Access token: \(token.accessToken)")
+                }
+            }
+        }
     }
 }

@@ -14,10 +14,90 @@
             filePath = "Biologer/Common/AppNavigationRouter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "dashboardRouter"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D7323898-134B-4797-8DEF-5EF2F5ED36EA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Biologer/Network/GetTokenService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "getToken(refreshToken:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D7323898-134B-4797-8DEF-5EF2F5ED36EA - e62fda0f74108829"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Biologer.RemoteGetTokenService.getToken(refreshToken: Swift.String, completion: (Swift.Result&lt;Biologer.Token, Biologer.APIError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Biologer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nikola/Documents/Projects%20%F0%9F%98%8E/Biologer/Biologer/Network/GetTokenService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "879">
+               </Location>
+               <Location
+                  uuid = "D7323898-134B-4797-8DEF-5EF2F5ED36EA - 67344dc36d2a09dd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;(Foundation.Data, __C.NSHTTPURLResponse), Swift.Error&gt;) -&gt; () in Biologer.RemoteGetTokenService.getToken(refreshToken: Swift.String, completion: (Swift.Result&lt;Biologer.Token, Biologer.APIError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Biologer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nikola/Documents/Projects%20%F0%9F%98%8E/Biologer/Biologer/Network/GetTokenService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "280">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A1C442C1-F98A-4A1B-A63D-00A2D41E7391"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Biologer/Network/GetTokenService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "getToken(refreshToken:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BDA2EF28-F38B-4F3B-98D6-782843A259BC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Biologer/Network/GetTokenService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "getToken(refreshToken:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
