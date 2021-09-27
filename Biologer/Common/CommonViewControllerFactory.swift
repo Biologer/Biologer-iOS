@@ -13,6 +13,7 @@ public protocol CommonViewControllerFactory {
                            selectedItem: CheckMarkItem,
                            delegate: CheckMarkScreenDelegate?,
                            onItemTapped: @escaping Observer<CheckMarkItem>) -> UIViewController
+    func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController
 }
 
 public final class IOSUIKitCommonViewControllerFactory: CommonViewControllerFactory {
@@ -28,6 +29,10 @@ public final class IOSUIKitCommonViewControllerFactory: CommonViewControllerFact
         progressViewController.modalTransitionStyle = .crossDissolve
         progressViewController.modalPresentationStyle = .overFullScreen
         return progressViewController
+    }
+    
+    public func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController {
+        fatalError("There is no UIKit help screen")
     }
 }
 
@@ -51,5 +56,11 @@ public final class SwiftUICommonViewControllerFactrory: CommonViewControllerFact
         let viewController = UIHostingController(rootView: screen)
         return viewController
     }
-
+    
+    public func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController {
+        let viewModel = HelpScreenViewModel(onDone: onDone)
+        let screen = HelpScreen(loader: viewModel)
+        let vc = UIHostingController(rootView: screen)
+        return vc
+    }
 }

@@ -202,6 +202,13 @@ public final class AuthorizationRouter: NavigationRouter {
         self.navigationController.pushViewController(dataLicenseViewController, animated: true)
     }
     
+    private func showHelpScreen() {
+        let vc = swiftUICommonViewControllerFactory.makeHelpScreen(onDone: { _ in
+            self.showLoginScreen()
+        })
+        self.navigationController.pushViewController(vc, animated: true)
+    }
+    
     private func showErrorAlert(title: String, description: String) {
         let vc = swiftUIAlertViewControllerFactory.makeErrorAlert(title: title,
                                                                   description: description,

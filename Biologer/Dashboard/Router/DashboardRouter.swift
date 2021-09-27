@@ -17,6 +17,7 @@ public final class DashboardRouter: NavigationRouter {
     private let taxonRouter: TaxonRouter
     private let factory: DashboardViewControllerFactory
     private let uiKitCommonViewControllerFactory: CommonViewControllerFactory
+    private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
     private let environmentStorage: EnvironmentStorage
     private let userStorage: UserStorage
     private let profileService: ProfileService
@@ -30,7 +31,8 @@ public final class DashboardRouter: NavigationRouter {
          userStorage: UserStorage,
          profileService: ProfileService,
          factory: DashboardViewControllerFactory,
-         uiKitCommonViewControllerFactory: CommonViewControllerFactory) {
+         uiKitCommonViewControllerFactory: CommonViewControllerFactory,
+         swiftUICommonViewControllerFactory: CommonViewControllerFactory) {
         self.navigationController = navigationController
         self.mainNavigationController = mainNavigationController
         self.setupRouter = setupRouter
@@ -40,6 +42,7 @@ public final class DashboardRouter: NavigationRouter {
         self.profileService = profileService
         self.factory = factory
         self.uiKitCommonViewControllerFactory = uiKitCommonViewControllerFactory
+        self.swiftUICommonViewControllerFactory = swiftUICommonViewControllerFactory
     }
     
     public func start() {
@@ -114,7 +117,7 @@ public final class DashboardRouter: NavigationRouter {
     }
     
     private func showHelpScreen() {
-        let vc = factory.makeHelpScreen(onDone: { _ in
+        let vc = swiftUICommonViewControllerFactory.makeHelpScreen(onDone: { _ in
             
         })
         addSideMenuIcon(vc: vc)

@@ -44,7 +44,7 @@ public final class AppNavigationRouter: NavigationRouter {
         
         let authorization =  AuthorizationRouter(factory: authorizationFactory,
                                    commonViewControllerFactory: commonViewControllerFactory,
-                                   swiftUICommonViewControllerFactory: SwiftUICommonViewControllerFactrory(),
+                                   swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
                                    swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                    navigationController: mainNavigationController,
                                    loginService: loginService,
@@ -64,6 +64,10 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var authorizationFactory: AuthorizationViewControllerFactory = {
         return SwiftUILoginViewControllerFactory()
+    }()
+    
+    private lazy var swiftUICommonViewControllerFactory: CommonViewControllerFactory = {
+        return SwiftUICommonViewControllerFactrory()
     }()
     
     private lazy var tokenStorage: TokenStorage = {
@@ -99,7 +103,8 @@ public final class AppNavigationRouter: NavigationRouter {
                                userStorage: userStorage,
                                profileService: remoteProfileService,
                                factory: SwiftUIDashboardViewControllerFactory(),
-                               uiKitCommonViewControllerFactory: commonViewControllerFactory)
+                               uiKitCommonViewControllerFactory: commonViewControllerFactory,
+                               swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory)
         
         dashboardRouter.onLogout = { _ in
             self.logout()
@@ -110,7 +115,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private lazy var taxonRouter: TaxonRouter = {
         let taxonRouter = TaxonRouter(navigationController: dashboardNavigationController,
                                  factory: SwiftUITaxonViewControllerFactory(),
-                                 swiftUICommonFactory: SwiftUICommonViewControllerFactrory(),
+                                 swiftUICommonFactory: swiftUICommonViewControllerFactory,
                                  uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
                                  alertFactory: swiftUIAlertViewControllerFactory)
         return taxonRouter
@@ -119,7 +124,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private lazy var setupRouter: SetupRouter = {
        let setupRouter = SetupRouter(navigationController: dashboardNavigationController,
                                      factory: SwiftUISetupViewControllerFactory(),
-                                     swiftUICommonFactory: SwiftUICommonViewControllerFactrory())
+                                     swiftUICommonFactory: swiftUICommonViewControllerFactory)
         return setupRouter
     }()
     
@@ -179,14 +184,14 @@ public final class AppNavigationRouter: NavigationRouter {
     }
     
     private func getMyProfile() {
-        //onLoading((true))
+        onLoading((true))
         remoteProfileService.getMyProfile { result in
+            self.onLoading((false))
             switch result {
             case .failure(let error):
-          //      self.onLoading((false))
                 print("My profile error: \(error.description)")
                 if !error.isInternetConnectionAvailable {
-                    print("You don't have a internte connection")
+                    print("You don't have a internte connection. Read last data from REALM")
                 }
             case .success(let response):
                 let user = User(id: response.data.id,

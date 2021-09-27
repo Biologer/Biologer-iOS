@@ -21,7 +21,6 @@ protocol DashboardViewControllerFactory {
     func makeAboutScreen(currentEnv: String,
                          version: String,
                          onEnvTapped: @escaping Observer<String>) -> UIViewController
-    func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController
 }
 
 public final class SwiftUIDashboardViewControllerFactory: DashboardViewControllerFactory {
@@ -79,13 +78,6 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
                                                      version: version,
                                                      onEnvTapped: onEnvTapped)
         let screen = AboutBiologerScreen(loader: viewModel)
-        let vc = UIHostingController(rootView: screen)
-        return vc
-    }
-        
-    func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController {
-        let viewModel = HelpScreenViewModel(onDone: onDone)
-        let screen = HelpScreen(loader: viewModel)
         let vc = UIHostingController(rootView: screen)
         return vc
     }
