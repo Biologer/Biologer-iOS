@@ -17,6 +17,7 @@ public final class APIConstants {
     
     // MARK: - Common
     public static let applicationJson = "application/json"
-    public static let grantType = "password"
+    public static let grantTypePassword = "password"
+    public static let grantTypeRefreshToken = "refresh_token"
     public static let scope = "*"
 }

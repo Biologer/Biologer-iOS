@@ -50,7 +50,7 @@ public final class RemoteObservationService: ObservationService {
         
         var method: HTTPMethod = .get
         
-        var host: String = ""
+        var host: String
         
         var path: String = APIConstants.observationsPath
         

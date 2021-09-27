@@ -37,6 +37,7 @@
 		93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */; };
 		93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC0267894820094A483 /* UIScreen+Extensions.swift */; };
 		93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */; };
+		93390DAB270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DAA270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift */; };
 		933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */; };
 		933EF7E526EE33F000F1EBC4 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */; };
 		933EF7F626EFBAD800F1EBC4 /* PopUpErrorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F526EFBAD800F1EBC4 /* PopUpErrorScreen.swift */; };
@@ -203,6 +204,7 @@
 		93334EBE26788EE50094A483 /* SideMenuListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListHeaderView.swift; sourceTree = "<group>"; };
 		93334EC0267894820094A483 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreenViewModel.swift; sourceTree = "<group>"; };
+		93390DAA270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefreshingHTTPClientDecorator.swift; sourceTree = "<group>"; };
 		933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
 		933EF7F526EFBAD800F1EBC4 /* PopUpErrorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpErrorScreen.swift; sourceTree = "<group>"; };
@@ -919,6 +921,7 @@
 				933EF7FB26F08AC000F1EBC4 /* APIError.swift */,
 				9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */,
 				93842AF726FA57CA008ECA80 /* GetTokenService.swift */,
+				93390DAA270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1272,6 +1275,7 @@
 				93565D2D26F730C300A588E6 /* APIConstants.swift in Sources */,
 				9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */,
 				93DF14192692228900A7A977 /* URLSessionHTTPClient.swift in Sources */,
+				93390DAB270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift in Sources */,
 				93565D2B26F72BD500A588E6 /* NoInternetConnectionValidator.swift in Sources */,
 				93A7E2762691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift in Sources */,
 				93334EB92677E8590094A483 /* ListOfFindingsScreenViewModel.swift in Sources */,

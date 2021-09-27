@@ -50,7 +50,7 @@ public class RemoteProfileService: ProfileService {
         
         var method: HTTPMethod = .get
         
-        var host: String = ""
+        var host: String
         
         var path: String = APIConstants.myProfilePath
         

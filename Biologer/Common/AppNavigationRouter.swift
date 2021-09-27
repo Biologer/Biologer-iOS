@@ -26,6 +26,10 @@ public final class AppNavigationRouter: NavigationRouter {
         let client = URLSessionHTTPClient(session: session)
         let auth2HttpClientDecorator = Auth2HttpClientDecorator(decoratee: client, tokenStorage: tokenStorage)
         let mainQueueDecorator = MainQueueHTTPClientDecorator(decoratee: auth2HttpClientDecorator)
+        let getTokenService = RemoteGetTokenService(client: mainQueueDecorator, environmentStorage: environmentStorage)
+        let tokenRefreshDecorator = TokenRefreshingHTTPClientDecorator(decoratee: mainQueueDecorator,
+                                                                       getTokenService: getTokenService,
+                                                                       tokenStorage: tokenStorage)
         return mainQueueDecorator
     }()
     

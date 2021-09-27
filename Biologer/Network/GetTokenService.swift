@@ -90,7 +90,7 @@ public final class RemoteGetTokenService: GetTokenService, CodableParser {
             headers.add(name: HTTPHeaderName.contentType, value: APIConstants.applicationJson)
             headers.add(name: HTTPHeaderName.acceept, value: APIConstants.applicationJson)
             self.headers = headers
-            let body = GetTokenBody(grant_type: APIConstants.grantType,
+            let body = GetTokenBody(grant_type: APIConstants.grantTypeRefreshToken,
                                     client_id: clientId,
                                     client_secret: clientSecret,
                                     refresh_token: refreshToken,

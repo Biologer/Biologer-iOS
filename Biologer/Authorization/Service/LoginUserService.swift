@@ -87,7 +87,7 @@ public final class RemoteLoginUserService: LoginUserService {
                                                 scope: APIConstants.scope,
                                                 client_secret: clientSecret,
                                                 client_id: cliendId,
-                                                grant_type: APIConstants.grantType)
+                                                grant_type: APIConstants.grantTypePassword)
             let json = try! JSONEncoder().encode(requestBody)
             body = json
         }
