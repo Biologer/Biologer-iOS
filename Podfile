@@ -8,6 +8,7 @@ target 'Biologer' do
   # Pods for Biologer
 
   pod 'MaterialComponents/TextControls+OutlinedTextFields'
+  pod 'MaterialComponents/TextControls+OutlinedTextAreas'
   pod 'SwiftKeychainWrapper'
   pod 'SideMenu'
   
