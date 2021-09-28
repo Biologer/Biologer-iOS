@@ -19,10 +19,10 @@ struct NewTaxonLocationView: View {
                 VStack {
                     Image(viewModel.locatioButtonImage)
                         .resizable()
-                        .frame(width: 50, height: 60, alignment: .center)
+                        .frame(width: 30, height: 40, alignment: .center)
                         .shadow(radius: 10)
                     Text(viewModel.setLocationButtonTitle)
-                        .font(.callout)
+                        .font(.caption)
                 }
             })
             VStack(alignment: .leading, spacing: 10) {
@@ -31,21 +31,21 @@ struct NewTaxonLocationView: View {
                         .foregroundColor(.red)
                 } else {
                     Text(viewModel.latitude)
-                        .font(.callout)
+                        .font(.caption)
                         .foregroundColor(Color.black)
                         .fixedSize(horizontal: false, vertical: true)
                     Text(viewModel.longitude)
-                        .font(.callout)
+                        .font(.caption)
                         .foregroundColor(Color.black)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 HStack {
-                    Text(viewModel.accuraccyTitle + ":")
-                        .font(.callout)
+                    Text(viewModel.accuraccyTitle)
+                        .font(.caption)
                         .foregroundColor(Color.black)
                         .fixedSize(horizontal: false, vertical: true)
                     Text(viewModel.isLoadingLocatino ? viewModel.accuracyUnknown : viewModel.accuraccy)
-                        .font(.callout)
+                        .font(.caption)
                         .foregroundColor(Color.gray)
                         .fixedSize(horizontal: false, vertical: true)
                 }

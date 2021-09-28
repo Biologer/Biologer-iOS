@@ -72,6 +72,8 @@
 		936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CE26891E670080C771 /* HelpScreenViewModel.swift */; };
 		936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */; };
 		936035D3268929920080C771 /* SetupScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035D2268929920080C771 /* SetupScreenViewModel.swift */; };
+		936616D3270393DC00F02A83 /* NewTaxonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936616D2270393DC00F02A83 /* NewTaxonImageView.swift */; };
+		936616D52703954A00F02A83 /* NewTaxonImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */; };
 		9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81926F9133200C18F91 /* ProfileService.swift */; };
 		9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81B26F9136B00C18F91 /* UserResponse.swift */; };
 		9373F81E26F9175100C18F91 /* Auth2HttpClientDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */; };
@@ -244,6 +246,8 @@
 		936035CE26891E670080C771 /* HelpScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewModel.swift; sourceTree = "<group>"; };
 		936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBiologerScreenViewModel.swift; sourceTree = "<group>"; };
 		936035D2268929920080C771 /* SetupScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScreenViewModel.swift; sourceTree = "<group>"; };
+		936616D2270393DC00F02A83 /* NewTaxonImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonImageView.swift; sourceTree = "<group>"; };
+		936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonImageViewModel.swift; sourceTree = "<group>"; };
 		9373F81926F9133200C18F91 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		9373F81B26F9136B00C18F91 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth2HttpClientDecorator.swift; sourceTree = "<group>"; };
@@ -639,8 +643,9 @@
 			isa = PBXGroup;
 			children = (
 				93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */,
-				93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */,
 				93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */,
+				93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */,
+				936616D2270393DC00F02A83 /* NewTaxonImageView.swift */,
 			);
 			path = NewTaxon;
 			sourceTree = "<group>";
@@ -658,6 +663,7 @@
 			children = (
 				93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */,
 				93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */,
+				936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */,
 			);
 			path = NewTaxon;
 			sourceTree = "<group>";
@@ -1213,6 +1219,7 @@
 				9300757626877C6B005A4DE0 /* DashboardRouter.swift in Sources */,
 				936035C9268916B20080C771 /* SetupScreen.swift in Sources */,
 				93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */,
+				936616D3270393DC00F02A83 /* NewTaxonImageView.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
 				935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */,
 				93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */,
@@ -1277,6 +1284,7 @@
 				935AF67226F6875000C56D46 /* RadioAndTitleView.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
+				936616D52703954A00F02A83 /* NewTaxonImageViewModel.swift in Sources */,
 				93842AF826FA57CA008ECA80 /* GetTokenService.swift in Sources */,
 				93DF14092692069600A7A977 /* RegisterUser.swift in Sources */,
 				937F828026F7A2B200593786 /* SideMenuMapper.swift in Sources */,

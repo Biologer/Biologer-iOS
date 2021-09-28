@@ -64,11 +64,12 @@
 
 // MARK: - New Taxon Screen
 "NewTaxon.lb.nav.title" = "Novi Unos";
-"NewTaxon.lb.locationTitle" = "Lokacija";
-"NewTaxon.lb.accuracyTitle" = "Preciznos";
+"NewTaxon.lb.locationTitle" = "Lokacija:";
+"NewTaxon.lb.accuracyTitle" = "Preciznos:";
 "NewTaxon.lb.waitingForCordinate" = "Cekam na kordinate..";
 "NewTaxon.lb.accuracyUnknown" = "Nepoznate";
 "NewTaxon.btn.setLocation.title" = "Set location";
+"NewTaxon.lb.image.title" = "Slike:";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";

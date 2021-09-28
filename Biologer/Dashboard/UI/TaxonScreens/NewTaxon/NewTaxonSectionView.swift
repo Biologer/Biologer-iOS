@@ -23,8 +23,9 @@ struct NewTaxonSectionView<Content: View>: View {
             HStack {
                 Text(title)
                     .foregroundColor(Color.biologerGreenColor)
-                    .font(.title3).bold()
-                    .padding(20)
+                    .font(.callout).bold()
+                    .padding(.leading, 20)
+                    .padding(.top, 10)
                 Spacer()
             }
             content

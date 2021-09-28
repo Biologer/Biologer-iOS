@@ -31,9 +31,14 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                                           longitude: "20.4163 E",
                                                           accuraccy: "13 m",
                                                           onLocationTapped: { _ in})
+        let imageViewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"),],
+                                               onFotoTapped: { _ in },
+                                               onGalleryTapped: { _ in },
+                                               onImageTapped: { _ in })
         
         let screen = NewTaxonScreen(viewModel: viewModel,
-                                    locationViewModel: locationViewModel)
+                                    locationViewModel: locationViewModel,
+                                    imageViewModel: imageViewModel)
         let controller = UIHostingController(rootView: screen)
         return controller
     }

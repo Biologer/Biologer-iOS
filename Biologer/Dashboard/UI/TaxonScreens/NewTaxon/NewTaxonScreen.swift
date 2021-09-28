@@ -11,14 +11,20 @@ struct NewTaxonScreen: View {
     
     var viewModel: NewTaxonScreenViewModel
     var locationViewModel: NewTaxonLocationViewModel
+    var imageViewModel: NewTaxonImageViewModel
     
     var body: some View {
         ScrollView {
             VStack {
                 NewTaxonSectionView(title: locationViewModel.locationTitle,
                                     content: {
-                    NewTaxonLocationView(viewModel: locationViewModel)
-                })
+                                        NewTaxonLocationView(viewModel: locationViewModel)
+                                    })
+                
+                NewTaxonSectionView(title: imageViewModel.title,
+                                    content: {
+                                        NewTaxonImageView(viewModel: imageViewModel)
+                                    })
                 Spacer()
             }
         }
@@ -36,8 +42,14 @@ struct NewTaxonScreen_Previews: PreviewProvider {
                                                           accuraccy: "13 m",
                                                           onLocationTapped: { _ in})
         
+        let imageViewModel: NewTaxonImageViewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4")],
+                                                                            onFotoTapped: { _ in },
+                                                                            onGalleryTapped: { _ in },
+                                                                            onImageTapped: { _ in })
+        
         
         NewTaxonScreen(viewModel: screenViewModel,
-                       locationViewModel: locationViewModel)
+                       locationViewModel: locationViewModel,
+                       imageViewModel: imageViewModel)
     }
 }
