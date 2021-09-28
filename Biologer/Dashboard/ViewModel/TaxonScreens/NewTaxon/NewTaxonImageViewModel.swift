@@ -20,7 +20,7 @@ public final class NewTaxonImageViewModel: ObservableObject {
     public let title: String = "NewTaxon.lb.image.title".localized
     public let fotoButtonImage: String = "foto_icon"
     public let galleryButtonImage: String = "gallery_icon"
-    public var choosenImages = [TaxonImage]()
+    @Published public var choosenImages = [TaxonImage]()
     private let onFotoTapped: Observer<Void>
     private let onGalleryTapped: Observer<Void>
     private let onImageTapped: Observer<String>
@@ -37,9 +37,11 @@ public final class NewTaxonImageViewModel: ObservableObject {
     
     public func fotoButtonTapped() {
         onFotoTapped(())
+        choosenImages.append(TaxonImage(name: "intro2"))
     }
     
     public func gallerButtonTapped() {
+        choosenImages.removeLast()
         onGalleryTapped(())
     }
     

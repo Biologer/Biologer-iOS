@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewTaxonImageView: View {
     
-    let viewModel: NewTaxonImageViewModel
+    @ObservedObject var viewModel: NewTaxonImageViewModel
     
     let columns = [
         GridItem(.adaptive(minimum: 40))
@@ -25,7 +25,6 @@ struct NewTaxonImageView: View {
                         .resizable()
                         .frame(width: 30, height: 30, alignment: .center)
                 })
-
                 Button(action: {
                     viewModel.gallerButtonTapped()
                 }, label: {
@@ -33,28 +32,29 @@ struct NewTaxonImageView: View {
                         .resizable()
                         .frame(width: 30, height: 30, alignment: .center)
                 })
-
                 Spacer()
             }
             .padding(.bottom, 10)
-
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(viewModel.choosenImages, id: \.id) { item in
-                        Button(action: {
-                            viewModel.imageButtonTapped(selectedImage: item.name)
-                        }, label: {
-                            Image(item.name)
-                                .resizable()
-                                .frame(width: 40, height: 50, alignment: .center)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 5)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                )
-                        })
+            
+            if !viewModel.choosenImages.isEmpty {
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(viewModel.choosenImages, id: \.id) { item in
+                            Button(action: {
+                                viewModel.imageButtonTapped(selectedImage: item.name)
+                            }, label: {
+                                Image(item.name)
+                                    .resizable()
+                                    .frame(width: 40, height: 50, alignment: .center)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
+                            })
+                        }
                     }
+                    .padding(.vertical, 10)
                 }
-                .padding(.vertical, 10)
             }
         }
     }

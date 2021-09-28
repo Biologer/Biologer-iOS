@@ -22,7 +22,7 @@ struct NewTaxonSectionView<Content: View>: View {
         VStack {
             HStack {
                 Text(title)
-                    .foregroundColor(Color.biologerGreenColor)
+                    .foregroundColor(Color.black)
                     .font(.callout).bold()
                     .padding(.leading, 20)
                     .padding(.top, 10)
@@ -30,16 +30,35 @@ struct NewTaxonSectionView<Content: View>: View {
             }
             content
                 .padding(.horizontal, 20)
-            Divider()
+                .padding(.vertical, 10)
         }
+        .background(Color.biologerGreenColor.opacity(0.1))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke()
+                .foregroundColor(Color.clear)
+                .shadow(color: .gray, radius: 2, x: 0, y: 2)
+        )
+        .padding(.horizontal)
+        .padding(.top, 10)
     }
 }
 
 struct NewTaxonSectionView_Previews: PreviewProvider {
     static var previews: some View {
+        
+        let viewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
+                                                          latitude: "44.7732 N",
+                                                          longitude: "20.4163 E",
+                                                          accuraccy: "13 m",
+                                                          onLocationTapped: { _ in})
+        
+        let view = NewTaxonLocationView(viewModel: viewModel)
+        
         NewTaxonSectionView(title: "Location:",
                             content: {
-            Text("Test")
+                                view
         })
     }
 }
