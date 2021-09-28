@@ -38,6 +38,9 @@
 		93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC0267894820094A483 /* UIScreen+Extensions.swift */; };
 		93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */; };
 		93390DAB270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DAA270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift */; };
+		93390DAD2702FF2300DD68CE /* NewTaxonLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */; };
+		93390DAF2703010B00DD68CE /* NewTaxonLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */; };
+		93390DB12703077F00DD68CE /* NewTaxonSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */; };
 		933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */; };
 		933EF7E526EE33F000F1EBC4 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */; };
 		933EF7F626EFBAD800F1EBC4 /* PopUpErrorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F526EFBAD800F1EBC4 /* PopUpErrorScreen.swift */; };
@@ -205,6 +208,9 @@
 		93334EC0267894820094A483 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		93334EC426789DB20094A483 /* SideMenuListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreenViewModel.swift; sourceTree = "<group>"; };
 		93390DAA270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefreshingHTTPClientDecorator.swift; sourceTree = "<group>"; };
+		93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonLocationView.swift; sourceTree = "<group>"; };
+		93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonLocationViewModel.swift; sourceTree = "<group>"; };
+		93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonSectionView.swift; sourceTree = "<group>"; };
 		933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
 		933EF7F526EFBAD800F1EBC4 /* PopUpErrorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpErrorScreen.swift; sourceTree = "<group>"; };
@@ -633,6 +639,8 @@
 			isa = PBXGroup;
 			children = (
 				93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */,
+				93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */,
+				93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */,
 			);
 			path = NewTaxon;
 			sourceTree = "<group>";
@@ -649,6 +657,7 @@
 			isa = PBXGroup;
 			children = (
 				93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */,
+				93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */,
 			);
 			path = NewTaxon;
 			sourceTree = "<group>";
@@ -1189,6 +1198,7 @@
 				93334EB52677E17B0094A483 /* Item.swift in Sources */,
 				9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */,
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
+				93390DB12703077F00DD68CE /* NewTaxonSectionView.swift in Sources */,
 				93334EB12677E1220094A483 /* FindingsListView.swift in Sources */,
 				93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */,
 				93A7E27C2691F78D001D6AEF /* RegisterStepTwoScreen.swift in Sources */,
@@ -1243,6 +1253,7 @@
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
 				93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */,
+				93390DAF2703010B00DD68CE /* NewTaxonLocationViewModel.swift in Sources */,
 				933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift in Sources */,
 				93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */,
 				935AF66A26F66FB000C56D46 /* SetupProjectNameScreenViewModel.swift in Sources */,
@@ -1257,6 +1268,7 @@
 				93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */,
 				93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */,
 				93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */,
+				93390DAD2702FF2300DD68CE /* NewTaxonLocationView.swift in Sources */,
 				935AF66C26F6846D00C56D46 /* SetupDownloadAndUploadScreenViewModel.swift in Sources */,
 				936035D3268929920080C771 /* SetupScreenViewModel.swift in Sources */,
 				93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */,

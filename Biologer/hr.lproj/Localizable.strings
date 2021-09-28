@@ -62,6 +62,14 @@
 "SideMenu.lb.AboutBiologer" = "O Biologer-u";
 "SideMenu.lb.Help" = "Pomoc";
 
+// MARK: - New Taxon Screen
+"NewTaxon.lb.nav.title" = "Novi Unos";
+"NewTaxon.lb.locationTitle" = "Lokacija";
+"NewTaxon.lb.accuracyTitle" = "Preciznos";
+"NewTaxon.lb.waitingForCordinate" = "Cekam na kordinate..";
+"NewTaxon.lb.accuracyUnknown" = "Nepoznate";
+"NewTaxon.btn.setLocation.title" = "Set location";
+
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";
 "Settings.lb.chooseSpecisGroup.title" = "Choose Species groups";

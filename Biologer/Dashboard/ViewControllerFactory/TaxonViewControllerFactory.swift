@@ -26,7 +26,14 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
     
     public func makeNewTaxonScreen(onButtonTapped: @escaping Observer<Void>) -> UIViewController {
         let viewModel = NewTaxonScreenViewModel(onButtonTapped: onButtonTapped)
-        let screen = NewTaxonScreen(viewModel: viewModel)
+        let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
+                                                          latitude: "44.7732 N",
+                                                          longitude: "20.4163 E",
+                                                          accuraccy: "13 m",
+                                                          onLocationTapped: { _ in})
+        
+        let screen = NewTaxonScreen(viewModel: viewModel,
+                                    locationViewModel: locationViewModel)
         let controller = UIHostingController(rootView: screen)
         return controller
     }

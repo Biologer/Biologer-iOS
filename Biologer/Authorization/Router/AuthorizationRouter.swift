@@ -64,6 +64,7 @@ public final class AuthorizationRouter: NavigationRouter {
         var envDelegate: EnvironmentScreenViewModelProtocol?
         
         let defaultEnv = envFactory.createEnvironment(type: .serbia)
+        environmentStorage.saveEnvironment(env: defaultEnv.env)
         
         let loginViewController = factory.makeLoginScreen(service: loginService,
                                                           environmentViewModel: defaultEnv,

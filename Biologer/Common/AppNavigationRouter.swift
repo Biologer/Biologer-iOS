@@ -149,7 +149,7 @@ public final class AppNavigationRouter: NavigationRouter {
     }
     
     private func logout() {
-        self.environmentStorage.delete()
+        self.tokenStorage.delete()
         self.mainNavigationController.dismiss(animated: true, completion: {
             if let vc = self.mainNavigationController.viewControllers.filter({ $0 is UIHostingController<LoginScreen<LoginScreenViewModel>> }).first {
                 self.mainNavigationController.popToViewController(vc, animated: false)

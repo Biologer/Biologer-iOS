@@ -62,6 +62,14 @@
 "SideMenu.lb.AboutBiologer" = "About Biologer";
 "SideMenu.lb.Help" = "Help";
 
+// MARK: - New Taxon Screen
+"NewTaxon.lb.nav.title" = "Data Entry";
+"NewTaxon.lb.locationTitle" = "Location";
+"NewTaxon.lb.accuracyTitle" = "Accuracy";
+"NewTaxon.lb.waitingForCordinate" = "Waiting for the coordinates..";
+"NewTaxon.lb.accuracyUnknown" = "Unknown";
+"NewTaxon.btn.setLocation.title" = "Set location";
+
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";
 "Settings.lb.chooseSpecisGroup.title" = "Choose Species groups";
