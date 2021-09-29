@@ -16,8 +16,7 @@ struct NewTaxonImageView: View {
     ]
     
     var body: some View {
-        VStack {
-            HStack {
+        HStack(alignment: .top) {
                 Button(action: {
                     viewModel.fotoButtonTapped()
                 }, label: {
@@ -32,32 +31,32 @@ struct NewTaxonImageView: View {
                         .resizable()
                         .frame(width: 30, height: 30, alignment: .center)
                 })
+                
+                if !viewModel.choosenImages.isEmpty {
+                    ScrollView(.horizontal) {
+                        HStack(alignment: .top) {
+                            ForEach(viewModel.choosenImages, id: \.id) { item in
+                                Button(action: {
+                                    viewModel.imageButtonTapped(selectedImage: item.name)
+                                }, label: {
+                                    Image(item.name)
+                                        .resizable()
+                                        .frame(width: 40, height: 50, alignment: .center)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 5)
+                                                .stroke(Color.gray, lineWidth: 1)
+                                        )
+                                })
+                                .padding(.horizontal,5)
+                                .padding(.vertical, 1)
+                            }
+                        }
+                    }
+                }
                 Spacer()
             }
             .padding(.bottom, 10)
-            
-            if !viewModel.choosenImages.isEmpty {
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(viewModel.choosenImages, id: \.id) { item in
-                            Button(action: {
-                                viewModel.imageButtonTapped(selectedImage: item.name)
-                            }, label: {
-                                Image(item.name)
-                                    .resizable()
-                                    .frame(width: 40, height: 50, alignment: .center)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 5)
-                                            .stroke(Color.gray, lineWidth: 1)
-                                    )
-                            })
-                        }
-                    }
-                    .padding(.vertical, 10)
-                }
-            }
         }
-    }
 }
 
 struct NewTaxonImageView_Previews: PreviewProvider {

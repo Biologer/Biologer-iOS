@@ -20,6 +20,7 @@ struct NewTaxonScreen: View {
                                     content: {
                                         NewTaxonLocationView(viewModel: locationViewModel)
                                     })
+                    .padding(.top, 8)
                 
                 NewTaxonSectionView(title: imageViewModel.title,
                                     content: {
@@ -28,6 +29,8 @@ struct NewTaxonScreen: View {
                 Spacer()
             }
         }
+        .background(Color.biologerGreenColor.opacity(0.4))
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 

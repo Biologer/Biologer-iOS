@@ -32,13 +32,13 @@ struct NewTaxonSectionView<Content: View>: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 10)
         }
-        .background(Color.biologerGreenColor.opacity(0.1))
+        .background(Color.white)
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke()
+                .stroke(lineWidth: 1)
                 .foregroundColor(Color.clear)
-                .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                .shadow(color: Color.gray, radius: 1, x: 0, y: 0)
         )
         .padding(.horizontal)
         .padding(.top, 10)
