@@ -5,6 +5,7 @@
 //  Created by Nikola Popovic on 19.9.21..
 //
 
+import SwiftUI
 import UIKit
 
 public final class TaxonRouter {
@@ -49,9 +50,24 @@ public final class TaxonRouter {
     }
     
     private func showNewTaxonScreen() {
-        let vc = factory.makeNewTaxonScreen(onSaveTapped: { _ in })
+        var mapDelegate: TaxonMapScreenViewModelDelegate?
+        let vc = factory.makeNewTaxonScreen(onSaveTapped: { _ in },
+                                            onLocationTapped: { _ in
+                                                self.showTaxonMapScreen(delegate: mapDelegate)
+                                            })
+        let viewControler = vc as? UIHostingController<NewTaxonScreen>
+        mapDelegate = viewControler?.rootView.viewModel
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.lb.nav.title".localized)
+        self.navigationController.pushViewController(vc, animated: true)
+    }
+    
+    private func showTaxonMapScreen(delegate: TaxonMapScreenViewModelDelegate?) {
+        let vc = factory.makeTaxonMapScreen(taxonLocation: TaxonLocation(latitude: 234123.234, longitute: 1234324.43))
+        let viewController = vc as? UIHostingController<TaxonMapScreen>
+        viewController?.rootView.viewModel.delegate = delegate
+        vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
+        vc.setBiologerTitle(text: "NewTaxon.map.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
     }
     

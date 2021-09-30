@@ -10,27 +10,24 @@ import SwiftUI
 struct NewTaxonScreen: View {
     
     var viewModel: NewTaxonScreenViewModel
-    var locationViewModel: NewTaxonLocationViewModel
-    var imageViewModel: NewTaxonImageViewModel
-    @ObservedObject var taxonInfoViewModel: NewTaxonInfoViewModel
     
     var body: some View {
         ScrollView {
             VStack {
-                NewTaxonSectionView(title: locationViewModel.locationTitle,
+                NewTaxonSectionView(title: viewModel.locationViewModel.locationTitle,
                                     content: {
-                                        NewTaxonLocationView(viewModel: locationViewModel)
+                                        NewTaxonLocationView(viewModel: viewModel.locationViewModel)
                                     })
                     .padding(.top, 8)
 
-                NewTaxonSectionView(title: imageViewModel.title,
+                NewTaxonSectionView(title: viewModel.imageViewModel.title,
                                     content: {
-                                        NewTaxonImageView(viewModel: imageViewModel)
+                                        NewTaxonImageView(viewModel: viewModel.imageViewModel)
                                     })
 
-                NewTaxonSectionView(title: taxonInfoViewModel.title,
+                NewTaxonSectionView(title: viewModel.taxonInfoViewModel.title,
                                     content: {
-                                        NewTaxonInfoView(viewModel: taxonInfoViewModel)
+                                        NewTaxonInfoView(viewModel: viewModel.taxonInfoViewModel)
                                     })
                     .padding(.bottom, 20)
                 BiologerButton(title: viewModel.saveButtonTitle,
@@ -50,8 +47,6 @@ struct NewTaxonScreen: View {
 struct NewTaxonScreen_Previews: PreviewProvider {
     static var previews: some View {
         
-        let screenViewModel = NewTaxonScreenViewModel(onSaveTapped: { _ in })
-        
         let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
                                                           latitude: "44.7732 N",
                                                           longitude: "20.4163 E",
@@ -68,10 +63,11 @@ struct NewTaxonScreen_Previews: PreviewProvider {
                                               onNestingTapped: { _ in },
                                               onDevStageTapped: { _ in })
         
+        let screenViewModel = NewTaxonScreenViewModel(locationViewModel: locationViewModel,
+                                                      imageViewModel: imageViewModel,
+                                                      taxonInfoViewModel: taxonInfoViewModel,
+                                                      onSaveTapped: { _ in })
         
-        NewTaxonScreen(viewModel: screenViewModel,
-                       locationViewModel: locationViewModel,
-                       imageViewModel: imageViewModel,
-                       taxonInfoViewModel: taxonInfoViewModel)
+        NewTaxonScreen(viewModel: screenViewModel)
     }
 }

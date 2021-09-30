@@ -10,7 +10,9 @@ import SwiftUI
 public protocol TaxonViewControllerFactory {
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
                                   onItemTapped: @escaping Observer<Item>) -> UIViewController
-    func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>) -> UIViewController
+    func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>,
+                            onLocationTapped: @escaping Observer<Void>) -> UIViewController
+    func makeTaxonMapScreen(taxonLocation: TaxonLocation?) -> UIViewController
 }
 
 public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory {
@@ -24,14 +26,14 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         return viewController
     }
     
-    public func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>) -> UIViewController {
-        let viewModel = NewTaxonScreenViewModel(onSaveTapped: onSaveTapped)
+    public func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>,
+                                   onLocationTapped: @escaping Observer<Void>) -> UIViewController {
         
         let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
                                                           latitude: "44.7732 N",
                                                           longitude: "20.4163 E",
                                                           accuraccy: "13 m",
-                                                          onLocationTapped: { _ in})
+                                                          onLocationTapped: onLocationTapped)
         
         let imageViewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"),],
                                                onFotoTapped: { _ in },
@@ -43,10 +45,19 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                               onNestingTapped: { _ in },
                                               onDevStageTapped: { _ in })
         
-        let screen = NewTaxonScreen(viewModel: viewModel,
-                                    locationViewModel: locationViewModel,
-                                    imageViewModel: imageViewModel,
-                                    taxonInfoViewModel: taxonInfoViewModel)
+        let viewModel = NewTaxonScreenViewModel(locationViewModel: locationViewModel,
+                                                imageViewModel: imageViewModel,
+                                                taxonInfoViewModel: taxonInfoViewModel,
+                                                onSaveTapped: onSaveTapped)
+        
+        let screen = NewTaxonScreen(viewModel: viewModel)
+        let controller = UIHostingController(rootView: screen)
+        return controller
+    }
+    
+    public func makeTaxonMapScreen(taxonLocation: TaxonLocation?) -> UIViewController {
+        let viewModel = TaxonMapScreenViewModel(location: taxonLocation)
+        let screen = TaxonMapScreen(viewModel: viewModel)
         let controller = UIHostingController(rootView: screen)
         return controller
     }

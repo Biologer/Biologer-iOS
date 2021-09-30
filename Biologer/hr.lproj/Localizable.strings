@@ -85,6 +85,7 @@
 "NewTaxon.btn.callObservation.text" = "Call";
 "NewTaxon.btn.exuviaeObservation.text" = "Exuviae";
 "NewTaxon.btn.save.text" = "Sacuvaj";
+"NewTaxon.map.nav.title" = "Select location";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";
