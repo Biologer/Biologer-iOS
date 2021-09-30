@@ -81,6 +81,7 @@
 "NewTaxon.tf.habitat.placeholder" = "Habitat";
 "NewTaxon.tf.foundOn.placeholder" = "Found On";
 "NewTaxon.tf.foundDead.placeholder" = "Cause of death";
+"NewTaxon.tf.foundDead.text" = "Found dead?";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";

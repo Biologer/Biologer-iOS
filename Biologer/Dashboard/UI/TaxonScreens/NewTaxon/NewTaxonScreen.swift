@@ -22,12 +22,12 @@ struct NewTaxonScreen: View {
                                         NewTaxonLocationView(viewModel: locationViewModel)
                                     })
                     .padding(.top, 8)
-                
+
                 NewTaxonSectionView(title: imageViewModel.title,
                                     content: {
                                         NewTaxonImageView(viewModel: imageViewModel)
                                     })
-                
+
                 NewTaxonSectionView(title: taxonInfoViewModel.title,
                                     content: {
                                         NewTaxonInfoView(viewModel: taxonInfoViewModel)
@@ -37,7 +37,6 @@ struct NewTaxonScreen: View {
             }
         }
         .background(Color.biologerGreenColor.opacity(0.4))
-        .edgesIgnoringSafeArea(.bottom)
     }
 }
 

@@ -35,6 +35,7 @@ public final class NewTaxonInfoViewModel: ObservableObject {
     let maleIcon: String = ""
     let femaleIcon: String = ""
     let title: String = "NewTaxon.lb.info.title".localized
+    let foundDeadText: String = "NewTaxon.tf.foundDead.text".localized
     
     private let onNestingTapped: Observer<Void>
     private let onDevStageTapped: Observer<Void>

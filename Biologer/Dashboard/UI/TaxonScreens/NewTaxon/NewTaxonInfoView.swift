@@ -13,21 +13,33 @@ struct NewTaxonInfoView: View {
     
     var body: some View {
         VStack {
-            MaterialDesignTextField(viewModel: viewModel.taxonNameTextField,
-                                    onTextChanged: { text in
-                                        
-                                    },
-                                    textAligment: .left)
-                .frame(height: 50)
-                .padding(.bottom, 20)
+            Button(action: {
+                
+            }, label: {
+                MaterialDesignTextField(viewModel: viewModel.taxonNameTextField,
+                                        onTextChanged: { text in
+
+                                        },
+                                        onIconTapped: { _ in
+                                            
+                                        },
+                                        textAligment: .left)
+                    .frame(height: 50)
+                    .padding(.bottom, 20)
+            })
             
-            MaterialDesignTextField(viewModel: viewModel.nestingTextField,
-                                    onTextChanged: { text in
-                                        
-                                    },
-                                    textAligment: .left)
-                .frame(height: 50)
-                .padding(.bottom, 20)
+            
+            Button(action: {
+                
+            }, label: {
+                MaterialDesignTextField(viewModel: viewModel.nestingTextField,
+                                        onTextChanged: { text in
+                                            
+                                        },
+                                        textAligment: .left)
+                    .frame(height: 50)
+                    .padding(.bottom, 20)
+            })
             
             MaterialDesignTextField(viewModel: viewModel.commentsTextField,
                                     onTextChanged: { text in
@@ -48,10 +60,73 @@ struct NewTaxonInfoView: View {
                                     onFemaleTapped: { _ in
                                         viewModel.isFemaleIndividual.toggle()
                                     })
+                .padding(.bottom, 5)
+            Button(action: {
+                
+            }, label: {
+                MaterialDesignTextField(viewModel: viewModel.devStageTextField,
+                                        onTextChanged: { text in
+                                            
+                                        },
+                                        textAligment: .left)
+                    .frame(height: 50)
+                    .padding(.bottom, 20)
+            })
+            MaterialDesignTextField(viewModel: viewModel.habitatTextField,
+                                    onTextChanged: { text in
+                                        
+                                    },
+                                    textAligment: .left)
+                .frame(height: 50)
+                .padding(.bottom, 20)
+            
+            MaterialDesignTextField(viewModel: viewModel.foundOnTextField,
+                                    onTextChanged: { text in
+                                        
+                                    },
+                                    textAligment: .left)
+                .frame(height: 50)
+                .padding(.bottom, 20)
+            FoundDeadView(isCehcked: viewModel.isFoundDead,
+                          checkText: viewModel.foundDeadText,
+                          onCheckMarkTapped: { _ in
+                            viewModel.isFoundDead.toggle()
+                          },
+                          textFieldViewModel: viewModel.fountDeadTextField)
             Spacer()
         }
         
         Spacer()
+    }
+}
+
+struct FoundDeadView: View {
+    
+    var isCehcked: Bool
+    var checkText: String
+    var onCheckMarkTapped: Observer<Void>
+    var textFieldViewModel: MaterialDesignTextFieldViewModelProtocol
+    
+    var body: some View {
+        VStack {
+            HStack {
+                CheckView(isChecked: isCehcked,
+                          onToggle: { _ in
+                            onCheckMarkTapped(())
+                          })
+                Text(checkText)
+                Spacer()
+            }
+            if isCehcked {
+                MaterialDesignTextField(viewModel: textFieldViewModel,
+                                        onTextChanged: { text in
+                                            
+                                        },
+                                        textAligment: .left)
+                    .frame(height: 50)
+                    .padding(.bottom, 20)
+            }
+        }
     }
 }
 
@@ -66,7 +141,7 @@ struct NumberOfIndividualsView: View {
     let onFemaleTapped: Observer<Void>
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             CheckView(isChecked: isMaleIndividual,
                       onToggle: { value in
                         onMaleTapped(())

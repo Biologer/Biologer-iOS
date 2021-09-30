@@ -15,9 +15,9 @@ public final class TaxonNameTextField: MaterialDesignTextFieldViewModelProtocol 
     public var placeholder: String = "NewTaxon.tf.taxonName.placeholder".localized
     public var errorText: String = ""
     public var isCodeEntry: Bool = false
-    public var tralingImage: String? = nil
+    public var tralingImage: String? = "right_arrow"
     public var tralingErrorImage: String? = nil
-    public var isUserInteractionEnabled: Bool = true
+    public var isUserInteractionEnabled: Bool = false
     public var type: MaterialDesignTextFieldType = .success
 }
 
@@ -28,9 +28,9 @@ public final class NestingTextField: MaterialDesignTextFieldViewModelProtocol {
     public var placeholder: String = "NewTaxon.tf.nesting.placeholder".localized
     public var errorText: String = ""
     public var isCodeEntry: Bool = false
-    public var tralingImage: String? = nil
+    public var tralingImage: String? = "right_arrow"
     public var tralingErrorImage: String? = nil
-    public var isUserInteractionEnabled: Bool = true
+    public var isUserInteractionEnabled: Bool = false
     public var type: MaterialDesignTextFieldType = .success
 }
 
@@ -93,9 +93,9 @@ public final class DevelopmentStageTextField: MaterialDesignTextFieldViewModelPr
     public var placeholder: String = "NewTaxon.tf.developmentStage.placeholder".localized
     public var errorText: String = ""
     public var isCodeEntry: Bool = false
-    public var tralingImage: String? = nil
+    public var tralingImage: String? = "right_arrow"
     public var tralingErrorImage: String? = nil
-    public var isUserInteractionEnabled: Bool = true
+    public var isUserInteractionEnabled: Bool = false
     public var type: MaterialDesignTextFieldType = .success
 }
 
