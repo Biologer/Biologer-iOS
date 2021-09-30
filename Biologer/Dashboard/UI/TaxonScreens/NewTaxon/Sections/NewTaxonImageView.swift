@@ -41,11 +41,12 @@ struct NewTaxonImageView: View {
                                 }, label: {
                                     viewModel.choosenImages[index].image
                                         .resizable()
-                                        .frame(width: 40, height: 50, alignment: .center)
+                                        .cornerRadius(5)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 5)
                                                 .stroke(Color.gray, lineWidth: 1)
                                         )
+                                        .frame(width: 40, height: 50, alignment: .center)
                                 })
                                 .padding(.horizontal,5)
                                 .padding(.vertical, 1)
