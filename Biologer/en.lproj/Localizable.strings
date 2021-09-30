@@ -70,6 +70,17 @@
 "NewTaxon.lb.accuracyUnknown" = "Unknown";
 "NewTaxon.btn.setLocation.title" = "Set location";
 "NewTaxon.lb.image.title" = "Images:";
+"NewTaxon.lb.info.title" = "Info:";
+"NewTaxon.tf.taxonName.placeholder" = "Taxon name";
+"NewTaxon.tf.nesting.placeholder" = "Nesting atlas code";
+"NewTaxon.tf.comment.placeholder" = "Comment";
+"NewTaxon.tf.individual.placeholder" = "Numbers of individuals";
+"NewTaxon.tf.maleIndividual.placeholder" = "Number of male";
+"NewTaxon.tf.femaleIndividual.placeholder" = "Number of female";
+"NewTaxon.tf.developmentStage.placeholder" = "Development stage of taxon";
+"NewTaxon.tf.habitat.placeholder" = "Habitat";
+"NewTaxon.tf.foundOn.placeholder" = "Found On";
+"NewTaxon.tf.foundDead.placeholder" = "Cause of death";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";

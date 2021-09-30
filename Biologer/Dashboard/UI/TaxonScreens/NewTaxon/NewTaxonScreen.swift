@@ -12,6 +12,7 @@ struct NewTaxonScreen: View {
     var viewModel: NewTaxonScreenViewModel
     var locationViewModel: NewTaxonLocationViewModel
     var imageViewModel: NewTaxonImageViewModel
+    var taxonInfoViewModel: NewTaxonInfoViewModel
     
     var body: some View {
         ScrollView {
@@ -26,6 +27,12 @@ struct NewTaxonScreen: View {
                                     content: {
                                         NewTaxonImageView(viewModel: imageViewModel)
                                     })
+                
+                NewTaxonSectionView(title: taxonInfoViewModel.title,
+                                    content: {
+                                        NewTaxonInfoView(viewModel: taxonInfoViewModel)
+                                    })
+                
                 Spacer()
             }
         }
@@ -50,9 +57,15 @@ struct NewTaxonScreen_Previews: PreviewProvider {
                                                                             onGalleryTapped: { _ in },
                                                                             onImageTapped: { _ in })
         
+        let taxonInfoViewModel = NewTaxonInfoViewModel(observations: [Observation(name: "Call"),
+                                                             Observation(name: "Exuviae")],
+                                              onNestingTapped: { _ in },
+                                              onDevStageTapped: { _ in })
+        
         
         NewTaxonScreen(viewModel: screenViewModel,
                        locationViewModel: locationViewModel,
-                       imageViewModel: imageViewModel)
+                       imageViewModel: imageViewModel,
+                       taxonInfoViewModel: taxonInfoViewModel)
     }
 }

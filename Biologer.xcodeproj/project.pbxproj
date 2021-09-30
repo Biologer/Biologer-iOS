@@ -91,6 +91,9 @@
 		9389464126F616280000D850 /* SetupSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389464026F616280000D850 /* SetupSectionView.swift */; };
 		9389464326F61BBC0000D850 /* SetupSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389464226F61BBC0000D850 /* SetupSectionViewModel.swift */; };
 		9389464526F621440000D850 /* SetupDataMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389464426F621440000D850 /* SetupDataMapper.swift */; };
+		938D934427047FB90068E27C /* NewTaxonInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D934327047FB90068E27C /* NewTaxonInfoView.swift */; };
+		938D934627047FCF0068E27C /* NewTaxonInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D934527047FCF0068E27C /* NewTaxonInfoViewModel.swift */; };
+		938D9348270481A40068E27C /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D9347270481A40068E27C /* TextFields.swift */; };
 		93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */; };
 		93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */; };
 		93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */; };
@@ -266,6 +269,9 @@
 		9389464026F616280000D850 /* SetupSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupSectionView.swift; sourceTree = "<group>"; };
 		9389464226F61BBC0000D850 /* SetupSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupSectionViewModel.swift; sourceTree = "<group>"; };
 		9389464426F621440000D850 /* SetupDataMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupDataMapper.swift; sourceTree = "<group>"; };
+		938D934327047FB90068E27C /* NewTaxonInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonInfoView.swift; sourceTree = "<group>"; };
+		938D934527047FCF0068E27C /* NewTaxonInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonInfoViewModel.swift; sourceTree = "<group>"; };
+		938D9347270481A40068E27C /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItem.swift; sourceTree = "<group>"; };
 		93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextFieldViewModel.swift; sourceTree = "<group>"; };
 		93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurnameTextFieldViewModel.swift; sourceTree = "<group>"; };
@@ -649,6 +655,7 @@
 				93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */,
 				93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */,
 				936616D2270393DC00F02A83 /* NewTaxonImageView.swift */,
+				938D934327047FB90068E27C /* NewTaxonInfoView.swift */,
 			);
 			path = NewTaxon;
 			sourceTree = "<group>";
@@ -667,6 +674,8 @@
 				93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */,
 				93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */,
 				936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */,
+				938D934527047FCF0068E27C /* NewTaxonInfoViewModel.swift */,
+				938D9347270481A40068E27C /* TextFields.swift */,
 			);
 			path = NewTaxon;
 			sourceTree = "<group>";
@@ -1194,6 +1203,7 @@
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				935AF66826F66F6C00C56D46 /* SetupProjectNameScreen.swift in Sources */,
 				93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */,
+				938D934627047FCF0068E27C /* NewTaxonInfoViewModel.swift in Sources */,
 				93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */,
 				9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */,
 				933EF7E526EE33F000F1EBC4 /* SplashScreenViewModel.swift in Sources */,
@@ -1226,6 +1236,7 @@
 				936616D3270393DC00F02A83 /* NewTaxonImageView.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
 				935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */,
+				938D934427047FB90068E27C /* NewTaxonInfoView.swift in Sources */,
 				93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */,
 				9373F81E26F9175100C18F91 /* Auth2HttpClientDecorator.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
@@ -1287,6 +1298,7 @@
 				935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */,
 				935AF67226F6875000C56D46 /* RadioAndTitleView.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
+				938D9348270481A40068E27C /* TextFields.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
 				936616D52703954A00F02A83 /* NewTaxonImageViewModel.swift in Sources */,
 				93842AF826FA57CA008ECA80 /* GetTokenService.swift in Sources */,

@@ -48,7 +48,7 @@ struct LoginEnvView_Previews: PreviewProvider {
         LoginEnvView(environmentPlacehoder: "Selecte Environment",
                      viewModel: EnvironmentViewModel(id: 1,
                                                      title: "Serbia",
-                                                     image: "serbia_flag",
+                                                     image: "",
                                                      env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
                                                       isSelected: false), onEnvTapped: { _ in })
     }

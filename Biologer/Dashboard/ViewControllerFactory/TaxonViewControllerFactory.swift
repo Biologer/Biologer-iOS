@@ -26,19 +26,27 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
     
     public func makeNewTaxonScreen(onButtonTapped: @escaping Observer<Void>) -> UIViewController {
         let viewModel = NewTaxonScreenViewModel(onButtonTapped: onButtonTapped)
+        
         let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
                                                           latitude: "44.7732 N",
                                                           longitude: "20.4163 E",
                                                           accuraccy: "13 m",
                                                           onLocationTapped: { _ in})
+        
         let imageViewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"),],
                                                onFotoTapped: { _ in },
                                                onGalleryTapped: { _ in },
                                                onImageTapped: { _ in })
         
+        let taxonInfoViewModel = NewTaxonInfoViewModel(observations: [Observation(name: "Call"),
+                                                             Observation(name: "Exuviae")],
+                                              onNestingTapped: { _ in },
+                                              onDevStageTapped: { _ in })
+        
         let screen = NewTaxonScreen(viewModel: viewModel,
                                     locationViewModel: locationViewModel,
-                                    imageViewModel: imageViewModel)
+                                    imageViewModel: imageViewModel,
+                                    taxonInfoViewModel: taxonInfoViewModel)
         let controller = UIHostingController(rootView: screen)
         return controller
     }
