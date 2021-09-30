@@ -32,11 +32,14 @@ struct NewTaxonScreen: View {
                                     content: {
                                         NewTaxonInfoView(viewModel: taxonInfoViewModel)
                                     })
+                    .padding(.bottom, 20)
                 
                 Spacer()
             }
         }
+        .animation(.default)
         .background(Color.biologerGreenColor.opacity(0.4))
+        .ignoresSafeArea(.container, edges: .bottom)
     }
 }
 

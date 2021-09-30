@@ -88,7 +88,7 @@ public final class MaterialDesignTextField: UIViewRepresentable {
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconTapped))
                 icon.addGestureRecognizer(tapGesture)
 //            }
-            icon.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+            icon.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
             icon.contentMode = .scaleAspectFit
             textField.trailingView = icon
         } else {
