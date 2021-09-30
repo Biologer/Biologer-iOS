@@ -82,6 +82,8 @@
 "NewTaxon.tf.foundOn.placeholder" = "Found On";
 "NewTaxon.tf.foundDead.placeholder" = "Cause of death";
 "NewTaxon.tf.foundDead.text" = "Found dead?";
+"NewTaxon.btn.callObservation.text" = "Call";
+"NewTaxon.btn.exuviaeObservation.text" = "Exuviae";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";

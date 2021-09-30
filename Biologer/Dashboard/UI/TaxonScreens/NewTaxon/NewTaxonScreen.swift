@@ -12,7 +12,7 @@ struct NewTaxonScreen: View {
     var viewModel: NewTaxonScreenViewModel
     var locationViewModel: NewTaxonLocationViewModel
     var imageViewModel: NewTaxonImageViewModel
-    var taxonInfoViewModel: NewTaxonInfoViewModel
+    @ObservedObject var taxonInfoViewModel: NewTaxonInfoViewModel
     
     var body: some View {
         ScrollView {

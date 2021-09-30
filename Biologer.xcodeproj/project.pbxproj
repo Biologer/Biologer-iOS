@@ -96,6 +96,7 @@
 		938D9348270481A40068E27C /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D9347270481A40068E27C /* TextFields.swift */; };
 		938D934F2705E8830068E27C /* FoundDeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D934E2705E8830068E27C /* FoundDeadView.swift */; };
 		938D93512705E8F70068E27C /* NumberOfIndividualsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D93502705E8F70068E27C /* NumberOfIndividualsView.swift */; };
+		938D93532705EB190068E27C /* ObservationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D93522705EB190068E27C /* ObservationsView.swift */; };
 		93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */; };
 		93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */; };
 		93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */; };
@@ -276,6 +277,7 @@
 		938D9347270481A40068E27C /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		938D934E2705E8830068E27C /* FoundDeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundDeadView.swift; sourceTree = "<group>"; };
 		938D93502705E8F70068E27C /* NumberOfIndividualsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfIndividualsView.swift; sourceTree = "<group>"; };
+		938D93522705EB190068E27C /* ObservationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationsView.swift; sourceTree = "<group>"; };
 		93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItem.swift; sourceTree = "<group>"; };
 		93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextFieldViewModel.swift; sourceTree = "<group>"; };
 		93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurnameTextFieldViewModel.swift; sourceTree = "<group>"; };
@@ -751,6 +753,7 @@
 			children = (
 				938D934E2705E8830068E27C /* FoundDeadView.swift */,
 				938D93502705E8F70068E27C /* NumberOfIndividualsView.swift */,
+				938D93522705EB190068E27C /* ObservationsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1324,6 +1327,7 @@
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				938D9348270481A40068E27C /* TextFields.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
+				938D93532705EB190068E27C /* ObservationsView.swift in Sources */,
 				936616D52703954A00F02A83 /* NewTaxonImageViewModel.swift in Sources */,
 				93842AF826FA57CA008ECA80 /* GetTokenService.swift in Sources */,
 				93DF14092692069600A7A977 /* RegisterUser.swift in Sources */,

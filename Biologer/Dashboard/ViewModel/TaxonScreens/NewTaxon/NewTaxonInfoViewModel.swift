@@ -8,6 +8,7 @@
 import Foundation
 
 public class Observation: ObservableObject {
+    let id = UUID()
     let name: String
     @Published var isSelected: Bool = false
     

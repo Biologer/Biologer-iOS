@@ -60,6 +60,13 @@ struct NewTaxonInfoView: View {
                                         viewModel.isFemaleIndividual.toggle()
                                     })
                 .padding(.bottom, 5)
+            
+            ObservationsView(observations: viewModel.observations,
+                             onObservationTapped: { index in
+                                viewModel.objectWillChange.send()
+                                viewModel.observations[index].isSelected.toggle()
+                             })
+            
             Button(action: {
                 
             }, label: {

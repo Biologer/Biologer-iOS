@@ -47,7 +47,6 @@ struct NumberOfIndividualsView: View {
                                             },
                                             textAligment: .left)
                         .frame(height: 50)
-                        .padding(.bottom, 20)
                 }
                 if isMaleIndividual && !isFemaleIndividual {
                     MaterialDesignTextField(viewModel: maleIndividualsTextField,
@@ -56,7 +55,6 @@ struct NumberOfIndividualsView: View {
                                             },
                                             textAligment: .left)
                         .frame(height: 50)
-                        .padding(.bottom, 20)
                 }
                 if !isMaleIndividual && isFemaleIndividual {
                     MaterialDesignTextField(viewModel: femaleIndividualsTextField,
@@ -65,7 +63,6 @@ struct NumberOfIndividualsView: View {
                                             },
                                             textAligment: .left)
                         .frame(height: 50)
-                        .padding(.bottom, 20)
                 }
                 if isMaleIndividual && isFemaleIndividual {
                     MaterialDesignTextField(viewModel: maleIndividualsTextField,
@@ -81,7 +78,6 @@ struct NumberOfIndividualsView: View {
                                             },
                                             textAligment: .left)
                         .frame(height: 50)
-                        .padding(.bottom, 20)
                 }
             }
             Spacer()

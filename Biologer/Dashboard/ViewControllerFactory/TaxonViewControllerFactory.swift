@@ -38,8 +38,8 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                                onGalleryTapped: { _ in },
                                                onImageTapped: { _ in })
         
-        let taxonInfoViewModel = NewTaxonInfoViewModel(observations: [Observation(name: "Call"),
-                                                             Observation(name: "Exuviae")],
+        let taxonInfoViewModel = NewTaxonInfoViewModel(observations: [Observation(name: "NewTaxon.btn.callObservation.text".localized),
+                                                                      Observation(name: "NewTaxon.btn.exuviaeObservation.text".localized)],
                                               onNestingTapped: { _ in },
                                               onDevStageTapped: { _ in })
         
