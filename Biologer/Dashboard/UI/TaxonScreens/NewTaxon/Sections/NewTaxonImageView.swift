@@ -17,57 +17,24 @@ struct NewTaxonImageView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-                Button(action: {
-                    viewModel.fotoButtonTapped()
-                }, label: {
-                    Image(viewModel.fotoButtonImage)
-                        .resizable()
-                        .frame(width: 30, height: 30, alignment: .center)
-                })
-                Button(action: {
-                    viewModel.gallerButtonTapped()
-                }, label: {
-                    Image(viewModel.galleryButtonImage)
-                        .resizable()
-                        .frame(width: 30, height: 30, alignment: .center)
-                })
+            AddImagesView(fotoButtonImage: viewModel.fotoButtonImage,
+                          galleryButtonImage: viewModel.galleryButtonImage,
+                          fotoButtonTapped: { _ in
+                            viewModel.fotoButtonTapped()
+                          },
+                          gallerButtonTapped: { _ in
+                            viewModel.gallerButtonTapped()
+                          })
                 .padding(.trailing, 10)
                 
             VStack(alignment: .center) {
                 if !viewModel.choosenImages.isEmpty {
-                        ScrollView(.horizontal) {
-                            HStack(alignment: .top) {
-                                ForEach(viewModel.choosenImages.indices, id: \.self) { index in
-                                    Button(action: {
-                                        viewModel.imageButtonTapped(selectedImageIndex: index)
-                                    }, label: {
-                                        viewModel.choosenImages[index].image
-                                            .resizable()
-                                            .cornerRadius(5)
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 5)
-                                                    .stroke(viewModel.isImagePlaceholder(image: viewModel.choosenImages[index].image) ? Color.white : Color.gray, lineWidth: 1)
-                                            )
-                                            .frame(width: 40, height: 50, alignment: .center)
-                                    })
-                                    .padding(.horizontal,5)
-                                    .padding(.vertical, 1)
-                                }
-                            }
-                        }
-                        .padding()
+                    ImageHorizontalView(images: viewModel.choosenImages.map({$0.image}),
+                                        onImageTapped: { index in
+                                            viewModel.imageButtonTapped(selectedImageIndex: index)
+                                        })
                 } else {
-                    VStack(alignment: .center) {
-                        Spacer()
-                        HStack(alignment: .center) {
-                            Spacer()
-                            Text(viewModel.noImagesAdded)
-                                .foregroundColor(Color.gray)
-                                .font(.caption)
-                            Spacer()
-                        }
-                        Spacer()
-                    }
+                    NoImagesAddedView(title: viewModel.noImagesAdded)
                 }
             }
             .frame(
