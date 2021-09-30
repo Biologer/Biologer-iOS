@@ -37,9 +37,9 @@ struct NewTaxonImageView: View {
                         HStack(alignment: .top) {
                             ForEach(viewModel.choosenImages, id: \.id) { item in
                                 Button(action: {
-                                    viewModel.imageButtonTapped(selectedImage: item.name)
+                                    viewModel.imageButtonTapped(selectedImage: item.image)
                                 }, label: {
-                                    Image(item.name)
+                                    item.image
                                         .resizable()
                                         .frame(width: 40, height: 50, alignment: .center)
                                         .overlay(
@@ -61,7 +61,7 @@ struct NewTaxonImageView: View {
 
 struct NewTaxonImageView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"),TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"),TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"),TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4")],
+        let viewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4"))],
                                                onFotoTapped: { _ in },
                                                onGalleryTapped: { _ in },
                                                onImageTapped: { _ in })

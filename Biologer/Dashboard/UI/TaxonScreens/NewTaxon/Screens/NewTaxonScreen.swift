@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewTaxonScreen: View {
     
-    var viewModel: NewTaxonScreenViewModel
+    @ObservedObject var viewModel: NewTaxonScreenViewModel
     
     var body: some View {
         ScrollView {
@@ -53,7 +53,7 @@ struct NewTaxonScreen_Previews: PreviewProvider {
                                                           accuraccy: "13 m",
                                                           onLocationTapped: { _ in})
         
-        let imageViewModel: NewTaxonImageViewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4")],
+        let imageViewModel: NewTaxonImageViewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4"))],
                                                                             onFotoTapped: { _ in },
                                                                             onGalleryTapped: { _ in },
                                                                             onImageTapped: { _ in })

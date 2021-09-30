@@ -11,7 +11,9 @@ public protocol TaxonViewControllerFactory {
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
                                   onItemTapped: @escaping Observer<Item>) -> UIViewController
     func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>,
-                            onLocationTapped: @escaping Observer<Void>) -> UIViewController
+                            onLocationTapped: @escaping Observer<Void>,
+                            onPhotoTapped: @escaping Observer<Void>,
+                            onGalleryTapped: @escaping Observer<Void>) -> UIViewController
     func makeTaxonMapScreen(taxonLocation: TaxonLocation?) -> UIViewController
 }
 
@@ -27,7 +29,9 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
     }
     
     public func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>,
-                                   onLocationTapped: @escaping Observer<Void>) -> UIViewController {
+                                   onLocationTapped: @escaping Observer<Void>,
+                                   onPhotoTapped: @escaping Observer<Void>,
+                                   onGalleryTapped: @escaping Observer<Void>) -> UIViewController {
         
         let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
                                                           latitude: "44.7732 N",
@@ -35,15 +39,15 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                                           accuraccy: "13 m",
                                                           onLocationTapped: onLocationTapped)
         
-        let imageViewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"), TaxonImage(name: "intro4"),],
-                                               onFotoTapped: { _ in },
-                                               onGalleryTapped: { _ in },
-                                               onImageTapped: { _ in })
+        let imageViewModel = NewTaxonImageViewModel(choosenImages: [],
+                                                    onFotoTapped: onPhotoTapped,
+                                                    onGalleryTapped: onGalleryTapped,
+                                                    onImageTapped: { _ in })
         
         let taxonInfoViewModel = NewTaxonInfoViewModel(observations: [Observation(name: "NewTaxon.btn.callObservation.text".localized),
                                                                       Observation(name: "NewTaxon.btn.exuviaeObservation.text".localized)],
-                                              onNestingTapped: { _ in },
-                                              onDevStageTapped: { _ in })
+                                                       onNestingTapped: { _ in },
+                                                       onDevStageTapped: { _ in })
         
         let viewModel = NewTaxonScreenViewModel(locationViewModel: locationViewModel,
                                                 imageViewModel: imageViewModel,

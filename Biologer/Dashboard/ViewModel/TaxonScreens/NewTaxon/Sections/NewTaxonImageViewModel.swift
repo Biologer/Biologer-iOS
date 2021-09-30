@@ -5,14 +5,14 @@
 //  Created by Nikola Popovic on 28.9.21..
 //
 
-import Foundation
+import SwiftUI
 
 public final class TaxonImage {
     let id = UUID()
-    let name: String
+    let image: Image
     
-    init(name: String) {
-        self.name = name
+    init(image: Image) {
+        self.image = image
     }
 }
 
@@ -23,12 +23,12 @@ public final class NewTaxonImageViewModel: ObservableObject {
     @Published public var choosenImages = [TaxonImage]()
     private let onFotoTapped: Observer<Void>
     private let onGalleryTapped: Observer<Void>
-    private let onImageTapped: Observer<String>
+    private let onImageTapped: Observer<Image>
     
     init(choosenImages: [TaxonImage],
          onFotoTapped: @escaping Observer<Void>,
          onGalleryTapped: @escaping Observer<Void>,
-         onImageTapped: @escaping Observer<String>) {
+         onImageTapped: @escaping Observer<Image>) {
         self.choosenImages = choosenImages
         self.onFotoTapped = onFotoTapped
         self.onGalleryTapped = onGalleryTapped
@@ -37,15 +37,13 @@ public final class NewTaxonImageViewModel: ObservableObject {
     
     public func fotoButtonTapped() {
         onFotoTapped(())
-        choosenImages.append(TaxonImage(name: "intro2"))
     }
     
     public func gallerButtonTapped() {
-        choosenImages.removeLast()
         onGalleryTapped(())
     }
     
-    public func imageButtonTapped(selectedImage: String) {
+    public func imageButtonTapped(selectedImage: Image) {
         onImageTapped((selectedImage))
     }
 }

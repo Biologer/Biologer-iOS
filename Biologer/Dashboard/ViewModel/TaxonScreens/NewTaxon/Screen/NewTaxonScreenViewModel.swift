@@ -9,7 +9,7 @@ import Foundation
 
 public final class NewTaxonScreenViewModel: ObservableObject {
     @Published public var locationViewModel: NewTaxonLocationViewModel
-    public var imageViewModel: NewTaxonImageViewModel
+    @Published public var imageViewModel: NewTaxonImageViewModel
     public var taxonInfoViewModel: NewTaxonInfoViewModel
     public let saveButtonTitle: String = "NewTaxon.btn.save.text".localized
     
