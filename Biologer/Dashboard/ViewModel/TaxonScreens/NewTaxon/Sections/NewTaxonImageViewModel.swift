@@ -27,12 +27,12 @@ public final class NewTaxonImageViewModel: ObservableObject {
     @Published public private(set) var choosenImages = [TaxonImage]()
     private let onFotoTapped: Observer<Void>
     private let onGalleryTapped: Observer<Void>
-    private let onImageTapped: Observer<Image>
+    private let onImageTapped: Observer<([TaxonImage], Int)>
     
     init(choosenImages: [TaxonImage],
          onFotoTapped: @escaping Observer<Void>,
          onGalleryTapped: @escaping Observer<Void>,
-         onImageTapped: @escaping Observer<Image>) {
+         onImageTapped: @escaping Observer<([TaxonImage], Int)>) {
         self.choosenImages = choosenImages
         self.onFotoTapped = onFotoTapped
         self.onGalleryTapped = onGalleryTapped
@@ -47,8 +47,8 @@ public final class NewTaxonImageViewModel: ObservableObject {
         onGalleryTapped(())
     }
     
-    public func imageButtonTapped(selectedImage: Image) {
-        onImageTapped((selectedImage))
+    public func imageButtonTapped(selectedImageIndex: Int) {
+        onImageTapped((choosenImages, selectedImageIndex))
     }
 }
 

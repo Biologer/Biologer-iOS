@@ -35,11 +35,11 @@ struct NewTaxonImageView: View {
                 if !viewModel.choosenImages.isEmpty {
                     ScrollView(.horizontal) {
                         HStack(alignment: .top) {
-                            ForEach(viewModel.choosenImages, id: \.id) { item in
+                            ForEach(viewModel.choosenImages.indices, id: \.self) { index in
                                 Button(action: {
-                                    viewModel.imageButtonTapped(selectedImage: item.image)
+                                    viewModel.imageButtonTapped(selectedImageIndex: index)
                                 }, label: {
-                                    item.image
+                                    viewModel.choosenImages[index].image
                                         .resizable()
                                         .frame(width: 40, height: 50, alignment: .center)
                                         .overlay(

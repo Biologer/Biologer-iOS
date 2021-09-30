@@ -63,6 +63,10 @@ public final class TaxonRouter: NSObject {
                                             },
                                             onGalleryTapped: { _ in
                                                 self.showPhoneImages(type: .photoLibrary)
+                                            },
+                                            onImageTapped: { images, selectedImageIndex in
+                                                self.showImagesPreviewScreen(images: images,
+                                                                             selectedImageIndex: selectedImageIndex)
                                             })
         let viewController = vc as? UIHostingController<NewTaxonScreen>
         newTaxonScreenViewModel = viewController?.rootView.viewModel
@@ -79,6 +83,14 @@ public final class TaxonRouter: NSObject {
         viewController?.rootView.viewModel.delegate = delegate
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.map.nav.title".localized)
+        self.navigationController.pushViewController(vc, animated: true)
+    }
+    
+    private func showImagesPreviewScreen(images: [TaxonImage], selectedImageIndex: Int) {
+        let vc = factory.makeImagesPreivewScreen(images: images,
+                                                 selectionIndex: selectedImageIndex)
+        vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
+        vc.setBiologerTitle(text: "NewTaxon.image.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
     }
     

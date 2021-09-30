@@ -100,6 +100,8 @@
 		938D935627060DDC0068E27C /* TaxonMapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D935527060DDC0068E27C /* TaxonMapScreen.swift */; };
 		938D935927060DF80068E27C /* TaxonMapScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D935827060DF80068E27C /* TaxonMapScreenViewModel.swift */; };
 		938D935D27060E6B0068E27C /* TaxonLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D935C27060E6B0068E27C /* TaxonLocation.swift */; };
+		938D935F270631960068E27C /* ImagesPreviewScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D935E270631960068E27C /* ImagesPreviewScreenViewModel.swift */; };
+		938D9361270632400068E27C /* ImagesPreviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D9360270632400068E27C /* ImagesPreviewScreen.swift */; };
 		93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */; };
 		93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */; };
 		93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */; };
@@ -284,6 +286,8 @@
 		938D935527060DDC0068E27C /* TaxonMapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonMapScreen.swift; sourceTree = "<group>"; };
 		938D935827060DF80068E27C /* TaxonMapScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonMapScreenViewModel.swift; sourceTree = "<group>"; };
 		938D935C27060E6B0068E27C /* TaxonLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonLocation.swift; sourceTree = "<group>"; };
+		938D935E270631960068E27C /* ImagesPreviewScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesPreviewScreenViewModel.swift; sourceTree = "<group>"; };
+		938D9360270632400068E27C /* ImagesPreviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesPreviewScreen.swift; sourceTree = "<group>"; };
 		93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItem.swift; sourceTree = "<group>"; };
 		93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextFieldViewModel.swift; sourceTree = "<group>"; };
 		93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurnameTextFieldViewModel.swift; sourceTree = "<group>"; };
@@ -778,6 +782,7 @@
 			children = (
 				93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */,
 				938D935527060DDC0068E27C /* TaxonMapScreen.swift */,
+				938D9360270632400068E27C /* ImagesPreviewScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -787,6 +792,7 @@
 			children = (
 				93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */,
 				938D935827060DF80068E27C /* TaxonMapScreenViewModel.swift */,
+				938D935E270631960068E27C /* ImagesPreviewScreenViewModel.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -1266,6 +1272,7 @@
 				9389464126F616280000D850 /* SetupSectionView.swift in Sources */,
 				93A7E2742691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift in Sources */,
 				93CC658B269C401300949534 /* APIRequest.swift in Sources */,
+				938D935F270631960068E27C /* ImagesPreviewScreenViewModel.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				935AF66826F66F6C00C56D46 /* SetupProjectNameScreen.swift in Sources */,
 				93A7E26C2691DFEE001D6AEF /* NameTextFieldViewModel.swift in Sources */,
@@ -1325,6 +1332,7 @@
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
 				93565D1F26F7243800A588E6 /* TaxonRouter.swift in Sources */,
 				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
+				938D9361270632400068E27C /* ImagesPreviewScreen.swift in Sources */,
 				93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */,
 				9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */,
 				9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */,

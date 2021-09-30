@@ -86,6 +86,7 @@
 "NewTaxon.btn.exuviaeObservation.text" = "Exuviae";
 "NewTaxon.btn.save.text" = "Save";
 "NewTaxon.map.nav.title" = "Select location";
+"NewTaxon.image.nav.title" = "Images preiview";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";
