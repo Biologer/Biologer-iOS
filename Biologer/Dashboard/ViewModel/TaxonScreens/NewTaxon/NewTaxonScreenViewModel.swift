@@ -8,13 +8,14 @@
 import Foundation
 
 public final class NewTaxonScreenViewModel {
-    private let onButtonTapped: Observer<Void>
+    private let onSaveTapped: Observer<Void>
+    public let saveButtonTitle: String = "NewTaxon.btn.save.text".localized
     
-    init(onButtonTapped: @escaping Observer<Void>) {
-        self.onButtonTapped = onButtonTapped
+    init(onSaveTapped: @escaping Observer<Void>) {
+        self.onSaveTapped = onSaveTapped
     }
     
-    public func buttonTapped() {
-        onButtonTapped(())
+    public func saveTapped() {
+        onSaveTapped(())
     }
 }

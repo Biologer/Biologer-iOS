@@ -10,7 +10,7 @@ import SwiftUI
 public protocol TaxonViewControllerFactory {
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
                                   onItemTapped: @escaping Observer<Item>) -> UIViewController
-    func makeNewTaxonScreen(onButtonTapped: @escaping Observer<Void>) -> UIViewController
+    func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>) -> UIViewController
 }
 
 public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory {
@@ -24,8 +24,8 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         return viewController
     }
     
-    public func makeNewTaxonScreen(onButtonTapped: @escaping Observer<Void>) -> UIViewController {
-        let viewModel = NewTaxonScreenViewModel(onButtonTapped: onButtonTapped)
+    public func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>) -> UIViewController {
+        let viewModel = NewTaxonScreenViewModel(onSaveTapped: onSaveTapped)
         
         let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
                                                           latitude: "44.7732 N",

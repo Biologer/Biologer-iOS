@@ -657,9 +657,9 @@
 		93565D2726F7279400A588E6 /* NewTaxon */ = {
 			isa = PBXGroup;
 			children = (
+				93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */,
 				938D934D2705E85A0068E27C /* Sections */,
 				938D934C2705E8330068E27C /* Views */,
-				93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */,
 			);
 			path = NewTaxon;
 			sourceTree = "<group>";

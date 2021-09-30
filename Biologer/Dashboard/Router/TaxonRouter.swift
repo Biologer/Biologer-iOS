@@ -49,7 +49,7 @@ public final class TaxonRouter {
     }
     
     private func showNewTaxonScreen() {
-        let vc = factory.makeNewTaxonScreen(onButtonTapped: { _ in })
+        let vc = factory.makeNewTaxonScreen(onSaveTapped: { _ in })
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.lb.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)

@@ -84,6 +84,7 @@
 "NewTaxon.tf.foundDead.text" = "Found dead?";
 "NewTaxon.btn.callObservation.text" = "Call";
 "NewTaxon.btn.exuviaeObservation.text" = "Exuviae";
+"NewTaxon.btn.save.text" = "Sacuvaj";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";

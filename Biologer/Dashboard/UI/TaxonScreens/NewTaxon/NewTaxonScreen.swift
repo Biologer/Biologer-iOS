@@ -33,7 +33,11 @@ struct NewTaxonScreen: View {
                                         NewTaxonInfoView(viewModel: taxonInfoViewModel)
                                     })
                     .padding(.bottom, 20)
-                
+                BiologerButton(title: viewModel.saveButtonTitle,
+                            onTapped: { _ in
+                                viewModel.saveTapped()
+                            })
+                    .padding(.bottom, 30)
                 Spacer()
             }
         }
@@ -46,7 +50,7 @@ struct NewTaxonScreen: View {
 struct NewTaxonScreen_Previews: PreviewProvider {
     static var previews: some View {
         
-        let screenViewModel = NewTaxonScreenViewModel(onButtonTapped: { _ in })
+        let screenViewModel = NewTaxonScreenViewModel(onSaveTapped: { _ in })
         
         let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
                                                           latitude: "44.7732 N",
