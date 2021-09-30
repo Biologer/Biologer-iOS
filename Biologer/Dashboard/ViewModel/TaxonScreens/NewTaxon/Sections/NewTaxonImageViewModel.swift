@@ -52,6 +52,10 @@ public final class NewTaxonImageViewModel: ObservableObject {
         onImageTapped((choosenImages, selectedImageIndex))
     }
     
+    public func delteImage(at index: Int) {
+        choosenImages.remove(at: index)
+    }
+    
     public func isImagePlaceholder(image: Image) -> Bool {
         return image == Image("img_placeholder_icon")
     }

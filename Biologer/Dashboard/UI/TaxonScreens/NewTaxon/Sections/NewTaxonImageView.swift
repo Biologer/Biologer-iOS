@@ -32,6 +32,9 @@ struct NewTaxonImageView: View {
                     ImageHorizontalView(images: viewModel.choosenImages.map({$0.image}),
                                         onImageTapped: { index in
                                             viewModel.imageButtonTapped(selectedImageIndex: index)
+                                        },
+                                        onImageDeleteTapped: { index in
+                                            viewModel.delteImage(at: index)
                                         })
                 } else {
                     NoImagesAddedView(title: viewModel.noImagesAdded)
