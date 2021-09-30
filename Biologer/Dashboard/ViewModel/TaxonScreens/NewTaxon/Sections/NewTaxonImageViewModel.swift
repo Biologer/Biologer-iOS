@@ -16,11 +16,15 @@ public final class TaxonImage {
     }
 }
 
+protocol ImageCustomPickerDelegate {
+    func updateImage(image: Image)
+}
+
 public final class NewTaxonImageViewModel: ObservableObject {
     public let title: String = "NewTaxon.lb.image.title".localized
     public let fotoButtonImage: String = "foto_icon"
     public let galleryButtonImage: String = "gallery_icon"
-    @Published public var choosenImages = [TaxonImage]()
+    @Published public private(set) var choosenImages = [TaxonImage]()
     private let onFotoTapped: Observer<Void>
     private let onGalleryTapped: Observer<Void>
     private let onImageTapped: Observer<Image>
@@ -47,3 +51,11 @@ public final class NewTaxonImageViewModel: ObservableObject {
         onImageTapped((selectedImage))
     }
 }
+
+extension NewTaxonImageViewModel: ImageCustomPickerDelegate {
+    func updateImage(image: Image) {
+        choosenImages.append(TaxonImage(image: image))
+    }
+}
+
+

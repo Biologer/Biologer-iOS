@@ -17,6 +17,7 @@ public final class TaxonRouter: NSObject {
     public var onSideMenuTapped: Observer<Void>?
     
     private var newTaxonScreenViewModel: NewTaxonScreenViewModel?
+    private var imageCustomPickerDelegate: ImageCustomPickerDelegate?
     
     init(navigationController: UINavigationController,
          factory: TaxonViewControllerFactory,
@@ -63,9 +64,10 @@ public final class TaxonRouter: NSObject {
                                             onGalleryTapped: { _ in
                                                 self.showPhoneImages(type: .photoLibrary)
                                             })
-        let viewControler = vc as? UIHostingController<NewTaxonScreen>
-        newTaxonScreenViewModel = viewControler?.rootView.viewModel
-        mapDelegate = viewControler?.rootView.viewModel
+        let viewController = vc as? UIHostingController<NewTaxonScreen>
+        newTaxonScreenViewModel = viewController?.rootView.viewModel
+        imageCustomPickerDelegate = viewController?.rootView.viewModel.imageViewModel
+        mapDelegate = viewController?.rootView.viewModel
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.lb.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
@@ -99,10 +101,12 @@ public final class TaxonRouter: NSObject {
 // MARK: - Taxon Rouetr Image Picker Delegate
 extension TaxonRouter: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    func imagePickerController(picker: UIImagePickerController!,
-                               didFinishPickingImage image: UIImage!,
-                               editingInfo: NSDictionary!){
-        let choosenImage = Image(uiImage: image)
-        newTaxonScreenViewModel?.imageViewModel.choosenImages.append(TaxonImage(image: choosenImage))
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.navigationController.dismiss(animated: true, completion: nil)
+        guard let choosenImage = info[.originalImage] as? UIImage else {
+            print("No image found")
+            return
+        }
+        imageCustomPickerDelegate?.updateImage(image: Image(uiImage: choosenImage))
     }
 }
