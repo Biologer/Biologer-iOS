@@ -54,6 +54,7 @@ public final class TaxonRouter: NSObject {
     
     private func showNewTaxonScreen() {
         var mapDelegate: TaxonMapScreenViewModelDelegate?
+        var taxonNameDelegate: TaxonSearchScreenViewModelDelegate?
         let vc = factory.makeNewTaxonScreen(onSaveTapped: { _ in },
                                             onLocationTapped: { _ in
                                                 self.showTaxonMapScreen(delegate: mapDelegate)
@@ -67,11 +68,15 @@ public final class TaxonRouter: NSObject {
                                             onImageTapped: { images, selectedImageIndex in
                                                 self.showImagesPreviewScreen(images: images,
                                                                              selectedImageIndex: selectedImageIndex)
+                                            },
+                                            onSearchTaxonTapped: { [weak self] _ in
+                                                self?.showTaxonSearchScreen(delegate: taxonNameDelegate)
                                             })
         let viewController = vc as? UIHostingController<NewTaxonScreen>
         newTaxonScreenViewModel = viewController?.rootView.viewModel
         imageCustomPickerDelegate = viewController?.rootView.viewModel.imageViewModel
         mapDelegate = viewController?.rootView.viewModel
+        taxonNameDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.lb.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
@@ -103,6 +108,21 @@ public final class TaxonRouter: NSObject {
             imagePicker.allowsEditing = false
             navigationController.present(imagePicker, animated: true, completion: nil)
         }
+    }
+    
+    private func showTaxonSearchScreen(delegate: TaxonSearchScreenViewModelDelegate?) {
+        let service = DBTaxonService()
+        let vc = factory.makeSearchTaxonScreen(service: service,
+                                               delegate: delegate,
+                                               onTaxonTapped: { [weak self] taxon in
+                                                    self?.navigationController.popViewController(animated: true)
+                                               },
+                                               onOkTapped: { [weak self] taxon in
+                                                    self?.navigationController.popViewController(animated: true)
+                                               })
+        vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
+        vc.setBiologerTitle(text: "NewTaxon.search.nav.title".localized)
+        self.navigationController.pushViewController(vc, animated: true)
     }
     
     @objc func goBack() {

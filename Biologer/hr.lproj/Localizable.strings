@@ -88,6 +88,7 @@
 "NewTaxon.map.nav.title" = "Select location";
 "NewTaxon.image.nav.title" = "Images preiview";
 "NewTaxon.image.placeholder.title" = "No images added";
+"NewTaxon.search.nav.title" = "Search Taxons";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";

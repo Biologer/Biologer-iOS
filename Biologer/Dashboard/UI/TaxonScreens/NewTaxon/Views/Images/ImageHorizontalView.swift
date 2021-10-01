@@ -30,10 +30,10 @@ struct ImageHorizontalView: View {
                                     Image("delete_image_icon")
                                         .frame(width: 20, height: 20)
                                 })
-                                .position(CGPoint(x: 40, y: 0))
+                                .position(CGPoint(x: 40, y: 1))
                                 Spacer()
                             }
-                            .frame(width: 40, height: 55)
+                            .frame(width: 40, height: 60)
                         }
                     .padding(.horizontal,5)
                     .padding(.vertical, 1)

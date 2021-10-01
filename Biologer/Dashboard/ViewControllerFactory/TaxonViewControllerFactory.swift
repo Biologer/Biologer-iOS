@@ -14,9 +14,14 @@ public protocol TaxonViewControllerFactory {
                             onLocationTapped: @escaping Observer<Void>,
                             onPhotoTapped: @escaping Observer<Void>,
                             onGalleryTapped: @escaping Observer<Void>,
-                            onImageTapped: @escaping Observer<([TaxonImage], Int)>) -> UIViewController
+                            onImageTapped: @escaping Observer<([TaxonImage], Int)>,
+                            onSearchTaxonTapped: @escaping Observer<Void>) -> UIViewController
     func makeTaxonMapScreen(taxonLocation: TaxonLocation?) -> UIViewController
     func makeImagesPreivewScreen(images: [TaxonImage], selectionIndex: Int) -> UIViewController
+    func makeSearchTaxonScreen(service: TaxonService,
+                               delegate: TaxonSearchScreenViewModelDelegate?,
+                               onTaxonTapped: @escaping Observer<TaxonViewModel>,
+                               onOkTapped: @escaping Observer<TaxonViewModel>) -> UIViewController
 }
 
 public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory {
@@ -34,7 +39,8 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                    onLocationTapped: @escaping Observer<Void>,
                                    onPhotoTapped: @escaping Observer<Void>,
                                    onGalleryTapped: @escaping Observer<Void>,
-                                   onImageTapped: @escaping Observer<([TaxonImage], Int)>) -> UIViewController {
+                                   onImageTapped: @escaping Observer<([TaxonImage], Int)>,
+                                   onSearchTaxonTapped: @escaping Observer<Void>) -> UIViewController {
         
         let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
                                                           latitude: "44.7732 N",
@@ -49,6 +55,7 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         
         let taxonInfoViewModel = NewTaxonInfoViewModel(observations: [Observation(name: "NewTaxon.btn.callObservation.text".localized),
                                                                       Observation(name: "NewTaxon.btn.exuviaeObservation.text".localized)],
+                                                       onSearchTaxonTapped: onSearchTaxonTapped,
                                                        onNestingTapped: { _ in },
                                                        onDevStageTapped: { _ in })
         
@@ -72,6 +79,19 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
     public func makeImagesPreivewScreen(images: [TaxonImage], selectionIndex: Int) -> UIViewController {
         let viewModel = ImagesPreviewScreenViewModel(images: images, selectionIndex: selectionIndex)
         let screen = ImagesPreviewScreen(viewModel: viewModel)
+        let controller = UIHostingController(rootView: screen)
+        return controller
+    }
+    
+    public func makeSearchTaxonScreen(service: TaxonService,
+                                      delegate: TaxonSearchScreenViewModelDelegate?,
+                                      onTaxonTapped: @escaping Observer<TaxonViewModel>,
+                                      onOkTapped: @escaping Observer<TaxonViewModel>) -> UIViewController {
+        let viewModel = TaxonSearchScreenViewModel(service: service,
+                                                   delegate: delegate,
+                                                   onTaxonTapped: onTaxonTapped,
+                                                   onOkTapped: onOkTapped)
+        let screen = TaxonSearchScreen(viewModel: viewModel)
         let controller = UIHostingController(rootView: screen)
         return controller
     }

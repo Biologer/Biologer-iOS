@@ -26,6 +26,13 @@
 		9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314274A262B6CF600542EFC /* LoginScreenViewModel.swift */; };
 		93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */; };
 		93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142754262B72C600542EFC /* LoginLabelsViewModel.swift */; };
+		9314DA1C27073CF3007896F9 /* TaxonSearchScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA1B27073CF3007896F9 /* TaxonSearchScreenViewModel.swift */; };
+		9314DA1E27074303007896F9 /* TaxonSearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA1D27074303007896F9 /* TaxonSearchScreen.swift */; };
+		9314DA20270749DB007896F9 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA1F270749DB007896F9 /* SearchTextField.swift */; };
+		9314DA2227074E4E007896F9 /* TaxonSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA2127074E4E007896F9 /* TaxonSearchBarView.swift */; };
+		9314DA252707528E007896F9 /* TaxonSearchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA242707528E007896F9 /* TaxonSearchItemView.swift */; };
+		9314DA27270758B0007896F9 /* TaxonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA26270758B0007896F9 /* TaxonService.swift */; };
+		9314DA2A270758F2007896F9 /* TaxonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA29270758F2007896F9 /* TaxonViewModel.swift */; };
 		93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EAC2677DDD50094A483 /* SideMenuListScreen.swift */; };
 		93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */; };
 		93334EB12677E1220094A483 /* FindingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EB02677E1220094A483 /* FindingsListView.swift */; };
@@ -214,6 +221,13 @@
 		9314274A262B6CF600542EFC /* LoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewModel.swift; sourceTree = "<group>"; };
 		9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentViewModelFactory.swift; sourceTree = "<group>"; };
 		93142754262B72C600542EFC /* LoginLabelsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLabelsViewModel.swift; sourceTree = "<group>"; };
+		9314DA1B27073CF3007896F9 /* TaxonSearchScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonSearchScreenViewModel.swift; sourceTree = "<group>"; };
+		9314DA1D27074303007896F9 /* TaxonSearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonSearchScreen.swift; sourceTree = "<group>"; };
+		9314DA1F270749DB007896F9 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		9314DA2127074E4E007896F9 /* TaxonSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonSearchBarView.swift; sourceTree = "<group>"; };
+		9314DA242707528E007896F9 /* TaxonSearchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonSearchItemView.swift; sourceTree = "<group>"; };
+		9314DA26270758B0007896F9 /* TaxonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonService.swift; sourceTree = "<group>"; };
+		9314DA29270758F2007896F9 /* TaxonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonViewModel.swift; sourceTree = "<group>"; };
 		93334EAC2677DDD50094A483 /* SideMenuListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreen.swift; sourceTree = "<group>"; };
 		93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFindingsScreen.swift; sourceTree = "<group>"; };
 		93334EB02677E1220094A483 /* FindingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsListView.swift; sourceTree = "<group>"; };
@@ -576,6 +590,25 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		9314DA2327075270007896F9 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				9314DA1D27074303007896F9 /* TaxonSearchScreen.swift */,
+				9314DA2127074E4E007896F9 /* TaxonSearchBarView.swift */,
+				9314DA242707528E007896F9 /* TaxonSearchItemView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		9314DA28270758E5007896F9 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				9314DA1B27073CF3007896F9 /* TaxonSearchScreenViewModel.swift */,
+				9314DA29270758F2007896F9 /* TaxonViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		93334EA72677DC2D0094A483 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,6 +738,7 @@
 			children = (
 				9373F81926F9133200C18F91 /* ProfileService.swift */,
 				93842AF326FA4449008ECA80 /* ObservationService.swift */,
+				9314DA26270758B0007896F9 /* TaxonService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -771,6 +805,7 @@
 				938D934E2705E8830068E27C /* FoundDeadView.swift */,
 				938D93502705E8F70068E27C /* NumberOfIndividualsView.swift */,
 				938D93522705EB190068E27C /* ObservationsView.swift */,
+				9314DA1F270749DB007896F9 /* SearchTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -789,6 +824,7 @@
 		938D935427060DAA0068E27C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				9314DA2327075270007896F9 /* Search */,
 				93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */,
 				938D935527060DDC0068E27C /* TaxonMapScreen.swift */,
 				938D9360270632400068E27C /* ImagesPreviewScreen.swift */,
@@ -799,6 +835,7 @@
 		938D935727060DE60068E27C /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				9314DA28270758E5007896F9 /* Search */,
 				93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */,
 				938D935827060DF80068E27C /* TaxonMapScreenViewModel.swift */,
 				938D935E270631960068E27C /* ImagesPreviewScreenViewModel.swift */,
@@ -1306,11 +1343,13 @@
 				936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */,
 				93CC6593269C564F00949534 /* CircularProgressViewController.swift in Sources */,
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
+				9314DA20270749DB007896F9 /* SearchTextField.swift in Sources */,
 				93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */,
 				93334EB52677E17B0094A483 /* Item.swift in Sources */,
 				9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */,
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
 				93390DB12703077F00DD68CE /* NewTaxonSectionView.swift in Sources */,
+				9314DA1E27074303007896F9 /* TaxonSearchScreen.swift in Sources */,
 				938D9368270652790068E27C /* AddImagesView.swift in Sources */,
 				93334EB12677E1220094A483 /* FindingsListView.swift in Sources */,
 				93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */,
@@ -1344,6 +1383,7 @@
 				938D935627060DDC0068E27C /* TaxonMapScreen.swift in Sources */,
 				93142741262B6B3D00542EFC /* UserNameTextFieldViewModel.swift in Sources */,
 				9389463F26F6156F0000D850 /* SetupItemViewModel.swift in Sources */,
+				9314DA2227074E4E007896F9 /* TaxonSearchBarView.swift in Sources */,
 				9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */,
 				93842AF426FA4449008ECA80 /* ObservationService.swift in Sources */,
 				9389463726F60FE00000D850 /* SetupItemView.swift in Sources */,
@@ -1351,6 +1391,7 @@
 				9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */,
 				93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */,
 				93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */,
+				9314DA1C27073CF3007896F9 /* TaxonSearchScreenViewModel.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
 				93565D1F26F7243800A588E6 /* TaxonRouter.swift in Sources */,
 				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
@@ -1378,6 +1419,7 @@
 				93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */,
 				93390DAF2703010B00DD68CE /* NewTaxonLocationViewModel.swift in Sources */,
 				933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewController.swift in Sources */,
+				9314DA27270758B0007896F9 /* TaxonService.swift in Sources */,
 				93DF141426920D0700A7A977 /* DataLicenseScreen.swift in Sources */,
 				935AF66A26F66FB000C56D46 /* SetupProjectNameScreenViewModel.swift in Sources */,
 				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
@@ -1391,6 +1433,7 @@
 				93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */,
 				93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */,
 				93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */,
+				9314DA2A270758F2007896F9 /* TaxonViewModel.swift in Sources */,
 				93390DAD2702FF2300DD68CE /* NewTaxonLocationView.swift in Sources */,
 				935AF66C26F6846D00C56D46 /* SetupDownloadAndUploadScreenViewModel.swift in Sources */,
 				938D93512705E8F70068E27C /* NumberOfIndividualsView.swift in Sources */,
@@ -1399,6 +1442,7 @@
 				93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */,
 				93DF142D269253B900A7A977 /* CheckView.swift in Sources */,
 				935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */,
+				9314DA252707528E007896F9 /* TaxonSearchItemView.swift in Sources */,
 				935AF67226F6875000C56D46 /* RadioAndTitleView.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
 				938D9348270481A40068E27C /* TextFields.swift in Sources */,

@@ -38,15 +38,22 @@ public final class NewTaxonInfoViewModel: ObservableObject {
     let title: String = "NewTaxon.lb.info.title".localized
     let foundDeadText: String = "NewTaxon.tf.foundDead.text".localized
     
+    private let onSearchTaxonTapped: Observer<Void>
     private let onNestingTapped: Observer<Void>
     private let onDevStageTapped: Observer<Void>
     
     init(observations: [Observation],
+         onSearchTaxonTapped: @escaping Observer<Void>,
          onNestingTapped: @escaping Observer<Void>,
          onDevStageTapped: @escaping Observer<Void>) {
         self.observations = observations
+        self.onSearchTaxonTapped = onSearchTaxonTapped
         self.onNestingTapped = onNestingTapped
         self.onDevStageTapped = onDevStageTapped
+    }
+    
+    public func searchTaxon() {
+        onSearchTaxonTapped(())
     }
     
     public func nestingTapped() {
@@ -55,5 +62,11 @@ public final class NewTaxonInfoViewModel: ObservableObject {
     
     public func devStageTapped() {
         onDevStageTapped(())
+    }
+}
+
+extension NewTaxonInfoViewModel: TaxonSearchScreenViewModelDelegate {
+    public func updateTaxonName(taxon: TaxonViewModel) {
+        taxonNameTextField.text = taxon.name
     }
 }

@@ -14,7 +14,7 @@ struct NewTaxonInfoView: View {
     var body: some View {
         VStack {
             Button(action: {
-                
+                viewModel.searchTaxon()
             }, label: {
                 MaterialDesignTextField(viewModel: viewModel.taxonNameTextField,
                                         onTextChanged: { text in
@@ -109,6 +109,7 @@ struct NewTaxonInfoView_Previews: PreviewProvider {
         
         let viewModel = NewTaxonInfoViewModel(observations: [Observation(name: "Call"),
                                                              Observation(name: "Exuviae")],
+                                              onSearchTaxonTapped: { _ in},
                                               onNestingTapped: { _ in },
                                               onDevStageTapped: { _ in })
         

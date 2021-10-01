@@ -59,7 +59,7 @@ struct NewTaxonScreen_Previews: PreviewProvider {
                                                                             onImageTapped: { _ in })
         
         let taxonInfoViewModel = NewTaxonInfoViewModel(observations: [Observation(name: "Call"),
-                                                             Observation(name: "Exuviae")],
+                                                                      Observation(name: "Exuviae")], onSearchTaxonTapped: { _ in },
                                               onNestingTapped: { _ in },
                                               onDevStageTapped: { _ in })
         
