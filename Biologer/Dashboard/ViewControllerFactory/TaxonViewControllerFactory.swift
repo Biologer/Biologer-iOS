@@ -15,13 +15,17 @@ public protocol TaxonViewControllerFactory {
                             onPhotoTapped: @escaping Observer<Void>,
                             onGalleryTapped: @escaping Observer<Void>,
                             onImageTapped: @escaping Observer<([TaxonImage], Int)>,
-                            onSearchTaxonTapped: @escaping Observer<Void>) -> UIViewController
+                            onSearchTaxonTapped: @escaping Observer<Void>,
+                            onDevStageTapped: @escaping Observer<Void>) -> UIViewController
     func makeTaxonMapScreen(taxonLocation: TaxonLocation?) -> UIViewController
     func makeImagesPreivewScreen(images: [TaxonImage], selectionIndex: Int) -> UIViewController
     func makeSearchTaxonScreen(service: TaxonService,
                                delegate: TaxonSearchScreenViewModelDelegate?,
                                onTaxonTapped: @escaping Observer<TaxonViewModel>,
                                onOkTapped: @escaping Observer<TaxonViewModel>) -> UIViewController
+    func makeDevStageScreen(stages: [DevStageViewModel],
+                            delegate: NewTaxonDevStageScreenViewModelDelegate?,
+                            onDone: @escaping Observer<Void>) -> UIViewController
 }
 
 public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory {
@@ -40,7 +44,8 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                    onPhotoTapped: @escaping Observer<Void>,
                                    onGalleryTapped: @escaping Observer<Void>,
                                    onImageTapped: @escaping Observer<([TaxonImage], Int)>,
-                                   onSearchTaxonTapped: @escaping Observer<Void>) -> UIViewController {
+                                   onSearchTaxonTapped: @escaping Observer<Void>,
+                                   onDevStageTapped: @escaping Observer<Void>) -> UIViewController {
         
         let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
                                                           latitude: "44.7732 N",
@@ -57,7 +62,7 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                                                       Observation(name: "NewTaxon.btn.exuviaeObservation.text".localized)],
                                                        onSearchTaxonTapped: onSearchTaxonTapped,
                                                        onNestingTapped: { _ in },
-                                                       onDevStageTapped: { _ in })
+                                                       onDevStageTapped: onDevStageTapped)
         
         let viewModel = NewTaxonScreenViewModel(locationViewModel: locationViewModel,
                                                 imageViewModel: imageViewModel,
@@ -93,6 +98,18 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                                    onOkTapped: onOkTapped)
         let screen = TaxonSearchScreen(viewModel: viewModel)
         let controller = UIHostingController(rootView: screen)
+        return controller
+    }
+    
+    public func makeDevStageScreen(stages: [DevStageViewModel],
+                            delegate: NewTaxonDevStageScreenViewModelDelegate?,
+                            onDone: @escaping Observer<Void>) -> UIViewController {
+        let viewModel = NewTaxonDevStageScreenViewModel(stages: stages,
+                                                        delegate: delegate,
+                                                        onDone: onDone)
+        let screen = NewTaxonDevStageScreen(viewModel: viewModel)
+        let controller = UIHostingController(rootView: screen)
+        controller.view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
         return controller
     }
 }

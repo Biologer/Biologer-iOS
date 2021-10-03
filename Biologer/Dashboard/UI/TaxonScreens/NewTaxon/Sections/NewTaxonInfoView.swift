@@ -68,7 +68,7 @@ struct NewTaxonInfoView: View {
                              })
             
             Button(action: {
-                
+                viewModel.devStageTapped()
             }, label: {
                 MaterialDesignTextField(viewModel: viewModel.devStageTextField,
                                         onTextChanged: { text in

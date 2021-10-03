@@ -70,3 +70,9 @@ extension NewTaxonInfoViewModel: TaxonSearchScreenViewModelDelegate {
         taxonNameTextField.text = taxon.name
     }
 }
+
+extension NewTaxonInfoViewModel: NewTaxonDevStageScreenViewModelDelegate {
+    public func updateDevStage(devStageViewModel: DevStageViewModel) {
+        devStageTextField.text = devStageViewModel.name
+    }
+}

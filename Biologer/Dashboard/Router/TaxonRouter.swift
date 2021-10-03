@@ -55,28 +55,35 @@ public final class TaxonRouter: NSObject {
     private func showNewTaxonScreen() {
         var mapDelegate: TaxonMapScreenViewModelDelegate?
         var taxonNameDelegate: TaxonSearchScreenViewModelDelegate?
+        var devStageDelegate: NewTaxonDevStageScreenViewModelDelegate?
         let vc = factory.makeNewTaxonScreen(onSaveTapped: { _ in },
-                                            onLocationTapped: { _ in
-                                                self.showTaxonMapScreen(delegate: mapDelegate)
+                                            onLocationTapped: { [weak self] _ in
+                                                self?.showTaxonMapScreen(delegate: mapDelegate)
                                             },
-                                            onPhotoTapped: { _ in
-                                                self.showPhoneImages(type: .camera)
+                                            onPhotoTapped: { [weak self] _ in
+                                                self?.showPhoneImages(type: .camera)
                                             },
-                                            onGalleryTapped: { _ in
-                                                self.showPhoneImages(type: .photoLibrary)
+                                            onGalleryTapped: { [weak self] _ in
+                                                self?.showPhoneImages(type: .photoLibrary)
                                             },
-                                            onImageTapped: { images, selectedImageIndex in
-                                                self.showImagesPreviewScreen(images: images,
+                                            onImageTapped: { [weak self] images, selectedImageIndex in
+                                                self?.showImagesPreviewScreen(images: images,
                                                                              selectedImageIndex: selectedImageIndex)
                                             },
                                             onSearchTaxonTapped: { [weak self] _ in
                                                 self?.showTaxonSearchScreen(delegate: taxonNameDelegate)
+                                            },
+                                            onDevStageTapped: { [weak self] _ in
+                                                self?.showDevStageScreen(stages: [DevStageViewModel(name: "Egg"), DevStageViewModel(name: "Larva"),
+                                                                                  DevStageViewModel(name: "Pupa"), DevStageViewModel(name: "Adult")],
+                                                                         delegate: devStageDelegate)
                                             })
         let viewController = vc as? UIHostingController<NewTaxonScreen>
         newTaxonScreenViewModel = viewController?.rootView.viewModel
         imageCustomPickerDelegate = viewController?.rootView.viewModel.imageViewModel
         mapDelegate = viewController?.rootView.viewModel
         taxonNameDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
+        devStageDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.lb.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
@@ -123,6 +130,18 @@ public final class TaxonRouter: NSObject {
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.search.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
+    }
+    
+    private func showDevStageScreen(stages: [DevStageViewModel],
+                                    delegate: NewTaxonDevStageScreenViewModelDelegate?) {
+        let vc = factory.makeDevStageScreen(stages: stages,
+                                            delegate: delegate,
+                                            onDone: { [weak self] _ in
+                                                self?.navigationController.dismiss(animated: true, completion: nil)
+                                            })
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        self.navigationController.present(vc, animated: true, completion: nil)
     }
     
     @objc func goBack() {
