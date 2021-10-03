@@ -12,6 +12,7 @@ struct TaxonSearchBarView: View {
     @State private var isEditing = false
     public var text: String
     let onTextChanged: Observer<String>
+    let onOkTapped: Observer<Void>
     
     var body: some View {
         HStack {
@@ -46,17 +47,15 @@ struct TaxonSearchBarView: View {
                     self.isEditing = true
                 }
             
-            if isEditing {
-                Button(action: {
-                    self.isEditing = false
-                    onTextChanged((text))
-                }) {
-                    Text("Cancel")
-                }
-                .padding(.trailing, 10)
-                .transition(.move(edge: .trailing))
-                .animation(.default)
+            Button(action: {
+                self.isEditing = false
+                self.onOkTapped(())
+            }) {
+                Text("Ok")
             }
+            .padding(.trailing, 10)
+            .transition(.move(edge: .trailing))
+            .animation(.default)
         }
     }
         
@@ -64,6 +63,8 @@ struct TaxonSearchBarView: View {
 
 struct TaxonSearchBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TaxonSearchBarView(text: "Search for something..", onTextChanged: { _ in })
+        TaxonSearchBarView(text: "Search for something..",
+                           onTextChanged: { _ in },
+                           onOkTapped: { _ in })
     }
 }

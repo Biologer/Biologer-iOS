@@ -28,6 +28,7 @@ public final class SearchTextField: UIViewRepresentable {
     }
     
     public func updateUIView(_ textField: UITextField, context: Context) {
+        textField.text = text
         textField.sizeToFit()
     }
     

@@ -17,6 +17,9 @@ struct TaxonSearchScreen: View {
             TaxonSearchBarView(text: viewModel.searchText,
                                onTextChanged: { text in
                                 viewModel.search(search: text)
+                               },
+                               onOkTapped: { _ in
+                                viewModel.taxonTapped(taxon: TaxonViewModel(name: viewModel.searchText))
                                })
             Divider()
             LazyVStack {
