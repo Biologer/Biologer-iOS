@@ -81,6 +81,6 @@ extension NewTaxonInfoViewModel: NewTaxonDevStageScreenViewModelDelegate {
 extension NewTaxonInfoViewModel: NestingAtlasCodeScreenViewModelDelegate {
     public func updateNestingCode(code: NestingAtlasCodeItem) {
         nestingAltasCode = code
-        nestingTextField = NestingTextField(text: code.name)
+        nestingTextField.text = code.name
     }
 }

@@ -31,12 +31,13 @@ public final class MaterialDesignTextArea: UIViewRepresentable {
         let textField = MDCOutlinedTextArea()
         textField.textView.returnKeyType = .done
         textField.textView.keyboardType = keyboardType
-        textField.textView.isUserInteractionEnabled = viewModel.isUserInteractionEnabled
+        textField.isUserInteractionEnabled = viewModel.isUserInteractionEnabled
         textField.textView.autocapitalizationType = keyboardType == .emailAddress ? .none : .sentences
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textViewDidChange), for: .editingChanged)
         textField.textView.delegate = context.coordinator
         textField.textView.sizeToFit()
         textField.maximumNumberOfVisibleRows = 100
+        setTextFieldTralingIcon(textField: textField)
         return textField
     }
     
@@ -44,7 +45,6 @@ public final class MaterialDesignTextArea: UIViewRepresentable {
         setTextFieldTexts(textField: textField)
         setTextFieldColors(textField: textField)
         setTextFieldFonts(textField: textField)
-        setTextFieldTralingIcon(textField: textField)
         textField.sizeToFit()
     }
     
@@ -86,7 +86,7 @@ public final class MaterialDesignTextArea: UIViewRepresentable {
         if let icon = viewModel.getIconImageByType() {
             textField.trailingViewMode = .always
 //            if viewModel.isPassword {
-                icon.isUserInteractionEnabled = true
+                //icon.isUserInteractionEnabled = true
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconTapped))
                 icon.addGestureRecognizer(tapGesture)
 //            }
@@ -119,23 +119,32 @@ public final class MaterialDesignTextArea: UIViewRepresentable {
             self.onIconTapped = onIconTapped
         }
         
-        @objc public func textViewDidChange(_ textField: UITextField) {
-            self.onTextChanged((textField.text ?? ""))
-            viewModel.text = textField.text ?? ""
+        @objc public func textViewDidChange(_ textView: UITextView) {
+            self.onTextChanged((textView.text ?? ""))
+            viewModel.text = textView.text ?? ""
             viewModel.type = .success
         }
         
-        public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-            self.onTextChanged((textField.text ?? ""))
-            viewModel.text = textField.text ?? ""
+        public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+            self.onTextChanged((textView.text ?? ""))
+            viewModel.text = textView.text ?? ""
+            viewModel.type = .success
+            return true
+        }
+    
+        
+        public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+            self.onTextChanged((textView.text ?? ""))
+            viewModel.text = textView.text ?? ""
             viewModel.type = .success
             return true
         }
         
-        public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-            self.onTextChanged((textField.text ?? ""))
-            viewModel.text = textField.text ?? ""
-            viewModel.type = .success
+        public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            if text == "\n" {
+                textView.resignFirstResponder()
+                return false
+            }
             return true
         }
         

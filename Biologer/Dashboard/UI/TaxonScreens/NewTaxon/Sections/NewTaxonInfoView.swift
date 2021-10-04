@@ -31,16 +31,16 @@ struct NewTaxonInfoView: View {
             Button(action: {
                 viewModel.nestingTapped()
             }, label: {
-                MaterialDesignTextField(viewModel: viewModel.nestingTextField,
+                MaterialDesignTextArea(viewModel: viewModel.nestingTextField,
                                         onTextChanged: { text in
                                             
                                         },
                                         textAligment: .left)
-                    .frame(height: 50)
+                    //.frame(minHeight: 50)
                     .padding(.bottom, 20)
             })
             
-            MaterialDesignTextField(viewModel: viewModel.commentsTextField,
+            MaterialDesignTextArea(viewModel: viewModel.commentsTextField,
                                     onTextChanged: { text in
                                         
                                     },
