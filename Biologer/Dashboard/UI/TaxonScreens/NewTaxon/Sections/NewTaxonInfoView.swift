@@ -36,7 +36,6 @@ struct NewTaxonInfoView: View {
                                             
                                         },
                                         textAligment: .left)
-                    //.frame(minHeight: 50)
                     .padding(.bottom, 20)
             })
             
@@ -45,7 +44,6 @@ struct NewTaxonInfoView: View {
                                         
                                     },
                                     textAligment: .left)
-                .frame(height: 50)
                 .padding(.bottom, 20)
             
             NumberOfIndividualsView(isMaleIndividual: viewModel.isMaleIndividual,

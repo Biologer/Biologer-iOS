@@ -42,6 +42,7 @@ struct NumberOfIndividualsView: View {
             VStack {
                 if !isMaleIndividual && !isFemaleIndividual {
                     MaterialDesignTextField(viewModel: individualsTextField,
+                                            keyboardType: .numberPad,
                                             onTextChanged: { text in
                                                 
                                             },
@@ -50,6 +51,7 @@ struct NumberOfIndividualsView: View {
                 }
                 if isMaleIndividual && !isFemaleIndividual {
                     MaterialDesignTextField(viewModel: maleIndividualsTextField,
+                                            keyboardType: .numberPad,
                                             onTextChanged: { text in
                                                 
                                             },
@@ -58,6 +60,7 @@ struct NumberOfIndividualsView: View {
                 }
                 if !isMaleIndividual && isFemaleIndividual {
                     MaterialDesignTextField(viewModel: femaleIndividualsTextField,
+                                            keyboardType: .numberPad,
                                             onTextChanged: { text in
                                                 
                                             },
@@ -66,6 +69,7 @@ struct NumberOfIndividualsView: View {
                 }
                 if isMaleIndividual && isFemaleIndividual {
                     MaterialDesignTextField(viewModel: maleIndividualsTextField,
+                                            keyboardType: .numberPad,
                                             onTextChanged: { text in
                                                 
                                             },
@@ -73,6 +77,7 @@ struct NumberOfIndividualsView: View {
                         .frame(height: 50)
                         .padding(.bottom, 20)
                     MaterialDesignTextField(viewModel: femaleIndividualsTextField,
+                                            keyboardType: .numberPad,
                                             onTextChanged: { text in
                                                 
                                             },
@@ -80,10 +85,8 @@ struct NumberOfIndividualsView: View {
                         .frame(height: 50)
                 }
             }
-            Spacer()
         }
     }
-
 }
 
 struct NumberOfIndividualsView_Previews: PreviewProvider {
