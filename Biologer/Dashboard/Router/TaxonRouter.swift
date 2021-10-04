@@ -56,6 +56,7 @@ public final class TaxonRouter: NSObject {
         var mapDelegate: TaxonMapScreenViewModelDelegate?
         var taxonNameDelegate: TaxonSearchScreenViewModelDelegate?
         var devStageDelegate: NewTaxonDevStageScreenViewModelDelegate?
+        var nestingAtlasCodeDelegate: NestingAtlasCodeScreenViewModelDelegate?
         let vc = factory.makeNewTaxonScreen(onSaveTapped: { _ in },
                                             onLocationTapped: { [weak self] _ in
                                                 self?.showTaxonMapScreen(delegate: mapDelegate)
@@ -73,6 +74,13 @@ public final class TaxonRouter: NSObject {
                                             onSearchTaxonTapped: { [weak self] _ in
                                                 self?.showTaxonSearchScreen(delegate: taxonNameDelegate)
                                             },
+                                            onNestingTapped: { [weak self] atlasCode in
+                                                self?.showNestingAtlasCode(codes: [NestingAtlasCodeItem(name: "Species observed but supected to be on migration or to be summering non-beeder"),
+                                                                                   NestingAtlasCodeItem(name: "Species observed in breeding seasson in possible naesting habitat"), NestingAtlasCodeItem(name: "Singin male(s) present (or breeding calls heard) in breeading season"), NestingAtlasCodeItem(name: "Pair observed in suitable nesting habitat in breeding season"), NestingAtlasCodeItem(name: "Permanent territory presumed through registration of teritorial behaviour (song, etc) on at last two difference days a week or more apart at the same place"), NestingAtlasCodeItem(name: "Species observed but supected to be on migration or to be summering non-beeder"), NestingAtlasCodeItem(name: "Species observed but supected to be on migration or to be summering non-beeder"),
+                                                                                   NestingAtlasCodeItem(name: "Species observed in breeding seasson in possible naesting habitat"), NestingAtlasCodeItem(name: "Singin male(s) present (or breeding calls heard) in breeading season"), NestingAtlasCodeItem(name: "Pair observed in suitable nesting habitat in breeding season"), NestingAtlasCodeItem(name: "Permanent territory presumed through registration of teritorial behaviour (song, etc) on at last two difference days a week or more apart at the same place"), NestingAtlasCodeItem(name: "Species observed but supected to be on migration or to be summering non-beeder")],
+                                                                           previousSelectedItem: atlasCode,
+                                                                           delegate: nestingAtlasCodeDelegate)
+                                            },
                                             onDevStageTapped: { [weak self] _ in
                                                 self?.showDevStageScreen(stages: [DevStageViewModel(name: "Egg"), DevStageViewModel(name: "Larva"),
                                                                                   DevStageViewModel(name: "Pupa"), DevStageViewModel(name: "Adult")],
@@ -84,6 +92,7 @@ public final class TaxonRouter: NSObject {
         mapDelegate = viewController?.rootView.viewModel
         taxonNameDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         devStageDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
+        nestingAtlasCodeDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.lb.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
@@ -142,6 +151,20 @@ public final class TaxonRouter: NSObject {
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
         self.navigationController.present(vc, animated: true, completion: nil)
+    }
+    
+    private func showNestingAtlasCode(codes: [NestingAtlasCodeItem],
+                                      previousSelectedItem: NestingAtlasCodeItem?,
+                                      delegate: NestingAtlasCodeScreenViewModelDelegate?) {
+        let vc = factory.makeAtlasCodeScreen(codes: codes,
+                                             previousSlectedCode: previousSelectedItem,
+                                             delegate: delegate,
+                                             onCodeTapped: { [weak self] _ in
+                                                self?.navigationController.popViewController(animated: true)
+                                             })
+        vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
+        vc.setBiologerTitle(text: "NewTaxon.nestingAtlas.nav.title".localized)
+        self.navigationController.pushViewController(vc, animated: true)
     }
     
     @objc func goBack() {

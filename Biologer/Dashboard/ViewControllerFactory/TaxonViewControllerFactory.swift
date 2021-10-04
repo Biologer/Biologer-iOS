@@ -16,6 +16,7 @@ public protocol TaxonViewControllerFactory {
                             onGalleryTapped: @escaping Observer<Void>,
                             onImageTapped: @escaping Observer<([TaxonImage], Int)>,
                             onSearchTaxonTapped: @escaping Observer<Void>,
+                            onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
                             onDevStageTapped: @escaping Observer<Void>) -> UIViewController
     func makeTaxonMapScreen(taxonLocation: TaxonLocation?) -> UIViewController
     func makeImagesPreivewScreen(images: [TaxonImage], selectionIndex: Int) -> UIViewController
@@ -26,6 +27,10 @@ public protocol TaxonViewControllerFactory {
     func makeDevStageScreen(stages: [DevStageViewModel],
                             delegate: NewTaxonDevStageScreenViewModelDelegate?,
                             onDone: @escaping Observer<Void>) -> UIViewController
+    func makeAtlasCodeScreen(codes: [NestingAtlasCodeItem],
+                             previousSlectedCode: NestingAtlasCodeItem?,
+                             delegate: NestingAtlasCodeScreenViewModelDelegate?,
+                             onCodeTapped: @escaping Observer<Void>) -> UIViewController
 }
 
 public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory {
@@ -45,6 +50,7 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                    onGalleryTapped: @escaping Observer<Void>,
                                    onImageTapped: @escaping Observer<([TaxonImage], Int)>,
                                    onSearchTaxonTapped: @escaping Observer<Void>,
+                                   onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
                                    onDevStageTapped: @escaping Observer<Void>) -> UIViewController {
         
         let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
@@ -61,7 +67,7 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         let taxonInfoViewModel = NewTaxonInfoViewModel(observations: [Observation(name: "NewTaxon.btn.callObservation.text".localized),
                                                                       Observation(name: "NewTaxon.btn.exuviaeObservation.text".localized)],
                                                        onSearchTaxonTapped: onSearchTaxonTapped,
-                                                       onNestingTapped: { _ in },
+                                                       onNestingTapped: onNestingTapped,
                                                        onDevStageTapped: onDevStageTapped)
         
         let viewModel = NewTaxonScreenViewModel(locationViewModel: locationViewModel,
@@ -110,6 +116,19 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         let screen = NewTaxonDevStageScreen(viewModel: viewModel)
         let controller = UIHostingController(rootView: screen)
         controller.view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
+        return controller
+    }
+    
+    public func makeAtlasCodeScreen(codes: [NestingAtlasCodeItem],
+                             previousSlectedCode: NestingAtlasCodeItem?,
+                             delegate: NestingAtlasCodeScreenViewModelDelegate?,
+                             onCodeTapped: @escaping Observer<Void>) -> UIViewController {
+        let viewModel = NestingAtlasCodeScreenViewModel(codes: codes,
+                                                        previousSlectedCode: previousSlectedCode,
+                                                        delegate: delegate,
+                                                        onCodeTapped: onCodeTapped)
+        let screen = NestingAtlasCodeScreen(viewModel: viewModel)
+        let controller = UIHostingController(rootView: screen)
         return controller
     }
 }

@@ -29,7 +29,7 @@ struct NewTaxonInfoView: View {
             })
             
             Button(action: {
-                
+                viewModel.nestingTapped()
             }, label: {
                 MaterialDesignTextField(viewModel: viewModel.nestingTextField,
                                         onTextChanged: { text in

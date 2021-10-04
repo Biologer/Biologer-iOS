@@ -19,7 +19,7 @@ public class Observation: ObservableObject {
 
 public final class NewTaxonInfoViewModel: ObservableObject {
     @Published var taxonNameTextField: MaterialDesignTextFieldViewModelProtocol = TaxonNameTextField()
-    @Published var nestingTextField: MaterialDesignTextFieldViewModelProtocol = NestingTextField()
+    @Published var nestingTextField: MaterialDesignTextFieldViewModelProtocol = NestingTextField(text: "")
     @Published var commentsTextField: MaterialDesignTextFieldViewModelProtocol = CommentsTextField()
     @Published var maleIndividualsTextField: MaterialDesignTextFieldViewModelProtocol = MaleIndividualTextField()
     @Published var femaleIndividualsTextField: MaterialDesignTextFieldViewModelProtocol = FemaleIndividualTextField()
@@ -38,13 +38,14 @@ public final class NewTaxonInfoViewModel: ObservableObject {
     let title: String = "NewTaxon.lb.info.title".localized
     let foundDeadText: String = "NewTaxon.tf.foundDead.text".localized
     
+    private var nestingAltasCode: NestingAtlasCodeItem?
     private let onSearchTaxonTapped: Observer<Void>
-    private let onNestingTapped: Observer<Void>
+    private let onNestingTapped: Observer<NestingAtlasCodeItem?>
     private let onDevStageTapped: Observer<Void>
     
     init(observations: [Observation],
          onSearchTaxonTapped: @escaping Observer<Void>,
-         onNestingTapped: @escaping Observer<Void>,
+         onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
          onDevStageTapped: @escaping Observer<Void>) {
         self.observations = observations
         self.onSearchTaxonTapped = onSearchTaxonTapped
@@ -57,7 +58,7 @@ public final class NewTaxonInfoViewModel: ObservableObject {
     }
     
     public func nestingTapped() {
-        onNestingTapped(())
+        onNestingTapped((nestingAltasCode))
     }
     
     public func devStageTapped() {
@@ -74,5 +75,12 @@ extension NewTaxonInfoViewModel: TaxonSearchScreenViewModelDelegate {
 extension NewTaxonInfoViewModel: NewTaxonDevStageScreenViewModelDelegate {
     public func updateDevStage(devStageViewModel: DevStageViewModel) {
         devStageTextField.text = devStageViewModel.name
+    }
+}
+
+extension NewTaxonInfoViewModel: NestingAtlasCodeScreenViewModelDelegate {
+    public func updateNestingCode(code: NestingAtlasCodeItem) {
+        nestingAltasCode = code
+        nestingTextField = NestingTextField(text: code.name)
     }
 }

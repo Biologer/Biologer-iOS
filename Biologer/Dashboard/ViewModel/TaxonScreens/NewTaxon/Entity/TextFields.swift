@@ -24,7 +24,7 @@ public final class TaxonNameTextField: MaterialDesignTextFieldViewModelProtocol 
 public final class NestingTextField: MaterialDesignTextFieldViewModelProtocol {
     public var textAligment: NSTextAlignment = .left
     public var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>?
-    public var text: String = ""
+    public var text: String
     public var placeholder: String = "NewTaxon.tf.nesting.placeholder".localized
     public var errorText: String = ""
     public var isCodeEntry: Bool = false
@@ -32,6 +32,10 @@ public final class NestingTextField: MaterialDesignTextFieldViewModelProtocol {
     public var tralingErrorImage: String? = nil
     public var isUserInteractionEnabled: Bool = false
     public var type: MaterialDesignTextFieldType = .success
+    
+    init(text: String) {
+        self.text = text
+    }
 }
 
 public final class CommentsTextField: MaterialDesignTextFieldViewModelProtocol {
