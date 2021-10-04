@@ -10,6 +10,7 @@ import SwiftUI
 struct NewTaxonLocationView: View {
     
     @ObservedObject var viewModel: NewTaxonLocationViewModel
+    @ObservedObject var location = LocationManager()
     
     var body: some View {
         HStack {
@@ -26,7 +27,7 @@ struct NewTaxonLocationView: View {
                 }
             })
             VStack(alignment: .leading, spacing: 10) {
-                if viewModel.isLoadingLocatino {
+                if viewModel.isLoadingLocation {
                     Text(viewModel.waitingForCordiateLabel)
                         .foregroundColor(.red)
                 } else {
@@ -44,7 +45,7 @@ struct NewTaxonLocationView: View {
                         .font(.caption)
                         .foregroundColor(Color.black)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text(viewModel.isLoadingLocatino ? viewModel.accuracyUnknown : viewModel.accuraccy)
+                    Text(viewModel.isLoadingLocation ? viewModel.accuracyUnknown : viewModel.accuraccy)
                         .font(.caption)
                         .foregroundColor(Color.gray)
                         .fixedSize(horizontal: false, vertical: true)

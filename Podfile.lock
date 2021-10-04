@@ -1,4 +1,10 @@
 PODS:
+  - GoogleMaps (5.1.0):
+    - GoogleMaps/Maps (= 5.1.0)
+  - GoogleMaps/Base (5.1.0)
+  - GoogleMaps/Maps (5.1.0):
+    - GoogleMaps/Base
+  - GooglePlaces (5.1.0)
   - MaterialComponents/AnimationTiming (124.2.0)
   - MaterialComponents/Availability (124.2.0)
   - MaterialComponents/private/Math (124.2.0)
@@ -41,6 +47,8 @@ PODS:
   - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
+  - GoogleMaps
+  - GooglePlaces
   - "MaterialComponents/TextControls+OutlinedTextAreas"
   - "MaterialComponents/TextControls+OutlinedTextFields"
   - SideMenu
@@ -48,17 +56,21 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - GoogleMaps
+    - GooglePlaces
     - MaterialComponents
     - MDFInternationalization
     - SideMenu
     - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
+  GoogleMaps: 086ae1dab659eaa7339bdb30fc88e2f44e7c597c
+  GooglePlaces: c57cd5aa7e91d10fa5106c792de74f3bd6436260
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: c3cd36fc8870080a863b2edbf613faf3a6d07e87
+PODFILE CHECKSUM: f1baf428c17d7e15536218f33d6e2f203ddfea3d
 
 COCOAPODS: 1.10.1

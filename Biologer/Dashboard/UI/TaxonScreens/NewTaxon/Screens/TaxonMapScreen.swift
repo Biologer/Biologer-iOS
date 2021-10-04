@@ -12,11 +12,8 @@ struct TaxonMapScreen: View {
     let viewModel: TaxonMapScreenViewModel
     
     var body: some View {
-        Button(action: {
-            viewModel.doneTapped()
-        }, label: {
-            Text("Update location")
-        })
+        GoogleMapsView()
+            .frame(height: UIScreen.screenHeight)
     }
 }
 

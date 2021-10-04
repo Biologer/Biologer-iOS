@@ -5,7 +5,7 @@
 //  Created by Nikola Popovic on 28.9.21..
 //
 
-import Foundation
+import SwiftUI
 
 public final class NewTaxonLocationViewModel: ObservableObject {
     public let locationTitle: String = "NewTaxon.lb.locationTitle".localized
@@ -15,7 +15,8 @@ public final class NewTaxonLocationViewModel: ObservableObject {
     public let waitingForCordiateLabel: String = "NewTaxon.lb.waitingForCordinate".localized
     public let accuracyUnknown: String = "NewTaxon.lb.accuracyUnknown".localized
     private let onLocationTapped: Observer<Void>
-    @Published var isLoadingLocatino: Bool
+    private let location = LocationManager()
+    @Published var isLoadingLocation: Bool
     @Published var latitude: String
     @Published var longitude: String
     @Published var accuraccy: String
@@ -25,11 +26,17 @@ public final class NewTaxonLocationViewModel: ObservableObject {
          longitude: String,
          accuraccy: String,
          onLocationTapped: @escaping Observer<Void>) {
-        self.isLoadingLocatino = isLoadingLocatino
+        self.isLoadingLocation = isLoadingLocatino
         self.latitude = latitude
         self.longitude = longitude
         self.accuraccy = accuraccy
         self.onLocationTapped = onLocationTapped
+        location.onLocationUpdate = { [self] _ in
+            self.isLoadingLocation = false
+            self.latitude = String(location.latitude)
+            self.longitude = String(location.longitude)
+            self.accuraccy = String(location.location!.horizontalAccuracy)
+        }
     }
     
     public func locationTapped() {

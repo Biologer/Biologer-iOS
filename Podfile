@@ -11,6 +11,8 @@ target 'Biologer' do
   pod 'MaterialComponents/TextControls+OutlinedTextAreas'
   pod 'SwiftKeychainWrapper'
   pod 'SideMenu'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
   
   target 'BiologerTests' do
     inherit! :search_paths

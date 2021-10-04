@@ -37,6 +37,8 @@
 		9314DA2E270A4C10007896F9 /* NewTaxonDevStageScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA2D270A4C10007896F9 /* NewTaxonDevStageScreen.swift */; };
 		9314DA30270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA2F270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift */; };
 		9314DA34270AF8FD007896F9 /* NestingAtlasCodeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA33270AF8FD007896F9 /* NestingAtlasCodeScreen.swift */; };
+		9314DA36270B3EAF007896F9 /* GoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA35270B3EAF007896F9 /* GoogleMapsView.swift */; };
+		9314DA38270B3F11007896F9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DA37270B3F11007896F9 /* LocationManager.swift */; };
 		93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EAC2677DDD50094A483 /* SideMenuListScreen.swift */; };
 		93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */; };
 		93334EB12677E1220094A483 /* FindingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EB02677E1220094A483 /* FindingsListView.swift */; };
@@ -236,6 +238,8 @@
 		9314DA2D270A4C10007896F9 /* NewTaxonDevStageScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonDevStageScreen.swift; sourceTree = "<group>"; };
 		9314DA2F270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestingAtlasCodeScreenViewModel.swift; sourceTree = "<group>"; };
 		9314DA33270AF8FD007896F9 /* NestingAtlasCodeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestingAtlasCodeScreen.swift; sourceTree = "<group>"; };
+		9314DA35270B3EAF007896F9 /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
+		9314DA37270B3F11007896F9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		93334EAC2677DDD50094A483 /* SideMenuListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreen.swift; sourceTree = "<group>"; };
 		93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFindingsScreen.swift; sourceTree = "<group>"; };
 		93334EB02677E1220094A483 /* FindingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsListView.swift; sourceTree = "<group>"; };
@@ -814,6 +818,7 @@
 				938D93502705E8F70068E27C /* NumberOfIndividualsView.swift */,
 				938D93522705EB190068E27C /* ObservationsView.swift */,
 				9314DA1F270749DB007896F9 /* SearchTextField.swift */,
+				9314DA35270B3EAF007896F9 /* GoogleMapsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -870,6 +875,7 @@
 			children = (
 				938D9347270481A40068E27C /* TextFields.swift */,
 				938D935C27060E6B0068E27C /* TaxonLocation.swift */,
+				9314DA37270B3F11007896F9 /* LocationManager.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1106,6 +1112,7 @@
 				931426DD262B53AD00542EFC /* Frameworks */,
 				931426DE262B53AD00542EFC /* Resources */,
 				0F285B4E1F502C8368FDC512 /* [CP] Embed Pods Frameworks */,
+				A83D3C7B235F23047ACCEC20 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1144,6 +1151,7 @@
 				931426FE262B53B100542EFC /* Frameworks */,
 				931426FF262B53B100542EFC /* Resources */,
 				DEC46F1A9224CD621B0CE3AB /* [CP] Embed Pods Frameworks */,
+				169B687A2F2B4A658D6F971B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1246,6 +1254,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		169B687A2F2B4A658D6F971B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		472A9DD8039557A3CA901A25 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1288,6 +1313,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A83D3C7B235F23047ACCEC20 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C414B30154F593F7203E649E /* [CP] Check Pods Manifest.lock */ = {
@@ -1413,12 +1455,14 @@
 				9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */,
 				9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */,
 				93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */,
+				9314DA36270B3EAF007896F9 /* GoogleMapsView.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
 				93BF629E262B807D00DDFB44 /* BiologerButton.swift in Sources */,
 				93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */,
 				93842AF626FA4465008ECA80 /* ObserverResponse.swift in Sources */,
 				933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
+				9314DA38270B3F11007896F9 /* LocationManager.swift in Sources */,
 				93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */,
 				93CC658D269C552C00949534 /* CommonViewControllerFactory.swift in Sources */,
 				938D935927060DF80068E27C /* TaxonMapScreenViewModel.swift in Sources */,
@@ -1681,7 +1725,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nikola.popovic.developer.Biologer;
+				PRODUCT_BUNDLE_IDENTIFIER = Biologer.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1703,7 +1747,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nikola.popovic.developer.Biologer;
+				PRODUCT_BUNDLE_IDENTIFIER = Biologer.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
