@@ -12,16 +12,14 @@ public protocol TaxonMapScreenViewModelDelegate {
 }
 
 public final class TaxonMapScreenViewModel {
-    private var location: TaxonLocation?
+    public private(set) var locationManager: LocationManager
     public var delegate: TaxonMapScreenViewModelDelegate?
     
-    init(location: TaxonLocation? = nil) {
-        self.location = location
+    init(locationManager: LocationManager) {
+        self.locationManager = locationManager
     }
     
-    public func doneTapped() {
-        if let location = location {
-            delegate?.updateLocation(location: location)
-        }
+    public func doneTapped(location: TaxonLocation) {
+        delegate?.updateLocation(location: location)
     }
 }

@@ -10,7 +10,8 @@ import SwiftUI
 public protocol TaxonViewControllerFactory {
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
                                   onItemTapped: @escaping Observer<Item>) -> UIViewController
-    func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>,
+    func makeNewTaxonScreen(location: LocationManager,
+                            onSaveTapped: @escaping Observer<Void>,
                             onLocationTapped: @escaping Observer<Void>,
                             onPhotoTapped: @escaping Observer<Void>,
                             onGalleryTapped: @escaping Observer<Void>,
@@ -18,7 +19,7 @@ public protocol TaxonViewControllerFactory {
                             onSearchTaxonTapped: @escaping Observer<Void>,
                             onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
                             onDevStageTapped: @escaping Observer<Void>) -> UIViewController
-    func makeTaxonMapScreen(taxonLocation: TaxonLocation?) -> UIViewController
+    func makeTaxonMapScreen(locationManager: LocationManager) -> UIViewController
     func makeImagesPreivewScreen(images: [TaxonImage], selectionIndex: Int) -> UIViewController
     func makeSearchTaxonScreen(service: TaxonService,
                                delegate: TaxonSearchScreenViewModelDelegate?,
@@ -44,7 +45,8 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         return viewController
     }
     
-    public func makeNewTaxonScreen(onSaveTapped: @escaping Observer<Void>,
+    public func makeNewTaxonScreen(location: LocationManager,
+                                   onSaveTapped: @escaping Observer<Void>,
                                    onLocationTapped: @escaping Observer<Void>,
                                    onPhotoTapped: @escaping Observer<Void>,
                                    onGalleryTapped: @escaping Observer<Void>,
@@ -53,10 +55,7 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                    onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
                                    onDevStageTapped: @escaping Observer<Void>) -> UIViewController {
         
-        let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
-                                                          latitude: "44.7732 N",
-                                                          longitude: "20.4163 E",
-                                                          accuraccy: "13 m",
+        let locationViewModel = NewTaxonLocationViewModel(location: location,
                                                           onLocationTapped: onLocationTapped)
         
         let imageViewModel = NewTaxonImageViewModel(choosenImages: [],
@@ -80,8 +79,8 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         return controller
     }
     
-    public func makeTaxonMapScreen(taxonLocation: TaxonLocation?) -> UIViewController {
-        let viewModel = TaxonMapScreenViewModel(location: taxonLocation)
+    public func makeTaxonMapScreen(locationManager: LocationManager) -> UIViewController {
+        let viewModel = TaxonMapScreenViewModel(locationManager: locationManager)
         let screen = TaxonMapScreen(viewModel: viewModel)
         let controller = UIHostingController(rootView: screen)
         return controller

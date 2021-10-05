@@ -48,11 +48,8 @@ struct NewTaxonSectionView<Content: View>: View {
 struct NewTaxonSectionView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
-                                                          latitude: "44.7732 N",
-                                                          longitude: "20.4163 E",
-                                                          accuraccy: "13 m",
-                                                          onLocationTapped: { _ in})
+        let viewModel = NewTaxonLocationViewModel(location: LocationManager(),
+                                                  onLocationTapped: { _ in})
         
         let view = NewTaxonLocationView(viewModel: viewModel)
         

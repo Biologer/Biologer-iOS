@@ -47,10 +47,7 @@ struct NewTaxonScreen: View {
 struct NewTaxonScreen_Previews: PreviewProvider {
     static var previews: some View {
         
-        let locationViewModel = NewTaxonLocationViewModel(isLoadingLocatino: false,
-                                                          latitude: "44.7732 N",
-                                                          longitude: "20.4163 E",
-                                                          accuraccy: "13 m",
+        let locationViewModel = NewTaxonLocationViewModel(location: LocationManager(),
                                                           onLocationTapped: { _ in})
         
         let imageViewModel: NewTaxonImageViewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4")), TaxonImage(image: Image("intro4"))],

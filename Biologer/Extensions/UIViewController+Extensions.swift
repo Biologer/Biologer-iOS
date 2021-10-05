@@ -27,6 +27,22 @@ extension UIViewController {
         navigationItem.leftBarButtonItems = [barButtonItem]
     }
     
+    public func setBiologerRightButtonItem(image: UIImage? = nil, title: String = "", target: Any, action: Selector) {
+        let image = image
+        let barButtonItem = UIBarButtonItem(image: image, style: .plain, target: target, action: action)
+        barButtonItem.tintColor = .blue
+        barButtonItem.title = title
+        navigationItem.rightBarButtonItems = [barButtonItem]
+    }
+    
+    public func setBiologerRightButtonItem(image: UIImage? = nil, title: String = "", action: @escaping () -> Void) {
+        let image = image
+        let barButtonItem = UIBarButtonItem(image: image, style: .plain, action: action)
+        barButtonItem.tintColor = .blue
+        barButtonItem.title = title
+        navigationItem.rightBarButtonItems = [barButtonItem]
+    }
+    
     public func setBiologerTitle(text: String, numberOfLines: Int = 0) {
         let titleLbl = UILabel()
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkGray, .kern: 1.0]
@@ -52,8 +68,8 @@ extension UIBarButtonItem {
         }
     }
 
-    convenience init(image: UIImage, style: UIBarButtonItem.Style, action: @escaping () -> ()) {
-        self.init(image: image, style: style, target: nil, action: #selector(pressed))
+    convenience init(image: UIImage?, style: UIBarButtonItem.Style, action: @escaping () -> ()) {
+        self.init(image: image ?? nil, style: style, target: nil, action: #selector(pressed))
         self.target = self
         self._action = action
     }

@@ -29,11 +29,3 @@ public final class NewTaxonScreenViewModel: ObservableObject {
         onSaveTapped(())
     }
 }
-
-// MARK: - Taxon Map Delegate
-extension NewTaxonScreenViewModel: TaxonMapScreenViewModelDelegate {
-    public func updateLocation(location: TaxonLocation) {
-        locationViewModel.latitude = String(location.latitude)
-        locationViewModel.longitude = String(location.longitute)
-    }
-}

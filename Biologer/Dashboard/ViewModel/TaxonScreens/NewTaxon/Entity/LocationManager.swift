@@ -8,7 +8,7 @@
 import Combine
 import CoreLocation
 
-class LocationManager: NSObject, ObservableObject {
+public class LocationManager: NSObject, ObservableObject {
     private let locationManager = CLLocationManager()
     public var onLocationUpdate: Observer<Void>?
 
@@ -24,24 +24,34 @@ class LocationManager: NSObject, ObservableObject {
         return location?.coordinate.longitude ?? 0
     }
     
+    var altitude: CLLocationDistance {
+        return location?.altitude ?? 0
+    }
+    
+    var accuracy: CLLocationAccuracy {
+        return location?.horizontalAccuracy ?? 0
+    }
+    
+    func stopUpdatingLocation() {
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func startUpdateingLocation() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
     override init() {
       super.init()
-
-        
-      locationManager.delegate = self
-      locationManager.desiredAccuracy = kCLLocationAccuracyBest
-      locationManager.requestWhenInUseAuthorization()
-      locationManager.startUpdatingLocation()
     }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         self.location = location
         onLocationUpdate?(())
-        print(location.horizontalAccuracy)
-        print(self.latitude.description)
-        print(self.longitude)
     }
 }

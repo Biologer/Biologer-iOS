@@ -15,31 +15,40 @@ public final class NewTaxonLocationViewModel: ObservableObject {
     public let waitingForCordiateLabel: String = "NewTaxon.lb.waitingForCordinate".localized
     public let accuracyUnknown: String = "NewTaxon.lb.accuracyUnknown".localized
     private let onLocationTapped: Observer<Void>
-    private let location = LocationManager()
-    @Published var isLoadingLocation: Bool
-    @Published var latitude: String
-    @Published var longitude: String
-    @Published var accuraccy: String
+    private let location: LocationManager
+    @Published var isLoadingLocation: Bool = true
+    @Published var latitude: String = ""
+    @Published var longitude: String = ""
+    @Published var accuraccy: String = ""
     
-    init(isLoadingLocatino: Bool,
-         latitude: String,
-         longitude: String,
-         accuraccy: String,
+    init(location: LocationManager,
          onLocationTapped: @escaping Observer<Void>) {
-        self.isLoadingLocation = isLoadingLocatino
-        self.latitude = latitude
-        self.longitude = longitude
-        self.accuraccy = accuraccy
+        self.location = location
         self.onLocationTapped = onLocationTapped
+        checkForUpdatingLocation()
+    }
+    
+    public func checkForUpdatingLocation() {
+        location.startUpdateingLocation()
         location.onLocationUpdate = { [self] _ in
             self.isLoadingLocation = false
             self.latitude = String(location.latitude)
             self.longitude = String(location.longitude)
-            self.accuraccy = String(location.location!.horizontalAccuracy)
+            self.accuraccy = String(location.accuracy)
         }
     }
     
     public func locationTapped() {
+        location.stopUpdatingLocation()
         onLocationTapped(())
+    }
+}
+
+// MARK: - Taxon Map Delegate
+extension NewTaxonLocationViewModel: TaxonMapScreenViewModelDelegate {
+    public func updateLocation(location: TaxonLocation) {
+        latitude = String(location.latitude)
+        longitude = String(location.longitute)
+        accuraccy = (String(location.accuracy))
     }
 }

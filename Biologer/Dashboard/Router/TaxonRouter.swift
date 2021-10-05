@@ -14,17 +14,20 @@ public final class TaxonRouter: NSObject {
     private let swiftUICommonFactory: CommonViewControllerFactory
     private let uiKitCommonFactory: CommonViewControllerFactory
     private let alertFactory: AlertViewControllerFactory
+    private let location: LocationManager
     public var onSideMenuTapped: Observer<Void>?
     
     private var newTaxonScreenViewModel: NewTaxonScreenViewModel?
     private var imageCustomPickerDelegate: ImageCustomPickerDelegate?
     
     init(navigationController: UINavigationController,
+         location: LocationManager,
          factory: TaxonViewControllerFactory,
          swiftUICommonFactory: CommonViewControllerFactory,
          uiKitCommonFactory: CommonViewControllerFactory,
          alertFactory: AlertViewControllerFactory) {
         self.navigationController = navigationController
+        self.location = location
         self.factory = factory
         self.swiftUICommonFactory = swiftUICommonFactory
         self.uiKitCommonFactory = uiKitCommonFactory
@@ -57,7 +60,8 @@ public final class TaxonRouter: NSObject {
         var taxonNameDelegate: TaxonSearchScreenViewModelDelegate?
         var devStageDelegate: NewTaxonDevStageScreenViewModelDelegate?
         var nestingAtlasCodeDelegate: NestingAtlasCodeScreenViewModelDelegate?
-        let vc = factory.makeNewTaxonScreen(onSaveTapped: { _ in },
+        let vc = factory.makeNewTaxonScreen(location: location,
+                                            onSaveTapped: { _ in },
                                             onLocationTapped: { [weak self] _ in
                                                 self?.showTaxonMapScreen(delegate: mapDelegate)
                                             },
@@ -89,7 +93,7 @@ public final class TaxonRouter: NSObject {
         let viewController = vc as? UIHostingController<NewTaxonScreen>
         newTaxonScreenViewModel = viewController?.rootView.viewModel
         imageCustomPickerDelegate = viewController?.rootView.viewModel.imageViewModel
-        mapDelegate = viewController?.rootView.viewModel
+        mapDelegate = viewController?.rootView.viewModel.locationViewModel
         taxonNameDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         devStageDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         nestingAtlasCodeDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
@@ -99,7 +103,7 @@ public final class TaxonRouter: NSObject {
     }
     
     private func showTaxonMapScreen(delegate: TaxonMapScreenViewModelDelegate?) {
-        let vc = factory.makeTaxonMapScreen(taxonLocation: TaxonLocation(latitude: 234123.234, longitute: 1234324.43))
+        let vc = factory.makeTaxonMapScreen(locationManager: location)
         let viewController = vc as? UIHostingController<TaxonMapScreen>
         viewController?.rootView.viewModel.delegate = delegate
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))

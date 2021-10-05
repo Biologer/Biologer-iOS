@@ -114,10 +114,11 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var taxonRouter: TaxonRouter = {
         let taxonRouter = TaxonRouter(navigationController: dashboardNavigationController,
-                                 factory: SwiftUITaxonViewControllerFactory(),
-                                 swiftUICommonFactory: swiftUICommonViewControllerFactory,
-                                 uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
-                                 alertFactory: swiftUIAlertViewControllerFactory)
+                                      location: locationManager,
+                                      factory: SwiftUITaxonViewControllerFactory(),
+                                      swiftUICommonFactory: swiftUICommonViewControllerFactory,
+                                      uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
+                                      alertFactory: swiftUIAlertViewControllerFactory)
         return taxonRouter
     }()
     
@@ -126,6 +127,10 @@ public final class AppNavigationRouter: NavigationRouter {
                                      factory: SwiftUISetupViewControllerFactory(),
                                      swiftUICommonFactory: swiftUICommonViewControllerFactory)
         return setupRouter
+    }()
+    
+    private lazy var locationManager: LocationManager = {
+       return LocationManager()
     }()
     
     init(mainNavigationController: UINavigationController) {
