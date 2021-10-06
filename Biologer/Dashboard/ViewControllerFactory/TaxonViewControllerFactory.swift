@@ -12,14 +12,15 @@ public protocol TaxonViewControllerFactory {
                                   onItemTapped: @escaping Observer<Item>) -> UIViewController
     func makeNewTaxonScreen(location: LocationManager,
                             onSaveTapped: @escaping Observer<Void>,
-                            onLocationTapped: @escaping Observer<Void>,
+                            onLocationTapped: @escaping Observer<TaxonLocation?>,
                             onPhotoTapped: @escaping Observer<Void>,
                             onGalleryTapped: @escaping Observer<Void>,
                             onImageTapped: @escaping Observer<([TaxonImage], Int)>,
                             onSearchTaxonTapped: @escaping Observer<Void>,
                             onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
                             onDevStageTapped: @escaping Observer<Void>) -> UIViewController
-    func makeTaxonMapScreen(locationManager: LocationManager) -> UIViewController
+    func makeTaxonMapScreen(locationManager: LocationManager,
+                            taxonLocation: TaxonLocation?) -> UIViewController
     func makeImagesPreivewScreen(images: [TaxonImage], selectionIndex: Int) -> UIViewController
     func makeSearchTaxonScreen(service: TaxonService,
                                delegate: TaxonSearchScreenViewModelDelegate?,
@@ -47,7 +48,7 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
     
     public func makeNewTaxonScreen(location: LocationManager,
                                    onSaveTapped: @escaping Observer<Void>,
-                                   onLocationTapped: @escaping Observer<Void>,
+                                   onLocationTapped: @escaping Observer<TaxonLocation?>,
                                    onPhotoTapped: @escaping Observer<Void>,
                                    onGalleryTapped: @escaping Observer<Void>,
                                    onImageTapped: @escaping Observer<([TaxonImage], Int)>,
@@ -79,8 +80,10 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         return controller
     }
     
-    public func makeTaxonMapScreen(locationManager: LocationManager) -> UIViewController {
-        let viewModel = TaxonMapScreenViewModel(locationManager: locationManager)
+    public func makeTaxonMapScreen(locationManager: LocationManager,
+                                   taxonLocation: TaxonLocation? = nil) -> UIViewController {
+        let viewModel = TaxonMapScreenViewModel(locationManager: locationManager,
+                                                taxonLocation: taxonLocation)
         let screen = TaxonMapScreen(viewModel: viewModel)
         let controller = UIHostingController(rootView: screen)
         return controller

@@ -27,28 +27,28 @@ struct NewTaxonLocationView: View {
                 }
             })
             VStack(alignment: .leading, spacing: 10) {
-                if viewModel.isLoadingLocation {
+                if let texonLocation = viewModel.taxonLocation {
+                    Text(String(texonLocation.latitude))
+                        .font(.caption)
+                        .foregroundColor(Color.black)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(String(texonLocation.longitute))
+                        .font(.caption)
+                        .foregroundColor(Color.black)
+                        .fixedSize(horizontal: false, vertical: true)
+                    HStack {
+                        Text(viewModel.accuraccyTitle)
+                            .font(.caption)
+                            .foregroundColor(Color.black)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Text(texonLocation.accuracy == 0.0 ? viewModel.accuracyUnknown : String(texonLocation.accuracy))
+                            .font(.caption)
+                            .foregroundColor(Color.gray)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                } else {
                     Text(viewModel.waitingForCordiateLabel)
                         .foregroundColor(.red)
-                } else {
-                    Text(viewModel.latitude)
-                        .font(.caption)
-                        .foregroundColor(Color.black)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Text(viewModel.longitude)
-                        .font(.caption)
-                        .foregroundColor(Color.black)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                HStack {
-                    Text(viewModel.accuraccyTitle)
-                        .font(.caption)
-                        .foregroundColor(Color.black)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Text(viewModel.isLoadingLocation ? viewModel.accuracyUnknown : viewModel.accuraccy)
-                        .font(.caption)
-                        .foregroundColor(Color.gray)
-                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
             .padding(.leading, 10)

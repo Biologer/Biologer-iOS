@@ -14,15 +14,13 @@ public final class NewTaxonLocationViewModel: ObservableObject {
     public let locatioButtonImage: String = "about_icon"
     public let waitingForCordiateLabel: String = "NewTaxon.lb.waitingForCordinate".localized
     public let accuracyUnknown: String = "NewTaxon.lb.accuracyUnknown".localized
-    private let onLocationTapped: Observer<Void>
+    private let onLocationTapped: Observer<TaxonLocation?>
     private let location: LocationManager
     @Published var isLoadingLocation: Bool = true
-    @Published var latitude: String = ""
-    @Published var longitude: String = ""
-    @Published var accuraccy: String = ""
+    @Published var taxonLocation: TaxonLocation?
     
     init(location: LocationManager,
-         onLocationTapped: @escaping Observer<Void>) {
+         onLocationTapped: @escaping Observer<TaxonLocation?>) {
         self.location = location
         self.onLocationTapped = onLocationTapped
         checkForUpdatingLocation()
@@ -32,23 +30,22 @@ public final class NewTaxonLocationViewModel: ObservableObject {
         location.startUpdateingLocation()
         location.onLocationUpdate = { [self] _ in
             self.isLoadingLocation = false
-            self.latitude = String(location.latitude)
-            self.longitude = String(location.longitude)
-            self.accuraccy = String(location.accuracy)
+            self.taxonLocation = TaxonLocation(latitude: location.latitude,
+                                               longitute: location.longitude,
+                                               accuracy: location.accuracy,
+                                               altitude: location.altitude)
         }
     }
     
     public func locationTapped() {
         location.stopUpdatingLocation()
-        onLocationTapped(())
+        onLocationTapped((taxonLocation))
     }
 }
 
 // MARK: - Taxon Map Delegate
 extension NewTaxonLocationViewModel: TaxonMapScreenViewModelDelegate {
     public func updateLocation(location: TaxonLocation) {
-        latitude = String(location.latitude)
-        longitude = String(location.longitute)
-        accuraccy = (String(location.accuracy))
+        taxonLocation = location
     }
 }

@@ -62,8 +62,9 @@ public final class TaxonRouter: NSObject {
         var nestingAtlasCodeDelegate: NestingAtlasCodeScreenViewModelDelegate?
         let vc = factory.makeNewTaxonScreen(location: location,
                                             onSaveTapped: { _ in },
-                                            onLocationTapped: { [weak self] _ in
-                                                self?.showTaxonMapScreen(delegate: mapDelegate)
+                                            onLocationTapped: { [weak self] taxonLocation in
+                                                self?.showTaxonMapScreen(delegate: mapDelegate,
+                                                                         taxonLocation: taxonLocation)
                                             },
                                             onPhotoTapped: { [weak self] _ in
                                                 self?.showPhoneImages(type: .camera)
@@ -102,8 +103,9 @@ public final class TaxonRouter: NSObject {
         self.navigationController.pushViewController(vc, animated: true)
     }
     
-    private func showTaxonMapScreen(delegate: TaxonMapScreenViewModelDelegate?) {
-        let vc = factory.makeTaxonMapScreen(locationManager: location)
+    private func showTaxonMapScreen(delegate: TaxonMapScreenViewModelDelegate?, taxonLocation: TaxonLocation?) {
+        let vc = factory.makeTaxonMapScreen(locationManager: location,
+                                            taxonLocation: taxonLocation)
         let viewController = vc as? UIHostingController<TaxonMapScreen>
         viewController?.rootView.viewModel.delegate = delegate
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))

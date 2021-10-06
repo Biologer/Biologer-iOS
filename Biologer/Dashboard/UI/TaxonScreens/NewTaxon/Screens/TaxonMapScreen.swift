@@ -13,6 +13,7 @@ struct TaxonMapScreen: View {
     
     var body: some View {
         GoogleMapsView(locationManager: viewModel.locationManager,
+                       taxonLocation: viewModel.taxonLocation,
                        onTapAtCoordinate: { location in
                         viewModel.doneTapped(location: location)
                        })
