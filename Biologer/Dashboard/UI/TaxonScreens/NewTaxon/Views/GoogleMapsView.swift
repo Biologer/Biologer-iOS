@@ -19,23 +19,17 @@ struct GoogleMapsView: UIViewRepresentable {
                                       longitude: taxonLocation?.longitute ?? locationManager.longitude)
     }
     
+    private var getImageForPicker: UIImageView {
+        let imagePicker = UIImageView(image: UIImage(named: "about_icon"))
+        imagePicker.frame = CGRect(x: 0, y: 0, width: 35, height: 45)
+        return imagePicker
+    }
+    
     func makeUIView(context: Context) -> GMSMapView {
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude,
                                               longitude: location.longitude, zoom: zoom)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         mapView.delegate = context.coordinator
-        
-//        let button = UIButton()
-//        button.addTarget(self, action: #selector("currentLocation"), for: .touchUpInside)
-//        mapView.addSubview(button)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.setImage(UIImage(contentsOfFile: "current_location_icon"), for: .normal)
-//        let height = button.heightAnchor.constraint(equalToConstant: 50)
-//        let width = button.widthAnchor.constraint(equalToConstant: 50)
-//        let bottom = button.bottomAnchor.constraint(equalTo: mapView.bottomAnchor)
-//        let tralling = button.trailingAnchor.constraint(equalTo: mapView.trailingAnchor)
-//        button.addConstraints([height, width, bottom, tralling])
-        
         return mapView
     }
     
@@ -46,17 +40,21 @@ struct GoogleMapsView: UIViewRepresentable {
     
     public func updateCameraPosition(_ mapView: GMSMapView, newLocation: CLLocationCoordinate2D? = nil) {
         mapView.clear()
-        let imagePicker = UIImageView(image: UIImage(named: "about_icon"))
-        let marker = GMSMarker()
-        imagePicker.frame = CGRect(x: 0, y: 0, width: 35, height: 45)
-        marker.iconView = imagePicker
-        marker.map = mapView
-        marker.position = newLocation ?? location
+        createMarker(mapView: mapView,
+                     location: newLocation ?? location)
         mapView.animate(toLocation: newLocation ?? location)
     }
     
     public func makeCoordinator() -> GoogleMapsViewDelegate {
         GoogleMapsViewDelegate(googleMapsView: self, onTapAtCoordinate: onTapAtCoordinate)
+    }
+    
+    private func createMarker(mapView: GMSMapView,
+                              location: CLLocationCoordinate2D) {
+        let marker = GMSMarker()
+        marker.iconView = getImageForPicker
+        marker.map = mapView
+        marker.position = location
     }
     
     public class GoogleMapsViewDelegate: NSObject, GMSMapViewDelegate {
