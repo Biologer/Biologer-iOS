@@ -98,7 +98,10 @@ public final class TaxonRouter: NSObject {
         taxonNameDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         devStageDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         nestingAtlasCodeDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
-        vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
+        vc.setBiologerBackBarButtonItem {
+            self.location.stopUpdatingLocation()
+            self.goBack()
+        }
         vc.setBiologerTitle(text: "NewTaxon.lb.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
     }

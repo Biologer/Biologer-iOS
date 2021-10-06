@@ -13,27 +13,44 @@ struct GoogleMapsView: UIViewRepresentable {
     let taxonLocation: TaxonLocation?
     let onTapAtCoordinate: Observer<TaxonLocation>
     private let zoom: Float = 15.0
-    let marker = GMSMarker()
+    
+    var location: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: taxonLocation?.latitude ?? locationManager.latitude,
+                                      longitude: taxonLocation?.longitute ?? locationManager.longitude)
+    }
     
     func makeUIView(context: Context) -> GMSMapView {
-        let camera = GMSCameraPosition.camera(withLatitude: taxonLocation?.latitude ?? locationManager.latitude,
-                                              longitude: taxonLocation?.longitute ?? locationManager.longitude, zoom: zoom)
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude,
+                                              longitude: location.longitude, zoom: zoom)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        let imagePicker = UIImageView(image: UIImage(named: "about_icon"))
-        imagePicker.frame = CGRect(x: 0, y: 0, width: 35, height: 45)
-        marker.iconView = imagePicker
-        marker.map = mapView
         mapView.delegate = context.coordinator
+        
+//        let button = UIButton()
+//        button.addTarget(self, action: #selector("currentLocation"), for: .touchUpInside)
+//        mapView.addSubview(button)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setImage(UIImage(contentsOfFile: "current_location_icon"), for: .normal)
+//        let height = button.heightAnchor.constraint(equalToConstant: 50)
+//        let width = button.widthAnchor.constraint(equalToConstant: 50)
+//        let bottom = button.bottomAnchor.constraint(equalTo: mapView.bottomAnchor)
+//        let tralling = button.trailingAnchor.constraint(equalTo: mapView.trailingAnchor)
+//        button.addConstraints([height, width, bottom, tralling])
+        
         return mapView
     }
     
     func updateUIView(_ mapView: GMSMapView, context: Context) {
         updateCameraPosition(mapView)
+        onTapAtCoordinate((TaxonLocation(latitude: location.latitude, longitute: location.longitude)))
     }
     
     public func updateCameraPosition(_ mapView: GMSMapView, newLocation: CLLocationCoordinate2D? = nil) {
-        let location = CLLocationCoordinate2D(latitude: taxonLocation?.latitude ?? locationManager.latitude,
-                                              longitude: taxonLocation?.longitute ?? locationManager.longitude)
+        mapView.clear()
+        let imagePicker = UIImageView(image: UIImage(named: "about_icon"))
+        let marker = GMSMarker()
+        imagePicker.frame = CGRect(x: 0, y: 0, width: 35, height: 45)
+        marker.iconView = imagePicker
+        marker.map = mapView
         marker.position = newLocation ?? location
         mapView.animate(toLocation: newLocation ?? location)
     }
@@ -60,7 +77,3 @@ struct GoogleMapsView: UIViewRepresentable {
         }
     }
 }
-
-extension GMSCameraPosition  {
-     static var london = GMSCameraPosition.camera(withLatitude: 51.507, longitude: 0, zoom: 10)
- }

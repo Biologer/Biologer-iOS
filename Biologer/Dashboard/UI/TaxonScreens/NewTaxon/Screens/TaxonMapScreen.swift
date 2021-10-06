@@ -9,15 +9,42 @@ import SwiftUI
 
 struct TaxonMapScreen: View {
     
-    let viewModel: TaxonMapScreenViewModel
+    @ObservedObject var viewModel: TaxonMapScreenViewModel
     
     var body: some View {
-        GoogleMapsView(locationManager: viewModel.locationManager,
-                       taxonLocation: viewModel.taxonLocation,
-                       onTapAtCoordinate: { location in
-                        viewModel.doneTapped(location: location)
-                       })
-            .frame(height: UIScreen.screenHeight)
+        ZStack {
+            GoogleMapsView(locationManager: viewModel.locationManager,
+                           taxonLocation: viewModel.taxonLocation,
+                           onTapAtCoordinate: { location in
+                            viewModel.doneTapped(location: location)
+                           })
+            VStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        
+                    }, label: {
+                        Image("setup_icon")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                    })
+                    .padding(30)
+                }
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        viewModel.setMarkerToCurrentLocation()
+                    }, label: {
+                        Image("current_location_icon")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                    })
+                    .padding(30)
+                }
+            }
+        }
+        .ignoresSafeArea(.container, edges: .bottom)
     }
 }
 

@@ -11,10 +11,10 @@ public protocol TaxonMapScreenViewModelDelegate {
     func updateLocation(location: TaxonLocation)
 }
 
-public final class TaxonMapScreenViewModel {
+public final class TaxonMapScreenViewModel: ObservableObject {
     public private(set) var locationManager: LocationManager
     public var delegate: TaxonMapScreenViewModelDelegate?
-    public let taxonLocation: TaxonLocation?
+    @Published public var taxonLocation: TaxonLocation?
     
     init(locationManager: LocationManager,
          taxonLocation: TaxonLocation? = nil) {
@@ -24,5 +24,9 @@ public final class TaxonMapScreenViewModel {
     
     public func doneTapped(location: TaxonLocation) {
         delegate?.updateLocation(location: location)
+    }
+    
+    public func setMarkerToCurrentLocation() {
+        taxonLocation = nil
     }
 }

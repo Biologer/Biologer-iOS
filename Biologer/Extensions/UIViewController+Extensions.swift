@@ -14,9 +14,9 @@ extension UIViewController {
         navigationItem.leftBarButtonItems = [barButtonItem]
     }
     
-    public func setBiologerBackBarButtonItem(image: UIImage, action: @escaping () -> Void) {
-        let barButtonItem = UIBarButtonItem(image: image, style: .plain, action: action)
-        barButtonItem.tintColor = .white
+    public func setBiologerBackBarButtonItem(image: UIImage? = nil, action: @escaping () -> Void) {
+        let barButtonItem = UIBarButtonItem(image: image ?? UIImage(named: "back_arrow"), style: .plain, action: action)
+        barButtonItem.tintColor = UIColor.darkGray
         navigationItem.leftBarButtonItems = [barButtonItem]
     }
     

@@ -38,7 +38,7 @@ public final class NewTaxonLocationViewModel: ObservableObject {
     }
     
     public func locationTapped() {
-        location.stopUpdatingLocation()
+        //location.stopUpdatingLocation()
         onLocationTapped((taxonLocation))
     }
 }

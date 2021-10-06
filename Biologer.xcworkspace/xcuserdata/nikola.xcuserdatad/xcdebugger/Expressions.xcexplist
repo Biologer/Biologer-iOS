@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "GoogleMapsView.updateCameraPosition(_:newLocation:):GoogleMapsView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "locationManager.latitude">
+            </PersistentString>
+            <PersistentString
+               value = "taxonLocation">
+            </PersistentString>
+            <PersistentString
+               value = "taxonLocation?.latitude">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GoogleMapsView.updateUIView(_:context:):GoogleMapsView.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
