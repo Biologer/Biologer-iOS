@@ -90,6 +90,10 @@
 "NewTaxon.image.placeholder.title" = "No images added";
 "NewTaxon.search.nav.title" = "Search Taxons";
 "NewTaxon.nestingAtlas.nav.title" = "Nesting Atlas Code";
+"NewTaxon.mapType.normal.title" = "Normal";
+"NewTaxon.mapType.hybrid.title" = "Hybrid";
+"NewTaxon.mapType.terrain.title" = "Terrain";
+"NewTaxon.mapType.satellite.title" = "Satellite";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";

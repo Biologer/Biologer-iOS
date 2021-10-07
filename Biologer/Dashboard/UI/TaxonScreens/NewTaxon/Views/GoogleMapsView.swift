@@ -11,12 +11,26 @@ import GoogleMaps
 struct GoogleMapsView: UIViewRepresentable {
     let locationManager: LocationManager
     let taxonLocation: TaxonLocation?
+    @Binding var mapType: MapType
     let onTapAtCoordinate: Observer<TaxonLocation>
     private let zoom: Float = 15.0
     
     var location: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: taxonLocation?.latitude ?? locationManager.latitude,
                                       longitude: taxonLocation?.longitute ?? locationManager.longitude)
+    }
+    
+    private var getMapType: GMSMapViewType {
+        switch mapType {
+        case .normal:
+            return .normal
+        case .hybrid:
+            return .hybrid
+        case .terrain:
+            return .terrain
+        case .satellite:
+            return .satellite
+        }
     }
     
     private var getImageForPicker: UIImageView {
@@ -40,6 +54,7 @@ struct GoogleMapsView: UIViewRepresentable {
     
     public func updateCameraPosition(_ mapView: GMSMapView, newLocation: CLLocationCoordinate2D? = nil) {
         mapView.clear()
+        mapView.mapType = getMapType
         createMarker(mapView: mapView,
                      location: newLocation ?? location)
         mapView.animate(toLocation: newLocation ?? location)

@@ -106,11 +106,17 @@ public final class TaxonRouter: NSObject {
         self.navigationController.pushViewController(vc, animated: true)
     }
     
-    private func showTaxonMapScreen(delegate: TaxonMapScreenViewModelDelegate?, taxonLocation: TaxonLocation?) {
+    private func showTaxonMapScreen(delegate: TaxonMapScreenViewModelDelegate?,
+                                    taxonLocation: TaxonLocation?) {
+        var mapTypeDelegate: MapTypeScreenViewModelDelegate?
         let vc = factory.makeTaxonMapScreen(locationManager: location,
-                                            taxonLocation: taxonLocation)
+                                            taxonLocation: taxonLocation,
+                                            onMapTypeTapped: { [weak self] _ in
+                                                self?.showMapTypeScreen(delegate: mapTypeDelegate)
+                                            })
         let viewController = vc as? UIHostingController<TaxonMapScreen>
         viewController?.rootView.viewModel.delegate = delegate
+        mapTypeDelegate = viewController?.rootView.viewModel
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.map.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
@@ -174,6 +180,18 @@ public final class TaxonRouter: NSObject {
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.nestingAtlas.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
+    }
+    
+    private func showMapTypeScreen(delegate: MapTypeScreenViewModelDelegate?) {
+        let vc = factory.makeMapTypeScreen(delegate: delegate,
+                                           onTypeTapped: { [weak self] _ in
+                                            self?.navigationController.dismiss(animated: true, completion: nil)
+                                           })
+        let viewController = vc as? UIHostingController<MapTypeScreen>
+        viewController?.rootView.viewModel.delegate = delegate
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        self.navigationController.present(vc, animated: true, completion: nil)
     }
     
     @objc func goBack() {

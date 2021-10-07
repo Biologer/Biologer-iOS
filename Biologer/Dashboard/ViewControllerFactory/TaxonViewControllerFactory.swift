@@ -20,7 +20,8 @@ public protocol TaxonViewControllerFactory {
                             onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
                             onDevStageTapped: @escaping Observer<Void>) -> UIViewController
     func makeTaxonMapScreen(locationManager: LocationManager,
-                            taxonLocation: TaxonLocation?) -> UIViewController
+                            taxonLocation: TaxonLocation?,
+                            onMapTypeTapped: @escaping Observer<Void>) -> UIViewController
     func makeImagesPreivewScreen(images: [TaxonImage], selectionIndex: Int) -> UIViewController
     func makeSearchTaxonScreen(service: TaxonService,
                                delegate: TaxonSearchScreenViewModelDelegate?,
@@ -33,6 +34,8 @@ public protocol TaxonViewControllerFactory {
                              previousSlectedCode: NestingAtlasCodeItem?,
                              delegate: NestingAtlasCodeScreenViewModelDelegate?,
                              onCodeTapped: @escaping Observer<Void>) -> UIViewController
+    func makeMapTypeScreen(delegate: MapTypeScreenViewModelDelegate?,
+                           onTypeTapped: @escaping Observer<MapTypeViewModel>) -> UIViewController
 }
 
 public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory {
@@ -81,9 +84,11 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
     }
     
     public func makeTaxonMapScreen(locationManager: LocationManager,
-                                   taxonLocation: TaxonLocation? = nil) -> UIViewController {
+                                   taxonLocation: TaxonLocation? = nil,
+                                   onMapTypeTapped: @escaping Observer<Void>) -> UIViewController {
         let viewModel = TaxonMapScreenViewModel(locationManager: locationManager,
-                                                taxonLocation: taxonLocation)
+                                                taxonLocation: taxonLocation,
+                                                onMapTypeTapped: onMapTypeTapped)
         let screen = TaxonMapScreen(viewModel: viewModel)
         let controller = UIHostingController(rootView: screen)
         return controller
@@ -131,6 +136,16 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                                         onCodeTapped: onCodeTapped)
         let screen = NestingAtlasCodeScreen(viewModel: viewModel)
         let controller = UIHostingController(rootView: screen)
+        return controller
+    }
+    
+    public func makeMapTypeScreen(delegate: MapTypeScreenViewModelDelegate?,
+                                  onTypeTapped: @escaping Observer<MapTypeViewModel>) -> UIViewController {
+        let viewModel = MapTypeScreenViewModel(delegate: delegate,
+                                               onTypeTapped: onTypeTapped)
+        let screen = MapTypeScreen(viewModel: viewModel)
+        let controller = UIHostingController(rootView: screen)
+        controller.view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
         return controller
     }
 }

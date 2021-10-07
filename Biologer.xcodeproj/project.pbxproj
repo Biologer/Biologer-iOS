@@ -173,6 +173,8 @@
 		93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14262692268F00A7A977 /* ForgotPasswordService.swift */; };
 		93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */; };
 		93DF142D269253B900A7A977 /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142C269253B900A7A977 /* CheckView.swift */; };
+		93EB965F270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */; };
+		93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */; };
 		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
 		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
 		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
@@ -376,6 +378,8 @@
 		93DF14262692268F00A7A977 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
 		93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLicenseView.swift; sourceTree = "<group>"; };
 		93DF142C269253B900A7A977 /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
+		93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreenViewModel.swift; sourceTree = "<group>"; };
+		93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreen.swift; sourceTree = "<group>"; };
 		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -843,6 +847,7 @@
 				938D9360270632400068E27C /* ImagesPreviewScreen.swift */,
 				9314DA2D270A4C10007896F9 /* NewTaxonDevStageScreen.swift */,
 				9314DA33270AF8FD007896F9 /* NestingAtlasCodeScreen.swift */,
+				93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -856,6 +861,7 @@
 				938D935E270631960068E27C /* ImagesPreviewScreenViewModel.swift */,
 				9314DA2B270A4A69007896F9 /* NewTaxonDevStageScreenViewModel.swift */,
 				9314DA2F270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift */,
+				93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -1434,6 +1440,7 @@
 				93DF14212692262900A7A977 /* LoginUserService.swift in Sources */,
 				93DF14172692224D00A7A977 /* HTTPClient.swift in Sources */,
 				937F828226F7B6B500593786 /* HelpItemManager.swift in Sources */,
+				93EB965F270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift in Sources */,
 				935AF66E26F6859D00C56D46 /* SetupDownloadAndUploadScreen.swift in Sources */,
 				938D935627060DDC0068E27C /* TaxonMapScreen.swift in Sources */,
 				93142741262B6B3D00542EFC /* UserNameTextFieldViewModel.swift in Sources */,
@@ -1455,6 +1462,7 @@
 				9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */,
 				9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */,
 				93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */,
+				93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */,
 				9314DA36270B3EAF007896F9 /* GoogleMapsView.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
 				93BF629E262B807D00DDFB44 /* BiologerButton.swift in Sources */,

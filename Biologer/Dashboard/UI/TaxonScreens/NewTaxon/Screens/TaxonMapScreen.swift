@@ -15,6 +15,7 @@ struct TaxonMapScreen: View {
         ZStack {
             GoogleMapsView(locationManager: viewModel.locationManager,
                            taxonLocation: viewModel.taxonLocation,
+                           mapType: $viewModel.mapType,
                            onTapAtCoordinate: { location in
                             viewModel.doneTapped(location: location)
                            })
@@ -22,7 +23,7 @@ struct TaxonMapScreen: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        
+                        viewModel.mapTypeTapped()
                     }, label: {
                         Image("setup_icon")
                             .resizable()
@@ -50,6 +51,7 @@ struct TaxonMapScreen: View {
 
 struct TaxonMapScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TaxonMapScreen(viewModel: TaxonMapScreenViewModel(locationManager: LocationManager()))
+        TaxonMapScreen(viewModel: TaxonMapScreenViewModel(locationManager: LocationManager(),
+                                                          onMapTypeTapped: { _ in }))
     }
 }
