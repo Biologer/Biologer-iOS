@@ -27,11 +27,12 @@ struct MapTypeScreen: View {
         }
         .padding(.vertical, 10)
         .background(Color.white)
+        .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(lineWidth: 1)
+                .stroke(lineWidth: 1.0)
                 .foregroundColor(Color.clear)
-                .shadow(color: Color.gray, radius: 1, x: 0, y: 0)
+                .shadow(color: Color.black, radius: 1, x: 0, y: 0)
         )
         .frame(width: UIScreen.screenWidth * 0.6,
                alignment: .center)
