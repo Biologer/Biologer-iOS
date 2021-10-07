@@ -35,3 +35,9 @@ public final class ListOfFindingsScreenViewModel: ListOfFindingsScreenLoader, Ob
 
     }
 }
+
+extension ListOfFindingsScreenViewModel: DeleteFindingsScreenViewModelDelegate {
+    public func delete(finding: Finding?) {
+        print("Findings can be deleted")
+    }
+}

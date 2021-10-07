@@ -40,23 +40,38 @@ public final class TaxonRouter: NSObject {
     
     // MARK: - Private Functions
     private func showLiftOfFindingsScreen() {
-        
+        var deleteFindingDelegate: DeleteFindingsScreenViewModelDelegate?
         let vc = factory.makeListOfFindingsScreen(onNewItemTapped: { [weak self] _ in
             self?.showNewTaxonScreen()
         },
         onItemTapped: { item in
             
         },
-        onDeleteFindingTapped: { _ in
-            
+        onDeleteFindingTapped: { [weak self] finding in
+            self?.showDeleteFindingsScreen(selectedFinding: finding,
+                                           delegate: deleteFindingDelegate)
         })
         vc.setBiologerBackBarButtonItem(image: UIImage(named: "side_menu_icon")!,
                                         action: {
                                             self.onSideMenuTapped?(())
                                         })
 
-        vc.setBiologerTitle(text: "NewTaxon.listOfFindings.nav.title".localized)
+        let viewController = vc as? UIHostingController<ListOfFindingsScreen>
+        deleteFindingDelegate = viewController?.rootView.viewModel
+        vc.setBiologerTitle(text: "ListOfFindings.nav.title".localized)
         self.navigationController.setViewControllers([vc], animated: false)
+    }
+    
+    private func showDeleteFindingsScreen(selectedFinding: Finding,
+                                          delegate: DeleteFindingsScreenViewModelDelegate?) {
+        let vc = factory.makeDeleteFindingScreen(selectedFinding: selectedFinding,
+                                                 delegate: delegate,
+                                                 onDeleteDone: { _ in
+                                                    self.navigationController.dismiss(animated: true, completion: nil)
+                                                 })
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        self.navigationController.present(vc, animated: true, completion: nil)
     }
     
     private func showNewTaxonScreen() {

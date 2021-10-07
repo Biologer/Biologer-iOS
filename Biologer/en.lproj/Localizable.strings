@@ -94,7 +94,14 @@
 "NewTaxon.mapType.hybrid.title" = "Hybrid";
 "NewTaxon.mapType.terrain.title" = "Terrain";
 "NewTaxon.mapType.satellite.title" = "Satellite";
-"NewTaxon.listOfFindings.nav.title" = "Biologer";
+
+// MARK: - List Of Findings
+"ListOfFindings.nav.title" = "Biologer";
+"ListOfFindings.deleteScreen.title" = "Do you want to delete?";
+"ListOfFindings.deleteScreen.lb.allTitle" = "All findings";
+"ListOfFindings.deleteScreen.lb.selectedTitle" = "Selected finding";
+"ListOfFindings.deleteScreen.btn.cancel" = "Cancel";
+"ListOfFindings.deleteScreen.btn.delete" = "Delete";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";

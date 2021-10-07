@@ -11,6 +11,9 @@ public protocol TaxonViewControllerFactory {
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
                                   onItemTapped: @escaping Observer<Finding>,
                                   onDeleteFindingTapped: @escaping Observer<Finding>) -> UIViewController
+    func makeDeleteFindingScreen(selectedFinding: Finding,
+                                 delegate: DeleteFindingsScreenViewModelDelegate?,
+                                 onDeleteDone: @escaping Observer<Void>) -> UIViewController
     func makeNewTaxonScreen(location: LocationManager,
                             onSaveTapped: @escaping Observer<Void>,
                             onLocationTapped: @escaping Observer<TaxonLocation?>,
@@ -47,9 +50,21 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
                                                                   onItemTapped: onItemTapped,
                                                                   onDeleteFindingTapped: onDeleteFindingTapped)
         
-        let screen = ListOfFindingsScreen(loader: sideMenuMainViewModel)
+        let screen = ListOfFindingsScreen(viewModel: sideMenuMainViewModel)
         let viewController = UIHostingController(rootView: screen)
         return viewController
+    }
+    
+    public func makeDeleteFindingScreen(selectedFinding: Finding,
+                                 delegate: DeleteFindingsScreenViewModelDelegate?,
+                                 onDeleteDone: @escaping Observer<Void>) -> UIViewController {
+        let viewModel = DeleteFindingsScreenViewModel(selectedFinding: selectedFinding,
+                                                      delegate: delegate,
+                                                      onDeleteDone: onDeleteDone)
+        let screen = DeleteFindingsScreen(viewModel: viewModel)
+        let controller = UIHostingController(rootView: screen)
+        controller.view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
+        return controller
     }
     
     public func makeNewTaxonScreen(location: LocationManager,

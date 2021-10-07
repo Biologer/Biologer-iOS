@@ -15,26 +15,26 @@ protocol ListOfFindingsScreenLoader: ObservableObject {
     var preview: SideMenuMainScreenPreview { get }
 }
 
-struct ListOfFindingsScreen<ScreenLoader>: View where ScreenLoader: ListOfFindingsScreenLoader {
+struct ListOfFindingsScreen: View {
     
-    @ObservedObject public var loader: ScreenLoader
+    @ObservedObject public var viewModel: ListOfFindingsScreenViewModel
     
     var body: some View {
-        generateView(loader)
+        generateView(viewModel)
             .onAppear {
-                loader.getData()
+                viewModel.getData()
             }
             .background(Color.biologerGreenColor.opacity(0.4))
             .ignoresSafeArea(.container, edges: .bottom)
     }
     
-    private func generateView(_ screenLoader: ScreenLoader) -> AnyView {
-        switch loader.preview {
+    private func generateView(_ viewModel: ListOfFindingsScreenViewModel) -> AnyView {
+        switch viewModel.preview {
         case .regular(let items):
             return AnyView(FindingsListView(items: items,
-                                            onItemTapped: loader.onItemTapped,
-                                            onDeleteFindingTapped: loader.onDeleteFindingTapped,
-                                            onNewItemTapped: loader.onNewItemTapped))
+                                            onItemTapped: viewModel.onItemTapped,
+                                            onDeleteFindingTapped: viewModel.onDeleteFindingTapped,
+                                            onNewItemTapped: viewModel.onNewItemTapped))
         case .iregular(let title):
             return AnyView(NoItemsView(title: title))
         }
@@ -43,7 +43,7 @@ struct ListOfFindingsScreen<ScreenLoader>: View where ScreenLoader: ListOfFindin
 
 struct SideMenuMainScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ListOfFindingsScreen(loader: StubSideMenuMainScreenViewModel(onNewItemTapped: { _ in },
+        ListOfFindingsScreen(viewModel: ListOfFindingsScreenViewModel(onNewItemTapped: { _ in },
                                                                      onItemTapped: { _ in}, onDeleteFindingTapped: { _ in }))
     }
     

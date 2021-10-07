@@ -96,6 +96,8 @@
 		9373F82626F926CD00C18F91 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F82526F926CD00C18F91 /* User.swift */; };
 		937F523B270EEAD400239963 /* TaxonMapScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F5239270EEAD400239963 /* TaxonMapScreenViewController.swift */; };
 		937F523C270EEAD400239963 /* TaxonMapScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */; };
+		937F523F270F926E00239963 /* DeleteFindingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */; };
+		937F5241270F96D700239963 /* DeleteFindingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F5240270F96D700239963 /* DeleteFindingsScreen.swift */; };
 		937F828026F7A2B200593786 /* SideMenuMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F827F26F7A2B200593786 /* SideMenuMapper.swift */; };
 		937F828226F7B6B500593786 /* HelpItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F828126F7B6B500593786 /* HelpItemManager.swift */; };
 		93842AF426FA4449008ECA80 /* ObservationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93842AF326FA4449008ECA80 /* ObservationService.swift */; };
@@ -302,6 +304,8 @@
 		9373F82526F926CD00C18F91 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		937F5239270EEAD400239963 /* TaxonMapScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonMapScreenViewController.swift; sourceTree = "<group>"; };
 		937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaxonMapScreenViewController.xib; sourceTree = "<group>"; };
+		937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFindingsScreenViewModel.swift; sourceTree = "<group>"; };
+		937F5240270F96D700239963 /* DeleteFindingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFindingsScreen.swift; sourceTree = "<group>"; };
 		937F827F26F7A2B200593786 /* SideMenuMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuMapper.swift; sourceTree = "<group>"; };
 		937F828126F7B6B500593786 /* HelpItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpItemManager.swift; sourceTree = "<group>"; };
 		93842AF326FA4449008ECA80 /* ObservationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationService.swift; sourceTree = "<group>"; };
@@ -719,6 +723,7 @@
 				93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */,
 				93334EB02677E1220094A483 /* FindingsListView.swift */,
 				93334EB62677E4E40094A483 /* NoItemsView.swift */,
+				937F5240270F96D700239963 /* DeleteFindingsScreen.swift */,
 			);
 			path = ListOfFindings;
 			sourceTree = "<group>";
@@ -737,6 +742,7 @@
 			isa = PBXGroup;
 			children = (
 				93334EB82677E8590094A483 /* ListOfFindingsScreenViewModel.swift */,
+				937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */,
 			);
 			path = ListOfFindings;
 			sourceTree = "<group>";
@@ -1430,6 +1436,7 @@
 				938D934F2705E8830068E27C /* FoundDeadView.swift in Sources */,
 				936616D72703B43600F02A83 /* MaterialDesignTextArea.swift in Sources */,
 				93A7E27E2691F7D4001D6AEF /* RegisterStepThreeScreen.swift in Sources */,
+				937F523F270F926E00239963 /* DeleteFindingsScreenViewModel.swift in Sources */,
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
 				9314DA30270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift in Sources */,
 				935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */,
@@ -1553,6 +1560,7 @@
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
 				9314DA34270AF8FD007896F9 /* NestingAtlasCodeScreen.swift in Sources */,
 				9314DA2E270A4C10007896F9 /* NewTaxonDevStageScreen.swift in Sources */,
+				937F5241270F96D700239963 /* DeleteFindingsScreen.swift in Sources */,
 				93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */,
 				93334EB72677E4E40094A483 /* NoItemsView.swift in Sources */,
 				933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */,

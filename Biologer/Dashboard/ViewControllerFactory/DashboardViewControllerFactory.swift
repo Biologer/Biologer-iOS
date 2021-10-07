@@ -47,7 +47,7 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
         let sideMenuMainViewModel = ListOfFindingsScreenViewModel(onNewItemTapped: onNewItemTapped,
                                                                   onItemTapped: onItemTapped, onDeleteFindingTapped: onDeleteFindingTapped)
         
-        let screen = ListOfFindingsScreen(loader: sideMenuMainViewModel)
+        let screen = ListOfFindingsScreen(viewModel: sideMenuMainViewModel)
         let viewController = UIHostingController(rootView: screen)
         return viewController
     }
