@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaxonMapScreenViewController" customModule="Biologer" customModuleProvider="target">
+            <connections>
+                <outlet property="currentLocationButton" destination="9Fa-hK-owQ" id="iup-NQ-mCw"/>
+                <outlet property="mapTypeButton" destination="gIo-MF-rCJ" id="uZD-0l-PEy"/>
+                <outlet property="mapViewContent" destination="CAG-PQ-Yrx" id="thJ-wQ-Y59"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAG-PQ-Yrx">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Fa-hK-owQ">
+                            <rect key="frame" x="334" y="816" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="evH-8U-uIh"/>
+                                <constraint firstAttribute="height" constant="50" id="fZE-rs-Bao"/>
+                            </constraints>
+                            <state key="normal" title="Button" image="current_location_icon"/>
+                            <connections>
+                                <action selector="currentLocationTapped:" destination="-1" eventType="touchUpInside" id="uS6-Tp-ogy"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gIo-MF-rCJ">
+                            <rect key="frame" x="339" y="82" width="45" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="JaB-FQ-0V1"/>
+                                <constraint firstAttribute="width" constant="45" id="rEu-l5-Rvq"/>
+                            </constraints>
+                            <state key="normal" title="Button" image="env_icon"/>
+                            <connections>
+                                <action selector="mapTypeTapped:" destination="-1" eventType="touchUpInside" id="NYd-ne-09f"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="gIo-MF-rCJ" secondAttribute="trailing" constant="30" id="OHD-dx-MjJ"/>
+                        <constraint firstAttribute="bottom" secondItem="9Fa-hK-owQ" secondAttribute="bottom" constant="30" id="bdb-PO-IEu"/>
+                        <constraint firstItem="gIo-MF-rCJ" firstAttribute="top" secondItem="CAG-PQ-Yrx" secondAttribute="topMargin" constant="30" id="oEc-iC-d2P"/>
+                        <constraint firstAttribute="trailing" secondItem="9Fa-hK-owQ" secondAttribute="trailing" constant="30" id="u4R-a7-twa"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="CAG-PQ-Yrx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="35w-d1-ZSN"/>
+                <constraint firstItem="CAG-PQ-Yrx" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Mli-yE-YNP"/>
+                <constraint firstItem="CAG-PQ-Yrx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="m3C-e5-G7G"/>
+                <constraint firstAttribute="bottom" secondItem="CAG-PQ-Yrx" secondAttribute="bottom" id="xio-M5-f5p"/>
+            </constraints>
+            <point key="canvasLocation" x="5.7971014492753632" y="104.46428571428571"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="current_location_icon" width="50" height="50"/>
+        <image name="env_icon" width="250" height="230"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -99,7 +99,6 @@ public final class TaxonRouter: NSObject {
         devStageDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         nestingAtlasCodeDelegate = viewController?.rootView.viewModel.taxonInfoViewModel
         vc.setBiologerBackBarButtonItem {
-            self.location.stopUpdatingLocation()
             self.goBack()
         }
         vc.setBiologerTitle(text: "NewTaxon.lb.nav.title".localized)
@@ -114,9 +113,10 @@ public final class TaxonRouter: NSObject {
                                             onMapTypeTapped: { [weak self] _ in
                                                 self?.showMapTypeScreen(delegate: mapTypeDelegate)
                                             })
-        let viewController = vc as? UIHostingController<TaxonMapScreen>
-        viewController?.rootView.viewModel.delegate = delegate
-        mapTypeDelegate = viewController?.rootView.viewModel
+        self.location.stopUpdatingLocation()
+        let viewController = vc as? TaxonMapScreenViewController
+        viewController?.viewModel.delegate = delegate
+        mapTypeDelegate = viewController?.viewModel
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.map.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)

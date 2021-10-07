@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 public protocol TaxonMapScreenViewModelDelegate {
     func updateLocation(location: TaxonLocation)
@@ -14,9 +15,15 @@ public protocol TaxonMapScreenViewModelDelegate {
 public final class TaxonMapScreenViewModel: ObservableObject {
     public private(set) var locationManager: LocationManager
     public var delegate: TaxonMapScreenViewModelDelegate?
-    @Published public var taxonLocation: TaxonLocation?
-    @Published public var mapType: MapType = .normal
+    public var taxonLocation: TaxonLocation?
+    public var mapType: MapType = .normal
     private let onMapTypeTapped: Observer<Void>
+    public var onMapTypeUpdate: Observer<Void>?
+    
+    var location: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: taxonLocation?.latitude ?? locationManager.latitude,
+                                      longitude: taxonLocation?.longitute ?? locationManager.longitude)
+    }
     
     init(locationManager: LocationManager,
          taxonLocation: TaxonLocation? = nil,
@@ -26,8 +33,9 @@ public final class TaxonMapScreenViewModel: ObservableObject {
         self.onMapTypeTapped = onMapTypeTapped
     }
     
-    public func doneTapped(location: TaxonLocation) {
-        delegate?.updateLocation(location: location)
+    public func doneTapped(taxonLocation: TaxonLocation) {
+        self.taxonLocation = taxonLocation
+        delegate?.updateLocation(location: taxonLocation)
     }
     
     public func setMarkerToCurrentLocation() {
@@ -41,7 +49,7 @@ public final class TaxonMapScreenViewModel: ObservableObject {
 
 extension TaxonMapScreenViewModel: MapTypeScreenViewModelDelegate {
     public func updateMapType(type: MapTypeViewModel) {
-        print("Map Type: \(type.name)")
         self.mapType = type.type
+        onMapTypeUpdate?(())
     }
 }

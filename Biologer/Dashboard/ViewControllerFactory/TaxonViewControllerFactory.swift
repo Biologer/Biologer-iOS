@@ -89,8 +89,7 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         let viewModel = TaxonMapScreenViewModel(locationManager: locationManager,
                                                 taxonLocation: taxonLocation,
                                                 onMapTypeTapped: onMapTypeTapped)
-        let screen = TaxonMapScreen(viewModel: viewModel)
-        let controller = UIHostingController(rootView: screen)
+        let controller = TaxonMapScreenViewController(viewModel: viewModel)
         return controller
     }
     
