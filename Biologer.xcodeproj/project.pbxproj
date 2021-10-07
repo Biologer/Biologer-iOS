@@ -42,7 +42,7 @@
 		93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EAC2677DDD50094A483 /* SideMenuListScreen.swift */; };
 		93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */; };
 		93334EB12677E1220094A483 /* FindingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EB02677E1220094A483 /* FindingsListView.swift */; };
-		93334EB52677E17B0094A483 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EB42677E17B0094A483 /* Item.swift */; };
+		93334EB52677E17B0094A483 /* Finding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EB42677E17B0094A483 /* Finding.swift */; };
 		93334EB72677E4E40094A483 /* NoItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EB62677E4E40094A483 /* NoItemsView.swift */; };
 		93334EB92677E8590094A483 /* ListOfFindingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EB82677E8590094A483 /* ListOfFindingsScreenViewModel.swift */; };
 		93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EBA2677FAAE0094A483 /* MenuItemView.swift */; };
@@ -246,7 +246,7 @@
 		93334EAC2677DDD50094A483 /* SideMenuListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListScreen.swift; sourceTree = "<group>"; };
 		93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFindingsScreen.swift; sourceTree = "<group>"; };
 		93334EB02677E1220094A483 /* FindingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsListView.swift; sourceTree = "<group>"; };
-		93334EB42677E17B0094A483 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		93334EB42677E17B0094A483 /* Finding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finding.swift; sourceTree = "<group>"; };
 		93334EB62677E4E40094A483 /* NoItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoItemsView.swift; sourceTree = "<group>"; };
 		93334EB82677E8590094A483 /* ListOfFindingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFindingsScreenViewModel.swift; sourceTree = "<group>"; };
 		93334EBA2677FAAE0094A483 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
@@ -669,7 +669,7 @@
 		93334EB32677E1520094A483 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				93334EB42677E17B0094A483 /* Item.swift */,
+				93334EB42677E17B0094A483 /* Finding.swift */,
 				93334EBC2677FDBF0094A483 /* SideMenuItem.swift */,
 				9373F81B26F9136B00C18F91 /* UserResponse.swift */,
 				93842AF526FA4465008ECA80 /* ObserverResponse.swift */,
@@ -1417,7 +1417,7 @@
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
 				9314DA20270749DB007896F9 /* SearchTextField.swift in Sources */,
 				93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */,
-				93334EB52677E17B0094A483 /* Item.swift in Sources */,
+				93334EB52677E17B0094A483 /* Finding.swift in Sources */,
 				9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */,
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
 				93390DB12703077F00DD68CE /* NewTaxonSectionView.swift in Sources */,

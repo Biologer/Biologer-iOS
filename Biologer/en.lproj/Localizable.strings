@@ -94,6 +94,7 @@
 "NewTaxon.mapType.hybrid.title" = "Hybrid";
 "NewTaxon.mapType.terrain.title" = "Terrain";
 "NewTaxon.mapType.satellite.title" = "Satellite";
+"NewTaxon.listOfFindings.nav.title" = "Biologer";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";

@@ -45,8 +45,8 @@ extension UIViewController {
     
     public func setBiologerTitle(text: String, numberOfLines: Int = 0) {
         let titleLbl = UILabel()
-        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkGray, .kern: 1.0]
-        let atributedString = NSAttributedString(string: text.uppercased(), attributes: attributes)
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkGray, .kern: 1.0, .font : UIFont.boldSystemFont(ofSize: 18)]
+        let atributedString = NSAttributedString(string: text, attributes: attributes)
         titleLbl.attributedText = atributedString
         titleLbl.numberOfLines = numberOfLines
         titleLbl.textAlignment = .center

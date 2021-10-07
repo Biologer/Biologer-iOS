@@ -10,7 +10,7 @@ import SwiftUI
 protocol ListOfFindingsScreenLoader: ObservableObject {
     func getData()
     var onNewItemTapped: Observer<Void> { get }
-    var onItemTapped: Observer<Item> { get }
+    var onItemTapped: Observer<Finding> { get }
     var preview: SideMenuMainScreenPreview { get }
 }
 
@@ -19,10 +19,12 @@ struct ListOfFindingsScreen<ScreenLoader>: View where ScreenLoader: ListOfFindin
     @ObservedObject public var loader: ScreenLoader
     
     var body: some View {
-        return generateView(loader)
+        generateView(loader)
             .onAppear {
                 loader.getData()
             }
+            .background(Color.biologerGreenColor.opacity(0.4))
+            .ignoresSafeArea(.container, edges: .bottom)
     }
     
     private func generateView(_ screenLoader: ScreenLoader) -> AnyView {
@@ -48,15 +50,13 @@ struct SideMenuMainScreen_Previews: PreviewProvider {
         
         var onNewItemTapped: Observer<Void>
         
-        var onItemTapped: Observer<Item>
+        var onItemTapped: Observer<Finding>
         
-        var preview: SideMenuMainScreenPreview = .regular([Item(id: 1, name: "Item 1"),
-                                                           Item(id: 2, name: "Item 2"),
-                                                           Item(id: 3, name: "Item 3"),
-                                                           Item(id: 4, name: "Item 4"),
-                                                           Item(id: 5, name: "Item 5")])
+        var preview: SideMenuMainScreenPreview = .regular([Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
+                                                           Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
+                                                           Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult")])
         init(onNewItemTapped: @escaping Observer<Void>,
-             onItemTapped: @escaping Observer<Item>) {
+             onItemTapped: @escaping Observer<Finding>) {
             self.onItemTapped = onItemTapped
             self.onNewItemTapped = onNewItemTapped
         }

@@ -7,21 +7,56 @@
 
 import SwiftUI
 
+struct FindingItemView: View {
+    
+    var finding: Finding
+    
+    var body: some View {
+        HStack {
+            Image("gallery_icon")
+                .resizable()
+                .frame(width: 45, height: 45, alignment: .center)
+            VStack(alignment: .leading) {
+                Text(finding.taxon)
+                    .foregroundColor(Color.black)
+                    .font(.italic(.body)())
+                Text(finding.developmentStage)
+                    .foregroundColor(Color.black)
+                    .font(.callout)
+            }
+            Spacer()
+        }
+        .padding(10)
+        .background(Color.white)
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(lineWidth: 1)
+                .foregroundColor(Color.clear)
+                .shadow(color: Color.gray, radius: 1, x: 0, y: 0)
+        )
+        .padding(.vertical, 5)
+        .padding(.horizontal, 10)
+    }
+}
+
 struct FindingsListView: View {
     
-    var items: [Item]
-    var onItemTapped: Observer<Item>
+    var items: [Finding]
+    var onItemTapped: Observer<Finding>
     var onNewItemTapped: Observer<Void>
     
     var body: some View {
         VStack {
-            List {
-                ForEach(items, id: \.id) { item in
-                    HStack {
-                        Text(item.name)
-                    }
-                    .onTapGesture {
-                        onItemTapped(item)
+            ScrollView {
+                VStack {
+                    Color.clear
+                    ForEach(items, id: \.id) { finding in
+                        Button(action: {
+                            onItemTapped(finding)
+                        }, label: {
+                            FindingItemView(finding: finding)
+                        })
                     }
                 }
             }
@@ -45,11 +80,9 @@ struct FindingsListView: View {
 struct ItemsListView_Previews: PreviewProvider {
     
     static var previews: some View {
-        FindingsListView(items: [Item(id: 1, name: "Item 1"),
-                              Item(id: 2, name: "Item 2"),
-                              Item(id: 3, name: "Item 3"),
-                              Item(id: 4, name: "Item 4"),
-                              Item(id: 5, name: "Item 5")], onItemTapped: { item in }, onNewItemTapped: { _ in }
+        FindingsListView(items: [Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
+                                 Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
+                                 Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult")], onItemTapped: { item in }, onNewItemTapped: { _ in }
                       )
     }
 }

@@ -8,29 +8,27 @@
 import Foundation
 
 public enum SideMenuMainScreenPreview {
-    case regular([Item])
+    case regular([Finding])
     case iregular(String)
 }
 
 public final class ListOfFindingsScreenViewModel: ListOfFindingsScreenLoader, ObservableObject {
     var onNewItemTapped: Observer<Void>
-    var onItemTapped: Observer<Item>
+    var onItemTapped: Observer<Finding>
     
     @Published var preview: SideMenuMainScreenPreview = .iregular("No Data")
     
     init(onNewItemTapped: @escaping Observer<Void>,
-         onItemTapped: @escaping Observer<Item>) {
+         onItemTapped: @escaping Observer<Finding>) {
         self.onNewItemTapped = onNewItemTapped
         self.onItemTapped = onItemTapped
     }
     
     func getData() {
         // MARK: - Get data from API or DB
-        preview = .regular([Item(id: 1, name: "Item 1"),
-                            Item(id: 2, name: "Item 2"),
-                            Item(id: 3, name: "Item 3"),
-                            Item(id: 4, name: "Item 4"),
-                            Item(id: 5, name: "Item 5"),
-                            Item(id: 6, name: "Item 6")])
+        preview = .regular([Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
+                            Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
+                            Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult")])
+
     }
 }

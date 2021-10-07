@@ -52,6 +52,7 @@ public final class TaxonRouter: NSObject {
                                             self.onSideMenuTapped?(())
                                         })
 
+        vc.setBiologerTitle(text: "NewTaxon.listOfFindings.nav.title".localized)
         self.navigationController.setViewControllers([vc], animated: false)
     }
     
