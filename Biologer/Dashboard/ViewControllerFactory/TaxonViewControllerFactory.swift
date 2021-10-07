@@ -9,7 +9,8 @@ import SwiftUI
 
 public protocol TaxonViewControllerFactory {
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
-                                  onItemTapped: @escaping Observer<Finding>) -> UIViewController
+                                  onItemTapped: @escaping Observer<Finding>,
+                                  onDeleteFindingTapped: @escaping Observer<Finding>) -> UIViewController
     func makeNewTaxonScreen(location: LocationManager,
                             onSaveTapped: @escaping Observer<Void>,
                             onLocationTapped: @escaping Observer<TaxonLocation?>,
@@ -40,9 +41,11 @@ public protocol TaxonViewControllerFactory {
 
 public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory {
     public func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
-                                  onItemTapped: @escaping Observer<Finding>) -> UIViewController {
+                                  onItemTapped: @escaping Observer<Finding>,
+                                  onDeleteFindingTapped: @escaping Observer<Finding>) -> UIViewController {
         let sideMenuMainViewModel = ListOfFindingsScreenViewModel(onNewItemTapped: onNewItemTapped,
-                                                                  onItemTapped: onItemTapped)
+                                                                  onItemTapped: onItemTapped,
+                                                                  onDeleteFindingTapped: onDeleteFindingTapped)
         
         let screen = ListOfFindingsScreen(loader: sideMenuMainViewModel)
         let viewController = UIHostingController(rootView: screen)

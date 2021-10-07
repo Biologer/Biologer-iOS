@@ -46,6 +46,9 @@ public final class TaxonRouter: NSObject {
         },
         onItemTapped: { item in
             
+        },
+        onDeleteFindingTapped: { _ in
+            
         })
         vc.setBiologerBackBarButtonItem(image: UIImage(named: "side_menu_icon")!,
                                         action: {

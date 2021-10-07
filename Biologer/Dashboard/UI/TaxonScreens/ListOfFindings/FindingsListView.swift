@@ -10,21 +10,34 @@ import SwiftUI
 struct FindingItemView: View {
     
     var finding: Finding
+    let onFindingTapped: Observer<Void>
+    let onDeleteTapped: Observer<Void>
     
     var body: some View {
         HStack {
             Image("gallery_icon")
                 .resizable()
                 .frame(width: 45, height: 45, alignment: .center)
-            VStack(alignment: .leading) {
-                Text(finding.taxon)
-                    .foregroundColor(Color.black)
-                    .font(.italic(.body)())
-                Text(finding.developmentStage)
-                    .foregroundColor(Color.black)
-                    .font(.callout)
-            }
+            Button(action: {
+                onFindingTapped(())
+            }, label: {
+                VStack(alignment: .leading) {
+                    Text(finding.taxon)
+                        .foregroundColor(Color.black)
+                        .font(.italic(.body)())
+                    Text(finding.developmentStage)
+                        .foregroundColor(Color.black)
+                        .font(.callout)
+                }
+            })
             Spacer()
+            Button(action: {
+                onDeleteTapped(())
+            }, label: {
+                Image("bin_icon")
+                    .resizable()
+                    .frame(width: 30, height: 30, alignment: .center)
+            })
         }
         .padding(10)
         .background(Color.white)
@@ -44,34 +57,42 @@ struct FindingsListView: View {
     
     var items: [Finding]
     var onItemTapped: Observer<Finding>
+    var onDeleteFindingTapped: Observer<Finding>
     var onNewItemTapped: Observer<Void>
     
     var body: some View {
-        VStack {
-            ScrollView {
-                VStack {
-                    Color.clear
-                    ForEach(items, id: \.id) { finding in
-                        Button(action: {
-                            onItemTapped(finding)
-                        }, label: {
-                            FindingItemView(finding: finding)
-                        })
+        ZStack {
+            VStack {
+                ScrollView {
+                    VStack {
+                        Color.clear
+                        ForEach(items, id: \.id) { finding in
+                            FindingItemView(finding: finding,
+                                            onFindingTapped: { _ in
+                                                onItemTapped((finding))
+                                            },
+                                            onDeleteTapped: { _ in
+                                                onDeleteFindingTapped((finding))
+                                            })
+                        }
                     }
                 }
-            }
-            Spacer()
-            HStack {
                 Spacer()
-                Button(action: {
-                    onNewItemTapped(())
-                }, label: {
-                    Image("add_token")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                })
-                .padding()
+            }
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        onNewItemTapped(())
+                    }, label: {
+                        Image("add_token")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
+                    })
+                    .padding()
+                }
             }
         }
     }
@@ -82,7 +103,15 @@ struct ItemsListView_Previews: PreviewProvider {
     static var previews: some View {
         FindingsListView(items: [Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
                                  Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
-                                 Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult")], onItemTapped: { item in }, onNewItemTapped: { _ in }
+                                 Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult"),Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
+                                 Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
+                                 Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult"),Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
+                                 Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
+                                 Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult"),Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
+                                 Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
+                                 Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult"),Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
+                                 Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
+                                 Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult")], onItemTapped: { item in }, onDeleteFindingTapped: { _ in }, onNewItemTapped: { _ in }
                       )
     }
 }

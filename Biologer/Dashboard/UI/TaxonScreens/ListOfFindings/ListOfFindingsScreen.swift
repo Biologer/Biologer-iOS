@@ -11,6 +11,7 @@ protocol ListOfFindingsScreenLoader: ObservableObject {
     func getData()
     var onNewItemTapped: Observer<Void> { get }
     var onItemTapped: Observer<Finding> { get }
+    var onDeleteFindingTapped: Observer<Finding> { get }
     var preview: SideMenuMainScreenPreview { get }
 }
 
@@ -31,8 +32,9 @@ struct ListOfFindingsScreen<ScreenLoader>: View where ScreenLoader: ListOfFindin
         switch loader.preview {
         case .regular(let items):
             return AnyView(FindingsListView(items: items,
-                                         onItemTapped: loader.onItemTapped,
-                                         onNewItemTapped: loader.onNewItemTapped))
+                                            onItemTapped: loader.onItemTapped,
+                                            onDeleteFindingTapped: loader.onDeleteFindingTapped,
+                                            onNewItemTapped: loader.onNewItemTapped))
         case .iregular(let title):
             return AnyView(NoItemsView(title: title))
         }
@@ -42,10 +44,12 @@ struct ListOfFindingsScreen<ScreenLoader>: View where ScreenLoader: ListOfFindin
 struct SideMenuMainScreen_Previews: PreviewProvider {
     static var previews: some View {
         ListOfFindingsScreen(loader: StubSideMenuMainScreenViewModel(onNewItemTapped: { _ in },
-                                                                   onItemTapped: { _ in}))
+                                                                     onItemTapped: { _ in}, onDeleteFindingTapped: { _ in }))
     }
     
     private class StubSideMenuMainScreenViewModel: ListOfFindingsScreenLoader {
+        var onDeleteFindingTapped: Observer<Finding>
+        
         func getData() {}
         
         var onNewItemTapped: Observer<Void>
@@ -56,9 +60,11 @@ struct SideMenuMainScreen_Previews: PreviewProvider {
                                                            Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
                                                            Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult")])
         init(onNewItemTapped: @escaping Observer<Void>,
-             onItemTapped: @escaping Observer<Finding>) {
+             onItemTapped: @escaping Observer<Finding>,
+             onDeleteFindingTapped: @escaping Observer<Finding>) {
             self.onItemTapped = onItemTapped
             self.onNewItemTapped = onNewItemTapped
+            self.onDeleteFindingTapped = onDeleteFindingTapped
         }
         
     }

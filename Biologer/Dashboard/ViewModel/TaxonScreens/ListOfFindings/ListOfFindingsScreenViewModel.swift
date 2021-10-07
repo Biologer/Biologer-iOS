@@ -13,15 +13,18 @@ public enum SideMenuMainScreenPreview {
 }
 
 public final class ListOfFindingsScreenViewModel: ListOfFindingsScreenLoader, ObservableObject {
+    var onDeleteFindingTapped: Observer<Finding>
     var onNewItemTapped: Observer<Void>
     var onItemTapped: Observer<Finding>
     
     @Published var preview: SideMenuMainScreenPreview = .iregular("No Data")
     
     init(onNewItemTapped: @escaping Observer<Void>,
-         onItemTapped: @escaping Observer<Finding>) {
+         onItemTapped: @escaping Observer<Finding>,
+         onDeleteFindingTapped: @escaping Observer<Finding>) {
         self.onNewItemTapped = onNewItemTapped
         self.onItemTapped = onItemTapped
+        self.onDeleteFindingTapped = onDeleteFindingTapped
     }
     
     func getData() {
