@@ -12,7 +12,6 @@ public protocol TaxonViewControllerFactory {
                                   onItemTapped: @escaping Observer<Finding>,
                                   onDeleteFindingTapped: @escaping Observer<Finding>) -> UIViewController
     func makeDeleteFindingScreen(selectedFinding: Finding,
-                                 delegate: DeleteFindingsScreenViewModelDelegate?,
                                  onDeleteDone: @escaping Observer<Void>) -> UIViewController
     func makeNewTaxonScreen(location: LocationManager,
                             onSaveTapped: @escaping Observer<Void>,
@@ -56,10 +55,8 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
     }
     
     public func makeDeleteFindingScreen(selectedFinding: Finding,
-                                 delegate: DeleteFindingsScreenViewModelDelegate?,
                                  onDeleteDone: @escaping Observer<Void>) -> UIViewController {
         let viewModel = DeleteFindingsScreenViewModel(selectedFinding: selectedFinding,
-                                                      delegate: delegate,
                                                       onDeleteDone: onDeleteDone)
         let screen = DeleteFindingsScreen(viewModel: viewModel)
         let controller = UIHostingController(rootView: screen)

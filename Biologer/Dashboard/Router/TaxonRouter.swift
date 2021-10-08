@@ -65,10 +65,11 @@ public final class TaxonRouter: NSObject {
     private func showDeleteFindingsScreen(selectedFinding: Finding,
                                           delegate: DeleteFindingsScreenViewModelDelegate?) {
         let vc = factory.makeDeleteFindingScreen(selectedFinding: selectedFinding,
-                                                 delegate: delegate,
                                                  onDeleteDone: { _ in
                                                     self.navigationController.dismiss(animated: true, completion: nil)
                                                  })
+        let viewController = vc as? UIHostingController<DeleteFindingsScreen>
+        viewController?.rootView.viewModel.delegate = delegate
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
         self.navigationController.present(vc, animated: true, completion: nil)

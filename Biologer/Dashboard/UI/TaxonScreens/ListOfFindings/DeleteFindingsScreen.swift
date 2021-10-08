@@ -53,7 +53,7 @@ struct DeleteFindingsScreen: View {
                                     color: Color.red,
                                     width: UIScreen.screenWidth * 0.15,
                                     onTapped: { _ in
-                                        viewModel.cancelTapped()
+                                        viewModel.deleteTapped()
                                     })
             }
         }
@@ -101,7 +101,6 @@ struct DeleteFindingsScreen_Previews: PreviewProvider {
     static var previews: some View {
         
         let viewModel = DeleteFindingsScreenViewModel(selectedFinding: Finding(id: 1, taxon: "", developmentStage: ""),
-                                                      delegate: nil,
                                                       onDeleteDone: { _ in })
         
         DeleteFindingsScreen(viewModel: viewModel)

@@ -18,6 +18,7 @@ public final class ListOfFindingsScreenViewModel: ListOfFindingsScreenLoader, Ob
     var onItemTapped: Observer<Finding>
     
     @Published var preview: SideMenuMainScreenPreview = .iregular("No Data")
+    var findings = [Finding]()
     
     init(onNewItemTapped: @escaping Observer<Void>,
          onItemTapped: @escaping Observer<Finding>,
@@ -29,15 +30,25 @@ public final class ListOfFindingsScreenViewModel: ListOfFindingsScreenLoader, Ob
     
     func getData() {
         // MARK: - Get data from API or DB
-        preview = .regular([Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
-                            Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
-                            Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult")])
-
+        findings = [Finding(id: 1, taxon: "Zerynthia polyxena", developmentStage: "Larva"),
+                    Finding(id: 2, taxon: "Salamandra salamandra", developmentStage: "Adult"),
+                    Finding(id: 3, taxon: "Salamandra salamandra", developmentStage: "Adult")]
+        preview = .regular(findings)
     }
 }
 
 extension ListOfFindingsScreenViewModel: DeleteFindingsScreenViewModelDelegate {
     public func delete(finding: Finding?) {
-        print("Findings can be deleted")
+        if let finding = finding {
+            findings.removeAll(where: { $0.id == finding.id})
+            if findings.isEmpty {
+                preview = .iregular("No Findings")
+            } else {
+                preview = .regular(findings)
+            }
+        } else {
+            findings.removeAll()
+            preview = .iregular("No Findings")
+        }
     }
 }

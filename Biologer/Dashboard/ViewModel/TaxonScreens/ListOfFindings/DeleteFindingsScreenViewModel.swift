@@ -21,13 +21,11 @@ public final class DeleteFindingsScreenViewModel: ObservableObject {
     
     private let onDeleteDone: Observer<Void>
     private let selectedFinding: Finding
-    private let delegate: DeleteFindingsScreenViewModelDelegate?
+    public var delegate: DeleteFindingsScreenViewModelDelegate?
     
     init(selectedFinding: Finding,
-         delegate: DeleteFindingsScreenViewModelDelegate?,
          onDeleteDone: @escaping Observer<Void>) {
         self.selectedFinding = selectedFinding
-        self.delegate = delegate
         self.onDeleteDone = onDeleteDone
     }
     
