@@ -31,7 +31,14 @@ struct NewTaxonDevStageScreen: View {
         }
         .padding(.vertical, 10)
         .background(Color.white)
-        .cornerRadius(20)
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(lineWidth: 1.0)
+                .foregroundColor(Color.clear)
+                .shadow(color: Color.black, radius: 1, x: 0, y: 0)
+        )
+
         .frame(width: UIScreen.screenWidth * 0.6,
                height: UIScreen.screenHeight * 0.3,
                alignment: .center)

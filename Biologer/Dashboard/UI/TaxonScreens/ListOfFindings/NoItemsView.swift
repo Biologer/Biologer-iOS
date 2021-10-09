@@ -14,6 +14,7 @@ struct NoItemsView: View {
     var body: some View {
         VStack {
             Text(title)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

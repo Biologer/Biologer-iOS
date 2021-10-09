@@ -10,6 +10,7 @@ import CoreLocation
 
 public class LocationManager: NSObject, ObservableObject {
     private let locationManager = CLLocationManager()
+    private var timer = Timer()
     public var onLocationUpdate: Observer<Void>?
 
      @Published var location: CLLocation? {
@@ -36,11 +37,24 @@ public class LocationManager: NSObject, ObservableObject {
         locationManager.stopUpdatingLocation()
     }
     
+    public func stopTimer() {
+        print("Timer stoped")
+        timer.invalidate()
+    }
+    
     func startUpdateingLocation() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
+            print("Updating started..")
+            self.locationManager.startUpdatingLocation()
+            if self.accuracy < 5 && self.accuracy != 0 {
+                self.locationManager.stopUpdatingLocation()
+                self.stopTimer()
+            }
+        }
     }
     
     override init() {
@@ -52,6 +66,7 @@ extension LocationManager: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         self.location = location
+        print("Location updated")
         onLocationUpdate?(())
     }
 }

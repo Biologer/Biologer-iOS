@@ -31,6 +31,7 @@ public final class TaxonMapScreenViewModel: ObservableObject {
         self.locationManager = locationManager
         self.taxonLocation = taxonLocation
         self.onMapTypeTapped = onMapTypeTapped
+        locationManager.stopTimer()
     }
     
     public func doneTapped(taxonLocation: TaxonLocation) {

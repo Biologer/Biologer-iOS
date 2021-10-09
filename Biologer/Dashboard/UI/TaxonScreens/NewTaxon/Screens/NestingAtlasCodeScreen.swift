@@ -37,6 +37,9 @@ struct NestingAtlasCodeScreen: View {
                 })
             }
         }
+        .animation(.default)
+        .background(Color.biologerGreenColor.opacity(0.4))
+        .ignoresSafeArea(.container, edges: .bottom)
     }
 }
 

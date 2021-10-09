@@ -20,9 +20,11 @@ public final class NewTaxonLocationViewModel: ObservableObject {
     @Published var taxonLocation: TaxonLocation?
     
     init(location: LocationManager,
+         taxonLocation: TaxonLocation? = nil,
          onLocationTapped: @escaping Observer<TaxonLocation?>) {
         self.location = location
         self.onLocationTapped = onLocationTapped
+        self.taxonLocation = taxonLocation
         checkForUpdatingLocation()
     }
     

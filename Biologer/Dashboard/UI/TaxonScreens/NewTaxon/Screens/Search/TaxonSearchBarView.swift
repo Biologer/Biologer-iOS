@@ -46,16 +46,20 @@ struct TaxonSearchBarView: View {
                 .onTapGesture {
                     self.isEditing = true
                 }
-            
+
             Button(action: {
                 self.isEditing = false
                 self.onOkTapped(())
             }) {
-                Text("Ok")
+                Text("OK")
+                    .bold()
+                    .foregroundColor(Color.white)
+                    .frame(width: 40, height: 40, alignment: .center)
             }
-            .padding(.trailing, 10)
-            .transition(.move(edge: .trailing))
-            .animation(.default)
+            .background(Color.biologerGreenColor)
+            .cornerRadius(20)
+            .clipped()
+            .shadow(color: Color.gray, radius: 10, x: 0, y: 0)
         }
     }
         

@@ -21,6 +21,8 @@ struct TaxonSearchScreen: View {
                                onOkTapped: { _ in
                                 viewModel.taxonTapped(taxon: TaxonViewModel(name: viewModel.searchText))
                                })
+                .padding(.horizontal, 10)
+                .padding(.vertical, 20)
             Divider()
             LazyVStack {
                 ForEach(viewModel.texons, id: \.id) { taxon in
@@ -31,9 +33,12 @@ struct TaxonSearchScreen: View {
                     })
                 }
             }
+            .padding(.horizontal, 10)
             Spacer()
         }
-        .padding(20)
+        .animation(.default)
+        .background(Color.biologerGreenColor.opacity(0.4))
+        .ignoresSafeArea(.container, edges: .bottom)
     }
 }
 
