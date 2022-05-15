@@ -1,0 +1,232 @@
+/* 
+  Localizable.strings
+  Biologer
+
+  Created by Nikola Popovic on 19.9.21..
+  
+*/
+
+// MARK: - Common
+"Common.tf.error.required" = "This field is required";
+"Common.tf.email.error.notValid" = "Email is not in valid format";
+"Common.tf.password.error.notValid" = "Password must contain an uppercase letter, a number, and be at least 8 characters long!";
+"Common.btn.ok" = "Ok";
+"Common.btn.yes" = "Yes";
+"Common.btn.no" = "No";
+"Common.btn.cancel" = "Cancel";
+"Common.title.downloading" = "Downloading..";
+"Common.title.downloaded" = "Downloaded!";
+"Common.title.notConnectedToWiFi" = "You are not connected to WiFi. Do you want to downlaod anyway?";
+"Common.title.notConnectedToInternet" = "You are not connected to internet.";
+
+// MARK: - API Error
+"API.lb.error" = "Error!";
+"API.lb.parsingError" = "Parsing Error!";
+"API.lb.envError" = "Environment is not selected!";
+"API.lb.noInternetError" = "No Internet connection!";
+"API.lb.noInternetDescriptionError" = "Please check your internet connection and try again.";
+
+// MARK: - Login Screen Screen
+"Login.tf.username.placeholder" = "Username (email)";
+"Login.tf.password.placeholder" = "Password";
+"Login.env.placeholder" = "Select Environment";
+"Login.btn.login" = "Log in";
+"Login.lb.noAccount" = "Don't have an account?";
+"Login.btn.register" = "Register";
+"Login.btn.forgotPassword" = "Forgot Password";
+
+// MARK: - Register Step One Screen
+"Register.one.nav.title" = "Register (step one)";
+"Register.one.tf.name.placeholder" = "Name";
+"Register.one.tf.surname.placeholder" = "Surname";
+"Register.one.tf.institution.placeholder" = "Institution";
+"Register.one.btn.next" = "Next";
+
+// MARK: - Register Step Two Screen
+"Register.two.nav.title" = "Register (step two)";
+"Register.two.tf.email.placeholder" = "Email";
+"Register.two.tf.password.placeholder" = "Password";
+"Register.two.tf.repeatPassword.placeholder" = "Repeat Password";
+"Register.two.tf.repeatPassword.error" = "Password doesn't matches";
+"Register.two.btn.next" = "Next";
+
+// MARK: - Registration Step Three Screen
+"Register.three.nav.title" = "Register (step three)";
+"Register.three.dataLicense.placeholder" = "Data License";
+"Register.three.imageLicense.placeholder" = "Image License";
+"Register.three.lb.description" = "Your privacy and data sharing preferences are very important for every Biologer community! In order to use this platform, you must read privacy policy and understand how we use your personal data to validate each species observation from the field. \r\r Also, feel free to choose how to share your field observations and photos with the rest of the world by defining licensing options.";
+"Register.three.btn.privacyPolicy" = "Privacy Policy";
+"Register.three.lb.acceptPrivacyPolicy" = "I accept privacy policy";
+"Register.three.btn.register" = "Register";
+"Register.three.lb.error" = "For registration you must accept privacy policy!";
+"Register.three.successPopUp.title" = "Registration";
+"Register.three.successPopUp.description" = "Registration is almos completed! To check it this was you, we wil send an email with confirmation link. Open that link to verify your email and you could login to Biologer.";
+
+// MARK: - Side Menu Screen
+"SideMenu.lb.listOfFindings" = "List of findings";
+"SideMenu.lb.setup" = "Setup";
+"SideMenu.lb.Logout" = "Logout";
+"SideMenu.lb.aboutUs" = "About us";
+"SideMenu.lb.AboutBiologer" = "About Biologer";
+"SideMenu.lb.Help" = "Help";
+
+// MARK: - New Taxon Screen
+"NewTaxon.lb.nav.title" = "Data Entry";
+"NewTaxon.lb.locationTitle" = "Location:";
+"NewTaxon.lb.accuracyTitle" = "Accuracy:";
+"NewTaxon.lb.latitude" = "Latitude:";
+"NewTaxon.lb.longitued" = "Longitude:";
+"NewTaxon.lb.altitude" = "Altitude:";
+"NewTaxon.lb.waitingForCordinate" = "Waiting for the coordinates..";
+"NewTaxon.lb.accuracyUnknown" = "Unknown";
+"NewTaxon.btn.setLocation.title" = "Set location";
+"NewTaxon.lb.image.title" = "Images:";
+"NewTaxon.lb.info.title" = "Info:";
+"NewTaxon.tf.taxonName.placeholder" = "Taxon name";
+"NewTaxon.tf.nesting.placeholder" = "Nesting atlas code";
+"NewTaxon.tf.comment.placeholder" = "Comment";
+"NewTaxon.tf.individual.placeholder" = "Numbers of individuals";
+"NewTaxon.tf.maleIndividual.placeholder" = "Number of male";
+"NewTaxon.tf.femaleIndividual.placeholder" = "Number of female";
+"NewTaxon.tf.developmentStage.placeholder" = "Development stage of taxon";
+"NewTaxon.tf.habitat.placeholder" = "Habitat";
+"NewTaxon.tf.foundOn.placeholder" = "Found On";
+"NewTaxon.tf.foundDead.placeholder" = "Cause of death";
+"NewTaxon.tf.foundDead.text" = "Found dead?";
+"NewTaxon.btn.callObservation.text" = "Call";
+"NewTaxon.btn.exuviaeObservation.text" = "Exuviae";
+"NewTaxon.btn.save.text" = "Save";
+"NewTaxon.map.nav.title" = "Select location";
+"NewTaxon.image.nav.title" = "Images preiview";
+"NewTaxon.image.placeholder.title" = "No images added";
+"NewTaxon.search.nav.title" = "Search Taxons";
+"NewTaxon.nestingAtlas.nav.title" = "Nesting Atlas Code";
+"NewTaxon.mapType.normal.title" = "Normal";
+"NewTaxon.mapType.hybrid.title" = "Hybrid";
+"NewTaxon.mapType.terrain.title" = "Terrain";
+"NewTaxon.mapType.satellite.title" = "Satellite";
+"NewTaxon.map.accuracy.text" = "Accuracy of coordinates:";
+"NewTaxon.map.accuracy.description" = "Move marker to change accuracy.";
+"NewTaxon.image.errorPopUp.title" = "Attention!";
+"NewTaxon.image.errorPopUp.description" = "You can add only three photos.";
+"NewTaxon.popUpError.description.title.taxonNameRequired" = "Taxon name is required";
+"NewTaxon.popUpError.description.title.minimumNumberOfIndividualsIsOne" = "Minimum number of individuals is one";
+
+// MARK: - Nesting Altas Code
+"NestingAtlasCode.title.1" = "0. Species observed but supected to be on migration or to be summering non-beeder";
+"NestingAtlasCode.title.2" = "1. Species observed in breeding seasson in possible naesting habitat";
+"NestingAtlasCode.title.3" = "2. Singin male(s) present (or breeding calls heard) in breeading season";
+"NestingAtlasCode.title.4" = "3. Pair observed in suitable nesting habitat in breeding season";
+"NestingAtlasCode.title.5" = "4. Permanent territory presumed through registration of teritorial behaviour (song, etc) on at last two difference days a week or more apart at the same place";
+"NestingAtlasCode.title.6" = "5. Courtship and display";
+"NestingAtlasCode.title.7" = "6. Visiting probable nest site";
+"NestingAtlasCode.title.8" = "7. Agitated behaviour or anxiety calls from adults";
+"NestingAtlasCode.title.9" = "8. Brood patch on adult examined in the hand";
+"NestingAtlasCode.title.10" = "9. Nest building or excavating nest-hole";
+"NestingAtlasCode.title.11" = "10. Distraction-display or injury-feigning";
+"NestingAtlasCode.title.12" = "11. Used nest or eggshells found (occupied or laid within period of survey)";
+
+// MARK: - Download Taxon
+"DownloadTaxon.doYouWantDownload.title" = "Do you want to download taxa";
+
+// MARK: - List Of Findings
+"ListOfFindings.nav.title" = "Biologer";
+"ListOfFindings.noFindings.title" = "Your filed records will appear here. To add new observation of a species, just use \"+\" sign and fill the form. After you reach the stable internet connection, use the upload button to send all records on the server.";
+"ListOfFindings.deleteScreen.title" = "Do you want to delete?";
+"ListOfFindings.deleteScreen.lb.allTitle" = "All findings";
+"ListOfFindings.deleteScreen.lb.selectedTitle" = "Selected finding";
+"ListOfFindings.deleteScreen.btn.cancel" = "Cancel";
+"ListOfFindings.deleteScreen.btn.delete" = "Delete";
+
+// MARK: - Upload Findings
+"UploadFindings.noFindingsToUploadPopUp.title" = "Uploading findigs..";
+"UploadFindings.noFindingsToUploadPopUp.description" = "There are no findings to upload.";
+"UploadFindings.yesOrNoPopUp.title" = "Do you want to upload findings?";
+"UploadFindings.uploadedFindingPopUp.title" = "Success!";
+"UploadFindings.uploadedFindingPopUp.description" = "All findings are uploaded!";
+
+// MARK: - Settings Screen
+"Settings.lb.dataEntry" = "Data Entry";
+"Settings.lb.chooseSpecisGroup.title" = "Choose Species groups";
+"Settings.lb.chooseSpecisGroup.desc" = "By selecting only certain groups (i.e. birds, butterflies or plants) it will be easier to find species for data entry. Other species will not pop up in the drop down menu.";
+"Settings.lb.awayListEnglish.title" = "Always list english names";
+"Settings.lb.awayListEnglish.desc" = "Allows Biologer list english names for the species even if the phone locale is set to other language";
+"Settings.lb.adultDefault.title" = "Set as adult by default";
+"Settings.lb.adultDefault.desc" = "Sets the life stage to adult by default, if adult stage exist for observed taxa.";
+"Settings.lb.advanceObservation.title" = "Advance observation entry";
+"Settings.lb.advanceObservation.desc" = "Enables adnvace opstions that could be entered with your occurrence (i.e. number of individuals, stage, sex).";
+"Settings.lb.userAccount" = "User Account";
+"Settings.lb.projectName.title" = "Project Name";
+"Settings.lb.projectName.desc" = "Sets the project title if your data was collected during a project";
+"Settings.lb.dataLicense.title" = "Data License";
+"Settings.lb.dataLicense.desc" = "Choose different license for your data collected through the application";
+"Settings.lb.imageLicense.title" = "Image License";
+"Settings.lb.imageLicense.desc" = "Choose different license for your image sent through the application";
+"Settings.lb.otherDownloads" = "Other downloads";
+"Settings.lb.autoDownloadUpload.title" = "Auto download and upload";
+"Settings.lb.autoDownloadUpload.desc" = "Allows data to be automatically downloaded and uploaded without user intervation. By default the data will be transferred only on WiFi.";
+"Settings.lb.downloadTaxa.title" = "Download all taxa";
+"Settings.lb.downloadTaxa.desc" = "Re-downloads entire taxonomic tree in your application from Biologer server";
+"Settings.lb.resetAllTaxa.title" = "Reset all taxa";
+"Settings.lb.resetAllTaxa.description" = "This action will remove all taxa from app. But you still can download latest taxa from server in section above.";
+"Settings.lb.resetAllTaxa.yesOrNoAlert.title" = "Do you want to delete all taxa?";
+"Settings.lb.resetAllTaxa.confirmAlert.title" = "Delete taxa";
+"Settings.lb.resetAllTaxa.confirmAlert.description" = "All taxon has been successfully deleted!";
+"Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.title" = "Delete taxa";
+"Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.description" = "There is no taxons for delete.";
+
+// MARK: - Project Name Screen
+"ProjectName.tf.placeholder" = "Project Name";
+
+// MARK: - Download And Upload Screen
+"DownloadAndUpload.nav.title" = "Auto download and upload";
+"DownloadAndUpload.nav.onlyWifi" = "Only on WiFi network";
+"DownloadAndUpload.nav.onAnyNetwork" = "On any network";
+"DownloadAndUpload.nav.alwaysAsk" = "Always ask user";
+"DownloadAndUpload.popUp.success.title" = "Taxon update";
+"DownloadAndUpload.popUp.success.description" = "All taxons are up to date!";
+
+// MARK: - Logout Screen
+"Logout.lb.currentlyDB" = "You are currently loged into a database:";
+"Logout.lb.asUser" = "As user:";
+"Logout.lb.doYouWantLogout" = "Do you want to logout from this Biologer database?";
+"Logout.btn.logout" = "Logout";
+
+// MARK: - About Biologer Screen
+"AboutBiologer.lb.currentlyDB" = "You are currently logged into a database:";
+"AboutBiologer.lb.desc.one" = "Biologer is Open Source application issued under MIT license and designed to collect data on biodiversity in Eastern Europe.";
+"AboutBiologer.lb.desc.two" = "Biologer was developed with founds from Rufford Small Grands (project Nos.20507-B and 24652-B) and MAVA (project No. 15097)";
+"AboutBiologer.lb.toFingMoreDetails" = "To find out more details aboud Biologer, visit our web page:";
+"AboutBiologer.lb.appVersion" = "App Version: ";
+
+// MARK: - Help Screen
+"Help.title.first" = "Database option";
+"Help.desc.first" = "Biologer application can connected to multiple datebase. You should start by choosing your preferred datebase and registering online.";
+"Help.title.second" = "Navigation is easy";
+"Help.desc.second" = "Side panel provides all the shortcuts and settings you need. Just swipe screen to the right and you are ready to go.";
+"Help.title.third" = "The main screen";
+"Help.desc.third" = "From the main screen you can add, edit or delete your observation and send data to one of our service.";
+"Help.title.fourth" = "New observations";
+"Help.desc.fourth" = "Adding data is easy! Suggest the species, add some photos and Biologer do the rest. Advance optios can also be unlocked from the Preferences.";
+
+// MARK: - Select Environment Screen
+"Env.nav.title" = "Select environment";
+"Env.lb.seribia" = "Serbia";
+"Env.lb.croatia" = "Croatia";
+"Env.lb.bosniaAndHerzegovina" = "Bosnian and Herzegovina";
+"Env.lb.developer" = "For Developers";
+
+// MARK: - Image License Screen
+"ImgLicense.nav.title" = "Image license";
+"ImgLicense.lb.one" = "Share images for free (CC-BY-SA)";
+"ImgLicense.lb.two" = "Share images as noncommercial (CC-BY-SA-NC)";
+"ImgLicense.lb.three" = "Keep authorship and share online with watermark";
+"ImgLicense.lb.four" = "Keep authorship and restrict images from public domain";
+
+// MARK: - Data License Screen
+"DataLicense.nav.title" = "Data license";
+"DataLicense.lb.one" = "Free (CC BY-SA)";
+"DataLicense.lb.two" = "Free, NonCommercial (CC BY-SA-NC)";
+"DataLicense.lb.three" = "Partially Open (restricted to 10km)";
+"DataLicense.lb.four" = "Temporary closed (publish as free after 3 years)";
+"DataLicense.lb.five" = "Closed (available to you and the editors)";

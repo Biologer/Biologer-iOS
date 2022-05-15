@@ -1,0 +1,15 @@
+/* 
+  infoPlist.strings
+  Biologer
+
+  Created by Nikola Popovic on 16.12.21..
+  
+*/
+
+NSLocationAlwaysUsageDescription = "Biologer is intended to collect species occurrences in the field, thus the geographic location is very important for each record. It is highly recommended that you allow Biologer to access your location, but you can also manually pick a location using map.";
+
+NSLocationWhenInUseUsageDescription = "Biologer is intended to collect species occurrences in the field, thus the geographic location is very important for each record. It is highly recommended that you allow Biologer to access your location, but you can also manually pick a location using map.";
+
+NSCameraUsageDescription = "Biologer could not take a photo without permission to access your file system and camera. Would you like to enable this permissions?";
+
+NSPhotoLibraryUsageDescription = "Biologer needs a permission to access your image files from gallery. Would you like to give it a permit to read storage on your phone?";
