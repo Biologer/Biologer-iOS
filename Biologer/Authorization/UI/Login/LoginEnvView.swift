@@ -52,7 +52,7 @@ struct LoginEnvView_Previews: PreviewProvider {
                      viewModel: EnvironmentViewModel(id: 1,
                                                      title: "Serbia",
                                                      image: "serbia_flag",
-                                                     env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
+                                                     env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret, cliendId: cliendIdSer),
                                                       isSelected: false), onEnvTapped: { _ in })
     }
 }

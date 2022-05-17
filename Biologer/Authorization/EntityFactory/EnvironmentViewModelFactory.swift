@@ -21,23 +21,23 @@ public final class EnvironmentViewModelFactory {
             return EnvironmentViewModel(id: 1,
                                         title: "Env.lb.seribia".localized,
                                         image: "serbia_flag",
-                                        env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
+                                        env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret, cliendId: cliendIdSer),
                                         isSelected: false)
         case .croatia:
             return EnvironmentViewModel(id: 2,
                                         title: "Env.lb.croatia".localized,
                                         image: "croatia_flag",
-                                        env: Environment(host: croatiaHost, path: croatiaPath, clientSecret: croatiaClientSecret),
+                                        env: Environment(host: croatiaHost, path: croatiaPath, clientSecret: croatiaClientSecret, cliendId: cliendIdCro),
                                         isSelected: false)
         case .bosniaAndHerzegovina:
             return EnvironmentViewModel(id: 3, title: "Env.lb.bosniaAndHerzegovina".localized,
                                         image: "bosnia_flag_icon",
-                                        env: Environment(host: bosnianAndHerzegovinHost, path: bosnianAndHerzegovinaPath, clientSecret: bosnianAndHercegovinaClientSecret),
+                                        env: Environment(host: bosnianAndHerzegovinHost, path: bosnianAndHerzegovinaPath, clientSecret: bosnianAndHercegovinaClientSecret, cliendId: cliendIdBih),
                                         isSelected: false)
         case .develop:
             return EnvironmentViewModel(id: 4, title: "Env.lb.developer".localized,
                                         image: "hammer_icon",
-                                        env: Environment(host: devHost, path: devPath, clientSecret: devClientSecret),
+                                        env: Environment(host: devHost, path: devPath, clientSecret: devClientSecret, cliendId: cliendIdSer),
                                         isSelected: false)
         }
     }

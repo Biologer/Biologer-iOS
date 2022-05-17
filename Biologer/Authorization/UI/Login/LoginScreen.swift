@@ -147,7 +147,7 @@ struct LoginScreen_Previews: PreviewProvider {
         var environmentViewModel: EnvironmentViewModel = EnvironmentViewModel(id: 1,
                                                        title: "Serbia",
                                                        image: "serbia_flag",
-                                                       env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
+                                                                              env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret, cliendId: cliendIdSer),
                                                         isSelected: false)
         var labelsViewModel: LoginLabelsViewModel = LoginLabelsViewModel()
         var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = UserNameTextFieldViewModel()

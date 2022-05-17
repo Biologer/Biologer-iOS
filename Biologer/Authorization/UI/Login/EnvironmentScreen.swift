@@ -53,34 +53,14 @@ struct EnvironmentScreen: View  {
 
 struct EnvironmentScreen_Previews: PreviewProvider {
     static var previews: some View {
-        
-        let envViewModels = [EnvironmentViewModel(id: 1,
-                                                  title: "Serbia",
-                                                  image: "serbia_flag",
-                                                  env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
-                                                  isSelected: false),
-                             EnvironmentViewModel(id: 2,
-                                                  title: "Croatia",
-                                                  image: "croatia_flag",
-                                                  env: Environment(host: croatiaHost, path: croatiaPath, clientSecret: croatiaClientSecret),
-                                                  isSelected: false),
-                             
-                             EnvironmentViewModel(id: 3, title: "Bosnia and Herzegovina",
-                                                  image: "bosnia_flag_icon",
-                                                  env: Environment(host: bosnianAndHerzegovinHost, path: bosnianAndHerzegovinaPath, clientSecret: bosnianAndHercegovinaClientSecret),
-                                                  isSelected: false),
-                             EnvironmentViewModel(id: 4, title: "For Developers",
-                                                  image: "hammer_icon",
-                                                  env: Environment(host: devHost, path: devPath, clientSecret: devClientSecret),
-                                                  isSelected: false)]
-        
-        let selectedEnv = EnvironmentViewModel(id: 1,
-                                               title: "Serbia",
-                                               image: "serbia_flag",
-                                               env: Environment(host: serbiaHost, path: serbiaPath, clientSecret: serbiaClientSecret),
-                                               isSelected: false)
-        
-        EnvironmentScreen(loader: EnvironmentScreenViewModel(environmentsViewModel: envViewModels, selectedViewModel: selectedEnv, onSelectedEnvironment: { _ in}))
+        let factory = EnvironmentViewModelFactory()
+        let envViewModels = [factory.createEnvironment(type: .serbia),
+                             factory.createEnvironment(type: .croatia),
+                             factory.createEnvironment(type: .bosniaAndHerzegovina),
+                             factory.createEnvironment(type: .develop)]
+        EnvironmentScreen(loader: EnvironmentScreenViewModel(environmentsViewModel: envViewModels,
+                                                             selectedViewModel: envViewModels[0],
+                                                             onSelectedEnvironment: { _ in}))
 
     }
 }
