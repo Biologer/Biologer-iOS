@@ -20,6 +20,11 @@ public final class NestingAtlasCodeMapper {
                 NestingAtlasCodeItem(id: 9, name: "NestingAtlasCode.title.9".localized),
                 NestingAtlasCodeItem(id: 10, name: "NestingAtlasCode.title.10".localized),
                 NestingAtlasCodeItem(id: 11, name: "NestingAtlasCode.title.11".localized),
-                NestingAtlasCodeItem(id: 12, name: "NestingAtlasCode.title.12".localized)]
+                NestingAtlasCodeItem(id: 12, name: "NestingAtlasCode.title.12".localized),
+                NestingAtlasCodeItem(id: 13, name: "NestingAtlasCode.title.13".localized),
+                NestingAtlasCodeItem(id: 14, name: "NestingAtlasCode.title.14".localized),
+                NestingAtlasCodeItem(id: 15, name: "NestingAtlasCode.title.15".localized),
+                NestingAtlasCodeItem(id: 16, name: "NestingAtlasCode.title.16".localized),
+                NestingAtlasCodeItem(id: 17, name: "NestingAtlasCode.title.17".localized)]
     }
 }
