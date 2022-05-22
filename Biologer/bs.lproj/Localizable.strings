@@ -125,6 +125,11 @@
 "NestingAtlasCode.title.10" = "Pair observed in suitable nesting habitat in breeding season";
 "NestingAtlasCode.title.11" = "Permanent territory presumed through registration of teritorial behaviour (song, etc) on at last two difference days a week or more apart at the same place";
 "NestingAtlasCode.title.12" = "Species observed but supected to be on migration or to be summering non-beeder";
+"NestingAtlasCode.title.13" = "12. Recently fledged young (nidicolous species) or downy young (nidifugous species)";
+"NestingAtlasCode.title.14" = "13. Adults entering or leaving nest-site in circumstances indicating occupied nest (including high nests or nest-holes, the contents of which can not be seen) or adult seen incubating";
+"NestingAtlasCode.title.15" = "14. Adult carrying faecal sac or food for young";
+"NestingAtlasCode.title.16" = "15. Nest containing eggs";
+"NestingAtlasCode.title.17" = "16. Nest with young seen or heard";
 
 // MARK: - Download Taxon
 "DownloadTaxon.doYouWantDownload.title" = "Da li zelite da skinete taxone";

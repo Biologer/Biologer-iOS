@@ -125,6 +125,11 @@
 "NestingAtlasCode.title.10" = "9. Nest building or excavating nest-hole";
 "NestingAtlasCode.title.11" = "10. Distraction-display or injury-feigning";
 "NestingAtlasCode.title.12" = "11. Used nest or eggshells found (occupied or laid within period of survey)";
+"NestingAtlasCode.title.13" = "12. Recently fledged young (nidicolous species) or downy young (nidifugous species)";
+"NestingAtlasCode.title.14" = "13. Adults entering or leaving nest-site in circumstances indicating occupied nest (including high nests or nest-holes, the contents of which can not be seen) or adult seen incubating";
+"NestingAtlasCode.title.15" = "14. Adult carrying faecal sac or food for young";
+"NestingAtlasCode.title.16" = "15. Nest containing eggs";
+"NestingAtlasCode.title.17" = "16. Nest with young seen or heard";
 
 // MARK: - Download Taxon
 "DownloadTaxon.doYouWantDownload.title" = "Do you want to download taxa";
