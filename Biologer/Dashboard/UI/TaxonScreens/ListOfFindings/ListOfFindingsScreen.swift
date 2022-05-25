@@ -60,7 +60,7 @@ struct ListOfFindingsScreen: View {
 struct SideMenuMainScreen_Previews: PreviewProvider {
     static var previews: some View {
         ListOfFindingsScreen(viewModel: ListOfFindingsScreenViewModel(onNewItemTapped: { _ in },
-                                                                     onItemTapped: { _ in}, onDeleteFindingTapped: { _ in }))
+                                                                      onItemTapped: { _ in}, onDeleteFindingTapped: { _ in }))
     }
     
     private class StubSideMenuMainScreenViewModel: ListOfFindingsScreenLoader {

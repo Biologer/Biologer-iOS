@@ -11,9 +11,6 @@ protocol DashboardViewControllerFactory {
     func makeSideMenuListScreen(email: String,
                                 username: String,
                                 onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController
-    func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
-                                       onItemTapped: @escaping Observer<Finding>,
-                                       onDeleteFindingTapped: @escaping Observer<Finding>) -> UIViewController
     func makeLogoutScreen(userEmail: String,
                           username: String,
                           currentEnv: String,
@@ -36,17 +33,6 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
                                                                 onItemTapped: onItemTapped)
         
         let screen = SideMenuListScreen(loader: sideMenuListViewModel)
-        let viewController = UIHostingController(rootView: screen)
-        return viewController
-    }
-    
-    func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
-                                       onItemTapped: @escaping Observer<Finding>,
-                                       onDeleteFindingTapped: @escaping Observer<Finding>) -> UIViewController {
-        let sideMenuMainViewModel = ListOfFindingsScreenViewModel(onNewItemTapped: onNewItemTapped,
-                                                                  onItemTapped: onItemTapped, onDeleteFindingTapped: onDeleteFindingTapped)
-        
-        let screen = ListOfFindingsScreen(viewModel: sideMenuMainViewModel)
         let viewController = UIHostingController(rootView: screen)
         return viewController
     }

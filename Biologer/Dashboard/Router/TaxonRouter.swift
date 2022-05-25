@@ -19,6 +19,7 @@ public final class TaxonRouter: NSObject {
     private let taxonServiceCordinator: TaxonServiceCoordinator
     private let taxonPaginationInfoStorage: TaxonsPaginationInfoStorage
     private let settingsStorage: SettingsStorage
+    private let userStorage: UserStorage
     private var biologerProgressBarDelegate: BiologerProgressBarDelegate?
     private var onLoadingDone: (() -> Void)?
     public var onSideMenuTapped: Observer<Void>?
@@ -36,7 +37,8 @@ public final class TaxonRouter: NSObject {
          factory: TaxonViewControllerFactory,
          swiftUICommonFactory: CommonViewControllerFactory,
          uiKitCommonFactory: CommonViewControllerFactory,
-         alertFactory: AlertViewControllerFactory) {
+         alertFactory: AlertViewControllerFactory,
+         userStorage: UserStorage) {
         self.navigationController = navigationController
         self.location = location
         self.uploadFindings = uploadFindings
@@ -47,6 +49,7 @@ public final class TaxonRouter: NSObject {
         self.swiftUICommonFactory = swiftUICommonFactory
         self.uiKitCommonFactory = uiKitCommonFactory
         self.alertFactory = alertFactory
+        self.userStorage = userStorage
     }
     
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
@@ -68,8 +71,16 @@ public final class TaxonRouter: NSObject {
         var deleteFindingDelegate: DeleteFindingsScreenViewModelDelegate?
         let vc = factory.makeListOfFindingsScreen(onNewItemTapped: { [weak self] _ in
             guard let self = self else { return }
-            self.location.startUpdateingLocation()
-            self.showNewTaxonScreen(findingViewModel: self.makeDefaultFidingViewModel())
+            if let user = self.userStorage.getUser(), !user.isVerified {
+                self.showUnverifiedUser(onDissmis: { [weak self] in
+                    guard let self = self else { return }
+                    self.location.startUpdateingLocation()
+                    self.showNewTaxonScreen(findingViewModel: self.makeDefaultFidingViewModel())
+                })
+            } else {
+                self.location.startUpdateingLocation()
+                self.showNewTaxonScreen(findingViewModel: self.makeDefaultFidingViewModel())
+            }
         },
         onItemTapped: { [weak self] item in
             guard let self = self else { return }
@@ -369,8 +380,25 @@ public final class TaxonRouter: NSObject {
         }
     }
     
+    private func showUnverifiedUser(onDissmis: @escaping Observer<Void>) {
+        let confirmAlert = self.alertFactory.makeConfirmationAlert(popUpType: .warning,
+                                                                    title: "Warning",
+                                                                    description: "Please verified your user before send new finding!",
+                                                                    onTapp: { [weak self] in
+            self?.navigationController.dismiss(animated: true,
+                                               completion: {
+                onDissmis(())
+            })
+        })
+        self.navigationController.present(confirmAlert, animated: true, completion: nil)
+    }
+    
     // MARK: - Upload Findings flow
     private func uploadFindingFlow() {
+        guard let user = userStorage.getUser(), user.isVerified else {
+            showUnverifiedUser(onDissmis: { _ in })
+            return
+        }
         let findings = RealmManager.get(fromEntity: DBFinding.self)
         var findingsToUpload = [DBFinding]()
         findings.forEach({

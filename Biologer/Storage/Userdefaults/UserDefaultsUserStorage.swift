@@ -11,7 +11,7 @@ public final class UserDefaultsUserStorage: UserStorage {
     
     let userKey = "user"
     
-    func getUser() -> User? {
+    public func getUser() -> User? {
         let userDefaults = UserDefaults.standard
         do {
             return try userDefaults.getObject(forKey: userKey, castTo: User.self)
@@ -21,7 +21,7 @@ public final class UserDefaultsUserStorage: UserStorage {
         }
     }
     
-    func save(user: User) {
+    public func save(user: User) {
         let userDefaults = UserDefaults.standard
         do {
             try userDefaults.setObject(user, forKey: userKey)
@@ -30,7 +30,7 @@ public final class UserDefaultsUserStorage: UserStorage {
         }
     }
     
-    func delete() {
+    public func delete() {
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: userKey)
     }

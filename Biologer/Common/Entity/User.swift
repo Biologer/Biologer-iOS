@@ -13,6 +13,7 @@ public final class User: Codable {
     public let lastName: String
     public let email: String
     public let fullName: String
+    public let isVerified: Bool
     public var settings: Settings
     
     public final class Settings: Codable {
@@ -37,6 +38,7 @@ public final class User: Codable {
          lastName: String,
          email: String,
          fullName: String,
+         isVerified: Bool,
          settings: Settings) {
         self.id = id
         self.firstName = firstName
@@ -44,5 +46,6 @@ public final class User: Codable {
         self.email = email
         self.fullName = fullName
         self.settings = settings
+        self.isVerified = isVerified
     }
 }

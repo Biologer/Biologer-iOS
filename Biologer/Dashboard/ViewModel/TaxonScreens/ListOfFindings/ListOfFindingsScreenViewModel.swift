@@ -16,6 +16,7 @@ public final class ListOfFindingsScreenViewModel: ListOfFindingsScreenLoader, Ob
     var onDeleteFindingTapped: Observer<Finding>
     var onNewItemTapped: Observer<Void>
     var onItemTapped: Observer<Finding>
+
     
     @Published var preview: SideMenuMainScreenPreview = .iregular("ListOfFindings.noFindings.title".localized)
     var findings = [Finding]()

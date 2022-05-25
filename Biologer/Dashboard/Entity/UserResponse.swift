@@ -16,6 +16,7 @@ public struct UserDataResponse: Codable {
         let last_name: String
         let email: String
         let full_name: String
+        let is_verified: Bool
         let settings: Settings
         
         public struct Settings: Codable {

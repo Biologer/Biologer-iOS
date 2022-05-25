@@ -125,7 +125,8 @@ public final class AppNavigationRouter: NavigationRouter {
                                       factory: SwiftUITaxonViewControllerFactory(getAltitudeService: RemoteGetAltitudeService(client: httpClient, environmentStorage: environmentStorage)),
                                       swiftUICommonFactory: swiftUICommonViewControllerFactory,
                                       uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
-                                      alertFactory: swiftUIAlertViewControllerFactory)
+                                      alertFactory: swiftUIAlertViewControllerFactory,
+                                      userStorage: userStorage)
         return taxonRouter
     }()
     
@@ -295,6 +296,7 @@ public final class AppNavigationRouter: NavigationRouter {
                                 lastName: response.data.last_name,
                                 email: response.data.email,
                                 fullName: response.data.full_name,
+                                isVerified: response.data.is_verified,
                                 settings: User.Settings(dataLicense: response.data.settings.data_license,
                                                         imageLicense: response.data.settings.image_license,
                                                         language: response.data.settings.language))

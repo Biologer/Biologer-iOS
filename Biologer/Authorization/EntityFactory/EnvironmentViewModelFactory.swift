@@ -37,7 +37,7 @@ public final class EnvironmentViewModelFactory {
         case .develop:
             return EnvironmentViewModel(id: 4, title: "Env.lb.developer".localized,
                                         image: "hammer_icon",
-                                        env: Environment(host: devHost, path: devPath, clientSecret: devClientSecret, cliendId: cliendIdSer),
+                                        env: Environment(host: devHost, path: devPath, clientSecret: devClientSecret, cliendId: cliendIdDev),
                                         isSelected: false)
         }
     }
