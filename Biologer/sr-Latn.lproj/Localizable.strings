@@ -18,6 +18,7 @@
 "Common.title.downloaded" = "Preuzeto!";
 "Common.title.notConnectedToWiFi" = "Niste povezani na bežični internet. Da li ipak želite da preuzmete?";
 "Common.title.notConnectedToInternet" = "Niste povezani na internet.";
+"Common.title.warning" = "Paznja!";
 
 // MARK: - API Error
 "API.lb.error" = "Greška!";
@@ -142,6 +143,7 @@
 "ListOfFindings.deleteScreen.lb.selectedTitle" = "Izabrani nalaz";
 "ListOfFindings.deleteScreen.btn.cancel" = "Otkaži";
 "ListOfFindings.deleteScreen.btn.delete" = "Obriši";
+"ListOfFindings.popUpUserVerified.description" = "Adresa vase e-pošte još uvek nije potvrdjena! Uspešno ste se registrovali i na Biologer i neke od osnovnih radnji će vam biti dostupne, ali ćete za slanje zabeležnika vrsta morati da otvorite e-poruku koju ste dobili i potvrditi vašu adresu.";
 
 // MARK: - Upload Findings
 "UploadFindings.noFindingsToUploadPopUp.title" = "Šaljem nalaze…";

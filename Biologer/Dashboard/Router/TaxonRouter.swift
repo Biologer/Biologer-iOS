@@ -382,8 +382,8 @@ public final class TaxonRouter: NSObject {
     
     private func showUnverifiedUser(onDissmis: @escaping Observer<Void>) {
         let confirmAlert = self.alertFactory.makeConfirmationAlert(popUpType: .warning,
-                                                                    title: "Warning",
-                                                                    description: "Please verified your user before send new finding!",
+                                                                   title: "Common.title.warning".localized,
+                                                                   description: "ListOfFindings.popUpUserVerified.description".localized,
                                                                     onTapp: { [weak self] in
             self?.navigationController.dismiss(animated: true,
                                                completion: {

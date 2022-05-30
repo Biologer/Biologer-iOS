@@ -111,6 +111,7 @@
 "NewTaxon.image.errorPopUp.description" = "Možete dodati samo tri fotografije.";
 "NewTaxon.popUpError.description.title.taxonNameRequired" = "Ime taksona je obavezno";
 "NewTaxon.popUpError.description.title.minimumNumberOfIndividualsIsOne" = "Najmanji broj jedinki je jedan";
+"Common.title.warning" = "Paznja!";
 
 // MARK: - Nesting Altas Code
 "NestingAtlasCode.title.1" = "0. Species observed but supected to be on migration or to be summering non-beeder";
@@ -142,6 +143,7 @@
 "ListOfFindings.deleteScreen.lb.selectedTitle" = "Izaberite nalaz";
 "ListOfFindings.deleteScreen.btn.cancel" = "Otkaži";
 "ListOfFindings.deleteScreen.btn.delete" = "Izbriši";
+"ListOfFindings.popUpUserVerified.description" = "Adresa vase e-pošte još uvek nije potvrdjena! Uspešno ste se registrovali i na Biologer i neke od osnovnih radnji će vam biti dostupne, ali ćete za slanje zabeležnika vrsta morati da otvorite e-poruku koju ste dobili i potvrditi vašu adresu.";
 
 // MARK: - Upload Findings
 "UploadFindings.noFindingsToUploadPopUp.title" = "Učitaj nalaze...";

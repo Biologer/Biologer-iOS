@@ -18,6 +18,7 @@
 "Common.title.downloaded" = "Downloaded!";
 "Common.title.notConnectedToWiFi" = "You are not connected to WiFi. Do you want to downlaod anyway?";
 "Common.title.notConnectedToInternet" = "You are not connected to internet.";
+"Common.title.warning" = "Warning!";
 
 // MARK: - API Error
 "API.lb.error" = "Error!";
@@ -142,6 +143,7 @@
 "ListOfFindings.deleteScreen.lb.selectedTitle" = "Selected finding";
 "ListOfFindings.deleteScreen.btn.cancel" = "Cancel";
 "ListOfFindings.deleteScreen.btn.delete" = "Delete";
+"ListOfFindings.popUpUserVerified.description" = " Your email address is not confirmed! Your registration was successful and you can use some basic functionality of Biologer. However, you will not be able to submit your species observations before validating email address.";
 
 // MARK: - Upload Findings
 "UploadFindings.noFindingsToUploadPopUp.title" = "Uploading findigs..";

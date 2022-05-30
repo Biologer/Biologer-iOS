@@ -34,18 +34,20 @@ struct NewTaxonScreen: View {
                     Spacer()
                 }
             }
-            VStack {
-                Spacer()
+            if viewModel.findingViewModel.findingMode == .create {
                 VStack {
-                    BiologerButton(title: viewModel.saveButtonTitle,
-                                onTapped: { _ in
-                                    viewModel.saveTapped()
-                                })
-                        .padding(30)
+                    Spacer()
+                    VStack {
+                        BiologerButton(title: viewModel.saveButtonTitle,
+                                    onTapped: { _ in
+                                        viewModel.saveTapped()
+                                    })
+                            .padding(30)
+                    }
+                    .frame(width: UIScreen.screenWidth, height: 100)
+                    .background(Color.biologerHelpBacgroundGreen)
+                    .shadow(color: Color.gray, radius: 10, x: 0, y: 0)
                 }
-                .frame(width: UIScreen.screenWidth, height: 100)
-                .background(Color.biologerHelpBacgroundGreen)
-                .shadow(color: Color.gray, radius: 10, x: 0, y: 0)
             }
         }
         .animation(.default)
