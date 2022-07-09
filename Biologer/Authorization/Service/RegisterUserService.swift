@@ -29,7 +29,7 @@ public final class RemoteRegisterUserService: RegisterUserService {
         if let env = environmentStorage.getEnvironment() {
             let request = try! CreateUserRequest(user: user,
                                                  host: env.host,
-                                                 clientId: env.clientId,
+                                                 clientId: Int(env.clientId) ?? 0,
                                                  clientSecret: env.clientSecret).asURLRequest()
             client.perform(from: request) { result in
                 switch result {
@@ -70,7 +70,7 @@ public final class RemoteRegisterUserService: RegisterUserService {
         
         init(user: RegisterUser,
              host: String,
-             clientId: String,
+             clientId: Int,
              clientSecret: String) {
             var headers = HTTPHeaders()
             headers.add(name: HTTPHeaderName.contentType, value: APIConstants.applicationJson)
@@ -92,7 +92,7 @@ public final class RemoteRegisterUserService: RegisterUserService {
     }
     
     private struct RemoteRegisterRequestModel: Codable {
-        let client_id: String
+        let client_id: Int
         let client_secret: String
         let first_name: String
         let last_name: String
