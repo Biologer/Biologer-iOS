@@ -139,6 +139,7 @@ public final class SideMenuRouterRouter: NavigationRouter {
             }
             let url = "https://\(env.host)/sr/preferences/account"
             self.showSafari(path: url)
+            self.onLogout?(())
         })
         vc.setBiologerTitle(text: "SideMenu.lb.DeleteAccount".localized)
         addSideMenuIcons(vc: vc)
