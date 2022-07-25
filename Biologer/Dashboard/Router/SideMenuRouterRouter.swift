@@ -132,8 +132,13 @@ public final class SideMenuRouterRouter: NavigationRouter {
         let vc = factory.makeDeleteAccountScreen(userEmail: userStorage.getUser()?.email ??  "",
                                                  username: userStorage.getUser()?.fullName ?? "",
                                                  currentEnv: "https://\(environmentStorage.getEnvironment()?.host ?? "")",
-                                                 onDeleteAccountTapped: { _ in
-            //self.onLogout?(())
+                                                 onDeleteAccountTapped: { [weak self] _ in
+            guard let self = self else { return }
+            guard let env = self.environmentStorage.getEnvironment() else {
+                return
+            }
+            let url = "https://\(env.host)/sr/preferences/account"
+            self.showSafari(path: url)
         })
         vc.setBiologerTitle(text: "SideMenu.lb.DeleteAccount".localized)
         addSideMenuIcons(vc: vc)
