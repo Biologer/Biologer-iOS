@@ -124,6 +124,8 @@
 		936616D52703954A00F02A83 /* NewTaxonImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */; };
 		936616D72703B43600F02A83 /* MaterialDesignTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */; };
 		936754E8271E2F340036632E /* DBFindingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936754E7271E2F340036632E /* DBFindingMapper.swift */; };
+		93731E3D288E7F8E00EB7C71 /* DeleteAccountScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93731E3C288E7F8E00EB7C71 /* DeleteAccountScreen.swift */; };
+		93731E40288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93731E3F288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift */; };
 		9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81926F9133200C18F91 /* ProfileService.swift */; };
 		9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81B26F9136B00C18F91 /* UserResponse.swift */; };
 		9373F81E26F9175100C18F91 /* Auth2HttpClientDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */; };
@@ -387,6 +389,8 @@
 		936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonImageViewModel.swift; sourceTree = "<group>"; };
 		936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialDesignTextArea.swift; sourceTree = "<group>"; };
 		936754E7271E2F340036632E /* DBFindingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBFindingMapper.swift; sourceTree = "<group>"; };
+		93731E3C288E7F8E00EB7C71 /* DeleteAccountScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountScreen.swift; sourceTree = "<group>"; };
+		93731E3F288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountScreenViewModel.swift; sourceTree = "<group>"; };
 		9373F81926F9133200C18F91 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		9373F81B26F9136B00C18F91 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth2HttpClientDecorator.swift; sourceTree = "<group>"; };
@@ -866,6 +870,7 @@
 		93334EAA2677DCA70094A483 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				93731E3B288E7F6100EB7C71 /* DeleteAccountScreen */,
 				93334EC326789B920094A483 /* SideMenuScreen */,
 				93334EC226789B660094A483 /* TaxonScreens */,
 				93C2D1F826A5EAE400123216 /* HelpScreen */,
@@ -879,6 +884,7 @@
 		93334EB22677E1340094A483 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				93731E3E288E82BA00EB7C71 /* DeleteAccountScreen */,
 				9389463926F614BE0000D850 /* SideMenuScreen */,
 				9389463A26F614CD0000D850 /* TaxonScreens */,
 				9389463B26F614D60000D850 /* HelpScreen */,
@@ -996,6 +1002,22 @@
 				936219F7271C44AE00BAEF8F /* DBAtlasCodeMapper.swift */,
 			);
 			path = "Atlas Code";
+			sourceTree = "<group>";
+		};
+		93731E3B288E7F6100EB7C71 /* DeleteAccountScreen */ = {
+			isa = PBXGroup;
+			children = (
+				93731E3C288E7F8E00EB7C71 /* DeleteAccountScreen.swift */,
+			);
+			path = DeleteAccountScreen;
+			sourceTree = "<group>";
+		};
+		93731E3E288E82BA00EB7C71 /* DeleteAccountScreen */ = {
+			isa = PBXGroup;
+			children = (
+				93731E3F288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift */,
+			);
+			path = DeleteAccountScreen;
 			sourceTree = "<group>";
 		};
 		9373F81826F9131000C18F91 /* Service */ = {
@@ -1765,6 +1787,7 @@
 				9314DA30270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift in Sources */,
 				935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */,
 				93B041792711F6CD007DB833 /* RealmManager.swift in Sources */,
+				93731E40288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift in Sources */,
 				93A7E2782691E1A4001D6AEF /* EmailTextFieldViewModel.swift in Sources */,
 				93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */,
 				933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */,
@@ -1800,6 +1823,7 @@
 				9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */,
 				93842AF426FA4449008ECA80 /* ObservationService.swift in Sources */,
 				9389463726F60FE00000D850 /* SetupItemView.swift in Sources */,
+				93731E3D288E7F8E00EB7C71 /* DeleteAccountScreen.swift in Sources */,
 				93A7E2702691E055001D6AEF /* InsititutionTextFieldViewModel.swift in Sources */,
 				9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */,
 				93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */,

@@ -128,6 +128,18 @@ public final class SideMenuRouterRouter: NavigationRouter {
         self.navigationController.setViewControllers([vc], animated: false)
     }
     
+    private func showDeleteAccountScreen() {
+        let vc = factory.makeDeleteAccountScreen(userEmail: userStorage.getUser()?.email ??  "",
+                                                 username: userStorage.getUser()?.fullName ?? "",
+                                                 currentEnv: "https://\(environmentStorage.getEnvironment()?.host ?? "")",
+                                                 onDeleteAccountTapped: { _ in
+            //self.onLogout?(())
+        })
+        vc.setBiologerTitle(text: "SideMenu.lb.DeleteAccount".localized)
+        addSideMenuIcons(vc: vc)
+        self.navigationController.setViewControllers([vc], animated: false)
+    }
+    
     private func showScreenFormSideMenu(item: SideMenuItemType) {
         switch item {
         case .listOfFindings:
@@ -140,6 +152,8 @@ public final class SideMenuRouterRouter: NavigationRouter {
             showAboutBiologerScreen()
         case .help:
             showHelpScreen()
+        case .deleteAccount:
+            showDeleteAccountScreen()
         }
     }
     

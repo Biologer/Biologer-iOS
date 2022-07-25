@@ -20,7 +20,11 @@ public final class SideMenuMapper {
                                         SideMenuItem(id: 3,
                                                      image: "logout_icon",
                                                      title: "SideMenu.lb.Logout".localized,
-                                                     type: .logout)]
+                                                     type: .logout),
+                                        SideMenuItem(id: 4,
+                                                     image: "bin_icon",
+                                                     title: "SideMenu.lb.DeleteAccount".localized,
+                                                     type: .deleteAccount)]
                        
         let secondSectionListSideMenu = [SideMenuItem(id: 1,
                                                       image: "about_icon",

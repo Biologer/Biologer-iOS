@@ -66,6 +66,7 @@
 "SideMenu.lb.listOfFindings" = "Popis nalaza";
 "SideMenu.lb.setup" = "Postavi";
 "SideMenu.lb.Logout" = "Odjavi se";
+"SideMenu.lb.DeleteAccount" = "Izbrisi korisnika";
 "SideMenu.lb.aboutUs" = "O nama";
 "SideMenu.lb.AboutBiologer" = "O Biologeru";
 "SideMenu.lb.Help" = "Pomoć";
@@ -198,6 +199,12 @@
 "Logout.lb.asUser" = "Kao korisnik:";
 "Logout.lb.doYouWantLogout" = "Želite li se odjaviti s ove Biologer baze?";
 "Logout.btn.logout" = "Odjavi se";
+
+// MARK: - Delete Account Screen
+"DeleteAccount.lb.currentlyDB" = "Trenutno si povezan na bazu:";
+"DeleteAccount.lb.asUser" = "Kao korisnik:";
+"DeleteAccount.lb.doYouWantLogout" = "Želite li obrisati korisnika sa ove Biologer baze?";
+"DeleteAccount.btn.deleteAccount" = "Obrisi Korisnika";
 
 // MARK: - About Biologer Screen
 "AboutBiologer.lb.currentlyDB" = "Trenutno ste povezani na bazu:";

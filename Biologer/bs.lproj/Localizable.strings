@@ -67,6 +67,7 @@
 "SideMenu.lb.listOfFindings" = "List of findings";
 "SideMenu.lb.setup" = "Setup";
 "SideMenu.lb.Logout" = "Logout";
+"SideMenu.lb.DeleteAccount" = "Delete Account";
 "SideMenu.lb.aboutUs" = "About us";
 "SideMenu.lb.AboutBiologer" = "About Biologer";
 "SideMenu.lb.Help" = "Help";
@@ -198,6 +199,12 @@
 "Logout.lb.asUser" = "As user:";
 "Logout.lb.doYouWantLogout" = "Do you want to logout from this Biologer database?";
 "Logout.btn.logout" = "Logout";
+
+// MARK: - Delete Account Screen
+"DeleteAccount.lb.currentlyDB" = "You are currently loged into a database:";
+"DeleteAccount.lb.asUser" = "As user:";
+"DeleteAccount.lb.doYouWantLogout" = "Do you want to delete account from this Biologer database?";
+"DeleteAccount.btn.deleteAccount" = "Delete Account";
 
 // MARK: - About Biologer Screen
 "AboutBiologer.lb.currentlyDB" = "You are currently logged into a database:";

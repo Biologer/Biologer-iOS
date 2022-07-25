@@ -11,6 +11,7 @@ public enum SideMenuItemType {
     case listOfFindings
     case setup
     case logout
+    case deleteAccount
     case about
     case help
 }
