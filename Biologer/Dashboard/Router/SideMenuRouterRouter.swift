@@ -137,7 +137,17 @@ public final class SideMenuRouterRouter: NavigationRouter {
             guard let env = self.environmentStorage.getEnvironment() else {
                 return
             }
-            let url = "https://\(env.host)/sr/preferences/account"
+            
+            var url = ""
+            let currentLanguage = NSLocale.current.languageCode
+            print("Language: \(String(describing: currentLanguage))")
+            
+            if currentLanguage == "en" {
+                url = "https://biologer.rs/en/preferences/account"
+            } else {
+                url = "https://biologer.rs\(env.path)/preferences/account"
+            }
+            
             self.showSafari(path: url)
             self.onLogout?(())
         })

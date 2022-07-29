@@ -203,7 +203,7 @@
 // MARK: - Delete Account Screen
 "DeleteAccount.lb.currentlyDB" = "You are currently loged into a database:";
 "DeleteAccount.lb.asUser" = "As user:";
-"DeleteAccount.lb.doYouWantLogout" = "Do you want to delete account from this Biologer database?";
+"DeleteAccount.lb.doYouWantLogout" = "This action will delete your user account from Biologer server and all your data. If you would like to use Biologer application, you must register to the preffered Biologer server again.";
 "DeleteAccount.btn.deleteAccount" = "Delete Account";
 
 // MARK: - About Biologer Screen

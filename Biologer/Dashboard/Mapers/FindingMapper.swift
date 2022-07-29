@@ -18,7 +18,7 @@ public final class FindingMapper {
                                              data_license: String(dataLicense),
                                              day: String(Date().get(.day)),
                                              elevation: Int(finding.locationViewModel.taxonLocation?.altitude ?? 0),
-                                             found_dead: finding.taxonInfoViewModel.foundDeadText != "" ? 1 : 0,
+                                             found_dead: finding.taxonInfoViewModel.isFoundDead ? 1 : 0,
                                              found_dead_note: finding.taxonInfoViewModel.fountDeadTextField.text,
                                              found_on: finding.taxonInfoViewModel.foundOnTextField.text,
                                              habitat: finding.taxonInfoViewModel.habitatTextField.text,
