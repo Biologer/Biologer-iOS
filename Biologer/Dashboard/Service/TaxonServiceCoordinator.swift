@@ -109,8 +109,10 @@ public final class TaxonServiceCoordinator {
     }
     
     private func saveToDB(taxonResponse: TaxonDataResponse) {
-        taxonResponse.data.forEach({
-            RealmManager.add(DBTaxon(taxon: $0))
-        })
+        DispatchQueue.main.async {
+            taxonResponse.data.forEach({
+                RealmManager.add(DBTaxon(taxon: $0))
+            })
+        }
     }
 }
