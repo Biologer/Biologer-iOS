@@ -8,7 +8,7 @@
 import SwiftUI
 import MaterialComponents.MaterialTextControls_OutlinedTextAreas
 
-public final class MaterialDesignTextArea: UIViewRepresentable {
+public struct MaterialDesignTextArea: UIViewRepresentable {
     
     private var viewModel: MaterialDesignTextFieldViewModelProtocol
     private let onTextChanged: Observer<String>
@@ -87,8 +87,9 @@ public final class MaterialDesignTextArea: UIViewRepresentable {
             textField.trailingViewMode = .always
 //            if viewModel.isPassword {
                 //icon.isUserInteractionEnabled = true
-                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconTapped))
-                icon.addGestureRecognizer(tapGesture)
+            icon.addTapGestureRecognizer {
+                self.onIconTapped?(())
+            }
 //            }
             icon.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
             icon.contentMode = .scaleAspectFit
@@ -96,10 +97,6 @@ public final class MaterialDesignTextArea: UIViewRepresentable {
         } else {
             textField.trailingView = nil
         }
-    }
-    
-    @objc private func iconTapped() {
-        self.onIconTapped?(())
     }
     
     public func makeCoordinator() -> UITextViewDelegate {

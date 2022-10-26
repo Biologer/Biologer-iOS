@@ -173,6 +173,7 @@
 		93B041792711F6CD007DB833 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B041782711F6CD007DB833 /* RealmManager.swift */; };
 		93B0417E2712096F007DB833 /* DBFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0417D2712096F007DB833 /* DBFinding.swift */; };
 		93B0418127122060007DB833 /* ListOfFindingsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0418027122060007DB833 /* ListOfFindingsMapper.swift */; };
+		93B0C1BC29094D9F002B92B3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0C1BB29094D9F002B92B3 /* UIView+Extensions.swift */; };
 		93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */; };
 		93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */; };
 		93BF629E262B807D00DDFB44 /* BiologerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF629D262B807D00DDFB44 /* BiologerButton.swift */; };
@@ -438,6 +439,7 @@
 		93B041782711F6CD007DB833 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		93B0417D2712096F007DB833 /* DBFinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBFinding.swift; sourceTree = "<group>"; };
 		93B0418027122060007DB833 /* ListOfFindingsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFindingsMapper.swift; sourceTree = "<group>"; };
+		93B0C1BB29094D9F002B92B3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		93BF629D262B807D00DDFB44 /* BiologerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerButton.swift; sourceTree = "<group>"; };
@@ -1307,6 +1309,7 @@
 				936035C6268889D60080C771 /* UIViewController+Extensions.swift */,
 				93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */,
 				93565D3626F7397000A588E6 /* String+Extensions.swift */,
+				93B0C1BB29094D9F002B92B3 /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1744,6 +1747,7 @@
 				9389464126F616280000D850 /* SetupSectionView.swift in Sources */,
 				93A7E2742691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift in Sources */,
 				93CC658B269C401300949534 /* APIRequest.swift in Sources */,
+				93B0C1BC29094D9F002B92B3 /* UIView+Extensions.swift in Sources */,
 				938D935F270631960068E27C /* ImagesPreviewScreenViewModel.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				935AF66826F66F6C00C56D46 /* SetupProjectNameScreen.swift in Sources */,

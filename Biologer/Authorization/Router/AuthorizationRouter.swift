@@ -104,7 +104,7 @@ public final class AuthorizationRouter {
         envDelegate = viewController?.rootView.viewModel
         
         loginViewController.navigationItem.hidesBackButton = true
-        self.navigationController.pushViewController(loginViewController, animated: true)
+        navigationController.pushViewController(loginViewController, animated: true)
     }
     
     private func showEnvironmentScreen(selectedViewModel: EnvironmentViewModel,

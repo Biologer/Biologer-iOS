@@ -8,7 +8,7 @@
 import SwiftUI
 import Foundation
 
-public final class SearchTextField: UIViewRepresentable {
+public struct SearchTextField: UIViewRepresentable {
     
     let text: String
     let onTextChanged: ((String, String?) -> Void)
