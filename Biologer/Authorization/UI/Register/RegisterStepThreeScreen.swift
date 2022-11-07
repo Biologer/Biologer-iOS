@@ -75,6 +75,7 @@ struct RegisterStepThreeScreen<ScreenLoader>: View where ScreenLoader: RegisterS
                 }
                 .padding(.horizontal, 30)
            }
+            .navigationBarBackButtonHidden(true)
     }
     
     public func createUnderlinePrivacyPolicy(text: String) -> NSMutableAttributedString {

@@ -27,6 +27,7 @@ struct SetupScreen: View  {
             }
             .padding(.horizontal, 30)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

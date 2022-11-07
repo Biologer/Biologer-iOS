@@ -39,6 +39,7 @@ struct SetupProjectNameScreen: View {
             }
             .padding(.bottom, 20)
         }
+        .navigationBarBackButtonHidden(true)
         .background(Color.white)
         .cornerRadius(20)
         .frame(width: widthOfPopUp, alignment: .center)

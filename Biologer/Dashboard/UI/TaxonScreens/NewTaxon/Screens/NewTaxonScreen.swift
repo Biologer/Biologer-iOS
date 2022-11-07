@@ -50,6 +50,7 @@ struct NewTaxonScreen: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .animation(.default)
         .background(Color.biologerHelpBacgroundGreen)
         .ignoresSafeArea(.container, edges: .bottom)

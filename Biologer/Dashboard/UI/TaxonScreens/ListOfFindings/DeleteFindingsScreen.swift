@@ -57,6 +57,7 @@ struct DeleteFindingsScreen: View {
                                     })
             }
         }
+        .navigationBarBackButtonHidden(true)
         .padding(.vertical, 10)
         .background(Color.white)
         .cornerRadius(10)

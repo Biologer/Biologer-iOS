@@ -37,6 +37,7 @@ struct SetupDownloadAndUploadScreen: View {
             }
             .padding()
         }
+        .navigationBarBackButtonHidden(true)
         .padding()
         .background(Color.white)
         .cornerRadius(20)

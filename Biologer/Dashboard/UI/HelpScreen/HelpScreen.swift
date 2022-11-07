@@ -50,6 +50,7 @@ struct HelpScreen<ScreenLoader>: View where ScreenLoader: HelpScreenLoader {
             }
             .padding(.bottom, 20)
         }
+        .navigationBarBackButtonHidden(true)
         .ignoresSafeArea()
     }
 }

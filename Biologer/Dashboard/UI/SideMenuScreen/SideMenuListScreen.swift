@@ -33,6 +33,7 @@ struct SideMenuListScreen<ScreenLoader>: View where ScreenLoader: SideMenuListSc
                     genereateItems(items: loader.items[1])
                 }
             }
+            .navigationBarBackButtonHidden(true)
             .background(Color.white)
             .animation(.default)
         }

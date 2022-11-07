@@ -48,6 +48,7 @@ struct EnvironmentScreen: View  {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

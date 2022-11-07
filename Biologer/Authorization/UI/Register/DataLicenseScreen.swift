@@ -47,6 +47,7 @@ struct CheckMarkScreen<ScreenLoader>: View where ScreenLoader: CheckMarkScreenLo
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

@@ -39,6 +39,7 @@ struct TaxonSearchScreen: View {
                 Spacer()
             }
         }
+        .navigationBarBackButtonHidden(true)
         .background(Color.biologerGreenColor.opacity(0.4))
         .ignoresSafeArea(.container, edges: .bottom)
     }

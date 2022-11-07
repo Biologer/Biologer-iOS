@@ -17,6 +17,7 @@ struct SplashScreen: View {
                 .resizable()
                 .scaledToFit()
         }
+        .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(.all)
         .onAppear {
             viewModel.goToLoginScreen()

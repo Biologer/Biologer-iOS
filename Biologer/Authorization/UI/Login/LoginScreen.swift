@@ -129,6 +129,7 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                         .font(.titleFontBold)
                 })
             }
+            .navigationBarBackButtonHidden(true)
             .padding(.bottom, 30)
             .padding(.leading, 30)
             .padding(.trailing, 30)

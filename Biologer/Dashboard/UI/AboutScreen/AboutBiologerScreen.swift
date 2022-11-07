@@ -64,6 +64,7 @@ struct AboutBiologerScreen<ScreenLoader>: View where ScreenLoader: AboutBiologer
                 Text(loader.version)
                     .font(.headerFont)
             }
+            .navigationBarBackButtonHidden(true)
             .padding(.leading, 30)
             .padding(.trailing, 30)
         }

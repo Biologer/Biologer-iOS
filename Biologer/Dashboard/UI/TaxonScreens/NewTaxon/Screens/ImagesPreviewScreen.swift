@@ -28,6 +28,7 @@ struct ImagesPreviewScreen: View {
                 .transition(.slide)
             }
         }
+        .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(.container, edges: .all)
     }
 }

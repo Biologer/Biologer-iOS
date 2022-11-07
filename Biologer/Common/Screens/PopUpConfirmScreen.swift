@@ -64,6 +64,7 @@ struct PopUpConfirmScreen: View {
                            onTapped: onButtonTapped)
                 .padding(.vertical, 15)
         }
+        .navigationBarBackButtonHidden(true)    
         .background(Color.white)
         .frame(width: popUpWidth)
         .cornerRadius(20)

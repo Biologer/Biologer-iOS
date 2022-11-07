@@ -52,6 +52,7 @@ struct LogoutScreen<ScreenLoader>: View where ScreenLoader: LogoutScreenLoader {
                            })
             Spacer()
         }
+        .navigationBarBackButtonHidden(true)
         .padding(.leading, 30)
         .padding(.trailing, 30)
     }

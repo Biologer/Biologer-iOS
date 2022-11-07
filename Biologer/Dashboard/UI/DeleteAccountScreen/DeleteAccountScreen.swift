@@ -52,6 +52,7 @@ struct DeleteAccountScreen<ScreenLoader>: View where ScreenLoader: DeleteAccount
                            })
             Spacer()
         }
+        .navigationBarBackButtonHidden(true)
         .padding(.leading, 30)
         .padding(.trailing, 30)
     }

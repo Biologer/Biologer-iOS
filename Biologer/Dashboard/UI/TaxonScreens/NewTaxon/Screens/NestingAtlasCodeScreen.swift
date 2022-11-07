@@ -38,6 +38,7 @@ struct NestingAtlasCodeScreen: View {
                 })
             }
         }
+        .navigationBarBackButtonHidden(true)
         .animation(.default)
         .background(Color.biologerGreenColor.opacity(0.4))
         .ignoresSafeArea(.container, edges: .bottom)

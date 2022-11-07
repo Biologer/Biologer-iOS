@@ -47,6 +47,7 @@ struct RegisterStepOneScreen<ScreenLoader>: View where ScreenLoader: RegisterSte
             }
             .padding(.horizontal, 30)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

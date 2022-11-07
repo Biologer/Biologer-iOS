@@ -41,6 +41,7 @@ struct PopUpYesAndNoScreen: View {
                     .padding()
             }
         }
+        .navigationBarBackButtonHidden(true)
         .background(Color.white)
         .frame(width: popUpWidth)
         .cornerRadius(20)

@@ -39,7 +39,7 @@ struct NewTaxonDevStageScreen: View {
                 .foregroundColor(Color.clear)
                 .shadow(color: Color.black, radius: 1, x: 0, y: 0)
         )
-
+        .navigationBarBackButtonHidden(true)
         .frame(width: UIScreen.screenWidth * 0.6,
                height: UIScreen.screenHeight * 0.3,
                alignment: .center)
