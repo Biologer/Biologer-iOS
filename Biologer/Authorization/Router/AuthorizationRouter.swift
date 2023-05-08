@@ -110,12 +110,7 @@ public final class AuthorizationRouter {
     private func showEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
                                        delegate: EnvironmentScreenViewModelProtocol? = nil) {
         
-        let envs = [envFactory.createEnvironment(type: .serbia),
-                    envFactory.createEnvironment(type: .croatia),
-                    envFactory.createEnvironment(type: .bosniaAndHerzegovina),
-                    envFactory.createEnvironment(type: .develop)
-        ]
-        
+        let envs = envFactory.createAllEnvironments()
         let enviViewController = factory.makeEnvironmentScreen(selectedViewModel: selectedViewModel,
                                                                envViewModels: envs,
                                                                delegate: delegate,

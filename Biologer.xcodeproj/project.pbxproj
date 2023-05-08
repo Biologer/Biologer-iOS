@@ -54,6 +54,8 @@
 		931D3FEF274ABCCD00352C8E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FEE274ABCCC00352C8E /* Settings.swift */; };
 		931D3FF1274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FF0274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift */; };
 		931D3FF3274AD6C800352C8E /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FF2274AD6C800352C8E /* CheckInternetConnection.swift */; };
+		9320DE9029352EF6009FD87D /* EnvironmentConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320DE8F29352EF6009FD87D /* EnvironmentConstants.swift */; };
+		9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320DE9129352EFF009FD87D /* APIConstants.swift */; };
 		9320E03027519933006812E5 /* DownloadTaxonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320E02F27519933006812E5 /* DownloadTaxonRouter.swift */; };
 		9320E0322752A880006812E5 /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320E0312752A880006812E5 /* UserDefaultsConstants.swift */; };
 		9320E03E275806A6006812E5 /* GetAltitudeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320E03D275806A5006812E5 /* GetAltitudeService.swift */; };
@@ -140,8 +142,6 @@
 		93842AF426FA4449008ECA80 /* ObservationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93842AF326FA4449008ECA80 /* ObservationService.swift */; };
 		93842AF626FA4465008ECA80 /* ObserverResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93842AF526FA4465008ECA80 /* ObserverResponse.swift */; };
 		93842AF826FA57CA008ECA80 /* GetTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93842AF726FA57CA008ECA80 /* GetTokenService.swift */; };
-		93860BE42933DF420097BA4E /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93860BE32933DF420097BA4E /* APIConstants.swift */; };
-		93860BE62933DFBE0097BA4E /* EnvironmentConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93860BE52933DFBE0097BA4E /* EnvironmentConstants.swift */; };
 		9389463726F60FE00000D850 /* SetupItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389463626F60FE00000D850 /* SetupItemView.swift */; };
 		9389463F26F6156F0000D850 /* SetupItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389463E26F6156F0000D850 /* SetupItemViewModel.swift */; };
 		9389464126F616280000D850 /* SetupSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389464026F616280000D850 /* SetupSectionView.swift */; };
@@ -308,6 +308,8 @@
 		931D3FEE274ABCCC00352C8E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		931D3FF0274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSettingsStorage.swift; sourceTree = "<group>"; };
 		931D3FF2274AD6C800352C8E /* CheckInternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetConnection.swift; sourceTree = "<group>"; };
+		9320DE8F29352EF6009FD87D /* EnvironmentConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentConstants.swift; sourceTree = "<group>"; };
+		9320DE9129352EFF009FD87D /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		9320E02F27519933006812E5 /* DownloadTaxonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaxonRouter.swift; sourceTree = "<group>"; };
 		9320E0312752A880006812E5 /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
 		9320E03D275806A5006812E5 /* GetAltitudeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAltitudeService.swift; sourceTree = "<group>"; };
@@ -407,8 +409,6 @@
 		93842AF326FA4449008ECA80 /* ObservationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationService.swift; sourceTree = "<group>"; };
 		93842AF526FA4465008ECA80 /* ObserverResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverResponse.swift; sourceTree = "<group>"; };
 		93842AF726FA57CA008ECA80 /* GetTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTokenService.swift; sourceTree = "<group>"; };
-		93860BE32933DF420097BA4E /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIConstants.swift; path = ../../../../../Downloads/APIConstants.swift; sourceTree = "<group>"; };
-		93860BE52933DFBE0097BA4E /* EnvironmentConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnvironmentConstants.swift; path = ../../../../../Downloads/EnvironmentConstants.swift; sourceTree = "<group>"; };
 		9389463626F60FE00000D850 /* SetupItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupItemView.swift; sourceTree = "<group>"; };
 		9389463E26F6156F0000D850 /* SetupItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupItemViewModel.swift; sourceTree = "<group>"; };
 		9389464026F616280000D850 /* SetupSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupSectionView.swift; sourceTree = "<group>"; };
@@ -814,8 +814,8 @@
 		931D3FE42748189200352C8E /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				93860BE32933DF420097BA4E /* APIConstants.swift */,
-				93860BE52933DFBE0097BA4E /* EnvironmentConstants.swift */,
+				9320DE9129352EFF009FD87D /* APIConstants.swift */,
+				9320DE8F29352EF6009FD87D /* EnvironmentConstants.swift */,
 				9320E0312752A880006812E5 /* UserDefaultsConstants.swift */,
 				9351D4542779E73B0091D4D9 /* FontConstants.swift */,
 			);
@@ -1751,6 +1751,7 @@
 				93CC658B269C401300949534 /* APIRequest.swift in Sources */,
 				93B0C1BC29094D9F002B92B3 /* UIView+Extensions.swift in Sources */,
 				938D935F270631960068E27C /* ImagesPreviewScreenViewModel.swift in Sources */,
+				9320DE9029352EF6009FD87D /* EnvironmentConstants.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				935AF66826F66F6C00C56D46 /* SetupProjectNameScreen.swift in Sources */,
 				93E3CBF22737EF240090FF93 /* TaxonsPaginationInfo.swift in Sources */,
@@ -1779,7 +1780,6 @@
 				9320E03E275806A6006812E5 /* GetAltitudeService.swift in Sources */,
 				9314DA1E27074303007896F9 /* TaxonSearchScreen.swift in Sources */,
 				938D9368270652790068E27C /* AddImagesView.swift in Sources */,
-				93860BE42933DF420097BA4E /* APIConstants.swift in Sources */,
 				93E3CBEB2736E7F30090FF93 /* BiologerProgressBarScreen.swift in Sources */,
 				93334EB12677E1220094A483 /* FindingsListView.swift in Sources */,
 				93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */,
@@ -1847,6 +1847,7 @@
 				931D3FE12747948800352C8E /* UserDefaultsDataLicenseStorage.swift in Sources */,
 				93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */,
 				9314DA36270B3EAF007896F9 /* GoogleMapsView.swift in Sources */,
+				9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */,
 				93B0417E2712096F007DB833 /* DBFinding.swift in Sources */,
 				931D3FE72748193D00352C8E /* PopUpYesAndNoScreen.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
@@ -1909,7 +1910,6 @@
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
 				93171D86273BDBE80038B2B2 /* PostFindingService.swift in Sources */,
 				938D93532705EB190068E27C /* ObservationsView.swift in Sources */,
-				93860BE62933DFBE0097BA4E /* EnvironmentConstants.swift in Sources */,
 				936616D52703954A00F02A83 /* NewTaxonImageViewModel.swift in Sources */,
 				9314DA2C270A4A69007896F9 /* NewTaxonDevStageScreenViewModel.swift in Sources */,
 				93842AF826FA57CA008ECA80 /* GetTokenService.swift in Sources */,

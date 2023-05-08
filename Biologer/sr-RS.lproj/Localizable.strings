@@ -229,6 +229,7 @@
 "Env.lb.croatia" = "Хрватска";
 "Env.lb.bosniaAndHerzegovina" = "Босна и Херцеговина";
 "Env.lb.developer" = "За програмере";
+"Env.lb.montenegro" = "Црна Гора";
 
 // MARK: - Image License Screen
 "ImgLicense.nav.title" = "Лиценца за слике";
