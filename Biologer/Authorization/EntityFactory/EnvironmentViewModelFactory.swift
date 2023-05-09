@@ -47,7 +47,7 @@ public final class EnvironmentViewModelFactory {
         case .montenegro:
             return EnvironmentViewModel(id: 4,
                                         title: "Env.lb.montenegro".localized,
-                                        image: "",
+                                        image: "montenegro_flag_icon",
                                         env: Environment(host: montenegroHost,
                                                          path: montenegroPath,
                                                          clientSecret: montenegroClientSecret,
