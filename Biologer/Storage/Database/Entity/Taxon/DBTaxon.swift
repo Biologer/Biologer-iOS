@@ -29,7 +29,7 @@ public final class DBTaxon: Object {
 
     convenience init(taxon: TaxonDataResponse.TaxonResponse) {
         self.init()
-        self.id = taxon.id
+        self.id = taxon.id ?? 0
         self.name = taxon.name ?? ""
         self.rank = taxon.rank
         self.rankLevel = taxon.rank_level
@@ -79,7 +79,7 @@ public final class DBTaxonTranslation: Object {
     convenience init(translation: TaxonDataResponse.TaxonTranslationsResponse) {
         self.init()
         self.id = translation.id
-        self.taxonId = translation.taxon_id
+        self.taxonId = ""
         self.locale = translation.locale
         self.nativeName = translation.native_name
         self.trasnlationDescription = translation.description
