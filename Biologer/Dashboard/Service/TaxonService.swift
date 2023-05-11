@@ -40,7 +40,7 @@ public struct TaxonDataResponse: Codable {
     
     public struct TaxonTranslationsResponse: Codable {
         let id: Int
-        let taxon_id: String
+        //let taxon_id: String?
         let locale: String?
         let native_name: String?
         let description: String?
