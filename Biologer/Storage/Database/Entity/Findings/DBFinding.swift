@@ -41,6 +41,7 @@ public class DBFinding: Object {
     @Persisted var foundOn: String
     @Persisted var foundDead: String
     @Persisted var isUploaded: Bool
+    @Persisted var dateOfCreation: Date
     
     convenience init(location: DBFindingLocation,
          images: List<DBFindingImage>,
@@ -53,7 +54,8 @@ public class DBFinding: Object {
          habitat: String,
          foundOn: String,
          foundDead: String,
-         isUploaded: Bool) {
+         isUploaded: Bool,
+         dateOfCreation: Date) {
         self.init()
         self.location = location
         self.images = images
@@ -67,6 +69,7 @@ public class DBFinding: Object {
         self.foundOn = foundOn
         self.foundDead =  foundDead
         self.isUploaded = isUploaded
+        self.dateOfCreation = dateOfCreation
     }
 }
 

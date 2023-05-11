@@ -12,7 +12,7 @@ class RealmManager {
     
     // MARK:- functions
     static func realmConfig() -> Realm.Configuration {
-        return Realm.Configuration(schemaVersion: 2, migrationBlock: { (migration, oldSchemaVersion) in
+        return Realm.Configuration(schemaVersion: 3, migrationBlock: { (migration, oldSchemaVersion) in
             /// Migration block. Useful when you upgrade the schema version.
             
         })

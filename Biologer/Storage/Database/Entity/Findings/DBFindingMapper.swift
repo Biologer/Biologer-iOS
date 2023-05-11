@@ -158,7 +158,8 @@ public final class DBFindingMapper {
                                                 locationViewModel: locationViewModel,
                                                 imageViewModel: imageViewModel,
                                                 taxonInfoViewModel: taxonInfoViewModel,
-                                                isUploaded: dbFinding.isUploaded)
+                                                isUploaded: dbFinding.isUploaded,
+                                                dateOfCreation: dbFinding.dateOfCreation)
         return findingViewModel
     }
     
@@ -239,7 +240,8 @@ public final class DBFindingMapper {
                               habitat: findingViewModel.taxonInfoViewModel.habitatTextField.text,
                               foundOn: findingViewModel.taxonInfoViewModel.foundOnTextField.text,
                               foundDead: findingViewModel.taxonInfoViewModel.fountDeadTextField.text,
-                              isUploaded: findingViewModel.isUploaded)
+                              isUploaded: findingViewModel.isUploaded,
+                              dateOfCreation: findingViewModel.dateOfCreation)
         return dbFinding
     }
     

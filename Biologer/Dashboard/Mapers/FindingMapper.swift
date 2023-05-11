@@ -35,8 +35,8 @@ public final class FindingMapper {
                                              stage_id: finding.taxonInfoViewModel.taxon?.selectedDevStage?.id ?? nil,
                                              taxon_id: finding.taxonInfoViewModel.taxon?.id ?? nil,
                                              taxon_suggestion: finding.taxonInfoViewModel.taxon?.name ?? "",
-                                             time: Date().getHoursAndMuntes(),
-                                             year: String(Date().get(.year)))
+                                             time: finding.dateOfCreation.getHoursAndMuntes(),
+                                             year: String(finding.dateOfCreation.get(.year)))
         print(findingBody)
         return findingBody
     }

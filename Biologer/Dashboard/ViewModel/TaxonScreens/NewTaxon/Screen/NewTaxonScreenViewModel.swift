@@ -20,19 +20,22 @@ public final class FindingViewModel: ObservableObject {
     public var imageViewModel: NewTaxonImageViewModel
     public var taxonInfoViewModel: NewTaxonInfoViewModel
     public var isUploaded: Bool
+    public var dateOfCreation: Date
     
     init(id: UUID? = nil,
          findingMode: FindingMode,
          locationViewModel: NewTaxonLocationViewModel,
          imageViewModel: NewTaxonImageViewModel,
          taxonInfoViewModel: NewTaxonInfoViewModel,
-         isUploaded: Bool) {
+         isUploaded: Bool,
+         dateOfCreation: Date) {
         self.id = id
         self.findingMode = findingMode
         self.locationViewModel = locationViewModel
         self.imageViewModel = imageViewModel
         self.taxonInfoViewModel = taxonInfoViewModel
         self.isUploaded = isUploaded
+        self.dateOfCreation = dateOfCreation
     }
     
     public func getSelectedObservations() -> [Int] {
@@ -115,12 +118,14 @@ public final class NewTaxonScreenViewModel: ObservableObject {
                                                     locationViewModel: findingViewModel.locationViewModel,
                                                     imageViewModel: findingViewModel.imageViewModel,
                                                     taxonInfoViewModel: maleTaxonInfo,
-                                                    isUploaded: false)
+                                                    isUploaded: false,
+                                                    dateOfCreation: Date())
         let femaleFindingViewModel = FindingViewModel(findingMode: findingViewModel.findingMode,
                                                       locationViewModel: findingViewModel.locationViewModel,
                                                       imageViewModel: findingViewModel.imageViewModel,
                                                       taxonInfoViewModel: femaleTaxonInfo,
-                                                      isUploaded: false)
+                                                      isUploaded: false,
+                                                      dateOfCreation: Date())
         return [maleFindingViewModel, femaleFindingViewModel]
     }
 }

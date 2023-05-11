@@ -352,7 +352,8 @@ public final class TaxonRouter: NSObject {
                                                 locationViewModel: locationViewModel,
                                                 imageViewModel: imageViewModel,
                                                 taxonInfoViewModel: taxonInfoViewModel,
-                                                isUploaded: false)
+                                                isUploaded: false,
+                                                dateOfCreation: Date())
         return findingViewModel
     }
     

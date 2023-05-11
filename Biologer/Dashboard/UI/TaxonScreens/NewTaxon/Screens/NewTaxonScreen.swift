@@ -71,7 +71,8 @@ struct NewTaxonScreen_Previews: PreviewProvider {
                                                 locationViewModel: locationViewModel,
                                                 imageViewModel: imageViewModel,
                                                 taxonInfoViewModel: taxonInfoViewModel,
-                                                isUploaded: false)
+                                                isUploaded: false,
+                                                dateOfCreation: Date())
         
         let screenViewModel = NewTaxonScreenViewModel(findingViewModel: findingViewModel, settingsStorage: UserDefaultsSettingsStorage())
         
