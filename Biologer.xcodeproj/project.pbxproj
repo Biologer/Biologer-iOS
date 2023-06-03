@@ -2150,7 +2150,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Biologer/Preview Content\"";
 				DEVELOPMENT_TEAM = NLHXMY5PBX;
 				ENABLE_PREVIEWS = YES;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = arm64;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = Biologer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2175,7 +2176,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Biologer/Preview Content\"";
 				DEVELOPMENT_TEAM = NLHXMY5PBX;
 				ENABLE_PREVIEWS = YES;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = Biologer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

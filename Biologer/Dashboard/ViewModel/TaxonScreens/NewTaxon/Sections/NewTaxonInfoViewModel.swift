@@ -154,7 +154,7 @@ public final class NewTaxonInfoViewModel: ObservableObject {
 
 extension NewTaxonInfoViewModel: TaxonSearchScreenViewModelDelegate {
     public func updateTaxonName(taxon: TaxonViewModel) {
-        taxonNameTextField.text = taxon.name
+        taxonNameTextField = TaxonNameTextField(text: taxon.name)
         self.taxon = taxon
         if let settings = settingsStorage.getSettings(), settings.setAdultByDefault, let adultDevStage = taxon.devStages?.last {
             devStageTextField.text = adultDevStage.name
@@ -165,7 +165,7 @@ extension NewTaxonInfoViewModel: TaxonSearchScreenViewModelDelegate {
 
 extension NewTaxonInfoViewModel: NewTaxonDevStageScreenViewModelDelegate {
     public func updateDevStage(devStageViewModel: DevStageViewModel) {
-        devStageTextField.text = devStageViewModel.name
+        devStageTextField = DevelopmentStageTextField(text: devStageViewModel.name) 
         self.taxon?.selectedDevStage = devStageViewModel
     }
 }

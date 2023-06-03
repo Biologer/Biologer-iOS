@@ -48,6 +48,7 @@ struct NewTaxonScreen: View {
                     .background(Color.biologerHelpBacgroundGreen)
                     .shadow(color: Color.gray, radius: 10, x: 0, y: 0)
                 }
+                .ignoresSafeArea(.keyboard)
             }
         }
         .navigationBarBackButtonHidden(true)
