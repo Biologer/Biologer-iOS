@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BackgroundTasks
 
 public struct TaxonDataResponse: Codable {
     
@@ -58,54 +59,86 @@ public struct TaxonDataResponse: Codable {
 
 public protocol TaxonService {
     typealias Result = Swift.Result<TaxonDataResponse, APIError>
+    var response: Observer<Result>? { get set }
     func getTaxons(currentPage: Int,
                    perPage: Int,
                    updatedAfter: Int64,
                    completion: @escaping (Result) -> Void)
 }
 
-public final class RemoteTaxonService: TaxonService {
+public final class RemoteTaxonService: TaxonService{
+    public var response: Observer<Result>?
+    
     public typealias Result = Swift.Result<TaxonDataResponse, APIError>
     
     private let client: HTTPClient
     private let environmentStorage: EnvironmentStorage
+    private var backgoundTask: BGProcessingTask?
     
     public init(client: HTTPClient,
-                environmentStorage: EnvironmentStorage) {
+                environmentStorage: EnvironmentStorage,
+                backgoundTask: BGProcessingTask?) {
         self.client = client
         self.environmentStorage = environmentStorage
+        self.backgoundTask = backgoundTask
     }
+    
+    func completePaginationTask(task: BGProcessingTask) {
+        // Perform any necessary cleanup or finalization
+        
+        // Mark the task as complete
+        task.setTaskCompleted(success: true)
+    }
+    
+    func scheduleNextPaginationTask() {
+        let taskRequest = BGProcessingTaskRequest(identifier: "com.biologer.paginationBackgroundTask")
+        taskRequest.requiresNetworkConnectivity = true
+        taskRequest.requiresExternalPower = false
+        
+        do {
+            try BGTaskScheduler.shared.submit(taskRequest)
+        } catch {
+            print("Failed to schedule next pagination task: \(error.localizedDescription)")
+        }
+    }
+    
     
     public func getTaxons(currentPage: Int,
                           perPage: Int,
                           updatedAfter: Int64,
                           completion: @escaping (Result) -> Void) {
-        if let env = environmentStorage.getEnvironment() {
-            
-            var queryParameters: [URLQueryItem] = [URLQueryItem]()
-            queryParameters.append(URLQueryItem(name: "page",value: String(currentPage)))
-            queryParameters.append(URLQueryItem(name: "per_page",value: String(perPage)))
-            queryParameters.append(URLQueryItem(name: "updated_after",value: String(updatedAfter)))
-            queryParameters.append(URLQueryItem(name: "withGroupsIds",value: String(false)))
-            queryParameters.append(URLQueryItem(name: "ungrouped",value: String(updatedAfter)))
-            
-            let request = try! TaxonRequest(host: env.host, queryParameters: queryParameters).asURLRequest()
-            client.perform(from: request) { result in
-                switch result {
-                case .failure(let error):
-                    completion(.failure(APIError(description: error.localizedDescription)))
-                case .success(let result):
-                    if result.1.statusCode == 200, let response = try? JSONDecoder().decode(TaxonDataResponse.self,
-                                                                                    from: result.0) {
-                        completion(.success(response))
-                    } else {
-                        completion(.failure(APIError(description: ErrorConstant.parsingErrorConstant)))
+        
+            scheduleNextPaginationTask()
+            if let env = environmentStorage.getEnvironment(), let task = backgoundTask {
+
+                var queryParameters: [URLQueryItem] = [URLQueryItem]()
+                queryParameters.append(URLQueryItem(name: "page",value: String(currentPage)))
+                queryParameters.append(URLQueryItem(name: "per_page",value: String(perPage)))
+                queryParameters.append(URLQueryItem(name: "updated_after",value: String(updatedAfter)))
+                queryParameters.append(URLQueryItem(name: "withGroupsIds",value: String(false)))
+                queryParameters.append(URLQueryItem(name: "ungrouped",value: String(updatedAfter)))
+
+                let request = try! TaxonRequest(host: env.host, queryParameters: queryParameters).asURLRequest()
+                client.perform(from: request) { result in
+                    switch result {
+                    case .failure(let error):
+                        completion(.failure(APIError(description: error.localizedDescription)))
+                        task.setTaskCompleted(success: true)
+                    case .success(let result):
+                        if result.1.statusCode == 200, let response = try? JSONDecoder().decode(TaxonDataResponse.self,
+                                                                                        from: result.0) {
+                            completion(.success(response))
+                            task.setTaskCompleted(success: true)
+                        } else {
+                            completion(.failure(APIError(description: ErrorConstant.parsingErrorConstant)))
+                            task.setTaskCompleted(success: true)
+                        }
                     }
                 }
+            } else {
+                completion(.failure(APIError(description: ErrorConstant.environmentNotSelected)))
+                //task.setTaskCompleted(success: true)
             }
-        } else {
-            completion(.failure(APIError(description: ErrorConstant.environmentNotSelected)))
-        }
     }
     
     private class TaxonRequest: APIRequest {
@@ -133,3 +166,106 @@ public final class RemoteTaxonService: TaxonService {
     }
 }
 
+class BackgroundAPIController: NSObject, URLSessionDelegate, URLSessionDownloadDelegate, TaxonService {
+    
+    public typealias Result = Swift.Result<TaxonDataResponse, APIError>
+
+    private let environmentStorage: EnvironmentStorage
+    private let tokenStorage: TokenStorage
+    
+    public var response: Observer<Result>?
+    
+    public init(environmentStorage: EnvironmentStorage,
+                tokenStorage: TokenStorage) {
+        self.environmentStorage = environmentStorage
+        self.tokenStorage = tokenStorage
+    }
+
+    func getTaxons(currentPage: Int,
+                   perPage: Int,
+                   updatedAfter: Int64,
+                   completion: @escaping (Result) -> Void) {
+        
+        var session: URLSession!
+            
+            if let env = self.environmentStorage.getEnvironment() {
+                
+                var queryParameters: [URLQueryItem] = [URLQueryItem]()
+                queryParameters.append(URLQueryItem(name: "page",value: String(currentPage)))
+                queryParameters.append(URLQueryItem(name: "per_page",value: String(5)))
+                queryParameters.append(URLQueryItem(name: "updated_after",value: String(updatedAfter)))
+                queryParameters.append(URLQueryItem(name: "withGroupsIds",value: String(false)))
+                queryParameters.append(URLQueryItem(name: "ungrouped",value: String(updatedAfter)))
+                
+                var tokenParam = ""
+                
+                if let token = self.tokenStorage.getToken(), !token.accessToken.isEmpty {
+                    let accessToken = token.accessToken
+                    print("Token from taxon service")
+                    tokenParam = "Bearer \(accessToken)"
+                    //                mutableRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: HTTPHeaderName.authorization.description)
+                }
+                
+                var request = try! TaxonRequest(host: env.host, queryParameters: queryParameters).asURLRequest()
+                request.setValue(tokenParam, forHTTPHeaderField: HTTPHeaderName.authorization.description)
+                
+                let backgroundConfig = URLSessionConfiguration.background(withIdentifier: "com.biologer.paginationBackgroundTask\(currentPage)")
+                session = URLSession(configuration: backgroundConfig, delegate: self, delegateQueue: nil)
+                
+                let downloadTask = session.downloadTask(with: request)
+                downloadTask.earliestBeginDate = Date().addingTimeInterval(5)
+                downloadTask.resume()
+            }
+    }
+
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        print("Download completed from BACKGROUND")
+
+        do {
+            let data = try Data(contentsOf: location)
+            print("Downloaded data BACKGROUND: \(String(decoding: data, as: UTF8.self))")
+            if let res = try? JSONDecoder().decode(TaxonDataResponse.self,
+                                                                            from: data) {
+                response?(.success(res))
+                getTaxons(currentPage: 2, perPage: 5, updatedAfter: 0) { result in
+                    
+                }
+            } else {
+                response?(.failure(APIError(description: ErrorConstant.parsingErrorConstant)))
+            }
+
+        } catch {
+            response?(.failure(APIError(description: error.localizedDescription)))
+            print("Error reading downloaded file BACKGROUND: \(error.localizedDescription)")
+        }
+    }
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        // Handle error
+        print("Download error BACKGROUND: \(error?.localizedDescription ?? "Unknown error")")
+    }
+
+    private class TaxonRequest: APIRequest {
+
+        var method: HTTPMethod = .get
+
+        var host: String
+
+        var path: String = APIConstants.taxonPath
+
+        var queryParameters: [URLQueryItem]? = nil
+
+        var body: Data?
+
+        var headers: HTTPHeaders?
+
+        init(host: String, queryParameters: [URLQueryItem]) {
+            var headers = HTTPHeaders()
+            headers.add(name: HTTPHeaderName.contentType, value: APIConstants.applicationJson)
+            headers.add(name: HTTPHeaderName.acceept, value: APIConstants.applicationJson)
+            self.headers = headers
+            self.host = host
+            self.queryParameters = queryParameters
+        }
+    }
+}

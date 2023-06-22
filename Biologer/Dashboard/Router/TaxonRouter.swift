@@ -292,30 +292,30 @@ public final class TaxonRouter: NSObject {
         self.navigationController.present(vc, animated: true, completion: nil)
     }
     
-    private func showDownloadTaxonsProgressBar() {
-        var maxValue: Double = 10
-        var currentValue: Double = 0
-        if let paginationInfo = taxonPaginationInfoStorage.getPaginationInfo() {
-            maxValue = Double(paginationInfo.lastPage)
-            currentValue = Double(paginationInfo.currentPage)
-        }
-        showBilogerProgressBarScreen(maxValue: maxValue,
-                                     currentValue: currentValue,
-                                     onProgressAppeared: { [weak self] currentValue in
-                                        
-                                        self?.taxonServiceCordinator.resumeGetTaxon()
-                                        self?.taxonServiceCordinator.getTaxons { currentValue, maxValue in
-                                            self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)
-                                            if currentValue == maxValue {
-                                                self?.navigationController.dismiss(animated: true, completion: nil)
-                                            }
-                                        }
-                                     },
-                                     onCancelTapped: { [weak self] currentValue in
-                                        self?.taxonServiceCordinator.stopGetTaxon()
-                                        self?.navigationController.dismiss(animated: true, completion: nil)
-                                     })
-    }
+//    private func showDownloadTaxonsProgressBar() {
+//        var maxValue: Double = 10
+//        var currentValue: Double = 0
+//        if let paginationInfo = taxonPaginationInfoStorage.getPaginationInfo() {
+//            maxValue = Double(paginationInfo.lastPage)
+//            currentValue = Double(paginationInfo.currentPage)
+//        }
+//        showBilogerProgressBarScreen(maxValue: maxValue,
+//                                     currentValue: currentValue,
+//                                     onProgressAppeared: { [weak self] currentValue in
+//
+//                                        self?.taxonServiceCordinator.resumeGetTaxon()
+//                                        self?.taxonServiceCordinator.getTaxons { currentValue, maxValue in
+//                                            self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)
+//                                            if currentValue == maxValue {
+//                                                self?.navigationController.dismiss(animated: true, completion: nil)
+//                                            }
+//                                        }
+//                                     },
+//                                     onCancelTapped: { [weak self] currentValue in
+//                                        self?.taxonServiceCordinator.stopGetTaxon()
+//                                        self?.navigationController.dismiss(animated: true, completion: nil)
+//                                     })
+//    }
     
     private func showConfirmationAlert(popUpType: PopUpType,
                                        title: String,

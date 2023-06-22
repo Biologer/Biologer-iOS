@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import BackgroundTasks
 
 public final class DownloadTaxonRouter {
     
@@ -145,22 +146,23 @@ public final class DownloadTaxonRouter {
             maxValue = Double(paginationInfo.lastPage)
             currentValue = Double(paginationInfo.currentPage)
         }
-        showBilogerProgressBarScreen(maxValue: maxValue,
-                                     currentValue: currentValue,
-                                     onProgressAppeared: { [weak self] currentValue in
-                                        
-                                        self?.taxonServiceCordinator.resumeGetTaxon()
-                                        self?.taxonServiceCordinator.getTaxons { currentValue, maxValue in
-                                            self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)
-                                            if currentValue == maxValue {
-                                                self?.navigationController.dismiss(animated: true, completion: nil)
-                                            }
-                                        }
-                                     },
-                                     onCancelTapped: { [weak self] currentValue in
-                                        self?.taxonServiceCordinator.stopGetTaxon()
-                                        self?.navigationController.dismiss(animated: true, completion: nil)
-                                     })
+
+            showBilogerProgressBarScreen(maxValue: maxValue,
+                                         currentValue: currentValue,
+                                         onProgressAppeared: { [weak self] currentValue in
+                                            
+                                            self?.taxonServiceCordinator.resumeGetTaxon()
+                                            self?.taxonServiceCordinator.getTaxons(completion: { currentValue, maxValue in
+                                                self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)
+                                                if currentValue == maxValue {
+                                                    self?.navigationController.dismiss(animated: true, completion: nil)
+                                                }
+                                            })
+                                         },
+                                         onCancelTapped: { [weak self] currentValue in
+                                            self?.taxonServiceCordinator.stopGetTaxon()
+                                            self?.navigationController.dismiss(animated: true, completion: nil)
+                                         })
     }
     
     private func showBilogerProgressBarScreen(maxValue: Double,

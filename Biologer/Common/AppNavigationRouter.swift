@@ -9,6 +9,7 @@ import Foundation
 
 import UIKit
 import SwiftUI
+import BackgroundTasks
 
 public protocol NavigationRouter {
     func start()
@@ -18,6 +19,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private let sideMenuNavigationController = BiologerNavigationViewController(shouldBeTransparent: false)
     private let mainNavigationController: BiologerNavigationViewController
     private var downloadTaxonNavigationController: BiologerNavigationViewController?
+    private var backgoundTask: BGProcessingTask?
     
     // MARK: - Services
     
@@ -53,7 +55,10 @@ public final class AppNavigationRouter: NavigationRouter {
     }()
     
     private lazy var remoteTaxonService: TaxonService = {
-        return RemoteTaxonService(client: httpClient, environmentStorage: environmentStorage)
+//        return RemoteTaxonService(client: httpClient,
+//                                  environmentStorage: environmentStorage,
+//                                  backgoundTask: backgoundTask)
+        return BackgroundAPIController(environmentStorage: environmentStorage, tokenStorage: tokenStorage)
     }()
     
     private lazy var remoteFindinPostService: PostFindingService = {
@@ -217,6 +222,7 @@ public final class AppNavigationRouter: NavigationRouter {
     
     init(mainNavigationController: BiologerNavigationViewController) {
         self.mainNavigationController = mainNavigationController
+        registerBackgroundTask()
         //self.mainNavigationController.setNavigationBarTransparency()
     }
     
@@ -321,5 +327,9 @@ public final class AppNavigationRouter: NavigationRouter {
                                                sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: false)
             }
         })
+    }
+    
+    private func registerBackgroundTask() {
+
     }
 }

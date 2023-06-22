@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import BackgroundTasks
 
 public final class TaxonServiceCoordinator {
-    private let taxonService: TaxonService
+    private var taxonService: TaxonService
     private let taxonPaginationInfo: TaxonsPaginationInfoStorage
     private var shouldExecuteCall: Bool = true
     
@@ -44,55 +45,87 @@ public final class TaxonServiceCoordinator {
         taxonService.getTaxons(currentPage: page,
                                perPage: perPage,
                                updatedAfter: lastTimeUpdate,
-                               completion: { [weak self] result in
-                                guard let self = self else { return }
-                                switch result {
-                                case .failure(let error):
-                                    print("Taxon Error: \(error.description)")
-                                case .success(let response):
-                                    //print("Taxon response: \(response)")
-                                    self.saveToDB(taxonResponse: response)
-                                    page += 1
-                                    self.saveNextPagination(currentPage: page,
-                                                            perPage: perPage,
-                                                            lastPage: response.meta.last_page,
-                                                            total: response.meta.total,
-                                                            currentTime: 0)
-                                    completion(Double(page), Double(response.meta.last_page))
-                                    if self.shouldExecuteCall {
-                                        if page > response.meta.last_page {
-                                            self.saveNextPagination(currentPage: 1,
-                                                                    perPage: perPage,
-                                                                    lastPage: response.meta.last_page,
-                                                                    total: response.meta.total,
-                                                                    currentTime: Int64(Date().timeIntervalSince1970))
-                                        } else {
-                                            self.getTaxons(completion: completion)
-                                        }
-                                    }
-                                }
+                               completion: { result in
+
                                })
-    }
-    
-    public func checkingNewTaxons(completion: @escaping (_ hasNewTaxon: Bool, _ error: APIError?) -> Void) {
         
-        if let paginationInfo = taxonPaginationInfo.getPaginationInfo() {
-            let lastTimeUpdate: Int64 = paginationInfo.lastTimeUpdate
-            taxonService.getTaxons(currentPage: 1,
-                                   perPage: 20,
-                                   updatedAfter: lastTimeUpdate) { result in
-                switch result {
-                case .failure(let error):
-                    completion(false, error)
-                case .success(let response):
-                    if response.data.isEmpty {
-                        completion(false, nil)
+        taxonService.response? = { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                print("Taxon Error: \(error.description)")
+            case .success(let response):
+                //print("Taxon response: \(response)")
+                self.saveToDB(taxonResponse: response)
+                page += 1
+                self.saveNextPagination(currentPage: page,
+                                        perPage: perPage,
+                                        lastPage: response.meta.last_page,
+                                        total: response.meta.total,
+                                        currentTime: 0)
+                completion(Double(page), Double(response.meta.last_page))
+                if self.shouldExecuteCall {
+                    if page > response.meta.last_page {
+                        self.saveNextPagination(currentPage: 1,
+                                                perPage: perPage,
+                                                lastPage: response.meta.last_page,
+                                                total: response.meta.total,
+                                                currentTime: Int64(Date().timeIntervalSince1970))
                     } else {
-                        completion(true, nil)
+                        self.getTaxons(completion: completion)
                     }
                 }
             }
         }
+
+        
+//        guard let self = self else { return }
+//        switch result {
+//        case .failure(let error):
+//            print("Taxon Error: \(error.description)")
+//        case .success(let response):
+//            //print("Taxon response: \(response)")
+//            self.saveToDB(taxonResponse: response)
+//            page += 1
+//            self.saveNextPagination(currentPage: page,
+//                                    perPage: perPage,
+//                                    lastPage: response.meta.last_page,
+//                                    total: response.meta.total,
+//                                    currentTime: 0)
+//            completion(Double(page), Double(response.meta.last_page))
+//            if self.shouldExecuteCall {
+//                if page > response.meta.last_page {
+//                    self.saveNextPagination(currentPage: 1,
+//                                            perPage: perPage,
+//                                            lastPage: response.meta.last_page,
+//                                            total: response.meta.total,
+//                                            currentTime: Int64(Date().timeIntervalSince1970))
+//                } else {
+//                    self.getTaxons(completion: completion)
+//                }
+//            }
+//        }
+    }
+    
+    public func checkingNewTaxons(completion: @escaping (_ hasNewTaxon: Bool, _ error: APIError?) -> Void) {
+        
+//        if let paginationInfo = taxonPaginationInfo.getPaginationInfo() {
+//            let lastTimeUpdate: Int64 = paginationInfo.lastTimeUpdate
+//            taxonService.getTaxons(currentPage: 1,
+//                                   perPage: 20,
+//                                   updatedAfter: lastTimeUpdate, task: <#BGProcessingTask#>) { result in
+//                switch result {
+//                case .failure(let error):
+//                    completion(false, error)
+//                case .success(let response):
+//                    if response.data.isEmpty {
+//                        completion(false, nil)
+//                    } else {
+//                        completion(true, nil)
+//                    }
+//                }
+//            }
+//        }
     }
     
     private func saveNextPagination(currentPage: Int,
