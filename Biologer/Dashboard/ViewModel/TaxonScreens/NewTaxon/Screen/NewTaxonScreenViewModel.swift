@@ -119,13 +119,13 @@ public final class NewTaxonScreenViewModel: ObservableObject {
                                                     imageViewModel: findingViewModel.imageViewModel,
                                                     taxonInfoViewModel: maleTaxonInfo,
                                                     isUploaded: false,
-                                                    dateOfCreation: Date())
+                                                    dateOfCreation: findingViewModel.dateOfCreation)
         let femaleFindingViewModel = FindingViewModel(findingMode: findingViewModel.findingMode,
                                                       locationViewModel: findingViewModel.locationViewModel,
                                                       imageViewModel: findingViewModel.imageViewModel,
                                                       taxonInfoViewModel: femaleTaxonInfo,
                                                       isUploaded: false,
-                                                      dateOfCreation: Date())
+                                                      dateOfCreation: findingViewModel.dateOfCreation)
         return [maleFindingViewModel, femaleFindingViewModel]
     }
 }
