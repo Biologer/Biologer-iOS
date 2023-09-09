@@ -20,37 +20,40 @@ public protocol CommonViewControllerFactory {
                                      onCancelTapped: @escaping Observer<Double>) -> UIViewController
 }
 
-public final class IOSUIKitCommonViewControllerFactory: CommonViewControllerFactory {
-    public func makeLicenseScreen(items: [CheckMarkItem],
-                                      selectedItem: CheckMarkItem,
-                                      delegate: CheckMarkScreenDelegate?,
-                                      onItemTapped: @escaping Observer<CheckMarkItem>) -> UIViewController {
-        fatalError("There is no UIKit license screen")
-    }
+//public final class IOSUIKitCommonViewControllerFactory: CommonViewControllerFactory {
+//    public func makeLicenseScreen(items: [CheckMarkItem],
+//                                      selectedItem: CheckMarkItem,
+//                                      delegate: CheckMarkScreenDelegate?,
+//                                      onItemTapped: @escaping Observer<CheckMarkItem>) -> UIViewController {
+//        fatalError("There is no UIKit license screen")
+//    }
+//    
+//    public func createBlockingProgress() -> UIViewController {
+//        let progressViewController = BlokingProgressViewController(nibName: nil, bundle: nil)
+//        progressViewController.modalTransitionStyle = .crossDissolve
+//        progressViewController.modalPresentationStyle = .overFullScreen
+//        return progressViewController
+//    }
+//    
+//    public func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController {
+//        fatalError("There is no UIKit help screen")
+//    }
+//    
+//    public func makeBiologerProgressBarView(maxValue: Double,
+//                                            currentValue: Double,
+//                                            onProgressAppeared: @escaping Observer<Double>,
+//                                            onCancelTapped: @escaping Observer<Double>) -> UIViewController {
+//        fatalError("There is no swiftUI progress bar")
+//    }
+//}
+
+public final class CommonViewControllerFactroryImplementation: CommonViewControllerFactory {
     
     public func createBlockingProgress() -> UIViewController {
         let progressViewController = BlokingProgressViewController(nibName: nil, bundle: nil)
         progressViewController.modalTransitionStyle = .crossDissolve
         progressViewController.modalPresentationStyle = .overFullScreen
         return progressViewController
-    }
-    
-    public func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController {
-        fatalError("There is no UIKit help screen")
-    }
-    
-    public func makeBiologerProgressBarView(maxValue: Double,
-                                            currentValue: Double,
-                                            onProgressAppeared: @escaping Observer<Double>,
-                                            onCancelTapped: @escaping Observer<Double>) -> UIViewController {
-        fatalError("There is no swiftUI progress bar")
-    }
-}
-
-public final class SwiftUICommonViewControllerFactrory: CommonViewControllerFactory {
-    
-    public func createBlockingProgress() -> UIViewController {
-        fatalError("There is no swiftUI progress loader")
     }
     
     public func makeLicenseScreen(items: [CheckMarkItem],

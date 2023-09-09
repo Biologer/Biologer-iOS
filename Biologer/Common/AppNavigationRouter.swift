@@ -86,8 +86,7 @@ public final class AppNavigationRouter: NavigationRouter {
         let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
         
         let authorization =  AuthorizationRouter(factory: authorizationFactory,
-                                                 uiKitcommonViewControllerFactory: uiKitcommonViewControllerFactory,
-                                                 swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
+                                                 commonViewControllerFactory: commonViewControllerFactoryImplementation,
                                                  swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                                  navigationController: mainNavigationController,
                                                  environmentStorage: environmentStorage,
@@ -107,8 +106,8 @@ public final class AppNavigationRouter: NavigationRouter {
                                                   userStorage: userStorage,
                                                   profileService: remoteProfileService,
                                                   factory: SwiftUIDashboardViewControllerFactory(),
-                                                  uiKitCommonViewControllerFactory: uiKitcommonViewControllerFactory,
-                                                  swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory)
+                                                  uiKitCommonViewControllerFactory: commonViewControllerFactoryImplementation,
+                                                  swiftUICommonViewControllerFactory: commonViewControllerFactoryImplementation)
         
         sideMenuRouter.onLogout = { _ in
             self.logout()
@@ -124,8 +123,8 @@ public final class AppNavigationRouter: NavigationRouter {
                                       settingsStorage: userDefaultsSettingsStorage,
                                       uploadFindings: uploadFindings,
                                       factory: SwiftUITaxonViewControllerFactory(getAltitudeService: RemoteGetAltitudeService(client: httpClient, environmentStorage: environmentStorage)),
-                                      swiftUICommonFactory: swiftUICommonViewControllerFactory,
-                                      uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
+                                      swiftUICommonFactory: commonViewControllerFactoryImplementation,
+                                      uiKitCommonFactory: commonViewControllerFactoryImplementation,
                                       alertFactory: swiftUIAlertViewControllerFactory,
                                       userStorage: userStorage)
         return taxonRouter
@@ -134,7 +133,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private lazy var setupRouter: SetupRouter = {
        let setupRouter = SetupRouter(navigationController: sideMenuNavigationController,
                                      factory: SwiftUISetupViewControllerFactory(settingsStorage: userDefaultsSettingsStorage),
-                                     swiftUICommonFactory: swiftUICommonViewControllerFactory,
+                                     swiftUICommonFactory: commonViewControllerFactoryImplementation,
                                      alertFactory: swiftUIAlertViewControllerFactory,
                                      taxonPaginationStorage: taxonPaginationInfoStorage,
                                      imageLicenseStorage: imageLicenseStorage,
@@ -148,7 +147,7 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var downloadTaxonRouter: DownloadTaxonRouter = {
         return DownloadTaxonRouter(alertFactory: swiftUIAlertViewControllerFactory,
-                                   swiftUICommonFactory: swiftUICommonViewControllerFactory,
+                                   swiftUICommonFactory: commonViewControllerFactoryImplementation,
                                    taxonServiceCordinator: taxonServiceCoordinator,
                                    settingsStorage: userDefaultsSettingsStorage,
                                    taxonPaginationInfoStorage: taxonPaginationInfoStorage)
@@ -199,13 +198,9 @@ public final class AppNavigationRouter: NavigationRouter {
                                                  imageLicenseStorage: imageLicenseStorage)
     }()
     
-    private lazy var swiftUICommonViewControllerFactory: CommonViewControllerFactory = {
-        return SwiftUICommonViewControllerFactrory()
+    private lazy var commonViewControllerFactoryImplementation: CommonViewControllerFactory = {
+        return CommonViewControllerFactroryImplementation()
     }()
-    
-    private lazy var uiKitcommonViewControllerFactory: CommonViewControllerFactory = {
-        return IOSUIKitCommonViewControllerFactory()
-    } ()
     
     private lazy var swiftUIAlertViewControllerFactory: AlertViewControllerFactory = {
         return SwiftUIAlertViewControllerFactory()
@@ -227,7 +222,7 @@ public final class AppNavigationRouter: NavigationRouter {
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
         guard let self = self else { return }
         if isLoading {
-            let loader  = self.uiKitcommonViewControllerFactory.createBlockingProgress()
+            let loader  = self.commonViewControllerFactoryImplementation.createBlockingProgress()
             self.sideMenuNavigationController.present(loader, animated: false, completion: nil)
         } else {
             self.sideMenuNavigationController.dismiss(animated: false, completion: nil)

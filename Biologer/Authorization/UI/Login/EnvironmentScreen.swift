@@ -54,8 +54,7 @@ struct EnvironmentScreen: View  {
 
 struct EnvironmentScreen_Previews: PreviewProvider {
     static var previews: some View {
-        let factory = EnvironmentViewModelFactory()
-        let envViewModels = factory.createAllEnvironments()
+        let envViewModels = EnvironmentViewModelFactory.createAllEnvironments()
         EnvironmentScreen(loader: EnvironmentScreenViewModel(environmentsViewModel: envViewModels,
                                                              selectedViewModel: envViewModels[0],
                                                              onSelectedEnvironment: { _ in}))

@@ -16,7 +16,7 @@ public enum EnvironmentType {
 }
 
 public final class EnvironmentViewModelFactory {
-    public func createEnvironment(type: EnvironmentType) -> EnvironmentViewModel {
+    public static func createEnvironment(type: EnvironmentType) -> EnvironmentViewModel {
         switch type {
         case .serbia:
             return EnvironmentViewModel(id: 1,
@@ -65,7 +65,7 @@ public final class EnvironmentViewModelFactory {
         }
     }
     
-    public func createAllEnvironments() -> [EnvironmentViewModel] {
+    public static func createAllEnvironments() -> [EnvironmentViewModel] {
         return [
             createEnvironment(type: .serbia),
             createEnvironment(type: .croatia),
