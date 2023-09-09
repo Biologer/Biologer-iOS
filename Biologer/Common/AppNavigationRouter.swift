@@ -195,7 +195,9 @@ public final class AppNavigationRouter: NavigationRouter {
         return SwiftUILoginViewControllerFactory(loginService: loginService,
                                                  registerService: registerService,
                                                  dataLicenseStorage: dataLicenseStorage,
-                                                 imageLicenseStorage: imageLicenseStorage)
+                                                 imageLicenseStorage: imageLicenseStorage,
+                                                 emailValidator: emailValidator,
+                                                 passwordValidator: passwordValidator)
     }()
     
     private lazy var commonViewControllerFactoryImplementation: CommonViewControllerFactory = {
@@ -210,6 +212,16 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var locationManager: LocationManager = {
        return LocationManager()
+    }()
+    
+    // MARK: - Utils
+    
+    private lazy var emailValidator: StringValidator = {
+       return EmailValidator()
+    }()
+    
+    private lazy var passwordValidator: StringValidator = {
+       return PasswordValidator()
     }()
     
     // MARK: - Init

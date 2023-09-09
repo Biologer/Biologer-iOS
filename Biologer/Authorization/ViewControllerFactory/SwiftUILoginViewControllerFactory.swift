@@ -14,15 +14,21 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     private let registerService: RegisterUserService
     private let dataLicenseStorage: LicenseStorage
     private let imageLicenseStorage: LicenseStorage
+    private let emailValidator: StringValidator
+    private let passwordValidator: StringValidator
     
     init(loginService: LoginUserService,
          registerService: RegisterUserService,
          dataLicenseStorage: LicenseStorage,
-         imageLicenseStorage: LicenseStorage) {
+         imageLicenseStorage: LicenseStorage,
+         emailValidator: StringValidator,
+         passwordValidator: StringValidator) {
         self.loginService = loginService
         self.registerService = registerService
         self.dataLicenseStorage = dataLicenseStorage
         self.imageLicenseStorage = imageLicenseStorage
+        self.emailValidator = emailValidator
+        self.passwordValidator = passwordValidator
     }
 
     public func makeLoginScreen(environmentViewModel: EnvironmentViewModel,
@@ -32,12 +38,9 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                 onRegisterTapped: @escaping Observer<Void>,
                                 onForgotPasswordTapped: @escaping Observer<Void>,
                                 onLoading: @escaping Observer<Bool>) -> UIViewController {
-        let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
-                                                        labelsViewModel: LoginLabelsViewModel(),
-                                                        environmentViewModel: environmentViewModel,
-                                                        userNameTextFieldViewModel: UserNameTextFieldViewModel(),
-                                                        passwordTextFieldViewModel: PasswordTextFieldViewModel(),
+        let loginScreenViewModel = LoginScreenViewModel(environmentViewModel: environmentViewModel,
                                                         service: loginService,
+                                                        emailValidator: emailValidator,
                                                         onSelectEnvironmentTapped: onSelectEnvironmentTapped,
                                                         onLoginSuccess: onLoginSuccess,
                                                         onLoginError: onLoginError,
@@ -66,7 +69,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     
     public func makeRegisterFirstStepScreen(user: RegisterUser,
                                             onNextTapped: @escaping Observer<RegisterUser>) -> UIViewController {
-        let viewModel = RegisterStepOneScreenViewModel(user: RegisterUser(),
+        let viewModel = RegisterStepOneScreenViewModel(user: user,
                                                        onNextTapped: onNextTapped)
         let screen = RegisterStepOneScreen(loader: viewModel)
         let viewController = UIHostingController(rootView: screen)
@@ -76,6 +79,8 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     public func makeRegisterSecondStepScreen(user: RegisterUser,
                                              onNextTapped: @escaping Observer<RegisterUser>) -> UIViewController {
         let viewModel = RegisterStepTwoScreenViewModel(user: user,
+                                                       emailValidator: emailValidator,
+                                                       passwordValidator: passwordValidator,
                                                        onNextTapped: onNextTapped)
         let screen = RegisterStepTwoScreen(loader: viewModel)
         let viewController = UIHostingController(rootView: screen)

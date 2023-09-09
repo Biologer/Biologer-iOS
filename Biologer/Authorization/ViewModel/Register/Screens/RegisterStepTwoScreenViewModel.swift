@@ -15,15 +15,26 @@ public final class RegisterStepTwoScreenViewModel: RegisterStepTwoScreenLoader {
     
     private let user: RegisterUser
     private let onNextTapped: Observer<RegisterUser>
+    private let emailValidator: StringValidator
+    private let passwordValidator: StringValidator
     
-    init(user: RegisterUser, onNextTapped: @escaping Observer<RegisterUser>) {
+    init(user: RegisterUser,
+         emailValidator: StringValidator,
+         passwordValidator: StringValidator,
+         onNextTapped: @escaping Observer<RegisterUser>) {
         self.onNextTapped = onNextTapped
         self.user = user
+        self.emailValidator = emailValidator
+        self.passwordValidator = passwordValidator
     }
+    
+    // MARK: - Public Functions
 
     func nextButtonTapped() {
         validateFields()
     }
+    
+    // MARK: - Private Functions
     
     private func validateFields() {
         if emailTextFieldViewModel.text.isEmpty {
@@ -31,7 +42,7 @@ public final class RegisterStepTwoScreenViewModel: RegisterStepTwoScreenLoader {
             return
         }
 
-        if !isEmailValid(email: emailTextFieldViewModel.text) {
+        if !emailValidator.isValid(text: emailTextFieldViewModel.text) {
             setEmailIsNotValid()
             return
         }
@@ -44,7 +55,7 @@ public final class RegisterStepTwoScreenViewModel: RegisterStepTwoScreenLoader {
             return
         }
 
-        if !isPasswordValid(password: passwordTextFieldViewModel.text) {
+        if !passwordValidator.isValid(text: passwordTextFieldViewModel.text) {
             setPasswordIsNotValid()
             return
         }
@@ -58,15 +69,6 @@ public final class RegisterStepTwoScreenViewModel: RegisterStepTwoScreenLoader {
         }
         setRepeatPasswordValid()
         onNextTapped((user))
-    }
-    
-    private func isEmailValid(email: String) -> Bool {
-        return NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}").evaluate(with: email)
-    }
-    
-    public func isPasswordValid(password: String) -> Bool {
-        let passwordRegex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*()\\-_=+{}|?>.<,:;~`’]{8,}$"
-        return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
     }
 }
 
@@ -95,8 +97,6 @@ extension RegisterStepTwoScreenViewModel {
         repeatPasswordTextFieldViewModel.errorText = "Register.two.tf.repeatPassword.error".localized
         repeatPasswordTextFieldViewModel.type = .failure
     }
-    
-
     
     private func setEmailValid() {
         emailTextFieldViewModel.errorText = ""

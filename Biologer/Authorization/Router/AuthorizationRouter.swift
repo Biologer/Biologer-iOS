@@ -69,7 +69,7 @@ public final class AuthorizationRouter {
             self?.showEnvironmentScreen(selectedViewModel: env,
                                         delegate: envDelegate)
         },
-                                                          onLoginSuccess: { [weak self]  token in
+                                                          onLoginSuccess: { [weak self] token in
             self?.tokenStorage.saveToken(token: token)
             self?.onLoginSuccess?(())
         },

@@ -9,49 +9,46 @@ import Foundation
 import Combine
 
 public final class LoginScreenViewModel: LoginScreenLoader {
-    public var environmentPlaceholder: String = "Login.env.placeholder".localized
-    public let logoImage: String
-    public var labelsViewModel: LoginLabelsViewModel
+    public var environmentPlaceholder = "Login.env.placeholder".localized
+    public let logoImage = "biologer_logo_icon"
+    public var labelsViewModel = LoginLabelsViewModel()
     @Published public var environmentViewModel: EnvironmentViewModel
-    @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
-    @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
+    @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = UserNameTextFieldViewModel()
+    @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = PasswordTextFieldViewModel()
     
     private let service: LoginUserService
+    private let emailValidator: StringValidator
     private let onSelectEnvironmentTapped: Observer<EnvironmentViewModel>
     private let onLoginSuccess: Observer<Token>
     private let onLoginError: Observer<APIError>
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
     private let onLoading: Observer<Bool>
-    private var email: String = ""
-    private var password: String = ""
+    private var email = ""
+    private var password = ""
     
-    init(logoImage: String,
-         labelsViewModel: LoginLabelsViewModel,
-         environmentViewModel: EnvironmentViewModel,
-         userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol,
-         passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol,
+    init(environmentViewModel: EnvironmentViewModel,
          service: LoginUserService,
+         emailValidator: StringValidator,
          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
          onLoginSuccess: @escaping Observer<Token>,
          onLoginError: @escaping Observer<APIError>,
          onRegisterTapped: @escaping Observer<Void>,
          onForgotPasswordTapped: @escaping Observer<Void>,
          onLoading: @escaping Observer<Bool>
-         ) {
-        self.logoImage = logoImage
-        self.labelsViewModel = labelsViewModel
+    ) {
         self.environmentViewModel = environmentViewModel
-        self.userNameTextFieldViewModel = userNameTextFieldViewModel
-        self.passwordTextFieldViewModel = passwordTextFieldViewModel
         self.onSelectEnvironmentTapped = onSelectEnvironmentTapped
         self.service = service
+        self.emailValidator = emailValidator
         self.onLoginSuccess = onLoginSuccess
         self.onLoginError = onLoginError
         self.onRegisterTapped = onRegisterTapped
         self.onForgotPasswordTapped = onForgotPasswordTapped
         self.onLoading = onLoading
     }
+    
+    // MARK: - Public Functions
     
     public func selectEnvironment() {
         onSelectEnvironmentTapped((environmentViewModel))
@@ -69,13 +66,15 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         onForgotPasswordTapped(())
     }
     
+    // MARK: - Private Functions
+    
     private func validateFields() {
         if userNameTextFieldViewModel.text.isEmpty {
             setEmailRequired()
            return
         }
         
-        if !isEmailValid(email: userNameTextFieldViewModel.text) {
+        if !emailValidator.isValid(text: userNameTextFieldViewModel.text) {
             setEmailIsNotValidFormat()
             return
         }
@@ -98,24 +97,17 @@ public final class LoginScreenViewModel: LoginScreenLoader {
             self?.onLoading((false))
             switch result {
             case .success(let response):
-                print("Response login: \(response)")
                 let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
                 self?.onLoginSuccess((token))
             case .failure(let error):
-                print("Error login: \(error.description)")
                 self?.onLoginError((error))
             }
         }
-    }
-    
-    private func isEmailValid(email: String) -> Bool {
-        return NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}").evaluate(with: email)
     }
 }
 
 extension LoginScreenViewModel: EnvironmentScreenViewModelProtocol {
     public func getEnvironment(environmentViewModel: EnvironmentViewModel) {
-        print("ENV SLECTED: \(environmentViewModel.title)")
         self.environmentViewModel = environmentViewModel
     }
 }

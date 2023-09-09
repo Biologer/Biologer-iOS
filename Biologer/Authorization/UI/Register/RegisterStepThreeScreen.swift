@@ -91,14 +91,14 @@ struct RegisterStepThreeScreen_Previews: PreviewProvider {
     
     private class StubRegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoader {
         var errorLabel: String = ""
-        var topImage = "serbia_flag"
-        var dataLicense: CheckMarkItem = CheckMarkItemMapper.getDataLicense()[0]
-        var imageLicense: CheckMarkItem = CheckMarkItemMapper.getImageLicense()[0]
-        var registerButtonTitle = "Register.three.btn.register".localized
-        var acceptPPTitle: String = "Register.three.lb.acceptPrivacyPolicy".localized
+        let topImage = "serbia_flag"
+        let dataLicense: CheckMarkItem = CheckMarkItemMapper.getDataLicense()[0]
+        let imageLicense: CheckMarkItem = CheckMarkItemMapper.getImageLicense()[0]
+        let registerButtonTitle = "Register.three.btn.register".localized
+        let acceptPPTitle: String = "Register.three.lb.acceptPrivacyPolicy".localized
         var acceptPPChceckMark: Bool = false
-        var privacyPolicyDescription: String = "Register.three.lb.description".localized
-        var onReadPrivacyPolicy: Observer<Void> = { _ in }
+        let privacyPolicyDescription: String = "Register.three.lb.description".localized
+        let onReadPrivacyPolicy: Observer<Void> = { _ in }
         func registerTapped() {}
         func dataLicenseTapped() {}
         func imageLicenseTapped() {}

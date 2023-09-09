@@ -133,6 +133,7 @@
 		9373F82026F924E800C18F91 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81F26F924E800C18F91 /* UserStorage.swift */; };
 		9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F82326F9259D00C18F91 /* UserDefaultsUserStorage.swift */; };
 		9373F82626F926CD00C18F91 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F82526F926CD00C18F91 /* User.swift */; };
+		937EB9E42AAD0A4800EB83F9 /* StringValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EB9E32AAD0A4800EB83F9 /* StringValidator.swift */; };
 		937F523B270EEAD400239963 /* TaxonMapScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F5239270EEAD400239963 /* TaxonMapScreenViewController.swift */; };
 		937F523C270EEAD400239963 /* TaxonMapScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */; };
 		937F523F270F926E00239963 /* DeleteFindingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */; };
@@ -399,6 +400,7 @@
 		9373F81F26F924E800C18F91 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
 		9373F82326F9259D00C18F91 /* UserDefaultsUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsUserStorage.swift; sourceTree = "<group>"; };
 		9373F82526F926CD00C18F91 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		937EB9E32AAD0A4800EB83F9 /* StringValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValidator.swift; sourceTree = "<group>"; };
 		937F5239270EEAD400239963 /* TaxonMapScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonMapScreenViewController.swift; sourceTree = "<group>"; };
 		937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaxonMapScreenViewController.xib; sourceTree = "<group>"; };
 		937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFindingsScreenViewModel.swift; sourceTree = "<group>"; };
@@ -576,15 +578,6 @@
 			path = ViewControllerFactory;
 			sourceTree = "<group>";
 		};
-		9309AB182744326600825246 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				9309AB162744324300825246 /* Date+Extensions.swift */,
-				9351D4562779E8BB0091D4D9 /* Font+Extensions.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		9309AB192744329300825246 /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +721,7 @@
 		93142732262B5C5600542EFC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				937EB9E22AAD09EC00EB83F9 /* Utils */,
 				931B9DAA27669F4C00043BED /* Lottie Animations */,
 				9320E02E2751991D006812E5 /* Router */,
 				931D3FED274ABCB900352C8E /* Entity */,
@@ -735,7 +729,6 @@
 				931D3FE42748189200352C8E /* Constants */,
 				931D3FE32748183500352C8E /* Factory */,
 				931D3FE22748182B00352C8E /* Screens */,
-				9309AB182744326600825246 /* Extensions */,
 				9314273B262B684B00542EFC /* Color.xcassets */,
 				931426E9262B53B000542EFC /* Assets.xcassets */,
 				93142733262B5C6600542EFC /* ViewHelper.swift */,
@@ -1036,6 +1029,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		937EB9E22AAD09EC00EB83F9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				937EB9E32AAD0A4800EB83F9 /* StringValidator.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		937F523D270F0CD600239963 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -1310,6 +1311,8 @@
 				93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */,
 				93565D3626F7397000A588E6 /* String+Extensions.swift */,
 				93B0C1BB29094D9F002B92B3 /* UIView+Extensions.swift */,
+				9309AB162744324300825246 /* Date+Extensions.swift */,
+				9351D4562779E8BB0091D4D9 /* Font+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1845,6 +1848,7 @@
 				93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */,
 				9314DA36270B3EAF007896F9 /* GoogleMapsView.swift in Sources */,
 				9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */,
+				937EB9E42AAD0A4800EB83F9 /* StringValidator.swift in Sources */,
 				93B0417E2712096F007DB833 /* DBFinding.swift in Sources */,
 				931D3FE72748193D00352C8E /* PopUpYesAndNoScreen.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,

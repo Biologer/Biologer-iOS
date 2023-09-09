@@ -8,18 +8,19 @@
 import Foundation
 
 public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoader, ObservableObject {
-    public var registerButtonTitle: String = "Register.three.btn.register".localized
-    public var topImage: String
+
     @Published public var dataLicense: CheckMarkItem
     @Published public var imageLicense: CheckMarkItem
-    public var acceptPPTitle: String = "Register.three.lb.acceptPrivacyPolicy".localized
-    public var acceptPPChceckMark: Bool = false
-    public var privacyPolicyDescription: String = "Register.three.lb.description".localized
     @Published public var errorLabel: String = ""
+    public var registerButtonTitle: String = "Register.three.btn.register".localized
+    public var acceptPPTitle: String = "Register.three.lb.acceptPrivacyPolicy".localized
+    public var privacyPolicyDescription: String = "Register.three.lb.description".localized
+    public var acceptPPChceckMark: Bool = false
+    public let topImage: String
     public var onReadPrivacyPolicy: Observer<Void>
+    
     private let onDataLicense: Observer<CheckMarkItem>
     private let onImageLicense: Observer<CheckMarkItem>
-    
     private let onSuccess: Observer<Token>
     private let onError: Observer<APIError>
     private let onLoading: Observer<Bool>
@@ -82,12 +83,10 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
             self?.onLoading((false))
             switch result {
             case .success(let response):
-                print("Response: \(response)")
                 let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
                 self?.onSuccess((token))
             case .failure(let error):
                 self?.onError((error))
-                print("Error: \(error)")
             }
         }
     }
