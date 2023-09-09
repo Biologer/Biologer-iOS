@@ -9,9 +9,23 @@ import UIKit
 import SwiftUI
 
 public final class SwiftUILoginViewControllerFactory: AuthorizationViewControllerFactory {
+    
+    private let loginService: LoginUserService
+    private let registerService: RegisterUserService
+    private let dataLicenseStorage: LicenseStorage
+    private let imageLicenseStorage: LicenseStorage
+    
+    init(loginService: LoginUserService,
+         registerService: RegisterUserService,
+         dataLicenseStorage: LicenseStorage,
+         imageLicenseStorage: LicenseStorage) {
+        self.loginService = loginService
+        self.registerService = registerService
+        self.dataLicenseStorage = dataLicenseStorage
+        self.imageLicenseStorage = imageLicenseStorage
+    }
 
-    public func makeLoginScreen(service: LoginUserService,
-                                environmentViewModel: EnvironmentViewModel,
+    public func makeLoginScreen(environmentViewModel: EnvironmentViewModel,
                                 onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
                                 onLoginSuccess: @escaping Observer<Token>,
                                 onLoginError: @escaping Observer<APIError>,
@@ -23,7 +37,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                                         environmentViewModel: environmentViewModel,
                                                         userNameTextFieldViewModel: UserNameTextFieldViewModel(),
                                                         passwordTextFieldViewModel: PasswordTextFieldViewModel(),
-                                                        service: service,
+                                                        service: loginService,
                                                         onSelectEnvironmentTapped: onSelectEnvironmentTapped,
                                                         onLoginSuccess: onLoginSuccess,
                                                         onLoginError: onLoginError,
@@ -70,11 +84,8 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     
     public func makeRegisterThreeStepScreen(user: RegisterUser,
                                             topImage: String,
-                                            service: RegisterUserService,
                                             dataLicense: CheckMarkItem,
                                             imageLicense: CheckMarkItem,
-                                            dataLicenseStorage: LicenseStorage,
-                                            imageLicenseStorage: LicenseStorage,
                                             onReadPrivacyPolicy: @escaping Observer<Void>,
                                             onDataLicense: @escaping Observer<CheckMarkItem>,
                                             onImageLicense: @escaping Observer<CheckMarkItem>,
@@ -84,7 +95,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
         
         let viewModel = RegisterStepThreeScreenViewModel(user: user,
                                                          topImage: topImage,
-                                                         service: service,
+                                                         service: registerService,
                                                          dataLicense: dataLicense,
                                                          imageLicense: imageLicense,
                                                          dataLicenseStorage: dataLicenseStorage,

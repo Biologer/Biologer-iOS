@@ -215,7 +215,6 @@
 		93DF14212692262900A7A977 /* LoginUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14202692262900A7A977 /* LoginUserService.swift */; };
 		93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14222692264C00A7A977 /* LoginUserResponse.swift */; };
 		93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */; };
-		93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14262692268F00A7A977 /* ForgotPasswordService.swift */; };
 		93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */; };
 		93DF142D269253B900A7A977 /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142C269253B900A7A977 /* CheckView.swift */; };
 		93E3CBEB2736E7F30090FF93 /* BiologerProgressBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */; };
@@ -482,7 +481,6 @@
 		93DF14202692262900A7A977 /* LoginUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserService.swift; sourceTree = "<group>"; };
 		93DF14222692264C00A7A977 /* LoginUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserResponse.swift; sourceTree = "<group>"; };
 		93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordResponse.swift; sourceTree = "<group>"; };
-		93DF14262692268F00A7A977 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
 		93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLicenseView.swift; sourceTree = "<group>"; };
 		93DF142C269253B900A7A977 /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerProgressBarScreen.swift; sourceTree = "<group>"; };
@@ -1419,7 +1417,6 @@
 			children = (
 				93DF140F26920A4600A7A977 /* RegisterUserService.swift */,
 				93DF14202692262900A7A977 /* LoginUserService.swift */,
-				93DF14262692268F00A7A977 /* ForgotPasswordService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1932,7 +1929,6 @@
 				93565D2326F7270B00A588E6 /* NewTaxonScreen.swift in Sources */,
 				933EF7F626EFBAD800F1EBC4 /* PopUpConfirmScreen.swift in Sources */,
 				93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */,
-				93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */,
 				93565D1D26F723BF00A588E6 /* TaxonViewControllerFactory.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				93171D88273BDBFD0038B2B2 /* PostFindingImageService.swift in Sources */,
@@ -2150,7 +2146,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Biologer/Preview Content\"";
 				DEVELOPMENT_TEAM = NLHXMY5PBX;
 				ENABLE_PREVIEWS = YES;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = Biologer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2175,7 +2171,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Biologer/Preview Content\"";
 				DEVELOPMENT_TEAM = NLHXMY5PBX;
 				ENABLE_PREVIEWS = YES;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = Biologer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

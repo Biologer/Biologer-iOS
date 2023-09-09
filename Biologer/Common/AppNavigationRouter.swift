@@ -43,6 +43,14 @@ public final class AppNavigationRouter: NavigationRouter {
        return RemoteProfileService(client: httpClient, environmentStorage: environmentStorage)
     }()
     
+    private lazy var loginService: LoginUserService = {
+       return RemoteLoginUserService(client: httpClient, environmentStorage: environmentStorage)
+    }()
+    
+    private lazy var registerService: RegisterUserService = {
+        return RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
+    }()
+    
     private lazy var remoteObservationService: ObservationService = {
        return RemoteObservationService(client: httpClient, environmentStorage: environmentStorage)
     }()
@@ -75,22 +83,15 @@ public final class AppNavigationRouter: NavigationRouter {
     // MARK: - Routers
     
     private lazy var authorizationRouter: AuthorizationRouter = {
-        let loginService = RemoteLoginUserService(client: httpClient, environmentStorage: environmentStorage)
         let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
-        let forgotPasswordService = RemoteForgotPasswordService(client: httpClient)
         
         let authorization =  AuthorizationRouter(factory: authorizationFactory,
-                                   commonViewControllerFactory: commonViewControllerFactory,
-                                   swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
-                                   swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
-                                   navigationController: mainNavigationController,
-                                   loginService: loginService,
-                                   registerService: registerService,
-                                   forgotPasswordService: forgotPasswordService,
-                                   environmentStorage: environmentStorage,
-                                   tokenStorage: tokenStorage,
-                                   dataLicenseStorage: dataLicenseStorage,
-                                   imageLicenseStorage: imageLicenseStorage)
+                                                 uiKitcommonViewControllerFactory: uiKitcommonViewControllerFactory,
+                                                 swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
+                                                 swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
+                                                 navigationController: mainNavigationController,
+                                                 environmentStorage: environmentStorage,
+                                                 tokenStorage: tokenStorage)
         authorization.onLoginSuccess = { _ in
             self.showSideMenuRouter()
         }
@@ -106,7 +107,7 @@ public final class AppNavigationRouter: NavigationRouter {
                                                   userStorage: userStorage,
                                                   profileService: remoteProfileService,
                                                   factory: SwiftUIDashboardViewControllerFactory(),
-                                                  uiKitCommonViewControllerFactory: commonViewControllerFactory,
+                                                  uiKitCommonViewControllerFactory: uiKitcommonViewControllerFactory,
                                                   swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory)
         
         sideMenuRouter.onLogout = { _ in
@@ -192,14 +193,17 @@ public final class AppNavigationRouter: NavigationRouter {
     // MARK: - Factories
     
     private lazy var authorizationFactory: AuthorizationViewControllerFactory = {
-        return SwiftUILoginViewControllerFactory()
+        return SwiftUILoginViewControllerFactory(loginService: loginService,
+                                                 registerService: registerService,
+                                                 dataLicenseStorage: dataLicenseStorage,
+                                                 imageLicenseStorage: imageLicenseStorage)
     }()
     
     private lazy var swiftUICommonViewControllerFactory: CommonViewControllerFactory = {
         return SwiftUICommonViewControllerFactrory()
     }()
     
-    private lazy var commonViewControllerFactory: CommonViewControllerFactory = {
+    private lazy var uiKitcommonViewControllerFactory: CommonViewControllerFactory = {
         return IOSUIKitCommonViewControllerFactory()
     } ()
     
@@ -223,7 +227,7 @@ public final class AppNavigationRouter: NavigationRouter {
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
         guard let self = self else { return }
         if isLoading {
-            let loader  = self.commonViewControllerFactory.createBlockingProgress()
+            let loader  = self.uiKitcommonViewControllerFactory.createBlockingProgress()
             self.sideMenuNavigationController.present(loader, animated: false, completion: nil)
         } else {
             self.sideMenuNavigationController.dismiss(animated: false, completion: nil)

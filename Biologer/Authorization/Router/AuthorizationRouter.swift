@@ -11,45 +11,42 @@ import SwiftUI
 public final class AuthorizationRouter {
     private let factory: AuthorizationViewControllerFactory
     private let navigationController: UINavigationController
-    private let loginService: LoginUserService
-    private let registerService: RegisterUserService
-    private let forgotPasswordService: ForgotPasswordService
-    private let commonViewControllerFactory: CommonViewControllerFactory
+    private let uiKitcommonViewControllerFactory: CommonViewControllerFactory
     private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
     private let swiftUIAlertViewControllerFactory: AlertViewControllerFactory
     private let environmentStorage: EnvironmentStorage
     private let tokenStorage: TokenStorage
-    private let dataLicenseStorage: LicenseStorage
-    private let imageLicenseStorage: LicenseStorage
     private let envFactory = EnvironmentViewModelFactory()
     public var onLoginSuccess: Observer<Void>?
     private var selectedEnvironmentImage: String = ""
     
+    private lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
+        guard let self = self else { return }
+        if isLoading {
+            let loader  = self.uiKitcommonViewControllerFactory.createBlockingProgress()
+            self.navigationController.present(loader, animated: false, completion: nil)
+        } else {
+            self.navigationController.dismiss(animated: false, completion: nil)
+        }
+    }
+    
     init(factory: AuthorizationViewControllerFactory,
-         commonViewControllerFactory: CommonViewControllerFactory,
+         uiKitcommonViewControllerFactory: CommonViewControllerFactory,
          swiftUICommonViewControllerFactory: CommonViewControllerFactory,
          swiftUIAlertViewControllerFactory: AlertViewControllerFactory,
          navigationController: UINavigationController,
-         loginService: LoginUserService,
-         registerService: RegisterUserService,
-         forgotPasswordService: ForgotPasswordService,
          environmentStorage: EnvironmentStorage,
-         tokenStorage: TokenStorage,
-         dataLicenseStorage: LicenseStorage,
-         imageLicenseStorage: LicenseStorage) {
+         tokenStorage: TokenStorage) {
         self.factory = factory
-        self.commonViewControllerFactory = commonViewControllerFactory
+        self.uiKitcommonViewControllerFactory = uiKitcommonViewControllerFactory
         self.swiftUICommonViewControllerFactory = swiftUICommonViewControllerFactory
         self.swiftUIAlertViewControllerFactory = swiftUIAlertViewControllerFactory
         self.navigationController = navigationController
-        self.loginService = loginService
-        self.registerService = registerService
-        self.forgotPasswordService = forgotPasswordService
         self.environmentStorage = environmentStorage
         self.tokenStorage = tokenStorage
-        self.dataLicenseStorage = dataLicenseStorage
-        self.imageLicenseStorage  = imageLicenseStorage
     }
+    
+    // MARK: - Public Functions
     
     public func start(shouldPresentIntroScreens: Bool) {
         if shouldPresentIntroScreens {
@@ -58,16 +55,8 @@ public final class AuthorizationRouter {
             showLoginScreen()
         }
     }
-    
-    lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
-        guard let self = self else { return }
-        if isLoading {
-            let loader  = self.commonViewControllerFactory.createBlockingProgress()
-            self.navigationController.present(loader, animated: false, completion: nil)
-        } else {
-            self.navigationController.dismiss(animated: false, completion: nil)
-        }
-    }
+
+    // MARK: - Private Functions
     
     private func showLoginScreen() {
         
@@ -77,8 +66,7 @@ public final class AuthorizationRouter {
         environmentStorage.saveEnvironment(env: defaultEnv.env)
         selectedEnvironmentImage = defaultEnv.image
         
-        let loginViewController = factory.makeLoginScreen(service: loginService,
-                                                          environmentViewModel: defaultEnv,
+        let loginViewController = factory.makeLoginScreen(environmentViewModel: defaultEnv,
                                                              onSelectEnvironmentTapped: { [weak self] env in
                                                                 self?.showEnvironmentScreen(selectedViewModel: env,
                                                                                             delegate: envDelegate)
@@ -167,11 +155,8 @@ public final class AuthorizationRouter {
         
         let stepThirdViewController = factory.makeRegisterThreeStepScreen(user: user,
                                                                           topImage: self.selectedEnvironmentImage,
-                                                                          service: registerService,
                                                                           dataLicense: dataLicense,
                                                                           imageLicense: imageLicense,
-                                                                          dataLicenseStorage: dataLicenseStorage,
-                                                                          imageLicenseStorage: imageLicenseStorage,
                                                                           onReadPrivacyPolicy: { [weak self] _ in
             self?.showSafari(path: "/pages/privacy-policy")
         },
