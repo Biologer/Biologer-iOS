@@ -1,5 +1,5 @@
 //
-//  HelpItemManager.swift
+//  HelpItemViewModelFactory.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 19.9.21..
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class HelpItemManager {
+public final class HelpItemViewModelFactory {
     static func createHelpItems() -> [HelpItemViewModel] {
         return [HelpItemViewModel(title: "Help.title.first".localized,
                                   description: "Help.desc.first".localized,

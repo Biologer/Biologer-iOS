@@ -101,7 +101,7 @@ struct HelpScreen_Previews: PreviewProvider {
     }
     
     private class StubHelpScreenViewModel: HelpScreenLoader {
-        var items: [HelpItemViewModel] = HelpItemManager.createHelpItems()
+        var items: [HelpItemViewModel] = HelpItemViewModelFactory.createHelpItems()
         var numerOfPages: Int = 5
         var currentPageIndex: Int = 0
         func nextTapped() {}

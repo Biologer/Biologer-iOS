@@ -1,5 +1,5 @@
 //
-//  DashboardViewControllerFactory.swift
+//  SideMenuViewControllerFactory.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 26.6.21..
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-protocol DashboardViewControllerFactory {
+protocol SideMenuViewControllerFactory {
     func makeSideMenuListScreen(email: String,
                                 username: String,
                                 onItemTapped: @escaping Observer<SideMenuItem>) -> UIViewController
@@ -24,7 +24,7 @@ protocol DashboardViewControllerFactory {
                          onEnvTapped: @escaping Observer<String>) -> UIViewController
 }
 
-public final class SwiftUIDashboardViewControllerFactory: DashboardViewControllerFactory {
+public final class SwiftUIDashboardViewControllerFactory: SideMenuViewControllerFactory {
     
     func makeSideMenuListScreen(email: String,
                                 username: String,

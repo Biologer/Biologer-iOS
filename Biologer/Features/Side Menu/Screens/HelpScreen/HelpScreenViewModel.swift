@@ -15,7 +15,7 @@ public struct HelpItemViewModel: Hashable, Identifiable {
 }
 
 public final class HelpScreenViewModel: HelpScreenLoader, ObservableObject {
-    var items: [HelpItemViewModel] = HelpItemManager.createHelpItems()
+    var items: [HelpItemViewModel] = HelpItemViewModelFactory.createHelpItems()
     var numerOfPages: Int = 5
     @Published var currentPageIndex: Int = 0
     

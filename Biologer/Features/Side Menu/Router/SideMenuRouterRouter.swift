@@ -15,7 +15,7 @@ public final class SideMenuRouterRouter: NavigationRouter {
     private let mainNavigationController: UINavigationController
     private let setupRouter: SetupRouter
     private let taxonRouter: TaxonRouter
-    private let factory: DashboardViewControllerFactory
+    private let factory: SideMenuViewControllerFactory
     private let uiKitCommonViewControllerFactory: CommonViewControllerFactory
     private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
     private let environmentStorage: EnvironmentStorage
@@ -30,7 +30,7 @@ public final class SideMenuRouterRouter: NavigationRouter {
          environmentStorage: EnvironmentStorage,
          userStorage: UserStorage,
          profileService: ProfileService,
-         factory: DashboardViewControllerFactory,
+         factory: SideMenuViewControllerFactory,
          uiKitCommonViewControllerFactory: CommonViewControllerFactory,
          swiftUICommonViewControllerFactory: CommonViewControllerFactory) {
         self.navigationController = navigationController
