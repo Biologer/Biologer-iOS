@@ -37,11 +37,14 @@ public final class SetupRouter {
         self.imageLicenseStorage = imageLicenseStorage
     }
     
+    // MARK: - Public Functions
+    
     public func start() {
         showSetupScreen()
     }
     
     // MARK: - Private Functions
+    
     private func showSetupScreen() {
         let vc = factory.makeSetupScreen(onItemTapped: { [weak self] item in
             guard let self = self else { return }
@@ -57,9 +60,9 @@ public final class SetupRouter {
                                        items: CheckMarkItemMapper.getDataLicense(),
                                        presentDatePicker: nil,
                                        onItemTapped: { [weak self] item in
-                                        self?.dataLicenseStorage.saveLicense(license: item)
-                                            self?.navigationController.popViewController(animated: true)
-                                       })
+                    self?.dataLicenseStorage.saveLicense(license: item)
+                    self?.navigationController.popViewController(animated: true)
+                })
             case .imageLicense:
                 let imageLicense = self.imageLicenseStorage.getLicense() ?? CheckMarkItemMapper.getImageLicense()[0]
                 self.showLicenseScreen(navBarTitle: "ImgLicense.nav.title".localized,
@@ -67,9 +70,9 @@ public final class SetupRouter {
                                        items: CheckMarkItemMapper.getImageLicense(),
                                        presentDatePicker: nil,
                                        onItemTapped: { [weak self] item in
-                                        self?.imageLicenseStorage.saveLicense(license: item)
-                                            self?.navigationController.popViewController(animated: true)
-                                       })
+                    self?.imageLicenseStorage.saveLicense(license: item)
+                    self?.navigationController.popViewController(animated: true)
+                })
             case .downloadUpload:
                 self.showSetupDownloadAndUploadScreen()
             case .downloadAllTaxa:
@@ -80,8 +83,8 @@ public final class SetupRouter {
         })
         vc.setBiologerBackBarButtonItem(image: UIImage(named: "side_menu_icon")!,
                                         action: {
-                                            self.onSideMenuTapped?(())
-                                        })
+            self.onSideMenuTapped?(())
+        })
         vc.setBiologerTitle(text: "SideMenu.lb.setup".localized)
         self.navigationController.setViewControllers([vc], animated: false)
     }
@@ -93,9 +96,9 @@ public final class SetupRouter {
                                    onItemTapped: @escaping Observer<CheckMarkItem>) {
         
         let dataLicenseViewController = swiftUICommonFactory.makeLicenseScreen(items: items,
-                                                                  selectedItem: selectedItem,
-                                                                  delegate: presentDatePicker,
-                                                                  onItemTapped: onItemTapped)
+                                                                               selectedItem: selectedItem,
+                                                                               delegate: presentDatePicker,
+                                                                               onItemTapped: onItemTapped)
         dataLicenseViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         dataLicenseViewController.setBiologerTitle(text: navBarTitle)
         self.navigationController.pushViewController(dataLicenseViewController, animated: true)
@@ -103,21 +106,21 @@ public final class SetupRouter {
     
     private func showSetupProjectNameScreen() {
         let vc = factory.makeSetupProjectNameScreen(onCancelTapped: { _ in
-                                                        self.navigationController.dismiss(animated: true, completion: nil)
-                                                    },
+            self.navigationController.dismiss(animated: true, completion: nil)
+        },
                                                     onOkTapped: { _ in
-                                                        self.navigationController.dismiss(animated: true, completion: nil)
-                                                    })
+            self.navigationController.dismiss(animated: true, completion: nil)
+        })
         self.navigationController.present(vc, animated: true, completion: nil)
     }
     
     private func showSetupDownloadAndUploadScreen() {
         let vc = factory.makeSetupDownloadAndUploadScreen(onCancelTapped: { [weak self] _ in
-                                                            self?.navigationController.dismiss(animated: true, completion: nil)
-                                                          },
+            self?.navigationController.dismiss(animated: true, completion: nil)
+        },
                                                           onItemTapped: { [weak self] item in
-                                                            self?.navigationController.dismiss(animated: true, completion: nil)
-                                                          })
+            self?.navigationController.dismiss(animated: true, completion: nil)
+        })
         self.navigationController.present(vc, animated: true, completion: nil)
     }
     
@@ -127,7 +130,7 @@ public final class SetupRouter {
     
     // MARK: - Delete Taxon Flow
     private func showDeleteTaxonFlow() {
-
+        
         let dbTaxons = RealmManager.get(fromEntity: DBTaxon.self)
         if !dbTaxons.isEmpty {
             showTaxonDeleteScreen()
@@ -138,21 +141,21 @@ public final class SetupRouter {
     
     private func showTaxonDeleteScreen() {
         let yesOrNoVC = alertFactory.makeYesAndNoAlert(title: "Settings.lb.resetAllTaxa.yesOrNoAlert.title".localized,
-                                                onYesTapped: { [weak self] _ in
-                                                    guard let self = self else { return }
-                                                    self.deleteAllTaxonAndResetPagination()
-                                                    self.navigationController.dismiss(animated: true, completion: {
-                                                        let confirmAlertVC = self.alertFactory.makeConfirmationAlert(popUpType: .success,
-                                                                                                                     title: "Settings.lb.resetAllTaxa.confirmAlert.title".localized,
-                                                                                                                     description: "Settings.lb.resetAllTaxa.confirmAlert.description".localized,
-                                                                                                 onTapp: { [weak self] _ in
-                                                                                                    self?.navigationController.dismiss(animated: true, completion: nil)
-                                                                                                 })
-                                                        self.navigationController.present(confirmAlertVC, animated: true, completion: nil)
-                                                    })
-                                                }, onNoTapped: { [weak self] _ in
-                                                    self?.navigationController.dismiss(animated: true, completion: nil)
-                                                })
+                                                       onYesTapped: { [weak self] _ in
+            guard let self = self else { return }
+            self.deleteAllTaxonAndResetPagination()
+            self.navigationController.dismiss(animated: true, completion: {
+                let confirmAlertVC = self.alertFactory.makeConfirmationAlert(popUpType: .success,
+                                                                             title: "Settings.lb.resetAllTaxa.confirmAlert.title".localized,
+                                                                             description: "Settings.lb.resetAllTaxa.confirmAlert.description".localized,
+                                                                             onTapp: { [weak self] _ in
+                    self?.navigationController.dismiss(animated: true, completion: nil)
+                })
+                self.navigationController.present(confirmAlertVC, animated: true, completion: nil)
+            })
+        }, onNoTapped: { [weak self] _ in
+            self?.navigationController.dismiss(animated: true, completion: nil)
+        })
         self.navigationController.present(yesOrNoVC, animated: true, completion: nil)
     }
     
@@ -161,8 +164,8 @@ public final class SetupRouter {
                                                                 title: "Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.title".localized,
                                                                 description: "Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.description".localized,
                                                                 onTapp: { [weak self] _ in
-                                                                    self?.navigationController.dismiss(animated: true, completion: nil)
-                                                                })
+            self?.navigationController.dismiss(animated: true, completion: nil)
+        })
         self.navigationController.present(confirmAlertVC, animated: true, completion: nil)
     }
     

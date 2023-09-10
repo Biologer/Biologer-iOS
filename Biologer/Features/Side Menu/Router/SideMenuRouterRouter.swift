@@ -46,10 +46,6 @@ public final class SideMenuRouterRouter: NavigationRouter {
     // MARK: - Public Functions
     
     public func start() {
-        showListOfFindings()
-    }
-    
-    public func showSideMenu() {
         let sideMenuListScreen = factory.makeSideMenuListScreen(email: userStorage.getUser()?.email ?? "",
                                                                 username: userStorage.getUser()?.fullName ?? "",
                                                                 onItemTapped: { item in
@@ -98,8 +94,8 @@ public final class SideMenuRouterRouter: NavigationRouter {
         let vc = factory.makeAboutScreen(currentEnv: currentEnv,
                                          version: appVersion,
                                          onEnvTapped: { [weak self] urlString in
-                                            self?.showSafari(path: urlString)
-                                         })
+            self?.showSafari(path: urlString)
+        })
         addSideMenuIcons(vc: vc)
         vc.setBiologerTitle(text: "SideMenu.lb.aboutUs".localized)
         self.navigationController.setViewControllers([vc], animated: false)
@@ -166,7 +162,7 @@ public final class SideMenuRouterRouter: NavigationRouter {
     }
     
     @objc private func sideMenuAction() {
-        self.showSideMenu()
+        self.start()
     }
     private func showSafari(path: String) {
         if let url = URL(string: path) {

@@ -147,7 +147,7 @@ public final class AppNavigationRouter: NavigationRouter {
         }
         
         setupRouter.onSideMenuTapped = { [weak self] _ in
-            self?.sideMenuRouter.showSideMenu()
+            self?.sideMenuRouter.start()
         }
         
         return setupRouter
@@ -257,7 +257,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private func showSideMenuRouter() {
         taxonRouter.start()
         taxonRouter.onSideMenuTapped = { [weak self] _ in
-            self?.sideMenuRouter.showSideMenu()
+            self?.sideMenuRouter.start()
         }
         UINavigationBar.appearance().barTintColor = .biologerGreenColor
         self.sideMenuNavigationController.modalPresentationStyle = .overFullScreen

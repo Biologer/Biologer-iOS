@@ -1181,8 +1181,8 @@
 		937EBA062AADE27300EB83F9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				937EBA0E2AADE3F900EB83F9 /* Setup Download And Upload Screen */,
-				937EBA0D2AADE3DD00EB83F9 /* Setup Project Name Screen */,
+				937EBA0E2AADE3F900EB83F9 /* SetupDownloadAndUploadScreen */,
+				937EBA0D2AADE3DD00EB83F9 /* SetupProjectNameScreen */,
 				93731E3B288E7F6100EB7C71 /* DeleteAccountScreen */,
 				93334EC326789B920094A483 /* SideMenuScreen */,
 				93C2D1F826A5EAE400123216 /* HelpScreen */,
@@ -1236,22 +1236,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		937EBA0D2AADE3DD00EB83F9 /* Setup Project Name Screen */ = {
+		937EBA0D2AADE3DD00EB83F9 /* SetupProjectNameScreen */ = {
 			isa = PBXGroup;
 			children = (
 				935AF66926F66FB000C56D46 /* SetupProjectNameScreenViewModel.swift */,
 				935AF66726F66F6C00C56D46 /* SetupProjectNameScreen.swift */,
 			);
-			path = "Setup Project Name Screen";
+			path = SetupProjectNameScreen;
 			sourceTree = "<group>";
 		};
-		937EBA0E2AADE3F900EB83F9 /* Setup Download And Upload Screen */ = {
+		937EBA0E2AADE3F900EB83F9 /* SetupDownloadAndUploadScreen */ = {
 			isa = PBXGroup;
 			children = (
 				935AF66B26F6846D00C56D46 /* SetupDownloadAndUploadScreenViewModel.swift */,
 				935AF66D26F6859D00C56D46 /* SetupDownloadAndUploadScreen.swift */,
 			);
-			path = "Setup Download And Upload Screen";
+			path = SetupDownloadAndUploadScreen;
 			sourceTree = "<group>";
 		};
 		937EBA0F2AADE45100EB83F9 /* ViewModels */ = {
