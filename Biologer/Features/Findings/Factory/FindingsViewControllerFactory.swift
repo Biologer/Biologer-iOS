@@ -114,7 +114,7 @@ public final class SwiftUIFindingsViewControllerFactory: FindingsViewControllerF
         let viewModel = TaxonMapScreenViewModel(locationManager: locationManager,
                                                 taxonLocation: taxonLocation,
                                                 onMapTypeTapped: onMapTypeTapped)
-        let controller = TaxonMapScreenViewController(viewModel: viewModel, getAltitudeService: getAltitudeService)
+        let controller = FindingMapScreenViewController(viewModel: viewModel, getAltitudeService: getAltitudeService)
         return controller
     }
     

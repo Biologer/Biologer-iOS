@@ -195,7 +195,7 @@ public final class FindingsRouter: NSObject {
             self?.showMapTypeScreen(delegate: mapTypeDelegate)
         })
         self.location.stopUpdatingLocation()
-        let viewController = vc as? TaxonMapScreenViewController
+        let viewController = vc as? FindingMapScreenViewController
         viewController?.viewModel.delegate = delegate
         mapTypeDelegate = viewController?.viewModel
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))

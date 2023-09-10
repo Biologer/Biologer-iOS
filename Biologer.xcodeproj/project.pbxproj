@@ -140,7 +140,7 @@
 		937EB9F72AAD1A7400EB83F9 /* MaterialDesignTextFieldViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EB9F62AAD1A7400EB83F9 /* MaterialDesignTextFieldViewModelProtocol.swift */; };
 		937EBA012AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EBA002AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift */; };
 		937F523B270EEAD400239963 /* FindingMapScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F5239270EEAD400239963 /* FindingMapScreenViewController.swift */; };
-		937F523C270EEAD400239963 /* TaxonMapScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */; };
+		937F523C270EEAD400239963 /* FindingMapScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937F523A270EEAD400239963 /* FindingMapScreenViewController.xib */; };
 		937F523F270F926E00239963 /* DeleteFindingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */; };
 		937F5241270F96D700239963 /* DeleteFindingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F5240270F96D700239963 /* DeleteFindingsScreen.swift */; };
 		937F828026F7A2B200593786 /* SideMenuMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F827F26F7A2B200593786 /* SideMenuMapper.swift */; };
@@ -421,7 +421,7 @@
 		937EB9F62AAD1A7400EB83F9 /* MaterialDesignTextFieldViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialDesignTextFieldViewModelProtocol.swift; sourceTree = "<group>"; };
 		937EBA002AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueHTTPClientDecorator.swift; sourceTree = "<group>"; };
 		937F5239270EEAD400239963 /* FindingMapScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingMapScreenViewController.swift; sourceTree = "<group>"; };
-		937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaxonMapScreenViewController.xib; sourceTree = "<group>"; };
+		937F523A270EEAD400239963 /* FindingMapScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FindingMapScreenViewController.xib; sourceTree = "<group>"; };
 		937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFindingsScreenViewModel.swift; sourceTree = "<group>"; };
 		937F5240270F96D700239963 /* DeleteFindingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFindingsScreen.swift; sourceTree = "<group>"; };
 		937F827F26F7A2B200593786 /* SideMenuMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuMapper.swift; sourceTree = "<group>"; };
@@ -1539,7 +1539,7 @@
 				9314DA35270B3EAF007896F9 /* GoogleMapsView.swift */,
 				93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */,
 				937F5239270EEAD400239963 /* FindingMapScreenViewController.swift */,
-				937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */,
+				937F523A270EEAD400239963 /* FindingMapScreenViewController.xib */,
 			);
 			path = FindingMapScreen;
 			sourceTree = "<group>";
@@ -1759,7 +1759,7 @@
 				93387CE32767A66C006789D2 /* lottie_warning.json in Resources */,
 				931426F0262B53B000542EFC /* LaunchScreen.storyboard in Resources */,
 				93565D3026F736B900A588E6 /* Localizable.strings in Resources */,
-				937F523C270EEAD400239963 /* TaxonMapScreenViewController.xib in Resources */,
+				937F523C270EEAD400239963 /* FindingMapScreenViewController.xib in Resources */,
 				9314273C262B684B00542EFC /* Color.xcassets in Resources */,
 				931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */,
 				93387CE52767A89C006789D2 /* lottie_question.json in Resources */,

@@ -1,5 +1,5 @@
 //
-//  TaxonMapScreenViewController.swift
+//  FindingMapScreenViewController.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 7.10.21..
@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMaps
 
-class TaxonMapScreenViewController: UIViewController {
+class FindingMapScreenViewController: UIViewController {
     
     @IBOutlet weak var mapViewContent: UIView!
     @IBOutlet weak var currentLocationButton: UIButton!
@@ -145,7 +145,7 @@ class TaxonMapScreenViewController: UIViewController {
     }
 }
 
-extension TaxonMapScreenViewController: GMSMapViewDelegate {
+extension FindingMapScreenViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         updateCameraPosition(newLocation: coordinate)
