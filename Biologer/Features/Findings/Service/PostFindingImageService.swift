@@ -7,10 +7,6 @@
 
 import UIKit
 
-public struct FindingImageResponse: Codable {
-    let file: String?
-}
-
 public protocol PostFindingImageService {
     typealias Result = Swift.Result<FindingImageResponse, APIError>
     func uploadFindingImages(taxonImages: TaxonImage,

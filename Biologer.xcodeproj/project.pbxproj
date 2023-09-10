@@ -229,6 +229,10 @@
 		93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */; };
 		93EB965F270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */; };
 		93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */; };
+		93FB999A2AAE535000E04C16 /* FindingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB99992AAE535000E04C16 /* FindingItemView.swift */; };
+		93FB999E2AAE549800E04C16 /* TaxonDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB999D2AAE549800E04C16 /* TaxonDataResponse.swift */; };
+		93FB99A02AAE54EF00E04C16 /* FindingRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB999F2AAE54EF00E04C16 /* FindingRequestBody.swift */; };
+		93FB99A22AAE551600E04C16 /* FindingImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB99A12AAE551600E04C16 /* FindingImageResponse.swift */; };
 		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
 		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
 		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
@@ -499,6 +503,10 @@
 		93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTaxonsPaginationInfoStorage.swift; sourceTree = "<group>"; };
 		93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreenViewModel.swift; sourceTree = "<group>"; };
 		93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreen.swift; sourceTree = "<group>"; };
+		93FB99992AAE535000E04C16 /* FindingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingItemView.swift; sourceTree = "<group>"; };
+		93FB999D2AAE549800E04C16 /* TaxonDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonDataResponse.swift; sourceTree = "<group>"; };
+		93FB999F2AAE54EF00E04C16 /* FindingRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingRequestBody.swift; sourceTree = "<group>"; };
+		93FB99A12AAE551600E04C16 /* FindingImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingImageResponse.swift; sourceTree = "<group>"; };
 		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -703,25 +711,6 @@
 			path = Uitls;
 			sourceTree = "<group>";
 		};
-		9314DA2327075270007896F9 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				9314DA1D27074303007896F9 /* TaxonSearchScreen.swift */,
-				9314DA2127074E4E007896F9 /* TaxonSearchBarView.swift */,
-				9314DA242707528E007896F9 /* TaxonSearchItemView.swift */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
-		9314DA28270758E5007896F9 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				9314DA1B27073CF3007896F9 /* TaxonSearchScreenViewModel.swift */,
-				9314DA29270758F2007896F9 /* TaxonViewModel.swift */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
 		931857EA273198140051AA45 /* Taxon */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,9 +735,9 @@
 		931D3FE22748182B00352C8E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				93FB998C2AAE4E2700E04C16 /* BlokingProgressViewController */,
+				93FB998B2AAE4E1A00E04C16 /* BiologerProgressBarScreen */,
 				933EF7F526EFBAD800F1EBC4 /* PopUpConfirmScreen.swift */,
-				93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */,
-				93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */,
 				93CC6592269C564F00949534 /* CircularProgressViewController.swift */,
 				931D3FE62748193D00352C8E /* PopUpYesAndNoScreen.swift */,
 			);
@@ -789,6 +778,7 @@
 			isa = PBXGroup;
 			children = (
 				931D3FE927481D0600352C8E /* UploadFindings.swift */,
+				93E3CBEF2737DAEE0090FF93 /* TaxonServiceCoordinator.swift */,
 			);
 			path = "Finding Helper";
 			sourceTree = "<group>";
@@ -810,7 +800,7 @@
 			path = "Download Taxons";
 			sourceTree = "<group>";
 		};
-		93334EA72677DC2D0094A483 /* Dashboard */ = {
+		93334EA72677DC2D0094A483 /* Findings */ = {
 			isa = PBXGroup;
 			children = (
 				931D3FE827481CCE00352C8E /* Finding Helper */,
@@ -819,49 +809,36 @@
 				9300757926877C9F005A4DE0 /* ViewControllerFactory */,
 				9300757426877C5B005A4DE0 /* Router */,
 				93334EB32677E1520094A483 /* Entity */,
-				93334EB22677E1340094A483 /* ViewModel */,
-				93334EAA2677DCA70094A483 /* UI */,
+				93334EC226789B660094A483 /* Screens */,
 			);
-			path = Dashboard;
-			sourceTree = "<group>";
-		};
-		93334EAA2677DCA70094A483 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				93334EC226789B660094A483 /* TaxonScreens */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		93334EB22677E1340094A483 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				9389463A26F614CD0000D850 /* TaxonScreens */,
-			);
-			path = ViewModel;
+			path = Findings;
 			sourceTree = "<group>";
 		};
 		93334EB32677E1520094A483 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				93334EB42677E17B0094A483 /* Finding.swift */,
-				9373F81B26F9136B00C18F91 /* UserResponse.swift */,
-				93842AF526FA4465008ECA80 /* ObserverResponse.swift */,
 				93E3CBF12737EF240090FF93 /* TaxonsPaginationInfo.swift */,
-				9320E03F275806C4006812E5 /* GetAlitutdeByLocationResponse.swift */,
-				9320E04127580719006812E5 /* GetAltitudeByLocationBody.swift */,
+				938D9347270481A40068E27C /* TextFields.swift */,
+				938D935C27060E6B0068E27C /* TaxonLocation.swift */,
+				9314DA37270B3F11007896F9 /* LocationManager.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		93334EC226789B660094A483 /* TaxonScreens */ = {
+		93334EC226789B660094A483 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				93E3CBE92736E7E10090FF93 /* TaxonPogressView */,
 				93565D2626F7278600A588E6 /* ListOfFindings */,
-				93565D2726F7279400A588E6 /* NewTaxon */,
+				93FB998D2AAE4E9000E04C16 /* NewFindingScreen */,
+				93FB99892AAE4DEA00E04C16 /* DeleteFindingsScreen */,
+				93FB99912AAE4F4900E04C16 /* FindingMapScreen */,
+				93FB99902AAE4F1D00E04C16 /* ImagesPreviewScreen */,
+				93FB998F2AAE4F0700E04C16 /* NestingAtlasCodeScreen */,
+				93FB998E2AAE4EEE00E04C16 /* NewTaxonDevStageScreen */,
+				93FB99922AAE4F7900E04C16 /* TaxonSearchScreen */,
 			);
-			path = TaxonScreens;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		93334EC326789B920094A483 /* SideMenuScreen */ = {
@@ -887,41 +864,11 @@
 		93565D2626F7278600A588E6 /* ListOfFindings */ = {
 			isa = PBXGroup;
 			children = (
+				93FB998A2AAE4DF500E04C16 /* Views */,
 				93334EAE2677DE720094A483 /* ListOfFindingsScreen.swift */,
-				93334EB02677E1220094A483 /* FindingsListView.swift */,
-				93334EB62677E4E40094A483 /* NoItemsView.swift */,
-				937F5240270F96D700239963 /* DeleteFindingsScreen.swift */,
-			);
-			path = ListOfFindings;
-			sourceTree = "<group>";
-		};
-		93565D2726F7279400A588E6 /* NewTaxon */ = {
-			isa = PBXGroup;
-			children = (
-				938D935427060DAA0068E27C /* Screens */,
-				938D934D2705E85A0068E27C /* Sections */,
-				938D934C2705E8330068E27C /* Views */,
-			);
-			path = NewTaxon;
-			sourceTree = "<group>";
-		};
-		93565D2826F727A400A588E6 /* ListOfFindings */ = {
-			isa = PBXGroup;
-			children = (
 				93334EB82677E8590094A483 /* ListOfFindingsScreenViewModel.swift */,
-				937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */,
 			);
 			path = ListOfFindings;
-			sourceTree = "<group>";
-		};
-		93565D2926F727B000A588E6 /* NewTaxon */ = {
-			isa = PBXGroup;
-			children = (
-				938D935727060DE60068E27C /* Screen */,
-				938D935A27060E080068E27C /* Sections */,
-				938D935B27060E300068E27C /* Entity */,
-			);
-			path = NewTaxon;
 			sourceTree = "<group>";
 		};
 		936219F1271C428D00BAEF8F /* Observation */ = {
@@ -954,13 +901,13 @@
 		9373F81826F9131000C18F91 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				93FB999C2AAE543F00E04C16 /* Codable */,
+				9320E03D275806A5006812E5 /* GetAltitudeService.swift */,
 				9373F81926F9133200C18F91 /* ProfileService.swift */,
 				93842AF326FA4449008ECA80 /* ObservationService.swift */,
 				9314DA26270758B0007896F9 /* TaxonService.swift */,
-				93E3CBEF2737DAEE0090FF93 /* TaxonServiceCoordinator.swift */,
 				93171D85273BDBE80038B2B2 /* PostFindingService.swift */,
 				93171D87273BDBFD0038B2B2 /* PostFindingImageService.swift */,
-				9320E03D275806A5006812E5 /* GetAltitudeService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1083,7 +1030,7 @@
 			children = (
 				93142716262B57C300542EFC /* Authorization */,
 				937EBA022AADE17300EB83F9 /* Side Menu */,
-				93334EA72677DC2D0094A483 /* Dashboard */,
+				93334EA72677DC2D0094A483 /* Findings */,
 				9320E02E2751991D006812E5 /* Download Taxons */,
 			);
 			path = Features;
@@ -1272,100 +1219,10 @@
 			path = Mappers;
 			sourceTree = "<group>";
 		};
-		937F523D270F0CD600239963 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */,
-				937F5239270EEAD400239963 /* TaxonMapScreenViewController.swift */,
-				937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
-		9389463A26F614CD0000D850 /* TaxonScreens */ = {
-			isa = PBXGroup;
-			children = (
-				93E3CBEC2736EB870090FF93 /* TaxonPogressView */,
-				93565D2826F727A400A588E6 /* ListOfFindings */,
-				93565D2926F727B000A588E6 /* NewTaxon */,
-			);
-			path = TaxonScreens;
-			sourceTree = "<group>";
-		};
-		938D934C2705E8330068E27C /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				938D93642706520F0068E27C /* Images */,
-				938D934E2705E8830068E27C /* FoundDeadView.swift */,
-				938D93502705E8F70068E27C /* NumberOfIndividualsView.swift */,
-				938D93522705EB190068E27C /* ObservationsView.swift */,
-				9314DA1F270749DB007896F9 /* SearchTextField.swift */,
-				9314DA35270B3EAF007896F9 /* GoogleMapsView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		938D934D2705E85A0068E27C /* Sections */ = {
-			isa = PBXGroup;
-			children = (
-				93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */,
-				93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */,
-				936616D2270393DC00F02A83 /* NewTaxonImageView.swift */,
-				938D934327047FB90068E27C /* NewTaxonInfoView.swift */,
-			);
-			path = Sections;
-			sourceTree = "<group>";
-		};
-		938D935427060DAA0068E27C /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				937F523D270F0CD600239963 /* Map */,
-				9314DA2327075270007896F9 /* Search */,
-				93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */,
-				938D9360270632400068E27C /* ImagesPreviewScreen.swift */,
-				9314DA2D270A4C10007896F9 /* NewTaxonDevStageScreen.swift */,
-				9314DA33270AF8FD007896F9 /* NestingAtlasCodeScreen.swift */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		938D935727060DE60068E27C /* Screen */ = {
-			isa = PBXGroup;
-			children = (
-				9314DA28270758E5007896F9 /* Search */,
-				93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */,
-				938D935827060DF80068E27C /* TaxonMapScreenViewModel.swift */,
-				938D935E270631960068E27C /* ImagesPreviewScreenViewModel.swift */,
-				9314DA2B270A4A69007896F9 /* NewTaxonDevStageScreenViewModel.swift */,
-				9314DA2F270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift */,
-				93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */,
-			);
-			path = Screen;
-			sourceTree = "<group>";
-		};
-		938D935A27060E080068E27C /* Sections */ = {
-			isa = PBXGroup;
-			children = (
-				938D934527047FCF0068E27C /* NewTaxonInfoViewModel.swift */,
-				936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */,
-				93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */,
-			);
-			path = Sections;
-			sourceTree = "<group>";
-		};
-		938D935B27060E300068E27C /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				938D9347270481A40068E27C /* TextFields.swift */,
-				938D935C27060E6B0068E27C /* TaxonLocation.swift */,
-				9314DA37270B3F11007896F9 /* LocationManager.swift */,
-			);
-			path = Entity;
-			sourceTree = "<group>";
-		};
 		938D93642706520F0068E27C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				936616D2270393DC00F02A83 /* NewTaxonImageView.swift */,
 				938D9362270651230068E27C /* TaxonImageView.swift */,
 				938D93652706522C0068E27C /* NoImagesAddedView.swift */,
 				938D9367270652790068E27C /* AddImagesView.swift */,
@@ -1584,20 +1441,175 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		93E3CBE92736E7E10090FF93 /* TaxonPogressView */ = {
+		93FB99892AAE4DEA00E04C16 /* DeleteFindingsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */,
+				937F5240270F96D700239963 /* DeleteFindingsScreen.swift */,
+				937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */,
 			);
-			path = TaxonPogressView;
+			path = DeleteFindingsScreen;
 			sourceTree = "<group>";
 		};
-		93E3CBEC2736EB870090FF93 /* TaxonPogressView */ = {
+		93FB998A2AAE4DF500E04C16 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				93334EB02677E1220094A483 /* FindingsListView.swift */,
+				93FB99992AAE535000E04C16 /* FindingItemView.swift */,
+				93334EB62677E4E40094A483 /* NoItemsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		93FB998B2AAE4E1A00E04C16 /* BiologerProgressBarScreen */ = {
 			isa = PBXGroup;
 			children = (
 				93E3CBED2736EB980090FF93 /* BiologerProgressBarScreenViewModel.swift */,
+				93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */,
 			);
-			path = TaxonPogressView;
+			path = BiologerProgressBarScreen;
+			sourceTree = "<group>";
+		};
+		93FB998C2AAE4E2700E04C16 /* BlokingProgressViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */,
+				93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */,
+			);
+			path = BlokingProgressViewController;
+			sourceTree = "<group>";
+		};
+		93FB998D2AAE4E9000E04C16 /* NewFindingScreen */ = {
+			isa = PBXGroup;
+			children = (
+				93FB99972AAE517200E04C16 /* Views */,
+				93FB99962AAE500400E04C16 /* ViewModels */,
+				93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */,
+			);
+			path = NewFindingScreen;
+			sourceTree = "<group>";
+		};
+		93FB998E2AAE4EEE00E04C16 /* NewTaxonDevStageScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9314DA2D270A4C10007896F9 /* NewTaxonDevStageScreen.swift */,
+				9314DA2B270A4A69007896F9 /* NewTaxonDevStageScreenViewModel.swift */,
+			);
+			path = NewTaxonDevStageScreen;
+			sourceTree = "<group>";
+		};
+		93FB998F2AAE4F0700E04C16 /* NestingAtlasCodeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9314DA33270AF8FD007896F9 /* NestingAtlasCodeScreen.swift */,
+				9314DA2F270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift */,
+			);
+			path = NestingAtlasCodeScreen;
+			sourceTree = "<group>";
+		};
+		93FB99902AAE4F1D00E04C16 /* ImagesPreviewScreen */ = {
+			isa = PBXGroup;
+			children = (
+				938D9360270632400068E27C /* ImagesPreviewScreen.swift */,
+				938D935E270631960068E27C /* ImagesPreviewScreenViewModel.swift */,
+			);
+			path = ImagesPreviewScreen;
+			sourceTree = "<group>";
+		};
+		93FB99912AAE4F4900E04C16 /* FindingMapScreen */ = {
+			isa = PBXGroup;
+			children = (
+				93FB99932AAE4FA500E04C16 /* ViewModels */,
+				9314DA35270B3EAF007896F9 /* GoogleMapsView.swift */,
+				93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */,
+				937F5239270EEAD400239963 /* TaxonMapScreenViewController.swift */,
+				937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */,
+			);
+			path = FindingMapScreen;
+			sourceTree = "<group>";
+		};
+		93FB99922AAE4F7900E04C16 /* TaxonSearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				93FB99952AAE4FC200E04C16 /* ViewModels */,
+				93FB99942AAE4FB500E04C16 /* Views */,
+				9314DA1D27074303007896F9 /* TaxonSearchScreen.swift */,
+			);
+			path = TaxonSearchScreen;
+			sourceTree = "<group>";
+		};
+		93FB99932AAE4FA500E04C16 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				938D935827060DF80068E27C /* TaxonMapScreenViewModel.swift */,
+				93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		93FB99942AAE4FB500E04C16 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9314DA1F270749DB007896F9 /* SearchTextField.swift */,
+				9314DA2127074E4E007896F9 /* TaxonSearchBarView.swift */,
+				9314DA242707528E007896F9 /* TaxonSearchItemView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		93FB99952AAE4FC200E04C16 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9314DA1B27073CF3007896F9 /* TaxonSearchScreenViewModel.swift */,
+				9314DA29270758F2007896F9 /* TaxonViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		93FB99962AAE500400E04C16 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */,
+				938D934527047FCF0068E27C /* NewTaxonInfoViewModel.swift */,
+				936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */,
+				93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		93FB99972AAE517200E04C16 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				938D93642706520F0068E27C /* Images */,
+				93FB99982AAE52C800E04C16 /* NewTaxonInfoView */,
+				93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */,
+				93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		93FB99982AAE52C800E04C16 /* NewTaxonInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				938D93522705EB190068E27C /* ObservationsView.swift */,
+				938D934E2705E8830068E27C /* FoundDeadView.swift */,
+				938D93502705E8F70068E27C /* NumberOfIndividualsView.swift */,
+				938D934327047FB90068E27C /* NewTaxonInfoView.swift */,
+			);
+			path = NewTaxonInfoView;
+			sourceTree = "<group>";
+		};
+		93FB999C2AAE543F00E04C16 /* Codable */ = {
+			isa = PBXGroup;
+			children = (
+				9320E04127580719006812E5 /* GetAltitudeByLocationBody.swift */,
+				9373F81B26F9136B00C18F91 /* UserResponse.swift */,
+				9320E03F275806C4006812E5 /* GetAlitutdeByLocationResponse.swift */,
+				93842AF526FA4465008ECA80 /* ObserverResponse.swift */,
+				93FB999D2AAE549800E04C16 /* TaxonDataResponse.swift */,
+				93FB999F2AAE54EF00E04C16 /* FindingRequestBody.swift */,
+				93FB99A12AAE551600E04C16 /* FindingImageResponse.swift */,
+			);
+			path = Codable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2013,6 +2025,7 @@
 				938D935927060DF80068E27C /* TaxonMapScreenViewModel.swift in Sources */,
 				93334EC526789DB20094A483 /* SideMenuListScreenViewModel.swift in Sources */,
 				9373F82626F926CD00C18F91 /* User.swift in Sources */,
+				93FB99A02AAE54EF00E04C16 /* FindingRequestBody.swift in Sources */,
 				9389464326F61BBC0000D850 /* SetupSectionViewModel.swift in Sources */,
 				9309AB172744324300825246 /* Date+Extensions.swift in Sources */,
 				938D936A270653D10068E27C /* ImageHorizontalView.swift in Sources */,
@@ -2041,6 +2054,7 @@
 				93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */,
 				9320E04227580719006812E5 /* GetAltitudeByLocationBody.swift in Sources */,
 				93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */,
+				93FB999A2AAE535000E04C16 /* FindingItemView.swift in Sources */,
 				9314DA2A270758F2007896F9 /* TaxonViewModel.swift in Sources */,
 				93390DAD2702FF2300DD68CE /* NewTaxonLocationView.swift in Sources */,
 				935AF66C26F6846D00C56D46 /* SetupDownloadAndUploadScreenViewModel.swift in Sources */,
@@ -2054,6 +2068,7 @@
 				935AF67226F6875000C56D46 /* RadioAndTitleView.swift in Sources */,
 				93381DAB2762A0130015BD0D /* BiologerNavigationViewController.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
+				93FB99A22AAE551600E04C16 /* FindingImageResponse.swift in Sources */,
 				938D9348270481A40068E27C /* TextFields.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
 				93171D86273BDBE80038B2B2 /* PostFindingService.swift in Sources */,
@@ -2072,6 +2087,7 @@
 				93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */,
 				937EBA012AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift in Sources */,
 				936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */,
+				93FB999E2AAE549800E04C16 /* TaxonDataResponse.swift in Sources */,
 				9300757826877C9A005A4DE0 /* SideMenuViewControllerFactory.swift in Sources */,
 				93DF14192692228900A7A977 /* URLSessionHTTPClient.swift in Sources */,
 				93390DAB270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift in Sources */,
