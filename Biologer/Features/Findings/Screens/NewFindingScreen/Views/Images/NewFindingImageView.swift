@@ -1,5 +1,5 @@
 //
-//  NewTaxonImageView.swift
+//  NewFindingImageView.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 28.9.21..
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct NewTaxonImageView: View {
+struct NewFindingImageView: View {
     
-    @ObservedObject var viewModel: NewTaxonImageViewModel
+    @ObservedObject var viewModel: NewFindingImageViewModel
     
     let columns = [
         GridItem(.adaptive(minimum: 40))
@@ -57,7 +57,7 @@ struct NewTaxonImageView: View {
 
 struct NewTaxonImageView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(image: UIImage(named: "intro4")!), TaxonImage(image: UIImage(named: "img_placeholder_icon")!), TaxonImage(image: UIImage(named: "intro4")!), TaxonImage(image: UIImage(named: "img_placeholder_icon")!), TaxonImage(image: UIImage(named: "intro4")!)])
-        NewTaxonImageView(viewModel: viewModel)
+        let viewModel = NewFindingImageViewModel(choosenImages: FindingImageFactory.getModels())
+        NewFindingImageView(viewModel: viewModel)
     }
 }

@@ -69,7 +69,7 @@ public final class UploadFindings {
     }
     
     // MARK: - Private Functions
-    private func uploadImagesAndGetImagesBody(taxonImages: [TaxonImage],
+    private func uploadImagesAndGetImagesBody(taxonImages: [FindingImage],
                                               onError: @escaping Observer<APIError>,
                                               onSuccess: @escaping Observer<[FindingPhotoRequestBody]>) {
         guard !taxonImages.isEmpty else {
@@ -99,7 +99,7 @@ public final class UploadFindings {
     }
     
     
-    private func upload(taxonImage: TaxonImage,
+    private func upload(taxonImage: FindingImage,
                         onSuccess: @escaping Observer<String>,
                         onError: @escaping Observer<APIError>) {
         uploadImageService.uploadFindingImages(taxonImages: taxonImage) {  result in

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewTaxonLocationView: View {
     
-    @ObservedObject var viewModel: NewTaxonLocationViewModel
+    @ObservedObject var viewModel: NewFindingLocationViewModel
     private let addLocationButtonWidth: CGFloat = 40
     private let addLocationButtoneHeight: CGFloat = 50
     
@@ -99,8 +99,8 @@ struct NewTaxonLocationView: View {
 struct NewTaxonLocationView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = NewTaxonLocationViewModel(location: LocationManager(),
-                                                  taxonLocation: TaxonLocation(latitude: 123.21, longitute: 123.123, accuracy: 12.2, altitude: 434.3))
+        let viewModel = NewFindingLocationViewModel(location: LocationManager(),
+                                                  taxonLocation: FindingLocation(latitude: 123.21, longitute: 123.123, accuracy: 12.2, altitude: 434.3))
 
         NewTaxonLocationView(viewModel: viewModel)
     }

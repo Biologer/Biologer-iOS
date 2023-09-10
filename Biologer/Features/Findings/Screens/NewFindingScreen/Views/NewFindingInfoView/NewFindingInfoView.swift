@@ -1,5 +1,5 @@
 //
-//  NewTaxonInfoView.swift
+//  NewFindingInfoView.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 29.9.21..
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct NewTaxonInfoView: View {
+struct NewFindingInfoView: View {
     
-    @ObservedObject var viewModel: NewTaxonInfoViewModel
+    @ObservedObject var viewModel: NewFindingInfoViewModel
     
     var body: some View {
         VStack {
@@ -113,9 +113,9 @@ struct NewTaxonInfoView: View {
 struct NewTaxonInfoView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = NewTaxonInfoViewModel(observations: [Observation(id: 1, name: "Call"),
+        let viewModel = NewFindingInfoViewModel(observations: [Observation(id: 1, name: "Call"),
                                                              Observation(id: 2, name: "Exuviae")], settingsStorage: UserDefaultsSettingsStorage())
         
-        NewTaxonInfoView(viewModel: viewModel)
+        NewFindingInfoView(viewModel: viewModel)
     }
 }

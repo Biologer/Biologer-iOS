@@ -48,7 +48,7 @@ struct NewTaxonSectionView<Content: View>: View {
 struct NewTaxonSectionView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = NewTaxonLocationViewModel(location: LocationManager())
+        let viewModel = NewFindingLocationViewModel(location: LocationManager())
         
         let view = NewTaxonLocationView(viewModel: viewModel)
         

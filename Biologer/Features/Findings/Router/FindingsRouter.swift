@@ -23,7 +23,7 @@ public final class FindingsRouter: NSObject {
     private var onLoadingDone: (() -> Void)?
     public var onSideMenuTapped: Observer<Void>?
     
-    private var newTaxonScreenViewModel: NewTaxonScreenViewModel?
+    private var newTaxonScreenViewModel: NewFindingScreenViewModel?
     private var imageCustomPickerDelegate: ImageCustomPickerDelegate?
     private var listOfFindingsViewController: UIViewController?
     
@@ -171,7 +171,7 @@ public final class FindingsRouter: NSObject {
                                        title: "API.lb.error".localized,
                                        description: errorText)
         })
-        let viewController = vc as? UIHostingController<NewTaxonScreen>
+        let viewController = vc as? UIHostingController<NewFindingScreen>
         newTaxonScreenViewModel = viewController?.rootView.viewModel
         imageCustomPickerDelegate = viewController?.rootView.viewModel.findingViewModel.imageViewModel
         mapDelegate = viewController?.rootView.viewModel.findingViewModel.locationViewModel
@@ -187,7 +187,7 @@ public final class FindingsRouter: NSObject {
     }
     
     private func showTaxonMapScreen(delegate: TaxonMapScreenViewModelDelegate?,
-                                    taxonLocation: TaxonLocation?) {
+                                    taxonLocation: FindingLocation?) {
         var mapTypeDelegate: MapTypeScreenViewModelDelegate?
         let vc = factory.makeFindingMapScreen(locationManager: location,
                                               taxonLocation: taxonLocation,
@@ -203,7 +203,7 @@ public final class FindingsRouter: NSObject {
         self.navigationController.pushViewController(vc, animated: true)
     }
     
-    private func showImagesPreviewScreen(images: [TaxonImage], selectedImageIndex: Int) {
+    private func showImagesPreviewScreen(images: [FindingImage], selectedImageIndex: Int) {
         let vc = factory.makeImagesPreivewScreen(images: images,
                                                  selectionIndex: selectedImageIndex)
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
@@ -338,12 +338,12 @@ public final class FindingsRouter: NSObject {
     }
     
     private func makeDefaultFidingViewModel() -> FindingViewModel {
-        let locationViewModel = NewTaxonLocationViewModel(location: location)
-        let imageViewModel = NewTaxonImageViewModel(choosenImages: [])
+        let locationViewModel = NewFindingLocationViewModel(location: location)
+        let imageViewModel = NewFindingImageViewModel(choosenImages: [])
         let dbObservations = RealmManager.get(fromEntity: DBObservation.self)
         var observations = [Observation]()
         dbObservations.forEach({ observations.append(Observation(id: $0.id, name: $0.translation.first!.name))})
-        let taxonInfoViewModel = NewTaxonInfoViewModel(observations: observations,
+        let taxonInfoViewModel = NewFindingInfoViewModel(observations: observations,
                                                        settingsStorage: settingsStorage)
         let findingViewModel = FindingViewModel(findingMode: .create,
                                                 locationViewModel: locationViewModel,
@@ -502,7 +502,7 @@ extension FindingsRouter: UINavigationControllerDelegate, UIImagePickerControlle
         }
         print("Image name: \(imageName)")
         
-        imageCustomPickerDelegate?.updateImage(taxonImage: TaxonImage(image: choosenImage, imageUrl: imageName))
+        imageCustomPickerDelegate?.updateImage(taxonImage: FindingImage(image: choosenImage, imageUrl: imageName))
     }
     
     private func createImageNameWithDate() -> String {

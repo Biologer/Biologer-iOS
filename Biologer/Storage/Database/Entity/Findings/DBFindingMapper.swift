@@ -80,21 +80,21 @@ public final class DBFindingMapper {
                                  location: LocationManager,
                                  settingsStorage: SettingsStorage) -> FindingViewModel {
         
-        let taxonLocation = TaxonLocation(latitude: dbFinding.location?.latitude ?? 0.0,
+        let taxonLocation = FindingLocation(latitude: dbFinding.location?.latitude ?? 0.0,
                                           longitute: dbFinding.location?.longitude ?? 0.0,
                                           accuracy: dbFinding.location?.accuracy ?? 0.0,
                                           altitude: dbFinding.location?.altitude ?? 0.0)
-        let locationViewModel = NewTaxonLocationViewModel(location: location,
+        let locationViewModel = NewFindingLocationViewModel(location: location,
                                                           taxonLocation: taxonLocation)
         
-        var taxonImages = [TaxonImage]()
+        var taxonImages = [FindingImage]()
          dbFinding.images.forEach({
             if let image = UIImage(data: $0.image) {
-                taxonImages.append(TaxonImage(image: image))
+                taxonImages.append(FindingImage(image: image))
             }
          })
          
-        let imageViewModel = NewTaxonImageViewModel(choosenImages: taxonImages)
+        let imageViewModel = NewFindingImageViewModel(choosenImages: taxonImages)
         var devStages = [DevStageViewModel]()
         dbFinding.taxon?.devStage.forEach({
             devStages.append(DevStageViewModel(id: $0.id,
@@ -138,11 +138,11 @@ public final class DBFindingMapper {
             observations.append(Observation(id: $0.id,name: $0.title, isSelected: $0.isSelected))
         })
         
-        let maleIndividual = TaxonIndividual(number: dbFinding.individuals?.male?.value ?? 0, isSelected: dbFinding.individuals?.male?.isSelected ?? false)
-        let femaleIndividual = TaxonIndividual(number: dbFinding.individuals?.female?.value ?? 0, isSelected: dbFinding.individuals?.female?.isSelected ?? false)
-        let allIndividual = TaxonIndividual(number: dbFinding.individuals?.all?.value ?? 0, isSelected: dbFinding.individuals?.all?.isSelected ?? false)
+        let maleIndividual = FindingIndividual(number: dbFinding.individuals?.male?.value ?? 0, isSelected: dbFinding.individuals?.male?.isSelected ?? false)
+        let femaleIndividual = FindingIndividual(number: dbFinding.individuals?.female?.value ?? 0, isSelected: dbFinding.individuals?.female?.isSelected ?? false)
+        let allIndividual = FindingIndividual(number: dbFinding.individuals?.all?.value ?? 0, isSelected: dbFinding.individuals?.all?.isSelected ?? false)
          
-         let taxonInfoViewModel = NewTaxonInfoViewModel(observations: observations,
+         let taxonInfoViewModel = NewFindingInfoViewModel(observations: observations,
                                                         settingsStorage: settingsStorage,
                                                         taxon: taxonViewModel,
                                                         comments: dbFinding.comment,
@@ -247,9 +247,9 @@ public final class DBFindingMapper {
     
     
     // MARK: - Private Functions
-    private static func mapIndividuals(male: TaxonIndividual,
-                                female: TaxonIndividual,
-                                all: TaxonIndividual) -> DBFindingIndividuals {
+    private static func mapIndividuals(male: FindingIndividual,
+                                female: FindingIndividual,
+                                all: FindingIndividual) -> DBFindingIndividuals {
         if all.number > 0 {
             return DBFindingIndividuals(male: nil,
                                         female: nil,

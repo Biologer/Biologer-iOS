@@ -18,7 +18,7 @@ struct ImageHorizontalView: View {
             HStack(alignment: .top) {
                 ForEach(images.indices, id: \.self) { index in
                         ZStack {
-                            TaxonImageView(taxonImage: images[index])
+                            FindingImageView(taxonImage: images[index])
                                 .onTapGesture {
                                     onImageTapped((index))
                                 }

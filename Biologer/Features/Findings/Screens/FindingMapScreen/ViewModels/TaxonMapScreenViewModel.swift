@@ -9,13 +9,13 @@ import Foundation
 import CoreLocation
 
 public protocol TaxonMapScreenViewModelDelegate {
-    func updateLocation(location: TaxonLocation)
+    func updateLocation(location: FindingLocation)
 }
 
 public final class TaxonMapScreenViewModel: ObservableObject {
     public private(set) var locationManager: LocationManager
     public var delegate: TaxonMapScreenViewModelDelegate?
-    public var taxonLocation: TaxonLocation?
+    public var taxonLocation: FindingLocation?
     public var mapType: MapType = .normal
     private let onMapTypeTapped: Observer<Void>
     public var onMapTypeUpdate: Observer<Void>?
@@ -26,7 +26,7 @@ public final class TaxonMapScreenViewModel: ObservableObject {
     }
     
     init(locationManager: LocationManager,
-         taxonLocation: TaxonLocation? = nil,
+         taxonLocation: FindingLocation? = nil,
          onMapTypeTapped: @escaping Observer<Void>) {
         self.locationManager = locationManager
         self.taxonLocation = taxonLocation
@@ -34,7 +34,7 @@ public final class TaxonMapScreenViewModel: ObservableObject {
         locationManager.stopTimer()
     }
     
-    public func doneTapped(taxonLocation: TaxonLocation) {
+    public func doneTapped(taxonLocation: FindingLocation) {
         self.taxonLocation = taxonLocation
         delegate?.updateLocation(location: taxonLocation)
     }

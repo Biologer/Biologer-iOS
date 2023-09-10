@@ -1,5 +1,5 @@
 //
-//  TaxonLocation.swift
+//  FindingLocation.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 30.9.21..
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class TaxonLocation {
+public final class FindingLocation {
     let latitude: Double
     let longitute: Double
     let accuracy: Double

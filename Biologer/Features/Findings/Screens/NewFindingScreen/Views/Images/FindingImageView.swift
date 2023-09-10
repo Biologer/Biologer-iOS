@@ -1,5 +1,5 @@
 //
-//  TaxonImageView.swift
+//  FindingImageView.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 30.9.21..
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaxonImageView: View {
+struct FindingImageView: View {
     
     let taxonImage: UIImage
     
@@ -26,6 +26,6 @@ struct TaxonImageView: View {
 
 struct TaxonImageView_Previews: PreviewProvider {
     static var previews: some View {
-        TaxonImageView(taxonImage: UIImage(named: "taxon_background")!)
+        FindingImageView(taxonImage: UIImage(named: "taxon_background")!)
     }
 }

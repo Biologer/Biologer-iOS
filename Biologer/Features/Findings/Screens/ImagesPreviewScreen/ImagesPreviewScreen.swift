@@ -36,10 +36,10 @@ struct ImagesPreviewScreen: View {
 struct ImagesPreviewScreen_Previews: PreviewProvider {
     static var previews: some View {
         
-        let texonImages = [TaxonImage(image: UIImage(named: "intro1")!),
-                           TaxonImage(image: UIImage(named: "taxon_background")!),
-                           TaxonImage(image: UIImage(named: "intro3")!),
-                           TaxonImage(image: UIImage(named: "taxon_background")!)]
+        let texonImages = [FindingImage(image: UIImage(named: "intro1")!),
+                           FindingImage(image: UIImage(named: "taxon_background")!),
+                           FindingImage(image: UIImage(named: "intro3")!),
+                           FindingImage(image: UIImage(named: "taxon_background")!)]
         
         ImagesPreviewScreen(viewModel: ImagesPreviewScreenViewModel(images: texonImages, selectionIndex: 3))
     }

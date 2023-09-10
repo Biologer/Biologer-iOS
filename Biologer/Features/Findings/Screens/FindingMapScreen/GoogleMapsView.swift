@@ -10,9 +10,9 @@ import GoogleMaps
 
 struct GoogleMapsView: UIViewRepresentable {
     let locationManager: LocationManager
-    let taxonLocation: TaxonLocation?
+    let taxonLocation: FindingLocation?
     @Binding var mapType: MapType
-    let onTapAtCoordinate: Observer<TaxonLocation>
+    let onTapAtCoordinate: Observer<FindingLocation>
     private let zoom: Float = 15.0
     
     var location: CLLocationCoordinate2D {
@@ -49,7 +49,7 @@ struct GoogleMapsView: UIViewRepresentable {
     
     func updateUIView(_ mapView: GMSMapView, context: Context) {
         updateCameraPosition(mapView)
-        onTapAtCoordinate((TaxonLocation(latitude: location.latitude, longitute: location.longitude)))
+        onTapAtCoordinate((FindingLocation(latitude: location.latitude, longitute: location.longitude)))
     }
     
     public func updateCameraPosition(_ mapView: GMSMapView, newLocation: CLLocationCoordinate2D? = nil) {
@@ -75,17 +75,17 @@ struct GoogleMapsView: UIViewRepresentable {
     public class GoogleMapsViewDelegate: NSObject, GMSMapViewDelegate {
         
         private let googleMapsView: GoogleMapsView
-        private let onTapAtCoordinate: Observer<TaxonLocation>
+        private let onTapAtCoordinate: Observer<FindingLocation>
         
         init(googleMapsView: GoogleMapsView,
-             onTapAtCoordinate: @escaping Observer<TaxonLocation>) {
+             onTapAtCoordinate: @escaping Observer<FindingLocation>) {
             self.googleMapsView = googleMapsView
             self.onTapAtCoordinate = onTapAtCoordinate
         }
         
         public func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
             googleMapsView.updateCameraPosition(mapView, newLocation: coordinate)
-            onTapAtCoordinate((TaxonLocation(latitude: coordinate.latitude, longitute: coordinate.longitude)))
+            onTapAtCoordinate((FindingLocation(latitude: coordinate.latitude, longitute: coordinate.longitude)))
             print("Location tapped: \r\n Lat: \(coordinate.latitude) \r\n Lon: \(coordinate.longitude) \r\n Acc: \("coordinate.accuracy") \r\n Alt: \("coordinate.altitude")")
         }
     }

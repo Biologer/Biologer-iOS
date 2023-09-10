@@ -130,12 +130,12 @@ class TaxonMapScreenViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .failure(let error):
-                let newTaxonLocation = TaxonLocation(latitude: latitude,
+                let newTaxonLocation = FindingLocation(latitude: latitude,
                                                      longitute: longitude)
                 self.viewModel.doneTapped(taxonLocation: newTaxonLocation)
                 print("Get Altitude error: \(error.description)")
             case .success(let response):
-                let newTaxonLocation = TaxonLocation(latitude: latitude,
+                let newTaxonLocation = FindingLocation(latitude: latitude,
                                                      longitute: longitude,
                                                      accuracy: self.desiredAccuracy ?? self.defaultAccuracy,
                                                      altitude: Double(response.elevation))

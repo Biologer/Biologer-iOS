@@ -8,10 +8,10 @@
 import Foundation
 
 public final class ImagesPreviewScreenViewModel: ObservableObject {
-    public let images: [TaxonImage]
+    public let images: [FindingImage]
     @Published public var selectionIndex: Int
     
-    init(images: [TaxonImage],
+    init(images: [FindingImage],
          selectionIndex: Int) {
         self.images = images
         self.selectionIndex = selectionIndex

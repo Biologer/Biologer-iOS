@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct NumberOfIndividualsView: View {
-    var male: TaxonIndividual
-    var female: TaxonIndividual
-    var all: TaxonIndividual
+    var male: FindingIndividual
+    var female: FindingIndividual
+    var all: FindingIndividual
     var maleIndividualsTextField: MaterialDesignTextFieldViewModelProtocol
     var femaleIndividualsTextField: MaterialDesignTextFieldViewModelProtocol
     var individualsTextField: MaterialDesignTextFieldViewModelProtocol
@@ -92,9 +92,9 @@ struct NumberOfIndividualsView: View {
 
 struct NumberOfIndividualsView_Previews: PreviewProvider {
     static var previews: some View {
-        NumberOfIndividualsView(male: TaxonIndividual(number: 0),
-                                female: TaxonIndividual(number: 0),
-                                all: TaxonIndividual(number: 2),
+        NumberOfIndividualsView(male: FindingIndividual(number: 0),
+                                female: FindingIndividual(number: 0),
+                                all: FindingIndividual(number: 2),
                                 maleIndividualsTextField: MaleIndividualTextField(text: ""),
                                 femaleIndividualsTextField: FemaleIndividualTextField(text: ""),
                                 individualsTextField: IndividualTextField(text: ""),

@@ -1,5 +1,5 @@
 //
-//  NewTaxonLocationViewModel.swift
+//  NewFindingLocationViewModel.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 28.9.21..
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public final class NewTaxonLocationViewModel: ObservableObject {
+public final class NewFindingLocationViewModel: ObservableObject {
     public let latitudeTitle: String = "NewTaxon.lb.latitude".localized
     public let longitudeTitle: String = "NewTaxon.lb.longitued".localized
     public let altitudeTitle: String = "NewTaxon.lb.altitude".localized
@@ -18,13 +18,13 @@ public final class NewTaxonLocationViewModel: ObservableObject {
     public let plusIconImage: String = "plus_icon"
     public let waitingForCordiateLabel: String = "NewTaxon.lb.waitingForCordinate".localized
     public let accuracyUnknown: String = "NewTaxon.lb.accuracyUnknown".localized
-    public var onLocationTapped: Observer<TaxonLocation?>?
+    public var onLocationTapped: Observer<FindingLocation?>?
     private let location: LocationManager
     @Published var isLoadingLocation: Bool = true
-    @Published var taxonLocation: TaxonLocation?
+    @Published var taxonLocation: FindingLocation?
     
     init(location: LocationManager,
-         taxonLocation: TaxonLocation? = nil) {
+         taxonLocation: FindingLocation? = nil) {
         self.location = location
         self.taxonLocation = taxonLocation
         if taxonLocation == nil {
@@ -53,7 +53,7 @@ public final class NewTaxonLocationViewModel: ObservableObject {
     public func checkForUpdatingLocation() {
         location.onLocationUpdate = { [self] _ in
             self.isLoadingLocation = false
-            self.taxonLocation = TaxonLocation(latitude: location.latitude,
+            self.taxonLocation = FindingLocation(latitude: location.latitude,
                                                longitute: location.longitude,
                                                accuracy: location.accuracy,
                                                altitude: location.altitude)
@@ -66,8 +66,8 @@ public final class NewTaxonLocationViewModel: ObservableObject {
 }
 
 // MARK: - Taxon Map Delegate
-extension NewTaxonLocationViewModel: TaxonMapScreenViewModelDelegate {
-    public func updateLocation(location: TaxonLocation) {
+extension NewFindingLocationViewModel: TaxonMapScreenViewModelDelegate {
+    public func updateLocation(location: FindingLocation) {
         taxonLocation = location
     }
 }

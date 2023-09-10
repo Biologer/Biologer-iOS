@@ -1,5 +1,5 @@
 //
-//  NewTaxonDevStageScreen.swift
+//  NewFindingDevStageScreen.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 3.10.21..
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct NewTaxonDevStageScreen: View {
+struct NewFindingDevStageScreen: View {
     
-    let viewModel: NewTaxonDevStageScreenViewModel
+    let viewModel: NewFindingDevStageScreenViewModel
     let heightCell: CGFloat = 40
     
     var body: some View {
@@ -49,9 +49,9 @@ struct NewTaxonDevStageScreen: View {
 struct NewTaxonDevStageScreen_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = NewTaxonDevStageScreenViewModel(stages: [DevStageViewModel(id: 1, name: "Egg"), DevStageViewModel(id: 2, name: "Larva"),
+        let viewModel = NewFindingDevStageScreenViewModel(stages: [DevStageViewModel(id: 1, name: "Egg"), DevStageViewModel(id: 2, name: "Larva"),
                                                                  DevStageViewModel(id: 3, name: "Pupa"), DevStageViewModel(id: 4, name: "Adult")], delegate: nil, onDone: { _ in})
         
-        NewTaxonDevStageScreen(viewModel: viewModel)
+        NewFindingDevStageScreen(viewModel: viewModel)
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 public protocol PostFindingImageService {
     typealias Result = Swift.Result<FindingImageResponse, APIError>
-    func uploadFindingImages(taxonImages: TaxonImage,
+    func uploadFindingImages(taxonImages: FindingImage,
                    completion: @escaping (Result) -> Void)
 }
 
@@ -26,7 +26,7 @@ public final class RemotePostFindingImageService: PostFindingImageService {
         self.environmentStorage = environmentStorage
     }
     
-    public func uploadFindingImages(taxonImages: TaxonImage, completion: @escaping (Result) -> Void) {
+    public func uploadFindingImages(taxonImages: FindingImage, completion: @escaping (Result) -> Void) {
         if let env = environmentStorage.getEnvironment() {
             let request = try! GetEditProfilePreview(host: env.host, taxonImage: taxonImages).asURLRequest()
             client.perform(from: request) { result in
@@ -63,7 +63,7 @@ public final class RemotePostFindingImageService: PostFindingImageService {
         var body: Data? = nil
         var headers: HTTPHeaders? = nil
 
-        init (host: String, taxonImage: TaxonImage) {
+        init (host: String, taxonImage: FindingImage) {
             self.host = host
 
             var headers = HTTPHeaders()

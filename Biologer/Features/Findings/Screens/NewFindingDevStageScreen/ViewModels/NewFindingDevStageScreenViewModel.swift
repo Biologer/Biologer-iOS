@@ -1,5 +1,5 @@
 //
-//  NewTaxonDevStageScreenViewModel.swift
+//  NewFindingDevStageScreenViewModel.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 3.10.21..
@@ -11,7 +11,7 @@ public protocol NewTaxonDevStageScreenViewModelDelegate {
     func updateDevStage(devStageViewModel: DevStageViewModel)
 }
 
-public final class NewTaxonDevStageScreenViewModel: ObservableObject {
+public final class NewFindingDevStageScreenViewModel: ObservableObject {
     
     public private(set) var stages: [DevStageViewModel]
     private let delegate: NewTaxonDevStageScreenViewModelDelegate?

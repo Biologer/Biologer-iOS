@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaxonMapScreenViewController" customModule="Biologer" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FindingMapScreenViewController" customModule="Biologer" customModuleProvider="target">
             <connections>
                 <outlet property="accuracyLabel" destination="1M8-kg-gFo" id="g14-eY-Vxw"/>
                 <outlet property="currentLocationButton" destination="9Fa-hK-owQ" id="iup-NQ-mCw"/>
@@ -38,7 +38,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gIo-MF-rCJ">
-                            <rect key="frame" x="334" y="82" width="50" height="50"/>
+                            <rect key="frame" x="334" y="86" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="JaB-FQ-0V1"/>
                                 <constraint firstAttribute="width" constant="50" id="rEu-l5-Rvq"/>
@@ -49,7 +49,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1M8-kg-gFo">
-                            <rect key="frame" x="8" y="64" width="318" height="0.0"/>
+                            <rect key="frame" x="8" y="68" width="318" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>

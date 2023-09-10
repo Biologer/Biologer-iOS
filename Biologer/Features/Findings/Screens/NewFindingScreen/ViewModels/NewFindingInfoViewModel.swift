@@ -1,5 +1,5 @@
 //
-//  NewTaxonInfoViewModel.swift
+//  NewFindingInfoViewModel.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 29.9.21..
@@ -19,7 +19,7 @@ public class Observation: ObservableObject {
     }
 }
 
-public final class TaxonIndividual: ObservableObject {
+public final class FindingIndividual: ObservableObject {
     @Published var isSelected: Bool = false
     var number: Int
     
@@ -29,7 +29,7 @@ public final class TaxonIndividual: ObservableObject {
     }
 }
 
-public final class NewTaxonInfoViewModel: ObservableObject {
+public final class NewFindingInfoViewModel: ObservableObject {
     @Published var taxonNameTextField: MaterialDesignTextFieldViewModelProtocol
     @Published var nestingTextField: MaterialDesignTextFieldViewModelProtocol
     @Published var commentsTextField: MaterialDesignTextFieldViewModelProtocol
@@ -41,9 +41,9 @@ public final class NewTaxonInfoViewModel: ObservableObject {
     @Published var foundOnTextField: MaterialDesignTextFieldViewModelProtocol
     @Published var fountDeadTextField: MaterialDesignTextFieldViewModelProtocol
     
-    @Published var maleIndividual: TaxonIndividual = TaxonIndividual(number: 0)
-    @Published var femaleIndividual: TaxonIndividual = TaxonIndividual(number: 0)
-    @Published var allIndividual: TaxonIndividual = TaxonIndividual(number: 0)
+    @Published var maleIndividual: FindingIndividual = FindingIndividual(number: 0)
+    @Published var femaleIndividual: FindingIndividual = FindingIndividual(number: 0)
+    @Published var allIndividual: FindingIndividual = FindingIndividual(number: 0)
     @Published var observations: [Observation]
     
     let maleIcon: String = ""
@@ -78,9 +78,9 @@ public final class NewTaxonInfoViewModel: ObservableObject {
          settingsStorage: SettingsStorage,
          taxon: TaxonViewModel? = nil,
          comments: String = "",
-         maleIndividual: TaxonIndividual = TaxonIndividual(number: 0),
-         femaleIndividual: TaxonIndividual = TaxonIndividual(number: 0),
-         allIndividual: TaxonIndividual = TaxonIndividual(number: 0),
+         maleIndividual: FindingIndividual = FindingIndividual(number: 0),
+         femaleIndividual: FindingIndividual = FindingIndividual(number: 0),
+         allIndividual: FindingIndividual = FindingIndividual(number: 0),
          habitat: String = "",
          foundOn: String = "",
          foundDead: String = "") {
@@ -152,7 +152,7 @@ public final class NewTaxonInfoViewModel: ObservableObject {
     }
 }
 
-extension NewTaxonInfoViewModel: TaxonSearchScreenViewModelDelegate {
+extension NewFindingInfoViewModel: TaxonSearchScreenViewModelDelegate {
     public func updateTaxonName(taxon: TaxonViewModel) {
         taxonNameTextField = TaxonNameTextField(text: taxon.name)
         self.taxon = taxon
@@ -163,14 +163,14 @@ extension NewTaxonInfoViewModel: TaxonSearchScreenViewModelDelegate {
     }
 }
 
-extension NewTaxonInfoViewModel: NewTaxonDevStageScreenViewModelDelegate {
+extension NewFindingInfoViewModel: NewTaxonDevStageScreenViewModelDelegate {
     public func updateDevStage(devStageViewModel: DevStageViewModel) {
         devStageTextField = DevelopmentStageTextField(text: devStageViewModel.name) 
         self.taxon?.selectedDevStage = devStageViewModel
     }
 }
 
-extension NewTaxonInfoViewModel: NestingAtlasCodeScreenViewModelDelegate {
+extension NewFindingInfoViewModel: NestingAtlasCodeScreenViewModelDelegate {
     public func updateNestingCode(code: NestingAtlasCodeItem) {
         taxon?.selectedAltasCode = code
         nestingTextField.text = code.name

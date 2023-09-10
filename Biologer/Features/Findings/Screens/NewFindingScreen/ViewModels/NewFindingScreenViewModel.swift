@@ -1,5 +1,5 @@
 //
-//  NewTaxonScreenViewModel.swift
+//  NewFindingScreenViewModel.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 19.9.21..
@@ -13,47 +13,7 @@ public enum FindingMode {
     case edit
 }
 
-public final class FindingViewModel: ObservableObject {
-    public let id: UUID?
-    public let findingMode: FindingMode
-    public var locationViewModel: NewTaxonLocationViewModel
-    public var imageViewModel: NewTaxonImageViewModel
-    public var taxonInfoViewModel: NewTaxonInfoViewModel
-    public var isUploaded: Bool
-    public var dateOfCreation: Date
-    
-    init(id: UUID? = nil,
-         findingMode: FindingMode,
-         locationViewModel: NewTaxonLocationViewModel,
-         imageViewModel: NewTaxonImageViewModel,
-         taxonInfoViewModel: NewTaxonInfoViewModel,
-         isUploaded: Bool,
-         dateOfCreation: Date) {
-        self.id = id
-        self.findingMode = findingMode
-        self.locationViewModel = locationViewModel
-        self.imageViewModel = imageViewModel
-        self.taxonInfoViewModel = taxonInfoViewModel
-        self.isUploaded = isUploaded
-        self.dateOfCreation = dateOfCreation
-    }
-    
-    public func getSelectedObservations() -> [Int] {
-        let dbObservations = RealmManager.get(fromEntity: DBObservation.self)
-        var ids = [dbObservations[0].id]
-        if !imageViewModel.choosenImages.isEmpty {
-            ids.append(dbObservations[1].id)
-        }
-        for (index, observation) in taxonInfoViewModel.observations.enumerated() {
-            if observation.isSelected {
-                ids.append(dbObservations[index].id)
-            }
-        }
-        return ids
-    }
-}
-
-public final class NewTaxonScreenViewModel: ObservableObject {
+public final class NewFindingScreenViewModel: ObservableObject {
     @Published public var findingViewModel: FindingViewModel
     public let saveButtonTitle: String = "NewTaxon.btn.save.text".localized
     
@@ -62,7 +22,8 @@ public final class NewTaxonScreenViewModel: ObservableObject {
     
     private let settingsStorage: SettingsStorage
     
-    init(findingViewModel: FindingViewModel, settingsStorage: SettingsStorage) {
+    init(findingViewModel: FindingViewModel,
+         settingsStorage: SettingsStorage) {
         self.findingViewModel = findingViewModel
         self.settingsStorage = settingsStorage
     }
@@ -94,23 +55,23 @@ public final class NewTaxonScreenViewModel: ObservableObject {
     
     private func createSameFindingWithDifferentGender(findingViewModel: FindingViewModel) -> [FindingViewModel] {
         let taxonInfoViewModel = findingViewModel.taxonInfoViewModel
-        let maleTaxonInfo = NewTaxonInfoViewModel(observations: taxonInfoViewModel.observations,
+        let maleTaxonInfo = NewFindingInfoViewModel(observations: taxonInfoViewModel.observations,
                                                   settingsStorage: settingsStorage,
                                                   taxon: taxonInfoViewModel.taxon,
                                                   comments: taxonInfoViewModel.commentsTextField.text,
                                                   maleIndividual: taxonInfoViewModel.maleIndividual,
-                                                  femaleIndividual: TaxonIndividual(number: 0, isSelected: false),
-                                                  allIndividual: TaxonIndividual(number: 0, isSelected: false),
+                                                  femaleIndividual: FindingIndividual(number: 0, isSelected: false),
+                                                  allIndividual: FindingIndividual(number: 0, isSelected: false),
                                                   habitat: taxonInfoViewModel.habitatTextField.text,
                                                   foundOn: taxonInfoViewModel.foundOnTextField.text,
                                                   foundDead: taxonInfoViewModel.foundOnTextField.text)
-        let femaleTaxonInfo = NewTaxonInfoViewModel(observations: taxonInfoViewModel.observations,
+        let femaleTaxonInfo = NewFindingInfoViewModel(observations: taxonInfoViewModel.observations,
                                                     settingsStorage: settingsStorage,
                                                     taxon: taxonInfoViewModel.taxon,
                                                     comments: taxonInfoViewModel.commentsTextField.text,
-                                                    maleIndividual: TaxonIndividual(number: 0, isSelected: false),
+                                                    maleIndividual: FindingIndividual(number: 0, isSelected: false),
                                                     femaleIndividual: taxonInfoViewModel.femaleIndividual,
-                                                    allIndividual: TaxonIndividual(number: 0, isSelected: false),
+                                                    allIndividual: FindingIndividual(number: 0, isSelected: false),
                                                     habitat: taxonInfoViewModel.habitatTextField.text,
                                                     foundOn: taxonInfoViewModel.foundOnTextField.text,
                                                     foundDead: taxonInfoViewModel.foundOnTextField.text)

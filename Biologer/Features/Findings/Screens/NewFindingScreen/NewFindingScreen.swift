@@ -1,5 +1,5 @@
 //
-//  NewTaxonScreen.swift
+//  NewFindingScreen.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 19.9.21..
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct NewTaxonScreen: View {
+struct NewFindingScreen: View {
     
-    @ObservedObject var viewModel: NewTaxonScreenViewModel
+    @ObservedObject var viewModel: NewFindingScreenViewModel
     
     var body: some View {
         ZStack {
@@ -23,12 +23,12 @@ struct NewTaxonScreen: View {
 
                     NewTaxonSectionView(title: viewModel.findingViewModel.imageViewModel.title,
                                         content: {
-                                            NewTaxonImageView(viewModel: viewModel.findingViewModel.imageViewModel)
+                                            NewFindingImageView(viewModel: viewModel.findingViewModel.imageViewModel)
                                         })
 
                     NewTaxonSectionView(title: viewModel.findingViewModel.taxonInfoViewModel.title,
                                         content: {
-                                            NewTaxonInfoView(viewModel: viewModel.findingViewModel.taxonInfoViewModel)
+                                            NewFindingInfoView(viewModel: viewModel.findingViewModel.taxonInfoViewModel)
                                         })
                         .padding(.bottom, 120)
                     Spacer()
@@ -59,11 +59,11 @@ struct NewTaxonScreen: View {
 struct NewTaxonScreen_Previews: PreviewProvider {
     static var previews: some View {
         
-        let locationViewModel = NewTaxonLocationViewModel(location: LocationManager())
+        let locationViewModel = NewFindingLocationViewModel(location: LocationManager())
         
-        let imageViewModel: NewTaxonImageViewModel = NewTaxonImageViewModel(choosenImages: [TaxonImage(image: UIImage(named: "intro4")!), TaxonImage(image: UIImage(named:  "intro4")!), TaxonImage(image: UIImage(named: "intro4")!), TaxonImage(image: UIImage(named:  "intro4")!), TaxonImage(image: UIImage(named: "intro4")!)])
+        let imageViewModel: NewFindingImageViewModel = NewFindingImageViewModel(choosenImages: FindingImageFactory.getModels())
         
-        let taxonInfoViewModel = NewTaxonInfoViewModel(observations: [Observation(id: 1, name: "Call"),
+        let taxonInfoViewModel = NewFindingInfoViewModel(observations: [Observation(id: 1, name: "Call"),
                                                                       Observation(id: 2, name: "Exuviae")], settingsStorage: UserDefaultsSettingsStorage())
         
         let findingViewModel = FindingViewModel(findingMode: .create,
@@ -73,9 +73,9 @@ struct NewTaxonScreen_Previews: PreviewProvider {
                                                 isUploaded: false,
                                                 dateOfCreation: Date())
         
-        let screenViewModel = NewTaxonScreenViewModel(findingViewModel: findingViewModel, settingsStorage: UserDefaultsSettingsStorage())
+        let screenViewModel = NewFindingScreenViewModel(findingViewModel: findingViewModel, settingsStorage: UserDefaultsSettingsStorage())
         
-        NewTaxonScreen(viewModel: screenViewModel)
+        NewFindingScreen(viewModel: screenViewModel)
         
 
     }
