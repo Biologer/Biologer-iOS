@@ -233,6 +233,11 @@
 		93FB999E2AAE549800E04C16 /* TaxonDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB999D2AAE549800E04C16 /* TaxonDataResponse.swift */; };
 		93FB99A02AAE54EF00E04C16 /* FindingRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB999F2AAE54EF00E04C16 /* FindingRequestBody.swift */; };
 		93FB99A22AAE551600E04C16 /* FindingImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB99A12AAE551600E04C16 /* FindingImageResponse.swift */; };
+		93FB99A52AAE5D3C00E04C16 /* FindingModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB99A42AAE5D3C00E04C16 /* FindingModelFactory.swift */; };
+		93FB99A82AAE5E5C00E04C16 /* DevStageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB99A72AAE5E5C00E04C16 /* DevStageViewModel.swift */; };
+		93FB99AA2AAE5EB000E04C16 /* TaxonTranslationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB99A92AAE5EB000E04C16 /* TaxonTranslationViewModel.swift */; };
+		93FB99AC2AAE5F3000E04C16 /* MapTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB99AB2AAE5F3000E04C16 /* MapTypeViewModel.swift */; };
+		93FB99AE2AAE5F4E00E04C16 /* MapTypeViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB99AD2AAE5F4E00E04C16 /* MapTypeViewModelFactory.swift */; };
 		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
 		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
 		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
@@ -507,6 +512,11 @@
 		93FB999D2AAE549800E04C16 /* TaxonDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonDataResponse.swift; sourceTree = "<group>"; };
 		93FB999F2AAE54EF00E04C16 /* FindingRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingRequestBody.swift; sourceTree = "<group>"; };
 		93FB99A12AAE551600E04C16 /* FindingImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingImageResponse.swift; sourceTree = "<group>"; };
+		93FB99A42AAE5D3C00E04C16 /* FindingModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingModelFactory.swift; sourceTree = "<group>"; };
+		93FB99A72AAE5E5C00E04C16 /* DevStageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevStageViewModel.swift; sourceTree = "<group>"; };
+		93FB99A92AAE5EB000E04C16 /* TaxonTranslationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonTranslationViewModel.swift; sourceTree = "<group>"; };
+		93FB99AB2AAE5F3000E04C16 /* MapTypeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeViewModel.swift; sourceTree = "<group>"; };
+		93FB99AD2AAE5F4E00E04C16 /* MapTypeViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeViewModelFactory.swift; sourceTree = "<group>"; };
 		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -580,12 +590,14 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		9300757926877C9F005A4DE0 /* ViewControllerFactory */ = {
+		9300757926877C9F005A4DE0 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
 				93565D1C26F723BF00A588E6 /* FindingsViewControllerFactory.swift */,
+				93FB99A42AAE5D3C00E04C16 /* FindingModelFactory.swift */,
+				93FB99AD2AAE5F4E00E04C16 /* MapTypeViewModelFactory.swift */,
 			);
-			path = ViewControllerFactory;
+			path = Factory;
 			sourceTree = "<group>";
 		};
 		9309AB192744329300825246 /* Keychain */ = {
@@ -806,7 +818,7 @@
 				931D3FE827481CCE00352C8E /* FindingHelpers */,
 				93B0417F2712204C007DB833 /* Mapers */,
 				9373F81826F9131000C18F91 /* Service */,
-				9300757926877C9F005A4DE0 /* ViewControllerFactory */,
+				9300757926877C9F005A4DE0 /* Factory */,
 				9300757426877C5B005A4DE0 /* Router */,
 				93334EB32677E1520094A483 /* Entity */,
 				93334EC226789B660094A483 /* Screens */,
@@ -1491,8 +1503,8 @@
 		93FB998E2AAE4EEE00E04C16 /* NewTaxonDevStageScreen */ = {
 			isa = PBXGroup;
 			children = (
+				93FB99A62AAE5E4E00E04C16 /* ViewModels */,
 				9314DA2D270A4C10007896F9 /* NewTaxonDevStageScreen.swift */,
-				9314DA2B270A4A69007896F9 /* NewTaxonDevStageScreenViewModel.swift */,
 			);
 			path = NewTaxonDevStageScreen;
 			sourceTree = "<group>";
@@ -1542,6 +1554,7 @@
 			children = (
 				938D935827060DF80068E27C /* TaxonMapScreenViewModel.swift */,
 				93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */,
+				93FB99AB2AAE5F3000E04C16 /* MapTypeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1561,6 +1574,7 @@
 			children = (
 				9314DA1B27073CF3007896F9 /* TaxonSearchScreenViewModel.swift */,
 				9314DA29270758F2007896F9 /* TaxonViewModel.swift */,
+				93FB99A92AAE5EB000E04C16 /* TaxonTranslationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1610,6 +1624,15 @@
 				93FB99A12AAE551600E04C16 /* FindingImageResponse.swift */,
 			);
 			path = Codable;
+			sourceTree = "<group>";
+		};
+		93FB99A62AAE5E4E00E04C16 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9314DA2B270A4A69007896F9 /* NewTaxonDevStageScreenViewModel.swift */,
+				93FB99A72AAE5E5C00E04C16 /* DevStageViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1924,6 +1947,7 @@
 				936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */,
 				93CC6593269C564F00949534 /* CircularProgressViewController.swift in Sources */,
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
+				93FB99AC2AAE5F3000E04C16 /* MapTypeViewModel.swift in Sources */,
 				9314DA20270749DB007896F9 /* SearchTextField.swift in Sources */,
 				931857EE2731A47C0051AA45 /* DBTaxon.swift in Sources */,
 				9351D4572779E8BB0091D4D9 /* Font+Extensions.swift in Sources */,
@@ -1993,6 +2017,7 @@
 				937EB9ED2AAD164700EB83F9 /* EnvironmentViewModel.swift in Sources */,
 				93A7E2702691E055001D6AEF /* InsititutionTextFieldViewModel.swift in Sources */,
 				9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */,
+				93FB99AA2AAE5EB000E04C16 /* TaxonTranslationViewModel.swift in Sources */,
 				93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */,
 				9314DA1C27073CF3007896F9 /* TaxonSearchScreenViewModel.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
@@ -2073,9 +2098,11 @@
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
 				93171D86273BDBE80038B2B2 /* PostFindingService.swift in Sources */,
 				938D93532705EB190068E27C /* ObservationsView.swift in Sources */,
+				93FB99A82AAE5E5C00E04C16 /* DevStageViewModel.swift in Sources */,
 				936616D52703954A00F02A83 /* NewTaxonImageViewModel.swift in Sources */,
 				9314DA2C270A4A69007896F9 /* NewTaxonDevStageScreenViewModel.swift in Sources */,
 				93842AF826FA57CA008ECA80 /* GetTokenService.swift in Sources */,
+				93FB99A52AAE5D3C00E04C16 /* FindingModelFactory.swift in Sources */,
 				93DF14092692069600A7A977 /* RegisterUser.swift in Sources */,
 				932F0436276B4FA1003E03EC /* NestingAtlasCodeMapper.swift in Sources */,
 				937F523B270EEAD400239963 /* TaxonMapScreenViewController.swift in Sources */,
@@ -2084,6 +2111,7 @@
 				93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */,
 				93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */,
 				9320E040275806C4006812E5 /* GetAlitutdeByLocationResponse.swift in Sources */,
+				93FB99AE2AAE5F4E00E04C16 /* MapTypeViewModelFactory.swift in Sources */,
 				93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */,
 				937EBA012AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift in Sources */,
 				936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */,

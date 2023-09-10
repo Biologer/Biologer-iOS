@@ -101,7 +101,7 @@ struct DeleteFindingButton: View {
 struct DeleteFindingsScreen_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = DeleteFindingsScreenViewModel(selectedFinding: Finding(id: UUID(), taxon: "", image: UIImage(), developmentStage: "", isUploaded: false),
+        let viewModel = DeleteFindingsScreenViewModel(selectedFinding: FindingModelFactory.getFindgins().first!,
                                                       onDeleteDone: { _ in })
         
         DeleteFindingsScreen(viewModel: viewModel)

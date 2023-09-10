@@ -12,7 +12,7 @@ protocol ListOfFindingsScreenLoader: ObservableObject {
     var onNewItemTapped: Observer<Void> { get }
     var onItemTapped: Observer<Finding> { get }
     var onDeleteFindingTapped: Observer<Finding> { get }
-    var preview: SideMenuMainScreenPreview { get }
+    var preview: FindingsScreenPreviewType { get }
 }
 
 struct ListOfFindingsScreen: View {
@@ -72,9 +72,8 @@ struct SideMenuMainScreen_Previews: PreviewProvider {
         
         var onItemTapped: Observer<Finding>
         
-        var preview: SideMenuMainScreenPreview = .regular([Finding(id: UUID(), taxon: "Zerynthia polyxena", image: UIImage(), developmentStage: "Larva", isUploaded: false),
-                                                           Finding(id: UUID(), taxon: "Salamandra salamandra", image: UIImage(), developmentStage: "Adult", isUploaded: true),
-                                                           Finding(id: UUID(), taxon: "Salamandra salamandra", image: UIImage(), developmentStage: "Adult", isUploaded: false)])
+        var preview: FindingsScreenPreviewType = .regular(FindingModelFactory.getFindgins())
+        
         init(onNewItemTapped: @escaping Observer<Void>,
              onItemTapped: @escaping Observer<Finding>,
              onDeleteFindingTapped: @escaping Observer<Finding>) {

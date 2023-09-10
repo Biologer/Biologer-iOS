@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SideMenuMainScreenPreview {
+public enum FindingsScreenPreviewType {
     case regular([Finding])
     case iregular(String)
 }
@@ -16,9 +16,8 @@ public final class ListOfFindingsScreenViewModel: ListOfFindingsScreenLoader, Ob
     var onDeleteFindingTapped: Observer<Finding>
     var onNewItemTapped: Observer<Void>
     var onItemTapped: Observer<Finding>
-
     
-    @Published var preview: SideMenuMainScreenPreview = .iregular("ListOfFindings.noFindings.title".localized)
+    @Published var preview: FindingsScreenPreviewType = .iregular("ListOfFindings.noFindings.title".localized)
     var findings = [Finding]()
     
     init(onNewItemTapped: @escaping Observer<Void>,

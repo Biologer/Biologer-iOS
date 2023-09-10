@@ -42,10 +42,6 @@ public final class TaxonSearchScreenViewModel: ObservableObject {
         let query = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.or,
                                         subpredicates: [predictByName, predictByNativeName, predictByTranslations])
         let dbTaxons = RealmManager.get(fromEntity: DBTaxon.self).filter(query)
-//        let dbTaxons = RealmManager.get(fromEntity: DBTaxon.self,
-//                                        withPredicate: NSPredicate(format: "nativName beginswith[cd] %@", searchText),
-//                                        sortedByKey: "id",
-//                                        inAscending: true)
         texons.removeAll()
         dbTaxons.forEach({
             texons.append(Mapper.mapFormDBToTaxonViewModel(dbTaxon: $0,
@@ -100,7 +96,6 @@ public final class TaxonSearchScreenViewModel: ObservableObject {
         private static func getTaxonName(dbTaxon: DBTaxon,
                                          keyboardLanguage: String?,
                                          onlyEnglish: Bool) -> String {
-            //let languageCode = Locale.current.languageCode
             if onlyEnglish {
                 return getTaxonName(by: "en", dbTaxon: dbTaxon)
             } else {

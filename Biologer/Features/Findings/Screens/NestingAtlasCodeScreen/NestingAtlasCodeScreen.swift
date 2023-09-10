@@ -19,8 +19,6 @@ struct NestingAtlasCodeScreen: View {
                 }, label: {
                     VStack {
                         HStack(alignment: .top) {
-//                            Text(String(index) + ".")
-//                                .foregroundColor(Color.black)
                             Text(viewModel.codes[index].name)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .multilineTextAlignment(.leading)
