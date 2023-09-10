@@ -29,7 +29,7 @@ public final class DBTaxon: Object {
 
     convenience init(taxon: TaxonDataResponse.TaxonResponse) {
         self.init()
-        self.id = taxon.id ?? 0
+        self.id = taxon.id
         self.name = taxon.name ?? ""
         self.rank = taxon.rank
         self.rankLevel = taxon.rank_level

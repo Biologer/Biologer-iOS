@@ -134,6 +134,11 @@
 		9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F82326F9259D00C18F91 /* UserDefaultsUserStorage.swift */; };
 		9373F82626F926CD00C18F91 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F82526F926CD00C18F91 /* User.swift */; };
 		937EB9E42AAD0A4800EB83F9 /* StringValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EB9E32AAD0A4800EB83F9 /* StringValidator.swift */; };
+		937EB9ED2AAD164700EB83F9 /* EnvironmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EB9EC2AAD164700EB83F9 /* EnvironmentViewModel.swift */; };
+		937EB9EF2AAD165C00EB83F9 /* EnvironmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EB9EE2AAD165C00EB83F9 /* EnvironmentType.swift */; };
+		937EB9F52AAD1A5500EB83F9 /* MaterialDesignTextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EB9F42AAD1A5500EB83F9 /* MaterialDesignTextFieldType.swift */; };
+		937EB9F72AAD1A7400EB83F9 /* MaterialDesignTextFieldViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EB9F62AAD1A7400EB83F9 /* MaterialDesignTextFieldViewModelProtocol.swift */; };
+		937EBA012AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EBA002AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift */; };
 		937F523B270EEAD400239963 /* TaxonMapScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F5239270EEAD400239963 /* TaxonMapScreenViewController.swift */; };
 		937F523C270EEAD400239963 /* TaxonMapScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */; };
 		937F523F270F926E00239963 /* DeleteFindingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */; };
@@ -179,7 +184,6 @@
 		93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */; };
 		93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */; };
 		93BF629E262B807D00DDFB44 /* BiologerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF629D262B807D00DDFB44 /* BiologerButton.swift */; };
-		93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62A2262B838A00DDFB44 /* EnvironmentLoginView.swift */; };
 		93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62AD262C451400DDFB44 /* EnvironmentScreenViewModel.swift */; };
 		93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */; };
 		93BF62B8262C540700DDFB44 /* AppNavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */; };
@@ -215,7 +219,6 @@
 		93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF141E2692249200A7A977 /* RegisterUserResponse.swift */; };
 		93DF14212692262900A7A977 /* LoginUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14202692262900A7A977 /* LoginUserService.swift */; };
 		93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14222692264C00A7A977 /* LoginUserResponse.swift */; };
-		93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */; };
 		93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */; };
 		93DF142D269253B900A7A977 /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142C269253B900A7A977 /* CheckView.swift */; };
 		93E3CBEB2736E7F30090FF93 /* BiologerProgressBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */; };
@@ -260,12 +263,12 @@
 		9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewControllerFactory.swift; sourceTree = "<group>"; };
 		9309AB162744324300825246 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		931426E0262B53AD00542EFC /* Biologer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biologer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		931426E3262B53AD00542EFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		931426E3262B53AD00542EFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "/Users/nikola/Documents/Projects/Biologer-iOS/Biologer/App/AppDelegate.swift"; sourceTree = "<absolute>"; };
 		931426E5262B53AD00542EFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		931426E9262B53B000542EFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		931426EC262B53B000542EFC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		931426EF262B53B000542EFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		931426F1262B53B000542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		931426F1262B53B000542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/nikola/Documents/Projects/Biologer-iOS/Biologer/App/Info.plist"; sourceTree = "<absolute>"; };
 		931426F6262B53B000542EFC /* BiologerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426FA262B53B100542EFC /* BiologerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerTests.swift; sourceTree = "<group>"; };
 		931426FC262B53B100542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -401,6 +404,11 @@
 		9373F82326F9259D00C18F91 /* UserDefaultsUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsUserStorage.swift; sourceTree = "<group>"; };
 		9373F82526F926CD00C18F91 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		937EB9E32AAD0A4800EB83F9 /* StringValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValidator.swift; sourceTree = "<group>"; };
+		937EB9EC2AAD164700EB83F9 /* EnvironmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentViewModel.swift; sourceTree = "<group>"; };
+		937EB9EE2AAD165C00EB83F9 /* EnvironmentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentType.swift; sourceTree = "<group>"; };
+		937EB9F42AAD1A5500EB83F9 /* MaterialDesignTextFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialDesignTextFieldType.swift; sourceTree = "<group>"; };
+		937EB9F62AAD1A7400EB83F9 /* MaterialDesignTextFieldViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialDesignTextFieldViewModelProtocol.swift; sourceTree = "<group>"; };
+		937EBA002AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueHTTPClientDecorator.swift; sourceTree = "<group>"; };
 		937F5239270EEAD400239963 /* TaxonMapScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonMapScreenViewController.swift; sourceTree = "<group>"; };
 		937F523A270EEAD400239963 /* TaxonMapScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaxonMapScreenViewController.xib; sourceTree = "<group>"; };
 		937F523E270F926E00239963 /* DeleteFindingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFindingsScreenViewModel.swift; sourceTree = "<group>"; };
@@ -446,7 +454,6 @@
 		93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		93BF629D262B807D00DDFB44 /* BiologerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerButton.swift; sourceTree = "<group>"; };
-		93BF62A2262B838A00DDFB44 /* EnvironmentLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentLoginView.swift; sourceTree = "<group>"; };
 		93BF62AD262C451400DDFB44 /* EnvironmentScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentScreenViewModel.swift; sourceTree = "<group>"; };
 		93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentScreen.swift; sourceTree = "<group>"; };
 		93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationRouter.swift; sourceTree = "<group>"; };
@@ -482,7 +489,6 @@
 		93DF141E2692249200A7A977 /* RegisterUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserResponse.swift; sourceTree = "<group>"; };
 		93DF14202692262900A7A977 /* LoginUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserService.swift; sourceTree = "<group>"; };
 		93DF14222692264C00A7A977 /* LoginUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserResponse.swift; sourceTree = "<group>"; };
-		93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordResponse.swift; sourceTree = "<group>"; };
 		93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLicenseView.swift; sourceTree = "<group>"; };
 		93DF142C269253B900A7A977 /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerProgressBarScreen.swift; sourceTree = "<group>"; };
@@ -624,19 +630,12 @@
 		931426E2262B53AD00542EFC /* Biologer */ = {
 			isa = PBXGroup;
 			children = (
+				937EB9FB2AADDBB500EB83F9 /* App */,
 				93CC6596269C622E00949534 /* Storage */,
 				93DF14152692223F00A7A977 /* Network */,
-				93334EA72677DC2D0094A483 /* Dashboard */,
-				93142716262B57C300542EFC /* Authorization */,
-				93BF628C262B7B3E00DDFB44 /* Extensions */,
-				93142732262B5C5600542EFC /* Common */,
-				931426E3262B53AD00542EFC /* AppDelegate.swift */,
-				931426E5262B53AD00542EFC /* SceneDelegate.swift */,
-				931426EE262B53B000542EFC /* LaunchScreen.storyboard */,
-				931426F1262B53B000542EFC /* Info.plist */,
+				937EB9FA2AADDB9E00EB83F9 /* Features */,
+				93142732262B5C5600542EFC /* Uitls */,
 				931426EB262B53B000542EFC /* Preview Content */,
-				93565D3226F736B900A588E6 /* Localizable.strings */,
-				932F0446276B9F8F003E03EC /* InfoPlist.strings */,
 			);
 			path = Biologer;
 			sourceTree = "<group>";
@@ -670,12 +669,11 @@
 		93142716262B57C300542EFC /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				93CC6599269CEAE600949534 /* EntityFactory */,
-				93DF140E26920A2C00A7A977 /* Service */,
-				93A7E2652691D768001D6AEF /* Entity */,
 				9300757126877BAB005A4DE0 /* Router */,
+				93DF140E26920A2C00A7A977 /* Service */,
 				93BF62C9262C55A700DDFB44 /* ViewControllerFactory */,
-				93142728262B5A8100542EFC /* ViewModel */,
+				93CC6599269CEAE600949534 /* EnvironmentFactory */,
+				93A7E2652691D768001D6AEF /* Entity */,
 				93142727262B5A7B00542EFC /* UI */,
 			);
 			path = Authorization;
@@ -684,60 +682,29 @@
 		93142727262B5A7B00542EFC /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				933EF7E626EE365E00F1EBC4 /* Splash Screen */,
+				933EF7E626EE365E00F1EBC4 /* Splash */,
 				93A7E25F2691D5DD001D6AEF /* Login */,
-				93A7E2602691D5E3001D6AEF /* Register */,
-				93142729262B5A8A00542EFC /* Helpers */,
+				93A7E2602691D5E3001D6AEF /* Register Steps */,
+				937EB9F82AAD1B9300EB83F9 /* Environment */,
+				937EB9F92AAD1C1B00EB83F9 /* Data License */,
 			);
 			path = UI;
 			sourceTree = "<group>";
 		};
-		93142728262B5A8100542EFC /* ViewModel */ = {
+		93142732262B5C5600542EFC /* Uitls */ = {
 			isa = PBXGroup;
 			children = (
-				933EF7E326EE33DA00F1EBC4 /* Splash */,
-				93A7E25D2691D5B0001D6AEF /* Login */,
-				93A7E25E2691D5CB001D6AEF /* Register */,
-				93CC659D269CED5A00949534 /* Helpers */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		93142729262B5A8A00542EFC /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				9314272A262B5AEE00542EFC /* MaterialDesignTextField.swift */,
-				93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */,
-				93BF62A2262B838A00DDFB44 /* EnvironmentLoginView.swift */,
-				93DF142C269253B900A7A977 /* CheckView.swift */,
-				9342575826925B9F00B8C912 /* AttributedTextView.swift */,
-				93CC65842697A52000949534 /* ErrorLabelView.swift */,
-				93CC65862699941900949534 /* View+Extensions.swift */,
-				936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		93142732262B5C5600542EFC /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				937EB9E22AAD09EC00EB83F9 /* Utils */,
+				937EB9FE2AADDEE800EB83F9 /* Common Screens */,
+				937EB9F22AAD189700EB83F9 /* Views */,
+				93BF628C262B7B3E00DDFB44 /* Extensions */,
 				931B9DAA27669F4C00043BED /* Lottie Animations */,
-				9320E02E2751991D006812E5 /* Router */,
 				931D3FED274ABCB900352C8E /* Entity */,
 				931D3FE5274818A400352C8E /* Mappers */,
 				931D3FE42748189200352C8E /* Constants */,
-				931D3FE32748183500352C8E /* Factory */,
-				931D3FE22748182B00352C8E /* Screens */,
-				9314273B262B684B00542EFC /* Color.xcassets */,
-				931426E9262B53B000542EFC /* Assets.xcassets */,
+				937EB9FF2AADDF4400EB83F9 /* Validators */,
 				93142733262B5C6600542EFC /* ViewHelper.swift */,
-				93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */,
-				93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */,
-				931D3FF2274AD6C800352C8E /* CheckInternetConnection.swift */,
-				93381DAA2762A0130015BD0D /* BiologerNavigationViewController.swift */,
 			);
-			path = Common;
+			path = Uitls;
 			sourceTree = "<group>";
 		};
 		9314DA2327075270007896F9 /* Search */ = {
@@ -839,12 +806,12 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		9320E02E2751991D006812E5 /* Router */ = {
+		9320E02E2751991D006812E5 /* Download Taxons */ = {
 			isa = PBXGroup;
 			children = (
 				9320E02F27519933006812E5 /* DownloadTaxonRouter.swift */,
 			);
-			path = Router;
+			path = "Download Taxons";
 			sourceTree = "<group>";
 		};
 		93334EA72677DC2D0094A483 /* Dashboard */ = {
@@ -925,20 +892,13 @@
 			path = SideMenuScreen;
 			sourceTree = "<group>";
 		};
-		933EF7E326EE33DA00F1EBC4 /* Splash */ = {
-			isa = PBXGroup;
-			children = (
-				933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */,
-			);
-			path = Splash;
-			sourceTree = "<group>";
-		};
-		933EF7E626EE365E00F1EBC4 /* Splash Screen */ = {
+		933EF7E626EE365E00F1EBC4 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
 				933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */,
+				933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */,
 			);
-			path = "Splash Screen";
+			path = Splash;
 			sourceTree = "<group>";
 		};
 		93565D2626F7278600A588E6 /* ListOfFindings */ = {
@@ -1029,12 +989,179 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		937EB9E22AAD09EC00EB83F9 /* Utils */ = {
+		937EB9E62AAD150100EB83F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				93CC6588269C2C5E00949534 /* LoginEnvView.swift */,
+				93BF629D262B807D00DDFB44 /* BiologerButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		937EB9E72AAD151000EB83F9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9314274A262B6CF600542EFC /* LoginScreenViewModel.swift */,
+				93A7E2692691DFC4001D6AEF /* TextFields */,
+				937EB9F12AAD181800EB83F9 /* Labels */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		937EB9E82AAD158300EB83F9 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */,
+				93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */,
+				93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		937EB9E92AAD158C00EB83F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9342575826925B9F00B8C912 /* AttributedTextView.swift */,
+				93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		937EB9EA2AAD159F00EB83F9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				937EB9EB2AAD15C500EB83F9 /* Screens */,
+				93A7E26A2691DFCF001D6AEF /* TextFields */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		937EB9EB2AAD15C500EB83F9 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */,
+				93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */,
+				93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		937EB9F02AAD16A800EB83F9 /* Codable */ = {
+			isa = PBXGroup;
+			children = (
+				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
+				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
+			);
+			path = Codable;
+			sourceTree = "<group>";
+		};
+		937EB9F12AAD181800EB83F9 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				93142754262B72C600542EFC /* LoginLabelsViewModel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		937EB9F22AAD189700EB83F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				937EB9F32AAD1A1700EB83F9 /* MaterialDesingTextField */,
+				93CC65842697A52000949534 /* ErrorLabelView.swift */,
+				93DF142C269253B900A7A977 /* CheckView.swift */,
+				936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		937EB9F32AAD1A1700EB83F9 /* MaterialDesingTextField */ = {
+			isa = PBXGroup;
+			children = (
+				9314272A262B5AEE00542EFC /* MaterialDesignTextField.swift */,
+				937EB9F42AAD1A5500EB83F9 /* MaterialDesignTextFieldType.swift */,
+				937EB9F62AAD1A7400EB83F9 /* MaterialDesignTextFieldViewModelProtocol.swift */,
+			);
+			path = MaterialDesingTextField;
+			sourceTree = "<group>";
+		};
+		937EB9F82AAD1B9300EB83F9 /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */,
+				93BF62AD262C451400DDFB44 /* EnvironmentScreenViewModel.swift */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
+		937EB9F92AAD1C1B00EB83F9 /* Data License */ = {
+			isa = PBXGroup;
+			children = (
+				93DF141326920D0700A7A977 /* DataLicenseScreen.swift */,
+				93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */,
+			);
+			path = "Data License";
+			sourceTree = "<group>";
+		};
+		937EB9FA2AADDB9E00EB83F9 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				93334EA72677DC2D0094A483 /* Dashboard */,
+				93142716262B57C300542EFC /* Authorization */,
+				9320E02E2751991D006812E5 /* Download Taxons */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		937EB9FB2AADDBB500EB83F9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				937EB9FD2AADDE3600EB83F9 /* Assets */,
+				937EB9FC2AADDC2300EB83F9 /* Localization */,
+				931426E3262B53AD00542EFC /* AppDelegate.swift */,
+				931426E5262B53AD00542EFC /* SceneDelegate.swift */,
+				93BF62B7262C540700DDFB44 /* AppNavigationRouter.swift */,
+				931426EE262B53B000542EFC /* LaunchScreen.storyboard */,
+				931426F1262B53B000542EFC /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		937EB9FC2AADDC2300EB83F9 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				932F0446276B9F8F003E03EC /* InfoPlist.strings */,
+				93565D3226F736B900A588E6 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		937EB9FD2AADDE3600EB83F9 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9314273B262B684B00542EFC /* Color.xcassets */,
+				931426E9262B53B000542EFC /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		937EB9FE2AADDEE800EB83F9 /* Common Screens */ = {
+			isa = PBXGroup;
+			children = (
+				93381DAA2762A0130015BD0D /* BiologerNavigationViewController.swift */,
+				931D3FE32748183500352C8E /* Factory */,
+				931D3FE22748182B00352C8E /* Screens */,
+			);
+			path = "Common Screens";
+			sourceTree = "<group>";
+		};
+		937EB9FF2AADDF4400EB83F9 /* Validators */ = {
 			isa = PBXGroup;
 			children = (
 				937EB9E32AAD0A4800EB83F9 /* StringValidator.swift */,
+				93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */,
+				931D3FF2274AD6C800352C8E /* CheckInternetConnection.swift */,
 			);
-			path = Utils;
+			path = Validators;
 			sourceTree = "<group>";
 		};
 		937F523D270F0CD600239963 /* Map */ = {
@@ -1185,45 +1312,24 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		93A7E25D2691D5B0001D6AEF /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				93CC659C269CED3D00949534 /* Screens */,
-				93A7E2692691DFC4001D6AEF /* TextFields */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
-		93A7E25E2691D5CB001D6AEF /* Register */ = {
-			isa = PBXGroup;
-			children = (
-				93DF14052692061200A7A977 /* Screens */,
-				93A7E26A2691DFCF001D6AEF /* TextFields */,
-			);
-			path = Register;
-			sourceTree = "<group>";
-		};
 		93A7E25F2691D5DD001D6AEF /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				9314271A262B58AA00542EFC /* LoginScreen.swift */,
-				93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */,
-				93BF629D262B807D00DDFB44 /* BiologerButton.swift */,
-				93CC6588269C2C5E00949534 /* LoginEnvView.swift */,
+				937EB9E72AAD151000EB83F9 /* ViewModels */,
+				937EB9E62AAD150100EB83F9 /* Views */,
 			);
 			path = Login;
 			sourceTree = "<group>";
 		};
-		93A7E2602691D5E3001D6AEF /* Register */ = {
+		93A7E2602691D5E3001D6AEF /* Register Steps */ = {
 			isa = PBXGroup;
 			children = (
-				93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */,
-				93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */,
-				93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */,
-				93DF141326920D0700A7A977 /* DataLicenseScreen.swift */,
-				93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */,
+				937EB9E82AAD158300EB83F9 /* Screens */,
+				937EB9E92AAD158C00EB83F9 /* Views */,
+				937EB9EA2AAD159F00EB83F9 /* ViewModels */,
 			);
-			path = Register;
+			path = "Register Steps";
 			sourceTree = "<group>";
 		};
 		93A7E2652691D768001D6AEF /* Entity */ = {
@@ -1231,9 +1337,6 @@
 			children = (
 				93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */,
 				93DF14082692069600A7A977 /* RegisterUser.swift */,
-				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
-				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
-				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
 				93C2D1EA269F020600123216 /* Environment.swift */,
 				93C2D1EE269F1BFF00123216 /* Token.swift */,
 			);
@@ -1305,6 +1408,8 @@
 		93BF628C262B7B3E00DDFB44 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				93CC65862699941900949534 /* View+Extensions.swift */,
+				93BF6298262B7E6B00DDFB44 /* Color+Extensions.swift */,
 				93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */,
 				93334EC0267894820094A483 /* UIScreen+Extensions.swift */,
 				936035C6268889D60080C771 /* UIViewController+Extensions.swift */,
@@ -1379,45 +1484,20 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		93CC6599269CEAE600949534 /* EntityFactory */ = {
+		93CC6599269CEAE600949534 /* EnvironmentFactory */ = {
 			isa = PBXGroup;
 			children = (
 				9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */,
+				937EB9EC2AAD164700EB83F9 /* EnvironmentViewModel.swift */,
+				937EB9EE2AAD165C00EB83F9 /* EnvironmentType.swift */,
 			);
-			path = EntityFactory;
-			sourceTree = "<group>";
-		};
-		93CC659C269CED3D00949534 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				9314274A262B6CF600542EFC /* LoginScreenViewModel.swift */,
-				93BF62AD262C451400DDFB44 /* EnvironmentScreenViewModel.swift */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		93CC659D269CED5A00949534 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				93142754262B72C600542EFC /* LoginLabelsViewModel.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		93DF14052692061200A7A977 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */,
-				93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */,
-				93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */,
-				93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */,
-			);
-			path = Screens;
+			path = EnvironmentFactory;
 			sourceTree = "<group>";
 		};
 		93DF140E26920A2C00A7A977 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				937EB9F02AAD16A800EB83F9 /* Codable */,
 				93DF140F26920A4600A7A977 /* RegisterUserService.swift */,
 				93DF14202692262900A7A977 /* LoginUserService.swift */,
 			);
@@ -1435,6 +1515,7 @@
 				9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */,
 				93842AF726FA57CA008ECA80 /* GetTokenService.swift */,
 				93390DAA270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift */,
+				937EBA002AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1774,6 +1855,7 @@
 				936219F8271C44AE00BAEF8F /* DBAtlasCodeMapper.swift in Sources */,
 				93334EB52677E17B0094A483 /* Finding.swift in Sources */,
 				9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */,
+				937EB9EF2AAD165C00EB83F9 /* EnvironmentType.swift in Sources */,
 				936219FA271C482900BAEF8F /* DBFindingTaxon.swift in Sources */,
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
 				93390DB12703077F00DD68CE /* NewTaxonSectionView.swift in Sources */,
@@ -1813,6 +1895,7 @@
 				938D934427047FB90068E27C /* NewTaxonInfoView.swift in Sources */,
 				93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */,
 				9373F81E26F9175100C18F91 /* Auth2HttpClientDecorator.swift in Sources */,
+				937EB9F72AAD1A7400EB83F9 /* MaterialDesignTextFieldViewModelProtocol.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
 				93CC6589269C2C5F00949534 /* LoginEnvView.swift in Sources */,
 				93DF14212692262900A7A977 /* LoginUserService.swift in Sources */,
@@ -1831,9 +1914,9 @@
 				93842AF426FA4449008ECA80 /* ObservationService.swift in Sources */,
 				9389463726F60FE00000D850 /* SetupItemView.swift in Sources */,
 				93731E3D288E7F8E00EB7C71 /* DeleteAccountScreen.swift in Sources */,
+				937EB9ED2AAD164700EB83F9 /* EnvironmentViewModel.swift in Sources */,
 				93A7E2702691E055001D6AEF /* InsititutionTextFieldViewModel.swift in Sources */,
 				9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */,
-				93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */,
 				93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */,
 				9314DA1C27073CF3007896F9 /* TaxonSearchScreenViewModel.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
@@ -1843,7 +1926,6 @@
 				93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */,
 				9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */,
 				9342575926925BA000B8C912 /* AttributedTextView.swift in Sources */,
-				93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */,
 				931D3FE12747948800352C8E /* UserDefaultsDataLicenseStorage.swift in Sources */,
 				93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */,
 				9314DA36270B3EAF007896F9 /* GoogleMapsView.swift in Sources */,
@@ -1860,6 +1942,7 @@
 				93842AF626FA4465008ECA80 /* ObserverResponse.swift in Sources */,
 				933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
+				937EB9F52AAD1A5500EB83F9 /* MaterialDesignTextFieldType.swift in Sources */,
 				9314DA38270B3F11007896F9 /* LocationManager.swift in Sources */,
 				93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */,
 				93CC658D269C552C00949534 /* CommonViewControllerFactory.swift in Sources */,
@@ -1923,6 +2006,7 @@
 				93334EBF26788EE50094A483 /* SideMenuListHeaderView.swift in Sources */,
 				9320E040275806C4006812E5 /* GetAlitutdeByLocationResponse.swift in Sources */,
 				93142755262B72C600542EFC /* LoginLabelsViewModel.swift in Sources */,
+				937EBA012AADE05900EB83F9 /* MainQueueHTTPClientDecorator.swift in Sources */,
 				936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */,
 				9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */,
 				93DF14192692228900A7A977 /* URLSessionHTTPClient.swift in Sources */,
@@ -2151,7 +2235,7 @@
 				DEVELOPMENT_TEAM = NLHXMY5PBX;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = arm64;
-				INFOPLIST_FILE = Biologer/Info.plist;
+				INFOPLIST_FILE = Biologer/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2176,7 +2260,7 @@
 				DEVELOPMENT_TEAM = NLHXMY5PBX;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = arm64;
-				INFOPLIST_FILE = Biologer/Info.plist;
+				INFOPLIST_FILE = Biologer/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
