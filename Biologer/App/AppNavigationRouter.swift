@@ -99,18 +99,21 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var sideMenuRouter: SideMenuRouterRouter = {
         let sideMenuRouter = SideMenuRouterRouter(navigationController: sideMenuNavigationController,
-                                                  mainNavigationController: mainNavigationController,
-                                                  setupRouter: setupRouter,
-                                                  taxonRouter: taxonRouter,
                                                   environmentStorage: environmentStorage,
                                                   userStorage: userStorage,
-                                                  profileService: remoteProfileService,
-                                                  factory: SwiftUIDashboardViewControllerFactory(),
-                                                  uiKitCommonViewControllerFactory: commonViewControllerFactoryImplementation,
-                                                  swiftUICommonViewControllerFactory: commonViewControllerFactoryImplementation)
+                                                  factory: SwiftUISideMenuViewControllerFactory(),
+                                                  commonViewControllerFactory: commonViewControllerFactoryImplementation)
         
         sideMenuRouter.onLogout = { _ in
             self.logout()
+        }
+        
+        sideMenuRouter.onSetupScreen = { [weak self] _ in
+            self?.setupRouter.start()
+        }
+        
+        sideMenuRouter.onListOfFindingsScreen = { [weak self] _ in
+            self?.taxonRouter.start()
         }
         return sideMenuRouter
     }()
@@ -142,6 +145,11 @@ public final class AppNavigationRouter: NavigationRouter {
             guard let self = self else { return }
             self.downloadTaxonRouter.start(navigationController: self.sideMenuNavigationController)
         }
+        
+        setupRouter.onSideMenuTapped = { [weak self] _ in
+            self?.sideMenuRouter.showSideMenu()
+        }
+        
         return setupRouter
     }()
     
@@ -228,7 +236,6 @@ public final class AppNavigationRouter: NavigationRouter {
     
     init(mainNavigationController: BiologerNavigationViewController) {
         self.mainNavigationController = mainNavigationController
-        //self.mainNavigationController.setNavigationBarTransparency()
     }
     
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
@@ -248,7 +255,10 @@ public final class AppNavigationRouter: NavigationRouter {
     
     // MARK: - Private Functions
     private func showSideMenuRouter() {
-        self.sideMenuRouter.start()
+        taxonRouter.start()
+        taxonRouter.onSideMenuTapped = { [weak self] _ in
+            self?.sideMenuRouter.showSideMenu()
+        }
         UINavigationBar.appearance().barTintColor = .biologerGreenColor
         self.sideMenuNavigationController.modalPresentationStyle = .overFullScreen
         self.mainNavigationController.present(self.sideMenuNavigationController,

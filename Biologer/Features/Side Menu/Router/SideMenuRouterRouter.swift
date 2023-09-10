@@ -12,54 +12,44 @@ import SideMenu
 public final class SideMenuRouterRouter: NavigationRouter {
     
     private let navigationController: UINavigationController
-    private let mainNavigationController: UINavigationController
-    private let setupRouter: SetupRouter
-    private let taxonRouter: TaxonRouter
     private let factory: SideMenuViewControllerFactory
-    private let uiKitCommonViewControllerFactory: CommonViewControllerFactory
-    private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
+    private let commonViewControllerFactory: CommonViewControllerFactory
     private let environmentStorage: EnvironmentStorage
     private let userStorage: UserStorage
-    private let profileService: ProfileService
+    
     public var onLogout: Observer<Void>?
+    public var onSetupScreen: Observer<Void>?
+    public var onListOfFindingsScreen: Observer<Void>?
     
     init(navigationController: UINavigationController,
-         mainNavigationController: UINavigationController,
-         setupRouter: SetupRouter,
-         taxonRouter: TaxonRouter,
          environmentStorage: EnvironmentStorage,
          userStorage: UserStorage,
-         profileService: ProfileService,
          factory: SideMenuViewControllerFactory,
-         uiKitCommonViewControllerFactory: CommonViewControllerFactory,
-         swiftUICommonViewControllerFactory: CommonViewControllerFactory) {
+         commonViewControllerFactory: CommonViewControllerFactory) {
         self.navigationController = navigationController
-        self.mainNavigationController = mainNavigationController
-        self.setupRouter = setupRouter
-        self.taxonRouter = taxonRouter
         self.environmentStorage = environmentStorage
         self.userStorage = userStorage
-        self.profileService = profileService
         self.factory = factory
-        self.uiKitCommonViewControllerFactory = uiKitCommonViewControllerFactory
-        self.swiftUICommonViewControllerFactory = swiftUICommonViewControllerFactory
-    }
-    
-    public func start() {
-        showListOfFindings()
+        self.commonViewControllerFactory = commonViewControllerFactory
     }
     
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
         guard let self = self else { return }
         if isLoading {
-            let loader  = self.uiKitCommonViewControllerFactory.createBlockingProgress()
+            let loader  = self.commonViewControllerFactory.createBlockingProgress()
             self.navigationController.present(loader, animated: false, completion: nil)
         } else {
             self.navigationController.dismiss(animated: false, completion: nil)
         }
     }
     
-    private func showSideMenu() {
+    // MARK: - Public Functions
+    
+    public func start() {
+        showListOfFindings()
+    }
+    
+    public func showSideMenu() {
         let sideMenuListScreen = factory.makeSideMenuListScreen(email: userStorage.getUser()?.email ?? "",
                                                                 username: userStorage.getUser()?.fullName ?? "",
                                                                 onItemTapped: { item in
@@ -72,18 +62,14 @@ public final class SideMenuRouterRouter: NavigationRouter {
         self.navigationController.present(menu, animated: true, completion: nil)
     }
     
+    // MARK: - Private Functions
+    
     private func showListOfFindings() {
-        taxonRouter.start()
-        taxonRouter.onSideMenuTapped = { [weak self] _ in
-            self?.showSideMenu()
-        }
+        onListOfFindingsScreen?(())
     }
     
     private func showSetupScreen() {
-        setupRouter.start()
-        setupRouter.onSideMenuTapped = { [weak self] _ in
-            self?.showSideMenu()
-        }
+        onSetupScreen?(())
     }
     
     private func showLogoutScreen() {
@@ -120,7 +106,7 @@ public final class SideMenuRouterRouter: NavigationRouter {
     }
     
     private func showHelpScreen() {
-        let vc = swiftUICommonViewControllerFactory.makeHelpScreen(onDone: { _ in
+        let vc = commonViewControllerFactory.makeHelpScreen(onDone: { _ in
             
         })
         addSideMenuIcons(vc: vc)

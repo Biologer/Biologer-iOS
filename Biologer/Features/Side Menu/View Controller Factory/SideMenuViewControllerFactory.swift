@@ -24,7 +24,7 @@ protocol SideMenuViewControllerFactory {
                          onEnvTapped: @escaping Observer<String>) -> UIViewController
 }
 
-public final class SwiftUIDashboardViewControllerFactory: SideMenuViewControllerFactory {
+public final class SwiftUISideMenuViewControllerFactory: SideMenuViewControllerFactory {
     
     func makeSideMenuListScreen(email: String,
                                 username: String,
