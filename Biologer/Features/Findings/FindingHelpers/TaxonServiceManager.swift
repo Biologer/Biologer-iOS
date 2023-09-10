@@ -7,15 +7,18 @@
 
 import Foundation
 
-public final class TaxonServiceCoordinator {
+public final class TaxonServiceManager {
     private let taxonService: TaxonService
     private let taxonPaginationInfo: TaxonsPaginationInfoStorage
     private var shouldExecuteCall: Bool = true
     
-    init(taxonService: TaxonService, taxonPaginationInfo: TaxonsPaginationInfoStorage) {
+    init(taxonService: TaxonService,
+         taxonPaginationInfo: TaxonsPaginationInfoStorage) {
         self.taxonService = taxonService
         self.taxonPaginationInfo = taxonPaginationInfo
     }
+    
+    // MARK: - Public Functions
     
     public func stopGetTaxon() {
         shouldExecuteCall = false
@@ -94,6 +97,8 @@ public final class TaxonServiceCoordinator {
             }
         }
     }
+    
+    // MARK: - Private Functions
     
     private func saveNextPagination(currentPage: Int,
                                     perPage: Int,

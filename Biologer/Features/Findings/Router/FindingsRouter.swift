@@ -1,5 +1,5 @@
 //
-//  TaxonRouter.swift
+//  FindingsRouter.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 19.9.21..
@@ -8,15 +8,14 @@
 import SwiftUI
 import UIKit
 
-public final class TaxonRouter: NSObject {
+public final class FindingsRouter: NSObject {
     private let navigationController: UINavigationController
-    private let factory: TaxonViewControllerFactory
-    private let swiftUICommonFactory: CommonViewControllerFactory
-    private let uiKitCommonFactory: CommonViewControllerFactory
+    private let factory: FindingsViewControllerFactory
+    private let commonFactory: CommonViewControllerFactory
     private let alertFactory: AlertViewControllerFactory
     private let location: LocationManager
     private let uploadFindings: UploadFindings
-    private let taxonServiceCordinator: TaxonServiceCoordinator
+    private let taxonServiceManager: TaxonServiceManager
     private let taxonPaginationInfoStorage: TaxonsPaginationInfoStorage
     private let settingsStorage: SettingsStorage
     private let userStorage: UserStorage
@@ -30,24 +29,22 @@ public final class TaxonRouter: NSObject {
     
     init(navigationController: UINavigationController,
          location: LocationManager,
-         taxonServiceCordinator: TaxonServiceCoordinator,
+         taxonServiceManager: TaxonServiceManager,
          taxonPaginationInfoStorage: TaxonsPaginationInfoStorage,
          settingsStorage: SettingsStorage,
          uploadFindings: UploadFindings,
-         factory: TaxonViewControllerFactory,
-         swiftUICommonFactory: CommonViewControllerFactory,
-         uiKitCommonFactory: CommonViewControllerFactory,
+         factory: FindingsViewControllerFactory,
+         commonFactory: CommonViewControllerFactory,
          alertFactory: AlertViewControllerFactory,
          userStorage: UserStorage) {
         self.navigationController = navigationController
         self.location = location
         self.uploadFindings = uploadFindings
-        self.taxonServiceCordinator = taxonServiceCordinator
+        self.taxonServiceManager = taxonServiceManager
         self.taxonPaginationInfoStorage = taxonPaginationInfoStorage
         self.settingsStorage = settingsStorage
         self.factory = factory
-        self.swiftUICommonFactory = swiftUICommonFactory
-        self.uiKitCommonFactory = uiKitCommonFactory
+        self.commonFactory = commonFactory
         self.alertFactory = alertFactory
         self.userStorage = userStorage
     }
@@ -55,7 +52,7 @@ public final class TaxonRouter: NSObject {
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
         guard let self = self else { return }
         if isLoading {
-            let loader  = self.uiKitCommonFactory.createBlockingProgress()
+            let loader  = self.commonFactory.createBlockingProgress()
             self.navigationController.hardPresent(loader, animated: false, completion: nil)
         } else {
             self.navigationController.dismiss(animated: false, completion: nil)
@@ -82,7 +79,7 @@ public final class TaxonRouter: NSObject {
                 self.showNewTaxonScreen(findingViewModel: self.makeDefaultFidingViewModel())
             }
         },
-        onItemTapped: { [weak self] item in
+                                                  onItemTapped: { [weak self] item in
             guard let self = self else { return }
             if let dbFinding = RealmManager.get(fromEntity: DBFinding.self, primaryKey: item.id) {
                 self.showNewTaxonScreen(findingViewModel: DBFindingMapper.mapFromDB(dbFinding: dbFinding,
@@ -92,19 +89,19 @@ public final class TaxonRouter: NSObject {
                 print("Can't find finding in Data Base")
             }
         },
-        onDeleteFindingTapped: { [weak self] finding in
+                                                  onDeleteFindingTapped: { [weak self] finding in
             self?.showDeleteFindingsScreen(selectedFinding: finding,
                                            delegate: deleteFindingDelegate)
         })
         vc.setBiologerBackBarButtonItem(image: UIImage(named: "side_menu_icon")!,
                                         action: {
-                                            self.onSideMenuTapped?(())
-                                        })
+            self.onSideMenuTapped?(())
+        })
         vc.setBiologerRightButtonItem(image: UIImage(named: "upload_icon")!,
                                       action: {
-                                        self.uploadFindingFlow()
-                                      })
-
+            self.uploadFindingFlow()
+        })
+        
         let viewController = vc as? UIHostingController<ListOfFindingsScreen>
         deleteFindingDelegate = viewController?.rootView.viewModel
         listOfFindingsViewController = vc
@@ -116,8 +113,8 @@ public final class TaxonRouter: NSObject {
                                           delegate: DeleteFindingsScreenViewModelDelegate?) {
         let vc = factory.makeDeleteFindingScreen(selectedFinding: selectedFinding,
                                                  onDeleteDone: { _ in
-                                                    self.navigationController.dismiss(animated: true, completion: nil)
-                                                 })
+            self.navigationController.dismiss(animated: true, completion: nil)
+        })
         let viewController = vc as? UIHostingController<DeleteFindingsScreen>
         viewController?.rootView.viewModel.delegate = delegate
         vc.modalPresentationStyle = .overCurrentContext
@@ -130,50 +127,50 @@ public final class TaxonRouter: NSObject {
         var taxonNameDelegate: TaxonSearchScreenViewModelDelegate?
         var devStageDelegate: NewTaxonDevStageScreenViewModelDelegate?
         var nestingAtlasCodeDelegate: NestingAtlasCodeScreenViewModelDelegate?
-        let vc = factory.makeNewTaxonScreen(findingViewModel: findingViewModel,
-                                            settingsStorage: settingsStorage,
-                                            onSaveTapped: { [weak self] findings in
-                                                self?.addOrUpdateFindingsToDb(findings: findings)
-                                                self?.location.stopUpdatingLocation()
-                                                self?.navigationController.popViewController(animated: true)
-                                            },
-                                            onLocationTapped: { [weak self] taxonLocation in
-                                                self?.showTaxonMapScreen(delegate: mapDelegate,
-                                                                         taxonLocation: taxonLocation)
-                                            },
-                                            onPhotoTapped: { [weak self] _ in
-                                                self?.showPhoneImages(type: .camera)
-                                            },
-                                            onGalleryTapped: { [weak self] _ in
-                                                self?.showPhoneImages(type: .photoLibrary)
-                                            },
-                                            onImageTapped: { [weak self] images, selectedImageIndex in
-                                                self?.showImagesPreviewScreen(images: images,
-                                                                             selectedImageIndex: selectedImageIndex)
-                                            },
-                                            onSearchTaxonTapped: { [weak self] _ in
-                                                self?.showTaxonSearchScreen(delegate: taxonNameDelegate)
-                                            },
-                                            onNestingTapped: { [weak self] atlasCode in
-                                                self?.showNestingAtlasCode(codes: NestingAtlasCodeMapper.getNestingCodes(),
-                                                                           previousSelectedItem: atlasCode,
-                                                                           delegate: nestingAtlasCodeDelegate)
-                                            },
-                                            onDevStageTapped: { [weak self] stages in
-                                                if let stages = stages, !stages.isEmpty {
-                                                    self?.showDevStageScreen(stages: stages,
-                                                                             delegate: devStageDelegate)
-                                                }
-                                            },
-                                            onFotoCountFullfiled: { _ in
-                                                self.showConfirmationAlert(popUpType: .info,
-                                                                           title: "NewTaxon.image.errorPopUp.title".localized,
-                                                                           description: "NewTaxon.image.errorPopUp.description".localized)
-                                            }, onFindingIsNotValid: { errorText in
-                                                self.showConfirmationAlert(popUpType: .error,
-                                                                           title: "API.lb.error".localized,
-                                                                           description: errorText)
-                                            })
+        let vc = factory.makeNewFindingScreen(findingViewModel: findingViewModel,
+                                              settingsStorage: settingsStorage,
+                                              onSaveTapped: { [weak self] findings in
+            self?.addOrUpdateFindingsToDb(findings: findings)
+            self?.location.stopUpdatingLocation()
+            self?.navigationController.popViewController(animated: true)
+        },
+                                              onLocationTapped: { [weak self] taxonLocation in
+            self?.showTaxonMapScreen(delegate: mapDelegate,
+                                     taxonLocation: taxonLocation)
+        },
+                                              onPhotoTapped: { [weak self] _ in
+            self?.showPhoneImages(type: .camera)
+        },
+                                              onGalleryTapped: { [weak self] _ in
+            self?.showPhoneImages(type: .photoLibrary)
+        },
+                                              onImageTapped: { [weak self] images, selectedImageIndex in
+            self?.showImagesPreviewScreen(images: images,
+                                          selectedImageIndex: selectedImageIndex)
+        },
+                                              onSearchTaxonTapped: { [weak self] _ in
+            self?.showTaxonSearchScreen(delegate: taxonNameDelegate)
+        },
+                                              onNestingTapped: { [weak self] atlasCode in
+            self?.showNestingAtlasCode(codes: NestingAtlasCodeMapper.getNestingCodes(),
+                                       previousSelectedItem: atlasCode,
+                                       delegate: nestingAtlasCodeDelegate)
+        },
+                                              onDevStageTapped: { [weak self] stages in
+            if let stages = stages, !stages.isEmpty {
+                self?.showDevStageScreen(stages: stages,
+                                         delegate: devStageDelegate)
+            }
+        },
+                                              onFotoCountFullfiled: { _ in
+            self.showConfirmationAlert(popUpType: .info,
+                                       title: "NewTaxon.image.errorPopUp.title".localized,
+                                       description: "NewTaxon.image.errorPopUp.description".localized)
+        }, onFindingIsNotValid: { errorText in
+            self.showConfirmationAlert(popUpType: .error,
+                                       title: "API.lb.error".localized,
+                                       description: errorText)
+        })
         let viewController = vc as? UIHostingController<NewTaxonScreen>
         newTaxonScreenViewModel = viewController?.rootView.viewModel
         imageCustomPickerDelegate = viewController?.rootView.viewModel.findingViewModel.imageViewModel
@@ -192,11 +189,11 @@ public final class TaxonRouter: NSObject {
     private func showTaxonMapScreen(delegate: TaxonMapScreenViewModelDelegate?,
                                     taxonLocation: TaxonLocation?) {
         var mapTypeDelegate: MapTypeScreenViewModelDelegate?
-        let vc = factory.makeTaxonMapScreen(locationManager: location,
-                                            taxonLocation: taxonLocation,
-                                            onMapTypeTapped: { [weak self] _ in
-                                                self?.showMapTypeScreen(delegate: mapTypeDelegate)
-                                            })
+        let vc = factory.makeFindingMapScreen(locationManager: location,
+                                              taxonLocation: taxonLocation,
+                                              onMapTypeTapped: { [weak self] _ in
+            self?.showMapTypeScreen(delegate: mapTypeDelegate)
+        })
         self.location.stopUpdatingLocation()
         let viewController = vc as? TaxonMapScreenViewController
         viewController?.viewModel.delegate = delegate
@@ -229,11 +226,11 @@ public final class TaxonRouter: NSObject {
         let vc = factory.makeSearchTaxonScreen(delegate: delegate,
                                                settingsStorage: settingsStorage,
                                                onTaxonTapped: { [weak self] taxon in
-                                                    self?.navigationController.popViewController(animated: true)
-                                               },
+            self?.navigationController.popViewController(animated: true)
+        },
                                                onOkTapped: { [weak self] taxon in
-                                                    self?.navigationController.popViewController(animated: true)
-                                               })
+            self?.navigationController.popViewController(animated: true)
+        })
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.search.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
@@ -244,8 +241,8 @@ public final class TaxonRouter: NSObject {
         let vc = factory.makeDevStageScreen(stages: stages,
                                             delegate: delegate,
                                             onDone: { [weak self] _ in
-                                                self?.navigationController.dismiss(animated: true, completion: nil)
-                                            })
+            self?.navigationController.dismiss(animated: true, completion: nil)
+        })
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
         self.navigationController.present(vc, animated: true, completion: nil)
@@ -258,8 +255,8 @@ public final class TaxonRouter: NSObject {
                                              previousSlectedCode: previousSelectedItem,
                                              delegate: delegate,
                                              onCodeTapped: { [weak self] _ in
-                                                self?.navigationController.popViewController(animated: true)
-                                             })
+            self?.navigationController.popViewController(animated: true)
+        })
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.nestingAtlas.nav.title".localized)
         self.navigationController.pushViewController(vc, animated: true)
@@ -268,8 +265,8 @@ public final class TaxonRouter: NSObject {
     private func showMapTypeScreen(delegate: MapTypeScreenViewModelDelegate?) {
         let vc = factory.makeMapTypeScreen(delegate: delegate,
                                            onTypeTapped: { [weak self] _ in
-                                            self?.navigationController.dismiss(animated: true, completion: nil)
-                                           })
+            self?.navigationController.dismiss(animated: true, completion: nil)
+        })
         let viewController = vc as? UIHostingController<MapTypeScreen>
         viewController?.rootView.viewModel.delegate = delegate
         vc.modalPresentationStyle = .overCurrentContext
@@ -281,10 +278,10 @@ public final class TaxonRouter: NSObject {
                                               currentValue: Double = 0.0,
                                               onProgressAppeared: @escaping Observer<Double>,
                                               onCancelTapped: @escaping Observer<Double>) {
-        let vc = swiftUICommonFactory.makeBiologerProgressBarView(maxValue: maxValue,
-                                                     currentValue: currentValue,
-                                                     onProgressAppeared: onProgressAppeared,
-                                                     onCancelTapped: onCancelTapped)
+        let vc = commonFactory.makeBiologerProgressBarView(maxValue: maxValue,
+                                                           currentValue: currentValue,
+                                                           onProgressAppeared: onProgressAppeared,
+                                                           onCancelTapped: onCancelTapped)
         let viewController = vc as? UIHostingController<BiologerProgressBarScreen>
         biologerProgressBarDelegate = viewController?.rootView.viewModel
         vc.modalPresentationStyle = .overCurrentContext
@@ -302,19 +299,19 @@ public final class TaxonRouter: NSObject {
         showBilogerProgressBarScreen(maxValue: maxValue,
                                      currentValue: currentValue,
                                      onProgressAppeared: { [weak self] currentValue in
-                                        
-                                        self?.taxonServiceCordinator.resumeGetTaxon()
-                                        self?.taxonServiceCordinator.getTaxons { currentValue, maxValue in
-                                            self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)
-                                            if currentValue == maxValue {
-                                                self?.navigationController.dismiss(animated: true, completion: nil)
-                                            }
-                                        }
-                                     },
+            
+            self?.taxonServiceManager.resumeGetTaxon()
+            self?.taxonServiceManager.getTaxons { currentValue, maxValue in
+                self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)
+                if currentValue == maxValue {
+                    self?.navigationController.dismiss(animated: true, completion: nil)
+                }
+            }
+        },
                                      onCancelTapped: { [weak self] currentValue in
-                                        self?.taxonServiceCordinator.stopGetTaxon()
-                                        self?.navigationController.dismiss(animated: true, completion: nil)
-                                     })
+            self?.taxonServiceManager.stopGetTaxon()
+            self?.navigationController.dismiss(animated: true, completion: nil)
+        })
     }
     
     private func showConfirmationAlert(popUpType: PopUpType,
@@ -324,8 +321,8 @@ public final class TaxonRouter: NSObject {
                                                     title: title,
                                                     description: description,
                                                     onTapp: { _ in
-                                                        self.navigationController.dismiss(animated: true, completion: nil)
-                                                    })
+            self.navigationController.dismiss(animated: true, completion: nil)
+        })
         self.navigationController.present(vc, animated: true, completion: nil)
     }
     
@@ -364,9 +361,9 @@ public final class TaxonRouter: NSObject {
                 RealmManager.add(dbFinding)
             } else {
                 if let getFinding = RealmManager.get(fromEntity: DBFinding.self, primaryKey: finding.id ?? UUID()) {
-                     RealmManager.update(getFinding, block: { object in
+                    RealmManager.update(getFinding, block: { object in
                         DBFindingMapper.mapToUpdateDB(findingViewModel: finding, dbFinding: object)
-                     })
+                    })
                 }
             }
         }
@@ -374,7 +371,7 @@ public final class TaxonRouter: NSObject {
     
     private func showOrDissmisLoader(shouldPresent: Bool, onDissmis: (() -> Void)? = nil) {
         if shouldPresent {
-            let loader  = self.uiKitCommonFactory.createBlockingProgress()
+            let loader  = self.commonFactory.createBlockingProgress()
             self.navigationController.hardPresent(loader, animated: false, completion: nil)
         } else {
             self.navigationController.dismiss(animated: false, completion: onDissmis)
@@ -385,7 +382,7 @@ public final class TaxonRouter: NSObject {
         let confirmAlert = self.alertFactory.makeConfirmationAlert(popUpType: .warning,
                                                                    title: "Common.title.warning".localized,
                                                                    description: "ListOfFindings.popUpUserVerified.description".localized,
-                                                                    onTapp: { [weak self] in
+                                                                   onTapp: { [weak self] in
             self?.navigationController.dismiss(animated: true,
                                                completion: {
                 onDissmis(())
@@ -435,19 +432,19 @@ public final class TaxonRouter: NSObject {
     private func internetErrorOnUploadingFindings(title: String, findingsToUpload: [DBFinding]) {
         showYesOrNoAlert(title: title,
                          onYesTapped: { [weak self] _ in
-                            self?.navigationController.dismiss(animated: true, completion: {
-                                self?.startUploadingFindings(findingsToUpload: findingsToUpload)
-                            })
-                         }, onNoTapped: { [weak self] _ in
-                            self?.navigationController.dismiss(animated: true, completion: nil)
-                         })
+            self?.navigationController.dismiss(animated: true, completion: {
+                self?.startUploadingFindings(findingsToUpload: findingsToUpload)
+            })
+        }, onNoTapped: { [weak self] _ in
+            self?.navigationController.dismiss(animated: true, completion: nil)
+        })
     }
     
     private func startUploadingFindings(findingsToUpload: [DBFinding]) {
         self.showOrDissmisLoader(shouldPresent: true, onDissmis: nil)
         self.uploadFindings.upload(findings: findingsToUpload,
                                    projectName: self.settingsStorage.getSettings()?.projectName ?? "",
-                                    locationManager: self.location)
+                                   locationManager: self.location)
         self.uploadFindings.onError = { error in
             self.showOrDissmisLoader(shouldPresent: false, onDissmis: {
                 self.showConfirmationAlert(popUpType: .error,
@@ -478,18 +475,18 @@ public final class TaxonRouter: NSObject {
                                         onYesTapped: @escaping Observer<Void>) {
         self.showYesOrNoAlert(title: "UploadFindings.yesOrNoPopUp.title".localized,
                               onYesTapped: { [weak self] _ in
-                                guard let self = self else { return }
-                                self.navigationController.dismiss(animated: true, completion: {
-                                    onYesTapped(())
-                                })
-                              }, onNoTapped: { [weak self] _ in
-                                self?.navigationController.dismiss(animated: true, completion: nil)
-                              })
+            guard let self = self else { return }
+            self.navigationController.dismiss(animated: true, completion: {
+                onYesTapped(())
+            })
+        }, onNoTapped: { [weak self] _ in
+            self?.navigationController.dismiss(animated: true, completion: nil)
+        })
     }
 }
 
 // MARK: - Taxon Rouetr Image Picker Delegate
-extension TaxonRouter: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+extension FindingsRouter: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         self.navigationController.dismiss(animated: true, completion: nil)
@@ -511,12 +508,12 @@ extension TaxonRouter: UINavigationControllerDelegate, UIImagePickerControllerDe
     private func createImageNameWithDate() -> String {
         var imageName = ""
         let date = Date()
-
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'_'HH_mm_ss"
-
+        
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-
+        
         imageName = "\(dateFormatter.string(from: date)).jpg"
         return imageName
     }

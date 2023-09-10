@@ -94,8 +94,8 @@
 		934C8F2727315CC30094D1E7 /* DBObservationMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934C8F2627315CC30094D1E7 /* DBObservationMapper.swift */; };
 		9351D4552779E73B0091D4D9 /* FontConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351D4542779E73B0091D4D9 /* FontConstants.swift */; };
 		9351D4572779E8BB0091D4D9 /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351D4562779E8BB0091D4D9 /* Font+Extensions.swift */; };
-		93565D1D26F723BF00A588E6 /* TaxonViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1C26F723BF00A588E6 /* TaxonViewControllerFactory.swift */; };
-		93565D1F26F7243800A588E6 /* TaxonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1E26F7243800A588E6 /* TaxonRouter.swift */; };
+		93565D1D26F723BF00A588E6 /* FindingsViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1C26F723BF00A588E6 /* FindingsViewControllerFactory.swift */; };
+		93565D1F26F7243800A588E6 /* FindingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1E26F7243800A588E6 /* FindingsRouter.swift */; };
 		93565D2326F7270B00A588E6 /* NewTaxonScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */; };
 		93565D2526F7275D00A588E6 /* NewTaxonScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */; };
 		93565D2B26F72BD500A588E6 /* NoInternetConnectionValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */; };
@@ -223,7 +223,7 @@
 		93DF142D269253B900A7A977 /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142C269253B900A7A977 /* CheckView.swift */; };
 		93E3CBEB2736E7F30090FF93 /* BiologerProgressBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */; };
 		93E3CBEE2736EB980090FF93 /* BiologerProgressBarScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBED2736EB980090FF93 /* BiologerProgressBarScreenViewModel.swift */; };
-		93E3CBF02737DAEE0090FF93 /* TaxonServiceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBEF2737DAEE0090FF93 /* TaxonServiceCoordinator.swift */; };
+		93E3CBF02737DAEE0090FF93 /* TaxonServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBEF2737DAEE0090FF93 /* TaxonServiceManager.swift */; };
 		93E3CBF22737EF240090FF93 /* TaxonsPaginationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF12737EF240090FF93 /* TaxonsPaginationInfo.swift */; };
 		93E3CBF42737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF32737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift */; };
 		93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */; };
@@ -366,8 +366,8 @@
 		934F36E62933E183007394CE /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9351D4542779E73B0091D4D9 /* FontConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConstants.swift; sourceTree = "<group>"; };
 		9351D4562779E8BB0091D4D9 /* Font+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
-		93565D1C26F723BF00A588E6 /* TaxonViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonViewControllerFactory.swift; sourceTree = "<group>"; };
-		93565D1E26F7243800A588E6 /* TaxonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonRouter.swift; sourceTree = "<group>"; };
+		93565D1C26F723BF00A588E6 /* FindingsViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsViewControllerFactory.swift; sourceTree = "<group>"; };
+		93565D1E26F7243800A588E6 /* FindingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsRouter.swift; sourceTree = "<group>"; };
 		93565D2226F7270B00A588E6 /* NewTaxonScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonScreen.swift; sourceTree = "<group>"; };
 		93565D2426F7275D00A588E6 /* NewTaxonScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonScreenViewModel.swift; sourceTree = "<group>"; };
 		93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetConnectionValidator.swift; sourceTree = "<group>"; };
@@ -497,7 +497,7 @@
 		93DF142C269253B900A7A977 /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerProgressBarScreen.swift; sourceTree = "<group>"; };
 		93E3CBED2736EB980090FF93 /* BiologerProgressBarScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerProgressBarScreenViewModel.swift; sourceTree = "<group>"; };
-		93E3CBEF2737DAEE0090FF93 /* TaxonServiceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonServiceCoordinator.swift; sourceTree = "<group>"; };
+		93E3CBEF2737DAEE0090FF93 /* TaxonServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonServiceManager.swift; sourceTree = "<group>"; };
 		93E3CBF12737EF240090FF93 /* TaxonsPaginationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonsPaginationInfo.swift; sourceTree = "<group>"; };
 		93E3CBF32737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonsPaginationInfoStorage.swift; sourceTree = "<group>"; };
 		93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTaxonsPaginationInfoStorage.swift; sourceTree = "<group>"; };
@@ -575,7 +575,7 @@
 		9300757426877C5B005A4DE0 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				93565D1E26F7243800A588E6 /* TaxonRouter.swift */,
+				93565D1E26F7243800A588E6 /* FindingsRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -583,7 +583,7 @@
 		9300757926877C9F005A4DE0 /* ViewControllerFactory */ = {
 			isa = PBXGroup;
 			children = (
-				93565D1C26F723BF00A588E6 /* TaxonViewControllerFactory.swift */,
+				93565D1C26F723BF00A588E6 /* FindingsViewControllerFactory.swift */,
 			);
 			path = ViewControllerFactory;
 			sourceTree = "<group>";
@@ -774,13 +774,13 @@
 			path = Mappers;
 			sourceTree = "<group>";
 		};
-		931D3FE827481CCE00352C8E /* Finding Helper */ = {
+		931D3FE827481CCE00352C8E /* FindingHelpers */ = {
 			isa = PBXGroup;
 			children = (
 				931D3FE927481D0600352C8E /* UploadFindings.swift */,
-				93E3CBEF2737DAEE0090FF93 /* TaxonServiceCoordinator.swift */,
+				93E3CBEF2737DAEE0090FF93 /* TaxonServiceManager.swift */,
 			);
-			path = "Finding Helper";
+			path = FindingHelpers;
 			sourceTree = "<group>";
 		};
 		931D3FED274ABCB900352C8E /* Entity */ = {
@@ -803,7 +803,7 @@
 		93334EA72677DC2D0094A483 /* Findings */ = {
 			isa = PBXGroup;
 			children = (
-				931D3FE827481CCE00352C8E /* Finding Helper */,
+				931D3FE827481CCE00352C8E /* FindingHelpers */,
 				93B0417F2712204C007DB833 /* Mapers */,
 				9373F81826F9131000C18F91 /* Service */,
 				9300757926877C9F005A4DE0 /* ViewControllerFactory */,
@@ -1996,7 +1996,7 @@
 				93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */,
 				9314DA1C27073CF3007896F9 /* TaxonSearchScreenViewModel.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
-				93565D1F26F7243800A588E6 /* TaxonRouter.swift in Sources */,
+				93565D1F26F7243800A588E6 /* FindingsRouter.swift in Sources */,
 				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
 				938D9361270632400068E27C /* ImagesPreviewScreen.swift in Sources */,
 				93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */,
@@ -2097,7 +2097,7 @@
 				93565D2326F7270B00A588E6 /* NewTaxonScreen.swift in Sources */,
 				933EF7F626EFBAD800F1EBC4 /* PopUpConfirmScreen.swift in Sources */,
 				93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */,
-				93565D1D26F723BF00A588E6 /* TaxonViewControllerFactory.swift in Sources */,
+				93565D1D26F723BF00A588E6 /* FindingsViewControllerFactory.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				93171D88273BDBFD0038B2B2 /* PostFindingImageService.swift in Sources */,
 				936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */,
@@ -2107,7 +2107,7 @@
 				9314DA2E270A4C10007896F9 /* NewTaxonDevStageScreen.swift in Sources */,
 				937F5241270F96D700239963 /* DeleteFindingsScreen.swift in Sources */,
 				93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */,
-				93E3CBF02737DAEE0090FF93 /* TaxonServiceCoordinator.swift in Sources */,
+				93E3CBF02737DAEE0090FF93 /* TaxonServiceManager.swift in Sources */,
 				931D3FEF274ABCCD00352C8E /* Settings.swift in Sources */,
 				93334EB72677E4E40094A483 /* NoItemsView.swift in Sources */,
 				933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */,

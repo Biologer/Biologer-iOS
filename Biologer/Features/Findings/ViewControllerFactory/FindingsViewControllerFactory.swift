@@ -1,5 +1,5 @@
 //
-//  TaxonViewControllerFactory.swift
+//  FindingsViewControllerFactory.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 19.9.21..
@@ -7,27 +7,27 @@
 
 import SwiftUI
 
-public protocol TaxonViewControllerFactory {
+public protocol FindingsViewControllerFactory {
     func makeListOfFindingsScreen(onNewItemTapped: @escaping Observer<Void>,
                                   onItemTapped: @escaping Observer<Finding>,
                                   onDeleteFindingTapped: @escaping Observer<Finding>) -> UIViewController
     func makeDeleteFindingScreen(selectedFinding: Finding,
                                  onDeleteDone: @escaping Observer<Void>) -> UIViewController
-    func makeNewTaxonScreen(findingViewModel: FindingViewModel,
-                            settingsStorage: SettingsStorage,
-                            onSaveTapped: @escaping Observer<[FindingViewModel]>,
-                            onLocationTapped: @escaping Observer<TaxonLocation?>,
-                            onPhotoTapped: @escaping Observer<Void>,
-                            onGalleryTapped: @escaping Observer<Void>,
-                            onImageTapped: @escaping Observer<([TaxonImage], Int)>,
-                            onSearchTaxonTapped: @escaping Observer<Void>,
-                            onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
-                            onDevStageTapped: @escaping Observer<[DevStageViewModel]?>,
-                            onFotoCountFullfiled: Observer<Void>?,
-                            onFindingIsNotValid: Observer<String>?) -> UIViewController
-    func makeTaxonMapScreen(locationManager: LocationManager,
-                            taxonLocation: TaxonLocation?,
-                            onMapTypeTapped: @escaping Observer<Void>) -> UIViewController
+    func makeNewFindingScreen(findingViewModel: FindingViewModel,
+                              settingsStorage: SettingsStorage,
+                              onSaveTapped: @escaping Observer<[FindingViewModel]>,
+                              onLocationTapped: @escaping Observer<TaxonLocation?>,
+                              onPhotoTapped: @escaping Observer<Void>,
+                              onGalleryTapped: @escaping Observer<Void>,
+                              onImageTapped: @escaping Observer<([TaxonImage], Int)>,
+                              onSearchTaxonTapped: @escaping Observer<Void>,
+                              onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
+                              onDevStageTapped: @escaping Observer<[DevStageViewModel]?>,
+                              onFotoCountFullfiled: Observer<Void>?,
+                              onFindingIsNotValid: Observer<String>?) -> UIViewController
+    func makeFindingMapScreen(locationManager: LocationManager,
+                              taxonLocation: TaxonLocation?,
+                              onMapTypeTapped: @escaping Observer<Void>) -> UIViewController
     func makeImagesPreivewScreen(images: [TaxonImage], selectionIndex: Int) -> UIViewController
     func makeSearchTaxonScreen(delegate: TaxonSearchScreenViewModelDelegate?,
                                settingsStorage: SettingsStorage,
@@ -44,7 +44,7 @@ public protocol TaxonViewControllerFactory {
                            onTypeTapped: @escaping Observer<MapTypeViewModel>) -> UIViewController
 }
 
-public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory {
+public final class SwiftUIFindingsViewControllerFactory: FindingsViewControllerFactory {
     
     private let getAltitudeService: GetAltitudeService
     
@@ -74,18 +74,18 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         return controller
     }
     
-    public func makeNewTaxonScreen(findingViewModel: FindingViewModel,
-                                   settingsStorage: SettingsStorage,
-                                   onSaveTapped: @escaping Observer<[FindingViewModel]>,
-                                   onLocationTapped: @escaping Observer<TaxonLocation?>,
-                                   onPhotoTapped: @escaping Observer<Void>,
-                                   onGalleryTapped: @escaping Observer<Void>,
-                                   onImageTapped: @escaping Observer<([TaxonImage], Int)>,
-                                   onSearchTaxonTapped: @escaping Observer<Void>,
-                                   onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
-                                   onDevStageTapped: @escaping Observer<[DevStageViewModel]?>,
-                                   onFotoCountFullfiled: Observer<Void>?,
-                                   onFindingIsNotValid: Observer<String>?) -> UIViewController {
+    public func makeNewFindingScreen(findingViewModel: FindingViewModel,
+                                     settingsStorage: SettingsStorage,
+                                     onSaveTapped: @escaping Observer<[FindingViewModel]>,
+                                     onLocationTapped: @escaping Observer<TaxonLocation?>,
+                                     onPhotoTapped: @escaping Observer<Void>,
+                                     onGalleryTapped: @escaping Observer<Void>,
+                                     onImageTapped: @escaping Observer<([TaxonImage], Int)>,
+                                     onSearchTaxonTapped: @escaping Observer<Void>,
+                                     onNestingTapped: @escaping Observer<NestingAtlasCodeItem?>,
+                                     onDevStageTapped: @escaping Observer<[DevStageViewModel]?>,
+                                     onFotoCountFullfiled: Observer<Void>?,
+                                     onFindingIsNotValid: Observer<String>?) -> UIViewController {
         
         findingViewModel.locationViewModel.onLocationTapped = onLocationTapped
         
@@ -93,7 +93,7 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         findingViewModel.imageViewModel.onGalleryTapped = onGalleryTapped
         findingViewModel.imageViewModel.onImageTapped = onImageTapped
         findingViewModel.imageViewModel.onFotoCountFullfiled = onFotoCountFullfiled
-            
+        
         findingViewModel.taxonInfoViewModel.onSearchTaxonTapped = onSearchTaxonTapped
         findingViewModel.taxonInfoViewModel.onNestingTapped = onNestingTapped
         findingViewModel.taxonInfoViewModel.onDevStageTapped = onDevStageTapped
@@ -108,9 +108,9 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
         return controller
     }
     
-    public func makeTaxonMapScreen(locationManager: LocationManager,
-                                   taxonLocation: TaxonLocation? = nil,
-                                   onMapTypeTapped: @escaping Observer<Void>) -> UIViewController {
+    public func makeFindingMapScreen(locationManager: LocationManager,
+                                     taxonLocation: TaxonLocation? = nil,
+                                     onMapTypeTapped: @escaping Observer<Void>) -> UIViewController {
         let viewModel = TaxonMapScreenViewModel(locationManager: locationManager,
                                                 taxonLocation: taxonLocation,
                                                 onMapTypeTapped: onMapTypeTapped)
@@ -139,8 +139,8 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
     }
     
     public func makeDevStageScreen(stages: [DevStageViewModel],
-                            delegate: NewTaxonDevStageScreenViewModelDelegate?,
-                            onDone: @escaping Observer<Void>) -> UIViewController {
+                                   delegate: NewTaxonDevStageScreenViewModelDelegate?,
+                                   onDone: @escaping Observer<Void>) -> UIViewController {
         let viewModel = NewTaxonDevStageScreenViewModel(stages: stages,
                                                         delegate: delegate,
                                                         onDone: onDone)
@@ -151,9 +151,9 @@ public final class SwiftUITaxonViewControllerFactory: TaxonViewControllerFactory
     }
     
     public func makeAtlasCodeScreen(codes: [NestingAtlasCodeItem],
-                             previousSlectedCode: NestingAtlasCodeItem?,
-                             delegate: NestingAtlasCodeScreenViewModelDelegate?,
-                             onCodeTapped: @escaping Observer<Void>) -> UIViewController {
+                                    previousSlectedCode: NestingAtlasCodeItem?,
+                                    delegate: NestingAtlasCodeScreenViewModelDelegate?,
+                                    onCodeTapped: @escaping Observer<Void>) -> UIViewController {
         let viewModel = NestingAtlasCodeScreenViewModel(codes: codes,
                                                         previousSlectedCode: previousSlectedCode,
                                                         delegate: delegate,

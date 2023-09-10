@@ -15,14 +15,14 @@ public final class DownloadTaxonRouter {
     private let swiftUICommonFactory: CommonViewControllerFactory
     private let settingsStorage: SettingsStorage
     private let taxonPaginationInfoStorage: TaxonsPaginationInfoStorage
-    private let taxonServiceCordinator: TaxonServiceCoordinator
+    private let taxonServiceCordinator: TaxonServiceManager
     
     private var biologerProgressBarDelegate: BiologerProgressBarDelegate?
     public private (set) var sholdPresentConfirmationWhenAllTaxonAleadyDownloaded = true
     
     init(alertFactory: AlertViewControllerFactory,
          swiftUICommonFactory: CommonViewControllerFactory,
-         taxonServiceCordinator: TaxonServiceCoordinator,
+         taxonServiceCordinator: TaxonServiceManager,
          settingsStorage: SettingsStorage,
          taxonPaginationInfoStorage: TaxonsPaginationInfoStorage) {
         self.alertFactory = alertFactory

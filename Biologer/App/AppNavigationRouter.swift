@@ -55,9 +55,9 @@ public final class AppNavigationRouter: NavigationRouter {
        return RemoteObservationService(client: httpClient, environmentStorage: environmentStorage)
     }()
     
-    private lazy var taxonServiceCoordinator: TaxonServiceCoordinator = {
-        TaxonServiceCoordinator(taxonService: remoteTaxonService,
-                               taxonPaginationInfo: taxonPaginationInfoStorage)
+    private lazy var taxonServiceManager: TaxonServiceManager = {
+        TaxonServiceManager(taxonService: remoteTaxonService,
+                            taxonPaginationInfo: taxonPaginationInfoStorage)
     }()
     
     private lazy var remoteTaxonService: TaxonService = {
@@ -113,21 +113,20 @@ public final class AppNavigationRouter: NavigationRouter {
         }
         
         sideMenuRouter.onListOfFindingsScreen = { [weak self] _ in
-            self?.taxonRouter.start()
+            self?.findingsRouter.start()
         }
         return sideMenuRouter
     }()
     
-    private lazy var taxonRouter: TaxonRouter = {
-        let taxonRouter = TaxonRouter(navigationController: sideMenuNavigationController,
+    private lazy var findingsRouter: FindingsRouter = {
+        let taxonRouter = FindingsRouter(navigationController: sideMenuNavigationController,
                                       location: locationManager,
-                                      taxonServiceCordinator: taxonServiceCoordinator,
+                                      taxonServiceManager: taxonServiceManager,
                                       taxonPaginationInfoStorage: taxonPaginationInfoStorage,
                                       settingsStorage: userDefaultsSettingsStorage,
                                       uploadFindings: uploadFindings,
-                                      factory: SwiftUITaxonViewControllerFactory(getAltitudeService: RemoteGetAltitudeService(client: httpClient, environmentStorage: environmentStorage)),
-                                      swiftUICommonFactory: commonViewControllerFactoryImplementation,
-                                      uiKitCommonFactory: commonViewControllerFactoryImplementation,
+                                      factory: SwiftUIFindingsViewControllerFactory(getAltitudeService: RemoteGetAltitudeService(client: httpClient, environmentStorage: environmentStorage)),
+                                      commonFactory: commonViewControllerFactoryImplementation,
                                       alertFactory: swiftUIAlertViewControllerFactory,
                                       userStorage: userStorage)
         return taxonRouter
@@ -156,7 +155,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private lazy var downloadTaxonRouter: DownloadTaxonRouter = {
         return DownloadTaxonRouter(alertFactory: swiftUIAlertViewControllerFactory,
                                    swiftUICommonFactory: commonViewControllerFactoryImplementation,
-                                   taxonServiceCordinator: taxonServiceCoordinator,
+                                   taxonServiceCordinator: taxonServiceManager,
                                    settingsStorage: userDefaultsSettingsStorage,
                                    taxonPaginationInfoStorage: taxonPaginationInfoStorage)
     }()
@@ -255,8 +254,8 @@ public final class AppNavigationRouter: NavigationRouter {
     
     // MARK: - Private Functions
     private func showSideMenuRouter() {
-        taxonRouter.start()
-        taxonRouter.onSideMenuTapped = { [weak self] _ in
+        findingsRouter.start()
+        findingsRouter.onSideMenuTapped = { [weak self] _ in
             self?.sideMenuRouter.start()
         }
         UINavigationBar.appearance().barTintColor = .biologerGreenColor
