@@ -15,6 +15,7 @@ public final class AuthorizationRouter {
     private let swiftUIAlertViewControllerFactory: AlertViewControllerFactory
     private let environmentStorage: EnvironmentStorage
     private let tokenStorage: TokenStorage
+    private let taxonLoader: TaxonLoader
     
     private var selectedEnvironmentImage: String = ""
     
@@ -35,13 +36,15 @@ public final class AuthorizationRouter {
          swiftUIAlertViewControllerFactory: AlertViewControllerFactory,
          navigationController: UINavigationController,
          environmentStorage: EnvironmentStorage,
-         tokenStorage: TokenStorage) {
+         tokenStorage: TokenStorage,
+         taxonLoader: TaxonLoader) {
         self.factory = factory
         self.commonViewControllerFactory = commonViewControllerFactory
         self.swiftUIAlertViewControllerFactory = swiftUIAlertViewControllerFactory
         self.navigationController = navigationController
         self.environmentStorage = environmentStorage
         self.tokenStorage = tokenStorage
+        self.taxonLoader = taxonLoader
     }
     
     // MARK: - Public Functions
@@ -70,8 +73,15 @@ public final class AuthorizationRouter {
                                         delegate: envDelegate)
         },
                                                           onLoginSuccess: { [weak self] token in
-            self?.tokenStorage.saveToken(token: token)
-            self?.onLoginSuccess?(())
+            self?.taxonLoader.getTaxons(completion: { [weak self] error in
+                if let error = error {
+                    print("Error from saveing CSV file: \(error.localizedDescription)")
+                } else {
+                    self?.tokenStorage.saveToken(token: token)
+                    self?.onLoading((false))
+                    self?.onLoginSuccess?(())
+                }
+            })
         },
                                                           onLoginError: { error in
             self.showErrorAlert(popUpType: .error,
@@ -167,13 +177,24 @@ public final class AuthorizationRouter {
                                     presentDatePicker: dataLicenseDelegate)
         },
                                                                           onSuccess: { [weak self] token in
-            self?.tokenStorage.saveToken(token: token)
-            self?.showConfirmAlert(popUpType: .success,
-                                   title: "Register.three.successPopUp.title".localized,
-                                   description: "Register.three.successPopUp.description".localized,
-                                   onTap: { _ in
-                self?.navigationController.dismiss(animated: true, completion: nil)
-                self?.onLoginSuccess?(())
+            
+            self?.taxonLoader.getTaxons(completion: { [weak self] error in
+                if let error = error {
+                    print("Error from saveing CSV file: \(error.localizedDescription)")
+                } else {
+                    DispatchQueue.main.async {
+                        self?.onLoading((false))
+                        print("On Login Sucess called")
+                        self?.showConfirmAlert(popUpType: .success,
+                                               title: "Register.three.successPopUp.title".localized,
+                                               description: "Register.three.successPopUp.description".localized,
+                                               onTap: { _ in
+                            self?.tokenStorage.saveToken(token: token)
+                            self?.navigationController.dismiss(animated: true, completion: nil)
+                            self?.onLoginSuccess?(())
+                        })
+                    }
+                }
             })
         },
                                                                           onError: { [weak self] error in

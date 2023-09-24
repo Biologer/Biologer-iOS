@@ -94,6 +94,8 @@
 		934C8F2727315CC30094D1E7 /* DBObservationMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934C8F2627315CC30094D1E7 /* DBObservationMapper.swift */; };
 		9351D4552779E73B0091D4D9 /* FontConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351D4542779E73B0091D4D9 /* FontConstants.swift */; };
 		9351D4572779E8BB0091D4D9 /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351D4562779E8BB0091D4D9 /* Font+Extensions.swift */; };
+		9355B1162ABB25C800F66CE6 /* TaxonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355B1152ABB25C800F66CE6 /* TaxonLoader.swift */; };
+		9355B1182ABB283400F66CE6 /* CSVTaxonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355B1172ABB283400F66CE6 /* CSVTaxonModel.swift */; };
 		93565D1D26F723BF00A588E6 /* FindingsViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1C26F723BF00A588E6 /* FindingsViewControllerFactory.swift */; };
 		93565D1F26F7243800A588E6 /* FindingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D1E26F7243800A588E6 /* FindingsRouter.swift */; };
 		93565D2326F7270B00A588E6 /* NewFindingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2226F7270B00A588E6 /* NewFindingScreen.swift */; };
@@ -125,6 +127,7 @@
 		936616D52703954A00F02A83 /* NewFindingImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936616D42703954A00F02A83 /* NewFindingImageViewModel.swift */; };
 		936616D72703B43600F02A83 /* MaterialDesignTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */; };
 		936754E8271E2F340036632E /* DBFindingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936754E7271E2F340036632E /* DBFindingMapper.swift */; };
+		9370C7CE2AB87AAC008B20A4 /* biologerRS.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9370C7CD2AB87AAC008B20A4 /* biologerRS.csv */; };
 		93731E3D288E7F8E00EB7C71 /* DeleteAccountScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93731E3C288E7F8E00EB7C71 /* DeleteAccountScreen.swift */; };
 		93731E40288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93731E3F288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift */; };
 		9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81926F9133200C18F91 /* ProfileService.swift */; };
@@ -196,6 +199,10 @@
 		93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */; };
 		93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */; };
 		93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */; };
+		93C95F142AC0DCA6007C70E0 /* biologerBA.csv in Resources */ = {isa = PBXBuildFile; fileRef = 93C95F102AC0DCA6007C70E0 /* biologerBA.csv */; };
+		93C95F152AC0DCA6007C70E0 /* biologerME.csv in Resources */ = {isa = PBXBuildFile; fileRef = 93C95F112AC0DCA6007C70E0 /* biologerME.csv */; };
+		93C95F172AC0DCA6007C70E0 /* biologerHR.csv in Resources */ = {isa = PBXBuildFile; fileRef = 93C95F132AC0DCA6007C70E0 /* biologerHR.csv */; };
+		93C95F1A2AC0E093007C70E0 /* CSVFileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C95F192AC0E093007C70E0 /* CSVFileConstants.swift */; };
 		93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */; };
 		93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65842697A52000949534 /* ErrorLabelView.swift */; };
 		93CC65872699941A00949534 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65862699941900949534 /* View+Extensions.swift */; };
@@ -373,6 +380,8 @@
 		934F36E62933E183007394CE /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9351D4542779E73B0091D4D9 /* FontConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConstants.swift; sourceTree = "<group>"; };
 		9351D4562779E8BB0091D4D9 /* Font+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
+		9355B1152ABB25C800F66CE6 /* TaxonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonLoader.swift; sourceTree = "<group>"; };
+		9355B1172ABB283400F66CE6 /* CSVTaxonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTaxonModel.swift; sourceTree = "<group>"; };
 		93565D1C26F723BF00A588E6 /* FindingsViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsViewControllerFactory.swift; sourceTree = "<group>"; };
 		93565D1E26F7243800A588E6 /* FindingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsRouter.swift; sourceTree = "<group>"; };
 		93565D2226F7270B00A588E6 /* NewFindingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFindingScreen.swift; sourceTree = "<group>"; };
@@ -406,6 +415,7 @@
 		936616D42703954A00F02A83 /* NewFindingImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFindingImageViewModel.swift; sourceTree = "<group>"; };
 		936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialDesignTextArea.swift; sourceTree = "<group>"; };
 		936754E7271E2F340036632E /* DBFindingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBFindingMapper.swift; sourceTree = "<group>"; };
+		9370C7CD2AB87AAC008B20A4 /* biologerRS.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerRS.csv; sourceTree = "<group>"; };
 		93731E3C288E7F8E00EB7C71 /* DeleteAccountScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountScreen.swift; sourceTree = "<group>"; };
 		93731E3F288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountScreenViewModel.swift; sourceTree = "<group>"; };
 		9373F81926F9133200C18F91 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -477,6 +487,10 @@
 		93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreen.swift; sourceTree = "<group>"; };
 		93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreenViewModel.swift; sourceTree = "<group>"; };
 		93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationViewControler+Extensions.swift"; sourceTree = "<group>"; };
+		93C95F102AC0DCA6007C70E0 /* biologerBA.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerBA.csv; sourceTree = "<group>"; };
+		93C95F112AC0DCA6007C70E0 /* biologerME.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerME.csv; sourceTree = "<group>"; };
+		93C95F132AC0DCA6007C70E0 /* biologerHR.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerHR.csv; sourceTree = "<group>"; };
+		93C95F192AC0E093007C70E0 /* CSVFileConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVFileConstants.swift; sourceTree = "<group>"; };
 		93CC65822697914700949534 /* DataLicenseScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLicenseScreenViewModel.swift; sourceTree = "<group>"; };
 		93CC65842697A52000949534 /* ErrorLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabelView.swift; sourceTree = "<group>"; };
 		93CC65862699941900949534 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -778,6 +792,7 @@
 				9320DE8F29352EF6009FD87D /* EnvironmentConstants.swift */,
 				9320E0312752A880006812E5 /* UserDefaultsConstants.swift */,
 				9351D4542779E73B0091D4D9 /* FontConstants.swift */,
+				93C95F192AC0E093007C70E0 /* CSVFileConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -813,6 +828,8 @@
 			isa = PBXGroup;
 			children = (
 				9320E02F27519933006812E5 /* DownloadTaxonRouter.swift */,
+				9355B1152ABB25C800F66CE6 /* TaxonLoader.swift */,
+				9355B1172ABB283400F66CE6 /* CSVTaxonModel.swift */,
 			);
 			path = "Download Taxons";
 			sourceTree = "<group>";
@@ -1056,6 +1073,7 @@
 		937EB9FB2AADDBB500EB83F9 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				93C95F182AC0DCB7007C70E0 /* CSVFiles */,
 				937EB9FD2AADDE3600EB83F9 /* Assets */,
 				937EB9FC2AADDC2300EB83F9 /* Localization */,
 				931426E3262B53AD00542EFC /* AppDelegate.swift */,
@@ -1404,6 +1422,17 @@
 				93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */,
 			);
 			path = LogoutScreen;
+			sourceTree = "<group>";
+		};
+		93C95F182AC0DCB7007C70E0 /* CSVFiles */ = {
+			isa = PBXGroup;
+			children = (
+				9370C7CD2AB87AAC008B20A4 /* biologerRS.csv */,
+				93C95F102AC0DCA6007C70E0 /* biologerBA.csv */,
+				93C95F132AC0DCA6007C70E0 /* biologerHR.csv */,
+				93C95F112AC0DCA6007C70E0 /* biologerME.csv */,
+			);
+			path = CSVFiles;
 			sourceTree = "<group>";
 		};
 		93CC6596269C622E00949534 /* Storage */ = {
@@ -1763,9 +1792,13 @@
 				9314273C262B684B00542EFC /* Color.xcassets in Resources */,
 				931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */,
 				93387CE52767A89C006789D2 /* lottie_question.json in Resources */,
+				9370C7CE2AB87AAC008B20A4 /* biologerRS.csv in Resources */,
 				93387CE72767B012006789D2 /* lottie_info.json in Resources */,
 				93CC6591269C55EC00949534 /* BlokingProgressViewController.xib in Resources */,
+				93C95F142AC0DCA6007C70E0 /* biologerBA.csv in Resources */,
 				932F0444276B9F8F003E03EC /* InfoPlist.strings in Resources */,
+				93C95F152AC0DCA6007C70E0 /* biologerME.csv in Resources */,
+				93C95F172AC0DCA6007C70E0 /* biologerHR.csv in Resources */,
 				931426EA262B53B000542EFC /* Assets.xcassets in Resources */,
 				93387CD927679C9B006789D2 /* lottie_error.json in Resources */,
 			);
@@ -1977,6 +2010,7 @@
 				938D934F2705E8830068E27C /* FoundDeadView.swift in Sources */,
 				936616D72703B43600F02A83 /* MaterialDesignTextArea.swift in Sources */,
 				93A7E27E2691F7D4001D6AEF /* RegisterStepThreeScreen.swift in Sources */,
+				93C95F1A2AC0E093007C70E0 /* CSVFileConstants.swift in Sources */,
 				937F523F270F926E00239963 /* DeleteFindingsScreenViewModel.swift in Sources */,
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
 				9314DA30270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift in Sources */,
@@ -1998,6 +2032,7 @@
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
 				935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */,
 				931D3FF3274AD6C800352C8E /* CheckInternetConnection.swift in Sources */,
+				9355B1182ABB283400F66CE6 /* CSVTaxonModel.swift in Sources */,
 				931D3FDD2747925300352C8E /* LicenseStorage.swift in Sources */,
 				938D934427047FB90068E27C /* NewFindingInfoView.swift in Sources */,
 				93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */,
@@ -2140,6 +2175,7 @@
 				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
 				9314DA34270AF8FD007896F9 /* NestingAtlasCodeScreen.swift in Sources */,
+				9355B1162ABB25C800F66CE6 /* TaxonLoader.swift in Sources */,
 				9314DA2E270A4C10007896F9 /* NewFindingDevStageScreen.swift in Sources */,
 				937F5241270F96D700239963 /* DeleteFindingsScreen.swift in Sources */,
 				93CC65832697914700949534 /* DataLicenseScreenViewModel.swift in Sources */,

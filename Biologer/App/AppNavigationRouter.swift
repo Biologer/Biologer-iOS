@@ -80,6 +80,11 @@ public final class AppNavigationRouter: NavigationRouter {
                              settingsStorage: userDefaultsSettingsStorage)
     }()
     
+    private lazy var taxonLoader: TaxonLoader = {
+        let taxonLoader = CSVTaxonLoader(environmentStorage: environmentStorage)
+        return taxonLoader
+    }()
+    
     // MARK: - Routers
     
     private lazy var authorizationRouter: AuthorizationRouter = {
@@ -90,7 +95,8 @@ public final class AppNavigationRouter: NavigationRouter {
                                                  swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                                  navigationController: mainNavigationController,
                                                  environmentStorage: environmentStorage,
-                                                 tokenStorage: tokenStorage)
+                                                 tokenStorage: tokenStorage,
+                                                 taxonLoader: taxonLoader)
         authorization.onLoginSuccess = { _ in
             self.showSideMenuRouter()
         }

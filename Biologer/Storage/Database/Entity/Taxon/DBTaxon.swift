@@ -52,6 +52,26 @@ public final class DBTaxon: Object {
             stages.append(DBTaxonStages(stage: $0))
         })
     }
+    
+    convenience init(csvModel: CSVTaxonModel) {
+        self.init()
+        self.id = Int.random(in: 1...5000000)
+        self.name = csvModel.name
+        self.rank = ""
+        self.rankLevel = 1
+        self.restricted = false
+        self.allochthonous = false
+        self.invasive = false
+        self.ancestorsName = ""
+        self.isAtlasCodeExist = false
+        self.canEdit = false
+        self.canDelete = false
+        self.rankTranslation = ""
+        self.nativName = ""
+        self.taxonDescription = ""
+        self.stages = List<DBTaxonStages>()
+        self.translations = List<DBTaxonTranslation>()
+    }
 }
 
 public final class DBTaxonStages: Object {
