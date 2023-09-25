@@ -9,6 +9,7 @@ import Foundation
 
 protocol TaxonDBManager {
     func save(csvModels: [CSVTaxonModel])
+    func save(taxonResponse: TaxonDataResponse)
     func deleteAll()
 }
 
@@ -24,5 +25,13 @@ public final class TaxonRealmDBManager: TaxonDBManager {
     
     public func deleteAll() {
         RealmManager.delete(fromEntity: DBTaxon.self)
+    }
+    
+    public func save(taxonResponse: TaxonDataResponse) {
+        DispatchQueue.main.async {
+            taxonResponse.data.forEach({
+                RealmManager.add(DBTaxon(taxon: $0))
+            })
+        }
     }
 }

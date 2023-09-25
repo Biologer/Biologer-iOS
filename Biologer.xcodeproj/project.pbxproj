@@ -202,6 +202,7 @@
 		93C5A8CB2AC17FBE003BC76A /* CSVTaxonsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C5A8CA2AC17FBE003BC76A /* CSVTaxonsUseCase.swift */; };
 		93C5A8CD2AC182E3003BC76A /* CSVFileSettingsEnvironmentConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C5A8CC2AC182E3003BC76A /* CSVFileSettingsEnvironmentConstants.swift */; };
 		93C5A8CF2AC18B8F003BC76A /* TaxonDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C5A8CE2AC18B8F003BC76A /* TaxonDBManager.swift */; };
+		93C5A8D12AC1C91B003BC76A /* Calendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C5A8D02AC1C91B003BC76A /* Calendar+Extensions.swift */; };
 		93C95F142AC0DCA6007C70E0 /* biologerBA.csv in Resources */ = {isa = PBXBuildFile; fileRef = 93C95F102AC0DCA6007C70E0 /* biologerBA.csv */; };
 		93C95F152AC0DCA6007C70E0 /* biologerME.csv in Resources */ = {isa = PBXBuildFile; fileRef = 93C95F112AC0DCA6007C70E0 /* biologerME.csv */; };
 		93C95F172AC0DCA6007C70E0 /* biologerHR.csv in Resources */ = {isa = PBXBuildFile; fileRef = 93C95F132AC0DCA6007C70E0 /* biologerHR.csv */; };
@@ -493,6 +494,7 @@
 		93C5A8CA2AC17FBE003BC76A /* CSVTaxonsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTaxonsUseCase.swift; sourceTree = "<group>"; };
 		93C5A8CC2AC182E3003BC76A /* CSVFileSettingsEnvironmentConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVFileSettingsEnvironmentConstants.swift; sourceTree = "<group>"; };
 		93C5A8CE2AC18B8F003BC76A /* TaxonDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonDBManager.swift; sourceTree = "<group>"; };
+		93C5A8D02AC1C91B003BC76A /* Calendar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extensions.swift"; sourceTree = "<group>"; };
 		93C95F102AC0DCA6007C70E0 /* biologerBA.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerBA.csv; sourceTree = "<group>"; };
 		93C95F112AC0DCA6007C70E0 /* biologerME.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerME.csv; sourceTree = "<group>"; };
 		93C95F132AC0DCA6007C70E0 /* biologerHR.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerHR.csv; sourceTree = "<group>"; };
@@ -1381,6 +1383,7 @@
 				93B0C1BB29094D9F002B92B3 /* UIView+Extensions.swift */,
 				9309AB162744324300825246 /* Date+Extensions.swift */,
 				9351D4562779E8BB0091D4D9 /* Font+Extensions.swift */,
+				93C5A8D02AC1C91B003BC76A /* Calendar+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2048,6 +2051,7 @@
 				93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */,
 				9373F81E26F9175100C18F91 /* Auth2HttpClientDecorator.swift in Sources */,
 				937EB9F72AAD1A7400EB83F9 /* MaterialDesignTextFieldViewModelProtocol.swift in Sources */,
+				93C5A8D12AC1C91B003BC76A /* Calendar+Extensions.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
 				93CC6589269C2C5F00949534 /* LoginEnvView.swift in Sources */,
 				93DF14212692262900A7A977 /* LoginUserService.swift in Sources */,

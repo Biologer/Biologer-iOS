@@ -91,8 +91,7 @@ public final class AppNavigationRouter: NavigationRouter {
                                                  navigationController: mainNavigationController,
                                                  environmentStorage: environmentStorage,
                                                  tokenStorage: tokenStorage,
-                                                 taxonSavingUseCase: taxonSavingUseCase,
-                                                 settings: userDefaultsSettingsStorage)
+                                                 taxonSavingUseCase: taxonSavingUseCase)
         authorization.onLoginSuccess = { _ in
             self.showSideMenuRouter()
         }
@@ -244,7 +243,9 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var taxonSavingUseCase: TaxonsSavingUseCase = {
        return CSVTaxonsUseCase(taxonLoader: taxonLoader,
-                               taxonDBManager: taxonDBManager)
+                               taxonDBManager: taxonDBManager,
+                               taxonsService: remoteTaxonService,
+                               settingsStorage: userDefaultsSettingsStorage)
     }()
     
     // MARK: - Init
@@ -338,6 +339,18 @@ public final class AppNavigationRouter: NavigationRouter {
                                                         language: response.data.settings.language))
                 self.userStorage.save(user: user)
                 self.getObservation()
+                self.getTaxonIfNeeded()
+            }
+        }
+    }
+    
+    private func getTaxonIfNeeded() {
+        taxonSavingUseCase.updateTaxonsIfNeeded() { result in
+            switch result {
+            case .success(_):
+                print("Data successfully saved updateTaxonsIfNeeded")
+            case .failure(let error):
+                print("Error with updateTaxonsIfNeeded: \(error.description)")
             }
         }
     }

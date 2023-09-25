@@ -13,7 +13,7 @@ public class Settings: Codable {
     public private(set) var setAdultByDefault: Bool = false
     public private(set) var advanceObservationEntry: Bool = false
     public private(set) var projectName: String = ""
-    public private(set) var lastTimeTaxonUpdate: Int64 = 0
+    public private(set) var lastTimeTaxonUpdate: Int64 = Calendar.getLastTimeTaxonUpdate
     public private(set) var taxonCSVFileEnv: String? = nil
     public private(set) var selectedAutoDownloadTaxon: AutoDownloadTaxon = AutoDownloadTaxon(type: .alwaysAskUser,
                                                                                 isSelected: true)

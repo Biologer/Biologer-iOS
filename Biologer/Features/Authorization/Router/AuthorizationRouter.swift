@@ -16,7 +16,6 @@ public final class AuthorizationRouter {
     private let environmentStorage: EnvironmentStorage
     private let tokenStorage: TokenStorage
     private let taxonSavingUseCase: TaxonsSavingUseCase
-    private let settings: SettingsStorage
     
     private var selectedEnvironmentImage: String = ""
     
@@ -38,8 +37,7 @@ public final class AuthorizationRouter {
          navigationController: UINavigationController,
          environmentStorage: EnvironmentStorage,
          tokenStorage: TokenStorage,
-         taxonSavingUseCase: TaxonsSavingUseCase,
-         settings: SettingsStorage) {
+         taxonSavingUseCase: TaxonsSavingUseCase) {
         self.factory = factory
         self.commonViewControllerFactory = commonViewControllerFactory
         self.swiftUIAlertViewControllerFactory = swiftUIAlertViewControllerFactory
@@ -47,7 +45,6 @@ public final class AuthorizationRouter {
         self.environmentStorage = environmentStorage
         self.tokenStorage = tokenStorage
         self.taxonSavingUseCase = taxonSavingUseCase
-        self.settings = settings
     }
     
     // MARK: - Public Functions
@@ -80,7 +77,6 @@ public final class AuthorizationRouter {
             guard let self = self else { return }
             
             self.taxonSavingUseCase.saveCSVTaxons(bySelected: self.environmentStorage,
-                                                  with: self.settings,
                                                   completion: { error in
                 self.onLoading((false))
                 if let error = error {
@@ -190,7 +186,6 @@ public final class AuthorizationRouter {
             guard let self = self else { return }
             
             self.taxonSavingUseCase.saveCSVTaxons(bySelected: self.environmentStorage,
-                                                  with: self.settings,
                                                   completion: { error in
                 self.onLoading((false))
                 if let error = error {
