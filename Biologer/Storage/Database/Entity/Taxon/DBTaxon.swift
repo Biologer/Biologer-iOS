@@ -55,7 +55,7 @@ public final class DBTaxon: Object {
     
     convenience init(csvModel: CSVTaxonModel) {
         self.init()
-        self.id = Int.random(in: 1...5000000)
+        self.id = csvModel.id
         self.name = csvModel.name
         self.rank = ""
         self.rankLevel = 1

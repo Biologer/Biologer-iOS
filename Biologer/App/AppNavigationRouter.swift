@@ -80,11 +80,6 @@ public final class AppNavigationRouter: NavigationRouter {
                              settingsStorage: userDefaultsSettingsStorage)
     }()
     
-    private lazy var taxonLoader: TaxonLoader = {
-        let taxonLoader = CSVTaxonLoader(environmentStorage: environmentStorage)
-        return taxonLoader
-    }()
-    
     // MARK: - Routers
     
     private lazy var authorizationRouter: AuthorizationRouter = {
@@ -96,7 +91,8 @@ public final class AppNavigationRouter: NavigationRouter {
                                                  navigationController: mainNavigationController,
                                                  environmentStorage: environmentStorage,
                                                  tokenStorage: tokenStorage,
-                                                 taxonLoader: taxonLoader)
+                                                 taxonSavingUseCase: taxonSavingUseCase,
+                                                 settings: userDefaultsSettingsStorage)
         authorization.onLoginSuccess = { _ in
             self.showSideMenuRouter()
         }
@@ -235,6 +231,20 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var passwordValidator: StringValidator = {
        return PasswordValidator()
+    }()
+    
+    // MARK: - Taxons Savings
+    private lazy var taxonLoader: TaxonLoader = {
+       return CSVTaxonLoader(environmentStorage: environmentStorage)
+    }()
+    
+    private lazy var taxonDBManager: TaxonDBManager = {
+       return TaxonRealmDBManager()
+    }()
+    
+    private lazy var taxonSavingUseCase: TaxonsSavingUseCase = {
+       return CSVTaxonsUseCase(taxonLoader: taxonLoader,
+                               taxonDBManager: taxonDBManager)
     }()
     
     // MARK: - Init

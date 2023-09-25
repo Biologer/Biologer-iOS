@@ -15,7 +15,8 @@ public final class AuthorizationRouter {
     private let swiftUIAlertViewControllerFactory: AlertViewControllerFactory
     private let environmentStorage: EnvironmentStorage
     private let tokenStorage: TokenStorage
-    private let taxonLoader: TaxonLoader
+    private let taxonSavingUseCase: TaxonsSavingUseCase
+    private let settings: SettingsStorage
     
     private var selectedEnvironmentImage: String = ""
     
@@ -37,14 +38,16 @@ public final class AuthorizationRouter {
          navigationController: UINavigationController,
          environmentStorage: EnvironmentStorage,
          tokenStorage: TokenStorage,
-         taxonLoader: TaxonLoader) {
+         taxonSavingUseCase: TaxonsSavingUseCase,
+         settings: SettingsStorage) {
         self.factory = factory
         self.commonViewControllerFactory = commonViewControllerFactory
         self.swiftUIAlertViewControllerFactory = swiftUIAlertViewControllerFactory
         self.navigationController = navigationController
         self.environmentStorage = environmentStorage
         self.tokenStorage = tokenStorage
-        self.taxonLoader = taxonLoader
+        self.taxonSavingUseCase = taxonSavingUseCase
+        self.settings = settings
     }
     
     // MARK: - Public Functions
@@ -56,7 +59,7 @@ public final class AuthorizationRouter {
             showLoginScreen()
         }
     }
-
+    
     // MARK: - Private Functions
     
     private func showLoginScreen() {
@@ -73,13 +76,20 @@ public final class AuthorizationRouter {
                                         delegate: envDelegate)
         },
                                                           onLoginSuccess: { [weak self] token in
-            self?.taxonLoader.getTaxons(completion: { [weak self] error in
+            
+            guard let self = self else { return }
+            
+            self.taxonSavingUseCase.saveCSVTaxons(bySelected: self.environmentStorage,
+                                                  with: self.settings,
+                                                  completion: { error in
+                self.onLoading((false))
                 if let error = error {
-                    print("Error from saveing CSV file: \(error.localizedDescription)")
+                    self.showErrorAlert(popUpType: .error,
+                                        title: error.title,
+                                        description: error.description)
                 } else {
-                    self?.tokenStorage.saveToken(token: token)
-                    self?.onLoading((false))
-                    self?.onLoginSuccess?(())
+                    self.tokenStorage.saveToken(token: token)
+                    self.onLoginSuccess?(())
                 }
             })
         },
@@ -111,11 +121,11 @@ public final class AuthorizationRouter {
                                                                envViewModels: envs,
                                                                delegate: delegate,
                                                                onSelectedEnvironment: { [weak self] env in
-                                                                    self?.environmentStorage.saveEnvironment(env: env.env)
-                                                                    self?.selectedEnvironmentImage = env.image
-                                                                    self?.navigationController.setNavigationBarTransparent(true)
-                                                                    self?.navigationController.popViewController(animated: true)
-                                                       })
+            self?.environmentStorage.saveEnvironment(env: env.env)
+            self?.selectedEnvironmentImage = env.image
+            self?.navigationController.setNavigationBarTransparent(true)
+            self?.navigationController.popViewController(animated: true)
+        })
         
         enviViewController.setBiologerBackBarButtonItem { [weak self] in
             self?.navigationController.setNavigationBarTransparent(true)
@@ -129,8 +139,8 @@ public final class AuthorizationRouter {
     private func showRegisterStepOneScreen() {
         let stepOneViewController = factory.makeRegisterFirstStepScreen(user: RegisterUser(),
                                                                         onNextTapped: { [weak self] user in
-                                                                            self?.showRegisterStepTwoScreen(user: user)
-                                                                        })
+            self?.showRegisterStepTwoScreen(user: user)
+        })
         stepOneViewController.setBiologerBackBarButtonItem { [weak self] in
             self?.navigationController.setNavigationBarTransparent(true)
             self?.goBack()
@@ -143,8 +153,8 @@ public final class AuthorizationRouter {
     private func showRegisterStepTwoScreen(user: RegisterUser) {
         let stepTwoViewController = factory.makeRegisterSecondStepScreen(user: user,
                                                                          onNextTapped: { [weak self] user in
-                                                                            self?.showRegisterThirdStepScreen(user: user)
-                                                                         })
+            self?.showRegisterThirdStepScreen(user: user)
+        })
         stepTwoViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         stepTwoViewController.setBiologerTitle(text: "Register.two.nav.title".localized)
         self.navigationController.pushViewController(stepTwoViewController, animated: true)
@@ -177,21 +187,25 @@ public final class AuthorizationRouter {
                                     presentDatePicker: dataLicenseDelegate)
         },
                                                                           onSuccess: { [weak self] token in
+            guard let self = self else { return }
             
-            self?.taxonLoader.getTaxons(completion: { [weak self] error in
+            self.taxonSavingUseCase.saveCSVTaxons(bySelected: self.environmentStorage,
+                                                  with: self.settings,
+                                                  completion: { error in
+                self.onLoading((false))
                 if let error = error {
-                    print("Error from saveing CSV file: \(error.localizedDescription)")
+                    self.showErrorAlert(popUpType: .error,
+                                        title: error.title,
+                                        description: error.description)
                 } else {
                     DispatchQueue.main.async {
-                        self?.onLoading((false))
-                        print("On Login Sucess called")
-                        self?.showConfirmAlert(popUpType: .success,
-                                               title: "Register.three.successPopUp.title".localized,
-                                               description: "Register.three.successPopUp.description".localized,
-                                               onTap: { _ in
-                            self?.tokenStorage.saveToken(token: token)
-                            self?.navigationController.dismiss(animated: true, completion: nil)
-                            self?.onLoginSuccess?(())
+                        self.showConfirmAlert(popUpType: .success,
+                                              title: "Register.three.successPopUp.title".localized,
+                                              description: "Register.three.successPopUp.description".localized,
+                                              onTap: { _ in
+                            self.tokenStorage.saveToken(token: token)
+                            self.navigationController.dismiss(animated: true, completion: nil)
+                            self.onLoginSuccess?(())
                         })
                     }
                 }
@@ -218,8 +232,8 @@ public final class AuthorizationRouter {
                                    presentDatePicker: CheckMarkScreenDelegate?) {
         
         let dataLicenseViewController = commonViewControllerFactory.makeLicenseScreen(items: items,
-                                                                                             selectedItem: selectedItem,
-                                                                  delegate: presentDatePicker) { [weak self] dataLicenses in
+                                                                                      selectedItem: selectedItem,
+                                                                                      delegate: presentDatePicker) { [weak self] dataLicenses in
             self?.navigationController.popViewController(animated: true)
         }
         dataLicenseViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
@@ -251,11 +265,11 @@ public final class AuthorizationRouter {
                                 title: String,
                                 description: String) {
         let vc = swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
-                                                                  title: title,
-                                                                  description: description,
-                                                                  onTapp: { _ in
-                                                                    self.navigationController.dismiss(animated: true, completion: nil)
-                                                                  })
+                                                                         title: title,
+                                                                         description: description,
+                                                                         onTapp: { _ in
+            self.navigationController.dismiss(animated: true, completion: nil)
+        })
         self.navigationController.present(vc, animated: true, completion: nil)
     }
     

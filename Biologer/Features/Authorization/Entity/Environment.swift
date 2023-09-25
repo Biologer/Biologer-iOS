@@ -23,3 +23,39 @@ public final class Environment: Codable {
         self.clientId = cliendId
     }
 }
+
+extension Environment {
+    var getCSVFile: URL? {
+        switch self.host {
+        case serbiaHost:
+            return CSVFileConstants.srbURL
+        case croatiaHost:
+            return CSVFileConstants.croURL
+        case bosnianAndHerzegovinHost:
+            return CSVFileConstants.bihURL
+        case montenegroHost:
+            return CSVFileConstants.mneURL
+        case devHost:
+            return CSVFileConstants.srbURL
+        default:
+            return nil
+        }
+    }
+    
+    var getEnvForTaxons: String {
+        switch self.host {
+        case serbiaHost:
+            return CSVFileSettingsEnvironmentConstants.srb
+        case croatiaHost:
+            return CSVFileSettingsEnvironmentConstants.cro
+        case bosnianAndHerzegovinHost:
+            return CSVFileSettingsEnvironmentConstants.bih
+        case montenegroHost:
+            return CSVFileSettingsEnvironmentConstants.mne
+        case devHost:
+            return CSVFileSettingsEnvironmentConstants.srb
+        default:
+            return ""
+        }
+    }
+}

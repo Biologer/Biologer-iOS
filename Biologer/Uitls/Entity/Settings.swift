@@ -13,6 +13,8 @@ public class Settings: Codable {
     public private(set) var setAdultByDefault: Bool = false
     public private(set) var advanceObservationEntry: Bool = false
     public private(set) var projectName: String = ""
+    public private(set) var lastTimeTaxonUpdate: Int64 = 0
+    public private(set) var taxonCSVFileEnv: String? = nil
     public private(set) var selectedAutoDownloadTaxon: AutoDownloadTaxon = AutoDownloadTaxon(type: .alwaysAskUser,
                                                                                 isSelected: true)
     public var autoDownloadTaxon: [AutoDownloadTaxon] = [AutoDownloadTaxon(type: .onlyWiFi,
@@ -49,6 +51,14 @@ public class Settings: Codable {
             selectedItem.isSelected = true
             selectedAutoDownloadTaxon = selectedItem
         }
+    }
+    
+    public func setLastTimeTaxonUpdate(with value: Int64) {
+        lastTimeTaxonUpdate = value
+    }
+    
+    public func setTaxonCSVFileEnv(with value: String?) {
+        taxonCSVFileEnv = value
     }
     
     public class AutoDownloadTaxon: Codable {

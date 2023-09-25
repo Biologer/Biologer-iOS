@@ -199,6 +199,9 @@
 		93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */; };
 		93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */; };
 		93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */; };
+		93C5A8CB2AC17FBE003BC76A /* CSVTaxonsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C5A8CA2AC17FBE003BC76A /* CSVTaxonsUseCase.swift */; };
+		93C5A8CD2AC182E3003BC76A /* CSVFileSettingsEnvironmentConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C5A8CC2AC182E3003BC76A /* CSVFileSettingsEnvironmentConstants.swift */; };
+		93C5A8CF2AC18B8F003BC76A /* TaxonDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C5A8CE2AC18B8F003BC76A /* TaxonDBManager.swift */; };
 		93C95F142AC0DCA6007C70E0 /* biologerBA.csv in Resources */ = {isa = PBXBuildFile; fileRef = 93C95F102AC0DCA6007C70E0 /* biologerBA.csv */; };
 		93C95F152AC0DCA6007C70E0 /* biologerME.csv in Resources */ = {isa = PBXBuildFile; fileRef = 93C95F112AC0DCA6007C70E0 /* biologerME.csv */; };
 		93C95F172AC0DCA6007C70E0 /* biologerHR.csv in Resources */ = {isa = PBXBuildFile; fileRef = 93C95F132AC0DCA6007C70E0 /* biologerHR.csv */; };
@@ -487,6 +490,9 @@
 		93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreen.swift; sourceTree = "<group>"; };
 		93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreenViewModel.swift; sourceTree = "<group>"; };
 		93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationViewControler+Extensions.swift"; sourceTree = "<group>"; };
+		93C5A8CA2AC17FBE003BC76A /* CSVTaxonsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTaxonsUseCase.swift; sourceTree = "<group>"; };
+		93C5A8CC2AC182E3003BC76A /* CSVFileSettingsEnvironmentConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVFileSettingsEnvironmentConstants.swift; sourceTree = "<group>"; };
+		93C5A8CE2AC18B8F003BC76A /* TaxonDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonDBManager.swift; sourceTree = "<group>"; };
 		93C95F102AC0DCA6007C70E0 /* biologerBA.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerBA.csv; sourceTree = "<group>"; };
 		93C95F112AC0DCA6007C70E0 /* biologerME.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerME.csv; sourceTree = "<group>"; };
 		93C95F132AC0DCA6007C70E0 /* biologerHR.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = biologerHR.csv; sourceTree = "<group>"; };
@@ -793,6 +799,7 @@
 				9320E0312752A880006812E5 /* UserDefaultsConstants.swift */,
 				9351D4542779E73B0091D4D9 /* FontConstants.swift */,
 				93C95F192AC0E093007C70E0 /* CSVFileConstants.swift */,
+				93C5A8CC2AC182E3003BC76A /* CSVFileSettingsEnvironmentConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -830,6 +837,8 @@
 				9320E02F27519933006812E5 /* DownloadTaxonRouter.swift */,
 				9355B1152ABB25C800F66CE6 /* TaxonLoader.swift */,
 				9355B1172ABB283400F66CE6 /* CSVTaxonModel.swift */,
+				93C5A8CA2AC17FBE003BC76A /* CSVTaxonsUseCase.swift */,
+				93C5A8CE2AC18B8F003BC76A /* TaxonDBManager.swift */,
 			);
 			path = "Download Taxons";
 			sourceTree = "<group>";
@@ -1985,6 +1994,7 @@
 				9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */,
 				936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */,
 				93CC6593269C564F00949534 /* CircularProgressViewController.swift in Sources */,
+				93C5A8CB2AC17FBE003BC76A /* CSVTaxonsUseCase.swift in Sources */,
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
 				93FB99AC2AAE5F3000E04C16 /* MapTypeViewModel.swift in Sources */,
 				9314DA20270749DB007896F9 /* SearchTextField.swift in Sources */,
@@ -2083,6 +2093,7 @@
 				93B0418127122060007DB833 /* ListOfFindingsMapper.swift in Sources */,
 				936754E8271E2F340036632E /* DBFindingMapper.swift in Sources */,
 				9351D4552779E73B0091D4D9 /* FontConstants.swift in Sources */,
+				93C5A8CF2AC18B8F003BC76A /* TaxonDBManager.swift in Sources */,
 				93842AF626FA4465008ECA80 /* ObserverResponse.swift in Sources */,
 				933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
@@ -2140,6 +2151,7 @@
 				938D9348270481A40068E27C /* TextFields.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
 				93171D86273BDBE80038B2B2 /* PostFindingService.swift in Sources */,
+				93C5A8CD2AC182E3003BC76A /* CSVFileSettingsEnvironmentConstants.swift in Sources */,
 				938D93532705EB190068E27C /* ObservationsView.swift in Sources */,
 				93FB99A82AAE5E5C00E04C16 /* DevStageViewModel.swift in Sources */,
 				936616D52703954A00F02A83 /* NewFindingImageViewModel.swift in Sources */,
