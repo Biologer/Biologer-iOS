@@ -45,29 +45,24 @@ public final class CSVTaxonsUseCase: TaxonsSavingUseCase {
             return
         }
         
+        guard let taxonFileURL = selectedEnv.getCSVFile else {
+            completion(APIError(description: ErrorConstant.parsingErrorConstant))
+            return
+        }
+        
         if let savedTaxonEnv = settings.taxonCSVFileEnv {
             if selectedEnv.getEnvForTaxons == savedTaxonEnv {
                 completion(nil)
             } else {
-                guard let taxonFileURL = selectedEnv.getCSVFile else {
-                    completion(APIError(description: ErrorConstant.parsingErrorConstant))
-                    return
-                }
                 taxonDBManager.deleteAll()
-                removeTaxaonsInfo(from: settingsStorage)
+                removeTaxaonsInfo()
                 saveTaxonsAndSettings(withFile: taxonFileURL,
                                       env: selectedEnv,
-                                      settingsStorage: settingsStorage,
                                       completion: completion)
             }
         } else {
-            guard let taxonFileURL = selectedEnv.getCSVFile else {
-                completion(APIError(description: ErrorConstant.parsingErrorConstant))
-                return
-            }
             saveTaxonsAndSettings(withFile: taxonFileURL,
                                   env: selectedEnv,
-                                  settingsStorage: settingsStorage,
                                   completion: completion)
         }
     }
@@ -112,7 +107,7 @@ public final class CSVTaxonsUseCase: TaxonsSavingUseCase {
     
     // MARK: - Private Functions
     
-    private func removeTaxaonsInfo(from settingsStorage: SettingsStorage) {
+    private func removeTaxaonsInfo() {
         if let settings = settingsStorage.getSettings() {
             settings.setTaxonCSVFileEnv(with: nil)
             settings.setLastTimeTaxonUpdate(with: 0)
@@ -136,7 +131,6 @@ public final class CSVTaxonsUseCase: TaxonsSavingUseCase {
     
     private func saveTaxonsAndSettings(withFile url: URL,
                                        env: Environment,
-                                       settingsStorage: SettingsStorage,
                                        completion: @escaping (APIError?) -> Void) {
         taxonLoader.getTaxons(fromFile: url) { [weak self] result in
             switch result {
