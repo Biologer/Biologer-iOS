@@ -10,6 +10,7 @@ import Foundation
 protocol TaxonsSavingUseCase {
     typealias Result = Swift.Result<TaxonDataResponse, APIError>
     func saveCSVTaxons(bySelected envStorage: EnvironmentStorage,
+                       forceDownloadEnv: Bool,
                        completion: @escaping (APIError?) -> Void)
     func updateTaxonsIfNeeded(completion: @escaping (Result) -> Void)
 }
@@ -37,6 +38,7 @@ public final class CSVTaxonsUseCase: TaxonsSavingUseCase {
     }
     
     func saveCSVTaxons(bySelected envStorage: EnvironmentStorage,
+                       forceDownloadEnv: Bool = false,
                        completion: @escaping (APIError?) -> Void) {
         
         guard let selectedEnv = envStorage.getEnvironment(),
@@ -51,7 +53,7 @@ public final class CSVTaxonsUseCase: TaxonsSavingUseCase {
         }
         
         if let savedTaxonEnv = settings.taxonCSVFileEnv {
-            if selectedEnv.getEnvForTaxons == savedTaxonEnv {
+            if selectedEnv.getEnvForTaxons == savedTaxonEnv && forceDownloadEnv == false {
                 completion(nil)
             } else {
                 taxonDBManager.deleteAll()

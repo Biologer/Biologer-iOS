@@ -13,176 +13,95 @@ public final class DownloadTaxonRouter {
     private var navigationController: UINavigationController = UINavigationController()
     private let alertFactory: AlertViewControllerFactory
     private let swiftUICommonFactory: CommonViewControllerFactory
-    private let settingsStorage: SettingsStorage
-    private let taxonPaginationInfoStorage: TaxonsPaginationInfoStorage
-    private let taxonServiceCordinator: TaxonServiceManager
+    private let taxonUseCase: TaxonsSavingUseCase
+    private let envvironmentStorage: EnvironmentStorage
     
     private var biologerProgressBarDelegate: BiologerProgressBarDelegate?
     public private (set) var sholdPresentConfirmationWhenAllTaxonAleadyDownloaded = true
     
+    lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
+        guard let self = self else { return }
+        if isLoading {
+            let loader  = self.swiftUICommonFactory.createBlockingProgress()
+            self.navigationController.present(loader, animated: false, completion: nil)
+        } else {
+            self.navigationController.dismiss(animated: false, completion: nil)
+        }
+    }
+    
+    private func onLoading(with: Bool, completion: @escaping () -> Void) {
+        if with {
+            let loader  = self.swiftUICommonFactory.createBlockingProgress()
+            self.navigationController.present(loader, animated: false, completion: completion)
+        } else {
+            self.navigationController.dismiss(animated: false, completion: completion)
+        }
+    }
+    
     init(alertFactory: AlertViewControllerFactory,
          swiftUICommonFactory: CommonViewControllerFactory,
-         taxonServiceCordinator: TaxonServiceManager,
-         settingsStorage: SettingsStorage,
-         taxonPaginationInfoStorage: TaxonsPaginationInfoStorage) {
+         taxonUseCase: TaxonsSavingUseCase,
+         envvironmentStorage: EnvironmentStorage) {
         self.alertFactory = alertFactory
         self.swiftUICommonFactory = swiftUICommonFactory
-        self.taxonServiceCordinator = taxonServiceCordinator
-        self.settingsStorage = settingsStorage
-        self.taxonPaginationInfoStorage = taxonPaginationInfoStorage
+        self.taxonUseCase = taxonUseCase
+        self.envvironmentStorage = envvironmentStorage
     }
     
     public func start(navigationController: UINavigationController,
                       sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: Bool = true) {
         self.navigationController = navigationController
         self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded = sholdPresentConfirmationWhenAllTaxonAleadyDownloaded
-        downloadTaxonIfNeeded()
+        saveAndDownloadTaxonIfNeeded()
     }
     
     // MARK: - Private Functions
-    private func downloadTaxonIfNeeded() {
+    
+    private func saveAndDownloadTaxonIfNeeded() {
         let taxonsDB = RealmManager.get(fromEntity: DBTaxon.self)
-        let checkInternetConnection = CheckInternetConnection.init()
-        
-        if !checkInternetConnection.isConnectedToInternet() {
-            showConfirmationAlert(popUpType: .warning,
-                                  title: "API.lb.error".localized,
-                                  description: "Common.title.notConnectedToInternet".localized)
+        if taxonsDB.isEmpty {
+            saveTaxonInDataBase()
         } else {
-            if taxonsDB.isEmpty { // is DB empty with taxon
-                downloadTaxonByUserSettings()
-            } else if let paginationInfo = taxonPaginationInfoStorage.getPaginationInfo(),
-                      paginationInfo.isAllTaxonDownloaded { // is all taxon downloaded in previous download session
-                downloadTaxonByUserSettings()
-            } else {
-                taxonServiceCordinator.checkingNewTaxons { [weak self] hasNewTaxons, error in
-                    guard let self = self else { return }
-                    guard error == nil else  {
-                        self.showConfirmationAlert(popUpType: .error,
-                                                   title: error!.title,
-                                                   description: error!.description)
-                        return
-                    }
-                    
-                    if hasNewTaxons {
-                        self.downloadTaxonByUserSettings()
-                    } else {
-                        if self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded {
-                            self.showConfirmationAlert(popUpType: .success,
-                                                       title: "DownloadAndUpload.popUp.success.title".localized,
-                                                       description: "DownloadAndUpload.popUp.success.description".localized)
-                        }
-                    }
+            onLoading((true))
+            downloadTaxonAndSaveToDataBase()
+        }
+    }
+    
+    private func saveTaxonInDataBase() {
+        onLoading(with: true) { [weak self] in
+            guard let self = self else { return }
+            self.taxonUseCase.saveCSVTaxons(bySelected: self.envvironmentStorage,
+                                            forceDownloadEnv: self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded) { [weak self] error in
+                if let error = error {
+                    self?.onLoading((false))
+                    self?.showConfirmationAlert(popUpType: .error,
+                                                title: error.title,
+                                                description: error.description)
+                } else {
+                    self?.downloadTaxonAndSaveToDataBase()
                 }
             }
         }
     }
     
-    private func downloadTaxonByUserSettings() {
-        if let internetType = settingsStorage.getSettings()?.selectedAutoDownloadTaxon {
-            switch internetType.type {
-            case .onlyWiFi:
-                downloadTaxonWhenWifiActive()
-            case .onAnyNetwork:
-                downloadTaxonOnAnyNetworkActive()
-            case .alwaysAskUser:
-                downloadTaxonAlwaysAskUserActive()
+    private func downloadTaxonAndSaveToDataBase() {
+        taxonUseCase.updateTaxonsIfNeeded(completion: { [weak self] result in
+            guard let self = self else { return }
+            self.onLoading((false))
+            switch result {
+            case .success(let response):
+                print("Taxons count from API: \(response.meta.total)")
+                if self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded {
+                    self.showConfirmationAlert(popUpType: .success,
+                                               title: "DownloadAndUpload.popUp.success.title".localized,
+                                               description: "DownloadAndUpload.popUp.success.description".localized)
+                }
+            case .failure(let error):
+                self.showConfirmationAlert(popUpType: .error,
+                                           title: error.title,
+                                           description: error.description)
             }
-        }
-    }
-    
-    private func downloadTaxonWhenWifiActive() {
-        let checkInternetConnection = CheckInternetConnection.init()
-        if !checkInternetConnection.isConnectedToWiFi() {
-            showYesOrNoAlert(title: "Common.title.notConnectedToWiFi".localized,
-                                   onYesTapped: { [weak self] _ in
-                                    self?.navigationController.dismiss(animated: true, completion: {
-                                        self?.showDownloadTaxonsProgressBar()
-                                    })
-                                   },
-                                   onNoTapped: { [weak self] _ in
-                                    self?.navigationController.dismiss(animated: true, completion: nil)
-                                   })
-        } else {
-            showDownloadTaxonsProgressBar()
-        }
-    }
-    
-    private func downloadTaxonOnAnyNetworkActive() {
-        showDownloadTaxonsProgressBar()
-    }
-    
-    private func downloadTaxonAlwaysAskUserActive() {
-        let checkInternetConnection = CheckInternetConnection.init()
-        showYesOrNoAlert(title: "DownloadTaxon.doYouWantDownload.title".localized,
-                         onYesTapped: { [weak self] _ in
-                            if !checkInternetConnection.isConnectedToWiFi() {
-                                self?.showYesOrNoAlert(title: "Common.title.notConnectedToWiFi".localized,
-                                                       onYesTapped: { [weak self] _ in
-                                                        self?.navigationController.dismiss(animated: true, completion: {
-                                                            self?.showDownloadTaxonsProgressBar()
-                                                        })
-                                                       },
-                                                       onNoTapped: { [weak self] _ in
-                                                        self?.navigationController.dismiss(animated: true, completion: nil)
-                                                       })
-                            } else {
-                                self?.showDownloadTaxonsProgressBar()
-                            }
-                            self?.navigationController.dismiss(animated: true, completion: {
-                                self?.downloadTaxonWhenWifiActive()
-                            })
-                         },
-                         onNoTapped: { [weak self] _ in
-                            self?.navigationController.dismiss(animated: true, completion: nil)
-                         })
-    }
-    
-    private func showDownloadTaxonsProgressBar() {
-        var maxValue: Double = 10
-        var currentValue: Double = 0
-        if let paginationInfo = taxonPaginationInfoStorage.getPaginationInfo() {
-            maxValue = Double(paginationInfo.lastPage)
-            currentValue = Double(paginationInfo.currentPage)
-        }
-        showBilogerProgressBarScreen(maxValue: maxValue,
-                                     currentValue: currentValue,
-                                     onProgressAppeared: { [weak self] currentValue in
-                                        
-                                        self?.taxonServiceCordinator.resumeGetTaxon()
-                                        self?.taxonServiceCordinator.getTaxons { currentValue, maxValue in
-                                            self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)
-                                            if currentValue == maxValue {
-                                                self?.navigationController.dismiss(animated: true, completion: nil)
-                                            }
-                                        }
-                                     },
-                                     onCancelTapped: { [weak self] currentValue in
-                                        self?.taxonServiceCordinator.stopGetTaxon()
-                                        self?.navigationController.dismiss(animated: true, completion: nil)
-                                     })
-    }
-    
-    private func showBilogerProgressBarScreen(maxValue: Double,
-                                              currentValue: Double = 0.0,
-                                              onProgressAppeared: @escaping Observer<Double>,
-                                              onCancelTapped: @escaping Observer<Double>) {
-        let vc = swiftUICommonFactory.makeBiologerProgressBarView(maxValue: maxValue,
-                                                     currentValue: currentValue,
-                                                     onProgressAppeared: onProgressAppeared,
-                                                     onCancelTapped: onCancelTapped)
-        let viewController = vc as? UIHostingController<BiologerProgressBarScreen>
-        biologerProgressBarDelegate = viewController?.rootView.viewModel
-        vc.modalPresentationStyle = .overCurrentContext
-        vc.modalTransitionStyle = .crossDissolve
-        self.navigationController.present(vc, animated: true, completion: nil)
-    }
-    
-    private func showYesOrNoAlert(title: String,
-                                  onYesTapped: @escaping Observer<Void>,
-                                  onNoTapped: @escaping Observer<Void>) {
-        let vc = alertFactory.makeYesAndNoAlert(title: title, onYesTapped: onYesTapped, onNoTapped: onNoTapped)
-        self.navigationController.present(vc, animated: true, completion: nil)
+        })
     }
     
     private func showConfirmationAlert(popUpType: PopUpType,

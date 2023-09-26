@@ -17,6 +17,7 @@ public final class SetupRouter {
     private let taxonPaginationStorage: TaxonsPaginationInfoStorage
     private let imageLicenseStorage: LicenseStorage
     private let dataLicenseStorage: LicenseStorage
+    private let settingsStorage: SettingsStorage
     
     public var onSideMenuTapped: Observer<Void>?
     public var onStartDownloadTaxon: Observer<Void>?
@@ -27,7 +28,8 @@ public final class SetupRouter {
          alertFactory: AlertViewControllerFactory,
          taxonPaginationStorage: TaxonsPaginationInfoStorage,
          imageLicenseStorage: LicenseStorage,
-         dataLicenseStorage: LicenseStorage) {
+         dataLicenseStorage: LicenseStorage,
+         settingsStorage: SettingsStorage) {
         self.navigationController = navigationController
         self.factory = factory
         self.swiftUICommonFactory = swiftUICommonFactory
@@ -35,6 +37,7 @@ public final class SetupRouter {
         self.alertFactory = alertFactory
         self.dataLicenseStorage = dataLicenseStorage
         self.imageLicenseStorage = imageLicenseStorage
+        self.settingsStorage = settingsStorage
     }
     
     // MARK: - Public Functions
@@ -171,6 +174,9 @@ public final class SetupRouter {
     
     private func deleteAllTaxonAndResetPagination() {
         RealmManager.delete(fromEntity: DBTaxon.self)
-        self.taxonPaginationStorage.delete()
+        if let settings = settingsStorage.getSettings() {
+            settings.setLastTimeTaxonUpdate(with: Calendar.getLastTimeTaxonUpdate)
+            settingsStorage.saveSettings(settings: settings)
+        }
     }
 }

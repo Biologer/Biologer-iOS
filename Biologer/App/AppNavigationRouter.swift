@@ -140,7 +140,8 @@ public final class AppNavigationRouter: NavigationRouter {
                                      alertFactory: swiftUIAlertViewControllerFactory,
                                      taxonPaginationStorage: taxonPaginationInfoStorage,
                                      imageLicenseStorage: imageLicenseStorage,
-                                     dataLicenseStorage: dataLicenseStorage)
+                                     dataLicenseStorage: dataLicenseStorage,
+                                     settingsStorage: userDefaultsSettingsStorage)
         setupRouter.onStartDownloadTaxon = { [weak self] _ in
             guard let self = self else { return }
             self.downloadTaxonRouter.start(navigationController: self.sideMenuNavigationController)
@@ -156,9 +157,8 @@ public final class AppNavigationRouter: NavigationRouter {
     private lazy var downloadTaxonRouter: DownloadTaxonRouter = {
         return DownloadTaxonRouter(alertFactory: swiftUIAlertViewControllerFactory,
                                    swiftUICommonFactory: commonViewControllerFactoryImplementation,
-                                   taxonServiceCordinator: taxonServiceManager,
-                                   settingsStorage: userDefaultsSettingsStorage,
-                                   taxonPaginationInfoStorage: taxonPaginationInfoStorage)
+                                   taxonUseCase: taxonSavingUseCase,
+                                   envvironmentStorage: environmentStorage)
     }()
     
     // MARK: - Storage
@@ -339,18 +339,6 @@ public final class AppNavigationRouter: NavigationRouter {
                                                         language: response.data.settings.language))
                 self.userStorage.save(user: user)
                 self.getObservation()
-                self.getTaxonIfNeeded()
-            }
-        }
-    }
-    
-    private func getTaxonIfNeeded() {
-        taxonSavingUseCase.updateTaxonsIfNeeded() { result in
-            switch result {
-            case .success(_):
-                print("Data successfully saved updateTaxonsIfNeeded")
-            case .failure(let error):
-                print("Error with updateTaxonsIfNeeded: \(error.description)")
             }
         }
     }

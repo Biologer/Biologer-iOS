@@ -77,6 +77,7 @@ public final class AuthorizationRouter {
             guard let self = self else { return }
             
             self.taxonSavingUseCase.saveCSVTaxons(bySelected: self.environmentStorage,
+                                                  forceDownloadEnv: false,
                                                   completion: { error in
                 self.onLoading((false))
                 if let error = error {
@@ -186,6 +187,7 @@ public final class AuthorizationRouter {
             guard let self = self else { return }
             
             self.taxonSavingUseCase.saveCSVTaxons(bySelected: self.environmentStorage,
+                                                  forceDownloadEnv: false,
                                                   completion: { error in
                 self.onLoading((false))
                 if let error = error {
