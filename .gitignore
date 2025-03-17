@@ -42,7 +42,6 @@ DerivedData/
 *.ipa
 *.dSYM.zip
 *.dSYM
-**/APIConstants.swift
 **/EnvironmentConstants.swift
 
 ## Playgrounds
