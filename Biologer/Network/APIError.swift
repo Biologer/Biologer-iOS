@@ -28,6 +28,7 @@ public final class APIError: Error {
 
 public final class ErrorConstant {
     public static let parsingErrorConstant = "API.lb.parsingError".localized
+    public static let accountDeletionFailed = "API.lb.accountDeletionFailed".localized
     public static let environmentNotSelected = "API.lb.envError".localized
     public static let noInternetConnectionTitle = "API.lb.noInternetError".localized
     public static let noInternetConnectionDescription = "API.lb.noInternetDescriptionError".localized

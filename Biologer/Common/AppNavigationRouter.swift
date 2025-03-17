@@ -106,6 +106,7 @@ public final class AppNavigationRouter: NavigationRouter {
                                                   userStorage: userStorage,
                                                   profileService: remoteProfileService,
                                                   factory: SwiftUIDashboardViewControllerFactory(),
+                                                  swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                                   uiKitCommonViewControllerFactory: commonViewControllerFactory,
                                                   swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory)
         

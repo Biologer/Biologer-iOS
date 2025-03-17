@@ -23,6 +23,7 @@
 // MARK: - API Error
 "API.lb.error" = "Error!";
 "API.lb.parsingError" = "Parsing Error!";
+"API.lb.accountDeletionFailed" = "Failed to delete user!";
 "API.lb.envError" = "Environment is not selected!";
 "API.lb.noInternetError" = "No Internet connection!";
 "API.lb.noInternetDescriptionError" = "Please check your internet connection and try again.";
@@ -227,7 +228,7 @@
 "Env.nav.title" = "Select environment";
 "Env.lb.seribia" = "Serbia";
 "Env.lb.croatia" = "Croatia";
-"Env.lb.bosniaAndHerzegovina" = "Bosnian and Herzegovina";
+"Env.lb.bosniaAndHerzegovina" = "Bosnia and Herzegovina";
 "Env.lb.developer" = "For Developers";
 "Env.lb.montenegro" = "Montenegro";
 

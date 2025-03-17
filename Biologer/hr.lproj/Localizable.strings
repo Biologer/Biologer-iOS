@@ -21,7 +21,8 @@
 
 // MARK: - API Error
 "API.lb.error" = "Greška!";
-"API.lb.parsingError" = "Pogreška rasčlanjivanja!";
+"API.lb.parsingError" = "Pogreška raščlanjivanja!";
+"API.lb.accountDeletionFailed" = "Pogreška brisanja korisnika!";
 "API.lb.envError" = "Nije odabran okoliš!";
 "API.lb.noInternetError" = "Nema internetske veze!";
 "API.lb.noInternetDescriptionError" = "Molimo vas provjerite internetsku vezu i pokušajte ponovo.";
@@ -66,7 +67,7 @@
 "SideMenu.lb.listOfFindings" = "Popis nalaza";
 "SideMenu.lb.setup" = "Postavi";
 "SideMenu.lb.Logout" = "Odjavi se";
-"SideMenu.lb.DeleteAccount" = "Izbrisi korisnika";
+"SideMenu.lb.DeleteAccount" = "Izbriši korisnički nalog";
 "SideMenu.lb.aboutUs" = "O nama";
 "SideMenu.lb.AboutBiologer" = "O Biologeru";
 "SideMenu.lb.Help" = "Pomoć";
@@ -144,7 +145,7 @@
 "ListOfFindings.deleteScreen.lb.selectedTitle" = "Izaberite nalaz";
 "ListOfFindings.deleteScreen.btn.cancel" = "Otkaži";
 "ListOfFindings.deleteScreen.btn.delete" = "Izbriši";
-"ListOfFindings.popUpUserVerified.description" = "Adresa vase e-pošte još uvek nije potvrdjena! Uspešno ste se registrovali i na Biologer i neke od osnovnih radnji će vam biti dostupne, ali ćete za slanje zabeležnika vrsta morati da otvorite e-poruku koju ste dobili i potvrditi vašu adresu.";
+"ListOfFindings.popUpUserVerified.description" = "Adresa vaše e-pošte još uvijek nije potvrđena! Uspešno ste se registrovali i na Biologer i neke od osnovnih radnji će vam biti dostupne, ali ćete za slanje zabeležnika vrsta morati da otvorite e-poruku koju ste dobili i potvrditi vašu adresu.";
 
 // MARK: - Upload Findings
 "UploadFindings.noFindingsToUploadPopUp.title" = "Učitaj nalaze...";
@@ -204,7 +205,7 @@
 "DeleteAccount.lb.currentlyDB" = "Trenutno si povezan na bazu:";
 "DeleteAccount.lb.asUser" = "Kao korisnik:";
 "DeleteAccount.lb.doYouWantLogout" = "Ova radnja će obrisati vaš korisnički nalog sa Biologer servera i sve vaše podatke. Ukoliko želite da koristite Biologer aplikaciju, morate se registrovati na neki od Biologerovih servera.";
-"DeleteAccount.btn.deleteAccount" = "Obrisi Korisnika";
+"DeleteAccount.btn.deleteAccount" = "Obriši Korisnički Nalog";
 
 // MARK: - About Biologer Screen
 "AboutBiologer.lb.currentlyDB" = "Trenutno ste povezani na bazu:";

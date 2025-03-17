@@ -23,6 +23,7 @@
 // MARK: - API Error
 "API.lb.error" = "Грешка!";
 "API.lb.parsingError" = "Грешка у обради!";
+"API.lb.accountDeletionFailed" = "Грешка при брисању корисника!";
 "API.lb.envError" = "Није изабрано окружење!";
 "API.lb.noInternetError" = "Нема интернет везе!";
 "API.lb.noInternetDescriptionError" = "Проверите вашу везу са интернетом и покушајте поново.";

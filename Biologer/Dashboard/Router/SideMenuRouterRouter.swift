@@ -18,6 +18,7 @@ public final class SideMenuRouterRouter: NavigationRouter {
     private let factory: DashboardViewControllerFactory
     private let uiKitCommonViewControllerFactory: CommonViewControllerFactory
     private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
+    private let swiftUIAlertViewControllerFactory: AlertViewControllerFactory
     private let environmentStorage: EnvironmentStorage
     private let userStorage: UserStorage
     private let profileService: ProfileService
@@ -31,6 +32,7 @@ public final class SideMenuRouterRouter: NavigationRouter {
          userStorage: UserStorage,
          profileService: ProfileService,
          factory: DashboardViewControllerFactory,
+         swiftUIAlertViewControllerFactory: AlertViewControllerFactory,
          uiKitCommonViewControllerFactory: CommonViewControllerFactory,
          swiftUICommonViewControllerFactory: CommonViewControllerFactory) {
         self.navigationController = navigationController
@@ -43,6 +45,7 @@ public final class SideMenuRouterRouter: NavigationRouter {
         self.factory = factory
         self.uiKitCommonViewControllerFactory = uiKitCommonViewControllerFactory
         self.swiftUICommonViewControllerFactory = swiftUICommonViewControllerFactory
+        self.swiftUIAlertViewControllerFactory = swiftUIAlertViewControllerFactory
     }
     
     public func start() {
@@ -137,20 +140,23 @@ public final class SideMenuRouterRouter: NavigationRouter {
             guard let env = self.environmentStorage.getEnvironment() else {
                 return
             }
-            
-            var url = ""
-            let currentLanguage = NSLocale.current.languageCode
-            print("Language: \(String(describing: currentLanguage))")
-            
-            if currentLanguage == "en" {
-                url = "https://biologer.rs/en/preferences/account"
-            } else {
-                url = "https://biologer.rs\(env.path)/preferences/account"
+            guard let userID = self.userStorage.getUser()?.id else {
+                return
             }
             
-            self.showSafari(path: url)
-            self.onLogout?(())
+            profileService.deleteUser(userID: userID, deleteObservations: false, completion: { result in
+                switch result {
+                case .success:
+                    print("User deleted successfully")
+                    self.onLogout?(())
+                    
+                case .failure(let error):
+                    self.showErrorAlert(popUpType: .error, title: error.title, description: error.description)
+                    print("Error: \(error.description)")
+                }
+            })
         })
+        
         vc.setBiologerTitle(text: "SideMenu.lb.DeleteAccount".localized)
         addSideMenuIcons(vc: vc)
         self.navigationController.setViewControllers([vc], animated: false)
@@ -186,5 +192,17 @@ public final class SideMenuRouterRouter: NavigationRouter {
         if let url = URL(string: path) {
             UIApplication.shared.open(url)
         }
+    }
+    
+    private func showErrorAlert(popUpType: PopUpType,
+                                title: String,
+                                description: String) {
+        let vc = swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
+                                                                  title: title,
+                                                                  description: description,
+                                                                  onTapp: { _ in
+                                                                    self.navigationController.dismiss(animated: true, completion: nil)
+                                                                  })
+        self.navigationController.present(vc, animated: true, completion: nil)
     }
 }
