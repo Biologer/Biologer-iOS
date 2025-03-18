@@ -61,7 +61,7 @@
 "Register.three.btn.register" = "Registriraj se";
 "Register.three.lb.error" = "Za registraciju morate prihvatiti politiku privatnosti!";
 "Register.three.successPopUp.title" = "Registration";
-"Register.three.successPopUp.description" = "Registration is almos completed! To check it this was you, we wil send an email with confirmation link. Open that link to verify your email and you could login to Biologer.";
+"Register.three.successPopUp.description" = "Registration is almost completed! To check if this was you, we wil send an email with confirmation link. Open that link to verify your email and you could login to Biologer.";
 
 // MARK: - Side Menu Screen
 "SideMenu.lb.listOfFindings" = "Popis nalaza";
@@ -204,7 +204,8 @@
 // MARK: - Delete Account Screen
 "DeleteAccount.lb.currentlyDB" = "Trenutno si povezan na bazu:";
 "DeleteAccount.lb.asUser" = "Kao korisnik:";
-"DeleteAccount.lb.doYouWantLogout" = "Ova radnja će obrisati vaš korisnički nalog sa Biologer servera i sve vaše podatke. Ukoliko želite da koristite Biologer aplikaciju, morate se registrovati na neki od Biologerovih servera.";
+"DeleteAccount.lb.doYouWantLogout" = "Ova radnja će obrisati vaš korisnički nalog sa Biologer servera. Ukoliko želite da koristite Biologer aplikaciju, morate se registrovati na neki od Biologerovih servera.";
+"DeleteAccount.lb.doYouWantToDeleteObservations" = "Da li želite da obrišete i vaše obzervacije?";
 "DeleteAccount.btn.deleteAccount" = "Obriši Korisnički Nalog";
 
 // MARK: - About Biologer Screen

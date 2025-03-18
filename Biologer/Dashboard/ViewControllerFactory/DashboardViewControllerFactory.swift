@@ -18,7 +18,7 @@ protocol DashboardViewControllerFactory {
     func makeDeleteAccountScreen(userEmail: String,
                                  username: String,
                                  currentEnv: String,
-                                 onDeleteAccountTapped: @escaping Observer<Void>) -> UIViewController
+                                 onDeleteAccountTapped: @escaping Observer<Bool>) -> UIViewController
     func makeAboutScreen(currentEnv: String,
                          version: String,
                          onEnvTapped: @escaping Observer<String>) -> UIViewController
@@ -57,7 +57,7 @@ public final class SwiftUIDashboardViewControllerFactory: DashboardViewControlle
     func makeDeleteAccountScreen(userEmail: String,
                                  username: String,
                                  currentEnv: String,
-                                 onDeleteAccountTapped: @escaping Observer<Void>) -> UIViewController {
+                                 onDeleteAccountTapped: @escaping Observer<Bool>) -> UIViewController {
         let viewModel = DeleteAccountScreenViewModel(userEmail: userEmail,
                                                      username: username,
                                                      currentEnv: currentEnv,

@@ -135,16 +135,14 @@ public final class SideMenuRouterRouter: NavigationRouter {
         let vc = factory.makeDeleteAccountScreen(userEmail: userStorage.getUser()?.email ??  "",
                                                  username: userStorage.getUser()?.fullName ?? "",
                                                  currentEnv: "https://\(environmentStorage.getEnvironment()?.host ?? "")",
-                                                 onDeleteAccountTapped: { [weak self] _ in
+                                                 onDeleteAccountTapped: { [weak self] deleteObservations in
             guard let self = self else { return }
-            guard let env = self.environmentStorage.getEnvironment() else {
-                return
-            }
+
             guard let userID = self.userStorage.getUser()?.id else {
                 return
             }
             
-            profileService.deleteUser(userID: userID, deleteObservations: false, completion: { result in
+            profileService.deleteUser(userID: userID, deleteObservations: deleteObservations, completion: { result in
                 switch result {
                 case .success:
                     print("User deleted successfully")

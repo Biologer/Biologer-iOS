@@ -14,14 +14,16 @@ public class DeleteAccountScreenViewModel: DeleteAccountScreenLoader {
     let userEmail: String
     let username: String
     let bottomDeleteAccountDescription: String = "DeleteAccount.lb.doYouWantLogout".localized
+    let doYouWantToDeleteObservations: String = "DeleteAccount.lb.doYouWantToDeleteObservations".localized
+    var deleteObservations: Bool = false
     let deleteButtonTitle: String = "DeleteAccount.btn.deleteAccount".localized
     
-    private let onDeleteAccountTapped: Observer<Void>
+    private let onDeleteAccountTapped: Observer<Bool>
     
     init(userEmail: String,
          username: String,
          currentEnv: String,
-         onDeleteAccountTapped: @escaping Observer<Void>) {
+         onDeleteAccountTapped: @escaping Observer<Bool>) {
         self.username = username
         self.userEmail = userEmail
         self.currentEnv = currentEnv
@@ -29,6 +31,6 @@ public class DeleteAccountScreenViewModel: DeleteAccountScreenLoader {
     }
 
     func deleteTapped() {
-        onDeleteAccountTapped(())
+        onDeleteAccountTapped((self.deleteObservations))
     }
 }

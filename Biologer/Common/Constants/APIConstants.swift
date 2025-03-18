@@ -10,7 +10,7 @@ public final class APIConstants {
     public static let taxonPath = "/api/taxa"
     public static let registerUserPath = "/api/register"
     public static let myProfilePath = "/api/my/profile"
-    public static let deleteUserPath = "/api/users/"
+    public static let deleteUserPath = "/api/users"
     public static let observationsPath = "/api/field-observations"
     
     public static let uploadFindingImagePath = "/api/uploads/photos"

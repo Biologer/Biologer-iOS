@@ -18,7 +18,7 @@ public final class DownloadTaxonRouter {
     private let taxonServiceCordinator: TaxonServiceCoordinator
     
     private var biologerProgressBarDelegate: BiologerProgressBarDelegate?
-    public private (set) var sholdPresentConfirmationWhenAllTaxonAleadyDownloaded = true
+    public private(set) var sholdPresentConfirmationWhenAllTaxonAleadyDownloaded = true
     
     init(alertFactory: AlertViewControllerFactory,
          swiftUICommonFactory: CommonViewControllerFactory,
