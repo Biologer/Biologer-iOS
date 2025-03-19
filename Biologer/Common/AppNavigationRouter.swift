@@ -308,7 +308,7 @@ public final class AppNavigationRouter: NavigationRouter {
     }
     
     private func getObservation() {
-        remoteObservationService.getObservation(completion: { [weak self] result in
+        remoteObservationService.getObservationTypes(completion: { [weak self] result in
             guard let self = self else { return }
             self.onLoading((false))
             switch result {

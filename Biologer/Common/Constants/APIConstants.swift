@@ -11,7 +11,9 @@ public final class APIConstants {
     public static let registerUserPath = "/api/register"
     public static let myProfilePath = "/api/my/profile"
     public static let deleteUserPath = "/api/users"
-    public static let observationsPath = "/api/field-observations"
+    public static let observationTypesPath = "/api/observation-types"
+    
+    public static let updatedAfter = "updated_after"
     
     public static let uploadFindingImagePath = "/api/uploads/photos"
     public static let uploadFindingPath = "/api/field-observations"

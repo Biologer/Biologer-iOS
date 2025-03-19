@@ -9,7 +9,7 @@ import Foundation
 
 public protocol ObservationService {
     typealias Result = Swift.Result<ObservationDataResponse, APIError>
-    func getObservation(completion: @escaping (Result) -> Void)
+    func getObservationTypes(completion: @escaping (Result) -> Void)
 }
 
 public final class RemoteObservationService: ObservationService {
@@ -25,7 +25,7 @@ public final class RemoteObservationService: ObservationService {
         self.environmentStorage = environmentStorage
     }
     
-    public func getObservation(completion: @escaping (Result) -> Void) {
+    public func getObservationTypes(completion: @escaping (Result) -> Void) {
         if let env = environmentStorage.getEnvironment() {
             let request = try! ObservationRequest(host: env.host).asURLRequest()
             client.perform(from: request) { result in
@@ -33,8 +33,7 @@ public final class RemoteObservationService: ObservationService {
                 case .failure(let error):
                     completion(.failure(APIError(description: error.localizedDescription)))
                 case .success(let result):
-                    if result.1.statusCode == 200, let response = try? JSONDecoder().decode(ObservationDataResponse.self,
-                                                                                    from: result.0) {
+                    if result.1.statusCode == 200, let response = try? JSONDecoder().decode(ObservationDataResponse.self, from: result.0) {
                         completion(.success(response))
                     } else {
                         completion(.failure(APIError(description: ErrorConstant.parsingErrorConstant)))
@@ -52,7 +51,7 @@ public final class RemoteObservationService: ObservationService {
         
         var host: String
         
-        var path: String = APIConstants.observationsPath
+        var path: String = APIConstants.observationTypesPath
         
         var queryParameters: [URLQueryItem]? = nil
         
@@ -66,6 +65,21 @@ public final class RemoteObservationService: ObservationService {
             headers.add(name: HTTPHeaderName.acceept, value: APIConstants.applicationJson)
             self.headers = headers
             self.host = host
+            
+            let time = fetchLastUpdatedTime()
+            self.queryParameters = [URLQueryItem(name: APIConstants.updatedAfter, value: "\(time)")]
+            
+            saveLastUpdatedTime()
+        }
+        
+        private func fetchLastUpdatedTime() -> Int {
+            return UserDefaults.standard.integer(forKey: APIConstants.updatedAfter)
+        }
+        
+        private func saveLastUpdatedTime() {
+            let timestamp = Int(Date().timeIntervalSince1970)
+            UserDefaults.standard.set(timestamp, forKey: APIConstants.updatedAfter)
+            UserDefaults.standard.synchronize()
         }
     }
 }
