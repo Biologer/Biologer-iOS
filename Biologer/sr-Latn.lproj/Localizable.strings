@@ -207,6 +207,7 @@
 "DeleteAccount.lb.doYouWantLogout" = "Ova radnja će obrisati vaš korisnički nalog sa Biologer servera. Ukoliko želite da koristite Biologer aplikaciju, morate se registrovati na neki od Biologerovih servera.";
 "DeleteAccount.lb.doYouWantToDeleteObservations" = "Da li želite da obrišete i vaše obzervacije?";
 "DeleteAccount.btn.deleteAccount" = "Obrisi Korisnika";
+"DeleteAccount.lb.successTitle" = "Korisnik je uspešno obrisan";
 
 // MARK: - About Biologer Screen
 "AboutBiologer.lb.currentlyDB" = "Trenutno ste prijavljeni na bazu podataka:";

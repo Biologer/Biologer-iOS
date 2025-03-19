@@ -207,6 +207,7 @@
 "DeleteAccount.lb.doYouWantLogout" = "This action will delete your user account from Biologer server. If you would like to use Biologer application, you must register to the preffered Biologer server again.";
 "DeleteAccount.lb.doYouWantToDeleteObservations" = "Da li želite da obrišete i vaše obzervacije?";
 "DeleteAccount.btn.deleteAccount" = "Delete Account";
+"DeleteAccount.lb.successTitle" = "Korisnik je uspješno obrisan";
 
 // MARK: - About Biologer Screen
 "AboutBiologer.lb.currentlyDB" = "You are currently logged into a database:";

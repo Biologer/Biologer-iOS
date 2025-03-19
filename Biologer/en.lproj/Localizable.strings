@@ -207,6 +207,7 @@
 "DeleteAccount.lb.doYouWantLogout" = "This action will delete your user account from the Biologer server. If you would like to use the Biologer application, you must register on the preferred Biologer server again.";
 "DeleteAccount.lb.doYouWantToDeleteObservations" = "Do you want to delete your observations, too?";
 "DeleteAccount.btn.deleteAccount" = "Delete account";
+"DeleteAccount.lb.successTitle" = "User deleted successfully";
 
 // MARK: - About Biologer Screen
 "AboutBiologer.lb.currentlyDB" = "You are currently logged into a database:";

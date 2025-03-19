@@ -145,11 +145,13 @@ public final class SideMenuRouterRouter: NavigationRouter {
             profileService.deleteUser(userID: userID, deleteObservations: deleteObservations, completion: { result in
                 switch result {
                 case .success:
-                    print("User deleted successfully")
                     
-                    self.onLogout?(())
-                    self.userStorage.deleteAllForUser()
-                    
+                    self.showInfoAlert(popUpType: .success, title: "DeleteAccount.lb.successTitle".localized, description: "", completion: {
+                        print("User deleted successfully")
+                        
+                        self.onLogout?(())
+                        self.userStorage.deleteAllForUser()
+                    })
                     
                 case .failure(let error):
                     self.showErrorAlert(popUpType: .error, title: error.title, description: error.description)
@@ -203,6 +205,19 @@ public final class SideMenuRouterRouter: NavigationRouter {
                                                                   description: description,
                                                                   onTapp: { _ in
                                                                     self.navigationController.dismiss(animated: true, completion: nil)
+                                                                  })
+        self.navigationController.present(vc, animated: true, completion: nil)
+    }
+    
+    private func showInfoAlert(popUpType: PopUpType,
+                                title: String,
+                                description: String,
+                               completion: @escaping (() -> Void)) {
+        let vc = swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
+                                                                  title: title,
+                                                                  description: description,
+                                                                  onTapp: { _ in
+                                                                    self.navigationController.dismiss(animated: true, completion: completion)
                                                                   })
         self.navigationController.present(vc, animated: true, completion: nil)
     }
