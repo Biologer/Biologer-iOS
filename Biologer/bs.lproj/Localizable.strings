@@ -227,10 +227,10 @@
 
 // MARK: - Select Environment Screen
 "Env.nav.title" = "SELECT ENVIRONMENT";
-"Env.lb.seribia" = "Serbia";
+"Env.lb.serbia" = "Serbia";
 "Env.lb.croatia" = "Croatia";
-"Env.lb.bosniaAndHerzegovina" = "Bosnian and Herzegovina";
-"Env.lb.developer" = "For Developers";
+"Env.lb.bosniaAndHerzegovina" = "Bosnia and Herzegovina";
+"Env.lb.developer" = "For developers";
 "Env.lb.montenegro" = "Montenegro";
 
 // MARK: - Image License Screen
@@ -244,6 +244,6 @@
 "DataLicense.nav.title" = "DATA LICENSE";
 "DataLicense.lb.one" = "Free (CC BY-SA)";
 "DataLicense.lb.two" = "Free, NonCommercial (CC BY-SA-NC)";
-"DataLicense.lb.three" = "Partially Open (restricted to 10km)";
-"DataLicense.lb.four" = "Temporary closed (publish as free after 3 years)";
+"DataLicense.lb.three" = "Partially open (restricted to 10km)";
+"DataLicense.lb.four" = "Temporarily closed (publish as free after 3 years)";
 "DataLicense.lb.five" = "Closed (available to you and the editors)";

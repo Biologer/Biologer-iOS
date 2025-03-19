@@ -20,7 +20,7 @@ public final class EnvironmentViewModelFactory {
         switch type {
         case .serbia:
             return EnvironmentViewModel(id: 1,
-                                        title: "Env.lb.seribia".localized,
+                                        title: "Env.lb.serbia".localized,
                                         image: "serbia_flag",
                                         env: Environment(host: serbiaHost,
                                                          path: serbiaLangPath,

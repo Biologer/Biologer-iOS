@@ -227,7 +227,7 @@
 
 // MARK: - Select Environment Screen
 "Env.nav.title" = "Select environment";
-"Env.lb.seribia" = "Serbia";
+"Env.lb.serbia" = "Serbia";
 "Env.lb.croatia" = "Hrvatska";
 "Env.lb.bosniaAndHerzegovina" = "Bosna i Hercegovina";
 "Env.lb.developer" = "For Developers";
