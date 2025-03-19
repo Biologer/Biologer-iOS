@@ -146,7 +146,10 @@ public final class SideMenuRouterRouter: NavigationRouter {
                 switch result {
                 case .success:
                     print("User deleted successfully")
+                    
                     self.onLogout?(())
+                    self.userStorage.deleteAllForUser()
+                    
                     
                 case .failure(let error):
                     self.showErrorAlert(popUpType: .error, title: error.title, description: error.description)

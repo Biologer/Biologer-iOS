@@ -11,4 +11,5 @@ public protocol UserStorage {
     func getUser() -> User?
     func save(user: User)
     func delete()
+    func deleteAllForUser()
 }

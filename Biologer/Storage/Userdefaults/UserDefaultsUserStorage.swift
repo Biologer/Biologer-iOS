@@ -34,6 +34,11 @@ public final class UserDefaultsUserStorage: UserStorage {
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: userKey)
     }
+    
+    public func deleteAllForUser() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        UserDefaults.standard.synchronize()
+    }
 }
 
 extension UserDefaults: ObjectSavable {
