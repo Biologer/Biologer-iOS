@@ -16,7 +16,7 @@
 "Common.btn.cancel" = "Otkaži";
 "Common.title.downloading" = "Preuzimanje...";
 "Common.title.downloaded" = "Preuzeto!";
-"Common.title.notConnectedToWiFi" = "Niste povezani na Wi-Fi. Želite li ipak preuzeti podatke?";
+"Common.title.notConnectedToWiFi" = "Niste povezani na WiFi. Želite li ipak preuzeti podatke?";
 "Common.title.notConnectedToInternet" = "Niste povezani na internet.";
 
 // MARK: - API Error
@@ -85,7 +85,7 @@
 "NewTaxon.lb.image.title" = "Fotografije:";
 "NewTaxon.lb.info.title" = "Info:";
 "NewTaxon.tf.taxonName.placeholder" = "Naziv taksona";
-"NewTaxon.tf.nesting.placeholder" = "Nesting Atlas Code";
+"NewTaxon.tf.nesting.placeholder" = "Kod Atlasa gniježđenja";
 "NewTaxon.tf.comment.placeholder" = "Komentar";
 "NewTaxon.tf.individual.placeholder" = "Broj jedinki";
 "NewTaxon.tf.maleIndividual.placeholder" = "Broj mužjaka";
@@ -102,7 +102,7 @@
 "NewTaxon.image.nav.title" = "Pregled fotografija";
 "NewTaxon.image.placeholder.title" = "Fotografije nisu dodane";
 "NewTaxon.search.nav.title" = "Pretraga taksona";
-"NewTaxon.nestingAtlas.nav.title" = "Nesting Atlas Code";
+"NewTaxon.nestingAtlas.nav.title" = "Kod Atlasa gniježđenja";
 "NewTaxon.mapType.normal.title" = "Normalno";
 "NewTaxon.mapType.hybrid.title" = "Hibrid";
 "NewTaxon.mapType.terrain.title" = "Teren";
@@ -139,7 +139,7 @@
 
 // MARK: - List Of Findings
 "ListOfFindings.nav.title" = "Biologer";
-"ListOfFindings.noFindings.title" = "Vaši evidentirani nalazi će se prikazati ovdje. Za dodavanje novog opažanja vrste, jednostavno pritisnite znak \"+\" i ispunite obrazac. Kada budete imali stabilnu internetsku vezu, koristite gumb za učitavanje kako biste poslali sve nalaze na server.";
+"ListOfFindings.noFindings.title" = "Vaši evidentirani nalazi će se prikazati ovdje. Za dodavanje novog opažanja vrste, jednostavno pritisnite znak \"+\" i ispunite obrazac. Kada budete imali stabilnu internetsku vezu, koristite gumb za otpremanje kako biste poslali sve nalaze na server.";
 "ListOfFindings.deleteScreen.title" = "Želite li izbrisati?";
 "ListOfFindings.deleteScreen.lb.allTitle" = "Sve nalaze";
 "ListOfFindings.deleteScreen.lb.selectedTitle" = "Izabrani nalaz";
@@ -148,11 +148,11 @@
 "ListOfFindings.popUpUserVerified.description" = "Adresa vaše e-pošte još uvijek nije potvrđena! Uspješno ste se registrirali na Biologer i neke osnovne funkcije su vam dostupne, ali da biste mogli slati podatke o vrstama, morate otvoriti e-mail koji ste primili i potvrditi svoju adresu.";
 
 // MARK: - Upload Findings
-"UploadFindings.noFindingsToUploadPopUp.title" = "Učitavanje nalaza...";
-"UploadFindings.noFindingsToUploadPopUp.description" = "Nema nalaza za učitavanje.";
-"UploadFindings.yesOrNoPopUp.title" = "Želite li učitati nalaze?";
+"UploadFindings.noFindingsToUploadPopUp.title" = "Otpremanje nalaza...";
+"UploadFindings.noFindingsToUploadPopUp.description" = "Nema nalaza za otpremanje.";
+"UploadFindings.yesOrNoPopUp.title" = "Želite li otpremiti nalaze?";
 "UploadFindings.uploadedFindingPopUp.title" = "Uspješno!";
-"UploadFindings.uploadedFindingPopUp.description" = "Svi nalazi su učitani!";
+"UploadFindings.uploadedFindingPopUp.description" = "Svi nalazi su otpremljeni!";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Unos podataka";
@@ -160,7 +160,7 @@
 "Settings.lb.chooseSpecisGroup.desc" = "Odabirom samo određenih skupina (npr. ptice, leptiri ili biljke) lakše ćete pronaći vrste za unos podataka. Druge vrste neće se prikazivati u padajućem izborniku.";
 "Settings.lb.awayListEnglish.title" = "Uvijek prikazuj engleske nazive";
 "Settings.lb.awayListEnglish.desc" = "Omogućuje prikaz engleskih naziva vrsta u Biologeru, čak i ako je jezik telefona postavljen na drugi.";
-"Settings.lb.adultDefault.title" = "Označi odraslu jedinku po defaultu";
+"Settings.lb.adultDefault.title" = "Podrazumijevano postavi kao odraslu jedinku";
 "Settings.lb.adultDefault.desc" = "Automatski postavlja životni stadij na odraslu jedinku, ako postoji takva kategorija za opaženu vrstu.";
 "Settings.lb.advanceObservation.title" = "Napredni unos opažanja";
 "Settings.lb.advanceObservation.desc" = "Omogućuje dodatne opcije pri unosu opažanja (npr. broj jedinki, stadij razvoja, spol).";
@@ -172,8 +172,8 @@
 "Settings.lb.imageLicense.title" = "Licenca za fotografije";
 "Settings.lb.imageLicense.desc" = "Odaberite različitu licencu za fotografije poslane putem aplikacije.";
 "Settings.lb.otherDownloads" = "Ostala preuzimanja";
-"Settings.lb.autoDownloadUpload.title" = "Automatsko preuzimanje i učitavanje";
-"Settings.lb.autoDownloadUpload.desc" = "Omogućuje automatsko preuzimanje i učitavanje podataka bez intervencije korisnika. Prema zadanim postavkama, podaci će se slati samo kada ste povezani na WiFi.";
+"Settings.lb.autoDownloadUpload.title" = "Automatsko preuzimanje i otpremanje";
+"Settings.lb.autoDownloadUpload.desc" = "Omogućuje automatsko preuzimanje i otpremanje podataka bez intervencije korisnika. Prema zadanim postavkama, podaci će se slati samo kada ste povezani na WiFi.";
 "Settings.lb.downloadTaxa.title" = "Preuzimanje svih taksona";
 "Settings.lb.downloadTaxa.desc" = "Ponovno preuzmite cijelo taksonomsko stablo u aplikaciju s Biologer servera.";
 "Settings.lb.resetAllTaxa.title" = "Reset svih taksona";
@@ -185,10 +185,10 @@
 "Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.description" = "Nema dostupnih taksona za brisanje.";
 
 // MARK: - Project Name Screen
-"ProjectName.tf.placeholder" = "Ime projekta";
+"ProjectName.tf.placeholder" = "Naziv projekta";
 
 // MARK: - Download And Upload Screen
-"DownloadAndUpload.nav.title" = "Automatsko preuzimanje i učitavanje";
+"DownloadAndUpload.nav.title" = "Automatsko preuzimanje i otpremanje";
 "DownloadAndUpload.nav.onlyWifi" = "Samo na WiFi mreži";
 "DownloadAndUpload.nav.onAnyNetwork" = "Na bilo kojoj mreži";
 "DownloadAndUpload.nav.alwaysAsk" = "Uvijek pitaj korisnika";
