@@ -26,23 +26,23 @@
 "API.lb.accountDeletionFailed" = "Грешка при брисању корисника!";
 "API.lb.envError" = "Није изабрано окружење!";
 "API.lb.noInternetError" = "Нема интернет везе!";
-"API.lb.noInternetDescriptionError" = "Проверите вашу везу са интернетом и покушајте поново.";
+"API.lb.noInternetDescriptionError" = "Проверите вашу интернет везу и покушајте поново.";
 
 // MARK: - Login Screen Screen
 "Login.tf.username.placeholder" = "Корисничко име (е-пошта)";
 "Login.tf.password.placeholder" = "Лозинка";
 "Login.env.placeholder" = "Изаберите окружење";
-"Login.btn.login" = "Пријави ме";
+"Login.btn.login" = "Пријавите се";
 "Login.lb.noAccount" = "Још увек немате налог?";
-"Login.btn.register" = "Региструј ме";
-"Login.btn.forgotPassword" = "Заборавио сам лозинку";
+"Login.btn.register" = "Региструјте се";
+"Login.btn.forgotPassword" = "Заборавили сте лозинку?";
 
 // MARK: - Register Step One Screen
 "Register.one.nav.title" = "Регистрација (први корак)";
 "Register.one.tf.name.placeholder" = "Име";
 "Register.one.tf.surname.placeholder" = "Презиме";
 "Register.one.tf.institution.placeholder" = "Институција";
-"Register.one.btn.next" = "Наредно";
+"Register.one.btn.next" = "Даље";
 
 // MARK: - Register Step Two Screen
 "Register.two.nav.title" = "Регистрација (други корак)";
@@ -50,7 +50,7 @@
 "Register.two.tf.password.placeholder" = "Лозинка";
 "Register.two.tf.repeatPassword.placeholder" = "Поновите лозинку";
 "Register.two.tf.repeatPassword.error" = "Лозинке нису исте";
-"Register.two.btn.next" = "Наредно";
+"Register.two.btn.next" = "Даље";
 
 // MARK: - Registration Step Three Screen
 "Register.three.nav.title" = "Регистрација (трећи корак)";
@@ -59,7 +59,7 @@
 "Register.three.lb.description" = "Подешавања ваше приватности и начина дељења података су веома важан део сваке Биологер заједнице! Пре коришћења ове платформе, морате прочитати политику приватности и разумети како користимо ваше личне податке за потврду налаза врста са терена.\n\nПотребно је и да изаберете како желите да делите ваше налазе и фотографије са остатком света, тако што ћете подесити жељену лиценцу.";
 "Register.three.btn.privacyPolicy" = "Политика приватности";
 "Register.three.lb.acceptPrivacyPolicy" = "Прихватам политику приватности";
-"Register.three.btn.register" = "Региструј ме";
+"Register.three.btn.register" = "Региструјте се";
 "Register.three.lb.error" = "Морате прихватити политику приватности!";
 "Register.three.successPopUp.title" = "Регистрација";
 "Register.three.successPopUp.description" = "Регистрација је скоро завршена! Како би проверили да сте то били ви, послали смо вам поруку на адресу е-поште са везом за потврду. Отворите је да потврдите вашу адресу, а затим се можете пријавити на Биологер.";
@@ -67,8 +67,8 @@
 // MARK: - Side Menu Screen
 "SideMenu.lb.listOfFindings" = "Списак налаза";
 "SideMenu.lb.setup" = "Подешавања";
-"SideMenu.lb.Logout" = "Одјави ме";
-"SideMenu.lb.DeleteAccount" = "Izbrisi korisnika";
+"SideMenu.lb.Logout" = "Одјавите се";
+"SideMenu.lb.DeleteAccount" = "Избришите кориснички налог";
 "SideMenu.lb.aboutUs" = "О нама";
 "SideMenu.lb.AboutBiologer" = "О Биологеру";
 "SideMenu.lb.Help" = "Помоћ";
@@ -77,10 +77,10 @@
 "NewTaxon.lb.nav.title" = "Унос налаза";
 "NewTaxon.lb.locationTitle" = "Место:";
 "NewTaxon.lb.accuracyTitle" = "Прецизност:";
-"NewTaxon.lb.latitude" = "Географска дужина:";
-"NewTaxon.lb.longitued" = "Географска ширина:";
+"NewTaxon.lb.latitude" = "Географска ширина:";
+"NewTaxon.lb.longitued" = "Географска дужина:";
 "NewTaxon.lb.altitude" = "Надморска висина:";
-"NewTaxon.lb.waitingForCordinate" = "Чекам координате…";
+"NewTaxon.lb.waitingForCordinate" = "Чекају се координате…";
 "NewTaxon.lb.accuracyUnknown" = "Непознато";
 "NewTaxon.btn.setLocation.title" = "Постави локацију";
 "NewTaxon.lb.image.title" = "Слике:";
@@ -135,20 +135,20 @@
 "NestingAtlasCode.title.17" = "16. Пронађено гнездо са младунцима (посматраним или слушаним)";
 
 // MARK: - Download Taxon
-"DownloadTaxon.doYouWantDownload.title" = "Да ли желите да преузмете све таксоне";
+"DownloadTaxon.doYouWantDownload.title" = "Да ли желите да преузмете све таксоне?";
 
 // MARK: - List Of Findings
 "ListOfFindings.nav.title" = "Биологер";
-"ListOfFindings.noFindings.title" = "Баша посматрања са терена ће се појавити овде. Додирните „+“ да додате нови налаз на списак. Након што дођете до стабилног интернета, можете додирнути дугме за слање и послати своје налазе на сервер.";
+"ListOfFindings.noFindings.title" = "Ваша посматрања са терена ће се појавити овде. Додирните „+“ да додате нови налаз на списак. Након што дођете до стабилног интернета, можете додирнути дугме за слање и послати своје налазе на сервер.";
 "ListOfFindings.deleteScreen.title" = "Да ли желите да обришете?";
 "ListOfFindings.deleteScreen.lb.allTitle" = "Сви налази";
 "ListOfFindings.deleteScreen.lb.selectedTitle" = "Изабрани налаз";
 "ListOfFindings.deleteScreen.btn.cancel" = "Откажи";
 "ListOfFindings.deleteScreen.btn.delete" = "Обриши";
-"ListOfFindings.popUpUserVerified.description" = "Адреса ваше е-поште још увек није потврђена! Успешно сте се регистровали на Биологер и неке од основних радњи ће вам бити доступне, али ћете за слање забележених врста морати да отворите е-поруку коју сте добили и потврдити вашу адресу.";
+"ListOfFindings.popUpUserVerified.description" = "Адреса ваше е-поште још увек није потврђена! Успешно сте се регистровали на Биологер и неке од основних радњи ће вам бити доступне, али ћете за слање забележених врста морати да отворите е-поруку коју сте добили и потврдите вашу адресу.";
 
 // MARK: - Upload Findings
-"UploadFindings.noFindingsToUploadPopUp.title" = "Шаљем налазе…";
+"UploadFindings.noFindingsToUploadPopUp.title" = "Слање налаза…";
 "UploadFindings.noFindingsToUploadPopUp.description" = "Нема налаза за слање.";
 "UploadFindings.yesOrNoPopUp.title" = "Да ли желите да пошаљете налазе?";
 "UploadFindings.uploadedFindingPopUp.title" = "Успешно!";

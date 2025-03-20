@@ -56,7 +56,7 @@
 "Register.three.nav.title" = "Registracija (korak dva)";
 "Register.three.dataLicense.placeholder" = "Licenca za podatke";
 "Register.three.imageLicense.placeholder" = "Licenca za slike";
-"Register.three.lb.description" = "Vaša privatnost i postavke dijeljenja podataka ključne su za svaku Biologer zajednicu! Da biste koristili ovu platformu, morate pročitati politiku privatnosti i razumjeti kako koristimo vaše lične podatke za potvrdu opažanja vrsta na terenu.\r\r Također, slobodno odaberite kako želite dijeliti svoja terenska opažanja i fotografije s ostatkom svijeta određivanjem opcija licenciranja.";
+"Register.three.lb.description" = "Vaša privatnost i postavke dijeljenja podataka ključne su za svaku Biologer zajednicu! Da biste koristili ovu platformu, morate pročitati politiku privatnosti i razumjeti kako koristimo vaše lične podatke za potvrdu opažanja vrsta na terenu.\r\r Također, slobodno odaberite kako želite dijeliti svoje terenske nalaze i fotografije s ostatkom svijeta određivanjem opcija licenciranja.";
 "Register.three.btn.privacyPolicy" = "Politika privatnosti";
 "Register.three.lb.acceptPrivacyPolicy" = "Prihvatam politiku privatnosti";
 "Register.three.btn.register" = "Registracija";
@@ -139,13 +139,13 @@
 
 // MARK: - List Of Findings
 "ListOfFindings.nav.title" = "Biologer";
-"ListOfFindings.noFindings.title" = "Vaši zabilježeni nalazi će se pojaviti ovdje. Da biste dodali novu opservaciju vrste, jednostavno koristite znak \"+\" i popunite formular. Nakon što budete povezani na stabilnu internet vezu, koristite dugme za otpremanje kako biste poslali sve nalaze na server.";
+"ListOfFindings.noFindings.title" = "Vaši zabilježeni nalazi će se pojaviti ovdje. Da biste dodali novi nalaz vrste, jednostavno koristite znak \"+\" i popunite formular. Nakon što budete povezani na stabilnu internet vezu, koristite dugme za otpremanje kako biste poslali sve nalaze na server.";
 "ListOfFindings.deleteScreen.title" = "Želite li izbrisati?";
 "ListOfFindings.deleteScreen.lb.allTitle" = "Sve nalaze";
 "ListOfFindings.deleteScreen.lb.selectedTitle" = "Odabrani nalaz";
 "ListOfFindings.deleteScreen.btn.cancel" = "Otkaži";
 "ListOfFindings.deleteScreen.btn.delete" = "Izbriši";
-"ListOfFindings.popUpUserVerified.description" = "Vaša email adresa nije potvrđena! Registracija je uspješno završena i možete koristiti osnovne funkcije Biologera. Međutim, nećete moći slati opservacije vrsta dok ne potvrdite svoju email adresu.";
+"ListOfFindings.popUpUserVerified.description" = "Vaša email adresa nije potvrđena! Registracija je uspješno završena i možete koristiti osnovne funkcije Biologera. Međutim, nećete moći slati nalaze vrsta dok ne potvrdite svoju email adresu.";
 
 // MARK: - Upload Findings
 "UploadFindings.noFindingsToUploadPopUp.title" = "Otpremanje nalaza...";
@@ -162,8 +162,8 @@
 "Settings.lb.awayListEnglish.desc" = "Omogućava Biologeru da prikazuje engleske nazive vrsta čak i ako je jezik telefona postavljen na drugi jezik.";
 "Settings.lb.adultDefault.title" = "Podrazumijevano postavi kao odraslu jedinku";
 "Settings.lb.adultDefault.desc" = "Automatski postavlja fazu razvoja na odraslu jedinku, ako ta faza postoji za posmatranu vrstu.";
-"Settings.lb.advanceObservation.title" = "Napredni unos opažanja";
-"Settings.lb.advanceObservation.desc" = "Omogućava unos dodatnih podataka o opažanju (npr. broj jedinki, razvojna faza, spol).";
+"Settings.lb.advanceObservation.title" = "Napredni unos nalaza";
+"Settings.lb.advanceObservation.desc" = "Omogućava unos dodatnih podataka o nalazima (npr. broj jedinki, razvojna faza, spol).";
 "Settings.lb.userAccount" = "Korisnički nalog";
 "Settings.lb.projectName.title" = "Naziv projekta";
 "Settings.lb.projectName.desc" = "Postavlja naziv projekta ako su podaci prikupljeni u okviru projekta.";
@@ -205,7 +205,7 @@
 "DeleteAccount.lb.currentlyDB" = "Trenutno ste prijavljeni u bazu podataka:";
 "DeleteAccount.lb.asUser" = "Kao korisnik:";
 "DeleteAccount.lb.doYouWantLogout" = "Ova radnja će obrisati vaš korisnički nalog sa Biologer servera. Ako želite ponovo koristiti Biologer aplikaciju, morate se ponovo registrovati na željeni Biologer server.";
-"DeleteAccount.lb.doYouWantToDeleteObservations" = "Da li želite da obrišete i vaše opservacije?";
+"DeleteAccount.lb.doYouWantToDeleteObservations" = "Da li želite da obrišete i vaše nalaze?";
 "DeleteAccount.btn.deleteAccount" = "Obriši nalog";
 "DeleteAccount.lb.successTitle" = "Korisnik je uspješno obrisan";
 
@@ -217,13 +217,13 @@
 "AboutBiologer.lb.appVersion" = "Verzija aplikacije: ";
 
 // MARK: - Help Screen
-"Help.title.first" = "Odabir baze";
+"Help.title.first" = "Izbor baza podataka";
 "Help.desc.first" = "Aplikacija Biologer može se povezati s više baza podataka. Počnite odabirom željene baze i registracijom na mreži.";
 "Help.title.second" = "Jednostavna navigacija";
 "Help.desc.second" = "Bočni panel sadrži sve prečice i postavke koje su vam potrebne. Samo prevucite ekran udesno i spremni ste za rad.";
 "Help.title.third" = "Glavni ekran";
-"Help.desc.third" = "Na glavnom ekranu možete dodavati, uređivati ili brisati svoje opservacije i slati podatke na jedan od naših servera.";
-"Help.title.fourth" = "Nove opservacije";
+"Help.desc.third" = "Na glavnom ekranu možete dodavati, uređivati ili brisati svoje nalaze i slati podatke na jedan od naših servera.";
+"Help.title.fourth" = "Novi nalazi";
 "Help.desc.fourth" = "Dodavanje podataka je jednostavno! Predložite vrstu, dodajte fotografije i Biologer će se pobrinuti za ostalo. Napredne opcije mogu se otključati u postavkama.";
 
 // MARK: - Select Environment Screen
@@ -236,15 +236,15 @@
 
 // MARK: - Image License Screen
 "ImgLicense.nav.title" = "Licenca za slike";
-"ImgLicense.lb.one" = "Dijeli slike besplatno (CC-BY-SA)";
+"ImgLicense.lb.one" = "Dijeli slike slobodno (CC-BY-SA)";
 "ImgLicense.lb.two" = "Dijeli slike uz nekomercijalnu licencu (CC-BY-SA-NC)";
 "ImgLicense.lb.three" = "Zadrži autorstvo i dijeli online s vodenim žigom";
 "ImgLicense.lb.four" = "Zadrži autorstvo i ograniči javni pristup slikama";
 
 // MARK: - Data License Screen
 "DataLicense.nav.title" = "Licenca za podatke";
-"DataLicense.lb.one" = "Besplatna (CC BY-SA)";
-"DataLicense.lb.two" = "Besplatna, nekomercijalna (CC BY-SA-NC)";
+"DataLicense.lb.one" = "Slobodna (CC BY-SA)";
+"DataLicense.lb.two" = "Slobodna, nekomercijalna (CC BY-SA-NC)";
 "DataLicense.lb.three" = "Djelomično otvorena (ograničenje na 10 km)";
 "DataLicense.lb.four" = "Privremeno zatvorena (objavljuje se kao otvorena nakon 3 godine)";
 "DataLicense.lb.five" = "Zatvorena (dostupna samo vama i urednicima)";

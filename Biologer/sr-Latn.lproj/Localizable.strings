@@ -18,7 +18,7 @@
 "Common.title.downloaded" = "Preuzeto!";
 "Common.title.notConnectedToWiFi" = "Niste povezani na bežični internet. Da li ipak želite da preuzmete?";
 "Common.title.notConnectedToInternet" = "Niste povezani na internet.";
-"Common.title.warning" = "Paznja!";
+"Common.title.warning" = "Pažnja!";
 
 // MARK: - API Error
 "API.lb.error" = "Greška!";
@@ -26,23 +26,23 @@
 "API.lb.accountDeletionFailed" = "Greška pri brisanju korisnika!";
 "API.lb.envError" = "Nije izabrano okruženje!";
 "API.lb.noInternetError" = "Nema internet veze!";
-"API.lb.noInternetDescriptionError" = "Proverite vašu vezu sa internetom i pokušajte ponovo.";
+"API.lb.noInternetDescriptionError" = "Proverite vašu internet vezu i pokušajte ponovo.";
 
 // MARK: - Login Screen Screen
 "Login.tf.username.placeholder" = "Korisničko ime (e-pošta)";
 "Login.tf.password.placeholder" = "Lozinka";
 "Login.env.placeholder" = "Izaberite okruženje";
-"Login.btn.login" = "Prijavi me";
+"Login.btn.login" = "Prijavite se";
 "Login.lb.noAccount" = "Još uvek nemate nalog?";
-"Login.btn.register" = "Registruj me";
-"Login.btn.forgotPassword" = "Zaboravio sam lozinku";
+"Login.btn.register" = "Registrujte se";
+"Login.btn.forgotPassword" = "Zaboravili ste lozinku?";
 
 // MARK: - Register Step One Screen
 "Register.one.nav.title" = "Registracija (prvi korak)";
 "Register.one.tf.name.placeholder" = "Ime";
 "Register.one.tf.surname.placeholder" = "Prezime";
 "Register.one.tf.institution.placeholder" = "Institucija";
-"Register.one.btn.next" = "Naredno";
+"Register.one.btn.next" = "Dalje";
 
 // MARK: - Register Step Two Screen
 "Register.two.nav.title" = "Registracija (drugi korak)";
@@ -50,7 +50,7 @@
 "Register.two.tf.password.placeholder" = "Lozinka";
 "Register.two.tf.repeatPassword.placeholder" = "Ponovite lozinku";
 "Register.two.tf.repeatPassword.error" = "Lozinke nisu iste";
-"Register.two.btn.next" = "Naredno";
+"Register.two.btn.next" = "Dalje";
 
 // MARK: - Registration Step Three Screen
 "Register.three.nav.title" = "Registracija (treći korak)";
@@ -59,7 +59,7 @@
 "Register.three.lb.description" = "Podešavanja vaše privatnosti i načina deljenja podataka su veoma važan deo svake Biologer zajednice! Pre korišćenja ove platforme, morate pročitati politiku privatnosti i razumeti kako koristimo vaše lične podatke za potvrdu nalaza vrsta sa terena.\n\nPotrebno je i da izaberete kako želite da delite vaše nalaze i fotografije sa ostatkom sveta, tako što ćete podesiti željenu licencu.";
 "Register.three.btn.privacyPolicy" = "Politika privatnosti";
 "Register.three.lb.acceptPrivacyPolicy" = "Prihvatam politiku privatnosti";
-"Register.three.btn.register" = "Registruj me";
+"Register.three.btn.register" = "Registrujte se";
 "Register.three.lb.error" = "Morate prihvatiti politiku privatnosti!";
 "Register.three.successPopUp.title" = "Registracija";
 "Register.three.successPopUp.description" = "Registracija je skoro završena! Kako bi proverili da ste to bili vi, poslali smo vam poruku na adresu e-pošte sa vezom za potvrdu. Otvorite je da potvrdite vašu adresu, a zatim se možete prijaviti na Biologer.";
@@ -67,8 +67,8 @@
 // MARK: - Side Menu Screen
 "SideMenu.lb.listOfFindings" = "Spisak nalaza";
 "SideMenu.lb.setup" = "Podešavanja";
-"SideMenu.lb.Logout" = "Odjavi me";
-"SideMenu.lb.DeleteAccount" = "Izbrisi korisnika";
+"SideMenu.lb.Logout" = "Odjavite se";
+"SideMenu.lb.DeleteAccount" = "Izbrišite korisnički nalog";
 "SideMenu.lb.aboutUs" = "O nama";
 "SideMenu.lb.AboutBiologer" = "O Biologeru";
 "SideMenu.lb.Help" = "Pomoć";
@@ -77,10 +77,10 @@
 "NewTaxon.lb.nav.title" = "Unos nalaza";
 "NewTaxon.lb.locationTitle" = "Mesto:";
 "NewTaxon.lb.accuracyTitle" = "Preciznost:";
-"NewTaxon.lb.latitude" = "Geografska dužina:";
-"NewTaxon.lb.longitued" = "Geografska širina:";
+"NewTaxon.lb.latitude" = "Geografska širina:";
+"NewTaxon.lb.longitued" = "Geografska dužina:";
 "NewTaxon.lb.altitude" = "Nadmorska visina:";
-"NewTaxon.lb.waitingForCordinate" = "Čekam koordinate…";
+"NewTaxon.lb.waitingForCordinate" = "Čekaju se koordinate…";
 "NewTaxon.lb.accuracyUnknown" = "Nepoznato";
 "NewTaxon.btn.setLocation.title" = "Postavi lokaciju";
 "NewTaxon.lb.image.title" = "Slike:";
@@ -103,7 +103,7 @@
 "NewTaxon.image.nav.title" = "Pregled slika";
 "NewTaxon.image.placeholder.title" = "Nisu dodate slike";
 "NewTaxon.search.nav.title" = "Pretraga taksona";
-"NewTaxon.nestingAtlas.nav.title" = "Atlas kod gnježđenja";
+"NewTaxon.nestingAtlas.nav.title" = "Atlas kod gnežđenja";
 "NewTaxon.mapType.normal.title" = "Uobičajena";
 "NewTaxon.mapType.hybrid.title" = "Hibridna";
 "NewTaxon.mapType.terrain.title" = "Terenska";
@@ -135,20 +135,20 @@
 "NestingAtlasCode.title.17" = "16. Pronađeno gnezdo sa mladuncima (posmatranim ili slušanim)";
 
 // MARK: - Download Taxon
-"DownloadTaxon.doYouWantDownload.title" = "Da li želite da preuzmete sve taksone";
+"DownloadTaxon.doYouWantDownload.title" = "Da li želite da preuzmete sve taksone?";
 
 // MARK: - List Of Findings
 "ListOfFindings.nav.title" = "Biologer";
-"ListOfFindings.noFindings.title" = "Baša posmatranja sa terena će se pojaviti ovde. Dodirnite „+“ da dodate novi nalaz na spisak. Nakon što dođete do stabilnog interneta, možete dodirnuti dugme za slanje i poslati svoje nalaze na server.";
+"ListOfFindings.noFindings.title" = "Vaša posmatranja sa terena će se pojaviti ovde. Dodirnite „+“ da dodate novi nalaz na spisak. Nakon što dođete do stabilnog interneta, možete dodirnuti dugme za slanje i poslati svoje nalaze na server.";
 "ListOfFindings.deleteScreen.title" = "Da li želite da obrišete?";
 "ListOfFindings.deleteScreen.lb.allTitle" = "Svi nalazi";
 "ListOfFindings.deleteScreen.lb.selectedTitle" = "Izabrani nalaz";
 "ListOfFindings.deleteScreen.btn.cancel" = "Otkaži";
 "ListOfFindings.deleteScreen.btn.delete" = "Obriši";
-"ListOfFindings.popUpUserVerified.description" = "Adresa vase e-pošte još uvek nije potvrdjena! Uspešno ste se registrovali i na Biologer i neke od osnovnih radnji će vam biti dostupne, ali ćete za slanje zabeležnika vrsta morati da otvorite e-poruku koju ste dobili i potvrditi vašu adresu.";
+"ListOfFindings.popUpUserVerified.description" = "Adresa vase e-pošte još uvek nije potvrđena! Uspešno ste se registrovali na Biologer i neke od osnovnih radnji će vam biti dostupne, ali ćete za slanje zabeležnih vrsta morati da otvorite e-poruku koju ste dobili i potvrditr vašu adresu.";
 
 // MARK: - Upload Findings
-"UploadFindings.noFindingsToUploadPopUp.title" = "Šaljem nalaze…";
+"UploadFindings.noFindingsToUploadPopUp.title" = "Slanje nalaza…";
 "UploadFindings.noFindingsToUploadPopUp.description" = "Nema nalaza za slanje.";
 "UploadFindings.yesOrNoPopUp.title" = "Da li želite da pošaljete nalaze?";
 "UploadFindings.uploadedFindingPopUp.title" = "Uspešno!";
@@ -156,11 +156,11 @@
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Unos podataka";
-"Settings.lb.chooseSpecisGroup.title" = "Izaberite grupe vrsta";
+"Settings.lb.chooseSpecisGroup.title" = "Odabir grupe vrsta";
 "Settings.lb.chooseSpecisGroup.desc" = "Izborom određenih grupa (npr. ptice, leptiri ili biljke) biće vam lakše da pronađete vrstu prilikom unosa, pošto se ostale vrste neće prikazivati u spisku.";
-"Settings.lb.awayListEnglish.title" = "Pretražuj i nazive na engleskom";
-"Settings.lb.awayListEnglish.desc" = "Dozvoljava Biologeru da prikazuje i nazive vrsta na engleskom čak i kada je drugačije podešen jezik telefona";
-"Settings.lb.adultDefault.title" = "Podrazumevano unosi odrasle";
+"Settings.lb.awayListEnglish.title" = "Uvek prikazuj engleske nazive";
+"Settings.lb.awayListEnglish.desc" = "Omogućava Biologeru da prikazuje nazive vrsta na engleskom čak i kada je drugačije podešen jezik telefona";
+"Settings.lb.adultDefault.title" = "Podrazumevano postavi kao odraslu jedinku";
 "Settings.lb.adultDefault.desc" = "Postavlja stadijum na odraslu jedinku, ukoliko taj stadijum postoji za izabranu vrstu.";
 "Settings.lb.advanceObservation.title" = "Detaljniji unos nalaza";
 "Settings.lb.advanceObservation.desc" = "Omogućava dodatne opcije koje možete uneti uz vaše nalaze (npr. broj jedinki, stadijum, pol).";
@@ -172,23 +172,23 @@
 "Settings.lb.imageLicense.title" = "Licenca za slike";
 "Settings.lb.imageLicense.desc" = "Omogućava izbor drugačije licence za fotografije koje šaljete iz Biologer aplikacije.";
 "Settings.lb.otherDownloads" = "Ostala preuzimanja";
-"Settings.lb.autoDownloadUpload.title" = "Sam preuzmi i pošalji";
-"Settings.lb.autoDownloadUpload.desc" = "Dozvoljava programu da sam preuzima i šalje podatke bez pomoći korisnika. Podrazumevano se podaci šalju kada je dostupna bežična mreža.";
-"Settings.lb.downloadTaxa.title" = "Preuzmi bazu taksona";
+"Settings.lb.autoDownloadUpload.title" = "Automatsko preuzimanje i slanje";
+"Settings.lb.autoDownloadUpload.desc" = "Dozvoljava programu da sam preuzima i šalje podatke bez pomoći korisnika. Podaci se podrazumevano šalju kada je dostupna Wi-Fi mreža.";
+"Settings.lb.downloadTaxa.title" = "Preuzimanje baze taksona";
 "Settings.lb.downloadTaxa.desc" = "Preuzima celokupno taksonomsko stablo u aplikaciji sa Biologerovog servera.";
-"Settings.lb.resetAllTaxa.title" = "Vrati sve taksone";
+"Settings.lb.resetAllTaxa.title" = "Reset svih taksona";
 "Settings.lb.resetAllTaxa.description" = "Ova radnja će ukloniti sve taksone iz aplikacije. Još uvek možete preuzeti najsvežije taksone izborom opcije iznad ove.";
 "Settings.lb.resetAllTaxa.yesOrNoAlert.title" = "Da li želite da obrišete sve taksone?";
 "Settings.lb.resetAllTaxa.confirmAlert.title" = "Obriši taksone";
 "Settings.lb.resetAllTaxa.confirmAlert.description" = "Svi taksoni su uspešno obrisani!";
-"Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.title" = "Obriši taksone";
+"Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.title" = "Brisanje taksone";
 "Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.description" = "Nema taksona za brisanje.";
 
 // MARK: - Project Name Screen
 "ProjectName.tf.placeholder" = "Naziv projekta";
 
 // MARK: - Download And Upload Screen
-"DownloadAndUpload.nav.title" = "Sam preuzmi i pošalji";
+"DownloadAndUpload.nav.title" = "Automatsko preuzimanje i slanje";
 "DownloadAndUpload.nav.onlyWifi" = "Samo na bežičnoj mreži (WiFi)";
 "DownloadAndUpload.nav.onAnyNetwork" = "Na bilo kojoj mreži";
 "DownloadAndUpload.nav.alwaysAsk" = "Uvek pitaj korisnika";
@@ -199,32 +199,32 @@
 "Logout.lb.currentlyDB" = "Trenutno ste prijavljeni na bazu podataka:";
 "Logout.lb.asUser" = "Kao korisnik:";
 "Logout.lb.doYouWantLogout" = "Da li želite da se odjavite sa ove Biologer baze podataka?";
-"Logout.btn.logout" = "Odjavi me";
+"Logout.btn.logout" = "Odjavite se";
 
 // MARK: - Delete Account Screen
-"DeleteAccount.lb.currentlyDB" = "Trenutno si povezan na bazu:";
+"DeleteAccount.lb.currentlyDB" = "Trenutno ste povezani na bazu:";
 "DeleteAccount.lb.asUser" = "Kao korisnik:";
 "DeleteAccount.lb.doYouWantLogout" = "Ova radnja će obrisati vaš korisnički nalog sa Biologer servera. Ukoliko želite da koristite Biologer aplikaciju, morate se registrovati na neki od Biologerovih servera.";
-"DeleteAccount.lb.doYouWantToDeleteObservations" = "Da li želite da obrišete i vaše obzervacije?";
-"DeleteAccount.btn.deleteAccount" = "Obrisi Korisnika";
+"DeleteAccount.lb.doYouWantToDeleteObservations" = "Da li želite da obrišete i vaše nalaze?";
+"DeleteAccount.btn.deleteAccount" = "Obrišite korisnički nalog";
 "DeleteAccount.lb.successTitle" = "Korisnik je uspešno obrisan";
 
 // MARK: - About Biologer Screen
 "AboutBiologer.lb.currentlyDB" = "Trenutno ste prijavljeni na bazu podataka:";
-"AboutBiologer.lb.desc.one" = "Biologer je aplikacija koju pokreće slobodan softver, izdat je pod MIT licencom i napravljen kako bi prikupljao podatke o biodiverzitetu na području Istočne Evrope.";
+"AboutBiologer.lb.desc.one" = "Biologer je otvorena baza podataka izdata pod MIT licencom i napravljena za prikupljanje podataka o biodiverzitetu na području Istočne Evrope.";
 "AboutBiologer.lb.desc.two" = "Biologer je razvijen zahvaljujući sredstvima Raford fondacije za male grantove (projekti br. 20507-B i 24652-B) i MAVA fondacije (projekat br. 15097).";
-"AboutBiologer.lb.toFingMoreDetails" = "Za više informacija o biologeru, posetite našu veb stranicu: ";
-"AboutBiologer.lb.appVersion" = "Izdanje: ";
+"AboutBiologer.lb.toFingMoreDetails" = "Za više informacija o Biologeru, posetite našu veb stranicu:";
+"AboutBiologer.lb.appVersion" = "Verzija aplikacije: ";
 
 // MARK: - Help Screen
-"Help.title.first" = "Baze podataka";
+"Help.title.first" = "Izbor baza podataka";
 "Help.desc.first" = "Biologer aplikacija se može povezati na više baza podataka. Počnite tako što ćete izabrati bazu podataka i registrovati se na sajtu.";
 "Help.title.second" = "Navigacija je jednostavna";
-"Help.desc.second" = "Bočna površ sadrži sve prečice i podešavanja koja su vam potrebna. Samo prevucite prstom preko ekrana da bi ih prikazali.";
+"Help.desc.second" = "Bočna traka sadrži sve prečice i podešavanja koja su vam potrebna. Samo prevucite prstom preko ekrana da biste ih prikazali.";
 "Help.title.third" = "Početni ekran";
 "Help.desc.third" = "Iz početnog ekrana aplikacije možete urediti ili obrisati nalaze i poslati podatke na neki od naših servera.";
 "Help.title.fourth" = "Novi nalazi";
-"Help.desc.fourth" = "Dodavanje podataka je jednostavno! Predložite vrstu, dodajte fotografije i Biologer će ostalo odraditi sam. Dodatne opcije možete otključati iz Podešavanja.";
+"Help.desc.fourth" = "Dodavanje podataka je jednostavno! Predložite vrstu, dodajte fotografije i Biologer će ostalo odraditi sam. Dodatne opcije možete otključati iz podešavanja.";
 
 // MARK: - Select Environment Screen
 "Env.nav.title" = "Izaberite okruženje";
@@ -239,7 +239,7 @@
 "ImgLicense.lb.one" = "Deli slobodno (CC-BY-SA)";
 "ImgLicense.lb.two" = "Deli slike nekomercijalno (CC-BY-SA-NC)";
 "ImgLicense.lb.three" = "Zadrži autorstvo i deli sa vodenim žigom";
-"ImgLicense.lb.four" = "Zadrži autorstvo i zabrani prikaz slika u javnom delu";
+"ImgLicense.lb.four" = "Zadrži autorstvo i ograniči javni pristup slikama";
 
 // MARK: - Data License Screen
 "DataLicense.nav.title" = "Licenca za podatke";
