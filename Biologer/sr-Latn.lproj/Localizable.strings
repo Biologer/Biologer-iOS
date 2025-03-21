@@ -86,7 +86,7 @@
 "NewTaxon.lb.image.title" = "Slike:";
 "NewTaxon.lb.info.title" = "Podaci:";
 "NewTaxon.tf.taxonName.placeholder" = "Ime vrste";
-"NewTaxon.tf.nesting.placeholder" = "Atlas kod gnežđenja";
+"NewTaxon.tf.nesting.placeholder" = "Atlas kôd gnežđenja";
 "NewTaxon.tf.comment.placeholder" = "Beleška";
 "NewTaxon.tf.individual.placeholder" = "Broj jedinki";
 "NewTaxon.tf.maleIndividual.placeholder" = "Broj mužjaka";
@@ -103,7 +103,7 @@
 "NewTaxon.image.nav.title" = "Pregled slika";
 "NewTaxon.image.placeholder.title" = "Nisu dodate slike";
 "NewTaxon.search.nav.title" = "Pretraga taksona";
-"NewTaxon.nestingAtlas.nav.title" = "Atlas kod gnežđenja";
+"NewTaxon.nestingAtlas.nav.title" = "Atlas kôd gnežđenja";
 "NewTaxon.mapType.normal.title" = "Uobičajena";
 "NewTaxon.mapType.hybrid.title" = "Hibridna";
 "NewTaxon.mapType.terrain.title" = "Terenska";
