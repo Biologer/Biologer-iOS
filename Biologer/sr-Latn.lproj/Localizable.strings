@@ -145,7 +145,7 @@
 "ListOfFindings.deleteScreen.lb.selectedTitle" = "Izabrani nalaz";
 "ListOfFindings.deleteScreen.btn.cancel" = "Otkaži";
 "ListOfFindings.deleteScreen.btn.delete" = "Obriši";
-"ListOfFindings.popUpUserVerified.description" = "Adresa vase e-pošte još uvek nije potvrđena! Uspešno ste se registrovali na Biologer i neke od osnovnih radnji će vam biti dostupne, ali ćete za slanje zabeležnih vrsta morati da otvorite e-poruku koju ste dobili i potvrditr vašu adresu.";
+"ListOfFindings.popUpUserVerified.description" = "Adresa vase e-pošte još uvek nije potvrđena! Uspešno ste se registrovali na Biologer i neke od osnovnih radnji će vam biti dostupne, ali ćete za slanje zabeležnih vrsta morati da otvorite e-poruku koju ste dobili i potvrdite vašu adresu.";
 
 // MARK: - Upload Findings
 "UploadFindings.noFindingsToUploadPopUp.title" = "Slanje nalaza…";
@@ -173,7 +173,7 @@
 "Settings.lb.imageLicense.desc" = "Omogućava izbor drugačije licence za fotografije koje šaljete iz Biologer aplikacije.";
 "Settings.lb.otherDownloads" = "Ostala preuzimanja";
 "Settings.lb.autoDownloadUpload.title" = "Automatsko preuzimanje i slanje";
-"Settings.lb.autoDownloadUpload.desc" = "Dozvoljava programu da sam preuzima i šalje podatke bez pomoći korisnika. Podaci se podrazumevano šalju kada je dostupna Wi-Fi mreža.";
+"Settings.lb.autoDownloadUpload.desc" = "Dozvoljava programu da sam preuzima i šalje podatke bez pomoći korisnika. Podaci se podrazumevano šalju kada je dostupna WiFi mreža.";
 "Settings.lb.downloadTaxa.title" = "Preuzimanje baze taksona";
 "Settings.lb.downloadTaxa.desc" = "Preuzima celokupno taksonomsko stablo u aplikaciji sa Biologerovog servera.";
 "Settings.lb.resetAllTaxa.title" = "Reset svih taksona";
@@ -181,7 +181,7 @@
 "Settings.lb.resetAllTaxa.yesOrNoAlert.title" = "Da li želite da obrišete sve taksone?";
 "Settings.lb.resetAllTaxa.confirmAlert.title" = "Obriši taksone";
 "Settings.lb.resetAllTaxa.confirmAlert.description" = "Svi taksoni su uspešno obrisani!";
-"Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.title" = "Brisanje taksone";
+"Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.title" = "Brisanje taksonа";
 "Settings.lb.resetAllTaxa.confirmAlert.whentTaxonEmpty.description" = "Nema taksona za brisanje.";
 
 // MARK: - Project Name Screen
@@ -207,7 +207,7 @@
 "DeleteAccount.lb.doYouWantLogout" = "Ova radnja će obrisati vaš korisnički nalog sa Biologer servera. Ukoliko želite da koristite Biologer aplikaciju, morate se registrovati na neki od Biologerovih servera.";
 "DeleteAccount.lb.doYouWantToDeleteObservations" = "Da li želite da obrišete i vaše nalaze?";
 "DeleteAccount.btn.deleteAccount" = "Obrišite korisnički nalog";
-"DeleteAccount.lb.successTitle" = "Korisnik je uspešno obrisan";
+"DeleteAccount.lb.successTitle" = "Korisnik je uspešno obrisan!";
 
 // MARK: - About Biologer Screen
 "AboutBiologer.lb.currentlyDB" = "Trenutno ste prijavljeni na bazu podataka:";
