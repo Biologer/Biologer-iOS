@@ -21,13 +21,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>NSCameraUsageDescription</string>
+	<string>Biologer cannot take a photo without permission to access your camera and file system. Would you like to enable these permissions?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>NSLocationAlwaysUsageDescription</string>
+	<string>Biologer collects species occurrences in the field, so geographic location is crucial for each record. Allowing Biologer to access your location is highly recommended, but you can also manually select a location using the map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>NSLocationWhenInUseUsageDescription</string>
+	<string>Biologer collects species occurrences in the field, so geographic location is crucial for each record. Allowing Biologer to access your location is highly recommended, but you can also manually select a location using the map.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>NSPhotoLibraryUsageDescription</string>
+	<string>Biologer needs permission to access your image files from the gallery. Would you like to allow it to read storage on your phone?</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

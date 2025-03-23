@@ -6,10 +6,10 @@
   
 */
 
-NSLocationAlwaysUsageDescription = "Biologer is intended to collect species occurrences in the field, thus the geographic location is very important for each record. It is highly recommended that you allow Biologer to access your location, but you can also manually pick a location using map.";
+NSLocationAlwaysUsageDescription = "Biologer collects species occurrences in the field, so geographic location is crucial for each record. Allowing Biologer to access your location is highly recommended, but you can also manually select a location using the map.";
 
-NSLocationWhenInUseUsageDescription = "Biologer is intended to collect species occurrences in the field, thus the geographic location is very important for each record. It is highly recommended that you allow Biologer to access your location, but you can also manually pick a location using map.";
+NSLocationWhenInUseUsageDescription = "Biologer collects species occurrences in the field, so geographic location is crucial for each record. Allowing Biologer to access your location is highly recommended, but you can also manually select a location using the map.";
 
-NSCameraUsageDescription = "Biologer could not take a photo without permission to access your file system and camera. Would you like to enable this permissions?";
+NSCameraUsageDescription = "Biologer cannot take a photo without permission to access your camera and file system. Would you like to enable these permissions?";
 
-NSPhotoLibraryUsageDescription = "Biologer needs a permission to access your image files from gallery. Would you like to give it a permit to read storage on your phone?";
+NSPhotoLibraryUsageDescription = "Biologer needs permission to access your image files from the gallery. Would you like to allow it to read storage on your phone?";
