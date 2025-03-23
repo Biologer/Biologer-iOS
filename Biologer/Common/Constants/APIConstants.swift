@@ -19,4 +19,19 @@ public final class APIConstants {
     public static let uploadFindingPath = "/api/field-observations"
     
     public static let getAltitudePath = "/api/elevation"
+    
+    public static let serbiaHost = "biologer.rs"
+    public static let serbiaLangPath = "/sr-Latn"
+    
+    public static let croatiaHost = "biologer.hr"
+    public static let croatiaLangPath = "/hr"
+    
+    public static let bosnianAndHerzegovinHost = "biologer.ba"
+    public static let bosnianAndHerzegovinaLangPath = "/bs"
+    
+    public static let montenegroHost = "biologer.me"
+    public static let montenegroLangPath = "/me"
+    
+    public static let devHost = "dev.biologer.org"
+    public static let devLangPath = "/en"
 }

@@ -22,8 +22,8 @@ public final class EnvironmentViewModelFactory {
             return EnvironmentViewModel(id: 1,
                                         title: "Env.lb.serbia".localized,
                                         image: "serbia_flag",
-                                        env: Environment(host: serbiaHost,
-                                                         path: serbiaLangPath,
+                                        env: Environment(host: APIConstants.serbiaHost,
+                                                         path: APIConstants.serbiaLangPath,
                                                          clientSecret: serbiaClientSecret,
                                                          cliendId: cliendIdSer),
                                         isSelected: false)
@@ -31,16 +31,16 @@ public final class EnvironmentViewModelFactory {
             return EnvironmentViewModel(id: 2,
                                         title: "Env.lb.croatia".localized,
                                         image: "croatia_flag",
-                                        env: Environment(host: croatiaHost,
-                                                         path: croatiaLangPath,
+                                        env: Environment(host: APIConstants.croatiaHost,
+                                                         path: APIConstants.croatiaLangPath,
                                                          clientSecret: croatiaClientSecret,
                                                          cliendId: cliendIdCro),
                                         isSelected: false)
         case .bosniaAndHerzegovina:
             return EnvironmentViewModel(id: 3, title: "Env.lb.bosniaAndHerzegovina".localized,
                                         image: "bosnia_flag_icon",
-                                        env: Environment(host: bosnianAndHerzegovinHost,
-                                                         path: bosnianAndHerzegovinaLangPath,
+                                        env: Environment(host: APIConstants.bosnianAndHerzegovinHost,
+                                                         path: APIConstants.bosnianAndHerzegovinaLangPath,
                                                          clientSecret: bosnianAndHercegovinaClientSecret,
                                                          cliendId: cliendIdBih),
                                         isSelected: false)
@@ -48,8 +48,8 @@ public final class EnvironmentViewModelFactory {
             return EnvironmentViewModel(id: 4,
                                         title: "Env.lb.montenegro".localized,
                                         image: "montenegro_flag_icon",
-                                        env: Environment(host: montenegroHost,
-                                                         path: montenegroLangPath,
+                                        env: Environment(host: APIConstants.montenegroHost,
+                                                         path: APIConstants.montenegroLangPath,
                                                          clientSecret: montenegroClientSecret,
                                                          cliendId: cliendIdMe),
                                         isSelected: false)
@@ -57,8 +57,8 @@ public final class EnvironmentViewModelFactory {
             return EnvironmentViewModel(id: 5,
                                         title: "Env.lb.developer".localized,
                                         image: "hammer_icon",
-                                        env: Environment(host: devHost,
-                                                         path: devLangPath,
+                                        env: Environment(host: APIConstants.devHost,
+                                                         path: APIConstants.devLangPath,
                                                          clientSecret: devClientSecret,
                                                          cliendId: cliendIdDev),
                                         isSelected: false)
