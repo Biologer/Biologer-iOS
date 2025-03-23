@@ -88,8 +88,11 @@ public final class TaxonSearchScreenViewModel: ObservableObject {
                                                   keyboardLanguage: keyboardLanguage,
                                                   onlyEnglish: onlyEnglishName)
             
+            let taxonDisplayName = getTranslationName == "" ? 
+                dbTaxon.name : (dbTaxon.name + " (\(getTranslationName))")
+            
             return TaxonViewModel(id: dbTaxon.id,
-                                  name: dbTaxon.name + " (\(getTranslationName))",
+                                  name: taxonDisplayName,
                                   isAtlasCode: dbTaxon.isAtlasCodeExist ?? false,
                                   devStages: devStages,
                                   selectedDevStage: nil,
