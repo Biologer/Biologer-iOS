@@ -16,6 +16,7 @@ struct MenuItemView: View {
         HStack {
             Image(image)
                 .resizable()
+                .scaledToFit()
                 .frame(width: 20, height: 20)
             Text(title)
                 .font(.headerFont)
