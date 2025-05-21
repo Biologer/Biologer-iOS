@@ -75,6 +75,8 @@ public final class RemoteRegisterUserService: RegisterUserService {
             var headers = HTTPHeaders()
             headers.add(name: HTTPHeaderName.contentType, value: APIConstants.applicationJson)
             headers.add(name: HTTPHeaderName.acceept, value: APIConstants.applicationJson)
+            headers.add(name: HTTPHeaderName.userAgent, value: APIConstants.userAgentName)
+            
             self.headers = headers
             self.host = host
             let requestBody = RemoteRegisterRequestModel(client_id: clientId,

@@ -70,6 +70,7 @@ struct HTTPHeaderName: CustomStringConvertible {
     static let authorization = HTTPHeaderName(string: "Authorization")
     static let contentType = HTTPHeaderName(string: "Content-Type")
     static let acceept  = HTTPHeaderName(string: "accept")
+    static let userAgent = HTTPHeaderName(string: "User-Agent")
     static let accessToken = HTTPHeaderName(string: "access_token")
     
 }

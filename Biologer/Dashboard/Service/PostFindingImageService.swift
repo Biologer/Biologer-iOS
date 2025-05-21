@@ -74,6 +74,8 @@ public final class RemotePostFindingImageService: PostFindingImageService {
             let boundary = "Boundary-\("\(UUID().uuidString)")"
             headers.add(name: .contentType, value: "multipart/form-data; boundary=\(boundary)")
             headers.add(name: .acceept, value: "*/*")
+            headers.add(name: HTTPHeaderName.userAgent, value: APIConstants.userAgentName)
+            
             self.headers = headers
             self.body = createBodyWithParameters(parameters: nil,
                                                  filePathKey: "file",
