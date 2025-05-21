@@ -39,6 +39,8 @@ public final class RegisterStepOneScreenViewModel: RegisterStepOneScreenLoader, 
         }
         
         user.lastname = lastNameTextFieldViewModel.text
+        user.institution = institutionTextFieldViewModel.text
+        
         setAllFieldsAreValid()
         onNextTapped((user))
     }

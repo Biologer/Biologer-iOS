@@ -83,7 +83,7 @@ public final class RemoteRegisterUserService: RegisterUserService {
                                                          last_name: user.lastname,
                                                          data_license: user.dataLicense.id,
                                                          image_license: user.imageLicense.id,
-                                                         institution: user.insitution,
+                                                         institution: user.institution,
                                                          email: user.email,
                                                          password: user.password)
             let json = try! JSONEncoder().encode(requestBody)
