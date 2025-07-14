@@ -52,6 +52,8 @@ public final class TaxonSearchScreenViewModel: ObservableObject {
                                                            keyboardLanguage: keyboardLanguage,
                                                            onlyEnglishName: settingsStorage.getSettings()?.alwaysEnglishName ?? false))
         })
+        
+        print(RealmManager.get(fromEntity: DBTaxon.self).count)
     }
     
     public func okTapped() {

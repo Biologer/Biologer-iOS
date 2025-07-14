@@ -171,7 +171,7 @@
 "Settings.lb.dataLicense.desc" = "Омогућава избор другачије лиценце за податке које прикупљате из Биологер апликације.";
 "Settings.lb.imageLicense.title" = "Лиценца за слике";
 "Settings.lb.imageLicense.desc" = "Омогућава избор другачије лиценце за фотографије које шаљете из Биологер апликације.";
-"Settings.lb.otherDownloads" = "Остала преузимања";
+"Settings.lb.otherDownloads" = "Преузимања";
 "Settings.lb.autoDownloadUpload.title" = "Аутоматско преузимање и слање";
 "Settings.lb.autoDownloadUpload.desc" = "Дозвољава програму да сам преузима и шаље податке без помоћи корисника. Подразумевано се подаци шаљу када је доступна бежична (WiFi) мрежа.";
 "Settings.lb.downloadTaxa.title" = "Преузимање базе таксона";

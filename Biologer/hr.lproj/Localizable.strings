@@ -171,7 +171,7 @@
 "Settings.lb.dataLicense.desc" = "Odaberite različitu licencu za podatke prikupljene putem aplikacije.";
 "Settings.lb.imageLicense.title" = "Licenca za fotografije";
 "Settings.lb.imageLicense.desc" = "Odaberite različitu licencu za fotografije poslane putem aplikacije.";
-"Settings.lb.otherDownloads" = "Ostala preuzimanja";
+"Settings.lb.otherDownloads" = "Preuzimanja";
 "Settings.lb.autoDownloadUpload.title" = "Automatsko preuzimanje i otpremanje";
 "Settings.lb.autoDownloadUpload.desc" = "Omogućuje automatsko preuzimanje i otpremanje podataka bez intervencije korisnika. Prema zadanim postavkama, podaci će se slati samo kada ste povezani na WiFi.";
 "Settings.lb.downloadTaxa.title" = "Preuzimanje svih taksona";

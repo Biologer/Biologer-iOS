@@ -171,7 +171,7 @@
 "Settings.lb.dataLicense.desc" = "Choose a different license for your data collected through the application.";
 "Settings.lb.imageLicense.title" = "Image license";
 "Settings.lb.imageLicense.desc" = "Choose a different license for images sent through the application.";
-"Settings.lb.otherDownloads" = "Other downloads";
+"Settings.lb.otherDownloads" = "Downloads";
 "Settings.lb.autoDownloadUpload.title" = "Auto download and upload";
 "Settings.lb.autoDownloadUpload.desc" = "Allows data to be automatically downloaded and uploaded without user intervention. By default, data will be transferred only on Wi-Fi.";
 "Settings.lb.downloadTaxa.title" = "Download all taxa";
