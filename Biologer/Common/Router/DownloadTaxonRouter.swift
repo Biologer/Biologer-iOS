@@ -42,8 +42,8 @@ public final class DownloadTaxonRouter {
         self.navigationController = navigationController
         self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded = sholdPresentConfirmationWhenAllTaxonAleadyDownloaded
                 
-        let rowsCount = readTaxonFromFile()
-        downloadTaxonIfNeeded(itemsFromFileCount: rowsCount)
+        readTaxonFromFile()
+        downloadTaxonIfNeeded()
     }
     
     // MARK: - Private Functions
@@ -89,9 +89,9 @@ public final class DownloadTaxonRouter {
         return translations
     }
     
-    private func readTaxonFromFile() -> Int {
-        if taxonPaginationInfoStorage.getPaginationInfo() != nil {
-            return 0
+    private func readTaxonFromFile() {
+        if taxonPaginationInfoStorage.getLastReadFromFile() != nil {
+            return // If we already loaded once from file, no need to do that again.
         }
         
         var records: [TaxonDataResponse.TaxonResponse] = [TaxonDataResponse.TaxonResponse]()
@@ -147,23 +147,12 @@ public final class DownloadTaxonRouter {
             DispatchQueue.main.async {
                 RealmManager.add(records.map { DBTaxon(taxon: $0) }, policy: Realm.UpdatePolicy.modified)
             }
-            
-            let numberOfPages = Int(ceil(Double(total) / Double(APIConstants.taxonsPerPage)))
-            
-            let newPaginationInfo = TaxonsPaginationInfo(
-                currentPage: numberOfPages,
-                perPage: APIConstants.taxonsPerPage,
-                lastPage: numberOfPages,
-                total: total)
-            newPaginationInfo.set(lastTimeUpdate: 1733425371)
-            
-            self.taxonPaginationInfoStorage.savePagination(paginationInfo: newPaginationInfo)
+
+            self.taxonPaginationInfoStorage.saveLastReadFromFile(APIConstants.filesTimestamp)
         }
-        
-        return total
     }
     
-    private func downloadTaxonIfNeeded(itemsFromFileCount: Int) {
+    private func downloadTaxonIfNeeded() {
         let checkInternetConnection = CheckInternetConnection.init()
         
         if !checkInternetConnection.isConnectedToInternet() {
@@ -171,34 +160,22 @@ public final class DownloadTaxonRouter {
                                   title: "API.lb.error".localized,
                                   description: "Common.title.notConnectedToInternet".localized)
         } else {
-            let taxonsDB = RealmManager.get(fromEntity: DBTaxon.self)
-            print("Taxon count: \(taxonsDB.count)")
-            
-            if itemsFromFileCount == 0 && taxonsDB.isEmpty { // Is DB empty with taxon? Maybe just not loaded yet
-                downloadTaxonByUserSettings()
-            }
-            else if let paginationInfo = taxonPaginationInfoStorage.getPaginationInfo(),
-                      !paginationInfo.isAllTaxonDownloaded { // Not all taxon downloaded in previous download session
-                downloadTaxonByUserSettings()
-            }
-            else {
-                taxonServiceCordinator.checkingNewTaxons { [weak self] hasNewTaxons, error in
-                    guard let self = self else { return }
-                    guard error == nil else  {
-                        self.showConfirmationAlert(popUpType: .error,
-                                                   title: error!.title,
-                                                   description: error!.description)
-                        return
-                    }
-                    
-                    if hasNewTaxons {
-                        self.downloadTaxonByUserSettings()
-                    } else {
-                        if self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded {
-                            self.showConfirmationAlert(popUpType: .success,
-                                                       title: "DownloadAndUpload.popUp.success.title".localized,
-                                                       description: "DownloadAndUpload.popUp.success.description".localized)
-                        }
+            taxonServiceCordinator.checkingNewTaxons { [weak self] hasNewTaxons, error in
+                guard let self = self else { return }
+                guard error == nil else  {
+                    self.showConfirmationAlert(popUpType: .error,
+                                               title: error!.title,
+                                               description: error!.description)
+                    return
+                }
+                
+                if hasNewTaxons {
+                    self.downloadTaxonByUserSettings()
+                } else {
+                    if self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded {
+                        self.showConfirmationAlert(popUpType: .success,
+                                                   title: "DownloadAndUpload.popUp.success.title".localized,
+                                                   description: "DownloadAndUpload.popUp.success.description".localized)
                     }
                 }
             }

@@ -9,6 +9,8 @@ import Foundation
 
 public protocol TaxonsPaginationInfoStorage {
     func getPaginationInfo() -> TaxonsPaginationInfo?
+    func getLastReadFromFile() -> Int64?
     func savePagination(paginationInfo: TaxonsPaginationInfo)
+    func saveLastReadFromFile(_ date: Int64)
     func delete()
 }

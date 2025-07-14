@@ -29,12 +29,11 @@ public final class TaxonServiceCoordinator {
         
         var page = 1
         var perPage = APIConstants.taxonsPerPage
-        var lastTimeUpdate: Int64 = 0
+        let lastTimeUpdate = taxonPaginationInfo.getLastReadFromFile() ?? 0
         
         if let paginationInfo = taxonPaginationInfo.getPaginationInfo() {
             page = paginationInfo.currentPage
             perPage = paginationInfo.perPage
-            lastTimeUpdate = paginationInfo.lastTimeUpdate
         }
         
         if page == 1 {
@@ -56,16 +55,19 @@ public final class TaxonServiceCoordinator {
                                     self.saveNextPagination(currentPage: page,
                                                             perPage: perPage,
                                                             lastPage: response.meta.last_page,
-                                                            total: response.meta.total,
-                                                            currentTime: 0)
+                                                            total: response.meta.total)
+                                    
                                     completion(Double(page), Double(response.meta.last_page))
+                                    
                                     if self.shouldExecuteCall {
                                         if page > response.meta.last_page {
                                             self.saveNextPagination(currentPage: 1,
                                                                     perPage: perPage,
                                                                     lastPage: response.meta.last_page,
-                                                                    total: response.meta.total,
-                                                                    currentTime: Int64(Date().timeIntervalSince1970))
+                                                                    total: response.meta.total)
+                                            
+                                            self.taxonPaginationInfo.saveLastReadFromFile(Int64(Date().timeIntervalSince1970))
+                                            
                                         } else {
                                             self.getTaxons(completion: completion)
                                         }
@@ -75,21 +77,19 @@ public final class TaxonServiceCoordinator {
     }
     
     public func checkingNewTaxons(completion: @escaping (_ hasNewTaxon: Bool, _ error: APIError?) -> Void) {
+        let lastTimeUpdate: Int64 = taxonPaginationInfo.getLastReadFromFile() ?? 0 // If it is not saved, maybe something went wrong while reading file, so we download everything
         
-        if let paginationInfo = taxonPaginationInfo.getPaginationInfo() {
-            let lastTimeUpdate: Int64 = paginationInfo.lastTimeUpdate
-            taxonService.getTaxons(currentPage: 1,
-                                   perPage: 10, // Could be 1. Just checking if there's anything new
-                                   updatedAfter: lastTimeUpdate) { result in
-                switch result {
-                case .failure(let error):
-                    completion(false, error)
-                case .success(let response):
-                    if response.data.isEmpty {
-                        completion(false, nil)
-                    } else {
-                        completion(true, nil)
-                    }
+        taxonService.getTaxons(currentPage: 1,
+                               perPage: 1, // Could be 1. Just checking if there's anything new
+                               updatedAfter: lastTimeUpdate) { result in
+            switch result {
+            case .failure(let error):
+                completion(false, error)
+            case .success(let response):
+                if response.data.isEmpty {
+                    completion(false, nil)
+                } else {
+                    completion(true, nil)
                 }
             }
         }
@@ -98,13 +98,13 @@ public final class TaxonServiceCoordinator {
     private func saveNextPagination(currentPage: Int,
                                     perPage: Int,
                                     lastPage: Int,
-                                    total: Int,
-                                    currentTime: Int64) {
+                                    total: Int) {
+        
         let nexPaginationInfo = TaxonsPaginationInfo(currentPage: currentPage,
                                                      perPage: perPage,
                                                      lastPage: lastPage,
                                                      total: total)
-        nexPaginationInfo.set(lastTimeUpdate: currentTime)
+        
         self.taxonPaginationInfo.savePagination(paginationInfo: nexPaginationInfo)
     }
     
