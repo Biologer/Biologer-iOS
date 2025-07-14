@@ -1,4 +1,5 @@
 PODS:
+  - CSV.swift (2.5.2)
   - GoogleMaps (6.1.1):
     - GoogleMaps/Maps (= 6.1.1)
   - GoogleMaps/Base (6.1.1)
@@ -54,6 +55,7 @@ PODS:
   - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
+  - CSV.swift (~> 2.5.2)
   - GoogleMaps
   - GooglePlaces
   - lottie-ios
@@ -66,6 +68,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - CSV.swift
     - GoogleMaps
     - GooglePlaces
     - lottie-ios
@@ -78,6 +81,7 @@ SPEC REPOS:
     - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
+  CSV.swift: c03e167bf8e7ea728f9cd4c093f15f38f9d9da22
   GoogleMaps: 94e6e0851beece6678af9f508f4918b7a7c61722
   GooglePlaces: 9c1f3baa75191b94dfc12b80a801292e03977f73
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
@@ -89,6 +93,6 @@ SPEC CHECKSUMS:
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: e62af896afb1d93cff24773aa65344f9efa3a9f3
+PODFILE CHECKSUM: 865109ff2d0625b18aab79e767c8096f3752f0a1
 
 COCOAPODS: 1.16.2

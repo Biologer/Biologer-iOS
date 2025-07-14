@@ -16,6 +16,7 @@ target 'Biologer' do
   pod 'RealmSwift'
   pod 'ReachabilitySwift'
   pod 'lottie-ios'
+  pod 'CSV.swift', '~> 2.5.2'
   
   target 'BiologerTests' do
     inherit! :search_paths
