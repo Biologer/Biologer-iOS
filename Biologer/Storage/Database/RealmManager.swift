@@ -92,6 +92,12 @@ extension RealmManager: RealmOperations {
         }
     }
     
+    static func add<S: Sequence>(_ objects: S, policy: Realm.UpdatePolicy) where S.Iterator.Element: Object {
+        Self.write { (realmInstance, _) in
+            realmInstance.add(objects, update: policy)
+        }
+    }
+    
     
     // MARK:- GET function
     static func get<R: Object>(fromEntity entity : R.Type,

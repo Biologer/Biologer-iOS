@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 import CSV
+import RealmSwift
 
 public final class DownloadTaxonRouter {
     
@@ -101,7 +102,7 @@ public final class DownloadTaxonRouter {
         
         if total > 0 {
             DispatchQueue.main.async {
-                RealmManager.add(records.map { DBTaxon(taxon: $0) })
+                RealmManager.add(records.map { DBTaxon(taxon: $0) }, policy: Realm.UpdatePolicy.modified)
             }
             
             let numberOfPages = Int(ceil(Double(total) / Double(APIConstants.taxonsPerPage)))
