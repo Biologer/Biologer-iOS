@@ -19,7 +19,7 @@ public final class TaxonsPaginationInfo: Codable {
     }
     
     init(currentPage: Int,
-         perPage: Int = 200,
+         perPage: Int = APIConstants.taxonsPerPage,
          lastPage: Int,
          total: Int) {
         self.currentPage = currentPage

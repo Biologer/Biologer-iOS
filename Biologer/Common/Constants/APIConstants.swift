@@ -6,6 +6,7 @@ public final class APIConstants {
     public static let grantTypeRefreshToken = "refresh_token"
     public static let grantTypePassword = "password"
     public static let scope = "*"
+    public static let taxonsPerPage = 200
     
     public static let loginUserPath = "/oauth/token"
     public static let taxonPath = "/api/taxa"

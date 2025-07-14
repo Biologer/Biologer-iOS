@@ -28,7 +28,7 @@ public final class TaxonServiceCoordinator {
     public func getTaxons(completion: @escaping (_ currentValue: Double, _ maxValue: Double) -> Void) {
         
         var page = 1
-        var perPage = 200
+        var perPage = APIConstants.taxonsPerPage
         var lastTimeUpdate: Int64 = 0
         
         if let paginationInfo = taxonPaginationInfo.getPaginationInfo() {
@@ -79,7 +79,7 @@ public final class TaxonServiceCoordinator {
         if let paginationInfo = taxonPaginationInfo.getPaginationInfo() {
             let lastTimeUpdate: Int64 = paginationInfo.lastTimeUpdate
             taxonService.getTaxons(currentPage: 1,
-                                   perPage: 20,
+                                   perPage: 10, // Could be 1. Just checking if there's anything new
                                    updatedAfter: lastTimeUpdate) { result in
                 switch result {
                 case .failure(let error):

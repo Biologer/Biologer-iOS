@@ -41,31 +41,37 @@ public final class DownloadTaxonRouter {
         self.navigationController = navigationController
         self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded = sholdPresentConfirmationWhenAllTaxonAleadyDownloaded
                 
-        readTaxonFromFile()
-        downloadTaxonIfNeeded()
+        let rowsCount = readTaxonFromFile()
+        downloadTaxonIfNeeded(itemsFromFileCount: rowsCount)
     }
     
     // MARK: - Private Functions
     
-    private func readTaxonFromFile() {
-                
+    private func readTaxonFromFile() -> Int {
+        if taxonPaginationInfoStorage.getPaginationInfo() != nil {
+            return 0
+        }
+        
         var records: [TaxonDataResponse.TaxonResponse] = [TaxonDataResponse.TaxonResponse]()
         
         if let env = environmentStorage.getEnvironment(),
             let path = Bundle.main.path(forResource: "\(env.fileId)_taxa", ofType: "csv"),
             let stream = InputStream(fileAtPath: path) {
+            
             do {
                 let csv = try CSVReader(stream: stream,
                                          codecType: UTF8.self,
                                          hasHeaderRow: true)
 
                 while csv.next() != nil {
-                    if let id = Int(csv["id"] ?? ""), id > 0 {
+                    if let id = Int(csv["id"] ?? ""), id > 0,
+                    let name = csv["name"] as? String, !name.isEmpty,
+                    let rank = csv["rank"] as? String, !rank.isEmpty {
                         
                         let row = TaxonDataResponse.TaxonResponse.init(
                             id: id,
-                            name: csv["name"],
-                            rank: csv["rank"],
+                            name: name,
+                            rank: rank,
                             rank_level: nil, // The rest are not found in the file
                             restricted: nil,
                             allochthonous: nil,
@@ -83,19 +89,39 @@ public final class DownloadTaxonRouter {
                     }
                 }
                 
-                // TODO: Save to DB, and then see if it should check for update?
-                
                 stream.close()
-                print(records.count)
             }
             catch (let e) {
                 print(e)
             }
         }
+        
+        let total = records.count
+        print(total)
+        
+        if total > 0 {
+            DispatchQueue.main.async {
+                records.forEach({
+                    RealmManager.add(DBTaxon(taxon: $0))
+                })
+            }
+            
+            let numberOfPages = Int(ceil(Double(total) / Double(APIConstants.taxonsPerPage)))
+            
+            let newPaginationInfo = TaxonsPaginationInfo(
+                currentPage: numberOfPages,
+                perPage: APIConstants.taxonsPerPage,
+                lastPage: numberOfPages,
+                total: total)
+            newPaginationInfo.set(lastTimeUpdate: 1733425371)
+            
+            self.taxonPaginationInfoStorage.savePagination(paginationInfo: newPaginationInfo)
+        }
+        
+        return total
     }
     
-    private func downloadTaxonIfNeeded() {
-        let taxonsDB = RealmManager.get(fromEntity: DBTaxon.self)
+    private func downloadTaxonIfNeeded(itemsFromFileCount: Int) {
         let checkInternetConnection = CheckInternetConnection.init()
         
         if !checkInternetConnection.isConnectedToInternet() {
@@ -103,12 +129,17 @@ public final class DownloadTaxonRouter {
                                   title: "API.lb.error".localized,
                                   description: "Common.title.notConnectedToInternet".localized)
         } else {
-            if taxonsDB.isEmpty { // is DB empty with taxon
+            let taxonsDB = RealmManager.get(fromEntity: DBTaxon.self)
+            print("Taxon count: \(taxonsDB.count)")
+            
+            if itemsFromFileCount == 0 && taxonsDB.isEmpty { // Is DB empty with taxon? Maybe just not loaded yet
                 downloadTaxonByUserSettings()
-            } else if let paginationInfo = taxonPaginationInfoStorage.getPaginationInfo(),
-                      paginationInfo.isAllTaxonDownloaded { // is all taxon downloaded in previous download session
+            }
+            else if let paginationInfo = taxonPaginationInfoStorage.getPaginationInfo(),
+                      !paginationInfo.isAllTaxonDownloaded { // Not all taxon downloaded in previous download session
                 downloadTaxonByUserSettings()
-            } else {
+            }
+            else {
                 taxonServiceCordinator.checkingNewTaxons { [weak self] hasNewTaxons, error in
                     guard let self = self else { return }
                     guard error == nil else  {
