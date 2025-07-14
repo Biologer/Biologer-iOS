@@ -25,6 +25,8 @@ public final class UserDefaultsTaxonsPaginationInfoStorage: TaxonsPaginationInfo
         let userDefaults = UserDefaults.standard
         do {
             try userDefaults.setObject(paginationInfo, forKey: paginationInfoKey)
+            userDefaults.synchronize()
+            
         } catch {
             print(error.localizedDescription)
         }
@@ -33,5 +35,6 @@ public final class UserDefaultsTaxonsPaginationInfoStorage: TaxonsPaginationInfo
     public func delete() {
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: paginationInfoKey)
+        defaults.synchronize()
     }
 }

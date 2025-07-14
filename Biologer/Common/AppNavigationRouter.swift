@@ -251,7 +251,24 @@ public final class AppNavigationRouter: NavigationRouter {
     private func logout() {
         self.tokenStorage.delete()
         self.userStorage.delete()
+        self.taxonPaginationInfoStorage.delete()
+        
+        
+        let findings = RealmManager.get(fromEntity: DBFinding.self)
+        let taxons = RealmManager.get(fromEntity: DBTaxon.self)
+        
+        print("Before logout:")
+        print("DBFinding count: \(findings.count)")
+        print("DBTaxon count: \(taxons.count)")
+
         RealmManager.delete(fromEntity: DBFinding.self)
+        RealmManager.delete(fromEntity: DBTaxon.self)
+
+        print("After logout:")
+        print("DBFinding count: \(RealmManager.get(fromEntity: DBFinding.self).count)")
+        print("DBTaxon count: \(RealmManager.get(fromEntity: DBTaxon.self).count)")
+        
+        
         self.mainNavigationController.dismiss(animated: true, completion: {
             if let vc = self.mainNavigationController.viewControllers.filter({ $0 is UIHostingController<LoginScreen<LoginScreenViewModel>> }).first {
                 self.mainNavigationController.popToViewController(vc, animated: false)

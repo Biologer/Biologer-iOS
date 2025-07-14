@@ -36,6 +36,9 @@ public final class DownloadTaxonRouter {
                       sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: Bool = true) {
         self.navigationController = navigationController
         self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded = sholdPresentConfirmationWhenAllTaxonAleadyDownloaded
+        
+        // TODO: read from file
+        
         downloadTaxonIfNeeded()
     }
     
