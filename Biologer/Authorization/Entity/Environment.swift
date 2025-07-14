@@ -8,6 +8,7 @@
 import Foundation
 
 public final class Environment: Codable {
+    public var fileId: String
     public var clientId: String
     public let clientSecret: String
     public let host: String
@@ -16,10 +17,13 @@ public final class Environment: Codable {
     init(host: String,
          path: String,
          clientSecret: String,
-         cliendId: String) {
+         cliendId: String,
+         fileId: String) {
+        
         self.host = host
         self.path = path
         self.clientSecret = clientSecret
         self.clientId = cliendId
+        self.fileId = fileId
     }
 }

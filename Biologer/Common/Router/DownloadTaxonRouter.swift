@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import CSV
 
 public final class DownloadTaxonRouter {
     
@@ -15,6 +16,7 @@ public final class DownloadTaxonRouter {
     private let swiftUICommonFactory: CommonViewControllerFactory
     private let settingsStorage: SettingsStorage
     private let taxonPaginationInfoStorage: TaxonsPaginationInfoStorage
+    private let environmentStorage: EnvironmentStorage
     private let taxonServiceCordinator: TaxonServiceCoordinator
     
     private var biologerProgressBarDelegate: BiologerProgressBarDelegate?
@@ -24,25 +26,74 @@ public final class DownloadTaxonRouter {
          swiftUICommonFactory: CommonViewControllerFactory,
          taxonServiceCordinator: TaxonServiceCoordinator,
          settingsStorage: SettingsStorage,
-         taxonPaginationInfoStorage: TaxonsPaginationInfoStorage) {
+         taxonPaginationInfoStorage: TaxonsPaginationInfoStorage,
+         environmentStorage: EnvironmentStorage) {
         self.alertFactory = alertFactory
         self.swiftUICommonFactory = swiftUICommonFactory
         self.taxonServiceCordinator = taxonServiceCordinator
         self.settingsStorage = settingsStorage
         self.taxonPaginationInfoStorage = taxonPaginationInfoStorage
+        self.environmentStorage = environmentStorage
     }
     
     public func start(navigationController: UINavigationController,
                       sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: Bool = true) {
         self.navigationController = navigationController
         self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded = sholdPresentConfirmationWhenAllTaxonAleadyDownloaded
-        
-        // TODO: read from file
-        
+                
+        readTaxonFromFile()
         downloadTaxonIfNeeded()
     }
     
     // MARK: - Private Functions
+    
+    private func readTaxonFromFile() {
+                
+        var records: [TaxonDataResponse.TaxonResponse] = [TaxonDataResponse.TaxonResponse]()
+        
+        if let env = environmentStorage.getEnvironment(),
+            let path = Bundle.main.path(forResource: "\(env.fileId)_taxa", ofType: "csv"),
+            let stream = InputStream(fileAtPath: path) {
+            do {
+                let csv = try CSVReader(stream: stream,
+                                         codecType: UTF8.self,
+                                         hasHeaderRow: true)
+
+                while csv.next() != nil {
+                    if let id = Int(csv["id"] ?? ""), id > 0 {
+                        
+                        let row = TaxonDataResponse.TaxonResponse.init(
+                            id: id,
+                            name: csv["name"],
+                            rank: csv["rank"],
+                            rank_level: nil, // The rest are not found in the file
+                            restricted: nil,
+                            allochthonous: nil,
+                            invasive: nil,
+                            uses_atlas_codes: nil,
+                            ancestors_names: nil,
+                            can_edit: nil,
+                            can_delete: nil,
+                            rank_translation: nil,
+                            native_name: nil,
+                            description: nil,
+                            translations: nil,
+                            stages: nil)
+                        records.append(row)
+                    }
+                }
+                
+                // TODO: Save to DB, and then see if it should check for update?
+                
+                stream.close()
+                print(records.count)
+            }
+            catch (let e) {
+                print(e)
+            }
+        }
+    }
+    
     private func downloadTaxonIfNeeded() {
         let taxonsDB = RealmManager.get(fromEntity: DBTaxon.self)
         let checkInternetConnection = CheckInternetConnection.init()

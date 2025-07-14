@@ -151,7 +151,8 @@ public final class AppNavigationRouter: NavigationRouter {
                                    swiftUICommonFactory: swiftUICommonViewControllerFactory,
                                    taxonServiceCordinator: taxonServiceCoordinator,
                                    settingsStorage: userDefaultsSettingsStorage,
-                                   taxonPaginationInfoStorage: taxonPaginationInfoStorage)
+                                   taxonPaginationInfoStorage: taxonPaginationInfoStorage,
+                                   environmentStorage: environmentStorage)
     }()
     
     // MARK: - Storage

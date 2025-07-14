@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		354D33A62E251FB200CE3D8D /* dev_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A22E251FB200CE3D8D /* dev_taxa.csv */; };
+		354D33A72E251FB200CE3D8D /* me_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A42E251FB200CE3D8D /* me_taxa.csv */; };
+		354D33A82E251FB200CE3D8D /* ba_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A12E251FB200CE3D8D /* ba_taxa.csv */; };
+		354D33A92E251FB200CE3D8D /* rs_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A52E251FB200CE3D8D /* rs_taxa.csv */; };
+		354D33AA2E251FB200CE3D8D /* hr_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A32E251FB200CE3D8D /* hr_taxa.csv */; };
 		9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757226877BDE005A4DE0 /* AuthorizationRouter.swift */; };
 		9300757626877C6B005A4DE0 /* SideMenuRouterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757526877C6B005A4DE0 /* SideMenuRouterRouter.swift */; };
 		9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */; };
@@ -250,6 +255,11 @@
 
 /* Begin PBXFileReference section */
 		2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BiologerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		354D33A12E251FB200CE3D8D /* ba_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = ba_taxa.csv; sourceTree = "<group>"; };
+		354D33A22E251FB200CE3D8D /* dev_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = dev_taxa.csv; sourceTree = "<group>"; };
+		354D33A32E251FB200CE3D8D /* hr_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = hr_taxa.csv; sourceTree = "<group>"; };
+		354D33A42E251FB200CE3D8D /* me_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = me_taxa.csv; sourceTree = "<group>"; };
+		354D33A52E251FB200CE3D8D /* rs_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = rs_taxa.csv; sourceTree = "<group>"; };
 		534595C1EB53EE85C27AD890 /* Pods-Biologer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.release.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.release.xcconfig"; sourceTree = "<group>"; };
 		545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer_BiologerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F4E9D04F054E60B925362C /* Pods-Biologer-BiologerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer-BiologerUITests.release.xcconfig"; path = "Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -526,6 +536,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		354D33A02E251FA300CE3D8D /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				354D33A12E251FB200CE3D8D /* ba_taxa.csv */,
+				354D33A22E251FB200CE3D8D /* dev_taxa.csv */,
+				354D33A32E251FB200CE3D8D /* hr_taxa.csv */,
+				354D33A42E251FB200CE3D8D /* me_taxa.csv */,
+				354D33A52E251FB200CE3D8D /* rs_taxa.csv */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
 		51038DCC21EB3114DDE94ED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,6 +655,7 @@
 		931426E2262B53AD00542EFC /* Biologer */ = {
 			isa = PBXGroup;
 			children = (
+				354D33A02E251FA300CE3D8D /* Files */,
 				93CC6596269C622E00949534 /* Storage */,
 				93DF14152692223F00A7A977 /* Network */,
 				93334EA72677DC2D0094A483 /* Dashboard */,
@@ -1573,6 +1596,11 @@
 				93387CE32767A66C006789D2 /* lottie_warning.json in Resources */,
 				931426F0262B53B000542EFC /* LaunchScreen.storyboard in Resources */,
 				93565D3026F736B900A588E6 /* Localizable.strings in Resources */,
+				354D33A62E251FB200CE3D8D /* dev_taxa.csv in Resources */,
+				354D33A72E251FB200CE3D8D /* me_taxa.csv in Resources */,
+				354D33A82E251FB200CE3D8D /* ba_taxa.csv in Resources */,
+				354D33A92E251FB200CE3D8D /* rs_taxa.csv in Resources */,
+				354D33AA2E251FB200CE3D8D /* hr_taxa.csv in Resources */,
 				937F523C270EEAD400239963 /* TaxonMapScreenViewController.xib in Resources */,
 				9314273C262B684B00542EFC /* Color.xcassets in Resources */,
 				931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */,
@@ -1610,9 +1638,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1649,9 +1681,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1666,9 +1702,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1727,9 +1767,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
