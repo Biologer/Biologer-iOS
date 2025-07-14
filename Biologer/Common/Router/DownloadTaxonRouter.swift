@@ -48,6 +48,47 @@ public final class DownloadTaxonRouter {
     
     // MARK: - Private Functions
     
+    private func readTranslations(_ translationsString: String, taxonID: Int) -> [TaxonDataResponse.TaxonTranslationsResponse] {
+        
+        let splitTranslations = translationsString.components(separatedBy: ";")
+        var translations = [TaxonDataResponse.TaxonTranslationsResponse]()
+        
+        if splitTranslations.count > 0 {
+            var tCounter = 0
+            
+            while tCounter < splitTranslations.count {
+                let t = splitTranslations[tCounter]
+                
+                if t != "" {
+                    var locale = "en"
+                    
+                    if (tCounter == 1) {
+                        locale = "sr";
+                    } else if (tCounter == 2) {
+                        locale = "sr-Latn";
+                    } else if (tCounter == 3) {
+                        locale = "hr";
+                    } else if (tCounter == 4) {
+                        locale = "bs";
+                    } else if (tCounter == 5 ) {
+                        locale = "cnr";
+                    }
+                    
+                    let tr = TaxonDataResponse.TaxonTranslationsResponse(
+                        id: (taxonID * 10) + tCounter,
+                        locale: locale,
+                        native_name: t,
+                        description: nil)
+                    translations.append(tr)
+                }
+                                                                        
+                tCounter += 1
+            }
+        }
+        
+        return translations
+    }
+    
     private func readTaxonFromFile() -> Int {
         if taxonPaginationInfoStorage.getPaginationInfo() != nil {
             return 0
@@ -65,9 +106,11 @@ public final class DownloadTaxonRouter {
                                          hasHeaderRow: true)
 
                 while csv.next() != nil {
-                    if let id = Int(csv["id"] ?? ""), id > 0,
-                    let name = csv["name"] as? String, !name.isEmpty,
-                    let rank = csv["rank"] as? String, !rank.isEmpty {
+                    if
+                        let id = Int(csv["id"] ?? ""), id > 0,
+                        let name = csv["name"], !name.isEmpty,
+                        let rank = csv["rank"], !rank.isEmpty,
+                        let translationsString = csv["translations"] {
                         
                         let row = TaxonDataResponse.TaxonResponse.init(
                             id: id,
@@ -84,7 +127,7 @@ public final class DownloadTaxonRouter {
                             rank_translation: nil,
                             native_name: nil,
                             description: nil,
-                            translations: nil,
+                            translations: readTranslations(translationsString, taxonID: id),
                             stages: nil)
                         records.append(row)
                     }

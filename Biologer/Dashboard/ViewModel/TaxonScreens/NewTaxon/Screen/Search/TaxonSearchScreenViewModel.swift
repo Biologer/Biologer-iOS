@@ -105,12 +105,12 @@ public final class TaxonSearchScreenViewModel: ObservableObject {
         private static func getTaxonName(dbTaxon: DBTaxon,
                                          keyboardLanguage: String?,
                                          onlyEnglish: Bool) -> String {
-            //let languageCode = Locale.current.languageCode
+
             if onlyEnglish {
                 return getTaxonName(by: "en", dbTaxon: dbTaxon)
             } else {
-                if let keyboardLanguage = keyboardLanguage {
-                    return getTaxonName(by: keyboardLanguage, dbTaxon: dbTaxon)
+                if let languageCode = Locale.current.languageCode {
+                    return getTaxonName(by: languageCode, dbTaxon: dbTaxon)
                 } else {
                     return getTaxonName(by: "en", dbTaxon: dbTaxon)
                 }
