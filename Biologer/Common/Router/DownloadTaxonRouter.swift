@@ -101,9 +101,7 @@ public final class DownloadTaxonRouter {
         
         if total > 0 {
             DispatchQueue.main.async {
-                records.forEach({
-                    RealmManager.add(DBTaxon(taxon: $0))
-                })
+                RealmManager.add(records.map { DBTaxon(taxon: $0) })
             }
             
             let numberOfPages = Int(ceil(Double(total) / Double(APIConstants.taxonsPerPage)))
