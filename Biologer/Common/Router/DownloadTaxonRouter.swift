@@ -94,6 +94,8 @@ public final class DownloadTaxonRouter {
             return // If we already loaded once from file, no need to do that again.
         }
         
+        print("Start loading from file")
+        
         var records: [TaxonDataResponse.TaxonResponse] = [TaxonDataResponse.TaxonResponse]()
         
         if let env = environmentStorage.getEnvironment(),
@@ -135,8 +137,8 @@ public final class DownloadTaxonRouter {
                 
                 stream.close()
             }
-            catch (let e) {
-                print(e)
+            catch (let error) {
+                print(error.localizedDescription)
             }
         }
         
@@ -160,6 +162,8 @@ public final class DownloadTaxonRouter {
                                   title: "API.lb.error".localized,
                                   description: "Common.title.notConnectedToInternet".localized)
         } else {
+            print("Start checking for new taxons")
+            
             taxonServiceCordinator.checkingNewTaxons { [weak self] hasNewTaxons, error in
                 guard let self = self else { return }
                 guard error == nil else  {
@@ -170,8 +174,10 @@ public final class DownloadTaxonRouter {
                 }
                 
                 if hasNewTaxons {
+                    print("Start downloading new taxons")
                     self.downloadTaxonByUserSettings()
                 } else {
+                    print("No new taxons to download")
                     if self.sholdPresentConfirmationWhenAllTaxonAleadyDownloaded {
                         self.showConfirmationAlert(popUpType: .success,
                                                    title: "DownloadAndUpload.popUp.success.title".localized,

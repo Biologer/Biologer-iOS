@@ -37,7 +37,7 @@ public final class FindingMapper {
                                              taxon_suggestion: finding.taxonInfoViewModel.taxon?.name ?? "",
                                              time: finding.dateOfCreation.getHoursAndMuntes(),
                                              year: String(finding.dateOfCreation.get(.year)))
-        print(findingBody)
+//        print(findingBody)
         return findingBody
     }
 }

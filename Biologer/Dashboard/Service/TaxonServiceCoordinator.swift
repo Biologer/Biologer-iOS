@@ -36,10 +36,6 @@ public final class TaxonServiceCoordinator {
             perPage = paginationInfo.perPage
         }
         
-        if page == 1 {
-            RealmManager.delete(fromEntity: DBTaxon.self)
-        }
-        
         taxonService.getTaxons(currentPage: page,
                                perPage: perPage,
                                updatedAfter: lastTimeUpdate,
@@ -73,7 +69,7 @@ public final class TaxonServiceCoordinator {
                                         }
                                     }
                                 }
-                               })
+                           })
     }
     
     public func checkingNewTaxons(completion: @escaping (_ hasNewTaxon: Bool, _ error: APIError?) -> Void) {

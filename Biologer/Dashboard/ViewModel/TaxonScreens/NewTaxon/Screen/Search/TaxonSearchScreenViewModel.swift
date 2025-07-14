@@ -53,6 +53,7 @@ public final class TaxonSearchScreenViewModel: ObservableObject {
                                                            onlyEnglishName: settingsStorage.getSettings()?.alwaysEnglishName ?? false))
         })
         
+        print("Total items in DB:")
         print(RealmManager.get(fromEntity: DBTaxon.self).count)
     }
     
