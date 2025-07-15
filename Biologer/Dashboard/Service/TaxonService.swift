@@ -86,8 +86,6 @@ public final class RemoteTaxonService: TaxonService {
             queryParameters.append(URLQueryItem(name: "page",value: String(currentPage)))
             queryParameters.append(URLQueryItem(name: "per_page",value: String(perPage)))
             queryParameters.append(URLQueryItem(name: "updated_after",value: String(updatedAfter)))
-            queryParameters.append(URLQueryItem(name: "withGroupsIds",value: String(false)))
-            queryParameters.append(URLQueryItem(name: "ungrouped",value: String(updatedAfter)))
             
             let request = try! TaxonRequest(host: env.host, queryParameters: queryParameters).asURLRequest()
             print(request.url)
