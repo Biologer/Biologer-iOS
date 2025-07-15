@@ -236,12 +236,12 @@ public final class DownloadTaxonRouter {
                                                        onNoTapped: { [weak self] _ in
                                                         self?.navigationController.dismiss(animated: true, completion: nil)
                                                        })
-                            } else {
-                                self?.showDownloadTaxonsProgressBar()
                             }
-                            self?.navigationController.dismiss(animated: true, completion: {
-                                self?.downloadTaxonWhenWifiActive()
-                            })
+                            else {
+                                self?.navigationController.dismiss(animated: true, completion: {
+                                    self?.showDownloadTaxonsProgressBar()
+                                })
+                            }
                          },
                          onNoTapped: { [weak self] _ in
                             self?.navigationController.dismiss(animated: true, completion: nil)
@@ -261,10 +261,11 @@ public final class DownloadTaxonRouter {
                                         
                                         self?.taxonServiceCordinator.resumeGetTaxon()
                                         self?.taxonServiceCordinator.getTaxons { currentValue, maxValue in
-                                            self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)
-                                            if currentValue == maxValue {
+                                            if currentValue >= maxValue {
                                                 self?.navigationController.dismiss(animated: true, completion: nil)
                                             }
+                                            
+                                            self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)
                                         }
                                      },
                                      onCancelTapped: { [weak self] currentValue in

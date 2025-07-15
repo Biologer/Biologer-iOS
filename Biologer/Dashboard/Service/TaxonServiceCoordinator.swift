@@ -86,6 +86,7 @@ public final class TaxonServiceCoordinator {
                     completion(false, nil)
                 } else {
                     // Reset pagination
+                    print("new taxons: \(response.meta.total)")
                     self.saveNextPagination(currentPage: 1,
                                             perPage: APIConstants.taxonsPerPage,
                                             lastPage: response.meta.last_page,
