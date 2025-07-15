@@ -82,7 +82,7 @@ public final class RegisterStepThreeScreenViewModel: RegisterStepThreeScreenLoad
             self?.onLoading((false))
             switch result {
             case .success(let response):
-                print("Response: \(response)")
+//                print("Response: \(response)")
                 let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
                 self?.onSuccess((token))
             case .failure(let error):

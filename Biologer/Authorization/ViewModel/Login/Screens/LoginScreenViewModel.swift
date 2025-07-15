@@ -98,7 +98,7 @@ public final class LoginScreenViewModel: LoginScreenLoader {
             self?.onLoading((false))
             switch result {
             case .success(let response):
-                print("Response login: \(response)")
+//                print("Response login: \(response)")
                 let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
                 self?.onLoginSuccess((token))
             case .failure(let error):
