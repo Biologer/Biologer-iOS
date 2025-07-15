@@ -90,6 +90,8 @@ public final class RemoteTaxonService: TaxonService {
             queryParameters.append(URLQueryItem(name: "ungrouped",value: String(updatedAfter)))
             
             let request = try! TaxonRequest(host: env.host, queryParameters: queryParameters).asURLRequest()
+            print(request.url)
+            
             client.perform(from: request) { result in
                 switch result {
                 case .failure(let error):
