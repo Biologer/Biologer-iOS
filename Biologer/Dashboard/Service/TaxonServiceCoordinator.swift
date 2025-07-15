@@ -83,6 +83,11 @@ public final class TaxonServiceCoordinator {
                 completion(false, error)
             case .success(let response):
                 if response.data.isEmpty {
+                    self.saveNextPagination(currentPage: 1,
+                                            perPage: APIConstants.taxonsPerPage,
+                                            lastPage: response.meta.last_page,
+                                            total: response.meta.total)
+                    
                     completion(false, nil)
                 } else {
                     completion(true, nil)
