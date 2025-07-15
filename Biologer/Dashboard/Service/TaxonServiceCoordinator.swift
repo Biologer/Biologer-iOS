@@ -76,20 +76,21 @@ public final class TaxonServiceCoordinator {
         let lastTimeUpdate: Int64 = taxonPaginationInfo.getLastReadFromFile() ?? 0 // If it is not saved, maybe something went wrong while reading file, so we download everything
         
         taxonService.getTaxons(currentPage: 1,
-                               perPage: 1, // Could be 1. Just checking if there's anything new
+                               perPage: APIConstants.taxonsPerPage,
                                updatedAfter: lastTimeUpdate) { result in
             switch result {
             case .failure(let error):
                 completion(false, error)
             case .success(let response):
                 if response.data.isEmpty {
+                    completion(false, nil)
+                } else {
+                    // Reset pagination
                     self.saveNextPagination(currentPage: 1,
                                             perPage: APIConstants.taxonsPerPage,
                                             lastPage: response.meta.last_page,
                                             total: response.meta.total)
                     
-                    completion(false, nil)
-                } else {
                     completion(true, nil)
                 }
             }
