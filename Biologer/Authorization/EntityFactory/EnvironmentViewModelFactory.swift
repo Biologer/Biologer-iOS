@@ -25,8 +25,7 @@ public final class EnvironmentViewModelFactory {
                                         env: Environment(host: APIConstants.serbiaHost,
                                                          path: APIConstants.serbiaLangPath,
                                                          clientSecret: serbiaClientSecret,
-                                                         cliendId: cliendIdSer,
-                                                         fileId: APIConstants.fileIdSerbia),
+                                                         cliendId: cliendIdSer),
                                         isSelected: false)
         case .croatia:
             return EnvironmentViewModel(id: 2,
@@ -35,8 +34,7 @@ public final class EnvironmentViewModelFactory {
                                         env: Environment(host: APIConstants.croatiaHost,
                                                          path: APIConstants.croatiaLangPath,
                                                          clientSecret: croatiaClientSecret,
-                                                         cliendId: cliendIdCro,
-                                                         fileId: APIConstants.fileIdCroatia),
+                                                         cliendId: cliendIdCro),
                                         isSelected: false)
         case .bosniaAndHerzegovina:
             return EnvironmentViewModel(id: 3, title: "Env.lb.bosniaAndHerzegovina".localized,
@@ -44,8 +42,7 @@ public final class EnvironmentViewModelFactory {
                                         env: Environment(host: APIConstants.bosnianAndHerzegovinHost,
                                                          path: APIConstants.bosnianAndHerzegovinaLangPath,
                                                          clientSecret: bosnianAndHercegovinaClientSecret,
-                                                         cliendId: cliendIdBih,
-                                                         fileId: APIConstants.fileIdBosniaAndHerzegovina),
+                                                         cliendId: cliendIdBih),
                                         isSelected: false)
         case .montenegro:
             return EnvironmentViewModel(id: 4,
@@ -54,8 +51,7 @@ public final class EnvironmentViewModelFactory {
                                         env: Environment(host: APIConstants.montenegroHost,
                                                          path: APIConstants.montenegroLangPath,
                                                          clientSecret: montenegroClientSecret,
-                                                         cliendId: cliendIdMe,
-                                                         fileId: APIConstants.fileIdMontenegro),
+                                                         cliendId: cliendIdMe),
                                         isSelected: false)
         case .develop:
             return EnvironmentViewModel(id: 5,
@@ -64,8 +60,7 @@ public final class EnvironmentViewModelFactory {
                                         env: Environment(host: APIConstants.devHost,
                                                          path: APIConstants.devLangPath,
                                                          clientSecret: devClientSecret,
-                                                         cliendId: cliendIdDev,
-                                                         fileId: APIConstants.fileIdDev),
+                                                         cliendId: cliendIdDev),
                                         isSelected: false)
         }
     }

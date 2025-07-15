@@ -99,7 +99,7 @@ public final class DownloadTaxonRouter {
         var records: [TaxonDataResponse.TaxonResponse] = [TaxonDataResponse.TaxonResponse]()
         
         if let env = environmentStorage.getEnvironment(),
-            let path = Bundle.main.path(forResource: "\(env.fileId)_taxa", ofType: "csv"),
+            let path = Bundle.main.path(forResource: "\(env.getFileId())_taxa", ofType: "csv"),
             let stream = InputStream(fileAtPath: path) {
             
             do {
