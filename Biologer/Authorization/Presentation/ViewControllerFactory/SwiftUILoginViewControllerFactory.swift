@@ -19,7 +19,6 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                 onForgotPasswordTapped: @escaping Observer<Void>,
                                 onLoading: @escaping Observer<Bool>) -> UIViewController {
         let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
-                                                        labelsViewModel: LoginLabelsViewModel(),
                                                         environmentViewModel: environmentViewModel,
                                                         userNameTextFieldViewModel: UserNameTextFieldViewModel(),
                                                         passwordTextFieldViewModel: PasswordTextFieldViewModel(),

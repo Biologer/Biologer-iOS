@@ -58,7 +58,6 @@ public protocol LoginScreenLoader: ObservableObject {
     var logoImage: String { get }
     var environmentPlaceholder: String { get }
     var environmentViewModel: EnvironmentViewModel { get }
-    var labelsViewModel: LoginLabelsViewModel { get set }
     var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
     var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
     func selectEnvironment()
@@ -103,19 +102,19 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                              })
                     .padding(.bottom, 20)
                 
-                BiologerButton(title: viewModel.labelsViewModel.loginButtonTitle,
+                BiologerButton(title: "Login.btn.register".localized,
                             onTapped: { _ in
                                 viewModel.login()
                             })
                     .padding(.bottom, 30)
                 HStack(spacing: 10) {
-                    Text(viewModel.labelsViewModel.dontHaveAccountTitle)
+                    Text("Login.lb.noAccount".localized)
                         .font(.titleFont)
                         .foregroundColor(.gray)
                     Button(action: {
                         viewModel.register()
                     }, label: {
-                        Text(viewModel.labelsViewModel.registerButtonTitle)
+                        Text("Login.btn.register".localized)
                             .font(.titleFontBold)
                             .foregroundColor(Color.biologerGreenColor)
                     })
@@ -124,7 +123,7 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                 Button(action: {
                     viewModel.forgotPassword()
                 }, label: {
-                    Text(viewModel.labelsViewModel.forgotPasswordTitle)
+                    Text("Login.btn.forgotPassword".localized)
                         .foregroundColor(Color.biologerGreenColor)
                         .font(.titleFontBold)
                 })
@@ -150,7 +149,6 @@ struct LoginScreen_Previews: PreviewProvider {
                                                        image: "serbia_flag",
                                                                               env: Environment(host: APIConstants.serbiaHost, path: APIConstants.serbiaLangPath, clientSecret: serbiaClientSecret, cliendId: cliendIdSer),
                                                         isSelected: false)
-        var labelsViewModel: LoginLabelsViewModel = LoginLabelsViewModel()
         var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = UserNameTextFieldViewModel()
         var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = PasswordTextFieldViewModel()
         

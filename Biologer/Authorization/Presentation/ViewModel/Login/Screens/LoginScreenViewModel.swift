@@ -11,7 +11,6 @@ import Combine
 public final class LoginScreenViewModel: LoginScreenLoader {
     public var environmentPlaceholder: String = "Login.env.placeholder".localized
     public let logoImage: String
-    public var labelsViewModel: LoginLabelsViewModel
     @Published public var environmentViewModel: EnvironmentViewModel
     @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
     @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
@@ -27,7 +26,6 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     private var password: String = ""
     
     init(logoImage: String,
-         labelsViewModel: LoginLabelsViewModel,
          environmentViewModel: EnvironmentViewModel,
          userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol,
          passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol,
@@ -40,7 +38,6 @@ public final class LoginScreenViewModel: LoginScreenLoader {
          onLoading: @escaping Observer<Bool>
          ) {
         self.logoImage = logoImage
-        self.labelsViewModel = labelsViewModel
         self.environmentViewModel = environmentViewModel
         self.userNameTextFieldViewModel = userNameTextFieldViewModel
         self.passwordTextFieldViewModel = passwordTextFieldViewModel
