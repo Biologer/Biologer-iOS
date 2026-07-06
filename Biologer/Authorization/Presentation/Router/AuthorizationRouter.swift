@@ -13,7 +13,6 @@ public final class AuthorizationRouter {
     private let navigationController: UINavigationController
     private let loginService: LoginUserService
     private let registerService: RegisterUserService
-    private let forgotPasswordService: ForgotPasswordService
     private let commonViewControllerFactory: CommonViewControllerFactory
     private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
     private let swiftUIAlertViewControllerFactory: AlertViewControllerFactory
@@ -32,7 +31,6 @@ public final class AuthorizationRouter {
          navigationController: UINavigationController,
          loginService: LoginUserService,
          registerService: RegisterUserService,
-         forgotPasswordService: ForgotPasswordService,
          environmentStorage: EnvironmentStorage,
          tokenStorage: TokenStorage,
          dataLicenseStorage: LicenseStorage,
@@ -44,7 +42,6 @@ public final class AuthorizationRouter {
         self.navigationController = navigationController
         self.loginService = loginService
         self.registerService = registerService
-        self.forgotPasswordService = forgotPasswordService
         self.environmentStorage = environmentStorage
         self.tokenStorage = tokenStorage
         self.dataLicenseStorage = dataLicenseStorage

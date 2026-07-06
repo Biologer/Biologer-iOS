@@ -226,7 +226,6 @@
 		93DF14212692262900A7A977 /* LoginUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14202692262900A7A977 /* LoginUserService.swift */; };
 		93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14222692264C00A7A977 /* LoginUserResponse.swift */; };
 		93DF14252692266300A7A977 /* ForgotPasswordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */; };
-		93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14262692268F00A7A977 /* ForgotPasswordService.swift */; };
 		93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */; };
 		93DF142D269253B900A7A977 /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF142C269253B900A7A977 /* CheckView.swift */; };
 		93E3CBEB2736E7F30090FF93 /* BiologerProgressBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */; };
@@ -237,6 +236,11 @@
 		93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */; };
 		93EB965F270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */; };
 		93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */; };
+		A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000022FFD000000000001 /* RegisterUserUseCase.swift */; };
+		A10000042FFD000000000001 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000052FFD000000000001 /* AuthUseCase.swift */; };
+		A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000072FFD000000000001 /* LoginUserUseCase.swift */; };
+		A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000092FFD000000000001 /* LoginUserEndpoint.swift */; };
+		A100000A2FFD000000000001 /* RegisterUserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */; };
 		A69400C2B1422A8EBB645F1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20AA770440D603BCEC136BE7 /* RealmSwift */; };
 		B2F6E59410152D518B73140F /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 5E9386650B33D0CB40ABB20C /* Reachability */; };
 		DE04B675C7024DC8452D3AA2 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA759BF9731C6666BBC73B4 /* CSV */; };
@@ -492,7 +496,6 @@
 		93DF14202692262900A7A977 /* LoginUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserService.swift; sourceTree = "<group>"; };
 		93DF14222692264C00A7A977 /* LoginUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserResponse.swift; sourceTree = "<group>"; };
 		93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordResponse.swift; sourceTree = "<group>"; };
-		93DF14262692268F00A7A977 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
 		93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLicenseView.swift; sourceTree = "<group>"; };
 		93DF142C269253B900A7A977 /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		93E3CBEA2736E7F30090FF93 /* BiologerProgressBarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerProgressBarScreen.swift; sourceTree = "<group>"; };
@@ -503,6 +506,11 @@
 		93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTaxonsPaginationInfoStorage.swift; sourceTree = "<group>"; };
 		93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreenViewModel.swift; sourceTree = "<group>"; };
 		93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreen.swift; sourceTree = "<group>"; };
+		A10000022FFD000000000001 /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
+		A10000052FFD000000000001 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		A10000072FFD000000000001 /* LoginUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserUseCase.swift; sourceTree = "<group>"; };
+		A10000092FFD000000000001 /* LoginUserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserEndpoint.swift; sourceTree = "<group>"; };
+		A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserEndpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -621,6 +629,59 @@
 			path = Userdefaults;
 			sourceTree = "<group>";
 		};
+		9311E8932FFBD4FE006045C4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8992FFBD935006045C4 /* Entity */,
+				A10000092FFD000000000001 /* LoginUserEndpoint.swift */,
+				A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		9311E8942FFBD50C006045C4 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A10000052FFD000000000001 /* AuthUseCase.swift */,
+				A10000072FFD000000000001 /* LoginUserUseCase.swift */,
+				A10000022FFD000000000001 /* RegisterUserUseCase.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		9311E8952FFBD579006045C4 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8962FFBD908006045C4 /* Entity */,
+				9300757126877BAB005A4DE0 /* Router */,
+				93BF62C9262C55A700DDFB44 /* ViewControllerFactory */,
+				93142728262B5A8100542EFC /* ViewModel */,
+				93142727262B5A7B00542EFC /* UI */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		9311E8962FFBD908006045C4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				93DF14082692069600A7A977 /* RegisterUser.swift */,
+				93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		9311E8992FFBD935006045C4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				93C2D1EA269F020600123216 /* Environment.swift */,
+				93C2D1EE269F1BFF00123216 /* Token.swift */,
+				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
+				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
+				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		931426D7262B53AD00542EFC = {
 			isa = PBXGroup;
 			children = (
@@ -692,13 +753,11 @@
 		93142716262B57C300542EFC /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				93CC6599269CEAE600949534 /* EntityFactory */,
+				9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */,
+				9311E8952FFBD579006045C4 /* Presentation */,
+				9311E8942FFBD50C006045C4 /* Domain */,
+				9311E8932FFBD4FE006045C4 /* Data */,
 				93DF140E26920A2C00A7A977 /* Service */,
-				93A7E2652691D768001D6AEF /* Entity */,
-				9300757126877BAB005A4DE0 /* Router */,
-				93BF62C9262C55A700DDFB44 /* ViewControllerFactory */,
-				93142728262B5A8100542EFC /* ViewModel */,
-				93142727262B5A7B00542EFC /* UI */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -1240,20 +1299,6 @@
 			path = Register;
 			sourceTree = "<group>";
 		};
-		93A7E2652691D768001D6AEF /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */,
-				93DF14082692069600A7A977 /* RegisterUser.swift */,
-				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
-				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
-				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
-				93C2D1EA269F020600123216 /* Environment.swift */,
-				93C2D1EE269F1BFF00123216 /* Token.swift */,
-			);
-			path = Entity;
-			sourceTree = "<group>";
-		};
 		93A7E2692691DFC4001D6AEF /* TextFields */ = {
 			isa = PBXGroup;
 			children = (
@@ -1391,14 +1436,6 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		93CC6599269CEAE600949534 /* EntityFactory */ = {
-			isa = PBXGroup;
-			children = (
-				9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */,
-			);
-			path = EntityFactory;
-			sourceTree = "<group>";
-		};
 		93CC659C269CED3D00949534 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -1432,7 +1469,6 @@
 			children = (
 				93DF140F26920A4600A7A977 /* RegisterUserService.swift */,
 				93DF14202692262900A7A977 /* LoginUserService.swift */,
-				93DF14262692268F00A7A977 /* ForgotPasswordService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1704,6 +1740,11 @@
 				936035C9268916B20080C771 /* SetupScreen.swift in Sources */,
 				93171D8A273C0A140038B2B2 /* FindingMapper.swift in Sources */,
 				93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */,
+				A10000042FFD000000000001 /* AuthUseCase.swift in Sources */,
+				A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */,
+				A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */,
+				A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */,
+				A100000A2FFD000000000001 /* RegisterUserEndpoint.swift in Sources */,
 				936616D3270393DC00F02A83 /* NewTaxonImageView.swift in Sources */,
 				938D93662706522C0068E27C /* NoImagesAddedView.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
@@ -1832,7 +1873,6 @@
 				93565D2326F7270B00A588E6 /* NewTaxonScreen.swift in Sources */,
 				933EF7F626EFBAD800F1EBC4 /* PopUpConfirmScreen.swift in Sources */,
 				93A7E27A2691F721001D6AEF /* RegisterStepOneScreen.swift in Sources */,
-				93DF14272692268F00A7A977 /* ForgotPasswordService.swift in Sources */,
 				93565D1D26F723BF00A588E6 /* TaxonViewControllerFactory.swift in Sources */,
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				93171D88273BDBFD0038B2B2 /* PostFindingImageService.swift in Sources */,

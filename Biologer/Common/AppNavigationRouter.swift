@@ -77,7 +77,6 @@ public final class AppNavigationRouter: NavigationRouter {
     private lazy var authorizationRouter: AuthorizationRouter = {
         let loginService = RemoteLoginUserService(client: httpClient, environmentStorage: environmentStorage)
         let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
-        let forgotPasswordService = RemoteForgotPasswordService(client: httpClient)
         
         let authorization =  AuthorizationRouter(factory: authorizationFactory,
                                    commonViewControllerFactory: commonViewControllerFactory,
@@ -86,7 +85,6 @@ public final class AppNavigationRouter: NavigationRouter {
                                    navigationController: mainNavigationController,
                                    loginService: loginService,
                                    registerService: registerService,
-                                   forgotPasswordService: forgotPasswordService,
                                    environmentStorage: environmentStorage,
                                    tokenStorage: tokenStorage,
                                    dataLicenseStorage: dataLicenseStorage,
