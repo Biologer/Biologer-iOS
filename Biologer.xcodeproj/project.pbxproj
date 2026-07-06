@@ -95,7 +95,6 @@
 		93390DAF2703010B00DD68CE /* NewTaxonLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */; };
 		93390DB12703077F00DD68CE /* NewTaxonSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */; };
 		933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */; };
-		933EF7E526EE33F000F1EBC4 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */; };
 		933EF7F626EFBAD800F1EBC4 /* PopUpConfirmScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F526EFBAD800F1EBC4 /* PopUpConfirmScreen.swift */; };
 		933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */; };
 		933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift */; };
@@ -363,7 +362,6 @@
 		93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonLocationViewModel.swift; sourceTree = "<group>"; };
 		93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonSectionView.swift; sourceTree = "<group>"; };
 		933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
-		933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
 		933EF7F526EFBAD800F1EBC4 /* PopUpConfirmScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpConfirmScreen.swift; sourceTree = "<group>"; };
 		933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerFactory.swift; sourceTree = "<group>"; };
 		933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAlertViewControllerFactory.swift; sourceTree = "<group>"; };
@@ -776,7 +774,6 @@
 		93142728262B5A8100542EFC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				933EF7E326EE33DA00F1EBC4 /* Splash */,
 				93A7E25D2691D5B0001D6AEF /* Login */,
 				93A7E25E2691D5CB001D6AEF /* Register */,
 				93CC659D269CED5A00949534 /* Helpers */,
@@ -1004,14 +1001,6 @@
 				937F827F26F7A2B200593786 /* SideMenuMapper.swift */,
 			);
 			path = SideMenuScreen;
-			sourceTree = "<group>";
-		};
-		933EF7E326EE33DA00F1EBC4 /* Splash */ = {
-			isa = PBXGroup;
-			children = (
-				933EF7E426EE33F000F1EBC4 /* SplashScreenViewModel.swift */,
-			);
-			path = Splash;
 			sourceTree = "<group>";
 		};
 		933EF7E626EE365E00F1EBC4 /* Splash Screen */ = {
@@ -1695,7 +1684,6 @@
 				93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */,
 				9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */,
 				931B9DA927669F2000043BED /* LottieAnimationView.swift in Sources */,
-				933EF7E526EE33F000F1EBC4 /* SplashScreenViewModel.swift in Sources */,
 				935AF67426F68C7D00C56D46 /* SetupDownloadAndUploadMapper.swift in Sources */,
 				93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */,
 				9314274B262B6CF600542EFC /* LoginScreenViewModel.swift in Sources */,

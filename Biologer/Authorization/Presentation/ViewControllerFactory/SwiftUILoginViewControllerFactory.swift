@@ -101,8 +101,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
     }
     
     public func makeSplashScreen(onSplashScreenDone: @escaping Observer<Void>) -> UIViewController {
-        let viewModel = SplashScreenViewModel(onSplashScreenDone: onSplashScreenDone)
-        let screen = SplashScreen(viewModel: viewModel)
+        let screen = SplashScreen(onSplashScreenDone: onSplashScreenDone)
         let controller = UIHostingController(rootView: screen)
         return controller
     }

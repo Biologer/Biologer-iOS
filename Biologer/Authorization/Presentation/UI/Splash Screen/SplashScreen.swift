@@ -9,24 +9,34 @@ import SwiftUI
 
 struct SplashScreen: View {
     
-    var viewModel: SplashScreenViewModel
+    private var timer = Timer()
+    private let onSplashScreenDone: Observer<Void>
+    
+    init(onSplashScreenDone: @escaping Observer<Void>) {
+        self.onSplashScreenDone = onSplashScreenDone
+    }
     
     var body: some View {
         VStack {
-            Image(viewModel.image)
+            Image("biologer_logo_icon")
                 .resizable()
                 .scaledToFit()
         }
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(.all)
         .onAppear {
-            viewModel.goToLoginScreen()
+            Timer.scheduledTimer(
+                withTimeInterval: 1.0,
+                repeats: false)
+            { _ in
+                onSplashScreenDone(())
+            }
         }
     }
 }
 
 struct SplashScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SplashScreen(viewModel: SplashScreenViewModel(onSplashScreenDone: { _ in}))
+        SplashScreen(onSplashScreenDone: { })
     }
 }
