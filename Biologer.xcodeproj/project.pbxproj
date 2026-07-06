@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -504,6 +504,10 @@
 		93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreenViewModel.swift; sourceTree = "<group>"; };
 		93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9311E7FD2FFBC258006045C4 /* APIClient */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = APIClient; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		931426DD262B53AD00542EFC /* Frameworks */ = {
@@ -1436,6 +1440,7 @@
 		93DF14152692223F00A7A977 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				9311E7FD2FFBC258006045C4 /* APIClient */,
 				93DF14162692224D00A7A977 /* HTTPClient.swift */,
 				93DF14182692228900A7A977 /* URLSessionHTTPClient.swift */,
 				93DF141A269222AF00A7A977 /* CodableParser.swift */,
@@ -1478,6 +1483,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9311E7FD2FFBC258006045C4 /* APIClient */,
 			);
 			name = Biologer;
 			packageProductDependencies = (
@@ -1568,14 +1576,14 @@
 			);
 			mainGroup = 931426D7262B53AD00542EFC;
 			packageReferences = (
-				E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper.git" */,
-				3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu.git" */,
-				168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */,
-				F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk.git" */,
-				A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift.git" */,
-				9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift.git" */,
-				DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios.git" */,
-				94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift.git" */,
+				E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu" */,
+				168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
+				F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk" */,
+				A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
+				DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift" */,
 			);
 			productRefGroup = 931426E1262B53AD00542EFC /* Products */;
 			projectDirPath = "";
@@ -2205,7 +2213,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */ = {
+		168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googlemaps/ios-maps-sdk.git";
 			requirement = {
@@ -2213,7 +2221,7 @@
 				version = 8.3.1;
 			};
 		};
-		3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu.git" */ = {
+		3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jonkykong/SideMenu.git";
 			requirement = {
@@ -2221,7 +2229,7 @@
 				version = 6.5.0;
 			};
 		};
-		94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift.git" */ = {
+		94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yaslab/CSV.swift.git";
 			requirement = {
@@ -2229,7 +2237,7 @@
 				version = 2.5.2;
 			};
 		};
-		9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift.git" */ = {
+		9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
 			requirement = {
@@ -2237,7 +2245,7 @@
 				version = 5.0.0;
 			};
 		};
-		A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift.git" */ = {
+		A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
@@ -2245,7 +2253,7 @@
 				version = 10.25.0;
 			};
 		};
-		DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios.git" */ = {
+		DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
 			requirement = {
@@ -2253,7 +2261,7 @@
 				version = 3.3.0;
 			};
 		};
-		E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper.git" */ = {
+		E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper.git";
 			requirement = {
@@ -2261,7 +2269,7 @@
 				version = 4.0.1;
 			};
 		};
-		F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk.git" */ = {
+		F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googlemaps/ios-places-sdk.git";
 			requirement = {
@@ -2274,52 +2282,52 @@
 /* Begin XCSwiftPackageProductDependency section */
 		20AA770440D603BCEC136BE7 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
+			package = A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 		24C5EBBB9744C818E9567D52 /* SideMenu */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu.git" */;
+			package = 3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu" */;
 			productName = SideMenu;
 		};
 		57F87B1337474A625678D363 /* GooglePlaces */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk.git" */;
+			package = F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk" */;
 			productName = GooglePlaces;
 		};
 		5896F8DE7867D8B66D3E94D8 /* GoogleMaps */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */;
+			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
 			productName = GoogleMaps;
 		};
 		5E9386650B33D0CB40ABB20C /* Reachability */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift.git" */;
+			package = 9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
 			productName = Reachability;
 		};
 		6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper.git" */;
+			package = E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
 		};
 		7BECEBE942BE77AE1E3A29CA /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios.git" */;
+			package = DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
 		7DA759BF9731C6666BBC73B4 /* CSV */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift.git" */;
+			package = 94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift" */;
 			productName = CSV;
 		};
 		F5254AA56B7F8B2BF18358A5 /* GoogleMapsBase */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */;
+			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
 			productName = GoogleMapsBase;
 		};
 		F8A9ECBAE4415F491D84EB6A /* GoogleMapsCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */;
+			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
 			productName = GoogleMapsCore;
 		};
 /* End XCSwiftPackageProductDependency section */
