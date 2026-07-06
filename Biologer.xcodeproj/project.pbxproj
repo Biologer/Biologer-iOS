@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B98121D9B5C435195334A6F /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 24C5EBBB9744C818E9567D52 /* SideMenu */; };
+		2E14D0DD8F2CD7F439564B3C /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = 57F87B1337474A625678D363 /* GooglePlaces */; };
 		354D33A62E251FB200CE3D8D /* dev_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A22E251FB200CE3D8D /* dev_taxa.csv */; };
 		354D33A72E251FB200CE3D8D /* me_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A42E251FB200CE3D8D /* me_taxa.csv */; };
 		354D33A82E251FB200CE3D8D /* ba_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A12E251FB200CE3D8D /* ba_taxa.csv */; };
 		354D33A92E251FB200CE3D8D /* rs_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A52E251FB200CE3D8D /* rs_taxa.csv */; };
 		354D33AA2E251FB200CE3D8D /* hr_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A32E251FB200CE3D8D /* hr_taxa.csv */; };
+		37A91D690FB26CFE4FD5A28F /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 5896F8DE7867D8B66D3E94D8 /* GoogleMaps */; };
+		48EAC3EA0A8BF6975ED56472 /* GoogleMapsBase in Frameworks */ = {isa = PBXBuildFile; productRef = F5254AA56B7F8B2BF18358A5 /* GoogleMapsBase */; };
+		5CD8ABFF6D60438625D7FBE0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7BECEBE942BE77AE1E3A29CA /* Lottie */; };
+		7DE140D5F1E34A254DC8F49C /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = F8A9ECBAE4415F491D84EB6A /* GoogleMapsCore */; };
 		9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757226877BDE005A4DE0 /* AuthorizationRouter.swift */; };
 		9300757626877C6B005A4DE0 /* SideMenuRouterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757526877C6B005A4DE0 /* SideMenuRouterRouter.swift */; };
 		9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */; };
@@ -59,7 +65,6 @@
 		931D3FEF274ABCCD00352C8E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FEE274ABCCC00352C8E /* Settings.swift */; };
 		931D3FF1274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FF0274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift */; };
 		931D3FF3274AD6C800352C8E /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FF2274AD6C800352C8E /* CheckInternetConnection.swift */; };
-		9320DE9029352EF6009FD87D /* EnvironmentConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320DE8F29352EF6009FD87D /* EnvironmentConstants.swift */; };
 		9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320DE9129352EFF009FD87D /* APIConstants.swift */; };
 		9320E03027519933006812E5 /* DownloadTaxonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320E02F27519933006812E5 /* DownloadTaxonRouter.swift */; };
 		9320E0322752A880006812E5 /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320E0312752A880006812E5 /* UserDefaultsConstants.swift */; };
@@ -106,6 +111,7 @@
 		93565D2B26F72BD500A588E6 /* NoInternetConnectionValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */; };
 		93565D3026F736B900A588E6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93565D3226F736B900A588E6 /* Localizable.strings */; };
 		93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D3626F7397000A588E6 /* String+Extensions.swift */; };
+		93593DEF2FFBA9CC00DB36AF /* EnvironmentsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93593DEE2FFBA9C000DB36AF /* EnvironmentsConstants.swift */; };
 		935AF66226F6384200C56D46 /* SetupViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */; };
 		935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66326F6386800C56D46 /* SetupRouter.swift */; };
 		935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */; };
@@ -231,9 +237,10 @@
 		93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */; };
 		93EB965F270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */; };
 		93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */; };
-		B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */; };
-		C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */; };
-		F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */; };
+		A69400C2B1422A8EBB645F1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20AA770440D603BCEC136BE7 /* RealmSwift */; };
+		B2F6E59410152D518B73140F /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 5E9386650B33D0CB40ABB20C /* Reachability */; };
+		DE04B675C7024DC8452D3AA2 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA759BF9731C6666BBC73B4 /* CSV */; };
+		E32762F717E4474CF6020981 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,17 +261,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BiologerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		354D33A12E251FB200CE3D8D /* ba_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = ba_taxa.csv; sourceTree = "<group>"; };
 		354D33A22E251FB200CE3D8D /* dev_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = dev_taxa.csv; sourceTree = "<group>"; };
 		354D33A32E251FB200CE3D8D /* hr_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = hr_taxa.csv; sourceTree = "<group>"; };
 		354D33A42E251FB200CE3D8D /* me_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = me_taxa.csv; sourceTree = "<group>"; };
 		354D33A52E251FB200CE3D8D /* rs_taxa.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = rs_taxa.csv; sourceTree = "<group>"; };
-		534595C1EB53EE85C27AD890 /* Pods-Biologer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.release.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.release.xcconfig"; sourceTree = "<group>"; };
-		545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer_BiologerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		56F4E9D04F054E60B925362C /* Pods-Biologer-BiologerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer-BiologerUITests.release.xcconfig"; path = "Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests.release.xcconfig"; sourceTree = "<group>"; };
-		587324BB1511E727E00BCB3C /* Pods-Biologer-BiologerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer-BiologerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		880FE57049F9C25404FF0017 /* Pods-BiologerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.debug.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9300757226877BDE005A4DE0 /* AuthorizationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouter.swift; sourceTree = "<group>"; };
 		9300757526877C6B005A4DE0 /* SideMenuRouterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouterRouter.swift; sourceTree = "<group>"; };
 		9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewControllerFactory.swift; sourceTree = "<group>"; };
@@ -318,7 +319,6 @@
 		931D3FEE274ABCCC00352C8E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		931D3FF0274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSettingsStorage.swift; sourceTree = "<group>"; };
 		931D3FF2274AD6C800352C8E /* CheckInternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetConnection.swift; sourceTree = "<group>"; };
-		9320DE8F29352EF6009FD87D /* EnvironmentConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentConstants.swift; sourceTree = "<group>"; };
 		9320DE9129352EFF009FD87D /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		9320E02F27519933006812E5 /* DownloadTaxonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaxonRouter.swift; sourceTree = "<group>"; };
 		9320E0312752A880006812E5 /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
@@ -366,7 +366,6 @@
 		933EF7FB26F08AC000F1EBC4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		9342575826925B9F00B8C912 /* AttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextView.swift; sourceTree = "<group>"; };
 		934C8F2627315CC30094D1E7 /* DBObservationMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBObservationMapper.swift; sourceTree = "<group>"; };
-		934F36E62933E183007394CE /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9351D4542779E73B0091D4D9 /* FontConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConstants.swift; sourceTree = "<group>"; };
 		9351D4562779E8BB0091D4D9 /* Font+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
 		93565D1C26F723BF00A588E6 /* TaxonViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonViewControllerFactory.swift; sourceTree = "<group>"; };
@@ -378,6 +377,7 @@
 		93565D3326F7372300A588E6 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		93565D3526F7378600A588E6 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		93565D3626F7397000A588E6 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		93593DEE2FFBA9C000DB36AF /* EnvironmentsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentsConstants.swift; sourceTree = "<group>"; };
 		935AF66126F6384200C56D46 /* SetupViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewControllerFactory.swift; sourceTree = "<group>"; };
 		935AF66326F6386800C56D46 /* SetupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRouter.swift; sourceTree = "<group>"; };
 		935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItemMapper.swift; sourceTree = "<group>"; };
@@ -503,9 +503,6 @@
 		93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTaxonsPaginationInfoStorage.swift; sourceTree = "<group>"; };
 		93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreenViewModel.swift; sourceTree = "<group>"; };
 		93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreen.swift; sourceTree = "<group>"; };
-		9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biologer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BiologerTests.release.xcconfig"; path = "Target Support Files/Pods-BiologerTests/Pods-BiologerTests.release.xcconfig"; sourceTree = "<group>"; };
-		EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biologer.debug.xcconfig"; path = "Target Support Files/Pods-Biologer/Pods-Biologer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -513,7 +510,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C559402F2CFF3AD5DD56AD7E /* Pods_Biologer.framework in Frameworks */,
+				E32762F717E4474CF6020981 /* SwiftKeychainWrapper in Frameworks */,
+				2B98121D9B5C435195334A6F /* SideMenu in Frameworks */,
+				37A91D690FB26CFE4FD5A28F /* GoogleMaps in Frameworks */,
+				2E14D0DD8F2CD7F439564B3C /* GooglePlaces in Frameworks */,
+				A69400C2B1422A8EBB645F1F /* RealmSwift in Frameworks */,
+				B2F6E59410152D518B73140F /* Reachability in Frameworks */,
+				5CD8ABFF6D60438625D7FBE0 /* Lottie in Frameworks */,
+				DE04B675C7024DC8452D3AA2 /* CSV in Frameworks */,
+				48EAC3EA0A8BF6975ED56472 /* GoogleMapsBase in Frameworks */,
+				7DE140D5F1E34A254DC8F49C /* GoogleMapsCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,7 +527,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F83722FF66E056FC2EB54206 /* Pods_BiologerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,7 +534,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B46E9148E4FB81F4CBDC265D /* Pods_Biologer_BiologerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,25 +555,8 @@
 		51038DCC21EB3114DDE94ED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				934F36E62933E183007394CE /* Lottie.framework */,
-				9B9C861580E98E7833B46B72 /* Pods_Biologer.framework */,
-				545EE77DB0C10691CF26B0F3 /* Pods_Biologer_BiologerUITests.framework */,
-				2EBB012B746A3AD164932C53 /* Pods_BiologerTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		70EE90F090EA9C9F2C789024 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */,
-				534595C1EB53EE85C27AD890 /* Pods-Biologer.release.xcconfig */,
-				587324BB1511E727E00BCB3C /* Pods-Biologer-BiologerUITests.debug.xcconfig */,
-				56F4E9D04F054E60B925362C /* Pods-Biologer-BiologerUITests.release.xcconfig */,
-				880FE57049F9C25404FF0017 /* Pods-BiologerTests.debug.xcconfig */,
-				C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		9300757126877BAB005A4DE0 /* Router */ = {
@@ -637,7 +624,6 @@
 				931426F9262B53B100542EFC /* BiologerTests */,
 				93142704262B53B100542EFC /* BiologerUITests */,
 				931426E1262B53AD00542EFC /* Products */,
-				70EE90F090EA9C9F2C789024 /* Pods */,
 				51038DCC21EB3114DDE94ED8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -837,8 +823,8 @@
 		931D3FE42748189200352C8E /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				93593DEE2FFBA9C000DB36AF /* EnvironmentsConstants.swift */,
 				9320DE9129352EFF009FD87D /* APIConstants.swift */,
-				9320DE8F29352EF6009FD87D /* EnvironmentConstants.swift */,
 				9320E0312752A880006812E5 /* UserDefaultsConstants.swift */,
 				9351D4542779E73B0091D4D9 /* FontConstants.swift */,
 			);
@@ -1485,18 +1471,27 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9314270A262B53B100542EFC /* Build configuration list for PBXNativeTarget "Biologer" */;
 			buildPhases = (
-				C414B30154F593F7203E649E /* [CP] Check Pods Manifest.lock */,
 				931426DC262B53AD00542EFC /* Sources */,
 				931426DD262B53AD00542EFC /* Frameworks */,
 				931426DE262B53AD00542EFC /* Resources */,
-				5F2B432CB521478D7B9FADFD /* [CP] Embed Pods Frameworks */,
-				9202EB06CD0BAFF073AE0C1B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Biologer;
+			packageProductDependencies = (
+				6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */,
+				24C5EBBB9744C818E9567D52 /* SideMenu */,
+				5896F8DE7867D8B66D3E94D8 /* GoogleMaps */,
+				57F87B1337474A625678D363 /* GooglePlaces */,
+				20AA770440D603BCEC136BE7 /* RealmSwift */,
+				5E9386650B33D0CB40ABB20C /* Reachability */,
+				7BECEBE942BE77AE1E3A29CA /* Lottie */,
+				7DA759BF9731C6666BBC73B4 /* CSV */,
+				F5254AA56B7F8B2BF18358A5 /* GoogleMapsBase */,
+				F8A9ECBAE4415F491D84EB6A /* GoogleMapsCore */,
+			);
 			productName = Biologer;
 			productReference = 931426E0262B53AD00542EFC /* Biologer.app */;
 			productType = "com.apple.product-type.application";
@@ -1505,7 +1500,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9314270D262B53B100542EFC /* Build configuration list for PBXNativeTarget "BiologerTests" */;
 			buildPhases = (
-				9AE8EDDA5441CB934C91C669 /* [CP] Check Pods Manifest.lock */,
 				931426F2262B53B000542EFC /* Sources */,
 				931426F3262B53B000542EFC /* Frameworks */,
 				931426F4262B53B000542EFC /* Resources */,
@@ -1524,12 +1518,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93142710262B53B100542EFC /* Build configuration list for PBXNativeTarget "BiologerUITests" */;
 			buildPhases = (
-				472A9DD8039557A3CA901A25 /* [CP] Check Pods Manifest.lock */,
 				931426FD262B53B100542EFC /* Sources */,
 				931426FE262B53B100542EFC /* Frameworks */,
 				931426FF262B53B100542EFC /* Resources */,
-				E818B131B5C5EB719354B38C /* [CP] Embed Pods Frameworks */,
-				088B6AB857F691E7E1264AB0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1576,6 +1567,16 @@
 				bs,
 			);
 			mainGroup = 931426D7262B53AD00542EFC;
+			packageReferences = (
+				E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper.git" */,
+				3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu.git" */,
+				168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */,
+				F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk.git" */,
+				A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift.git" */,
+				9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift.git" */,
+				DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios.git" */,
+				94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift.git" */,
+			);
 			productRefGroup = 931426E1262B53AD00542EFC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1629,159 +1630,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		088B6AB857F691E7E1264AB0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		472A9DD8039557A3CA901A25 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Biologer-BiologerUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5F2B432CB521478D7B9FADFD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9202EB06CD0BAFF073AE0C1B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Biologer/Pods-Biologer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9AE8EDDA5441CB934C91C669 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BiologerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C414B30154F593F7203E649E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Biologer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E818B131B5C5EB719354B38C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Biologer-BiologerUITests/Pods-Biologer-BiologerUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		931426DC262B53AD00542EFC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1795,7 +1643,6 @@
 				93CC658B269C401300949534 /* APIRequest.swift in Sources */,
 				93B0C1BC29094D9F002B92B3 /* UIView+Extensions.swift in Sources */,
 				938D935F270631960068E27C /* ImagesPreviewScreenViewModel.swift in Sources */,
-				9320DE9029352EF6009FD87D /* EnvironmentConstants.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				935AF66826F66F6C00C56D46 /* SetupProjectNameScreen.swift in Sources */,
 				93E3CBF22737EF240090FF93 /* TaxonsPaginationInfo.swift in Sources */,
@@ -1818,6 +1665,7 @@
 				936219F8271C44AE00BAEF8F /* DBAtlasCodeMapper.swift in Sources */,
 				93334EB52677E17B0094A483 /* Finding.swift in Sources */,
 				9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */,
+				93593DEF2FFBA9CC00DB36AF /* EnvironmentsConstants.swift in Sources */,
 				936219FA271C482900BAEF8F /* DBFindingTaxon.swift in Sources */,
 				93334EAF2677DE720094A483 /* ListOfFindingsScreen.swift in Sources */,
 				93390DB12703077F00DD68CE /* NewTaxonSectionView.swift in Sources */,
@@ -2185,7 +2033,6 @@
 		};
 		9314270B262B53B100542EFC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE490ACF3FA258237A881DC4 /* Pods-Biologer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2210,7 +2057,6 @@
 		};
 		9314270C262B53B100542EFC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 534595C1EB53EE85C27AD890 /* Pods-Biologer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2235,7 +2081,6 @@
 		};
 		9314270E262B53B100542EFC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 880FE57049F9C25404FF0017 /* Pods-BiologerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2258,7 +2103,6 @@
 		};
 		9314270F262B53B100542EFC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C574A26A3E11695E7668F719 /* Pods-BiologerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2281,7 +2125,6 @@
 		};
 		93142711262B53B100542EFC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 587324BB1511E727E00BCB3C /* Pods-Biologer-BiologerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -2302,7 +2145,6 @@
 		};
 		93142712262B53B100542EFC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56F4E9D04F054E60B925362C /* Pods-Biologer-BiologerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -2361,6 +2203,126 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googlemaps/ios-maps-sdk.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.3.1;
+			};
+		};
+		3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jonkykong/SideMenu.git";
+			requirement = {
+				kind = exactVersion;
+				version = 6.5.0;
+			};
+		};
+		94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yaslab/CSV.swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.5.2;
+			};
+		};
+		9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.0;
+			};
+		};
+		A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.25.0;
+			};
+		};
+		DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.3.0;
+			};
+		};
+		E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper.git";
+			requirement = {
+				kind = exactVersion;
+				version = 4.0.1;
+			};
+		};
+		F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googlemaps/ios-places-sdk.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		20AA770440D603BCEC136BE7 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
+			productName = RealmSwift;
+		};
+		24C5EBBB9744C818E9567D52 /* SideMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu.git" */;
+			productName = SideMenu;
+		};
+		57F87B1337474A625678D363 /* GooglePlaces */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk.git" */;
+			productName = GooglePlaces;
+		};
+		5896F8DE7867D8B66D3E94D8 /* GoogleMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */;
+			productName = GoogleMaps;
+		};
+		5E9386650B33D0CB40ABB20C /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift.git" */;
+			productName = Reachability;
+		};
+		6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper.git" */;
+			productName = SwiftKeychainWrapper;
+		};
+		7BECEBE942BE77AE1E3A29CA /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios.git" */;
+			productName = Lottie;
+		};
+		7DA759BF9731C6666BBC73B4 /* CSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift.git" */;
+			productName = CSV;
+		};
+		F5254AA56B7F8B2BF18358A5 /* GoogleMapsBase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */;
+			productName = GoogleMapsBase;
+		};
+		F8A9ECBAE4415F491D84EB6A /* GoogleMapsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk.git" */;
+			productName = GoogleMapsCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 931426D8262B53AD00542EFC /* Project object */;
 }
