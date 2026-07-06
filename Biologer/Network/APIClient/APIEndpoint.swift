@@ -3,6 +3,7 @@ import Foundation
 protocol APIEndpoint {
     associatedtype Response: Decodable
 
+    var host: String { get }
     var path: String { get }
     var method: APIHTTPMethod { get }
     var queryItems: [URLQueryItem] { get }

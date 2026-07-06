@@ -8,12 +8,11 @@ final class APIClient: APIClientProtocol {
 
     init(
         session: URLSession = .shared,
-        environment: APIEnvironment,
         responseValidator: APIResponseValidating = APIResponseValidator(),
         responseDecoder: APIResponseDecoding = APIResponseDecoder()
     ) {
         self.session = session
-        self.requestBuilder = URLRequestBuilder(environment: environment)
+        self.requestBuilder = URLRequestBuilder()
         self.responseValidator = responseValidator
         self.responseDecoder = responseDecoder
     }
@@ -41,7 +40,8 @@ final class APIClient: APIClientProtocol {
         } catch let error as APIClientError {
             throw error
         } catch {
-            throw APIClientError.requestFailed(error.localizedDescription)
+            let nsError = error as NSError
+            throw APIClientError.requestFailed(message: error.localizedDescription, code: nsError.code)
         }
     }
 }

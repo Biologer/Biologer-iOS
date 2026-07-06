@@ -11,7 +11,7 @@ enum APIClientError: LocalizedError, Equatable {
     case validationFailed(APIErrorPayload?)
     case serverError(statusCode: Int, response: APIErrorPayload?)
     case decodingFailed(String)
-    case requestFailed(String)
+    case requestFailed(message: String, code: Int?)
     case missingMockResponse(String)
 
     var errorDescription: String? {
@@ -36,7 +36,7 @@ enum APIClientError: LocalizedError, Equatable {
             return response?.displayMessage ?? "Server error with status code: \(statusCode)."
         case .decodingFailed(let message):
             return "Decoding failed: \(message)"
-        case .requestFailed(let message):
+        case .requestFailed(let message, _):
             return message
         case .missingMockResponse(let endpoint):
             return "No mock response configured for \(endpoint)."

@@ -1,14 +1,17 @@
 import Foundation
 
 struct URLRequestBuilder {
-    private let environment: APIEnvironment
+    private let scheme: String
+    private let pathPrefix: String
     private let bodyEncoder: JSONEncoder
 
     init(
-        environment: APIEnvironment,
+        scheme: String = "https",
+        pathPrefix: String = "",
         bodyEncoder: JSONEncoder = JSONEncoder()
     ) {
-        self.environment = environment
+        self.scheme = scheme
+        self.pathPrefix = pathPrefix
         self.bodyEncoder = bodyEncoder
     }
 
@@ -34,14 +37,14 @@ struct URLRequestBuilder {
     }
 
     private func buildURL<E: APIEndpoint>(from endpoint: E) throws -> URL {
-        guard !environment.scheme.isEmpty, !environment.host.isEmpty else {
+        guard !scheme.isEmpty, !endpoint.host.isEmpty else {
             throw APIClientError.invalidBaseURL
         }
 
         var components = URLComponents()
-        components.scheme = environment.scheme
-        components.host = environment.host
-        components.path = joinedPath(prefix: environment.pathPrefix, path: endpoint.path)
+        components.scheme = scheme
+        components.host = endpoint.host
+        components.path = joinedPath(prefix: pathPrefix, path: endpoint.path)
 
         if !endpoint.queryItems.isEmpty {
             components.queryItems = endpoint.queryItems
