@@ -6,7 +6,146 @@
 //
 
 import SwiftUI
-import MaterialComponents.MaterialTextControls_OutlinedTextFields
+
+public final class BiologerOutlinedTextFieldView: UIView {
+    let textField = UITextField()
+    private let titleLabel = UILabel()
+    private let assistiveLabel = UILabel()
+    private let containerView = UIView()
+    private let trailingContainer = UIView()
+    private var trailingView: UIView?
+    private var isEditingText = false
+    private var fieldType: MaterialDesignTextFieldType = .success
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUpView()
+    }
+    
+    public override var intrinsicContentSize: CGSize {
+        CGSize(width: UIView.noIntrinsicMetric, height: 66)
+    }
+    
+    func configure(viewModel: MaterialDesignTextFieldViewModelProtocol,
+                   textAligment: NSTextAlignment,
+                   icon: UIView?,
+                   onIconTapped: (() -> Void)?) {
+        fieldType = viewModel.type
+        isUserInteractionEnabled = viewModel.isUserInteractionEnabled
+        titleLabel.text = viewModel.placeholder
+        assistiveLabel.text = viewModel.getErrorText()
+        textField.textAlignment = textAligment
+        textField.attributedPlaceholder = NSAttributedString(
+            string: viewModel.placeholder,
+            attributes: [.paragraphStyle: paragraphStyle(alignment: viewModel.textAligment)]
+        )
+        textField.isSecureTextEntry = viewModel.isCodeEntry
+        if textField.text != viewModel.text {
+            textField.text = viewModel.text
+        }
+        
+        setTrailingIcon(icon, onIconTapped: onIconTapped)
+        applyColors()
+    }
+    
+    func setEditing(_ isEditing: Bool) {
+        isEditingText = isEditing
+        applyColors()
+    }
+    
+    private func setUpView() {
+        containerView.layer.cornerRadius = 4
+        containerView.layer.borderWidth = 1
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        titleLabel.font = UIFont.systemFont(ofSize: descriptionFontSize)
+        titleLabel.backgroundColor = .systemBackground
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        assistiveLabel.font = UIFont.systemFont(ofSize: descriptionFontSize)
+        assistiveLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        textField.font = UIFont.systemFont(ofSize: titleFontSize)
+        textField.returnKeyType = .done
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        trailingContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(containerView)
+        addSubview(titleLabel)
+        addSubview(assistiveLabel)
+        containerView.addSubview(textField)
+        containerView.addSubview(trailingContainer)
+        
+        NSLayoutConstraint.activate([
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            containerView.heightAnchor.constraint(equalToConstant: 44),
+            
+            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            titleLabel.centerYAnchor.constraint(equalTo: containerView.topAnchor),
+            
+            textField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            textField.trailingAnchor.constraint(equalTo: trailingContainer.leadingAnchor, constant: -8),
+            textField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+            textField.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -6),
+            
+            trailingContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
+            trailingContainer.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            trailingContainer.widthAnchor.constraint(equalToConstant: 28),
+            trailingContainer.heightAnchor.constraint(equalToConstant: 28),
+            
+            assistiveLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            assistiveLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            assistiveLabel.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 3),
+            assistiveLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor)
+        ])
+    }
+    
+    private func setTrailingIcon(_ icon: UIView?, onIconTapped: (() -> Void)?) {
+        trailingView?.removeFromSuperview()
+        trailingView = icon
+        trailingContainer.isHidden = icon == nil
+        
+        guard let icon else { return }
+        
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.contentMode = .scaleAspectFit
+        icon.addTapGestureRecognizer(action: onIconTapped)
+        trailingContainer.addSubview(icon)
+        
+        NSLayoutConstraint.activate([
+            icon.leadingAnchor.constraint(equalTo: trailingContainer.leadingAnchor),
+            icon.trailingAnchor.constraint(equalTo: trailingContainer.trailingAnchor),
+            icon.topAnchor.constraint(equalTo: trailingContainer.topAnchor),
+            icon.bottomAnchor.constraint(equalTo: trailingContainer.bottomAnchor)
+        ])
+    }
+    
+    private func applyColors() {
+        let hasFailure = fieldType == .failure
+        let activeColor = UIColor.biologerGreenColor
+        let normalColor = hasFailure ? UIColor.red : UIColor.gray
+        
+        textField.textColor = hasFailure && !isEditingText ? .red : .darkText
+        textField.tintColor = activeColor
+        titleLabel.textColor = isEditingText ? activeColor : normalColor
+        assistiveLabel.textColor = .red
+        containerView.layer.borderColor = (isEditingText ? activeColor : normalColor).cgColor
+    }
+    
+    private func paragraphStyle(alignment: NSTextAlignment) -> NSMutableParagraphStyle {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = alignment
+        return paragraphStyle
+    }
+}
 
 public struct MaterialDesignTextField: UIViewRepresentable {
     
@@ -27,90 +166,35 @@ public struct MaterialDesignTextField: UIViewRepresentable {
         self.textAligment = textAligment
     }
     
-    public func makeUIView(context: Context) -> MDCOutlinedTextField {
-        let textField = MDCOutlinedTextField()
-        textField.returnKeyType = .done
-        textField.keyboardType = keyboardType
-        textField.isUserInteractionEnabled = viewModel.isUserInteractionEnabled
-        textField.autocapitalizationType = keyboardType == .emailAddress ? .none : .sentences
-        textField.addTarget(context.coordinator, action: #selector(Coordinator.textViewDidChange), for: .editingChanged)
-        textField.delegate = context.coordinator
-        return textField
+    public func makeUIView(context: Context) -> BiologerOutlinedTextFieldView {
+        let view = BiologerOutlinedTextFieldView()
+        view.textField.keyboardType = keyboardType
+        view.textField.autocapitalizationType = keyboardType == .emailAddress ? .none : .sentences
+        view.textField.addTarget(context.coordinator, action: #selector(Coordinator.textViewDidChange), for: .editingChanged)
+        view.textField.delegate = context.coordinator
+        context.coordinator.textFieldView = view
+        return view
     }
     
-    public func updateUIView(_ textField: MDCOutlinedTextField, context: Context) {
-        setTextFieldTexts(textField: textField)
-        setTextFieldColors(textField: textField)
-        setTextFieldFonts(textField: textField)
-        setTextFieldTralingIcon(textField: textField)
-        textField.sizeToFit()
+    public func updateUIView(_ textField: BiologerOutlinedTextFieldView, context: Context) {
+        context.coordinator.viewModel = viewModel
+        context.coordinator.onTextChanged = onTextChanged
+        context.coordinator.onIconTapped = onIconTapped
+        textField.configure(viewModel: viewModel,
+                            textAligment: textAligment,
+                            icon: viewModel.getIconImageByType(),
+                            onIconTapped: { onIconTapped?(()) })
     }
-    
-    private func setTextFieldTexts(textField: MDCOutlinedTextField) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = viewModel.textAligment
-        textField.text = viewModel.text
-        textField.textAlignment = textAligment
-        textField.label.text = viewModel.placeholder
-        textField.attributedPlaceholder = NSAttributedString(string: viewModel.placeholder,
-                                                             attributes: [.paragraphStyle: paragraphStyle])
-        textField.leadingAssistiveLabel.text = viewModel.getErrorText()
-    }
-    
-    private func setTextFieldColors(textField: MDCOutlinedTextField) {
-        
-        textField.setTextColor(.darkText, for: .editing)
-        textField.setTextColor(viewModel.type == .failure ? .red : .darkText, for: .normal)
-        textField.tintColor = .biologerGreenColor
-        textField.setNormalLabelColor(.gray, for: .normal)
-        
-        textField.setFloatingLabelColor(viewModel.type == .failure ? .red : UIColor.gray, for: .normal)
-        textField.setFloatingLabelColor(.biologerGreenColor, for: .editing)
-        
-        textField.setLeadingAssistiveLabelColor(.red, for: .editing)
-        textField.setLeadingAssistiveLabelColor(.red, for: .normal)
-        
-        textField.setOutlineColor(viewModel.type == .failure ? .red : .gray, for: .normal)
-        textField.setOutlineColor(.biologerGreenColor, for: .editing)
-        textField.isSecureTextEntry = viewModel.isCodeEntry
-    }
-    
-    private func setTextFieldFonts(textField: MDCOutlinedTextField) {
-        textField.font = UIFont.systemFont(ofSize: titleFontSize)
-        textField.leadingAssistiveLabel.font = UIFont.systemFont(ofSize:descriptionFontSize)
-    }
-    
-    private func setTextFieldTralingIcon(textField: MDCOutlinedTextField) {
-        if let icon = viewModel.getIconImageByType() {
-            textField.trailingViewMode = .always
-//            if viewModel.isPassword {
-                icon.isUserInteractionEnabled = true
-            icon.addTapGestureRecognizer {
-                self.onIconTapped?(())
-            }
-//                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconTapped))
-//                icon.addGestureRecognizer(tapGesture)
-//            }
-            icon.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-            icon.contentMode = .scaleAspectFit
-            textField.trailingView = icon
-        } else {
-            textField.trailingView = nil
-        }
-    }
-    
-//    private func iconTapped() {
-//        self.onIconTapped?(())
-//    }
     
     public func makeCoordinator() -> MaterialDesignTextFieldDelegate {
         MaterialDesignTextFieldDelegate(viewModel: viewModel, onTextChanged: self.onTextChanged, onIconTapped: self.onIconTapped)
     }
     
     public class MaterialDesignTextFieldDelegate: NSObject, UITextFieldDelegate {
-        private var viewModel: MaterialDesignTextFieldViewModelProtocol
-        private var onTextChanged: Observer<String>
-        private var onIconTapped: Observer<Void>?
+        var viewModel: MaterialDesignTextFieldViewModelProtocol
+        var onTextChanged: Observer<String>
+        var onIconTapped: Observer<Void>?
+        weak var textFieldView: BiologerOutlinedTextFieldView?
         
         init(viewModel: MaterialDesignTextFieldViewModelProtocol,
              onTextChanged: @escaping Observer<String>,
@@ -127,9 +211,9 @@ public struct MaterialDesignTextField: UIViewRepresentable {
         }
         
         public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-            //self.onTextChanged((textField.text ?? ""))
             viewModel.text = textField.text ?? ""
             viewModel.type = .success
+            textFieldView?.setEditing(true)
             return true
         }
         
@@ -137,6 +221,7 @@ public struct MaterialDesignTextField: UIViewRepresentable {
             self.onTextChanged((textField.text ?? ""))
             viewModel.text = textField.text ?? ""
             viewModel.type = .success
+            textFieldView?.setEditing(false)
             return true
         }
         
