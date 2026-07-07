@@ -11,7 +11,7 @@ import SwiftUI
 public final class AuthorizationRouter {
     private let factory: AuthorizationViewControllerFactory
     private let navigationController: UINavigationController
-    private let loginService: LoginUserService
+    private let loginUseCase: LoginUserUseCase
     private let registerService: RegisterUserService
     private let commonViewControllerFactory: CommonViewControllerFactory
     private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
@@ -29,7 +29,7 @@ public final class AuthorizationRouter {
          swiftUICommonViewControllerFactory: CommonViewControllerFactory,
          swiftUIAlertViewControllerFactory: AlertViewControllerFactory,
          navigationController: UINavigationController,
-         loginService: LoginUserService,
+         loginUseCase: LoginUserUseCase,
          registerService: RegisterUserService,
          environmentStorage: EnvironmentStorage,
          tokenStorage: TokenStorage,
@@ -40,7 +40,7 @@ public final class AuthorizationRouter {
         self.swiftUICommonViewControllerFactory = swiftUICommonViewControllerFactory
         self.swiftUIAlertViewControllerFactory = swiftUIAlertViewControllerFactory
         self.navigationController = navigationController
-        self.loginService = loginService
+        self.loginUseCase = loginUseCase
         self.registerService = registerService
         self.environmentStorage = environmentStorage
         self.tokenStorage = tokenStorage
@@ -74,14 +74,13 @@ public final class AuthorizationRouter {
         environmentStorage.saveEnvironment(env: defaultEnv.env)
         selectedEnvironmentImage = defaultEnv.image
         
-        let loginViewController = factory.makeLoginScreen(service: loginService,
+        let loginViewController = factory.makeLoginScreen(useCase: loginUseCase,
                                                           environmentViewModel: defaultEnv,
                                                              onSelectEnvironmentTapped: { [weak self] env in
                                                                 self?.showEnvironmentScreen(selectedViewModel: env,
                                                                                             delegate: envDelegate)
                                                              },
-                                                             onLoginSuccess: { [weak self]  token in
-                                                                self?.tokenStorage.saveToken(token: token)
+                                                             onLoginSuccess: { [weak self] in
                                                                 self?.onLoginSuccess?(())
                                                              },
                                                              onLoginError: { error in

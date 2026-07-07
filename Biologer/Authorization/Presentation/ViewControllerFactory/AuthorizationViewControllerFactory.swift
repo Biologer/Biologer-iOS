@@ -8,10 +8,10 @@
 import UIKit
 
 public protocol AuthorizationViewControllerFactory {
-    func makeLoginScreen(service: LoginUserService,
+    func makeLoginScreen(useCase: LoginUserUseCase,
                          environmentViewModel: EnvironmentViewModel,
                          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
-                         onLoginSuccess: @escaping Observer<Token>,
+                         onLoginSuccess: @escaping Observer<Void>,
                          onLoginError: @escaping Observer<APIError>,
                          onRegisterTapped: @escaping Observer<Void>,
                          onForgotPasswordTapped: @escaping Observer<Void>,

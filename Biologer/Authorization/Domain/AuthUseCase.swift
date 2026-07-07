@@ -12,8 +12,8 @@ final class AuthUseCase {
         self.registerUseCase = registerUseCase
     }
 
-    func login(email: String, password: String) async throws -> LoginUserResponse {
-        try await loginUseCase.login(email: email, password: password)
+    func login(email: String, username: String, password: String) async throws -> Void {
+        try await loginUseCase.login(email: email, username: username, password: password)
     }
 
     func createUser(user: RegisterUser) async throws -> RegisterUserResponse {

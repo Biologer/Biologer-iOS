@@ -39,6 +39,15 @@ public final class AppNavigationRouter: NavigationRouter {
         return tokenRefreshDecorator
     }()
     
+    private lazy var apiHttpClient: APIClientProtocol = {
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 20
+        sessionConfig.timeoutIntervalForResource = 20
+        let session = URLSession(configuration: sessionConfig)
+        let client = APIClient(session: session)
+        return client
+    }()
+    
     private lazy var remoteProfileService: ProfileService = {
        return RemoteProfileService(client: httpClient, environmentStorage: environmentStorage)
     }()
@@ -75,7 +84,7 @@ public final class AppNavigationRouter: NavigationRouter {
     // MARK: - Routers
     
     private lazy var authorizationRouter: AuthorizationRouter = {
-        let loginService = RemoteLoginUserService(client: httpClient, environmentStorage: environmentStorage)
+        let loginUseCase = RemoteLoginUserUseCase(client: apiHttpClient, environmentStorage: environmentStorage, tokenStorage: tokenStorage)
         let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
         
         let authorization =  AuthorizationRouter(factory: authorizationFactory,
@@ -83,7 +92,7 @@ public final class AppNavigationRouter: NavigationRouter {
                                    swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
                                    swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                    navigationController: mainNavigationController,
-                                   loginService: loginService,
+                                   loginUseCase: loginUseCase,
                                    registerService: registerService,
                                    environmentStorage: environmentStorage,
                                    tokenStorage: tokenStorage,

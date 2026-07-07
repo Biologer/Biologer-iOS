@@ -1,6 +1,6 @@
 import Foundation
 
-enum APIRequestBody {
+public enum APIRequestBody {
     case empty
     case json(Encodable)
     case data(Data)

@@ -1,6 +1,6 @@
 import Foundation
 
-protocol APIEndpoint {
+public protocol APIEndpoint {
     associatedtype Response: Decodable
 
     var host: String { get }
@@ -11,7 +11,7 @@ protocol APIEndpoint {
     var body: APIRequestBody { get }
 }
 
-extension APIEndpoint {
+public extension APIEndpoint {
     var method: APIHTTPMethod { .get }
     var queryItems: [URLQueryItem] { [] }
     var body: APIRequestBody { .empty }

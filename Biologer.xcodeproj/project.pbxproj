@@ -22,6 +22,7 @@
 		9300757626877C6B005A4DE0 /* SideMenuRouterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757526877C6B005A4DE0 /* SideMenuRouterRouter.swift */; };
 		9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */; };
 		9309AB172744324300825246 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9309AB162744324300825246 /* Date+Extensions.swift */; };
+		9311E89D2FFBE8D9006045C4 /* FieldsValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E89C2FFBE8D7006045C4 /* FieldsValidator.swift */; };
 		931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E3262B53AD00542EFC /* AppDelegate.swift */; };
 		931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E5262B53AD00542EFC /* SceneDelegate.swift */; };
 		931426EA262B53B000542EFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426E9262B53B000542EFC /* Assets.xcassets */; };
@@ -272,6 +273,7 @@
 		9300757526877C6B005A4DE0 /* SideMenuRouterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouterRouter.swift; sourceTree = "<group>"; };
 		9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewControllerFactory.swift; sourceTree = "<group>"; };
 		9309AB162744324300825246 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		9311E89C2FFBE8D7006045C4 /* FieldsValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsValidator.swift; sourceTree = "<group>"; };
 		931426E0262B53AD00542EFC /* Biologer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biologer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426E3262B53AD00542EFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		931426E5262B53AD00542EFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 		9311E8942FFBD50C006045C4 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				9311E89C2FFBE8D7006045C4 /* FieldsValidator.swift */,
 				A10000052FFD000000000001 /* AuthUseCase.swift */,
 				A10000072FFD000000000001 /* LoginUserUseCase.swift */,
 				A10000022FFD000000000001 /* RegisterUserUseCase.swift */,
@@ -1683,6 +1686,7 @@
 				931857EE2731A47C0051AA45 /* DBTaxon.swift in Sources */,
 				9351D4572779E8BB0091D4D9 /* Font+Extensions.swift in Sources */,
 				93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */,
+				9311E89D2FFBE8D9006045C4 /* FieldsValidator.swift in Sources */,
 				936219F8271C44AE00BAEF8F /* DBAtlasCodeMapper.swift in Sources */,
 				93334EB52677E17B0094A483 /* Finding.swift in Sources */,
 				9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */,

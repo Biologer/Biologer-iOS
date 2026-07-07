@@ -147,6 +147,58 @@ public final class BiologerOutlinedTextFieldView: UIView {
     }
 }
 
+
+
+
+
+public enum MaterialDesignTextFieldType {
+    case empty
+    case success
+    case failure
+}
+
+public enum MaterialDesignTextFieldTralingViewType {
+    case password
+    case none
+    case other
+}
+
+public protocol MaterialDesignTextFieldViewModelProtocol {
+    var text: String { get set }
+    var placeholder: String { get }
+    var errorText: String { get set }
+    var isCodeEntry: Bool { get set }
+    var tralingImage: String? { get }
+    var tralingErrorImage: String? { get }
+    var isUserInteractionEnabled: Bool { get }
+    var type: MaterialDesignTextFieldType { get set }
+    var textAligment: NSTextAlignment { get }
+    var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>? { get set }
+}
+
+public protocol EnvironmentViewModelProtocol {
+    var title: String { get }
+    var image: String { get }
+    var host: String { get }
+}
+
+extension MaterialDesignTextFieldViewModelProtocol {
+    func getErrorText() -> String {
+        return type == .failure ? errorText : ""
+    }
+    
+    func getIconImageByType() -> UIImageView? {
+        if type == .failure, let errorImage = tralingErrorImage {
+            return UIImageView(image: UIImage(named: errorImage)!)
+        } else if let image = tralingImage {
+            return UIImageView(image: UIImage(named: image)!)
+        } else {
+            return nil
+        }
+    }
+}
+
+
 public struct MaterialDesignTextField: UIViewRepresentable {
     
     private var viewModel: MaterialDesignTextFieldViewModelProtocol

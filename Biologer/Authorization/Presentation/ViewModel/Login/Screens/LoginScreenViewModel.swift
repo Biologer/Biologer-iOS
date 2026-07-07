@@ -9,29 +9,24 @@ import Foundation
 import Combine
 
 public final class LoginScreenViewModel: LoginScreenLoader {
-    public var environmentPlaceholder: String = "Login.env.placeholder".localized
     public let logoImage: String
     @Published public var environmentViewModel: EnvironmentViewModel
     @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
     @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
     
-    private let service: LoginUserService
+    private let useCase: LoginUserUseCase
     private let onSelectEnvironmentTapped: Observer<EnvironmentViewModel>
-    private let onLoginSuccess: Observer<Token>
+    private let onLoginSuccess: Observer<Void>
     private let onLoginError: Observer<APIError>
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
     private let onLoading: Observer<Bool>
-    private var email: String = ""
-    private var password: String = ""
     
     init(logoImage: String,
          environmentViewModel: EnvironmentViewModel,
-         userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol,
-         passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol,
-         service: LoginUserService,
+         useCase: LoginUserUseCase,
          onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
-         onLoginSuccess: @escaping Observer<Token>,
+         onLoginSuccess: @escaping Observer<Void>,
          onLoginError: @escaping Observer<APIError>,
          onRegisterTapped: @escaping Observer<Void>,
          onForgotPasswordTapped: @escaping Observer<Void>,
@@ -39,10 +34,10 @@ public final class LoginScreenViewModel: LoginScreenLoader {
          ) {
         self.logoImage = logoImage
         self.environmentViewModel = environmentViewModel
-        self.userNameTextFieldViewModel = userNameTextFieldViewModel
-        self.passwordTextFieldViewModel = passwordTextFieldViewModel
+        self.userNameTextFieldViewModel = UserNameTextFieldViewModel()
+        self.passwordTextFieldViewModel = PasswordTextFieldViewModel()
         self.onSelectEnvironmentTapped = onSelectEnvironmentTapped
-        self.service = service
+        self.useCase = useCase
         self.onLoginSuccess = onLoginSuccess
         self.onLoginError = onLoginError
         self.onRegisterTapped = onRegisterTapped
@@ -54,10 +49,6 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         onSelectEnvironmentTapped((environmentViewModel))
     }
     
-    public func login() {
-        validateFields()
-    }
-    
     public func register() {
         onRegisterTapped(())
     }
@@ -66,53 +57,35 @@ public final class LoginScreenViewModel: LoginScreenLoader {
         onForgotPasswordTapped(())
     }
     
-    private func validateFields() {
-        if userNameTextFieldViewModel.text.isEmpty {
-            setEmailRequired()
-           return
-        }
-        
-        if !isEmailValid(email: userNameTextFieldViewModel.text) {
-            setEmailIsNotValidFormat()
-            return
-        }
-        
-        setEmilIsValid()
-        
-        if passwordTextFieldViewModel.text.isEmpty {
-            setPasswordIsNotValid()
-            return
-        }
-        
-        setPasswordValid()
-        
-        email = userNameTextFieldViewModel.text
-        password = passwordTextFieldViewModel.text
-        
+    public func login() async {
         onLoading((true))
-        service.login(email: email,
-                           password: password) { [weak self] result in
-            self?.onLoading((false))
-            switch result {
-            case .success(let response):
-//                print("Response login: \(response)")
-                let token = Token(accessToken: response.access_token, refreshToken: response.refresh_token)
-                self?.onLoginSuccess((token))
-            case .failure(let error):
-                print("Error login: \(error.description)")
-                self?.onLoginError((error))
+        do throws(LoginError) {
+            try await useCase.login(
+                email: userNameTextFieldViewModel.text,
+                username: userNameTextFieldViewModel.text,
+                password: passwordTextFieldViewModel.text
+            )
+            setPasswordValid()
+            onLoading((false))
+            onLoginSuccess(())
+        } catch let error {
+            onLoading((false))
+            switch error {
+            case .invalidUsername:
+                setEmailRequired()
+            case .invalidEmail:
+                setEmailIsNotValidFormat()
+            case .invalidPassword:
+                setPasswordIsNotValid()
+            case .apiError(let error):
+                onLoginError((error))
             }
         }
-    }
-    
-    private func isEmailValid(email: String) -> Bool {
-        return NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}").evaluate(with: email)
     }
 }
 
 extension LoginScreenViewModel: EnvironmentScreenViewModelProtocol {
     public func getEnvironment(environmentViewModel: EnvironmentViewModel) {
-        print("ENV SLECTED: \(environmentViewModel.title)")
         self.environmentViewModel = environmentViewModel
     }
 }

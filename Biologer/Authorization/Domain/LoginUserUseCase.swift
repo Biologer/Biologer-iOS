@@ -1,24 +1,39 @@
 import Foundation
 
-protocol LoginUserUseCase {
-    func login(email: String, password: String) async throws -> LoginUserResponse
+public protocol LoginUserUseCase {
+    func login(email: String, username: String, password: String) async throws(LoginError)  -> Void
 }
 
-final class RemoteLoginUserUseCase: LoginUserUseCase {
+public final class RemoteLoginUserUseCase: LoginUserUseCase {
     private let client: APIClientProtocol
     private let environmentStorage: EnvironmentStorage
+    private let tokenStorage: TokenStorage
 
-    init(
+    public init(
         client: APIClientProtocol,
-        environmentStorage: EnvironmentStorage
+        environmentStorage: EnvironmentStorage,
+        tokenStorage: TokenStorage
     ) {
         self.client = client
         self.environmentStorage = environmentStorage
+        self.tokenStorage = tokenStorage
     }
 
-    func login(email: String, password: String) async throws -> LoginUserResponse {
+    public func login(email: String, username: String,  password: String) async throws(LoginError) -> Void {
         guard let environment = environmentStorage.getEnvironment() else {
-            throw APIError(description: ErrorConstant.environmentNotSelected)
+            throw LoginError.apiError(APIError(description: ErrorConstant.environmentNotSelected))
+        }
+        
+        guard FieldsValidator.isValid(email: email) else {
+            throw LoginError.invalidEmail
+        }
+        
+        guard FieldsValidator.isEmpty(value: username) else {
+            throw LoginError.invalidUsername
+        }
+        
+        guard FieldsValidator.isEmpty(value: password) else {
+            throw LoginError.invalidPassword
         }
 
         let endpoint = LoginUserEndpoint(
@@ -30,11 +45,26 @@ final class RemoteLoginUserUseCase: LoginUserUseCase {
         )
 
         do {
-            return try await client.send(endpoint)
+            let response = try await client.send(endpoint)
+            tokenStorage.saveToken(token: Token(response))
+            return
         } catch let error as APIClientError {
-            throw error.asAPIError()
+            throw LoginError.apiError(error.asAPIError())
         } catch {
-            throw APIError(description: error.localizedDescription)
+            throw LoginError.apiError(APIError(description: error.localizedDescription))
         }
+    }
+}
+
+public enum LoginError: Error {
+    case invalidEmail
+    case invalidPassword
+    case invalidUsername
+    case apiError(APIError)
+}
+
+private extension Token {
+    convenience init(_ response: LoginUserEndpoint.Response) {
+        self.init(accessToken: response.access_token, refreshToken: response.refresh_token)
     }
 }

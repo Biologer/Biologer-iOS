@@ -1,4 +1,4 @@
-enum APIHTTPMethod: String {
+public enum APIHTTPMethod: String {
     case get = "GET"
     case post = "POST"
     case put = "PUT"

@@ -10,19 +10,17 @@ import SwiftUI
 
 public final class SwiftUILoginViewControllerFactory: AuthorizationViewControllerFactory {
 
-    public func makeLoginScreen(service: LoginUserService,
+    public func makeLoginScreen(useCase: LoginUserUseCase,
                                 environmentViewModel: EnvironmentViewModel,
                                 onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
-                                onLoginSuccess: @escaping Observer<Token>,
+                                onLoginSuccess: @escaping Observer<Void>,
                                 onLoginError: @escaping Observer<APIError>,
                                 onRegisterTapped: @escaping Observer<Void>,
                                 onForgotPasswordTapped: @escaping Observer<Void>,
                                 onLoading: @escaping Observer<Bool>) -> UIViewController {
         let loginScreenViewModel = LoginScreenViewModel(logoImage: "biologer_logo_icon",
                                                         environmentViewModel: environmentViewModel,
-                                                        userNameTextFieldViewModel: UserNameTextFieldViewModel(),
-                                                        passwordTextFieldViewModel: PasswordTextFieldViewModel(),
-                                                        service: service,
+                                                        useCase: useCase,
                                                         onSelectEnvironmentTapped: onSelectEnvironmentTapped,
                                                         onLoginSuccess: onLoginSuccess,
                                                         onLoginError: onLoginError,

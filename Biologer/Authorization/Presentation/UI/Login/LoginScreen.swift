@@ -7,61 +7,13 @@
 
 import SwiftUI
 
-public enum MaterialDesignTextFieldType {
-    case empty
-    case success
-    case failure
-}
-
-public enum MaterialDesignTextFieldTralingViewType {
-    case password
-    case none
-    case other
-}
-
-public protocol MaterialDesignTextFieldViewModelProtocol {
-    var text: String { get set }
-    var placeholder: String { get }
-    var errorText: String { get set }
-    var isCodeEntry: Bool { get set }
-    var tralingImage: String? { get }
-    var tralingErrorImage: String? { get }
-    var isUserInteractionEnabled: Bool { get }
-    var type: MaterialDesignTextFieldType { get set }
-    var textAligment: NSTextAlignment { get }
-    var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>? { get set }
-}
-
-public protocol EnvironmentViewModelProtocol {
-    var title: String { get }
-    var image: String { get }
-    var host: String { get }
-}
-
-extension MaterialDesignTextFieldViewModelProtocol {
-    func getErrorText() -> String {
-        return type == .failure ? errorText : ""
-    }
-    
-    func getIconImageByType() -> UIImageView? {
-        if type == .failure, let errorImage = tralingErrorImage {
-            return UIImageView(image: UIImage(named: errorImage)!)
-        } else if let image = tralingImage {
-            return UIImageView(image: UIImage(named: image)!)
-        } else {
-            return nil
-        }
-    }
-}
-
 public protocol LoginScreenLoader: ObservableObject {
     var logoImage: String { get }
-    var environmentPlaceholder: String { get }
     var environmentViewModel: EnvironmentViewModel { get }
     var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
     var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol { get set }
     func selectEnvironment()
-    func login()
+    func login() async
     func register()
     func forgotPassword()
 }
@@ -77,36 +29,47 @@ struct LoginScreen<ViewModel>: View where ViewModel: LoginScreenLoader {
                     .resizable()
                     .frame(height: 130)
                     .padding(.bottom, 30)
-                MaterialDesignTextField(viewModel: viewModel.userNameTextFieldViewModel,
-                                        onTextChanged: { text in
-                                            viewModel.userNameTextFieldViewModel.text = text
-                                            viewModel.userNameTextFieldViewModel.type = .success
-                                        },
-                                        textAligment: .left)
-                    .padding(.bottom, 20)
-                MaterialDesignTextField(viewModel: viewModel.passwordTextFieldViewModel,
-                                        onTextChanged: { text in
-                                            viewModel.passwordTextFieldViewModel.text = text
-                                            viewModel.passwordTextFieldViewModel.type = .success
-                                        },
-                                        onIconTapped: { _ in
-                                            viewModel.toggleIsCodeEntryPassword()
-                                        },
-                                        textAligment: .left)
-                    .padding(.bottom, 20)
                 
-                LoginEnvView(environmentPlacehoder: viewModel.environmentPlaceholder,
-                             viewModel: viewModel.environmentViewModel,
-                             onEnvTapped: { env in
-                                viewModel.selectEnvironment()
-                             })
-                    .padding(.bottom, 20)
+                MaterialDesignTextField(
+                    viewModel: viewModel.userNameTextFieldViewModel,
+                    onTextChanged: { text in
+                        viewModel.userNameTextFieldViewModel.text = text
+                        viewModel.userNameTextFieldViewModel.type = .success
+                    },
+                    textAligment: .left
+                )
+                .padding(.bottom, 20)
                 
-                BiologerButton(title: "Login.btn.register".localized,
-                            onTapped: { _ in
-                                viewModel.login()
-                            })
+                MaterialDesignTextField(
+                    viewModel: viewModel.passwordTextFieldViewModel,
+                    onTextChanged: { text in
+                        viewModel.passwordTextFieldViewModel.text = text
+                        viewModel.passwordTextFieldViewModel.type = .success
+                    },
+                    onIconTapped: { _ in
+                        viewModel.toggleIsCodeEntryPassword()
+                    },
+                    textAligment: .left
+                )
+                .padding(.bottom, 20)
+                
+                LoginEnvView(
+                    environmentPlacehoder: "Login.env.placeholder".localized,
+                    viewModel: viewModel.environmentViewModel,
+                    onEnvTapped: { env in
+                        viewModel.selectEnvironment()
+                    })
+                .padding(.bottom, 20)
+                
+                BiologerButton(
+                    title: "Login.btn.register".localized,
+                    onTapped: { _ in
+                        Task {
+                            await viewModel.login()
+                        }
+                    })
                     .padding(.bottom, 30)
+                
                 HStack(spacing: 10) {
                     Text("Login.lb.noAccount".localized)
                         .font(.titleFont)
@@ -142,13 +105,19 @@ struct LoginScreen_Previews: PreviewProvider {
     }
     
     private class StubLoginScreenViewModel: LoginScreenLoader {
-        var environmentPlaceholder: String = "Select Environment"
         var logoImage: String = "biologer_logo_icon"
-        var environmentViewModel: EnvironmentViewModel = EnvironmentViewModel(id: 1,
-                                                       title: "Serbia",
-                                                       image: "serbia_flag",
-                                                                              env: Environment(host: APIConstants.serbiaHost, path: APIConstants.serbiaLangPath, clientSecret: serbiaClientSecret, cliendId: cliendIdSer),
-                                                        isSelected: false)
+        var environmentViewModel: EnvironmentViewModel = EnvironmentViewModel(
+            id: 1,
+            title: "Serbia",
+            image: "serbia_flag",
+            env: Environment(
+                host: APIConstants.serbiaHost,
+                path: APIConstants.serbiaLangPath,
+                clientSecret: serbiaClientSecret,
+                cliendId: cliendIdSer
+            ),
+            isSelected: false
+        )
         var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = UserNameTextFieldViewModel()
         var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = PasswordTextFieldViewModel()
         
