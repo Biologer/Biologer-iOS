@@ -85,14 +85,16 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var authorizationRouter: AuthorizationRouter = {
         let loginUseCase = RemoteLoginUserUseCase(client: apiHttpClient, environmentStorage: environmentStorage, tokenStorage: tokenStorage)
+        let registerUserUseCase = RemoteRegisterUserUseCase(client: apiHttpClient, environmentStorage: environmentStorage)
         let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
+        let authUseCase = AuthUseCase(loginUseCase: loginUseCase, registerUseCase: registerUserUseCase)
         
         let authorization =  AuthorizationRouter(factory: authorizationFactory,
                                    commonViewControllerFactory: commonViewControllerFactory,
                                    swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
                                    swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                    navigationController: mainNavigationController,
-                                   loginUseCase: loginUseCase,
+                                   authUseCase: authUseCase,
                                    registerService: registerService,
                                    environmentStorage: environmentStorage,
                                    tokenStorage: tokenStorage,

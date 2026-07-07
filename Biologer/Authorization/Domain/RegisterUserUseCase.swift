@@ -8,7 +8,7 @@ final class RemoteRegisterUserUseCase: RegisterUserUseCase {
     private let client: APIClientProtocol
     private let environmentStorage: EnvironmentStorage
 
-    init(
+    public init(
         client: APIClientProtocol,
         environmentStorage: EnvironmentStorage
     ) {

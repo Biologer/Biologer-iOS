@@ -23,6 +23,11 @@
 		9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */; };
 		9309AB172744324300825246 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9309AB162744324300825246 /* Date+Extensions.swift */; };
 		9311E89D2FFBE8D9006045C4 /* FieldsValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E89C2FFBE8D7006045C4 /* FieldsValidator.swift */; };
+		9311E8A12FFCD405006045C4 /* AuthorizationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */; };
+		9311E8A32FFCDB79006045C4 /* NewLoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A22FFCDB71006045C4 /* NewLoginScreen.swift */; };
+		9311E8A52FFCDBA5006045C4 /* NewLoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A42FFCDB9E006045C4 /* NewLoginScreenViewModel.swift */; };
+		9311E8A72FFCE061006045C4 /* BiologerProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A62FFCE04D006045C4 /* BiologerProgressView.swift */; };
+		9311E8A92FFCE395006045C4 /* NewEnvironmentsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A82FFCE38B006045C4 /* NewEnvironmentsScreen.swift */; };
 		931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E3262B53AD00542EFC /* AppDelegate.swift */; };
 		931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E5262B53AD00542EFC /* SceneDelegate.swift */; };
 		931426EA262B53B000542EFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426E9262B53B000542EFC /* Assets.xcassets */; };
@@ -274,6 +279,11 @@
 		9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewControllerFactory.swift; sourceTree = "<group>"; };
 		9309AB162744324300825246 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		9311E89C2FFBE8D7006045C4 /* FieldsValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsValidator.swift; sourceTree = "<group>"; };
+		9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlow.swift; sourceTree = "<group>"; };
+		9311E8A22FFCDB71006045C4 /* NewLoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoginScreen.swift; sourceTree = "<group>"; };
+		9311E8A42FFCDB9E006045C4 /* NewLoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoginScreenViewModel.swift; sourceTree = "<group>"; };
+		9311E8A62FFCE04D006045C4 /* BiologerProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerProgressView.swift; sourceTree = "<group>"; };
+		9311E8A82FFCE38B006045C4 /* NewEnvironmentsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEnvironmentsScreen.swift; sourceTree = "<group>"; };
 		931426E0262B53AD00542EFC /* Biologer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biologer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426E3262B53AD00542EFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		931426E5262B53AD00542EFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -681,6 +691,26 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		9311E89E2FFCD2CB006045C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				93BF629D262B807D00DDFB44 /* BiologerButton.swift */,
+				93CC6588269C2C5E00949534 /* LoginEnvView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9311E89F2FFCD3EC006045C4 /* Redesign */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8A82FFCE38B006045C4 /* NewEnvironmentsScreen.swift */,
+				9311E8A42FFCDB9E006045C4 /* NewLoginScreenViewModel.swift */,
+				9311E8A22FFCDB71006045C4 /* NewLoginScreen.swift */,
+				9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */,
+			);
+			path = Redesign;
+			sourceTree = "<group>";
+		};
 		931426D7262B53AD00542EFC = {
 			isa = PBXGroup;
 			children = (
@@ -861,6 +891,7 @@
 		931D3FE22748182B00352C8E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				9311E8A62FFCE04D006045C4 /* BiologerProgressView.swift */,
 				933EF7F526EFBAD800F1EBC4 /* PopUpConfirmScreen.swift */,
 				93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */,
 				93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */,
@@ -1268,10 +1299,9 @@
 		93A7E25F2691D5DD001D6AEF /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				9311E89E2FFCD2CB006045C4 /* Components */,
 				9314271A262B58AA00542EFC /* LoginScreen.swift */,
 				93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */,
-				93BF629D262B807D00DDFB44 /* BiologerButton.swift */,
-				93CC6588269C2C5E00949534 /* LoginEnvView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1279,6 +1309,7 @@
 		93A7E2602691D5E3001D6AEF /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				9311E89F2FFCD3EC006045C4 /* Redesign */,
 				93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */,
 				93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */,
 				93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */,
@@ -1710,6 +1741,7 @@
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
 				9314DA30270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift in Sources */,
 				935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */,
+				9311E8A32FFCDB79006045C4 /* NewLoginScreen.swift in Sources */,
 				93B041792711F6CD007DB833 /* RealmManager.swift in Sources */,
 				93731E40288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift in Sources */,
 				93A7E2782691E1A4001D6AEF /* EmailTextFieldViewModel.swift in Sources */,
@@ -1723,6 +1755,8 @@
 				93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */,
 				A10000042FFD000000000001 /* AuthUseCase.swift in Sources */,
 				A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */,
+				9311E8A12FFCD405006045C4 /* AuthorizationFlow.swift in Sources */,
+				9311E8A52FFCDBA5006045C4 /* NewLoginScreenViewModel.swift in Sources */,
 				A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */,
 				A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */,
 				A100000A2FFD000000000001 /* RegisterUserEndpoint.swift in Sources */,
@@ -1738,6 +1772,7 @@
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
 				93CC6589269C2C5F00949534 /* LoginEnvView.swift in Sources */,
 				93DF14212692262900A7A977 /* LoginUserService.swift in Sources */,
+				9311E8A72FFCE061006045C4 /* BiologerProgressView.swift in Sources */,
 				93DF14172692224D00A7A977 /* HTTPClient.swift in Sources */,
 				937F828226F7B6B500593786 /* HelpItemManager.swift in Sources */,
 				93EB965F270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift in Sources */,
@@ -1810,6 +1845,7 @@
 				93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */,
 				93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
+				9311E8A92FFCE395006045C4 /* NewEnvironmentsScreen.swift in Sources */,
 				931D3FEA27481D0600352C8E /* UploadFindings.swift in Sources */,
 				93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */,
 				93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */,
@@ -2071,6 +2107,7 @@
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Biologer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2095,6 +2132,7 @@
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Biologer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

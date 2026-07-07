@@ -76,18 +76,24 @@ public final class EnvironmentViewModelFactory {
     }
 }
 
-public struct EnvironmentViewModel: Identifiable, Codable {
+public class EnvironmentViewModel: Identifiable, Codable, Equatable {
+    public static func == (lhs: EnvironmentViewModel, rhs: EnvironmentViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
      public let id: Int
      public let title: String
      public let image: String
      public let env: Environment
      public var isSelected: Bool
     
-    init(id: Int,
-         title: String,
-         image: String,
-         env: Environment,
-         isSelected: Bool) {
+    init(
+        id: Int,
+        title: String,
+        image: String,
+        env: Environment,
+        isSelected: Bool
+    ) {
         self.id = id
         self.title = title
         self.env = env
@@ -95,7 +101,7 @@ public struct EnvironmentViewModel: Identifiable, Codable {
         self.isSelected = isSelected
     }
     
-    public mutating func changeIsSelected(value: Bool ) {
+    public func changeIsSelected(value: Bool ) {
         isSelected = value
     }
 }

@@ -1,8 +1,8 @@
 import Foundation
 
 final class AuthUseCase {
-    private let loginUseCase: LoginUserUseCase
-    private let registerUseCase: RegisterUserUseCase
+    let loginUseCase: LoginUserUseCase
+    let registerUseCase: RegisterUserUseCase
 
     init(
         loginUseCase: LoginUserUseCase,

@@ -176,6 +176,18 @@ public protocol MaterialDesignTextFieldViewModelProtocol {
     var onChange: Observer<MaterialDesignTextFieldViewModelProtocol>? { get set }
 }
 
+extension MaterialDesignTextFieldViewModelProtocol {
+    mutating func setInvalid(with error: String) {
+        errorText = error
+        type = .failure
+    }
+        
+    mutating func setValid() {
+        errorText = ""
+        type = .success
+    }
+}
+
 public protocol EnvironmentViewModelProtocol {
     var title: String { get }
     var image: String { get }

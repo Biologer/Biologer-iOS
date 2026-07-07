@@ -11,7 +11,7 @@ import SwiftUI
 public final class AuthorizationRouter {
     private let factory: AuthorizationViewControllerFactory
     private let navigationController: UINavigationController
-    private let loginUseCase: LoginUserUseCase
+    private let authUseCase: AuthUseCase
     private let registerService: RegisterUserService
     private let commonViewControllerFactory: CommonViewControllerFactory
     private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
@@ -29,7 +29,7 @@ public final class AuthorizationRouter {
          swiftUICommonViewControllerFactory: CommonViewControllerFactory,
          swiftUIAlertViewControllerFactory: AlertViewControllerFactory,
          navigationController: UINavigationController,
-         loginUseCase: LoginUserUseCase,
+         authUseCase: AuthUseCase,
          registerService: RegisterUserService,
          environmentStorage: EnvironmentStorage,
          tokenStorage: TokenStorage,
@@ -40,7 +40,7 @@ public final class AuthorizationRouter {
         self.swiftUICommonViewControllerFactory = swiftUICommonViewControllerFactory
         self.swiftUIAlertViewControllerFactory = swiftUIAlertViewControllerFactory
         self.navigationController = navigationController
-        self.loginUseCase = loginUseCase
+        self.authUseCase = authUseCase
         self.registerService = registerService
         self.environmentStorage = environmentStorage
         self.tokenStorage = tokenStorage
@@ -52,7 +52,8 @@ public final class AuthorizationRouter {
         if shouldPresentIntroScreens {
             showHelpScreen()
         } else {
-            showLoginScreen()
+            authorizationFlow()
+            //showLoginScreen()
         }
     }
     
@@ -74,7 +75,7 @@ public final class AuthorizationRouter {
         environmentStorage.saveEnvironment(env: defaultEnv.env)
         selectedEnvironmentImage = defaultEnv.image
         
-        let loginViewController = factory.makeLoginScreen(useCase: loginUseCase,
+        let loginViewController = factory.makeLoginScreen(useCase: authUseCase.loginUseCase,
                                                           environmentViewModel: defaultEnv,
                                                              onSelectEnvironmentTapped: { [weak self] env in
                                                                 self?.showEnvironmentScreen(selectedViewModel: env,
@@ -101,6 +102,11 @@ public final class AuthorizationRouter {
         
         loginViewController.navigationItem.hidesBackButton = true
         navigationController.pushViewController(loginViewController, animated: true)
+    }
+    
+    private func authorizationFlow() {
+        let loginFlow = AuthorizationFlow(authorizationUseCase: authUseCase)
+        navigationController.pushViewController(UIHostingController(rootView: loginFlow), animated: true)
     }
     
     private func showEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
