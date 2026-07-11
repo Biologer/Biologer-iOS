@@ -8,7 +8,7 @@ struct RegisterUserEndpoint: APIEndpoint {
     let method: APIHTTPMethod = .post
     let body: APIRequestBody
 
-    init(user: RegisterUser, host: String, clientId: Int, clientSecret: String) {
+    init(user: RegistrationDraft, host: String, clientId: Int, clientSecret: String) {
         self.host = host
         body = .json(
             RegisterUserRequestBody(

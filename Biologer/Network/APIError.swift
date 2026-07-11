@@ -12,11 +12,11 @@ public struct APIErrorResponse: Codable {
     let error_description: String
 }
 
-public final class APIError: Error {
+public final class APIError: Error, Identifiable {
     let title: String
     let description: String
     let isInternetConnectionAvailable: Bool
-    
+
     init(title: String = "API.lb.error".localized,
          description: String,
          isInternetConnectionAvailable: Bool = true) {

@@ -22,12 +22,21 @@
 		9300757626877C6B005A4DE0 /* SideMenuRouterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757526877C6B005A4DE0 /* SideMenuRouterRouter.swift */; };
 		9300757826877C9A005A4DE0 /* DashboardViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */; };
 		9309AB172744324300825246 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9309AB162744324300825246 /* Date+Extensions.swift */; };
-		9311E89D2FFBE8D9006045C4 /* FieldsValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E89C2FFBE8D7006045C4 /* FieldsValidator.swift */; };
+		9311E89D2FFBE8D9006045C4 /* AuthInputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E89C2FFBE8D7006045C4 /* AuthInputValidator.swift */; };
 		9311E8A12FFCD405006045C4 /* AuthorizationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */; };
-		9311E8A32FFCDB79006045C4 /* NewLoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A22FFCDB71006045C4 /* NewLoginScreen.swift */; };
-		9311E8A52FFCDBA5006045C4 /* NewLoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A42FFCDB9E006045C4 /* NewLoginScreenViewModel.swift */; };
+		9311E8A32FFCDB79006045C4 /* LoginScreenV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A22FFCDB71006045C4 /* LoginScreenV2.swift */; };
+		9311E8A52FFCDBA5006045C4 /* LoginScreenV2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A42FFCDB9E006045C4 /* LoginScreenV2ViewModel.swift */; };
 		9311E8A72FFCE061006045C4 /* BiologerProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A62FFCE04D006045C4 /* BiologerProgressView.swift */; };
-		9311E8A92FFCE395006045C4 /* NewEnvironmentsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A82FFCE38B006045C4 /* NewEnvironmentsScreen.swift */; };
+		9311E8A92FFCE395006045C4 /* EnvironmentSelectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A82FFCE38B006045C4 /* EnvironmentSelectionScreen.swift */; };
+		9311E8AC2FFCED8F006045C4 /* RegistrationDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8AB2FFCED8A006045C4 /* RegistrationDraft.swift */; };
+		9311E8AE2FFCEE47006045C4 /* RegistrationPersonalInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8AD2FFCEE40006045C4 /* RegistrationPersonalInfoScreen.swift */; };
+		9311E8B02FFCEE75006045C4 /* RegistrationPersonalInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8AF2FFCEE6D006045C4 /* RegistrationPersonalInfoViewModel.swift */; };
+		9311E8B22FFCF23A006045C4 /* RegistrationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8B12FFCF233006045C4 /* RegistrationFlow.swift */; };
+		9311E8B42FFCF3F9006045C4 /* RegistrationCredentialsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8B32FFCF3EB006045C4 /* RegistrationCredentialsViewModel.swift */; };
+		9311E8B62FFCF43A006045C4 /* RegistrationCredentialsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8B52FFCF421006045C4 /* RegistrationCredentialsScreen.swift */; };
+		9311E8B82FFCF5E5006045C4 /* RegistrationLicenseConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8B72FFCF5E1006045C4 /* RegistrationLicenseConsentViewModel.swift */; };
+		9311E8BA2FFCF648006045C4 /* RegistrationLicenseConsentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */; };
+		9311E8BC2FFD0241006045C4 /* LicenseSelectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */; };
 		931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E3262B53AD00542EFC /* AppDelegate.swift */; };
 		931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E5262B53AD00542EFC /* SceneDelegate.swift */; };
 		931426EA262B53B000542EFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426E9262B53B000542EFC /* Assets.xcassets */; };
@@ -278,12 +287,21 @@
 		9300757526877C6B005A4DE0 /* SideMenuRouterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouterRouter.swift; sourceTree = "<group>"; };
 		9300757726877C9A005A4DE0 /* DashboardViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewControllerFactory.swift; sourceTree = "<group>"; };
 		9309AB162744324300825246 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		9311E89C2FFBE8D7006045C4 /* FieldsValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsValidator.swift; sourceTree = "<group>"; };
+		9311E89C2FFBE8D7006045C4 /* AuthInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInputValidator.swift; sourceTree = "<group>"; };
 		9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlow.swift; sourceTree = "<group>"; };
-		9311E8A22FFCDB71006045C4 /* NewLoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoginScreen.swift; sourceTree = "<group>"; };
-		9311E8A42FFCDB9E006045C4 /* NewLoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoginScreenViewModel.swift; sourceTree = "<group>"; };
+		9311E8A22FFCDB71006045C4 /* LoginScreenV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenV2.swift; sourceTree = "<group>"; };
+		9311E8A42FFCDB9E006045C4 /* LoginScreenV2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenV2ViewModel.swift; sourceTree = "<group>"; };
 		9311E8A62FFCE04D006045C4 /* BiologerProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerProgressView.swift; sourceTree = "<group>"; };
-		9311E8A82FFCE38B006045C4 /* NewEnvironmentsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEnvironmentsScreen.swift; sourceTree = "<group>"; };
+		9311E8A82FFCE38B006045C4 /* EnvironmentSelectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentSelectionScreen.swift; sourceTree = "<group>"; };
+		9311E8AB2FFCED8A006045C4 /* RegistrationDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDraft.swift; sourceTree = "<group>"; };
+		9311E8AD2FFCEE40006045C4 /* RegistrationPersonalInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPersonalInfoScreen.swift; sourceTree = "<group>"; };
+		9311E8AF2FFCEE6D006045C4 /* RegistrationPersonalInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPersonalInfoViewModel.swift; sourceTree = "<group>"; };
+		9311E8B12FFCF233006045C4 /* RegistrationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFlow.swift; sourceTree = "<group>"; };
+		9311E8B32FFCF3EB006045C4 /* RegistrationCredentialsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationCredentialsViewModel.swift; sourceTree = "<group>"; };
+		9311E8B52FFCF421006045C4 /* RegistrationCredentialsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationCredentialsScreen.swift; sourceTree = "<group>"; };
+		9311E8B72FFCF5E1006045C4 /* RegistrationLicenseConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicenseConsentViewModel.swift; sourceTree = "<group>"; };
+		9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicenseConsentScreen.swift; sourceTree = "<group>"; };
+		9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseSelectionScreen.swift; sourceTree = "<group>"; };
 		931426E0262B53AD00542EFC /* Biologer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biologer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426E3262B53AD00542EFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		931426E5262B53AD00542EFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -650,7 +668,7 @@
 		9311E8942FFBD50C006045C4 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				9311E89C2FFBE8D7006045C4 /* FieldsValidator.swift */,
+				9311E89C2FFBE8D7006045C4 /* AuthInputValidator.swift */,
 				A10000052FFD000000000001 /* AuthUseCase.swift */,
 				A10000072FFD000000000001 /* LoginUserUseCase.swift */,
 				A10000022FFD000000000001 /* RegisterUserUseCase.swift */,
@@ -703,12 +721,26 @@
 		9311E89F2FFCD3EC006045C4 /* Redesign */ = {
 			isa = PBXGroup;
 			children = (
-				9311E8A82FFCE38B006045C4 /* NewEnvironmentsScreen.swift */,
-				9311E8A42FFCDB9E006045C4 /* NewLoginScreenViewModel.swift */,
-				9311E8A22FFCDB71006045C4 /* NewLoginScreen.swift */,
+				9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */,
+				9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */,
+				9311E8B52FFCF421006045C4 /* RegistrationCredentialsScreen.swift */,
+				9311E8B12FFCF233006045C4 /* RegistrationFlow.swift */,
+				9311E8AD2FFCEE40006045C4 /* RegistrationPersonalInfoScreen.swift */,
+				9311E8AA2FFCED81006045C4 /* Entity */,
+				9311E8A82FFCE38B006045C4 /* EnvironmentSelectionScreen.swift */,
+				9311E8A42FFCDB9E006045C4 /* LoginScreenV2ViewModel.swift */,
+				9311E8A22FFCDB71006045C4 /* LoginScreenV2.swift */,
 				9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */,
 			);
 			path = Redesign;
+			sourceTree = "<group>";
+		};
+		9311E8AA2FFCED81006045C4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8AB2FFCED8A006045C4 /* RegistrationDraft.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		931426D7262B53AD00542EFC = {
@@ -1468,6 +1500,9 @@
 		93DF14052692061200A7A977 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				9311E8B72FFCF5E1006045C4 /* RegistrationLicenseConsentViewModel.swift */,
+				9311E8B32FFCF3EB006045C4 /* RegistrationCredentialsViewModel.swift */,
+				9311E8AF2FFCEE6D006045C4 /* RegistrationPersonalInfoViewModel.swift */,
 				93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */,
 				93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */,
 				93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */,
@@ -1699,6 +1734,7 @@
 				93CC658B269C401300949534 /* APIRequest.swift in Sources */,
 				93B0C1BC29094D9F002B92B3 /* UIView+Extensions.swift in Sources */,
 				938D935F270631960068E27C /* ImagesPreviewScreenViewModel.swift in Sources */,
+				9311E8BA2FFCF648006045C4 /* RegistrationLicenseConsentScreen.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				935AF66826F66F6C00C56D46 /* SetupProjectNameScreen.swift in Sources */,
 				93E3CBF22737EF240090FF93 /* TaxonsPaginationInfo.swift in Sources */,
@@ -1717,7 +1753,7 @@
 				931857EE2731A47C0051AA45 /* DBTaxon.swift in Sources */,
 				9351D4572779E8BB0091D4D9 /* Font+Extensions.swift in Sources */,
 				93DF142B26922A2C00A7A977 /* RegisterLicenseView.swift in Sources */,
-				9311E89D2FFBE8D9006045C4 /* FieldsValidator.swift in Sources */,
+				9311E89D2FFBE8D9006045C4 /* AuthInputValidator.swift in Sources */,
 				936219F8271C44AE00BAEF8F /* DBAtlasCodeMapper.swift in Sources */,
 				93334EB52677E17B0094A483 /* Finding.swift in Sources */,
 				9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */,
@@ -1741,7 +1777,7 @@
 				93334EBB2677FAAE0094A483 /* MenuItemView.swift in Sources */,
 				9314DA30270AF6CA007896F9 /* NestingAtlasCodeScreenViewModel.swift in Sources */,
 				935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */,
-				9311E8A32FFCDB79006045C4 /* NewLoginScreen.swift in Sources */,
+				9311E8A32FFCDB79006045C4 /* LoginScreenV2.swift in Sources */,
 				93B041792711F6CD007DB833 /* RealmManager.swift in Sources */,
 				93731E40288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift in Sources */,
 				93A7E2782691E1A4001D6AEF /* EmailTextFieldViewModel.swift in Sources */,
@@ -1756,10 +1792,11 @@
 				A10000042FFD000000000001 /* AuthUseCase.swift in Sources */,
 				A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */,
 				9311E8A12FFCD405006045C4 /* AuthorizationFlow.swift in Sources */,
-				9311E8A52FFCDBA5006045C4 /* NewLoginScreenViewModel.swift in Sources */,
+				9311E8A52FFCDBA5006045C4 /* LoginScreenV2ViewModel.swift in Sources */,
 				A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */,
 				A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */,
 				A100000A2FFD000000000001 /* RegisterUserEndpoint.swift in Sources */,
+				9311E8BC2FFD0241006045C4 /* LicenseSelectionScreen.swift in Sources */,
 				936616D3270393DC00F02A83 /* NewTaxonImageView.swift in Sources */,
 				938D93662706522C0068E27C /* NoImagesAddedView.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
@@ -1770,6 +1807,7 @@
 				93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */,
 				9373F81E26F9175100C18F91 /* Auth2HttpClientDecorator.swift in Sources */,
 				93334EBD2677FDBF0094A483 /* SideMenuItem.swift in Sources */,
+				9311E8B02FFCEE75006045C4 /* RegistrationPersonalInfoViewModel.swift in Sources */,
 				93CC6589269C2C5F00949534 /* LoginEnvView.swift in Sources */,
 				93DF14212692262900A7A977 /* LoginUserService.swift in Sources */,
 				9311E8A72FFCE061006045C4 /* BiologerProgressView.swift in Sources */,
@@ -1794,6 +1832,7 @@
 				93DF140D2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift in Sources */,
 				9314DA1C27073CF3007896F9 /* TaxonSearchScreenViewModel.swift in Sources */,
 				93BF62B3262C454400DDFB44 /* EnvironmentScreen.swift in Sources */,
+				9311E8AC2FFCED8F006045C4 /* RegistrationDraft.swift in Sources */,
 				93565D1F26F7243800A588E6 /* TaxonRouter.swift in Sources */,
 				93BF62C2262C559700DDFB44 /* AuthorizationViewControllerFactory.swift in Sources */,
 				938D9361270632400068E27C /* ImagesPreviewScreen.swift in Sources */,
@@ -1803,6 +1842,7 @@
 				93BF62A3262B838A00DDFB44 /* EnvironmentLoginView.swift in Sources */,
 				931D3FE12747948800352C8E /* UserDefaultsDataLicenseStorage.swift in Sources */,
 				93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */,
+				9311E8B62FFCF43A006045C4 /* RegistrationCredentialsScreen.swift in Sources */,
 				9314DA36270B3EAF007896F9 /* GoogleMapsView.swift in Sources */,
 				9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */,
 				93B0417E2712096F007DB833 /* DBFinding.swift in Sources */,
@@ -1827,6 +1867,7 @@
 				938D936A270653D10068E27C /* ImageHorizontalView.swift in Sources */,
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				938D935D27060E6B0068E27C /* TaxonLocation.swift in Sources */,
+				9311E8AE2FFCEE47006045C4 /* RegistrationPersonalInfoScreen.swift in Sources */,
 				93BF62BD262C555600DDFB44 /* SwiftUILoginViewControllerFactory.swift in Sources */,
 				93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */,
 				9320E03027519933006812E5 /* DownloadTaxonRouter.swift in Sources */,
@@ -1845,7 +1886,7 @@
 				93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */,
 				93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */,
 				93142746262B6C9000542EFC /* PasswordTextFieldViewModel.swift in Sources */,
-				9311E8A92FFCE395006045C4 /* NewEnvironmentsScreen.swift in Sources */,
+				9311E8A92FFCE395006045C4 /* EnvironmentSelectionScreen.swift in Sources */,
 				931D3FEA27481D0600352C8E /* UploadFindings.swift in Sources */,
 				93CC65852697A52000949534 /* ErrorLabelView.swift in Sources */,
 				93DF140B269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift in Sources */,
@@ -1853,6 +1894,7 @@
 				93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */,
 				9314DA2A270758F2007896F9 /* TaxonViewModel.swift in Sources */,
 				93390DAD2702FF2300DD68CE /* NewTaxonLocationView.swift in Sources */,
+				9311E8B82FFCF5E5006045C4 /* RegistrationLicenseConsentViewModel.swift in Sources */,
 				935AF66C26F6846D00C56D46 /* SetupDownloadAndUploadScreenViewModel.swift in Sources */,
 				938D93512705E8F70068E27C /* NumberOfIndividualsView.swift in Sources */,
 				936035D3268929920080C771 /* SetupScreenViewModel.swift in Sources */,
@@ -1864,6 +1906,7 @@
 				935AF67226F6875000C56D46 /* RadioAndTitleView.swift in Sources */,
 				93381DAB2762A0130015BD0D /* BiologerNavigationViewController.swift in Sources */,
 				93BF62AE262C451400DDFB44 /* EnvironmentScreenViewModel.swift in Sources */,
+				9311E8B22FFCF23A006045C4 /* RegistrationFlow.swift in Sources */,
 				938D9348270481A40068E27C /* TextFields.swift in Sources */,
 				93A7E26E2691E02D001D6AEF /* SurnameTextFieldViewModel.swift in Sources */,
 				93171D86273BDBE80038B2B2 /* PostFindingService.swift in Sources */,
@@ -1893,6 +1936,7 @@
 				93334EAD2677DDD50094A483 /* SideMenuListScreen.swift in Sources */,
 				93171D88273BDBFD0038B2B2 /* PostFindingImageService.swift in Sources */,
 				936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */,
+				9311E8B42FFCF3F9006045C4 /* RegistrationCredentialsViewModel.swift in Sources */,
 				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
 				9314DA34270AF8FD007896F9 /* NestingAtlasCodeScreen.swift in Sources */,

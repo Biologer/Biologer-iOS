@@ -1,5 +1,5 @@
 //
-//  NewLoginScreen.swift
+//  LoginScreenV2.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 7. 7. 2026..
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct NewLoginScreen: View {
+struct LoginScreenV2: View {
     
     @ObservedObject
-    var viewModel: NewLoginScreenViewModel
+    var viewModel: LoginScreenV2ViewModel
     
     var body: some View {
         ZStack {
@@ -94,10 +94,10 @@ struct NewLoginScreen: View {
     }
 }
 
-struct NewLoginScreen_Previews: PreviewProvider {
+struct LoginScreenV2_Previews: PreviewProvider {
     static var previews: some View {
-        NewLoginScreen(
-            viewModel: NewLoginScreenViewModel(
+        LoginScreenV2(
+            viewModel: LoginScreenV2ViewModel(
                 environmentViewModel: EnvironmentViewModelFactory().createEnvironment(type: .croatia),
                 useCase: StubLoginUseCase(),
                 onSelectEnvironmentTapped: { },

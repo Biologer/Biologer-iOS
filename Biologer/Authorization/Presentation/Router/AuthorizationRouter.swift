@@ -23,7 +23,7 @@ public final class AuthorizationRouter {
     private let envFactory = EnvironmentViewModelFactory()
     public var onLoginSuccess: Observer<Void>?
     private var selectedEnvironmentImage: String = ""
-    
+
     init(factory: AuthorizationViewControllerFactory,
          commonViewControllerFactory: CommonViewControllerFactory,
          swiftUICommonViewControllerFactory: CommonViewControllerFactory,
@@ -47,7 +47,7 @@ public final class AuthorizationRouter {
         self.dataLicenseStorage = dataLicenseStorage
         self.imageLicenseStorage  = imageLicenseStorage
     }
-    
+
     public func start(shouldPresentIntroScreens: Bool) {
         if shouldPresentIntroScreens {
             showHelpScreen()
@@ -56,7 +56,7 @@ public final class AuthorizationRouter {
             //showLoginScreen()
         }
     }
-    
+
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
         guard let self = self else { return }
         if isLoading {
@@ -66,15 +66,15 @@ public final class AuthorizationRouter {
             self.navigationController.dismiss(animated: false, completion: nil)
         }
     }
-    
+
     private func showLoginScreen() {
-        
+
         var envDelegate: EnvironmentScreenViewModelProtocol?
-        
+
         let defaultEnv = envFactory.createEnvironment(type: .serbia)
         environmentStorage.saveEnvironment(env: defaultEnv.env)
         selectedEnvironmentImage = defaultEnv.image
-        
+
         let loginViewController = factory.makeLoginScreen(useCase: authUseCase.loginUseCase,
                                                           environmentViewModel: defaultEnv,
                                                              onSelectEnvironmentTapped: { [weak self] env in
@@ -96,22 +96,37 @@ public final class AuthorizationRouter {
                                                                 self?.showSafari(path: "/password/reset")
                                                              },
                                                              onLoading: onLoading)
-        
+
         let viewController = loginViewController as? UIHostingController<LoginScreen<LoginScreenViewModel>>
         envDelegate = viewController?.rootView.viewModel
-        
+
         loginViewController.navigationItem.hidesBackButton = true
         navigationController.pushViewController(loginViewController, animated: true)
     }
-    
+
     private func authorizationFlow() {
-        let loginFlow = AuthorizationFlow(authorizationUseCase: authUseCase)
+        let loginFlow = AuthorizationFlow(
+            authorizationUseCase: authUseCase,
+            onAuthorizationSuccess: { [weak self] _ in
+                self?.onLoginSuccess?(())
+            },
+            onForgotPassword: { [weak self] _ in
+                self?.showSafari(path: "/password/reset")
+            },
+            onLoginError: { [weak self] error in
+                self?.showErrorAlert(
+                    popUpType: .error,
+                    title: error.title,
+                    description: error.description
+                )
+            }
+        )
         navigationController.pushViewController(UIHostingController(rootView: loginFlow), animated: true)
     }
-    
+
     private func showEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
                                        delegate: EnvironmentScreenViewModelProtocol? = nil) {
-        
+
         let envs = envFactory.createAllEnvironments()
         let enviViewController = factory.makeEnvironmentScreen(selectedViewModel: selectedViewModel,
                                                                envViewModels: envs,
@@ -122,7 +137,7 @@ public final class AuthorizationRouter {
                                                                     self?.navigationController.setNavigationBarTransparent(true)
                                                                     self?.navigationController.popViewController(animated: true)
                                                        })
-        
+
         enviViewController.setBiologerBackBarButtonItem { [weak self] in
             self?.navigationController.setNavigationBarTransparent(true)
             self?.goBack()
@@ -131,7 +146,7 @@ public final class AuthorizationRouter {
         self.navigationController.setNavigationBarTransparent(false)
         self.navigationController.pushViewController(enviViewController, animated: true)
     }
-    
+
     private func showRegisterStepOneScreen() {
         let stepOneViewController = factory.makeRegisterFirstStepScreen(user: RegisterUser(),
                                                                         onNextTapped: { [weak self] user in
@@ -145,7 +160,7 @@ public final class AuthorizationRouter {
         self.navigationController.setNavigationBarTransparent(false)
         self.navigationController.pushViewController(stepOneViewController, animated: true)
     }
-    
+
     private func showRegisterStepTwoScreen(user: RegisterUser) {
         let stepTwoViewController = factory.makeRegisterSecondStepScreen(user: user,
                                                                          onNextTapped: { [weak self] user in
@@ -155,18 +170,18 @@ public final class AuthorizationRouter {
         stepTwoViewController.setBiologerTitle(text: "Register.two.nav.title".localized)
         self.navigationController.pushViewController(stepTwoViewController, animated: true)
     }
-    
+
     private func showRegisterThirdStepScreen(user: RegisterUser) {
-        
+
         let dataLicenses = CheckMarkItemMapper.getDataLicense()
-        
+
         let imageLicenses = CheckMarkItemMapper.getImageLicense()
-        
+
         let dataLicense = dataLicenses[0]
         let imageLicense = imageLicenses[0]
-        
+
         var dataLicenseDelegate: CheckMarkScreenDelegate?
-        
+
         let stepThirdViewController = factory.makeRegisterThreeStepScreen(user: user,
                                                                           topImage: self.selectedEnvironmentImage,
                                                                           service: registerService,
@@ -205,20 +220,20 @@ public final class AuthorizationRouter {
                                  description: error.description)
         },
                                                                           onLoading: onLoading)
-        
+
         let viewController = stepThirdViewController as? UIHostingController<RegisterStepThreeScreen<RegisterStepThreeScreenViewModel>>
         dataLicenseDelegate = viewController?.rootView.loader
-        
+
         stepThirdViewController.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         stepThirdViewController.setBiologerTitle(text: "Register.three.nav.title".localized)
         self.navigationController.pushViewController(stepThirdViewController, animated: true)
     }
-    
+
     private func showLicenseScreen(isDataLicense: Bool,
                                    selectedItem: CheckMarkItem,
                                    items: [CheckMarkItem],
                                    presentDatePicker: CheckMarkScreenDelegate?) {
-        
+
         let dataLicenseViewController = swiftUICommonViewControllerFactory.makeLicenseScreen(items: items,
                                                                                              selectedItem: selectedItem,
                                                                   delegate: presentDatePicker) { [weak self] dataLicenses in
@@ -229,7 +244,7 @@ public final class AuthorizationRouter {
         )
         self.navigationController.pushViewController(dataLicenseViewController, animated: true)
     }
-    
+
     private func showHelpScreen() {
         let vc = swiftUICommonViewControllerFactory.makeHelpScreen(onDone: { _ in
             UserDefaults.standard.set(true, forKey: UserDefaultsConstants.shouldPresentTutorialKey)
@@ -238,7 +253,7 @@ public final class AuthorizationRouter {
         vc.removeBackButtonItem()
         self.navigationController.pushViewController(vc, animated: true)
     }
-    
+
     private func showConfirmAlert(popUpType: PopUpType,
                                   title: String,
                                   description: String,
@@ -249,7 +264,7 @@ public final class AuthorizationRouter {
                                                                          onTapp: onTap)
         self.navigationController.present(vc, animated: true, completion: nil)
     }
-    
+
     private func showErrorAlert(popUpType: PopUpType,
                                 title: String,
                                 description: String) {
@@ -261,18 +276,18 @@ public final class AuthorizationRouter {
                                                                   })
         self.navigationController.present(vc, animated: true, completion: nil)
     }
-    
+
     private func showSplashScreen() {
         let vc = factory.makeSplashScreen(onSplashScreenDone: {
             self.showLoginScreen()
         })
         self.navigationController.setViewControllers([vc], animated: false)
     }
-    
+
     @objc func goBack() {
         navigationController.popViewController(animated: true)
     }
-    
+
     private func showSafari(path: String) {
         if let env = environmentStorage.getEnvironment() {
             let url = "https://\(env.host)\(env.path)\(path)"

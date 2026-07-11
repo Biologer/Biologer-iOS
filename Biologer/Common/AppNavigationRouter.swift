@@ -18,9 +18,9 @@ public final class AppNavigationRouter: NavigationRouter {
     private let sideMenuNavigationController = BiologerNavigationViewController(shouldBeTransparent: false)
     private let mainNavigationController: BiologerNavigationViewController
     private var downloadTaxonNavigationController: BiologerNavigationViewController?
-    
+
     // MARK: - Services
-    
+
     private lazy var httpClient: HTTPClient = {
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = 20
@@ -38,7 +38,7 @@ public final class AppNavigationRouter: NavigationRouter {
         }
         return tokenRefreshDecorator
     }()
-    
+
     private lazy var apiHttpClient: APIClientProtocol = {
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = 20
@@ -47,32 +47,32 @@ public final class AppNavigationRouter: NavigationRouter {
         let client = APIClient(session: session)
         return client
     }()
-    
+
     private lazy var remoteProfileService: ProfileService = {
        return RemoteProfileService(client: httpClient, environmentStorage: environmentStorage)
     }()
-    
+
     private lazy var remoteObservationService: ObservationService = {
        return RemoteObservationService(client: httpClient, environmentStorage: environmentStorage)
     }()
-    
+
     private lazy var taxonServiceCoordinator: TaxonServiceCoordinator = {
         TaxonServiceCoordinator(taxonService: remoteTaxonService,
                                taxonPaginationInfo: taxonPaginationInfoStorage)
     }()
-    
+
     private lazy var remoteTaxonService: TaxonService = {
         return RemoteTaxonService(client: httpClient, environmentStorage: environmentStorage)
     }()
-    
+
     private lazy var remoteFindinPostService: PostFindingService = {
         return RemotePostFindingService(client: httpClient, environmentStorage: environmentStorage)
     }()
-    
+
     private lazy var remoteUploadImageService: PostFindingImageService = {
         return RemotePostFindingImageService(client: httpClient, environmentStorage: environmentStorage)
     }()
-    
+
     private lazy var uploadFindings: UploadFindings = {
        return UploadFindings(remotePostService: remoteFindinPostService,
                              uploadImageService: remoteUploadImageService,
@@ -80,15 +80,25 @@ public final class AppNavigationRouter: NavigationRouter {
                              imageLicenseStorage: imageLicenseStorage,
                              settingsStorage: userDefaultsSettingsStorage)
     }()
-    
+
     // MARK: - Routers
-    
+
     private lazy var authorizationRouter: AuthorizationRouter = {
         let loginUseCase = RemoteLoginUserUseCase(client: apiHttpClient, environmentStorage: environmentStorage, tokenStorage: tokenStorage)
-        let registerUserUseCase = RemoteRegisterUserUseCase(client: apiHttpClient, environmentStorage: environmentStorage)
+        let registerUserUseCase = RemoteRegisterUserUseCase(
+            client: apiHttpClient,
+            environmentStorage: environmentStorage,
+            tokenStorage: tokenStorage,
+            dataLicenseStorage: dataLicenseStorage,
+            imageLicenseStorage: imageLicenseStorage
+        )
         let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
-        let authUseCase = AuthUseCase(loginUseCase: loginUseCase, registerUseCase: registerUserUseCase)
-        
+        let authUseCase = AuthUseCase(
+            loginUseCase: loginUseCase,
+            registerUseCase: registerUserUseCase,
+            environmentStorage: environmentStorage
+        )
+
         let authorization =  AuthorizationRouter(factory: authorizationFactory,
                                    commonViewControllerFactory: commonViewControllerFactory,
                                    swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
@@ -105,7 +115,7 @@ public final class AppNavigationRouter: NavigationRouter {
         }
         return authorization
     }()
-    
+
     private lazy var sideMenuRouter: SideMenuRouterRouter = {
         let sideMenuRouter = SideMenuRouterRouter(navigationController: sideMenuNavigationController,
                                                   mainNavigationController: mainNavigationController,
@@ -118,13 +128,13 @@ public final class AppNavigationRouter: NavigationRouter {
                                                   swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                                   uiKitCommonViewControllerFactory: commonViewControllerFactory,
                                                   swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory)
-        
+
         sideMenuRouter.onLogout = { _ in
             self.logout()
         }
         return sideMenuRouter
     }()
-    
+
     private lazy var taxonRouter: TaxonRouter = {
         let taxonRouter = TaxonRouter(navigationController: sideMenuNavigationController,
                                       location: locationManager,
@@ -139,7 +149,7 @@ public final class AppNavigationRouter: NavigationRouter {
                                       userStorage: userStorage)
         return taxonRouter
     }()
-    
+
     private lazy var setupRouter: SetupRouter = {
        let setupRouter = SetupRouter(navigationController: sideMenuNavigationController,
                                      factory: SwiftUISetupViewControllerFactory(settingsStorage: userDefaultsSettingsStorage),
@@ -154,7 +164,7 @@ public final class AppNavigationRouter: NavigationRouter {
         }
         return setupRouter
     }()
-    
+
     private lazy var downloadTaxonRouter: DownloadTaxonRouter = {
         return DownloadTaxonRouter(alertFactory: swiftUIAlertViewControllerFactory,
                                    swiftUICommonFactory: swiftUICommonViewControllerFactory,
@@ -163,74 +173,74 @@ public final class AppNavigationRouter: NavigationRouter {
                                    taxonPaginationInfoStorage: taxonPaginationInfoStorage,
                                    environmentStorage: environmentStorage)
     }()
-    
+
     // MARK: - Storage
-    
+
     private lazy var environmentStorage: EnvironmentStorage = {
         return KeychainEnvironmentStorage()
     }()
-    
+
     private lazy var dataLicenseStorage: LicenseStorage = {
         return UserDefaultsDataLicenseStorage()
     }()
-    
+
     private lazy var imageLicenseStorage: LicenseStorage = {
         return UserDefaultsImageLicenseStorage()
     }()
-    
+
     private lazy var tokenStorage: TokenStorage = {
         return KeychainTokenStorage()
     }()
-    
+
     private lazy var userStorage: UserStorage = {
         return UserDefaultsUserStorage()
     }()
-    
+
     private lazy var taxonPaginationInfoStorage: TaxonsPaginationInfoStorage = {
         return UserDefaultsTaxonsPaginationInfoStorage()
     }()
-    
+
     private lazy var userDefaultsSettingsStorage: SettingsStorage = {
         let settingsStorage = UserDefaultsSettingsStorage()
-        
+
         guard let settings = settingsStorage.getSettings() else {
             settingsStorage.saveSettings(settings: Settings())
             return settingsStorage
         }
         return settingsStorage
     }()
-    
+
     // MARK: - Factories
-    
+
     private lazy var authorizationFactory: AuthorizationViewControllerFactory = {
         return SwiftUILoginViewControllerFactory()
     }()
-    
+
     private lazy var swiftUICommonViewControllerFactory: CommonViewControllerFactory = {
         return SwiftUICommonViewControllerFactrory()
     }()
-    
+
     private lazy var commonViewControllerFactory: CommonViewControllerFactory = {
         return IOSUIKitCommonViewControllerFactory()
     } ()
-    
+
     private lazy var swiftUIAlertViewControllerFactory: AlertViewControllerFactory = {
         return SwiftUIAlertViewControllerFactory()
     }()
-    
+
     // MARK: - Location
-    
+
     private lazy var locationManager: LocationManager = {
        return LocationManager()
     }()
-    
+
     // MARK: - Init
-    
+
     init(mainNavigationController: BiologerNavigationViewController) {
         self.mainNavigationController = mainNavigationController
         //self.mainNavigationController.setNavigationBarTransparency()
     }
-    
+
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
         guard let self = self else { return }
         if isLoading {
@@ -240,12 +250,12 @@ public final class AppNavigationRouter: NavigationRouter {
             self.sideMenuNavigationController.dismiss(animated: false, completion: nil)
         }
     }
-    
+
     // MARK: - Public functions
     public func start() {
         launchApp()
     }
-    
+
     // MARK: - Private Functions
     private func showSideMenuRouter() {
         self.sideMenuRouter.start()
@@ -257,15 +267,15 @@ public final class AppNavigationRouter: NavigationRouter {
                                                 self.getMyProfile()
                                               })
     }
-    
+
     private func logout() {
         self.tokenStorage.delete()
         self.userStorage.delete()
         self.taxonPaginationInfoStorage.delete()
-        
+
         let findings = RealmManager.get(fromEntity: DBFinding.self)
         let taxons = RealmManager.get(fromEntity: DBTaxon.self)
-        
+
         print("Before logout:")
         print("DBFinding count: \(findings.count)")
         print("DBTaxon count: \(taxons.count)")
@@ -276,7 +286,7 @@ public final class AppNavigationRouter: NavigationRouter {
         print("After logout:")
         print("DBFinding count: \(RealmManager.get(fromEntity: DBFinding.self).count)")
         print("DBTaxon count: \(RealmManager.get(fromEntity: DBTaxon.self).count)")
-        
+
         self.mainNavigationController.dismiss(animated: true, completion: {
             if let vc = self.mainNavigationController.viewControllers.filter({ $0 is UIHostingController<LoginScreen<LoginScreenViewModel>> }).first {
                 self.mainNavigationController.popToViewController(vc, animated: false)
@@ -285,7 +295,7 @@ public final class AppNavigationRouter: NavigationRouter {
             }
         })
     }
-    
+
     private func launchApp() {
         if let _ = tokenStorage.getToken() {
             let vc = authorizationFactory.makeSplashScreen(onSplashScreenDone: { [weak self] in
@@ -305,7 +315,7 @@ public final class AppNavigationRouter: NavigationRouter {
             mainNavigationController.setViewControllers([vc], animated: false)
         }
     }
-    
+
     private func getMyProfile() {
         onLoading((true))
         remoteProfileService.getMyProfile { result in
@@ -331,7 +341,7 @@ public final class AppNavigationRouter: NavigationRouter {
             }
         }
     }
-    
+
     private func getObservation() {
         remoteObservationService.getObservationTypes(completion: { [weak self] result in
             guard let self = self else { return }

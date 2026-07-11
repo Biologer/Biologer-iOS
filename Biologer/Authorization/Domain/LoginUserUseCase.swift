@@ -23,16 +23,16 @@ public final class RemoteLoginUserUseCase: LoginUserUseCase {
         guard let environment = environmentStorage.getEnvironment() else {
             throw LoginError.apiError(APIError(description: ErrorConstant.environmentNotSelected))
         }
-        
-        guard FieldsValidator.isValid(email: email) else {
-            throw LoginError.invalidEmail
-        }
-        
-        guard FieldsValidator.isEmpty(value: username) else {
+
+        guard AuthInputValidator.isNotEmpty(value: username) else {
             throw LoginError.invalidUsername
         }
-        
-        guard FieldsValidator.isEmpty(value: password) else {
+
+        guard AuthInputValidator.isValid(email: email) else {
+            throw LoginError.invalidEmail
+        }
+
+        guard AuthInputValidator.isNotEmpty(value: password) else {
             throw LoginError.invalidPassword
         }
 

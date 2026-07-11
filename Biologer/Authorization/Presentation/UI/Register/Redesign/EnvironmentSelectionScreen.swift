@@ -1,5 +1,5 @@
 //
-//  NewEnvironmentsScreen.swift
+//  EnvironmentSelectionScreen.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 7. 7. 2026..
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewEnvironmentsScreen: View  {
+struct EnvironmentSelectionScreen: View  {
     
     @Binding var selectedEnvironment: EnvironmentViewModel
     

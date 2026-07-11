@@ -1,5 +1,5 @@
 //
-//  NewLoginScreenViewModel.swift
+//  LoginScreenV2ViewModel.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 7. 7. 2026..
@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-public final class NewLoginScreenViewModel: ObservableObject {
-    
+public final class LoginScreenV2ViewModel: ObservableObject {
+
     @Published public var isLoading: Bool = false
     @Published public var environmentViewModel: EnvironmentViewModel
     @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
     @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
-    
+
     private let useCase: LoginUserUseCase
     private let onSelectEnvironmentTapped: Observer<Void>
     private let onLoginSuccess: Observer<Void>
     private let onLoginError: Observer<APIError>
     private let onRegisterTapped: Observer<Void>
     private let onForgotPasswordTapped: Observer<Void>
-    
+
     init(
         environmentViewModel: EnvironmentViewModel,
         useCase: LoginUserUseCase,
@@ -40,19 +40,19 @@ public final class NewLoginScreenViewModel: ObservableObject {
         self.onRegisterTapped = onRegisterTapped
         self.onForgotPasswordTapped = onForgotPasswordTapped
     }
-    
+
     public func selectEnvironment() {
         onSelectEnvironmentTapped(())
     }
-    
+
     public func register() {
         onRegisterTapped(())
     }
-    
+
     public func forgotPassword() {
         onForgotPasswordTapped(())
     }
-    
+
     public func login() async {
         isLoading = true
         do throws(LoginError) {
@@ -80,30 +80,36 @@ public final class NewLoginScreenViewModel: ObservableObject {
     }
 }
 
-extension NewLoginScreenViewModel {
+extension LoginScreenV2ViewModel {
     private func setEmailRequired() {
+        objectWillChange.send()
         userNameTextFieldViewModel.setInvalid(with: "Common.tf.error.required".localized)
     }
-    
+
     private func setEmailIsNotValidFormat() {
+        objectWillChange.send()
         userNameTextFieldViewModel.setInvalid(with: "Common.tf.email.error.notValid".localized)
     }
-    
+
     private func setPasswordIsNotValid() {
+        objectWillChange.send()
         passwordTextFieldViewModel.setInvalid(with: "Common.tf.error.required".localized)
     }
-        
+
     private func setEmilIsValid() {
+        objectWillChange.send()
         userNameTextFieldViewModel.setValid()
     }
-    
+
     private func setPasswordValid() {
+        objectWillChange.send()
         passwordTextFieldViewModel.setValid()
     }
 }
 
-extension NewLoginScreenViewModel {
+extension LoginScreenV2ViewModel {
     public func toggleIsCodeEntryPassword() {
+        objectWillChange.send()
         passwordTextFieldViewModel.isCodeEntry.toggle()
     }
 }
