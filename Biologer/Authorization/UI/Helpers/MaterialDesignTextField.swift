@@ -35,6 +35,26 @@ public struct MaterialDesignTextField: UIViewRepresentable {
         textField.autocapitalizationType = keyboardType == .emailAddress ? .none : .sentences
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textViewDidChange), for: .editingChanged)
         textField.delegate = context.coordinator
+        
+        // Add toolbar for numeric keyboards
+        if keyboardType == .numberPad ||
+            keyboardType == .decimalPad ||
+            keyboardType == .phonePad {
+            
+            let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+            toolbar.items = [
+                UIBarButtonItem(systemItem: .flexibleSpace),
+                UIBarButtonItem(
+                    systemItem: .done,
+                    primaryAction: UIAction { [weak textField] _ in
+                        textField?.resignFirstResponder()
+                    }
+                )
+            ]
+
+            textField.inputAccessoryView = toolbar
+        }
+        
         return textField
     }
     
