@@ -253,6 +253,7 @@ public final class DownloadTaxonRouter {
         var currentValue: Double = 0
         if let paginationInfo = taxonPaginationInfoStorage.getPaginationInfo() {
             maxValue = Double(paginationInfo.lastPage)
+            // print(maxValue)
             currentValue = Double(paginationInfo.currentPage)
         }
         showBilogerProgressBarScreen(maxValue: maxValue,
@@ -261,8 +262,9 @@ public final class DownloadTaxonRouter {
                                         
                                         self?.taxonServiceCordinator.resumeGetTaxon()
                                         self?.taxonServiceCordinator.getTaxons { currentValue, maxValue in
-                                            if currentValue >= maxValue {
+                                            if currentValue > maxValue {
                                                 self?.navigationController.dismiss(animated: true, completion: nil)
+                                                return
                                             }
                                             
                                             self?.biologerProgressBarDelegate?.updateProgressBar(currentValue: currentValue, maxValue: maxValue)

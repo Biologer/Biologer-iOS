@@ -23,8 +23,8 @@ public final class AppNavigationRouter: NavigationRouter {
     
     private lazy var httpClient: HTTPClient = {
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 20
-        sessionConfig.timeoutIntervalForResource = 20
+        sessionConfig.timeoutIntervalForRequest = 60
+        sessionConfig.timeoutIntervalForResource = 600
         let session = URLSession(configuration: sessionConfig)
         let client = URLSessionHTTPClient(session: session)
         let auth2HttpClientDecorator = Auth2HttpClientDecorator(decoratee: client, tokenStorage: tokenStorage)

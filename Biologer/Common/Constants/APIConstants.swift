@@ -36,6 +36,6 @@ public final class APIConstants {
     public static let montenegroHost = "biologer.me"
     public static let montenegroLangPath = "/me"
     
-    public static let devHost = "dev.biologer.org"
+    public static let devHost = "dev.biologer.rs"
     public static let devLangPath = "/en"
 }

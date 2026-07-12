@@ -50,7 +50,7 @@ public struct TaxonDataResponse: Codable {
         let current_page: Int
         let from: Int?
         let last_page: Int
-        let per_page: String?
+        let per_page: Int?
         let to: Int?
         let total: Int
     }
