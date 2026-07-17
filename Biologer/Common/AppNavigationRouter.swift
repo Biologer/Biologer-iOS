@@ -84,39 +84,20 @@ public final class AppNavigationRouter: NavigationRouter {
     // MARK: - Routers
 
     private lazy var authorizationRouter: AuthorizationRouter = {
-        let loginUseCase = RemoteLoginUserUseCase(client: apiHttpClient, environmentStorage: environmentStorage, tokenStorage: tokenStorage)
-        let registerUserUseCase = RemoteRegisterUserUseCase(
-            client: apiHttpClient,
+        let builder = AuthorizationRouterBuilder(
+            apiClient: apiHttpClient,
+            httpClient: httpClient,
+            navigationController: mainNavigationController,
+            authorizationFactory: authorizationFactory,
+            commonViewControllerFactory: commonViewControllerFactory,
+            swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
+            swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
             environmentStorage: environmentStorage,
-            tokenStorage: tokenStorage
-        )
-        let registrationLicensePreferenceUseCase = DefaultRegistrationLicensePreferenceUseCase(
+            tokenStorage: tokenStorage,
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage
         )
-        let registrationUseCase = DefaultRegistrationUseCase(
-            validator: DefaultRegistrationInputValidator(),
-            licensePreferenceUseCase: registrationLicensePreferenceUseCase,
-            registerUseCase: registerUserUseCase
-        )
-        let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
-        let authUseCase = AuthUseCase(
-            loginUseCase: loginUseCase,
-            registrationUseCase: registrationUseCase,
-            environmentStorage: environmentStorage
-        )
-
-        let authorization =  AuthorizationRouter(factory: authorizationFactory,
-                                   commonViewControllerFactory: commonViewControllerFactory,
-                                   swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
-                                   swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
-                                   navigationController: mainNavigationController,
-                                   authUseCase: authUseCase,
-                                   registerService: registerService,
-                                   environmentStorage: environmentStorage,
-                                   tokenStorage: tokenStorage,
-                                   dataLicenseStorage: dataLicenseStorage,
-                                   imageLicenseStorage: imageLicenseStorage)
+        let authorization = builder.makeRouter()
         authorization.onLoginSuccess = { _ in
             self.showSideMenuRouter()
         }

@@ -75,7 +75,7 @@ struct RegistrationCredentials: Equatable {
     let password: String
 }
 
-enum RegisterUserValidationError: Error {
+enum RegisterUserValidationError: Error, Equatable {
     case emptyUsername
     case emptyLastName
     case emptyEmail

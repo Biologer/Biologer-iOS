@@ -37,12 +37,16 @@
 		9311E8B82FFCF5E5006045C4 /* RegistrationLicenseConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8B72FFCF5E1006045C4 /* RegistrationLicenseConsentViewModel.swift */; };
 		9311E8BA2FFCF648006045C4 /* RegistrationLicenseConsentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */; };
 		9311E8BC2FFD0241006045C4 /* LicenseSelectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */; };
+		9311E8BE2FFD0500006045C4 /* AuthorizationRouterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8BD2FFD0500006045C4 /* AuthorizationRouterBuilder.swift */; };
 		931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E3262B53AD00542EFC /* AppDelegate.swift */; };
 		931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E5262B53AD00542EFC /* SceneDelegate.swift */; };
 		931426EA262B53B000542EFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426E9262B53B000542EFC /* Assets.xcassets */; };
 		931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426EC262B53B000542EFC /* Preview Assets.xcassets */; };
 		931426F0262B53B000542EFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931426EE262B53B000542EFC /* LaunchScreen.storyboard */; };
 		931426FB262B53B100542EFC /* BiologerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426FA262B53B100542EFC /* BiologerTests.swift */; };
+		C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */; };
+		C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */; };
+		C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */; };
 		93142706262B53B100542EFC /* BiologerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142705262B53B100542EFC /* BiologerUITests.swift */; };
 		9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314271A262B58AA00542EFC /* LoginScreen.swift */; };
 		9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314272A262B5AEE00542EFC /* MaterialDesignTextField.swift */; };
@@ -307,6 +311,7 @@
 		9311E8B72FFCF5E1006045C4 /* RegistrationLicenseConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicenseConsentViewModel.swift; sourceTree = "<group>"; };
 		9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicenseConsentScreen.swift; sourceTree = "<group>"; };
 		9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseSelectionScreen.swift; sourceTree = "<group>"; };
+		9311E8BD2FFD0500006045C4 /* AuthorizationRouterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouterBuilder.swift; sourceTree = "<group>"; };
 		931426E0262B53AD00542EFC /* Biologer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biologer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426E3262B53AD00542EFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		931426E5262B53AD00542EFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -317,6 +322,9 @@
 		931426F6262B53B000542EFC /* BiologerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426FA262B53B100542EFC /* BiologerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerTests.swift; sourceTree = "<group>"; };
 		931426FC262B53B100542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputValidatorTests.swift; sourceTree = "<group>"; };
+		C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCaseTests.swift; sourceTree = "<group>"; };
+		C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientErrorMappingTests.swift; sourceTree = "<group>"; };
 		93142701262B53B100542EFC /* BiologerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93142705262B53B100542EFC /* BiologerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerUITests.swift; sourceTree = "<group>"; };
 		93142707262B53B100542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -611,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				9300757226877BDE005A4DE0 /* AuthorizationRouter.swift */,
+				9311E8BD2FFD0500006045C4 /* AuthorizationRouterBuilder.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -812,6 +821,9 @@
 			isa = PBXGroup;
 			children = (
 				931426FA262B53B100542EFC /* BiologerTests.swift */,
+				C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */,
+				C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */,
+				C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */,
 				931426FC262B53B100542EFC /* Info.plist */,
 			);
 			path = BiologerTests;
@@ -1820,6 +1832,7 @@
 				936616D3270393DC00F02A83 /* NewTaxonImageView.swift in Sources */,
 				938D93662706522C0068E27C /* NoImagesAddedView.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
+				9311E8BE2FFD0500006045C4 /* AuthorizationRouterBuilder.swift in Sources */,
 				935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */,
 				931D3FF3274AD6C800352C8E /* CheckInternetConnection.swift in Sources */,
 				931D3FDD2747925300352C8E /* LicenseStorage.swift in Sources */,
@@ -1975,6 +1988,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				931426FB262B53B100542EFC /* BiologerTests.swift in Sources */,
+				C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */,
+				C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */,
+				C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2217,7 +2233,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K8359P6TP3;
 				INFOPLIST_FILE = BiologerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2239,7 +2255,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K8359P6TP3;
 				INFOPLIST_FILE = BiologerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
