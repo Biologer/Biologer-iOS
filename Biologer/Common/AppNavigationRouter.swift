@@ -33,8 +33,10 @@ public final class AppNavigationRouter: NavigationRouter {
         let tokenRefreshDecorator = TokenRefreshingHTTPClientDecorator(decoratee: mainQueueDecorator,
                                                                        getTokenService: getTokenService,
                                                                        tokenStorage: tokenStorage)
-        tokenRefreshDecorator.onLogout = {
-            self.logout()
+        tokenRefreshDecorator.onLogout = { [weak self] in
+            self?.performOnMain { [weak self] in
+                self?.logout()
+            }
         }
         return tokenRefreshDecorator
     }()
@@ -124,8 +126,10 @@ public final class AppNavigationRouter: NavigationRouter {
             imageLicenseStorage: imageLicenseStorage
         )
         let authorization = builder.makeRouter()
-        authorization.onLoginSuccess = { _ in
-            self.showSideMenuRouter()
+        authorization.onLoginSuccess = { [weak self] _ in
+            self?.performOnMain { [weak self] in
+                self?.showSideMenuRouter()
+            }
         }
         return authorization
     }()
@@ -143,8 +147,10 @@ public final class AppNavigationRouter: NavigationRouter {
                                                   uiKitCommonViewControllerFactory: commonViewControllerFactory,
                                                   swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory)
 
-        sideMenuRouter.onLogout = { _ in
-            self.logout()
+        sideMenuRouter.onLogout = { [weak self] _ in
+            self?.performOnMain { [weak self] in
+                self?.logout()
+            }
         }
         sideMenuRouter.onStartDownloadTaxon = { [weak self] _ in
             guard let self = self else { return }
@@ -245,12 +251,14 @@ public final class AppNavigationRouter: NavigationRouter {
     }
 
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
-        guard let self = self else { return }
-        if isLoading {
-            let loader  = self.commonViewControllerFactory.createBlockingProgress()
-            self.sideMenuNavigationController.present(loader, animated: false, completion: nil)
-        } else {
-            self.sideMenuNavigationController.dismiss(animated: false, completion: nil)
+        self?.performOnMain { [weak self] in
+            guard let self = self else { return }
+            if isLoading {
+                let loader = self.commonViewControllerFactory.createBlockingProgress()
+                self.sideMenuNavigationController.present(loader, animated: false, completion: nil)
+            } else {
+                self.sideMenuNavigationController.dismiss(animated: false, completion: nil)
+            }
         }
     }
 
@@ -344,5 +352,15 @@ public final class AppNavigationRouter: NavigationRouter {
                                                sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: false)
             }
         })
+    }
+
+    private func performOnMain(_ action: @escaping () -> Void) {
+        if Thread.isMainThread {
+            action()
+        } else {
+            DispatchQueue.main.async {
+                action()
+            }
+        }
     }
 }

@@ -58,27 +58,39 @@ public final class LoginScreenViewModel: LoginScreenLoader {
     }
     
     public func login() async {
-        onLoading((true))
+        await MainActor.run {
+            onLoading((true))
+        }
+        let username = await MainActor.run {
+            userNameTextFieldViewModel.text
+        }
+        let password = await MainActor.run {
+            passwordTextFieldViewModel.text
+        }
         do throws(LoginError) {
             try await useCase.login(
-                email: userNameTextFieldViewModel.text,
-                username: userNameTextFieldViewModel.text,
-                password: passwordTextFieldViewModel.text
+                email: username,
+                username: username,
+                password: password
             )
-            setPasswordValid()
-            onLoading((false))
-            onLoginSuccess(())
+            await MainActor.run {
+                setPasswordValid()
+                onLoading((false))
+                onLoginSuccess(())
+            }
         } catch let error {
-            onLoading((false))
-            switch error {
-            case .invalidUsername:
-                setEmailRequired()
-            case .invalidEmail:
-                setEmailIsNotValidFormat()
-            case .invalidPassword:
-                setPasswordIsNotValid()
-            case .apiError(let error):
-                onLoginError((error))
+            await MainActor.run {
+                onLoading((false))
+                switch error {
+                case .invalidUsername:
+                    setEmailRequired()
+                case .invalidEmail:
+                    setEmailIsNotValidFormat()
+                case .invalidPassword:
+                    setPasswordIsNotValid()
+                case .apiError(let error):
+                    onLoginError((error))
+                }
             }
         }
     }

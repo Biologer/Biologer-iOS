@@ -58,12 +58,14 @@ public final class AuthorizationRouter {
     }
 
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
-        guard let self = self else { return }
-        if isLoading {
-            let loader  = self.commonViewControllerFactory.createBlockingProgress()
-            self.navigationController.present(loader, animated: false, completion: nil)
-        } else {
-            self.navigationController.dismiss(animated: false, completion: nil)
+        self?.performOnMain { [weak self] in
+            guard let self = self else { return }
+            if isLoading {
+                let loader = self.commonViewControllerFactory.createBlockingProgress()
+                self.navigationController.present(loader, animated: false, completion: nil)
+            } else {
+                self.navigationController.dismiss(animated: false, completion: nil)
+            }
         }
     }
 
@@ -84,10 +86,10 @@ public final class AuthorizationRouter {
                                                              onLoginSuccess: { [weak self] in
                                                                 self?.onLoginSuccess?(())
                                                              },
-                                                             onLoginError: { error in
-                                                                self.showErrorAlert(popUpType: .error,
-                                                                                    title: error.title,
-                                                                                    description: error.description)
+                                                             onLoginError: { [weak self] error in
+                                                                self?.showErrorAlert(popUpType: .error,
+                                                                                     title: error.title,
+                                                                                     description: error.description)
                                                              },
                                                              onRegisterTapped: { [weak self] _ in
                                                                 self?.showRegisterStepOneScreen()
@@ -108,7 +110,9 @@ public final class AuthorizationRouter {
         let loginFlow = AuthorizationFlow(
             authorizationUseCase: authUseCase,
             onAuthorizationSuccess: { [weak self] _ in
-                self?.onLoginSuccess?(())
+                self?.performOnMain { [weak self] in
+                    self?.onLoginSuccess?(())
+                }
             },
             onForgotPassword: { [weak self] _ in
                 self?.showSafari(path: "/password/reset")
@@ -260,23 +264,29 @@ public final class AuthorizationRouter {
                                   title: String,
                                   description: String,
                                   onTap: @escaping Observer<Void>) {
-        let vc = swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
-                                                                         title: title,
-                                                                         description: description,
-                                                                         onTapp: onTap)
-        self.navigationController.present(vc, animated: true, completion: nil)
+        performOnMain { [weak self] in
+            guard let self = self else { return }
+            let vc = self.swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
+                                                                                  title: title,
+                                                                                  description: description,
+                                                                                  onTapp: onTap)
+            self.navigationController.present(vc, animated: true, completion: nil)
+        }
     }
 
     private func showErrorAlert(popUpType: PopUpType,
                                 title: String,
                                 description: String) {
-        let vc = swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
-                                                                  title: title,
-                                                                  description: description,
-                                                                  onTapp: { _ in
-                                                                    self.navigationController.dismiss(animated: true, completion: nil)
-                                                                  })
-        self.navigationController.present(vc, animated: true, completion: nil)
+        performOnMain { [weak self] in
+            guard let self = self else { return }
+            let vc = self.swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
+                                                                                  title: title,
+                                                                                  description: description,
+                                                                                  onTapp: { [weak self] _ in
+                                                                                    self?.navigationController.dismiss(animated: true, completion: nil)
+                                                                                  })
+            self.navigationController.present(vc, animated: true, completion: nil)
+        }
     }
 
     private func showSplashScreen() {
@@ -291,10 +301,21 @@ public final class AuthorizationRouter {
     }
 
     private func showSafari(path: String) {
-        if let env = environmentStorage.getEnvironment() {
+        performOnMain { [weak self] in
+            guard let self = self, let env = self.environmentStorage.getEnvironment() else { return }
             let url = "https://\(env.host)\(env.path)\(path)"
             if let url = URL(string: url) {
                 UIApplication.shared.open(url)
+            }
+        }
+    }
+
+    private func performOnMain(_ action: @escaping () -> Void) {
+        if Thread.isMainThread {
+            action()
+        } else {
+            DispatchQueue.main.async {
+                action()
             }
         }
     }

@@ -54,12 +54,14 @@ public final class SideMenuRouterRouter: NavigationRouter {
     }
     
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
-        guard let self = self else { return }
-        if isLoading {
-            let loader  = self.uiKitCommonViewControllerFactory.createBlockingProgress()
-            self.navigationController.present(loader, animated: false, completion: nil)
-        } else {
-            self.navigationController.dismiss(animated: false, completion: nil)
+        self?.performOnMain { [weak self] in
+            guard let self = self else { return }
+            if isLoading {
+                let loader = self.uiKitCommonViewControllerFactory.createBlockingProgress()
+                self.navigationController.present(loader, animated: false, completion: nil)
+            } else {
+                self.navigationController.dismiss(animated: false, completion: nil)
+            }
         }
     }
     
@@ -214,25 +216,41 @@ public final class SideMenuRouterRouter: NavigationRouter {
     private func showErrorAlert(popUpType: PopUpType,
                                 title: String,
                                 description: String) {
-        let vc = swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
-                                                                  title: title,
-                                                                  description: description,
-                                                                  onTapp: { _ in
-                                                                    self.navigationController.dismiss(animated: true, completion: nil)
-                                                                  })
-        self.navigationController.present(vc, animated: true, completion: nil)
+        performOnMain { [weak self] in
+            guard let self = self else { return }
+            let vc = self.swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
+                                                                                  title: title,
+                                                                                  description: description,
+                                                                                  onTapp: { [weak self] _ in
+                                                                                    self?.navigationController.dismiss(animated: true, completion: nil)
+                                                                                  })
+            self.navigationController.present(vc, animated: true, completion: nil)
+        }
     }
     
     private func showInfoAlert(popUpType: PopUpType,
                                 title: String,
                                 description: String,
                                completion: @escaping (() -> Void)) {
-        let vc = swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
-                                                                  title: title,
-                                                                  description: description,
-                                                                  onTapp: { _ in
-                                                                    self.navigationController.dismiss(animated: true, completion: completion)
-                                                                  })
-        self.navigationController.present(vc, animated: true, completion: nil)
+        performOnMain { [weak self] in
+            guard let self = self else { return }
+            let vc = self.swiftUIAlertViewControllerFactory.makeConfirmationAlert(popUpType: popUpType,
+                                                                                  title: title,
+                                                                                  description: description,
+                                                                                  onTapp: { [weak self] _ in
+                                                                                    self?.navigationController.dismiss(animated: true, completion: completion)
+                                                                                  })
+            self.navigationController.present(vc, animated: true, completion: nil)
+        }
+    }
+
+    private func performOnMain(_ action: @escaping () -> Void) {
+        if Thread.isMainThread {
+            action()
+        } else {
+            DispatchQueue.main.async {
+                action()
+            }
+        }
     }
 }

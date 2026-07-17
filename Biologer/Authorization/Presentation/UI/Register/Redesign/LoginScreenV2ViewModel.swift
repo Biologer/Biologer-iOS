@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 public final class LoginScreenV2ViewModel: ObservableObject {
 
     @Published public var isLoading: Bool = false
