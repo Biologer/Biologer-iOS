@@ -12,21 +12,29 @@ public final class SetupProjectNameScreenViewModel: ObservableObject {
     public let okButtonTitle = "Common.btn.ok".localized
     public let cancelTitle = "Common.btn.cancel".localized
     
-    private let settingsStorage: SettingsStorage
+    private let useCase: SetupUseCase
     private let onCancelTapped: Observer<Void>
     private let onOkTapped: Observer<String>
     
-    init(settingsStorage: SettingsStorage,
+    init(useCase: SetupUseCase,
          onCancelTapped: @escaping Observer<Void>,
          onOkTapped: @escaping Observer<String>) {
-        self.settingsStorage = settingsStorage
+        self.useCase = useCase
         self.onCancelTapped = onCancelTapped
         self.onOkTapped = onOkTapped
-        if let settings = self.settingsStorage.getSettings() {
-            self.textField = ProjectNameTextFieldViewModel(text: settings.projectName)
-        } else {
-            self.textField = ProjectNameTextFieldViewModel(text: "")
-        }
+        self.textField = ProjectNameTextFieldViewModel(text: useCase.projectName())
+    }
+
+    convenience init(
+        settingsStorage: SettingsStorage,
+        onCancelTapped: @escaping Observer<Void>,
+        onOkTapped: @escaping Observer<String>
+    ) {
+        self.init(
+            useCase: SettingsStorageSetupUseCase(settingsStorage: settingsStorage),
+            onCancelTapped: onCancelTapped,
+            onOkTapped: onOkTapped
+        )
     }
     
     public func cancelTapped() {
@@ -34,10 +42,7 @@ public final class SetupProjectNameScreenViewModel: ObservableObject {
     }
     
     public func okTapped() {
-        if let settings = self.settingsStorage.getSettings() {
-            settings.setProjectName(name: textField.text)
-            self.settingsStorage.saveSettings(settings: settings)
-        }
+        useCase.saveProjectName(textField.text)
         onOkTapped((textField.text))
     }
     

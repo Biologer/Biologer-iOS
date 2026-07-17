@@ -18,8 +18,7 @@ struct SetupSectionView: View {
                 .foregroundColor(Color.biologerGreenColor)
                 .font(.headerBoldFont)
                 .padding(.vertical, 10)
-            ForEach(viewModel.items.indices) { index in
-                let item = viewModel.items[index]
+            ForEach(Array(viewModel.items.enumerated()), id: \.element.id) { index, item in
                 Button(action: {
                     onItemTapped(index)
                 }, label: {

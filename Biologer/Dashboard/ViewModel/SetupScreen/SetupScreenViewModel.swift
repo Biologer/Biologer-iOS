@@ -11,44 +11,38 @@ public final class SetupScreenViewModel: ObservableObject, Identifiable {
     public var id = UUID()
     @Published var sections: [SetupSectionViewModel]
     private var onItemTapped: Observer<SetupItemViewModel>
-    private let settingsStorage: SettingsStorage
+    private let useCase: SetupUseCase
     
-    init(settingsStorage: SettingsStorage,
+    init(useCase: SetupUseCase,
          onItemTapped: @escaping Observer<SetupItemViewModel>) {
-        self.sections = SetupDataMapper.getSetupData(storage: settingsStorage)
-        self.settingsStorage = settingsStorage
+        self.sections = SetupDataMapper.getSetupData(settings: useCase.currentSettings())
+        self.useCase = useCase
         self.onItemTapped = onItemTapped
     }
+
+    convenience init(
+        settingsStorage: SettingsStorage,
+        onItemTapped: @escaping Observer<SetupItemViewModel>
+    ) {
+        self.init(
+            useCase: SettingsStorageSetupUseCase(settingsStorage: settingsStorage),
+            onItemTapped: onItemTapped
+        )
+    }
     
-    public func itemTapped(sectionIndex: Int, itemIndex: Int) {
+    @discardableResult
+    public func itemTapped(sectionIndex: Int, itemIndex: Int) -> SetupItemViewModel {
         let item = sections[sectionIndex].items[itemIndex]
         item.isSelected?.toggle()
         
         switch item.type {
-        case .chooseGropups:
-            if let settings = self.settingsStorage.getSettings() {
-                settings.toggleChooseSpecisGroup()
-                self.settingsStorage.saveSettings(settings: settings)
-            }
-        case .englishNames:
-            if let settings = self.settingsStorage.getSettings() {
-                settings.toggleAlwaysEnglishName()
-                self.settingsStorage.saveSettings(settings: settings)
-            }
-        case .adultByDefault:
-            if let settings = self.settingsStorage.getSettings() {
-                settings.toggleSetAdultByDefault()
-                self.settingsStorage.saveSettings(settings: settings)
-            }
-        case .observationEntry:
-            if let settings = self.settingsStorage.getSettings() {
-                settings.toggleAdvanceObservationEntry()
-                self.settingsStorage.saveSettings(settings: settings)
-            }
+        case .chooseGropups, .englishNames, .adultByDefault, .observationEntry:
+            useCase.toggleSetting(for: item.type)
         case .projectName, .imageLicense, .dataLicense, .downloadAllTaxa, .downloadUpload, .resetAllTaxa:
             break
         }
         
         onItemTapped((item))
+        return item
     }
 }

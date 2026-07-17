@@ -9,23 +9,27 @@ import Foundation
 
 public final class SetupDataMapper {
     public static func getSetupData(storage: SettingsStorage) -> [SetupSectionViewModel] {
+        getSetupData(settings: storage.getSettings() ?? Settings())
+    }
+
+    public static func getSetupData(settings: Settings) -> [SetupSectionViewModel] {
         
         let firstSection = [
 //                            SetupItemViewModel(title: "Settings.lb.chooseSpecisGroup.title".localized,
 //                                               description: "Settings.lb.chooseSpecisGroup.desc".localized,
-//                                               isSelected: storage.getSettings()?.chooseSpeciesGroup ?? false,
+//                                               isSelected: settings.chooseSpeciesGroup,
 //                                               type: .chooseGropups),
                             SetupItemViewModel(title: "Settings.lb.awayListEnglish.title".localized,
                                                description: "Settings.lb.awayListEnglish.desc".localized,
-                                               isSelected: storage.getSettings()?.alwaysEnglishName ?? false,
+                                               isSelected: settings.alwaysEnglishName,
                                                type: .englishNames),
                             SetupItemViewModel(title: "Settings.lb.adultDefault.title".localized,
                                                description: "Settings.lb.adultDefault.desc".localized,
-                                               isSelected: storage.getSettings()?.setAdultByDefault ?? false,
+                                               isSelected: settings.setAdultByDefault,
                                                type: .adultByDefault),
 //                            SetupItemViewModel(title: "Settings.lb.advanceObservation.title".localized,
 //                                               description: "Settings.lb.advanceObservation.desc".localized,
-//                                               isSelected: storage.getSettings()?.advanceObservationEntry ?? false,
+//                                               isSelected: settings.advanceObservationEntry,
 //                                               type: .observationEntry)
         ]
         

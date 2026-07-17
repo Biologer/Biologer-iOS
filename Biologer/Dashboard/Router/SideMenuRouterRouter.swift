@@ -13,35 +13,36 @@ public final class SideMenuRouterRouter: NavigationRouter {
     
     private let navigationController: UINavigationController
     private let mainNavigationController: UINavigationController
-    private let setupRouter: SetupRouter
     private let taxonRouter: TaxonRouter
+    private let setupUseCase: SetupUseCase
     private let factory: DashboardViewControllerFactory
     private let uiKitCommonViewControllerFactory: CommonViewControllerFactory
     private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
     private let swiftUIAlertViewControllerFactory: AlertViewControllerFactory
     private let environmentStorage: EnvironmentStorage
     private let userStorage: UserStorage
-    private let profileService: ProfileService
+    private let userAccountUseCase: UserAccountUseCase
     public var onLogout: Observer<Void>?
+    public var onStartDownloadTaxon: Observer<Void>?
     
     init(navigationController: UINavigationController,
          mainNavigationController: UINavigationController,
-         setupRouter: SetupRouter,
          taxonRouter: TaxonRouter,
+         setupUseCase: SetupUseCase,
          environmentStorage: EnvironmentStorage,
          userStorage: UserStorage,
-         profileService: ProfileService,
+         userAccountUseCase: UserAccountUseCase,
          factory: DashboardViewControllerFactory,
          swiftUIAlertViewControllerFactory: AlertViewControllerFactory,
          uiKitCommonViewControllerFactory: CommonViewControllerFactory,
          swiftUICommonViewControllerFactory: CommonViewControllerFactory) {
         self.navigationController = navigationController
         self.mainNavigationController = mainNavigationController
-        self.setupRouter = setupRouter
         self.taxonRouter = taxonRouter
+        self.setupUseCase = setupUseCase
         self.environmentStorage = environmentStorage
         self.userStorage = userStorage
-        self.profileService = profileService
+        self.userAccountUseCase = userAccountUseCase
         self.factory = factory
         self.uiKitCommonViewControllerFactory = uiKitCommonViewControllerFactory
         self.swiftUICommonViewControllerFactory = swiftUICommonViewControllerFactory
@@ -83,10 +84,17 @@ public final class SideMenuRouterRouter: NavigationRouter {
     }
     
     private func showSetupScreen() {
-        setupRouter.start()
-        setupRouter.onSideMenuTapped = { [weak self] _ in
-            self?.showSideMenu()
-        }
+        let setupFlow = SetupFlow(
+            setupUseCase: setupUseCase,
+            onSideMenuTapped: { [weak self] _ in
+                self?.showSideMenu()
+            },
+            onStartDownloadTaxon: { [weak self] _ in
+                self?.onStartDownloadTaxon?(())
+            }
+        )
+        let vc = UIHostingController(rootView: setupFlow)
+        self.navigationController.setViewControllers([vc], animated: false)
     }
     
     private func showLogoutScreen() {
@@ -138,26 +146,32 @@ public final class SideMenuRouterRouter: NavigationRouter {
                                                  onDeleteAccountTapped: { [weak self] deleteObservations in
             guard let self = self else { return }
 
-            guard let userID = self.userStorage.getUser()?.id else {
-                return
-            }
-            
-            profileService.deleteUser(userID: userID, deleteObservations: deleteObservations, completion: { result in
-                switch result {
-                case .success:
-                    
+            Task {
+                do {
+                    try await self.userAccountUseCase.deleteCurrentUser(deleteObservations: deleteObservations)
+                    await MainActor.run {
                     self.showInfoAlert(popUpType: .success, title: "DeleteAccount.lb.successTitle".localized, description: "", completion: {
                         print("User deleted successfully")
                         
                         self.onLogout?(())
                         self.userStorage.deleteAllForUser()
                     })
-                    
-                case .failure(let error):
-                    self.showErrorAlert(popUpType: .error, title: error.title, description: error.description)
-                    print("Error: \(error.description)")
+                    }
+                } catch let error as APIError {
+                    await MainActor.run {
+                        self.showErrorAlert(popUpType: .error, title: error.title, description: error.description)
+                        print("Error: \(error.description)")
+                    }
+                } catch {
+                    await MainActor.run {
+                        self.showErrorAlert(
+                            popUpType: .error,
+                            title: "API.lb.error".localized,
+                            description: error.localizedDescription
+                        )
+                    }
                 }
-            })
+            }
         })
         
         vc.setBiologerTitle(text: "SideMenu.lb.DeleteAccount".localized)

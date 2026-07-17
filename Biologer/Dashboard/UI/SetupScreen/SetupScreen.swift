@@ -10,6 +10,7 @@ import SwiftUI
 struct SetupScreen: View  {
     
     @ObservedObject var viewModel: SetupScreenViewModel
+    var onItemTapped: Observer<SetupItemViewModel>?
     
     var body: some View {
         ScrollView {
@@ -17,11 +18,12 @@ struct SetupScreen: View  {
                 Color.clear
                     .padding(.top, 10)
                 ForEach(viewModel.sections.indices, id: \.self) { sectionIndex in
-                    let section = viewModel.sections[sectionIndex]
-                    SetupSectionView(viewModel: section,
+                let section = viewModel.sections[sectionIndex]
+                SetupSectionView(viewModel: section,
                                      onItemTapped: { itemIndex in
-                                        viewModel.itemTapped(sectionIndex: sectionIndex,
-                                                             itemIndex: itemIndex)
+                                        let item = viewModel.itemTapped(sectionIndex: sectionIndex,
+                                                                        itemIndex: itemIndex)
+                                        onItemTapped?(item)
                                      })
                 }
             }

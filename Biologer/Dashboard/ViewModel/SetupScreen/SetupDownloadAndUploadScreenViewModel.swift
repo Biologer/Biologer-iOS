@@ -33,17 +33,29 @@ public final class SetupDownloadAndUploadScreenViewModel: ObservableObject {
     public let cancelButtonTitle = "Common.btn.cancel".localized
     public let title = "DownloadAndUpload.nav.title".localized
     
-    private let settingsStorage: SettingsStorage
+    private let useCase: SetupUseCase
     private let onCancelTapped: Observer<Void>
     private let onItemTapped: Observer<SetupRadioAndTitleModel>
     
-    init(settingsStorage: SettingsStorage,
+    init(useCase: SetupUseCase,
          onCancelTapped: @escaping Observer<Void>,
          onItemTapped: @escaping Observer<SetupRadioAndTitleModel>) {
-        self.settingsStorage = settingsStorage
+        self.useCase = useCase
         self.onCancelTapped = onCancelTapped
         self.onItemTapped = onItemTapped
-        self.items = SetupDownloadAndUploadMapper.getItems(settingsStorage: settingsStorage)
+        self.items = useCase.autoDownloadItems()
+    }
+
+    convenience init(
+        settingsStorage: SettingsStorage,
+        onCancelTapped: @escaping Observer<Void>,
+        onItemTapped: @escaping Observer<SetupRadioAndTitleModel>
+    ) {
+        self.init(
+            useCase: SettingsStorageSetupUseCase(settingsStorage: settingsStorage),
+            onCancelTapped: onCancelTapped,
+            onItemTapped: onItemTapped
+        )
     }
     
     public func itemTapped(selectedIndex: Int) {
@@ -51,10 +63,7 @@ public final class SetupDownloadAndUploadScreenViewModel: ObservableObject {
         let item = items[selectedIndex]
         item.isSelected = true
         
-        if let settings = settingsStorage.getSettings() {
-            settings.setAutoDownloadTaxonBy(type: item.type)
-            settingsStorage.saveSettings(settings: settings)
-        }
+        useCase.selectAutoDownloadTaxon(item.type)
         
         onItemTapped((item))
     }

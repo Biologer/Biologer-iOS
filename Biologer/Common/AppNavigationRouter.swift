@@ -52,6 +52,32 @@ public final class AppNavigationRouter: NavigationRouter {
        return RemoteProfileService(client: httpClient, environmentStorage: environmentStorage)
     }()
 
+    private lazy var userAccountUseCase: UserAccountUseCase = {
+        DefaultUserAccountUseCase(
+            profileService: remoteProfileService,
+            userStorage: userStorage
+        )
+    }()
+
+    private lazy var logoutUseCase: LogoutUseCase = {
+        DefaultLogoutUseCase(
+            tokenStorage: tokenStorage,
+            userStorage: userStorage,
+            taxonPaginationInfoStorage: taxonPaginationInfoStorage,
+            localDataDeleting: RealmLogoutLocalDataDeleter()
+        )
+    }()
+
+    private lazy var setupUseCase: SetupUseCase = {
+        DefaultSetupUseCase(
+            settingsStorage: userDefaultsSettingsStorage,
+            dataLicenseStorage: dataLicenseStorage,
+            imageLicenseStorage: imageLicenseStorage,
+            taxonPaginationStorage: taxonPaginationInfoStorage,
+            taxonLocalDataStore: RealmSetupTaxonLocalDataStore()
+        )
+    }()
+
     private lazy var remoteObservationService: ObservationService = {
        return RemoteObservationService(client: httpClient, environmentStorage: environmentStorage)
     }()
@@ -107,11 +133,11 @@ public final class AppNavigationRouter: NavigationRouter {
     private lazy var sideMenuRouter: SideMenuRouterRouter = {
         let sideMenuRouter = SideMenuRouterRouter(navigationController: sideMenuNavigationController,
                                                   mainNavigationController: mainNavigationController,
-                                                  setupRouter: setupRouter,
                                                   taxonRouter: taxonRouter,
+                                                  setupUseCase: setupUseCase,
                                                   environmentStorage: environmentStorage,
                                                   userStorage: userStorage,
-                                                  profileService: remoteProfileService,
+                                                  userAccountUseCase: userAccountUseCase,
                                                   factory: SwiftUIDashboardViewControllerFactory(),
                                                   swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                                   uiKitCommonViewControllerFactory: commonViewControllerFactory,
@@ -119,6 +145,10 @@ public final class AppNavigationRouter: NavigationRouter {
 
         sideMenuRouter.onLogout = { _ in
             self.logout()
+        }
+        sideMenuRouter.onStartDownloadTaxon = { [weak self] _ in
+            guard let self = self else { return }
+            self.downloadTaxonRouter.start(navigationController: self.sideMenuNavigationController)
         }
         return sideMenuRouter
     }()
@@ -136,21 +166,6 @@ public final class AppNavigationRouter: NavigationRouter {
                                       alertFactory: swiftUIAlertViewControllerFactory,
                                       userStorage: userStorage)
         return taxonRouter
-    }()
-
-    private lazy var setupRouter: SetupRouter = {
-       let setupRouter = SetupRouter(navigationController: sideMenuNavigationController,
-                                     factory: SwiftUISetupViewControllerFactory(settingsStorage: userDefaultsSettingsStorage),
-                                     swiftUICommonFactory: swiftUICommonViewControllerFactory,
-                                     alertFactory: swiftUIAlertViewControllerFactory,
-                                     taxonPaginationStorage: taxonPaginationInfoStorage,
-                                     imageLicenseStorage: imageLicenseStorage,
-                                     dataLicenseStorage: dataLicenseStorage)
-        setupRouter.onStartDownloadTaxon = { [weak self] _ in
-            guard let self = self else { return }
-            self.downloadTaxonRouter.start(navigationController: self.sideMenuNavigationController)
-        }
-        return setupRouter
     }()
 
     private lazy var downloadTaxonRouter: DownloadTaxonRouter = {
@@ -257,23 +272,7 @@ public final class AppNavigationRouter: NavigationRouter {
     }
 
     private func logout() {
-        self.tokenStorage.delete()
-        self.userStorage.delete()
-        self.taxonPaginationInfoStorage.delete()
-
-        let findings = RealmManager.get(fromEntity: DBFinding.self)
-        let taxons = RealmManager.get(fromEntity: DBTaxon.self)
-
-        print("Before logout:")
-        print("DBFinding count: \(findings.count)")
-        print("DBTaxon count: \(taxons.count)")
-
-        RealmManager.delete(fromEntity: DBFinding.self)
-        RealmManager.delete(fromEntity: DBTaxon.self)
-
-        print("After logout:")
-        print("DBFinding count: \(RealmManager.get(fromEntity: DBFinding.self).count)")
-        print("DBTaxon count: \(RealmManager.get(fromEntity: DBTaxon.self).count)")
+        logoutUseCase.logout()
 
         self.mainNavigationController.dismiss(animated: true, completion: {
             if let vc = self.mainNavigationController.viewControllers.filter({ $0 is UIHostingController<LoginScreen<LoginScreenViewModel>> }).first {
@@ -306,26 +305,26 @@ public final class AppNavigationRouter: NavigationRouter {
 
     private func getMyProfile() {
         onLoading((true))
-        remoteProfileService.getMyProfile { result in
-            switch result {
-            case .failure(let error):
-                self.onLoading((false))
-                print("My profile error: \(error.description)")
-                if !error.isInternetConnectionAvailable {
-                    print("You don't have a internte connection. Read last data from REALM")
+        Task { [weak self] in
+            guard let self = self else { return }
+            do {
+                _ = try await self.userAccountUseCase.loadCurrentUser()
+                await MainActor.run {
+                    self.getObservation()
                 }
-            case .success(let response):
-                let user = User(id: response.data.id,
-                                firstName: response.data.first_name,
-                                lastName: response.data.last_name,
-                                email: response.data.email,
-                                fullName: response.data.full_name,
-                                isVerified: response.data.is_verified,
-                                settings: User.Settings(dataLicense: response.data.settings.data_license,
-                                                        imageLicense: response.data.settings.image_license,
-                                                        language: response.data.settings.language))
-                self.userStorage.save(user: user)
-                self.getObservation()
+            } catch let error as APIError {
+                await MainActor.run {
+                    self.onLoading((false))
+                    print("My profile error: \(error.description)")
+                    if !error.isInternetConnectionAvailable {
+                        print("You don't have a internte connection. Read last data from REALM")
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    self.onLoading((false))
+                    print("My profile error: \(error.localizedDescription)")
+                }
             }
         }
     }

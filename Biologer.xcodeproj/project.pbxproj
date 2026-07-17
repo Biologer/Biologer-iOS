@@ -47,6 +47,15 @@
 		C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */; };
 		C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */; };
 		C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */; };
+		D20000012FFD200000000001 /* UserAccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000022FFD200000000001 /* UserAccountUseCase.swift */; };
+		D20000042FFD200000000001 /* UserAccountUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */; };
+		D20000062FFD200000000001 /* LogoutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000072FFD200000000001 /* LogoutUseCase.swift */; };
+		D20000082FFD200000000001 /* RealmLogoutLocalDataDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */; };
+		D20000102FFD200000000001 /* LogoutUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000112FFD200000000001 /* LogoutUseCaseTests.swift */; };
+		D20000132FFD200000000001 /* SetupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000142FFD200000000001 /* SetupUseCase.swift */; };
+		D20000152FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */; };
+		D20000172FFD200000000001 /* SetupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000182FFD200000000001 /* SetupFlow.swift */; };
+		D20000192FFD200000000001 /* SetupUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000202FFD200000000001 /* SetupUseCaseTests.swift */; };
 		93142706262B53B100542EFC /* BiologerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142705262B53B100542EFC /* BiologerUITests.swift */; };
 		9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314271A262B58AA00542EFC /* LoginScreen.swift */; };
 		9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314272A262B5AEE00542EFC /* MaterialDesignTextField.swift */; };
@@ -325,6 +334,15 @@
 		C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputValidatorTests.swift; sourceTree = "<group>"; };
 		C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCaseTests.swift; sourceTree = "<group>"; };
 		C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientErrorMappingTests.swift; sourceTree = "<group>"; };
+		D20000022FFD200000000001 /* UserAccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCase.swift; sourceTree = "<group>"; };
+		D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCaseTests.swift; sourceTree = "<group>"; };
+		D20000072FFD200000000001 /* LogoutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCase.swift; sourceTree = "<group>"; };
+		D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLogoutLocalDataDeleter.swift; sourceTree = "<group>"; };
+		D20000112FFD200000000001 /* LogoutUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCaseTests.swift; sourceTree = "<group>"; };
+		D20000142FFD200000000001 /* SetupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCase.swift; sourceTree = "<group>"; };
+		D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSetupTaxonLocalDataStore.swift; sourceTree = "<group>"; };
+		D20000182FFD200000000001 /* SetupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFlow.swift; sourceTree = "<group>"; };
+		D20000202FFD200000000001 /* SetupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCaseTests.swift; sourceTree = "<group>"; };
 		93142701262B53B100542EFC /* BiologerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93142705262B53B100542EFC /* BiologerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerUITests.swift; sourceTree = "<group>"; };
 		93142707262B53B100542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -824,6 +842,9 @@
 				C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */,
 				C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */,
 				C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */,
+				D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */,
+				D20000112FFD200000000001 /* LogoutUseCaseTests.swift */,
+				D20000202FFD200000000001 /* SetupUseCaseTests.swift */,
 				931426FC262B53B100542EFC /* Info.plist */,
 			);
 			path = BiologerTests;
@@ -1020,6 +1041,8 @@
 			children = (
 				931D3FE827481CCE00352C8E /* Finding Helper */,
 				93B0417F2712204C007DB833 /* Mapers */,
+				D20000122FFD200000000001 /* Data */,
+				D20000032FFD200000000001 /* Domain */,
 				9373F81826F9131000C18F91 /* Service */,
 				9300757926877C9F005A4DE0 /* ViewControllerFactory */,
 				9300757426877C5B005A4DE0 /* Router */,
@@ -1028,6 +1051,25 @@
 				93334EAA2677DCA70094A483 /* UI */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		D20000032FFD200000000001 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D20000022FFD200000000001 /* UserAccountUseCase.swift */,
+				D20000072FFD200000000001 /* LogoutUseCase.swift */,
+				D20000142FFD200000000001 /* SetupUseCase.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		D20000122FFD200000000001 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */,
+				D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		93334EAA2677DCA70094A483 /* UI */ = {
@@ -1474,6 +1516,7 @@
 			isa = PBXGroup;
 			children = (
 				936035C8268916B20080C771 /* SetupScreen.swift */,
+				D20000182FFD200000000001 /* SetupFlow.swift */,
 				9389464026F616280000D850 /* SetupSectionView.swift */,
 				9389463626F60FE00000D850 /* SetupItemView.swift */,
 				935AF66726F66F6C00C56D46 /* SetupProjectNameScreen.swift */,
@@ -1979,6 +2022,12 @@
 				93E3CBF02737DAEE0090FF93 /* TaxonServiceCoordinator.swift in Sources */,
 				931D3FEF274ABCCD00352C8E /* Settings.swift in Sources */,
 				93334EB72677E4E40094A483 /* NoItemsView.swift in Sources */,
+				D20000012FFD200000000001 /* UserAccountUseCase.swift in Sources */,
+				D20000062FFD200000000001 /* LogoutUseCase.swift in Sources */,
+				D20000082FFD200000000001 /* RealmLogoutLocalDataDeleter.swift in Sources */,
+				D20000132FFD200000000001 /* SetupUseCase.swift in Sources */,
+				D20000152FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift in Sources */,
+				D20000172FFD200000000001 /* SetupFlow.swift in Sources */,
 				933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1991,6 +2040,9 @@
 				C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */,
 				C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */,
 				C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */,
+				D20000042FFD200000000001 /* UserAccountUseCaseTests.swift in Sources */,
+				D20000102FFD200000000001 /* LogoutUseCaseTests.swift in Sources */,
+				D20000192FFD200000000001 /* SetupUseCaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
