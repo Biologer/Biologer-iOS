@@ -8,9 +8,19 @@
 import SwiftUI
 
 struct LoginScreenV2: View {
-    
-    @ObservedObject
-    var viewModel: LoginScreenV2ViewModel
+
+    private let environmentViewModel: EnvironmentViewModel
+
+    @StateObject
+    private var viewModel: LoginScreenV2ViewModel
+
+    init(
+        environmentViewModel: EnvironmentViewModel,
+        viewModel: LoginScreenV2ViewModel
+    ) {
+        self.environmentViewModel = environmentViewModel
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
         ZStack {
@@ -53,7 +63,7 @@ struct LoginScreenV2: View {
                     .padding(.bottom, 20)
                     
                     BiologerButton(
-                        title: "Login.btn.register".localized,
+                        title: "Login.btn.login".localized,
                         onTapped: { _ in
                             Task {
                                 await viewModel.login()
@@ -91,12 +101,19 @@ struct LoginScreenV2: View {
                 BiologerProgressView()
             }
         }
+        .onAppear {
+            viewModel.updateEnvironment(environmentViewModel)
+        }
+        .onChange(of: environmentViewModel) { environment in
+            viewModel.updateEnvironment(environment)
+        }
     }
 }
 
 struct LoginScreenV2_Previews: PreviewProvider {
     static var previews: some View {
         LoginScreenV2(
+            environmentViewModel: EnvironmentViewModelFactory().createEnvironment(type: .croatia),
             viewModel: LoginScreenV2ViewModel(
                 environmentViewModel: EnvironmentViewModelFactory().createEnvironment(type: .croatia),
                 useCase: StubLoginUseCase(),

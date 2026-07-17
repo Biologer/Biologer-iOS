@@ -20,15 +20,15 @@ public final class RegistrationPersonalInfoViewModel: ObservableObject {
     @Published
     private var user: RegistrationDraft
 
-    private let useCase: RegisterUserUseCase
+    private let registrationUseCase: RegistrationUseCase
     private let onNextTapped: Observer<Void>
 
     init(
         user: RegistrationDraft,
-        useCase: RegisterUserUseCase,
+        registrationUseCase: RegistrationUseCase,
         onNextTapped: @escaping Observer<Void>
     ) {
-        self.useCase = useCase
+        self.registrationUseCase = registrationUseCase
         self.onNextTapped = onNextTapped
         self.user = user
     }
@@ -39,12 +39,14 @@ public final class RegistrationPersonalInfoViewModel: ObservableObject {
 
     private func validateFields() {
         do throws(RegisterUserValidationError) {
-            try useCase.updatePersonalInfo(
-                username: userNameTextFieldViewModel.text,
+            let personalInfo = try registrationUseCase.validatePersonalInfo(
+                firstName: userNameTextFieldViewModel.text,
                 lastName: lastNameTextFieldViewModel.text,
-                institution: institutionTextFieldViewModel.text,
-                for: user
+                institution: institutionTextFieldViewModel.text
             )
+            user.username = personalInfo.firstName
+            user.lastname = personalInfo.lastName
+            user.institution = personalInfo.institution
             setAllFieldsAreValid()
             onNextTapped(())
         } catch {

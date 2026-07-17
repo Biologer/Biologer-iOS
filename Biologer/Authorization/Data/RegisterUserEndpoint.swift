@@ -8,19 +8,19 @@ struct RegisterUserEndpoint: APIEndpoint {
     let method: APIHTTPMethod = .post
     let body: APIRequestBody
 
-    init(user: RegistrationDraft, host: String, clientId: Int, clientSecret: String) {
+    init(request: RegistrationRequest, host: String, clientId: Int, clientSecret: String) {
         self.host = host
         body = .json(
             RegisterUserRequestBody(
                 clientId: clientId,
                 clientSecret: clientSecret,
-                firstName: user.username,
-                lastName: user.lastname,
-                dataLicense: user.dataLicense.id,
-                imageLicense: user.imageLicense.id,
-                institution: user.institution,
-                email: user.email,
-                password: user.password
+                firstName: request.firstName,
+                lastName: request.lastName,
+                dataLicense: request.dataLicenseId,
+                imageLicense: request.imageLicenseId,
+                institution: request.institution,
+                email: request.email,
+                password: request.password
             )
         )
     }

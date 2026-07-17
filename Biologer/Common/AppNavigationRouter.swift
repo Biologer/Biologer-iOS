@@ -88,14 +88,21 @@ public final class AppNavigationRouter: NavigationRouter {
         let registerUserUseCase = RemoteRegisterUserUseCase(
             client: apiHttpClient,
             environmentStorage: environmentStorage,
-            tokenStorage: tokenStorage,
+            tokenStorage: tokenStorage
+        )
+        let registrationLicensePreferenceUseCase = DefaultRegistrationLicensePreferenceUseCase(
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage
+        )
+        let registrationUseCase = DefaultRegistrationUseCase(
+            validator: DefaultRegistrationInputValidator(),
+            licensePreferenceUseCase: registrationLicensePreferenceUseCase,
+            registerUseCase: registerUserUseCase
         )
         let registerService = RemoteRegisterUserService(client: httpClient, environmentStorage: environmentStorage)
         let authUseCase = AuthUseCase(
             loginUseCase: loginUseCase,
-            registerUseCase: registerUserUseCase,
+            registrationUseCase: registrationUseCase,
             environmentStorage: environmentStorage
         )
 

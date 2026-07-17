@@ -121,7 +121,9 @@ public final class AuthorizationRouter {
                 )
             }
         )
-        navigationController.pushViewController(UIHostingController(rootView: loginFlow), animated: true)
+        let viewController = UIHostingController(rootView: loginFlow)
+        viewController.navigationItem.hidesBackButton = true
+        navigationController.pushViewController(viewController, animated: true)
     }
 
     private func showEnvironmentScreen(selectedViewModel: EnvironmentViewModel,

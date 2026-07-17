@@ -23,25 +23,25 @@ struct RegistrationFlow: View {
     private var path: NavigationPath
 
     @State
-    private var registrationError: APIError?
-
-    @State
     private var selectedImageLicense: CheckMarkItem = CheckMarkItemMapper.getImageLicense()[0]
 
     @State
     private var selectedDataLicense: CheckMarkItem = CheckMarkItemMapper.getDataLicense()[0]
 
-    private let useCase: RegisterUserUseCase
+    private let registrationUseCase: RegistrationUseCase
+    private let environment: Environment
     private let environmentImage: String
     private let registrationSuccess: Observer<Void>
 
     init(
         path: Binding<NavigationPath>,
-        useCase: RegisterUserUseCase,
+        registrationUseCase: RegistrationUseCase,
+        environment: Environment,
         environmentImage: String,
         registrationSuccess: @escaping Observer<Void>
     ) {
-        self.useCase = useCase
+        self.registrationUseCase = registrationUseCase
+        self.environment = environment
         self.environmentImage = environmentImage
         self.registrationSuccess = registrationSuccess
         _path = path
@@ -59,21 +59,33 @@ struct RegistrationFlow: View {
                 case .imageLicense:
                     LicenseSelectionScreen(
                         selectedItem: $selectedImageLicense,
-                        items: CheckMarkItemMapper.getImageLicense()
+                        items: CheckMarkItemMapper.getImageLicense(),
+                        onSelectionChanged: { license in
+                            registrationUseCase.saveImage(license: license)
+                            goBack()
+                        }
                     )
-                    .onChange(of: selectedImageLicense) { license in
-                        useCase.saveImage(license: license)
-                        path.removeLast()
-                    }
+                    .authorizationNavigationBar(
+                        title: "ImgLicense.nav.title".localized,
+                        onBack: {
+                            goBack()
+                        }
+                    )
                 case .dataLicense:
                     LicenseSelectionScreen(
                         selectedItem: $selectedDataLicense,
-                        items: CheckMarkItemMapper.getDataLicense()
+                        items: CheckMarkItemMapper.getDataLicense(),
+                        onSelectionChanged: { license in
+                            registrationUseCase.saveData(license: license)
+                            goBack()
+                        }
                     )
-                    .onChange(of: selectedDataLicense) { license in
-                        useCase.saveData(license: license)
-                        path.removeLast()
-                    }
+                    .authorizationNavigationBar(
+                        title: "DataLicense.nav.title".localized,
+                        onBack: {
+                            goBack()
+                        }
+                    )
                 }
             }
     }
@@ -83,10 +95,16 @@ struct RegistrationFlow: View {
         RegistrationPersonalInfoScreen(
             loader: RegistrationPersonalInfoViewModel(
                 user: registrationUser,
-                useCase: useCase,
+                registrationUseCase: registrationUseCase,
                 onNextTapped: {
                     path.append(Screen.secondStep)
                 })
+        )
+        .authorizationNavigationBar(
+            title: "Register.one.nav.title".localized,
+            onBack: {
+                goBack()
+            }
         )
     }
 
@@ -94,10 +112,16 @@ struct RegistrationFlow: View {
         RegistrationCredentialsScreen(
             viewModel: RegistrationCredentialsViewModel(
                 user: registrationUser,
-                useCase: useCase,
+                registrationUseCase: registrationUseCase,
                 onNextTapped: {
                     path.append(Screen.thirdStep)
                 })
+        )
+        .authorizationNavigationBar(
+            title: "Register.two.nav.title".localized,
+            onBack: {
+                goBack()
+            }
         )
     }
 
@@ -106,7 +130,7 @@ struct RegistrationFlow: View {
             viewModel: RegistrationLicenseConsentViewModel(
                 user: registrationUser,
                 topImage: environmentImage,
-                useCase: useCase,
+                registrationUseCase: registrationUseCase,
                 dataLicense: selectedDataLicense,
                 imageLicense: selectedImageLicense,
                 onReadPrivacyPolicy: {
@@ -120,30 +144,28 @@ struct RegistrationFlow: View {
                 },
                 onSuccess: { _ in
                     registrationSuccess(())
-                },
-                onError: { error in
-                    registrationError = error
                 }
-            )
+            ),
+            dataLicense: selectedDataLicense,
+            imageLicense: selectedImageLicense
         )
-        .sheet(item: $registrationError) { error in
-            PopUpConfirmScreen(
-                popUpType: .error,
-                title: error.title,
-                description: error.description,
-                onButtonTapped: {
-                    registrationError = nil
-                }
-            )
-        }
+        .authorizationNavigationBar(
+            title: "Register.three.nav.title".localized,
+            onBack: {
+                goBack()
+            }
+        )
     }
 
     private func showSafari(path: String) {
-        if let env = useCase.environment {
-            let url = "https://\(env.host)\(env.path)\(path)"
-            if let url = URL(string: url) {
-                UIApplication.shared.open(url)
-            }
+        let url = "https://\(environment.host)\(environment.path)\(path)"
+        if let url = URL(string: url) {
+            UIApplication.shared.open(url)
         }
+    }
+
+    private func goBack() {
+        guard !path.isEmpty else { return }
+        path.removeLast()
     }
 }

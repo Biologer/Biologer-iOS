@@ -23,41 +23,41 @@ public final class RegistrationLicenseConsentViewModel: ObservableObject {
     private var user: RegistrationDraft
 
     @Published
-    private var isLoading = false
+    public var isLoading = false
+
+    @Published
+    var registrationPopup: RegistrationPopup?
 
     public var topImage: String
-    public var acceptPPCheckMark: Bool = false
+    @Published public var acceptPPCheckMark: Bool = false
 
     public var onReadPrivacyPolicy: Observer<Void>
     private let onDataLicense: Observer<CheckMarkItem>
     private let onImageLicense: Observer<CheckMarkItem>
     private let onSuccess: Observer<Void>
-    private let onError: Observer<APIError>
-    private let useCase: RegisterUserUseCase
+    private let registrationUseCase: RegistrationUseCase
 
 
     init(
         user: RegistrationDraft,
         topImage: String,
-        useCase: RegisterUserUseCase,
+        registrationUseCase: RegistrationUseCase,
         dataLicense: CheckMarkItem,
         imageLicense: CheckMarkItem,
         onReadPrivacyPolicy: @escaping Observer<Void>,
         onDataLicense: @escaping Observer<CheckMarkItem>,
         onImageLicense: @escaping Observer<CheckMarkItem>,
-        onSuccess: @escaping Observer<Void>,
-        onError: @escaping Observer<APIError>
+        onSuccess: @escaping Observer<Void>
     ) {
         self.user = user
         self.topImage = topImage
-        self.useCase = useCase
+        self.registrationUseCase = registrationUseCase
         self.dataLicense = dataLicense
         self.imageLicense = imageLicense
         self.onReadPrivacyPolicy = onReadPrivacyPolicy
         self.onDataLicense = onDataLicense
         self.onImageLicense = onImageLicense
         self.onSuccess = onSuccess
-        self.onError = onError
     }
 
     public func dataLicenseTapped() {
@@ -79,12 +79,57 @@ public final class RegistrationLicenseConsentViewModel: ObservableObject {
 
         isLoading = true
         do throws(APIError) {
-            try await useCase.createUser(user: user)
+            try await registrationUseCase.createUser(request: user.registrationRequest)
             isLoading = false
-            onSuccess(())
+            registrationPopup = .success
         } catch let error {
             isLoading = false
-            onError(error)
+            registrationPopup = .error(error)
         }
+    }
+
+    public func updateDataLicense(_ license: CheckMarkItem) {
+        dataLicense = license
+    }
+
+    public func updateImageLicense(_ license: CheckMarkItem) {
+        imageLicense = license
+    }
+
+    public func dismissRegistrationPopup() {
+        registrationPopup = nil
+    }
+
+    public func confirmRegistrationSuccess() {
+        registrationPopup = nil
+        onSuccess(())
+    }
+}
+
+enum RegistrationPopup: Identifiable {
+    case error(APIError)
+    case success
+
+    var id: String {
+        switch self {
+        case .error:
+            return "error"
+        case .success:
+            return "success"
+        }
+    }
+}
+
+private extension RegistrationDraft {
+    var registrationRequest: RegistrationRequest {
+        RegistrationRequest(
+            firstName: username,
+            lastName: lastname,
+            institution: institution.isEmpty ? nil : institution,
+            email: email,
+            password: password,
+            dataLicenseId: dataLicense.id,
+            imageLicenseId: imageLicense.id
+        )
     }
 }

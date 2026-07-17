@@ -15,12 +15,16 @@ struct LicenseSelectionScreen: View {
     @Binding
     private var selectedItem: CheckMarkItem
 
+    private let onSelectionChanged: Observer<CheckMarkItem>?
+
     init(
         selectedItem: Binding<CheckMarkItem>,
-        items: [CheckMarkItem]
+        items: [CheckMarkItem],
+        onSelectionChanged: Observer<CheckMarkItem>? = nil
     ) {
         _selectedItem = selectedItem
         _items = State(initialValue: items.selecting(selectedItem.wrappedValue))
+        self.onSelectionChanged = onSelectionChanged
     }
 
     var body: some View {
@@ -64,6 +68,7 @@ struct LicenseSelectionScreen: View {
         var selectedItem = item
         selectedItem.changeIsSelected(value: true)
         self.selectedItem = selectedItem
+        onSelectionChanged?(selectedItem)
     }
 
     private func updateSelectedViewModel(with item: CheckMarkItem) {

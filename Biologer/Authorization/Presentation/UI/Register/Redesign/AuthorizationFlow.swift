@@ -56,6 +56,7 @@ struct AuthorizationFlow: View {
 
     private var initialScreen: some View {
         LoginScreenV2(
+            environmentViewModel: selectedEnvironment,
             viewModel: LoginScreenV2ViewModel(
                 environmentViewModel: selectedEnvironment,
                 useCase: authorizationUseCase.loginUseCase,
@@ -75,6 +76,7 @@ struct AuthorizationFlow: View {
                     onLoginError(error)
                 }
             ))
+            .authorizationNavigationBar()
     }
 
     private var environmentsScreen: some View {
@@ -82,7 +84,13 @@ struct AuthorizationFlow: View {
             selectedEnvironment: $selectedEnvironment,
             environments: EnvironmentViewModelFactory().createAllEnvironments(),
             close: {
-                path.removeLast()
+                goBack()
+            }
+        )
+        .authorizationNavigationBar(
+            title: "Env.nav.title".localized,
+            onBack: {
+                goBack()
             }
         )
         .onChange(of: selectedEnvironment) { environment in
@@ -94,10 +102,16 @@ struct AuthorizationFlow: View {
     private var registrationFlow: some View {
         RegistrationFlow(
             path: $path,
-            useCase: authorizationUseCase.registerUseCase,
+            registrationUseCase: authorizationUseCase.registrationUseCase,
+            environment: selectedEnvironment.env,
             environmentImage: selectedEnvironment.image,
             registrationSuccess: {
                 onAuthorizationSuccess(())
             })
+    }
+
+    private func goBack() {
+        guard !path.isEmpty else { return }
+        path.removeLast()
     }
 }

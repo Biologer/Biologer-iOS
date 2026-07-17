@@ -254,6 +254,11 @@
 		A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000072FFD000000000001 /* LoginUserUseCase.swift */; };
 		A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000092FFD000000000001 /* LoginUserEndpoint.swift */; };
 		A100000A2FFD000000000001 /* RegisterUserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */; };
+		A100000C2FFD000000000001 /* RegistrationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000D2FFD000000000001 /* RegistrationRequest.swift */; };
+		A100000E2FFD000000000001 /* RegistrationInputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000F2FFD000000000001 /* RegistrationInputValidator.swift */; };
+		A10000102FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000112FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift */; };
+		A10000122FFD000000000001 /* AuthorizationNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000132FFD000000000001 /* AuthorizationNavigationBarModifier.swift */; };
+		A10000142FFD000000000001 /* RegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000152FFD000000000001 /* RegistrationUseCase.swift */; };
 		A69400C2B1422A8EBB645F1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20AA770440D603BCEC136BE7 /* RealmSwift */; };
 		B2F6E59410152D518B73140F /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 5E9386650B33D0CB40ABB20C /* Reachability */; };
 		DE04B675C7024DC8452D3AA2 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA759BF9731C6666BBC73B4 /* CSV */; };
@@ -537,6 +542,11 @@
 		A10000072FFD000000000001 /* LoginUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserUseCase.swift; sourceTree = "<group>"; };
 		A10000092FFD000000000001 /* LoginUserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserEndpoint.swift; sourceTree = "<group>"; };
 		A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserEndpoint.swift; sourceTree = "<group>"; };
+		A100000D2FFD000000000001 /* RegistrationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRequest.swift; sourceTree = "<group>"; };
+		A100000F2FFD000000000001 /* RegistrationInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputValidator.swift; sourceTree = "<group>"; };
+		A10000112FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicensePreferenceUseCase.swift; sourceTree = "<group>"; };
+		A10000132FFD000000000001 /* AuthorizationNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationNavigationBarModifier.swift; sourceTree = "<group>"; };
+		A10000152FFD000000000001 /* RegistrationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -672,6 +682,10 @@
 				A10000052FFD000000000001 /* AuthUseCase.swift */,
 				A10000072FFD000000000001 /* LoginUserUseCase.swift */,
 				A10000022FFD000000000001 /* RegisterUserUseCase.swift */,
+				A100000D2FFD000000000001 /* RegistrationRequest.swift */,
+				A100000F2FFD000000000001 /* RegistrationInputValidator.swift */,
+				A10000112FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift */,
+				A10000152FFD000000000001 /* RegistrationUseCase.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -721,6 +735,7 @@
 		9311E89F2FFCD3EC006045C4 /* Redesign */ = {
 			isa = PBXGroup;
 			children = (
+				A10000132FFD000000000001 /* AuthorizationNavigationBarModifier.swift */,
 				9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */,
 				9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */,
 				9311E8B52FFCF421006045C4 /* RegistrationCredentialsScreen.swift */,
@@ -1791,6 +1806,11 @@
 				93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */,
 				A10000042FFD000000000001 /* AuthUseCase.swift in Sources */,
 				A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */,
+				A100000C2FFD000000000001 /* RegistrationRequest.swift in Sources */,
+				A100000E2FFD000000000001 /* RegistrationInputValidator.swift in Sources */,
+				A10000102FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift in Sources */,
+				A10000142FFD000000000001 /* RegistrationUseCase.swift in Sources */,
+				A10000122FFD000000000001 /* AuthorizationNavigationBarModifier.swift in Sources */,
 				9311E8A12FFCD405006045C4 /* AuthorizationFlow.swift in Sources */,
 				9311E8A52FFCDBA5006045C4 /* LoginScreenV2ViewModel.swift in Sources */,
 				A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */,

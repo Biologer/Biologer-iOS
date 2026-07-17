@@ -53,6 +53,10 @@ public final class LoginScreenV2ViewModel: ObservableObject {
         onForgotPasswordTapped(())
     }
 
+    public func updateEnvironment(_ environmentViewModel: EnvironmentViewModel) {
+        self.environmentViewModel = environmentViewModel
+    }
+
     public func login() async {
         isLoading = true
         do throws(LoginError) {
@@ -61,6 +65,7 @@ public final class LoginScreenV2ViewModel: ObservableObject {
                 username: userNameTextFieldViewModel.text,
                 password: passwordTextFieldViewModel.text
             )
+            setEmailIsValid()
             setPasswordValid()
             isLoading = false
             onLoginSuccess(())
@@ -96,7 +101,7 @@ extension LoginScreenV2ViewModel {
         passwordTextFieldViewModel.setInvalid(with: "Common.tf.error.required".localized)
     }
 
-    private func setEmilIsValid() {
+    private func setEmailIsValid() {
         objectWillChange.send()
         userNameTextFieldViewModel.setValid()
     }

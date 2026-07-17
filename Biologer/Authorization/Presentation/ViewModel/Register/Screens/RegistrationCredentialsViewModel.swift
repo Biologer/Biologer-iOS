@@ -20,15 +20,15 @@ public final class RegistrationCredentialsViewModel: ObservableObject {
     @Published
     private var user: RegistrationDraft
 
-    private let useCase: RegisterUserUseCase
+    private let registrationUseCase: RegistrationUseCase
     private let onNextTapped: Observer<Void>
 
     init(
         user: RegistrationDraft,
-        useCase: RegisterUserUseCase,
+        registrationUseCase: RegistrationUseCase,
         onNextTapped: @escaping Observer<Void>
     ) {
-        self.useCase = useCase
+        self.registrationUseCase = registrationUseCase
         self.onNextTapped = onNextTapped
         self.user = user
     }
@@ -39,12 +39,13 @@ public final class RegistrationCredentialsViewModel: ObservableObject {
 
     private func validateFields() {
         do throws(RegisterUserValidationError) {
-            try useCase.updateCredentials(
+            let credentials = try registrationUseCase.validateCredentials(
                 email: emailTextFieldViewModel.text,
                 password: passwordTextFieldViewModel.text,
-                repeatedPassword: repeatPasswordTextFieldViewModel.text,
-                for: user
+                repeatedPassword: repeatPasswordTextFieldViewModel.text
             )
+            user.email = credentials.email
+            user.password = credentials.password
             setEmailValid()
             setPasswordValid()
             setRepeatPasswordValid()
