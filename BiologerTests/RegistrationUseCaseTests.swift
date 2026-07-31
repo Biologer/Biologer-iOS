@@ -53,39 +53,31 @@ final class RegistrationUseCaseTests: XCTestCase {
         XCTAssertEqual(credentials, validator.credentialsResult)
     }
 
-    func test_saveData_delegatesToLicensePreferenceUseCase() {
-        let license = makeLicense(id: 10, type: .data)
-
-        sut.saveData(license: license)
-
-        XCTAssertEqual(licensePreferenceUseCase.savedDataLicense, license)
-    }
-
-    func test_saveImage_delegatesToLicensePreferenceUseCase() {
-        let license = makeLicense(id: 20, type: .image)
-
-        sut.saveImage(license: license)
-
-        XCTAssertEqual(licensePreferenceUseCase.savedImageLicense, license)
-    }
-
-    func test_createUser_delegatesToRegisterUseCase() async throws {
+    func test_createUser_registersUserAndPersistsBothLicensePreferences() async throws {
         let request = makeRequest()
 
         try await sut.createUser(request: request)
 
         XCTAssertEqual(registerUseCase.createdRequest, request)
+        XCTAssertEqual(
+            licensePreferenceUseCase.savedPreferences,
+            [
+                RegistrationLicensePreference(id: 10, kind: .data),
+                RegistrationLicensePreference(id: 20, kind: .image)
+            ]
+        )
     }
 
     func test_createUser_propagatesRegisterError() async {
-        let expectedError = APIError(description: "Register failed")
+        let expectedError = AuthorizationFailure(message: "Register failed")
         registerUseCase.createUserResult = .failure(expectedError)
 
         do {
             try await sut.createUser(request: makeRequest())
             XCTFail("Expected createUser to throw.")
         } catch {
-            XCTAssertTrue(error === expectedError)
+            XCTAssertEqual(error, expectedError)
+            XCTAssertTrue(licensePreferenceUseCase.savedPreferences.isEmpty)
         }
     }
 
@@ -101,15 +93,6 @@ final class RegistrationUseCaseTests: XCTestCase {
         )
     }
 
-    private func makeLicense(id: Int, type: CheckMarkItemType) -> CheckMarkItem {
-        CheckMarkItem(
-            id: id,
-            title: "License",
-            placeholder: "Placeholder",
-            type: type,
-            isSelected: true
-        )
-    }
 }
 
 private final class RegistrationValidatorSpy: RegistrationInputValidating {
@@ -145,23 +128,18 @@ private final class RegistrationValidatorSpy: RegistrationInputValidating {
 }
 
 private final class RegistrationLicensePreferenceUseCaseSpy: RegistrationLicensePreferenceUseCase {
-    var savedDataLicense: CheckMarkItem?
-    var savedImageLicense: CheckMarkItem?
+    var savedPreferences: [RegistrationLicensePreference] = []
 
-    func saveData(license: CheckMarkItem) {
-        savedDataLicense = license
-    }
-
-    func saveImage(license: CheckMarkItem) {
-        savedImageLicense = license
+    func saveLicense(_ preference: RegistrationLicensePreference) {
+        savedPreferences.append(preference)
     }
 }
 
 private final class RegisterUserUseCaseSpy: RegisterUserUseCase {
     var createdRequest: RegistrationRequest?
-    var createUserResult: Result<Void, APIError> = .success(())
+    var createUserResult: Result<Void, AuthorizationFailure> = .success(())
 
-    func createUser(request: RegistrationRequest) async throws(APIError) -> Void {
+    func createUser(request: RegistrationRequest) async throws(AuthorizationFailure) -> Void {
         createdRequest = request
         switch createUserResult {
         case .success:
