@@ -1,10 +1,3 @@
-//
-//  HelpScreen.swift
-//  Biologer
-//
-//  Created by Nikola Popovic on 27.6.21..
-//
-
 import SwiftUI
 
 protocol HelpScreenLoader: ObservableObject {
@@ -15,36 +8,33 @@ protocol HelpScreenLoader: ObservableObject {
 }
 
 struct HelpScreen<ScreenLoader>: View where ScreenLoader: HelpScreenLoader {
-    
     @ObservedObject var loader: ScreenLoader
-    
+
     var body: some View {
         ZStack {
             Color.biologerHelpBacgroundGreen
             LazyHStack {
-                PageView(selection: $loader.currentPageIndex,
-                         items: loader.items)
+                PageView(
+                    selection: $loader.currentPageIndex,
+                    items: loader.items
+                )
             }
             VStack {
                 Spacer()
                 HStack {
-                    Button(action: {
-                        loader.previousTapped()
-                    }, label: {
+                    Button(action: loader.previousTapped) {
                         Image("forward_icon_1")
                             .resizable()
                             .frame(width: 50, height: 50)
-                    })
+                    }
                     .rotationEffect(.degrees(-180))
                     .padding(20)
                     Spacer()
-                    Button(action: {
-                        loader.nextTapped()
-                    }, label: {
+                    Button(action: loader.nextTapped) {
                         Image("forward_icon_1")
                             .resizable()
                             .frame(width: 50, height: 50)
-                    })
+                    }
                     .padding(20)
                 }
             }
@@ -56,30 +46,28 @@ struct HelpScreen<ScreenLoader>: View where ScreenLoader: HelpScreenLoader {
 }
 
 struct PageView: View {
-    
     @Binding var selection: Int
     var items: [HelpItemViewModel]
     let imageMultiplier: CGFloat = 0.5
     let imageSize = UIScreen.screenWidth * 0.6
-    
+
     var body: some View {
         TabView(selection: $selection) {
-            ForEach(0..<items.count) { i in
+            ForEach(0..<items.count) { index in
                 ZStack {
                     Color.biologerHelpBacgroundGreen
                     VStack(alignment: .center) {
-                        Text(items[i].title)
+                        Text(items[index].title)
                             .foregroundColor(.white)
                             .font(.largeTitleBoldFont)
                             .padding(.top, 20)
-                        Image(items[i].image)
+                        Image(items[index].image)
                             .resizable()
                             .scaledToFit()
                             .frame(width: imageSize, height: imageSize)
-                        Text(items[i].description)
+                        Text(items[index].description)
                             .foregroundColor(.white)
                             .font(.headerBoldFont)
-                            .padding(.top, 0)
                             .multilineTextAlignment(.center)
                             .padding(.top, 30)
                         Spacer()
@@ -99,11 +87,11 @@ struct HelpScreen_Previews: PreviewProvider {
     static var previews: some View {
         HelpScreen(loader: StubHelpScreenViewModel())
     }
-    
-    private class StubHelpScreenViewModel: HelpScreenLoader {
+
+    private final class StubHelpScreenViewModel: HelpScreenLoader {
         var items: [HelpItemViewModel] = HelpItemManager.createHelpItems()
-        var numerOfPages: Int = 5
         var currentPageIndex: Int = 0
+
         func nextTapped() {}
         func previousTapped() {}
     }

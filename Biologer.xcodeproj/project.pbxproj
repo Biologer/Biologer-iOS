@@ -1025,6 +1025,7 @@
 		93142732262B5C5600542EFC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				93C2D1F826A5EAE400123216 /* Help */,
 				931B9DAA27669F4C00043BED /* Lottie Animations */,
 				9320E02E2751991D006812E5 /* Router */,
 				931D3FED274ABCB900352C8E /* Entity */,
@@ -1175,7 +1176,6 @@
 				93731E3B288E7F6100EB7C71 /* DeleteAccountScreen */,
 				93334EC326789B920094A483 /* SideMenuScreen */,
 				93334EC226789B660094A483 /* TaxonScreens */,
-				93C2D1F826A5EAE400123216 /* HelpScreen */,
 				93C2D1F726A5EADA00123216 /* SetupScreen */,
 				93C2D1F926A5EAFD00123216 /* LogoutScreen */,
 				93C2D1F626A5EAC300123216 /* AboutScreen */,
@@ -1189,7 +1189,6 @@
 				93731E3E288E82BA00EB7C71 /* DeleteAccountScreen */,
 				9389463926F614BE0000D850 /* SideMenuScreen */,
 				9389463A26F614CD0000D850 /* TaxonScreens */,
-				9389463B26F614D60000D850 /* HelpScreen */,
 				9389463826F614B20000D850 /* SetupScreen */,
 				9389463D26F614E30000D850 /* LogoutScreen */,
 				9389463C26F614DD0000D850 /* AboutScreen */,
@@ -1367,15 +1366,6 @@
 				93565D2926F727B000A588E6 /* NewTaxon */,
 			);
 			path = TaxonScreens;
-			sourceTree = "<group>";
-		};
-		9389463B26F614D60000D850 /* HelpScreen */ = {
-			isa = PBXGroup;
-			children = (
-				936035CE26891E670080C771 /* HelpScreenViewModel.swift */,
-				937F828126F7B6B500593786 /* HelpItemManager.swift */,
-			);
-			path = HelpScreen;
 			sourceTree = "<group>";
 		};
 		9389463C26F614DD0000D850 /* AboutScreen */ = {
@@ -1596,12 +1586,14 @@
 			path = SetupScreen;
 			sourceTree = "<group>";
 		};
-		93C2D1F826A5EAE400123216 /* HelpScreen */ = {
+		93C2D1F826A5EAE400123216 /* Help */ = {
 			isa = PBXGroup;
 			children = (
 				936035CC26891DC50080C771 /* HelpScreen.swift */,
+				936035CE26891E670080C771 /* HelpScreenViewModel.swift */,
+				937F828126F7B6B500593786 /* HelpItemManager.swift */,
 			);
-			path = HelpScreen;
+			path = Help;
 			sourceTree = "<group>";
 		};
 		93C2D1F926A5EAFD00123216 /* LogoutScreen */ = {
