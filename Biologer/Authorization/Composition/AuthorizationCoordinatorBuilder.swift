@@ -5,7 +5,7 @@ enum AuthorizationUIVersion {
     case v2
 }
 
-final class AuthorizationRouterBuilder {
+final class AuthorizationCoordinatorBuilder {
     private let version: AuthorizationUIVersion
     private let apiClient: APIClientProtocol
     private let httpClient: HTTPClient
@@ -50,21 +50,39 @@ final class AuthorizationRouterBuilder {
         self.imageLicenseStorage = imageLicenseStorage
     }
 
-    func makeRouter() -> AuthorizationRouter {
+    func makeCoordinator() -> AuthorizationCoordinating {
+        switch version {
+        case .v1:
+            makeLegacyRouter()
+        case .v2:
+            makeFlowCoordinator()
+        }
+    }
+
+    private func makeLegacyRouter() -> AuthorizationRouter {
         AuthorizationRouter(
-            version: version,
             factory: authorizationFactory,
             commonViewControllerFactory: commonViewControllerFactory,
             swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
             swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
             navigationController: navigationController,
-            authorizationUseCases: makeAuthorizationUseCases(),
+            loginUseCase: makeLoginUseCase(),
             registerService: makeRegisterService(),
             environmentStorage: environmentStorage,
             tutorialRepository: tutorialRepository,
             tokenStorage: tokenStorage,
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage
+        )
+    }
+
+    private func makeFlowCoordinator() -> AuthorizationFlowCoordinator {
+        AuthorizationFlowCoordinator(
+            navigationController: navigationController,
+            authorizationUseCases: makeAuthorizationUseCases(),
+            environmentStorage: environmentStorage,
+            tutorialRepository: tutorialRepository,
+            alertViewControllerFactory: swiftUIAlertViewControllerFactory
         )
     }
 

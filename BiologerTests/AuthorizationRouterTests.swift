@@ -4,26 +4,18 @@ import XCTest
 
 @MainActor
 final class AuthorizationRouterTests: XCTestCase {
-    func test_startV1ShowsLegacyLogin() {
-        let context = makeSUT(version: .v1)
+    func test_legacyRouterStartsWithLogin() {
+        let context = makeLegacySUT()
 
-        context.router.start(shouldPresentIntroScreens: false)
+        context.coordinator.start(shouldPresentIntroScreens: false)
 
         XCTAssertTrue(context.navigationController.topViewController === context.authorizationFactory.loginViewController)
     }
 
-    func test_startV2ShowsV2Flow() {
-        let context = makeSUT(version: .v2)
+    func test_legacyRouterFinishesTutorialBeforeShowingLogin() {
+        let context = makeLegacySUT()
 
-        context.router.start(shouldPresentIntroScreens: false)
-
-        XCTAssertTrue(context.navigationController.topViewController is UIHostingController<AuthorizationFlow>)
-    }
-
-    func test_finishingTutorialInV1UsesLegacyHelpScreen() {
-        let context = makeSUT(version: .v1)
-
-        context.router.start(shouldPresentIntroScreens: true)
+        context.coordinator.start(shouldPresentIntroScreens: true)
         XCTAssertTrue(context.navigationController.topViewController === context.commonFactory.helpViewController)
 
         context.commonFactory.finishHelp()
@@ -32,46 +24,66 @@ final class AuthorizationRouterTests: XCTestCase {
         XCTAssertTrue(context.navigationController.topViewController === context.authorizationFactory.loginViewController)
     }
 
-    func test_startV2WithTutorialUsesHelpEmbeddedInFlow() {
-        let context = makeSUT(version: .v2)
+    func test_legacyRouterRestartReplacesEntireStack() {
+        let context = makeLegacySUT()
+        context.coordinator.start(shouldPresentIntroScreens: false)
+        context.navigationController.pushViewController(UIViewController(), animated: false)
 
-        context.router.start(shouldPresentIntroScreens: true)
+        context.coordinator.restart()
+
+        XCTAssertEqual(context.navigationController.viewControllers.count, 1)
+        XCTAssertTrue(context.navigationController.topViewController === context.authorizationFactory.loginViewController)
+    }
+
+    func test_flowCoordinatorStartsWithV2Flow() {
+        let context = makeFlowSUT()
+
+        context.coordinator.start(shouldPresentIntroScreens: false)
 
         XCTAssertTrue(context.navigationController.topViewController is UIHostingController<AuthorizationFlow>)
-        XCTAssertEqual(context.commonFactory.helpRequestCount, 0)
+    }
+
+    func test_flowCoordinatorKeepsTutorialInsideV2Flow() {
+        let context = makeFlowSUT()
+
+        context.coordinator.start(shouldPresentIntroScreens: true)
+
+        XCTAssertTrue(context.navigationController.topViewController is UIHostingController<AuthorizationFlow>)
         XCTAssertFalse(context.tutorialRepository.wasPresented)
     }
 
-    func test_restartReplacesEntireAuthorizationStack() {
-        let context = makeSUT(version: .v2)
-        context.router.start(shouldPresentIntroScreens: false)
+    func test_flowCoordinatorRestartReplacesEntireStack() {
+        let context = makeFlowSUT()
+        context.coordinator.start(shouldPresentIntroScreens: false)
         context.navigationController.pushViewController(UIViewController(), animated: false)
 
-        context.router.restart()
+        context.coordinator.restart()
 
         XCTAssertEqual(context.navigationController.viewControllers.count, 1)
         XCTAssertTrue(context.navigationController.topViewController is UIHostingController<AuthorizationFlow>)
     }
 
-    private func makeSUT(version: AuthorizationUIVersion) -> RouterTestContext {
+    func test_builderSelectsLegacyRouterForV1() {
+        XCTAssertTrue(makeBuilder(version: .v1).makeCoordinator() is AuthorizationRouter)
+    }
+
+    func test_builderSelectsFlowCoordinatorForV2() {
+        XCTAssertTrue(makeBuilder(version: .v2).makeCoordinator() is AuthorizationFlowCoordinator)
+    }
+
+    private func makeLegacySUT() -> LegacyRouterTestContext {
         let navigationController = UINavigationController(rootViewController: UIViewController())
         let authorizationFactory = AuthorizationViewControllerFactorySpy()
         let commonFactory = CommonViewControllerFactorySpy()
         let environmentStorage = EnvironmentStorageSpy()
         let tutorialRepository = AuthorizationTutorialRepositorySpy()
-        let useCases = AuthorizationUseCases(
-            login: LoginUseCaseStub(),
-            registration: RegistrationUseCaseStub(),
-            selectEnvironmentUseCase: SelectEnvironmentUseCaseSpy()
-        )
-        let router = AuthorizationRouter(
-            version: version,
+        let coordinator = AuthorizationRouter(
             factory: authorizationFactory,
             commonViewControllerFactory: commonFactory,
             swiftUICommonViewControllerFactory: commonFactory,
             swiftUIAlertViewControllerFactory: AlertViewControllerFactoryStub(),
             navigationController: navigationController,
-            authorizationUseCases: useCases,
+            loginUseCase: LoginUseCaseStub(),
             registerService: RegisterUserServiceStub(),
             environmentStorage: environmentStorage,
             tutorialRepository: tutorialRepository,
@@ -79,21 +91,71 @@ final class AuthorizationRouterTests: XCTestCase {
             dataLicenseStorage: LicenseStorageSpy(),
             imageLicenseStorage: LicenseStorageSpy()
         )
-        return RouterTestContext(
-            router: router,
+        return LegacyRouterTestContext(
+            coordinator: coordinator,
             navigationController: navigationController,
             authorizationFactory: authorizationFactory,
             commonFactory: commonFactory,
             tutorialRepository: tutorialRepository
         )
     }
+
+    private func makeFlowSUT() -> FlowCoordinatorTestContext {
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        let tutorialRepository = AuthorizationTutorialRepositorySpy()
+        let coordinator = AuthorizationFlowCoordinator(
+            navigationController: navigationController,
+            authorizationUseCases: makeAuthorizationUseCases(),
+            environmentStorage: EnvironmentStorageSpy(),
+            tutorialRepository: tutorialRepository,
+            alertViewControllerFactory: AlertViewControllerFactoryStub()
+        )
+        return FlowCoordinatorTestContext(
+            coordinator: coordinator,
+            navigationController: navigationController,
+            tutorialRepository: tutorialRepository
+        )
+    }
+
+    private func makeBuilder(version: AuthorizationUIVersion) -> AuthorizationCoordinatorBuilder {
+        let commonFactory = CommonViewControllerFactorySpy()
+        return AuthorizationCoordinatorBuilder(
+            version: version,
+            apiClient: APIClientStub(),
+            httpClient: HTTPClientStub(),
+            navigationController: UINavigationController(),
+            authorizationFactory: AuthorizationViewControllerFactorySpy(),
+            commonViewControllerFactory: commonFactory,
+            swiftUICommonViewControllerFactory: commonFactory,
+            swiftUIAlertViewControllerFactory: AlertViewControllerFactoryStub(),
+            environmentStorage: EnvironmentStorageSpy(),
+            tutorialRepository: AuthorizationTutorialRepositorySpy(),
+            tokenStorage: TokenStorageSpy(),
+            dataLicenseStorage: LicenseStorageSpy(),
+            imageLicenseStorage: LicenseStorageSpy()
+        )
+    }
+
+    private func makeAuthorizationUseCases() -> AuthorizationUseCases {
+        AuthorizationUseCases(
+            login: LoginUseCaseStub(),
+            registration: RegistrationUseCaseStub(),
+            selectEnvironmentUseCase: SelectEnvironmentUseCaseSpy()
+        )
+    }
 }
 
-private struct RouterTestContext {
-    let router: AuthorizationRouter
+private struct LegacyRouterTestContext {
+    let coordinator: AuthorizationRouter
     let navigationController: UINavigationController
     let authorizationFactory: AuthorizationViewControllerFactorySpy
     let commonFactory: CommonViewControllerFactorySpy
+    let tutorialRepository: AuthorizationTutorialRepositorySpy
+}
+
+private struct FlowCoordinatorTestContext {
+    let coordinator: AuthorizationFlowCoordinator
+    let navigationController: UINavigationController
     let tutorialRepository: AuthorizationTutorialRepositorySpy
 }
 
@@ -282,4 +344,24 @@ private final class LicenseStorageSpy: LicenseStorage {
     func getLicense() -> CheckMarkItem? { license }
     func saveLicense(license: CheckMarkItem) { self.license = license }
     func delete() { license = nil }
+}
+
+private final class APIClientStub: APIClientProtocol {
+    func send<Endpoint: APIEndpoint>(_ endpoint: Endpoint) async throws -> Endpoint.Response {
+        fatalError("APIClientStub.send should not be called while building a coordinator")
+    }
+}
+
+private final class HTTPClientStub: HTTPClient {
+    func perform(
+        from request: URLRequest,
+        completion: @escaping (HTTPClient.Result) -> Void
+    ) -> HTTPClientTask {
+        HTTPClientTaskStub()
+    }
+}
+
+private final class HTTPClientTaskStub: HTTPClientTask {
+    func cancel() {}
+    func resume() {}
 }

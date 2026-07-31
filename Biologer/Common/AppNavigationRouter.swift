@@ -111,8 +111,8 @@ public final class AppNavigationRouter: NavigationRouter {
 
     // MARK: - Routers
 
-    private lazy var authorizationRouter: AuthorizationRouter = {
-        let builder = AuthorizationRouterBuilder(
+    private lazy var authorizationCoordinator: AuthorizationCoordinating = {
+        let builder = AuthorizationCoordinatorBuilder(
             version: authorizationUIVersion,
             apiClient: apiHttpClient,
             httpClient: httpClient,
@@ -127,8 +127,8 @@ public final class AppNavigationRouter: NavigationRouter {
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage
         )
-        let authorization = builder.makeRouter()
-        authorization.onLoginSuccess = { [weak self] _ in
+        let authorization = builder.makeCoordinator()
+        authorization.onAuthorizationSuccess = { [weak self] _ in
             self?.performOnMain { [weak self] in
                 self?.showSideMenuRouter()
             }
@@ -293,7 +293,7 @@ public final class AppNavigationRouter: NavigationRouter {
         logoutUseCase.logout()
 
         self.mainNavigationController.dismiss(animated: true, completion: {
-            self.authorizationRouter.restart()
+            self.authorizationCoordinator.restart()
         })
     }
 
@@ -306,7 +306,7 @@ public final class AppNavigationRouter: NavigationRouter {
         } else {
             let vc = authorizationFactory.makeSplashScreen(onSplashScreenDone: { [weak self] in
                 guard let self = self else { return }
-                self.authorizationRouter.start(
+                self.authorizationCoordinator.start(
                     shouldPresentIntroScreens: !self.authorizationTutorialRepository.wasPresented
                 )
             })

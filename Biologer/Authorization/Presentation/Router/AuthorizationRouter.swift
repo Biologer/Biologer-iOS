@@ -8,11 +8,10 @@
 import UIKit
 import SwiftUI
 
-public final class AuthorizationRouter {
-    private let version: AuthorizationUIVersion
+public final class AuthorizationRouter: AuthorizationCoordinating {
     private let factory: AuthorizationViewControllerFactory
     private let navigationController: UINavigationController
-    private let authorizationUseCases: AuthorizationUseCases
+    private let loginUseCase: LoginUserUseCase
     private let registerService: RegisterUserService
     private let commonViewControllerFactory: CommonViewControllerFactory
     private let swiftUICommonViewControllerFactory: CommonViewControllerFactory
@@ -23,29 +22,27 @@ public final class AuthorizationRouter {
     private let dataLicenseStorage: LicenseStorage
     private let imageLicenseStorage: LicenseStorage
     private let envFactory = EnvironmentViewModelFactory()
-    public var onLoginSuccess: Observer<Void>?
+    var onAuthorizationSuccess: Observer<Void>?
     private var selectedEnvironmentImage: String = ""
 
-    init(version: AuthorizationUIVersion,
-         factory: AuthorizationViewControllerFactory,
+    init(factory: AuthorizationViewControllerFactory,
          commonViewControllerFactory: CommonViewControllerFactory,
          swiftUICommonViewControllerFactory: CommonViewControllerFactory,
          swiftUIAlertViewControllerFactory: AlertViewControllerFactory,
          navigationController: UINavigationController,
-         authorizationUseCases: AuthorizationUseCases,
+         loginUseCase: LoginUserUseCase,
          registerService: RegisterUserService,
          environmentStorage: EnvironmentStorage,
          tutorialRepository: AuthorizationTutorialRepository,
          tokenStorage: TokenStorage,
          dataLicenseStorage: LicenseStorage,
          imageLicenseStorage: LicenseStorage) {
-        self.version = version
         self.factory = factory
         self.commonViewControllerFactory = commonViewControllerFactory
         self.swiftUICommonViewControllerFactory = swiftUICommonViewControllerFactory
         self.swiftUIAlertViewControllerFactory = swiftUIAlertViewControllerFactory
         self.navigationController = navigationController
-        self.authorizationUseCases = authorizationUseCases
+        self.loginUseCase = loginUseCase
         self.registerService = registerService
         self.environmentStorage = environmentStorage
         self.tutorialRepository = tutorialRepository
@@ -55,20 +52,15 @@ public final class AuthorizationRouter {
     }
 
     public func start(shouldPresentIntroScreens: Bool) {
-        switch version {
-        case .v1:
-            if shouldPresentIntroScreens {
-                showHelpScreen()
-            } else {
-                showAuthorization()
-            }
-        case .v2:
-            showAuthorization(shouldPresentHelp: shouldPresentIntroScreens)
+        if shouldPresentIntroScreens {
+            showHelpScreen()
+        } else {
+            showAuthorization()
         }
     }
 
     public func restart() {
-        navigationController.setViewControllers([makeAuthorizationViewController()], animated: false)
+        navigationController.setViewControllers([makeLoginViewController()], animated: false)
     }
 
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
@@ -91,14 +83,14 @@ public final class AuthorizationRouter {
         environmentStorage.saveEnvironment(env: defaultEnv.env)
         selectedEnvironmentImage = defaultEnv.image
 
-        let loginViewController = factory.makeLoginScreen(useCase: authorizationUseCases.login,
+        let loginViewController = factory.makeLoginScreen(useCase: loginUseCase,
                                                           environmentViewModel: defaultEnv,
                                                              onSelectEnvironmentTapped: { [weak self] env in
                                                                 self?.showEnvironmentScreen(selectedViewModel: env,
                                                                                             delegate: envDelegate)
                                                              },
                                                              onLoginSuccess: { [weak self] in
-                                                                self?.onLoginSuccess?(())
+                                                                self?.onAuthorizationSuccess?(())
                                                              },
                                                              onLoginError: { [weak self] error in
                                                                 self?.showErrorAlert(popUpType: .error,
@@ -120,51 +112,8 @@ public final class AuthorizationRouter {
         return loginViewController
     }
 
-    private func showAuthorization(shouldPresentHelp: Bool = false) {
-        navigationController.pushViewController(
-            makeAuthorizationViewController(shouldPresentHelp: shouldPresentHelp),
-            animated: true
-        )
-    }
-
-    private func makeAuthorizationViewController(shouldPresentHelp: Bool = false) -> UIViewController {
-        switch version {
-        case .v1:
-            return makeLoginViewController()
-        case .v2:
-            return makeAuthorizationFlowV2ViewController(shouldPresentHelp: shouldPresentHelp)
-        }
-    }
-
-    private func makeAuthorizationFlowV2ViewController(shouldPresentHelp: Bool) -> UIViewController {
-        let loginFlow = AuthorizationFlow(
-            authorizationUseCases: authorizationUseCases,
-            shouldPresentHelp: shouldPresentHelp,
-            onHelpCompleted: { [weak self] _ in
-                self?.tutorialRepository.markPresented()
-            },
-            onAuthorizationSuccess: { [weak self] _ in
-                self?.performOnMain { [weak self] in
-                    self?.onLoginSuccess?(())
-                }
-            },
-            onForgotPassword: { [weak self] _ in
-                self?.showSafari(path: "/password/reset")
-            },
-            onPrivacyPolicy: { [weak self] _ in
-                self?.showSafari(path: "/pages/privacy-policy")
-            },
-            onLoginError: { [weak self] error in
-                self?.showErrorAlert(
-                    popUpType: .error,
-                    title: error.summary.isEmpty ? "API.lb.error".localized : error.summary,
-                    description: error.message
-                )
-            }
-        )
-        let viewController = UIHostingController(rootView: loginFlow)
-        viewController.navigationItem.hidesBackButton = true
-        return viewController
+    private func showAuthorization() {
+        navigationController.pushViewController(makeLoginViewController(), animated: true)
     }
 
     private func showEnvironmentScreen(selectedViewModel: EnvironmentViewModel,
@@ -254,7 +203,7 @@ public final class AuthorizationRouter {
                                    description: "Register.three.successPopUp.description".localized,
                                    onTap: { _ in
                 self?.navigationController.dismiss(animated: true, completion: nil)
-                self?.onLoginSuccess?(())
+                self?.onAuthorizationSuccess?(())
             })
         },
                                                                           onError: { [weak self] error in

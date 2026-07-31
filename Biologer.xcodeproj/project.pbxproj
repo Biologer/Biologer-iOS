@@ -37,7 +37,7 @@
 		9311E8B82FFCF5E5006045C4 /* RegistrationLicenseConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8B72FFCF5E1006045C4 /* RegistrationLicenseConsentViewModel.swift */; };
 		9311E8BA2FFCF648006045C4 /* RegistrationLicenseConsentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */; };
 		9311E8BC2FFD0241006045C4 /* LicenseSelectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */; };
-		9311E8BE2FFD0500006045C4 /* AuthorizationRouterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8BD2FFD0500006045C4 /* AuthorizationRouterBuilder.swift */; };
+		9311E8BE2FFD0500006045C4 /* AuthorizationCoordinatorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8BD2FFD0500006045C4 /* AuthorizationCoordinatorBuilder.swift */; };
 		931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E3262B53AD00542EFC /* AppDelegate.swift */; };
 		931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426E5262B53AD00542EFC /* SceneDelegate.swift */; };
 		931426EA262B53B000542EFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426E9262B53B000542EFC /* Assets.xcassets */; };
@@ -282,6 +282,8 @@
 		B400001C301E000000000001 /* RegistrationLicensePreferenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */; };
 		B400001E301E000000000001 /* RegistrationLicensePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400001D301E000000000001 /* RegistrationLicensePreference.swift */; };
 		B5000002301F000000000001 /* AuthorizationFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5000001301F000000000001 /* AuthorizationFlowViewModel.swift */; };
+		B60000023020000000000001 /* AuthorizationCoordinating.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60000013020000000000001 /* AuthorizationCoordinating.swift */; };
+		B60000043020000000000001 /* AuthorizationFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60000033020000000000001 /* AuthorizationFlowCoordinator.swift */; };
 		C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */; };
 		C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */; };
 		C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */; };
@@ -340,7 +342,7 @@
 		9311E8B72FFCF5E1006045C4 /* RegistrationLicenseConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicenseConsentViewModel.swift; sourceTree = "<group>"; };
 		9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicenseConsentScreen.swift; sourceTree = "<group>"; };
 		9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseSelectionScreen.swift; sourceTree = "<group>"; };
-		9311E8BD2FFD0500006045C4 /* AuthorizationRouterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouterBuilder.swift; sourceTree = "<group>"; };
+		9311E8BD2FFD0500006045C4 /* AuthorizationCoordinatorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinatorBuilder.swift; sourceTree = "<group>"; };
 		931426E0262B53AD00542EFC /* Biologer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biologer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426E3262B53AD00542EFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		931426E5262B53AD00542EFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -613,6 +615,8 @@
 		B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicensePreferenceRepository.swift; sourceTree = "<group>"; };
 		B400001D301E000000000001 /* RegistrationLicensePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicensePreference.swift; sourceTree = "<group>"; };
 		B5000001301F000000000001 /* AuthorizationFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlowViewModel.swift; sourceTree = "<group>"; };
+		B60000013020000000000001 /* AuthorizationCoordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinating.swift; sourceTree = "<group>"; };
+		B60000033020000000000001 /* AuthorizationFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlowCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -759,6 +763,7 @@
 			isa = PBXGroup;
 			children = (
 				9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */,
+				B60000103020000000000001 /* Coordinator */,
 				B300000B301D000000000001 /* Flow */,
 				9311E8962FFBD908006045C4 /* Entity */,
 				9300757126877BAB005A4DE0 /* Router */,
@@ -957,7 +962,7 @@
 		B300000C301D000000000001 /* Composition */ = {
 			isa = PBXGroup;
 			children = (
-				9311E8BD2FFD0500006045C4 /* AuthorizationRouterBuilder.swift */,
+				9311E8BD2FFD0500006045C4 /* AuthorizationCoordinatorBuilder.swift */,
 			);
 			path = Composition;
 			sourceTree = "<group>";
@@ -1020,6 +1025,15 @@
 				B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		B60000103020000000000001 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				B60000013020000000000001 /* AuthorizationCoordinating.swift */,
+				B60000033020000000000001 /* AuthorizationFlowCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		93142732262B5C5600542EFC /* Common */ = {
@@ -2088,6 +2102,8 @@
 				A10000122FFD000000000001 /* AuthorizationNavigationBarModifier.swift in Sources */,
 				9311E8A12FFCD405006045C4 /* AuthorizationFlow.swift in Sources */,
 				B5000002301F000000000001 /* AuthorizationFlowViewModel.swift in Sources */,
+				B60000023020000000000001 /* AuthorizationCoordinating.swift in Sources */,
+				B60000043020000000000001 /* AuthorizationFlowCoordinator.swift in Sources */,
 				9311E8A52FFCDBA5006045C4 /* LoginScreenV2ViewModel.swift in Sources */,
 				A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */,
 				A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */,
@@ -2096,7 +2112,7 @@
 				936616D3270393DC00F02A83 /* NewTaxonImageView.swift in Sources */,
 				938D93662706522C0068E27C /* NoImagesAddedView.swift in Sources */,
 				9300757326877BDE005A4DE0 /* AuthorizationRouter.swift in Sources */,
-				9311E8BE2FFD0500006045C4 /* AuthorizationRouterBuilder.swift in Sources */,
+				9311E8BE2FFD0500006045C4 /* AuthorizationCoordinatorBuilder.swift in Sources */,
 				935AF66426F6386800C56D46 /* SetupRouter.swift in Sources */,
 				931D3FF3274AD6C800352C8E /* CheckInternetConnection.swift in Sources */,
 				931D3FDD2747925300352C8E /* LicenseStorage.swift in Sources */,
