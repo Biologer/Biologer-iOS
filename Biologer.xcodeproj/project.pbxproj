@@ -296,6 +296,7 @@
 		D20000152FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */; };
 		D20000172FFD200000000001 /* SetupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000182FFD200000000001 /* SetupFlow.swift */; };
 		D20000192FFD200000000001 /* SetupUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000202FFD200000000001 /* SetupUseCaseTests.swift */; };
+		E40000023022000000000001 /* MainCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000013022000000000001 /* MainCoordinatorTests.swift */; };
 		E40000043022000000000001 /* SettingsV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000033022000000000001 /* SettingsV2Tests.swift */; };
 		DE04B675C7024DC8452D3AA2 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA759BF9731C6666BBC73B4 /* CSV */; };
 		E32762F717E4474CF6020981 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */; };
@@ -596,6 +597,7 @@
 		D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSetupTaxonLocalDataStore.swift; sourceTree = "<group>"; };
 		D20000182FFD200000000001 /* SetupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFlow.swift; sourceTree = "<group>"; };
 		D20000202FFD200000000001 /* SetupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCaseTests.swift; sourceTree = "<group>"; };
+		E40000013022000000000001 /* MainCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorTests.swift; sourceTree = "<group>"; };
 		E40000033022000000000001 /* SettingsV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsV2Tests.swift; sourceTree = "<group>"; };
 		B3000003301D000000000001 /* AuthorizationFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFailure.swift; sourceTree = "<group>"; };
 		B3000005301D000000000001 /* LoginUserUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserUseCaseTests.swift; sourceTree = "<group>"; };
@@ -623,6 +625,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9311E7FD2FFBC258006045C4 /* APIClient */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = APIClient; sourceTree = "<group>"; };
+		E30000013021000000000001 /* Main */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Main; sourceTree = "<group>"; };
 		E30000023021000000000001 /* Settings */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Settings; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -831,6 +834,7 @@
 		931426E2262B53AD00542EFC /* Biologer */ = {
 			isa = PBXGroup;
 			children = (
+				E30000013021000000000001 /* Main */,
 				E30000023021000000000001 /* Settings */,
 				354D33A02E251FA300CE3D8D /* Files */,
 				93CC6596269C622E00949534 /* Storage */,
@@ -871,6 +875,7 @@
 				D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */,
 				D20000112FFD200000000001 /* LogoutUseCaseTests.swift */,
 				D20000202FFD200000000001 /* SetupUseCaseTests.swift */,
+				E40000013022000000000001 /* MainCoordinatorTests.swift */,
 				E40000033022000000000001 /* SettingsV2Tests.swift */,
 				931426FC262B53B100542EFC /* Info.plist */,
 			);
@@ -1862,6 +1867,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				9311E7FD2FFBC258006045C4 /* APIClient */,
+				E30000013021000000000001 /* Main */,
 				E30000023021000000000001 /* Settings */,
 			);
 			name = Biologer;
@@ -2289,6 +2295,7 @@
 				D20000042FFD200000000001 /* UserAccountUseCaseTests.swift in Sources */,
 				D20000102FFD200000000001 /* LogoutUseCaseTests.swift in Sources */,
 				D20000192FFD200000000001 /* SetupUseCaseTests.swift in Sources */,
+				E40000023022000000000001 /* MainCoordinatorTests.swift in Sources */,
 				E40000043022000000000001 /* SettingsV2Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

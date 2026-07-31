@@ -17,6 +17,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private let sideMenuNavigationController = BiologerNavigationViewController(shouldBeTransparent: false)
     private let mainNavigationController: BiologerNavigationViewController
     private let authorizationUIVersion: AuthorizationUIVersion
+    private let mainUIVersion: MainUIVersion
     private var downloadTaxonNavigationController: BiologerNavigationViewController?
 
     // MARK: - Services
@@ -130,7 +131,7 @@ public final class AppNavigationRouter: NavigationRouter {
         let authorization = builder.makeCoordinator()
         authorization.onAuthorizationSuccess = { [weak self] _ in
             self?.performOnMain { [weak self] in
-                self?.showSideMenuRouter()
+                self?.showMainCoordinator()
             }
         }
         return authorization
@@ -148,32 +149,63 @@ public final class AppNavigationRouter: NavigationRouter {
                                                   swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
                                                   uiKitCommonViewControllerFactory: commonViewControllerFactory,
                                                   swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory)
-
-        sideMenuRouter.onLogout = { [weak self] _ in
-            self?.performOnMain { [weak self] in
-                self?.logout()
-            }
-        }
-        sideMenuRouter.onStartDownloadTaxon = { [weak self] _ in
-            guard let self = self else { return }
-            self.downloadTaxonRouter.start(navigationController: self.sideMenuNavigationController)
-        }
         return sideMenuRouter
     }()
 
     private lazy var taxonRouter: TaxonRouter = {
-        let taxonRouter = TaxonRouter(navigationController: sideMenuNavigationController,
-                                      location: locationManager,
-                                      taxonServiceCordinator: taxonServiceCoordinator,
-                                      taxonPaginationInfoStorage: taxonPaginationInfoStorage,
-                                      settingsStorage: userDefaultsSettingsStorage,
-                                      uploadFindings: uploadFindings,
-                                      factory: SwiftUITaxonViewControllerFactory(getAltitudeService: RemoteGetAltitudeService(client: httpClient, environmentStorage: environmentStorage)),
-                                      swiftUICommonFactory: swiftUICommonViewControllerFactory,
-                                      uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
-                                      alertFactory: swiftUIAlertViewControllerFactory,
-                                      userStorage: userStorage)
-        return taxonRouter
+        makeTaxonRouter(
+            navigationController: sideMenuNavigationController,
+            showsSideMenuButton: true
+        )
+    }()
+
+    private lazy var mainCoordinator: MainCoordinating = {
+        let builder = MainCoordinatorBuilder(
+            version: mainUIVersion,
+            makeLegacyCoordinator: { [unowned self] in
+                LegacyMainCoordinator(
+                    navigationController: self.sideMenuNavigationController,
+                    router: self.sideMenuRouter
+                )
+            },
+            makeTabCoordinator: { [unowned self] in
+                let findingsNavigationController = BiologerNavigationViewController(
+                    shouldBeTransparent: false
+                )
+                let settingsNavigationController = BiologerNavigationViewController(
+                    shouldBeTransparent: false
+                )
+                let settingsBuilder = self.makeSettingsBuilder()
+                return MainTabCoordinator(
+                    findingsNavigationController: findingsNavigationController,
+                    settingsNavigationController: settingsNavigationController,
+                    taxonRouter: self.makeTaxonRouter(
+                        navigationController: findingsNavigationController,
+                        showsSideMenuButton: false
+                    ),
+                    makeSettingsViewController: { onDownloadTaxa, onLogout, onDeleteAccount in
+                        settingsBuilder.makeViewController(
+                            onDownloadTaxa: onDownloadTaxa,
+                            onLogout: onLogout,
+                            onDeleteAccount: onDeleteAccount
+                        )
+                    }
+                )
+            }
+        )
+        let coordinator = builder.makeCoordinator()
+        coordinator.onLogout = { [weak self] _ in
+            self?.performOnMain { [weak self] in
+                self?.logout()
+            }
+        }
+        coordinator.onStartDownloadTaxa = { [weak self] navigationController in
+            self?.downloadTaxonRouter.start(navigationController: navigationController)
+        }
+        coordinator.onDeleteAccount = { [weak self] deleteObservations in
+            self?.deleteCurrentAccount(deleteObservations: deleteObservations)
+        }
+        return coordinator
     }()
 
     private lazy var downloadTaxonRouter: DownloadTaxonRouter = {
@@ -253,10 +285,12 @@ public final class AppNavigationRouter: NavigationRouter {
 
     init(
         mainNavigationController: BiologerNavigationViewController,
-        authorizationUIVersion: AuthorizationUIVersion = .v1
+        authorizationUIVersion: AuthorizationUIVersion = .v1,
+        mainUIVersion: MainUIVersion = .v1
     ) {
         self.mainNavigationController = mainNavigationController
         self.authorizationUIVersion = authorizationUIVersion
+        self.mainUIVersion = mainUIVersion
         //self.mainNavigationController.setNavigationBarTransparency()
     }
 
@@ -265,9 +299,9 @@ public final class AppNavigationRouter: NavigationRouter {
             guard let self = self else { return }
             if isLoading {
                 let loader = self.commonViewControllerFactory.createBlockingProgress()
-                self.sideMenuNavigationController.present(loader, animated: false, completion: nil)
+                self.mainCoordinator.rootViewController.present(loader, animated: false, completion: nil)
             } else {
-                self.sideMenuNavigationController.dismiss(animated: false, completion: nil)
+                self.mainCoordinator.rootViewController.dismiss(animated: false, completion: nil)
             }
         }
     }
@@ -278,15 +312,18 @@ public final class AppNavigationRouter: NavigationRouter {
     }
 
     // MARK: - Private Functions
-    private func showSideMenuRouter() {
-        self.sideMenuRouter.start()
+    private func showMainCoordinator() {
+        mainCoordinator.start()
         UINavigationBar.appearance().barTintColor = .biologerGreenColor
-        self.sideMenuNavigationController.modalPresentationStyle = .overFullScreen
-        self.mainNavigationController.present(self.sideMenuNavigationController,
-                                              animated: true,
-                                              completion: {
-                                                self.getMyProfile()
-                                              })
+        let rootViewController = mainCoordinator.rootViewController
+        rootViewController.modalPresentationStyle = .overFullScreen
+        mainNavigationController.present(
+            rootViewController,
+            animated: true,
+            completion: { [weak self] in
+                self?.getMyProfile()
+            }
+        )
     }
 
     private func logout() {
@@ -300,7 +337,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private func launchApp() {
         if let _ = tokenStorage.getToken() {
             let vc = authorizationFactory.makeSplashScreen(onSplashScreenDone: { [weak self] in
-                self?.showSideMenuRouter()
+                self?.showMainCoordinator()
             })
             self.mainNavigationController.setViewControllers([vc], animated: false)
         } else {
@@ -351,10 +388,105 @@ public final class AppNavigationRouter: NavigationRouter {
                 response.data.forEach( {
                     RealmManager.add(DBObservetationMapper.mapForDB(observationResponse: $0))
                 })
-                self.downloadTaxonRouter.start(navigationController: self.sideMenuNavigationController,
+                self.downloadTaxonRouter.start(navigationController: self.mainCoordinator.primaryNavigationController,
                                                sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: false)
             }
         })
+    }
+
+    private func makeTaxonRouter(
+        navigationController: UINavigationController,
+        showsSideMenuButton: Bool
+    ) -> TaxonRouter {
+        TaxonRouter(
+            navigationController: navigationController,
+            location: locationManager,
+            taxonServiceCordinator: taxonServiceCoordinator,
+            taxonPaginationInfoStorage: taxonPaginationInfoStorage,
+            settingsStorage: userDefaultsSettingsStorage,
+            uploadFindings: uploadFindings,
+            factory: SwiftUITaxonViewControllerFactory(
+                getAltitudeService: RemoteGetAltitudeService(
+                    client: httpClient,
+                    environmentStorage: environmentStorage
+                )
+            ),
+            swiftUICommonFactory: swiftUICommonViewControllerFactory,
+            uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
+            alertFactory: swiftUIAlertViewControllerFactory,
+            userStorage: userStorage,
+            showsSideMenuButton: showsSideMenuButton
+        )
+    }
+
+    private func makeSettingsBuilder() -> SettingsBuilder {
+        SettingsBuilder(
+            settingsStorage: userDefaultsSettingsStorage,
+            dataLicenseStorage: dataLicenseStorage,
+            imageLicenseStorage: imageLicenseStorage,
+            taxonPaginationStorage: taxonPaginationInfoStorage,
+            environmentStorage: environmentStorage,
+            userStorage: userStorage
+        )
+    }
+
+    private func deleteCurrentAccount(deleteObservations: Bool) {
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await userAccountUseCase.deleteCurrentUser(
+                    deleteObservations: deleteObservations
+                )
+                await MainActor.run {
+                    showMainAlert(
+                        popUpType: .success,
+                        title: "DeleteAccount.lb.successTitle".localized,
+                        description: "",
+                        onDismiss: { [weak self] in
+                            guard let self else { return }
+                            self.userStorage.deleteAllForUser()
+                            self.logout()
+                        }
+                    )
+                }
+            } catch let error as APIError {
+                await MainActor.run {
+                    showMainAlert(
+                        popUpType: .error,
+                        title: error.title,
+                        description: error.description
+                    )
+                }
+            } catch {
+                await MainActor.run {
+                    showMainAlert(
+                        popUpType: .error,
+                        title: "API.lb.error".localized,
+                        description: error.localizedDescription
+                    )
+                }
+            }
+        }
+    }
+
+    private func showMainAlert(
+        popUpType: PopUpType,
+        title: String,
+        description: String,
+        onDismiss: (() -> Void)? = nil
+    ) {
+        let viewController = swiftUIAlertViewControllerFactory.makeConfirmationAlert(
+            popUpType: popUpType,
+            title: title,
+            description: description,
+            onTapp: { [weak self] _ in
+                self?.mainCoordinator.rootViewController.dismiss(
+                    animated: true,
+                    completion: onDismiss
+                )
+            }
+        )
+        mainCoordinator.rootViewController.present(viewController, animated: true)
     }
 
     private func performOnMain(_ action: @escaping () -> Void) {

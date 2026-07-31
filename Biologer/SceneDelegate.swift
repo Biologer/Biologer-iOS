@@ -11,6 +11,7 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private let authorizationUIVersion: AuthorizationUIVersion = .v1
+    private let mainUIVersion: MainUIVersion = .v2
 
     var window: UIWindow?
     var navigationController: BiologerNavigationViewController!
@@ -23,7 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             appRouter = AppNavigationRouter(
                 mainNavigationController: navigationController,
-                authorizationUIVersion: authorizationUIVersion
+                authorizationUIVersion: authorizationUIVersion,
+                mainUIVersion: mainUIVersion
             )
             appRouter?.start()
             window.rootViewController = navigationController

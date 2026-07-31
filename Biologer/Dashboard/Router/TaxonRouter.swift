@@ -20,6 +20,7 @@ public final class TaxonRouter: NSObject {
     private let taxonPaginationInfoStorage: TaxonsPaginationInfoStorage
     private let settingsStorage: SettingsStorage
     private let userStorage: UserStorage
+    private let showsSideMenuButton: Bool
     private var biologerProgressBarDelegate: BiologerProgressBarDelegate?
     private var onLoadingDone: (() -> Void)?
     public var onSideMenuTapped: Observer<Void>?
@@ -38,7 +39,8 @@ public final class TaxonRouter: NSObject {
          swiftUICommonFactory: CommonViewControllerFactory,
          uiKitCommonFactory: CommonViewControllerFactory,
          alertFactory: AlertViewControllerFactory,
-         userStorage: UserStorage) {
+         userStorage: UserStorage,
+         showsSideMenuButton: Bool = true) {
         self.navigationController = navigationController
         self.location = location
         self.uploadFindings = uploadFindings
@@ -50,6 +52,7 @@ public final class TaxonRouter: NSObject {
         self.uiKitCommonFactory = uiKitCommonFactory
         self.alertFactory = alertFactory
         self.userStorage = userStorage
+        self.showsSideMenuButton = showsSideMenuButton
     }
     
     lazy var onLoading: Observer<Bool> = { [weak self] isLoading in
@@ -65,22 +68,25 @@ public final class TaxonRouter: NSObject {
     func start() {
         showLiftOfFindingsScreen()
     }
+
+    func startNewFinding() {
+        if let user = userStorage.getUser(), !user.isVerified {
+            showUnverifiedUser(onDissmis: { [weak self] in
+                guard let self else { return }
+                self.location.startUpdateingLocation()
+                self.showNewTaxonScreen(findingViewModel: self.makeDefaultFidingViewModel())
+            })
+        } else {
+            location.startUpdateingLocation()
+            showNewTaxonScreen(findingViewModel: makeDefaultFidingViewModel())
+        }
+    }
     
     // MARK: - Private Functions
     private func showLiftOfFindingsScreen() {
         var deleteFindingDelegate: DeleteFindingsScreenViewModelDelegate?
         let vc = factory.makeListOfFindingsScreen(onNewItemTapped: { [weak self] _ in
-            guard let self = self else { return }
-            if let user = self.userStorage.getUser(), !user.isVerified {
-                self.showUnverifiedUser(onDissmis: { [weak self] in
-                    guard let self = self else { return }
-                    self.location.startUpdateingLocation()
-                    self.showNewTaxonScreen(findingViewModel: self.makeDefaultFidingViewModel())
-                })
-            } else {
-                self.location.startUpdateingLocation()
-                self.showNewTaxonScreen(findingViewModel: self.makeDefaultFidingViewModel())
-            }
+            self?.startNewFinding()
         },
         onItemTapped: { [weak self] item in
             guard let self = self else { return }
@@ -96,10 +102,12 @@ public final class TaxonRouter: NSObject {
             self?.showDeleteFindingsScreen(selectedFinding: finding,
                                            delegate: deleteFindingDelegate)
         })
-        vc.setBiologerBackBarButtonItem(image: UIImage(named: "side_menu_icon")!,
-                                        action: {
-                                            self.onSideMenuTapped?(())
-                                        })
+        if showsSideMenuButton {
+            vc.setBiologerBackBarButtonItem(image: UIImage(named: "side_menu_icon")!,
+                                            action: {
+                                                self.onSideMenuTapped?(())
+                                            })
+        }
         vc.setBiologerRightButtonItem(image: UIImage(named: "upload_icon")!,
                                       action: {
                                         self.uploadFindingFlow()
@@ -521,4 +529,3 @@ extension TaxonRouter: UINavigationControllerDelegate, UIImagePickerControllerDe
         return imageName
     }
 }
-
