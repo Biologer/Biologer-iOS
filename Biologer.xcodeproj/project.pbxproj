@@ -44,18 +44,6 @@
 		931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426EC262B53B000542EFC /* Preview Assets.xcassets */; };
 		931426F0262B53B000542EFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931426EE262B53B000542EFC /* LaunchScreen.storyboard */; };
 		931426FB262B53B100542EFC /* BiologerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426FA262B53B100542EFC /* BiologerTests.swift */; };
-		C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */; };
-		C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */; };
-		C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */; };
-		D20000012FFD200000000001 /* UserAccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000022FFD200000000001 /* UserAccountUseCase.swift */; };
-		D20000042FFD200000000001 /* UserAccountUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */; };
-		D20000062FFD200000000001 /* LogoutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000072FFD200000000001 /* LogoutUseCase.swift */; };
-		D20000082FFD200000000001 /* RealmLogoutLocalDataDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */; };
-		D20000102FFD200000000001 /* LogoutUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000112FFD200000000001 /* LogoutUseCaseTests.swift */; };
-		D20000132FFD200000000001 /* SetupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000142FFD200000000001 /* SetupUseCase.swift */; };
-		D20000152FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */; };
-		D20000172FFD200000000001 /* SetupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000182FFD200000000001 /* SetupFlow.swift */; };
-		D20000192FFD200000000001 /* SetupUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000202FFD200000000001 /* SetupUseCaseTests.swift */; };
 		93142706262B53B100542EFC /* BiologerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142705262B53B100542EFC /* BiologerUITests.swift */; };
 		9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314271A262B58AA00542EFC /* LoginScreen.swift */; };
 		9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314272A262B5AEE00542EFC /* MaterialDesignTextField.swift */; };
@@ -263,7 +251,7 @@
 		93EB965F270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */; };
 		93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */; };
 		A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000022FFD000000000001 /* RegisterUserUseCase.swift */; };
-		A10000042FFD000000000001 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000052FFD000000000001 /* AuthUseCase.swift */; };
+		A10000042FFD000000000001 /* AuthorizationUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000052FFD000000000001 /* AuthorizationUseCases.swift */; };
 		A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000072FFD000000000001 /* LoginUserUseCase.swift */; };
 		A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000092FFD000000000001 /* LoginUserEndpoint.swift */; };
 		A100000A2FFD000000000001 /* RegisterUserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */; };
@@ -274,6 +262,37 @@
 		A10000142FFD000000000001 /* RegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000152FFD000000000001 /* RegistrationUseCase.swift */; };
 		A69400C2B1422A8EBB645F1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20AA770440D603BCEC136BE7 /* RealmSwift */; };
 		B2F6E59410152D518B73140F /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 5E9386650B33D0CB40ABB20C /* Reachability */; };
+		B3000004301D000000000001 /* AuthorizationFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3000003301D000000000001 /* AuthorizationFailure.swift */; };
+		B3000006301D000000000001 /* LoginUserUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3000005301D000000000001 /* LoginUserUseCaseTests.swift */; };
+		B3000008301D000000000001 /* AuthorizationV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3000007301D000000000001 /* AuthorizationV2ViewModelTests.swift */; };
+		B300000A301D000000000001 /* AuthorizationRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3000009301D000000000001 /* AuthorizationRouterTests.swift */; };
+		B4000002301E000000000001 /* LoginUserRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000001301E000000000001 /* LoginUserRequestBody.swift */; };
+		B4000004301E000000000001 /* RegisterUserRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000003301E000000000001 /* RegisterUserRequestBody.swift */; };
+		B4000006301E000000000001 /* RemoteLoginUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000005301E000000000001 /* RemoteLoginUserRepository.swift */; };
+		B4000008301E000000000001 /* RemoteRegisterUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000007301E000000000001 /* RemoteRegisterUserRepository.swift */; };
+		B400000A301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000009301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift */; };
+		B400000C301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400000B301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift */; };
+		B400000E301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400000D301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift */; };
+		B4000010301E000000000001 /* APIError+AuthorizationFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400000F301E000000000001 /* APIError+AuthorizationFailure.swift */; };
+		B4000012301E000000000001 /* SelectAuthorizationEnvironmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000011301E000000000001 /* SelectAuthorizationEnvironmentUseCase.swift */; };
+		B4000014301E000000000001 /* AuthorizationEnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000013301E000000000001 /* AuthorizationEnvironmentRepository.swift */; };
+		B4000016301E000000000001 /* AuthorizationTutorialRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000015301E000000000001 /* AuthorizationTutorialRepository.swift */; };
+		B4000018301E000000000001 /* LoginUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000017301E000000000001 /* LoginUserRepository.swift */; };
+		B400001A301E000000000001 /* RegisterUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000019301E000000000001 /* RegisterUserRepository.swift */; };
+		B400001C301E000000000001 /* RegistrationLicensePreferenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */; };
+		B400001E301E000000000001 /* RegistrationLicensePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400001D301E000000000001 /* RegistrationLicensePreference.swift */; };
+		C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */; };
+		C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */; };
+		C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */; };
+		D20000012FFD200000000001 /* UserAccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000022FFD200000000001 /* UserAccountUseCase.swift */; };
+		D20000042FFD200000000001 /* UserAccountUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */; };
+		D20000062FFD200000000001 /* LogoutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000072FFD200000000001 /* LogoutUseCase.swift */; };
+		D20000082FFD200000000001 /* RealmLogoutLocalDataDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */; };
+		D20000102FFD200000000001 /* LogoutUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000112FFD200000000001 /* LogoutUseCaseTests.swift */; };
+		D20000132FFD200000000001 /* SetupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000142FFD200000000001 /* SetupUseCase.swift */; };
+		D20000152FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */; };
+		D20000172FFD200000000001 /* SetupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000182FFD200000000001 /* SetupFlow.swift */; };
+		D20000192FFD200000000001 /* SetupUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000202FFD200000000001 /* SetupUseCaseTests.swift */; };
 		DE04B675C7024DC8452D3AA2 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA759BF9731C6666BBC73B4 /* CSV */; };
 		E32762F717E4474CF6020981 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */; };
 /* End PBXBuildFile section */
@@ -331,18 +350,6 @@
 		931426F6262B53B000542EFC /* BiologerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426FA262B53B100542EFC /* BiologerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerTests.swift; sourceTree = "<group>"; };
 		931426FC262B53B100542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputValidatorTests.swift; sourceTree = "<group>"; };
-		C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCaseTests.swift; sourceTree = "<group>"; };
-		C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientErrorMappingTests.swift; sourceTree = "<group>"; };
-		D20000022FFD200000000001 /* UserAccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCase.swift; sourceTree = "<group>"; };
-		D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCaseTests.swift; sourceTree = "<group>"; };
-		D20000072FFD200000000001 /* LogoutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCase.swift; sourceTree = "<group>"; };
-		D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLogoutLocalDataDeleter.swift; sourceTree = "<group>"; };
-		D20000112FFD200000000001 /* LogoutUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCaseTests.swift; sourceTree = "<group>"; };
-		D20000142FFD200000000001 /* SetupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCase.swift; sourceTree = "<group>"; };
-		D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSetupTaxonLocalDataStore.swift; sourceTree = "<group>"; };
-		D20000182FFD200000000001 /* SetupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFlow.swift; sourceTree = "<group>"; };
-		D20000202FFD200000000001 /* SetupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCaseTests.swift; sourceTree = "<group>"; };
 		93142701262B53B100542EFC /* BiologerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93142705262B53B100542EFC /* BiologerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerUITests.swift; sourceTree = "<group>"; };
 		93142707262B53B100542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -564,7 +571,7 @@
 		93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreenViewModel.swift; sourceTree = "<group>"; };
 		93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreen.swift; sourceTree = "<group>"; };
 		A10000022FFD000000000001 /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
-		A10000052FFD000000000001 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		A10000052FFD000000000001 /* AuthorizationUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationUseCases.swift; sourceTree = "<group>"; };
 		A10000072FFD000000000001 /* LoginUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserUseCase.swift; sourceTree = "<group>"; };
 		A10000092FFD000000000001 /* LoginUserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserEndpoint.swift; sourceTree = "<group>"; };
 		A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserEndpoint.swift; sourceTree = "<group>"; };
@@ -573,6 +580,37 @@
 		A10000112FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicensePreferenceUseCase.swift; sourceTree = "<group>"; };
 		A10000132FFD000000000001 /* AuthorizationNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationNavigationBarModifier.swift; sourceTree = "<group>"; };
 		A10000152FFD000000000001 /* RegistrationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCase.swift; sourceTree = "<group>"; };
+		C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputValidatorTests.swift; sourceTree = "<group>"; };
+		C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCaseTests.swift; sourceTree = "<group>"; };
+		C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientErrorMappingTests.swift; sourceTree = "<group>"; };
+		D20000022FFD200000000001 /* UserAccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCase.swift; sourceTree = "<group>"; };
+		D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCaseTests.swift; sourceTree = "<group>"; };
+		D20000072FFD200000000001 /* LogoutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCase.swift; sourceTree = "<group>"; };
+		D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLogoutLocalDataDeleter.swift; sourceTree = "<group>"; };
+		D20000112FFD200000000001 /* LogoutUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCaseTests.swift; sourceTree = "<group>"; };
+		D20000142FFD200000000001 /* SetupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCase.swift; sourceTree = "<group>"; };
+		D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSetupTaxonLocalDataStore.swift; sourceTree = "<group>"; };
+		D20000182FFD200000000001 /* SetupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFlow.swift; sourceTree = "<group>"; };
+		D20000202FFD200000000001 /* SetupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCaseTests.swift; sourceTree = "<group>"; };
+		B3000003301D000000000001 /* AuthorizationFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFailure.swift; sourceTree = "<group>"; };
+		B3000005301D000000000001 /* LoginUserUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserUseCaseTests.swift; sourceTree = "<group>"; };
+		B3000007301D000000000001 /* AuthorizationV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationV2ViewModelTests.swift; sourceTree = "<group>"; };
+		B3000009301D000000000001 /* AuthorizationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouterTests.swift; sourceTree = "<group>"; };
+		B4000001301E000000000001 /* LoginUserRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserRequestBody.swift; sourceTree = "<group>"; };
+		B4000003301E000000000001 /* RegisterUserRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRequestBody.swift; sourceTree = "<group>"; };
+		B4000005301E000000000001 /* RemoteLoginUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLoginUserRepository.swift; sourceTree = "<group>"; };
+		B4000007301E000000000001 /* RemoteRegisterUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRegisterUserRepository.swift; sourceTree = "<group>"; };
+		B4000009301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredAuthorizationEnvironmentRepository.swift; sourceTree = "<group>"; };
+		B400000B301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAuthorizationTutorialRepository.swift; sourceTree = "<group>"; };
+		B400000D301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredRegistrationLicensePreferenceRepository.swift; sourceTree = "<group>"; };
+		B400000F301E000000000001 /* APIError+AuthorizationFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIError+AuthorizationFailure.swift"; sourceTree = "<group>"; };
+		B4000011301E000000000001 /* SelectAuthorizationEnvironmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAuthorizationEnvironmentUseCase.swift; sourceTree = "<group>"; };
+		B4000013301E000000000001 /* AuthorizationEnvironmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationEnvironmentRepository.swift; sourceTree = "<group>"; };
+		B4000015301E000000000001 /* AuthorizationTutorialRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTutorialRepository.swift; sourceTree = "<group>"; };
+		B4000017301E000000000001 /* LoginUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserRepository.swift; sourceTree = "<group>"; };
+		B4000019301E000000000001 /* RegisterUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRepository.swift; sourceTree = "<group>"; };
+		B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicensePreferenceRepository.swift; sourceTree = "<group>"; };
+		B400001D301E000000000001 /* RegistrationLicensePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicensePreference.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -637,7 +675,6 @@
 			isa = PBXGroup;
 			children = (
 				9300757226877BDE005A4DE0 /* AuthorizationRouter.swift */,
-				9311E8BD2FFD0500006045C4 /* AuthorizationRouterBuilder.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -695,9 +732,12 @@
 		9311E8932FFBD4FE006045C4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				9311E8992FFBD935006045C4 /* Entity */,
-				A10000092FFD000000000001 /* LoginUserEndpoint.swift */,
-				A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */,
+				93DF140E26920A2C00A7A977 /* Legacy */,
+				B4000101301E000000000001 /* Endpoints */,
+				B4000102301E000000000001 /* Requests */,
+				B4000103301E000000000001 /* Responses */,
+				B4000104301E000000000001 /* Repositories */,
+				B4000105301E000000000001 /* Mappers */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -705,14 +745,10 @@
 		9311E8942FFBD50C006045C4 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				9311E89C2FFBE8D7006045C4 /* AuthInputValidator.swift */,
-				A10000052FFD000000000001 /* AuthUseCase.swift */,
-				A10000072FFD000000000001 /* LoginUserUseCase.swift */,
-				A10000022FFD000000000001 /* RegisterUserUseCase.swift */,
-				A100000D2FFD000000000001 /* RegistrationRequest.swift */,
-				A100000F2FFD000000000001 /* RegistrationInputValidator.swift */,
-				A10000112FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift */,
-				A10000152FFD000000000001 /* RegistrationUseCase.swift */,
+				9E07D724301C9E9B00DCF823 /* Validators */,
+				9E07D723301C9E5B00DCF823 /* UseCases */,
+				B4000106301E000000000001 /* Repositories */,
+				9311E8992FFBD935006045C4 /* Entity */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -720,10 +756,11 @@
 		9311E8952FFBD579006045C4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */,
+				B300000B301D000000000001 /* Flow */,
 				9311E8962FFBD908006045C4 /* Entity */,
 				9300757126877BAB005A4DE0 /* Router */,
 				93BF62C9262C55A700DDFB44 /* ViewControllerFactory */,
-				93142728262B5A8100542EFC /* ViewModel */,
 				93142727262B5A7B00542EFC /* UI */,
 			);
 			path = Presentation;
@@ -741,11 +778,11 @@
 		9311E8992FFBD935006045C4 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				B3000003301D000000000001 /* AuthorizationFailure.swift */,
 				93C2D1EA269F020600123216 /* Environment.swift */,
 				93C2D1EE269F1BFF00123216 /* Token.swift */,
-				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
-				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
-				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
+				A100000D2FFD000000000001 /* RegistrationRequest.swift */,
+				B400001D301E000000000001 /* RegistrationLicensePreference.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -755,34 +792,9 @@
 			children = (
 				93BF629D262B807D00DDFB44 /* BiologerButton.swift */,
 				93CC6588269C2C5E00949534 /* LoginEnvView.swift */,
+				93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		9311E89F2FFCD3EC006045C4 /* Redesign */ = {
-			isa = PBXGroup;
-			children = (
-				A10000132FFD000000000001 /* AuthorizationNavigationBarModifier.swift */,
-				9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */,
-				9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */,
-				9311E8B52FFCF421006045C4 /* RegistrationCredentialsScreen.swift */,
-				9311E8B12FFCF233006045C4 /* RegistrationFlow.swift */,
-				9311E8AD2FFCEE40006045C4 /* RegistrationPersonalInfoScreen.swift */,
-				9311E8AA2FFCED81006045C4 /* Entity */,
-				9311E8A82FFCE38B006045C4 /* EnvironmentSelectionScreen.swift */,
-				9311E8A42FFCDB9E006045C4 /* LoginScreenV2ViewModel.swift */,
-				9311E8A22FFCDB71006045C4 /* LoginScreenV2.swift */,
-				9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */,
-			);
-			path = Redesign;
-			sourceTree = "<group>";
-		};
-		9311E8AA2FFCED81006045C4 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				9311E8AB2FFCED8A006045C4 /* RegistrationDraft.swift */,
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		931426D7262B53AD00542EFC = {
@@ -839,6 +851,9 @@
 			isa = PBXGroup;
 			children = (
 				931426FA262B53B100542EFC /* BiologerTests.swift */,
+				B3000009301D000000000001 /* AuthorizationRouterTests.swift */,
+				B3000007301D000000000001 /* AuthorizationV2ViewModelTests.swift */,
+				B3000005301D000000000001 /* LoginUserUseCaseTests.swift */,
 				C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */,
 				C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */,
 				C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */,
@@ -862,11 +877,10 @@
 		93142716262B57C300542EFC /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */,
+				B300000C301D000000000001 /* Composition */,
 				9311E8952FFBD579006045C4 /* Presentation */,
 				9311E8942FFBD50C006045C4 /* Domain */,
 				9311E8932FFBD4FE006045C4 /* Data */,
-				93DF140E26920A2C00A7A977 /* Service */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -874,10 +888,9 @@
 		93142727262B5A7B00542EFC /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				933EF7E626EE365E00F1EBC4 /* Splash Screen */,
-				93A7E25F2691D5DD001D6AEF /* Login */,
-				93A7E2602691D5E3001D6AEF /* Register */,
-				93142729262B5A8A00542EFC /* Helpers */,
+				B3000001301D000000000001 /* Shared */,
+				9E07D71D301C9C6700DCF823 /* V1 */,
+				9E07D717301C9B9D00DCF823 /* V2 */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -904,6 +917,107 @@
 				936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B3000001301D000000000001 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9311E89E2FFCD2CB006045C4 /* Components */,
+				93142729262B5A8A00542EFC /* Helpers */,
+				B3000002301D000000000001 /* TextFields */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B3000002301D000000000001 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				93142740262B6B3D00542EFC /* UserNameTextFieldViewModel.swift */,
+				93142745262B6C9000542EFC /* PasswordTextFieldViewModel.swift */,
+				93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */,
+				93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */,
+				93A7E26F2691E055001D6AEF /* InsititutionTextFieldViewModel.swift */,
+				93A7E2732691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift */,
+				93A7E2752691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift */,
+				93A7E2772691E1A4001D6AEF /* EmailTextFieldViewModel.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		B300000B301D000000000001 /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				9E07D716301C9B8100DCF823 /* V2 */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
+		B300000C301D000000000001 /* Composition */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8BD2FFD0500006045C4 /* AuthorizationRouterBuilder.swift */,
+			);
+			path = Composition;
+			sourceTree = "<group>";
+		};
+		B4000101301E000000000001 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				A10000092FFD000000000001 /* LoginUserEndpoint.swift */,
+				A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		B4000102301E000000000001 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				B4000001301E000000000001 /* LoginUserRequestBody.swift */,
+				B4000003301E000000000001 /* RegisterUserRequestBody.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		B4000103301E000000000001 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
+				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
+				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		B4000104301E000000000001 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				B4000005301E000000000001 /* RemoteLoginUserRepository.swift */,
+				B4000007301E000000000001 /* RemoteRegisterUserRepository.swift */,
+				B4000009301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift */,
+				B400000B301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift */,
+				B400000D301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		B4000105301E000000000001 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				B400000F301E000000000001 /* APIError+AuthorizationFailure.swift */,
+			);
+			path = Mappers;
+			sourceTree = "<group>";
+		};
+		B4000106301E000000000001 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				B4000013301E000000000001 /* AuthorizationEnvironmentRepository.swift */,
+				B4000015301E000000000001 /* AuthorizationTutorialRepository.swift */,
+				B4000017301E000000000001 /* LoginUserRepository.swift */,
+				B4000019301E000000000001 /* RegisterUserRepository.swift */,
+				B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		93142732262B5C5600542EFC /* Common */ = {
@@ -1051,25 +1165,6 @@
 				93334EAA2677DCA70094A483 /* UI */,
 			);
 			path = Dashboard;
-			sourceTree = "<group>";
-		};
-		D20000032FFD200000000001 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				D20000022FFD200000000001 /* UserAccountUseCase.swift */,
-				D20000072FFD200000000001 /* LogoutUseCase.swift */,
-				D20000142FFD200000000001 /* SetupUseCase.swift */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		D20000122FFD200000000001 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */,
-				D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		93334EAA2677DCA70094A483 /* UI */ = {
@@ -1383,7 +1478,6 @@
 			isa = PBXGroup;
 			children = (
 				93CC659C269CED3D00949534 /* Screens */,
-				93A7E2692691DFC4001D6AEF /* TextFields */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1392,7 +1486,6 @@
 			isa = PBXGroup;
 			children = (
 				93DF14052692061200A7A977 /* Screens */,
-				93A7E26A2691DFCF001D6AEF /* TextFields */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -1400,7 +1493,6 @@
 		93A7E25F2691D5DD001D6AEF /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				9311E89E2FFCD2CB006045C4 /* Components */,
 				9314271A262B58AA00542EFC /* LoginScreen.swift */,
 				93BF62B2262C454400DDFB44 /* EnvironmentScreen.swift */,
 			);
@@ -1410,36 +1502,12 @@
 		93A7E2602691D5E3001D6AEF /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				9311E89F2FFCD3EC006045C4 /* Redesign */,
 				93A7E2792691F721001D6AEF /* RegisterStepOneScreen.swift */,
 				93A7E27B2691F78D001D6AEF /* RegisterStepTwoScreen.swift */,
 				93A7E27D2691F7D4001D6AEF /* RegisterStepThreeScreen.swift */,
 				93DF141326920D0700A7A977 /* DataLicenseScreen.swift */,
-				93DF142A26922A2C00A7A977 /* RegisterLicenseView.swift */,
 			);
 			path = Register;
-			sourceTree = "<group>";
-		};
-		93A7E2692691DFC4001D6AEF /* TextFields */ = {
-			isa = PBXGroup;
-			children = (
-				93142740262B6B3D00542EFC /* UserNameTextFieldViewModel.swift */,
-				93142745262B6C9000542EFC /* PasswordTextFieldViewModel.swift */,
-			);
-			path = TextFields;
-			sourceTree = "<group>";
-		};
-		93A7E26A2691DFCF001D6AEF /* TextFields */ = {
-			isa = PBXGroup;
-			children = (
-				93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */,
-				93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */,
-				93A7E26F2691E055001D6AEF /* InsititutionTextFieldViewModel.swift */,
-				93A7E2732691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift */,
-				93A7E2752691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift */,
-				93A7E2772691E1A4001D6AEF /* EmailTextFieldViewModel.swift */,
-			);
-			path = TextFields;
 			sourceTree = "<group>";
 		};
 		93B041772711F64E007DB833 /* Database */ = {
@@ -1570,9 +1638,6 @@
 		93DF14052692061200A7A977 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				9311E8B72FFCF5E1006045C4 /* RegistrationLicenseConsentViewModel.swift */,
-				9311E8B32FFCF3EB006045C4 /* RegistrationCredentialsViewModel.swift */,
-				9311E8AF2FFCEE6D006045C4 /* RegistrationPersonalInfoViewModel.swift */,
 				93DF14062692062B00A7A977 /* RegisterStepOneScreenViewModel.swift */,
 				93DF140A269207FB00A7A977 /* RegisterStepTwoScreenViewModel.swift */,
 				93DF140C2692085B00A7A977 /* RegisterStepThreeScreenViewModel.swift */,
@@ -1581,13 +1646,13 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		93DF140E26920A2C00A7A977 /* Service */ = {
+		93DF140E26920A2C00A7A977 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
 				93DF140F26920A4600A7A977 /* RegisterUserService.swift */,
 				93DF14202692262900A7A977 /* LoginUserService.swift */,
 			);
-			path = Service;
+			path = Legacy;
 			sourceTree = "<group>";
 		};
 		93DF14152692223F00A7A977 /* Network */ = {
@@ -1620,6 +1685,150 @@
 				93E3CBED2736EB980090FF93 /* BiologerProgressBarScreenViewModel.swift */,
 			);
 			path = TaxonPogressView;
+			sourceTree = "<group>";
+		};
+		9E07D716301C9B8100DCF823 /* V2 */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */,
+				9311E8B12FFCF233006045C4 /* RegistrationFlow.swift */,
+			);
+			path = V2;
+			sourceTree = "<group>";
+		};
+		9E07D717301C9B9D00DCF823 /* V2 */ = {
+			isa = PBXGroup;
+			children = (
+				9E07D71C301C9C4F00DCF823 /* Models */,
+				9E07D718301C9BB300DCF823 /* Screens */,
+			);
+			path = V2;
+			sourceTree = "<group>";
+		};
+		9E07D718301C9BB300DCF823 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				9E07D722301C9DB600DCF823 /* Modifiers */,
+				9E07D71B301C9C3800DCF823 /* Login */,
+				9E07D71A301C9BC800DCF823 /* Registration */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		9E07D71A301C9BC800DCF823 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				9E07D721301C9D8A00DCF823 /* RegistrationCredentials */,
+				9E07D71F301C9D0800DCF823 /* RegistrationContent */,
+				9E07D71E301C9CC000DCF823 /* PersonalInfoScreen */,
+				9311E8BB2FFD023E006045C4 /* LicenseSelectionScreen.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		9E07D71B301C9C3800DCF823 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8A82FFCE38B006045C4 /* EnvironmentSelectionScreen.swift */,
+				9311E8A42FFCDB9E006045C4 /* LoginScreenV2ViewModel.swift */,
+				9311E8A22FFCDB71006045C4 /* LoginScreenV2.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		9E07D71C301C9C4F00DCF823 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8AB2FFCED8A006045C4 /* RegistrationDraft.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9E07D71D301C9C6700DCF823 /* V1 */ = {
+			isa = PBXGroup;
+			children = (
+				933EF7E626EE365E00F1EBC4 /* Splash Screen */,
+				93A7E25F2691D5DD001D6AEF /* Login */,
+				93A7E2602691D5E3001D6AEF /* Register */,
+				93142728262B5A8100542EFC /* ViewModel */,
+			);
+			path = V1;
+			sourceTree = "<group>";
+		};
+		9E07D71E301C9CC000DCF823 /* PersonalInfoScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8AF2FFCEE6D006045C4 /* RegistrationPersonalInfoViewModel.swift */,
+				9311E8AD2FFCEE40006045C4 /* RegistrationPersonalInfoScreen.swift */,
+			);
+			path = PersonalInfoScreen;
+			sourceTree = "<group>";
+		};
+		9E07D71F301C9D0800DCF823 /* RegistrationContent */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8B72FFCF5E1006045C4 /* RegistrationLicenseConsentViewModel.swift */,
+				9311E8B92FFCF646006045C4 /* RegistrationLicenseConsentScreen.swift */,
+			);
+			path = RegistrationContent;
+			sourceTree = "<group>";
+		};
+		9E07D721301C9D8A00DCF823 /* RegistrationCredentials */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8B32FFCF3EB006045C4 /* RegistrationCredentialsViewModel.swift */,
+				9311E8B52FFCF421006045C4 /* RegistrationCredentialsScreen.swift */,
+			);
+			path = RegistrationCredentials;
+			sourceTree = "<group>";
+		};
+		9E07D722301C9DB600DCF823 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				A10000132FFD000000000001 /* AuthorizationNavigationBarModifier.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		9E07D723301C9E5B00DCF823 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				A10000052FFD000000000001 /* AuthorizationUseCases.swift */,
+				B4000011301E000000000001 /* SelectAuthorizationEnvironmentUseCase.swift */,
+				A10000072FFD000000000001 /* LoginUserUseCase.swift */,
+				A10000152FFD000000000001 /* RegistrationUseCase.swift */,
+				A10000112FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift */,
+				A10000022FFD000000000001 /* RegisterUserUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		9E07D724301C9E9B00DCF823 /* Validators */ = {
+			isa = PBXGroup;
+			children = (
+				9311E89C2FFBE8D7006045C4 /* AuthInputValidator.swift */,
+				A100000F2FFD000000000001 /* RegistrationInputValidator.swift */,
+			);
+			path = Validators;
+			sourceTree = "<group>";
+		};
+		D20000032FFD200000000001 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D20000022FFD200000000001 /* UserAccountUseCase.swift */,
+				D20000072FFD200000000001 /* LogoutUseCase.swift */,
+				D20000142FFD200000000001 /* SetupUseCase.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		D20000122FFD200000000001 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */,
+				D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1796,6 +2005,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3000004301D000000000001 /* AuthorizationFailure.swift in Sources */,
 				93DF14072692062B00A7A977 /* RegisterStepOneScreenViewModel.swift in Sources */,
 				931D3FF1274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift in Sources */,
 				93C2D1ED269F1BEC00123216 /* TokenStorage.swift in Sources */,
@@ -1859,7 +2069,22 @@
 				936035C9268916B20080C771 /* SetupScreen.swift in Sources */,
 				93171D8A273C0A140038B2B2 /* FindingMapper.swift in Sources */,
 				93DF141026920A4600A7A977 /* RegisterUserService.swift in Sources */,
-				A10000042FFD000000000001 /* AuthUseCase.swift in Sources */,
+				A10000042FFD000000000001 /* AuthorizationUseCases.swift in Sources */,
+				B4000012301E000000000001 /* SelectAuthorizationEnvironmentUseCase.swift in Sources */,
+				B4000014301E000000000001 /* AuthorizationEnvironmentRepository.swift in Sources */,
+				B4000016301E000000000001 /* AuthorizationTutorialRepository.swift in Sources */,
+				B4000018301E000000000001 /* LoginUserRepository.swift in Sources */,
+				B400001A301E000000000001 /* RegisterUserRepository.swift in Sources */,
+				B400001C301E000000000001 /* RegistrationLicensePreferenceRepository.swift in Sources */,
+				B400001E301E000000000001 /* RegistrationLicensePreference.swift in Sources */,
+				B4000002301E000000000001 /* LoginUserRequestBody.swift in Sources */,
+				B4000004301E000000000001 /* RegisterUserRequestBody.swift in Sources */,
+				B4000006301E000000000001 /* RemoteLoginUserRepository.swift in Sources */,
+				B4000008301E000000000001 /* RemoteRegisterUserRepository.swift in Sources */,
+				B400000A301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift in Sources */,
+				B400000C301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift in Sources */,
+				B400000E301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift in Sources */,
+				B4000010301E000000000001 /* APIError+AuthorizationFailure.swift in Sources */,
 				A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */,
 				A100000C2FFD000000000001 /* RegistrationRequest.swift in Sources */,
 				A100000E2FFD000000000001 /* RegistrationInputValidator.swift in Sources */,
@@ -2037,6 +2262,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				931426FB262B53B100542EFC /* BiologerTests.swift in Sources */,
+				B300000A301D000000000001 /* AuthorizationRouterTests.swift in Sources */,
+				B3000008301D000000000001 /* AuthorizationV2ViewModelTests.swift in Sources */,
+				B3000006301D000000000001 /* LoginUserUseCaseTests.swift in Sources */,
 				C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */,
 				C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */,
 				C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */,

@@ -14,7 +14,7 @@ public final class SwiftUILoginViewControllerFactory: AuthorizationViewControlle
                                 environmentViewModel: EnvironmentViewModel,
                                 onSelectEnvironmentTapped: @escaping Observer<EnvironmentViewModel>,
                                 onLoginSuccess: @escaping Observer<Void>,
-                                onLoginError: @escaping Observer<APIError>,
+                                onLoginError: @escaping Observer<AuthorizationFailure>,
                                 onRegisterTapped: @escaping Observer<Void>,
                                 onForgotPasswordTapped: @escaping Observer<Void>,
                                 onLoading: @escaping Observer<Bool>) -> UIViewController {

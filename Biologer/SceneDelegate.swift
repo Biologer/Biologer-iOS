@@ -10,6 +10,8 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    private let authorizationUIVersion: AuthorizationUIVersion = .v1
+
     var window: UIWindow?
     var navigationController: BiologerNavigationViewController!
     var appRouter: AppNavigationRouter?
@@ -19,7 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             navigationController = BiologerNavigationViewController(shouldBeTransparent: true)
             let window = UIWindow(windowScene: windowScene)
-            appRouter = AppNavigationRouter(mainNavigationController: navigationController)
+            appRouter = AppNavigationRouter(
+                mainNavigationController: navigationController,
+                authorizationUIVersion: authorizationUIVersion
+            )
             appRouter?.start()
             window.rootViewController = navigationController
             self.window = window
@@ -61,4 +66,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-

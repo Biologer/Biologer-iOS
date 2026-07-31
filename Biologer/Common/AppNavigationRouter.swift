@@ -8,7 +8,6 @@
 import Foundation
 
 import UIKit
-import SwiftUI
 
 public protocol NavigationRouter {
     func start()
@@ -17,6 +16,7 @@ public protocol NavigationRouter {
 public final class AppNavigationRouter: NavigationRouter {
     private let sideMenuNavigationController = BiologerNavigationViewController(shouldBeTransparent: false)
     private let mainNavigationController: BiologerNavigationViewController
+    private let authorizationUIVersion: AuthorizationUIVersion
     private var downloadTaxonNavigationController: BiologerNavigationViewController?
 
     // MARK: - Services
@@ -113,6 +113,7 @@ public final class AppNavigationRouter: NavigationRouter {
 
     private lazy var authorizationRouter: AuthorizationRouter = {
         let builder = AuthorizationRouterBuilder(
+            version: authorizationUIVersion,
             apiClient: apiHttpClient,
             httpClient: httpClient,
             navigationController: mainNavigationController,
@@ -121,6 +122,7 @@ public final class AppNavigationRouter: NavigationRouter {
             swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
             swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
             environmentStorage: environmentStorage,
+            tutorialRepository: authorizationTutorialRepository,
             tokenStorage: tokenStorage,
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage
@@ -219,6 +221,10 @@ public final class AppNavigationRouter: NavigationRouter {
         return settingsStorage
     }()
 
+    private lazy var authorizationTutorialRepository: AuthorizationTutorialRepository = {
+        UserDefaultsAuthorizationTutorialRepository()
+    }()
+
     // MARK: - Factories
 
     private lazy var authorizationFactory: AuthorizationViewControllerFactory = {
@@ -245,8 +251,12 @@ public final class AppNavigationRouter: NavigationRouter {
 
     // MARK: - Init
 
-    init(mainNavigationController: BiologerNavigationViewController) {
+    init(
+        mainNavigationController: BiologerNavigationViewController,
+        authorizationUIVersion: AuthorizationUIVersion = .v1
+    ) {
         self.mainNavigationController = mainNavigationController
+        self.authorizationUIVersion = authorizationUIVersion
         //self.mainNavigationController.setNavigationBarTransparency()
     }
 
@@ -283,11 +293,7 @@ public final class AppNavigationRouter: NavigationRouter {
         logoutUseCase.logout()
 
         self.mainNavigationController.dismiss(animated: true, completion: {
-            if let vc = self.mainNavigationController.viewControllers.filter({ $0 is UIHostingController<LoginScreen<LoginScreenViewModel>> }).first {
-                self.mainNavigationController.popToViewController(vc, animated: false)
-            } else {
-                self.authorizationRouter.start(shouldPresentIntroScreens: false)
-            }
+            self.authorizationRouter.restart()
         })
     }
 
@@ -299,13 +305,10 @@ public final class AppNavigationRouter: NavigationRouter {
             self.mainNavigationController.setViewControllers([vc], animated: false)
         } else {
             let vc = authorizationFactory.makeSplashScreen(onSplashScreenDone: { [weak self] in
-                guard let self = self else {
-                    print("Self is nil")
-                    return
-                }
-                print("Self is not nil")
-                let tutorialPresented = UserDefaults.standard.bool(forKey: UserDefaultsConstants.shouldPresentTutorialKey)
-                self.authorizationRouter.start(shouldPresentIntroScreens: !tutorialPresented)
+                guard let self = self else { return }
+                self.authorizationRouter.start(
+                    shouldPresentIntroScreens: !self.authorizationTutorialRepository.wasPresented
+                )
             })
             mainNavigationController.setViewControllers([vc], animated: false)
         }
