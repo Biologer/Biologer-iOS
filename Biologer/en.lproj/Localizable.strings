@@ -248,3 +248,5 @@
 "DataLicense.lb.three" = "Partially open (restricted to 10km)";
 "DataLicense.lb.four" = "Temporarily closed (publish as free after 3 years)";
 "DataLicense.lb.five" = "Closed (available to you and the editors)";
+"TabBar.add.title" = "Add";
+"SettingsV2.section.support" = "Support";

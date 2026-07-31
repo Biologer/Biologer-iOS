@@ -248,3 +248,5 @@
 "DataLicense.lb.three" = "Делимично отворена (ограничена на од 10km)";
 "DataLicense.lb.four" = "Привремено затворена (објави за 3 године као слободно)";
 "DataLicense.lb.five" = "Затворена (доступно вама и уредницима)";
+"TabBar.add.title" = "Додај";
+"SettingsV2.section.support" = "Подршка";
