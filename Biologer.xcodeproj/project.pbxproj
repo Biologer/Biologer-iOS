@@ -296,10 +296,10 @@
 		D20000152FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */; };
 		D20000172FFD200000000001 /* SetupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000182FFD200000000001 /* SetupFlow.swift */; };
 		D20000192FFD200000000001 /* SetupUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000202FFD200000000001 /* SetupUseCaseTests.swift */; };
-		E40000023022000000000001 /* MainCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000013022000000000001 /* MainCoordinatorTests.swift */; };
-		E40000043022000000000001 /* SettingsV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000033022000000000001 /* SettingsV2Tests.swift */; };
 		DE04B675C7024DC8452D3AA2 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA759BF9731C6666BBC73B4 /* CSV */; };
 		E32762F717E4474CF6020981 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */; };
+		E40000023022000000000001 /* MainCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000013022000000000001 /* MainCoordinatorTests.swift */; };
+		E40000043022000000000001 /* SettingsV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000033022000000000001 /* SettingsV2Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -585,20 +585,6 @@
 		A10000112FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicensePreferenceUseCase.swift; sourceTree = "<group>"; };
 		A10000132FFD000000000001 /* AuthorizationNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationNavigationBarModifier.swift; sourceTree = "<group>"; };
 		A10000152FFD000000000001 /* RegistrationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCase.swift; sourceTree = "<group>"; };
-		C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputValidatorTests.swift; sourceTree = "<group>"; };
-		C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCaseTests.swift; sourceTree = "<group>"; };
-		C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientErrorMappingTests.swift; sourceTree = "<group>"; };
-		D20000022FFD200000000001 /* UserAccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCase.swift; sourceTree = "<group>"; };
-		D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCaseTests.swift; sourceTree = "<group>"; };
-		D20000072FFD200000000001 /* LogoutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCase.swift; sourceTree = "<group>"; };
-		D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLogoutLocalDataDeleter.swift; sourceTree = "<group>"; };
-		D20000112FFD200000000001 /* LogoutUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCaseTests.swift; sourceTree = "<group>"; };
-		D20000142FFD200000000001 /* SetupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCase.swift; sourceTree = "<group>"; };
-		D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSetupTaxonLocalDataStore.swift; sourceTree = "<group>"; };
-		D20000182FFD200000000001 /* SetupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFlow.swift; sourceTree = "<group>"; };
-		D20000202FFD200000000001 /* SetupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCaseTests.swift; sourceTree = "<group>"; };
-		E40000013022000000000001 /* MainCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorTests.swift; sourceTree = "<group>"; };
-		E40000033022000000000001 /* SettingsV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsV2Tests.swift; sourceTree = "<group>"; };
 		B3000003301D000000000001 /* AuthorizationFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFailure.swift; sourceTree = "<group>"; };
 		B3000005301D000000000001 /* LoginUserUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserUseCaseTests.swift; sourceTree = "<group>"; };
 		B3000007301D000000000001 /* AuthorizationV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationV2ViewModelTests.swift; sourceTree = "<group>"; };
@@ -621,6 +607,20 @@
 		B5000001301F000000000001 /* AuthorizationFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlowViewModel.swift; sourceTree = "<group>"; };
 		B60000013020000000000001 /* AuthorizationCoordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinating.swift; sourceTree = "<group>"; };
 		B60000033020000000000001 /* AuthorizationFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlowCoordinator.swift; sourceTree = "<group>"; };
+		C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputValidatorTests.swift; sourceTree = "<group>"; };
+		C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCaseTests.swift; sourceTree = "<group>"; };
+		C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientErrorMappingTests.swift; sourceTree = "<group>"; };
+		D20000022FFD200000000001 /* UserAccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCase.swift; sourceTree = "<group>"; };
+		D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCaseTests.swift; sourceTree = "<group>"; };
+		D20000072FFD200000000001 /* LogoutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCase.swift; sourceTree = "<group>"; };
+		D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLogoutLocalDataDeleter.swift; sourceTree = "<group>"; };
+		D20000112FFD200000000001 /* LogoutUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCaseTests.swift; sourceTree = "<group>"; };
+		D20000142FFD200000000001 /* SetupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCase.swift; sourceTree = "<group>"; };
+		D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSetupTaxonLocalDataStore.swift; sourceTree = "<group>"; };
+		D20000182FFD200000000001 /* SetupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFlow.swift; sourceTree = "<group>"; };
+		D20000202FFD200000000001 /* SetupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCaseTests.swift; sourceTree = "<group>"; };
+		E40000013022000000000001 /* MainCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorTests.swift; sourceTree = "<group>"; };
+		E40000033022000000000001 /* SettingsV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsV2Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -934,116 +934,6 @@
 				936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		B3000001301D000000000001 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				9311E89E2FFCD2CB006045C4 /* Components */,
-				93142729262B5A8A00542EFC /* Helpers */,
-				B3000002301D000000000001 /* TextFields */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		B3000002301D000000000001 /* TextFields */ = {
-			isa = PBXGroup;
-			children = (
-				93142740262B6B3D00542EFC /* UserNameTextFieldViewModel.swift */,
-				93142745262B6C9000542EFC /* PasswordTextFieldViewModel.swift */,
-				93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */,
-				93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */,
-				93A7E26F2691E055001D6AEF /* InsititutionTextFieldViewModel.swift */,
-				93A7E2732691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift */,
-				93A7E2752691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift */,
-				93A7E2772691E1A4001D6AEF /* EmailTextFieldViewModel.swift */,
-			);
-			path = TextFields;
-			sourceTree = "<group>";
-		};
-		B300000B301D000000000001 /* Flow */ = {
-			isa = PBXGroup;
-			children = (
-				9E07D716301C9B8100DCF823 /* V2 */,
-			);
-			path = Flow;
-			sourceTree = "<group>";
-		};
-		B300000C301D000000000001 /* Composition */ = {
-			isa = PBXGroup;
-			children = (
-				9311E8BD2FFD0500006045C4 /* AuthorizationCoordinatorBuilder.swift */,
-			);
-			path = Composition;
-			sourceTree = "<group>";
-		};
-		B4000101301E000000000001 /* Endpoints */ = {
-			isa = PBXGroup;
-			children = (
-				A10000092FFD000000000001 /* LoginUserEndpoint.swift */,
-				A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */,
-			);
-			path = Endpoints;
-			sourceTree = "<group>";
-		};
-		B4000102301E000000000001 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				B4000001301E000000000001 /* LoginUserRequestBody.swift */,
-				B4000003301E000000000001 /* RegisterUserRequestBody.swift */,
-			);
-			path = Requests;
-			sourceTree = "<group>";
-		};
-		B4000103301E000000000001 /* Responses */ = {
-			isa = PBXGroup;
-			children = (
-				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
-				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
-				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
-			);
-			path = Responses;
-			sourceTree = "<group>";
-		};
-		B4000104301E000000000001 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				B4000005301E000000000001 /* RemoteLoginUserRepository.swift */,
-				B4000007301E000000000001 /* RemoteRegisterUserRepository.swift */,
-				B4000009301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift */,
-				B400000B301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift */,
-				B400000D301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		B4000105301E000000000001 /* Mappers */ = {
-			isa = PBXGroup;
-			children = (
-				B400000F301E000000000001 /* APIError+AuthorizationFailure.swift */,
-			);
-			path = Mappers;
-			sourceTree = "<group>";
-		};
-		B4000106301E000000000001 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				B4000013301E000000000001 /* AuthorizationEnvironmentRepository.swift */,
-				B4000015301E000000000001 /* AuthorizationTutorialRepository.swift */,
-				B4000017301E000000000001 /* LoginUserRepository.swift */,
-				B4000019301E000000000001 /* RegisterUserRepository.swift */,
-				B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		B60000103020000000000001 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				B60000013020000000000001 /* AuthorizationCoordinating.swift */,
-				B60000033020000000000001 /* AuthorizationFlowCoordinator.swift */,
-			);
-			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		93142732262B5C5600542EFC /* Common */ = {
@@ -1829,6 +1719,116 @@
 				A100000F2FFD000000000001 /* RegistrationInputValidator.swift */,
 			);
 			path = Validators;
+			sourceTree = "<group>";
+		};
+		B3000001301D000000000001 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9311E89E2FFCD2CB006045C4 /* Components */,
+				93142729262B5A8A00542EFC /* Helpers */,
+				B3000002301D000000000001 /* TextFields */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B3000002301D000000000001 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				93142740262B6B3D00542EFC /* UserNameTextFieldViewModel.swift */,
+				93142745262B6C9000542EFC /* PasswordTextFieldViewModel.swift */,
+				93A7E26B2691DFEE001D6AEF /* NameTextFieldViewModel.swift */,
+				93A7E26D2691E02D001D6AEF /* SurnameTextFieldViewModel.swift */,
+				93A7E26F2691E055001D6AEF /* InsititutionTextFieldViewModel.swift */,
+				93A7E2732691E0A4001D6AEF /* RegisterPasswordTextFieldViewModel.swift */,
+				93A7E2752691E0E6001D6AEF /* RepeatPasswordTextFieldViewModel.swift */,
+				93A7E2772691E1A4001D6AEF /* EmailTextFieldViewModel.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		B300000B301D000000000001 /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				9E07D716301C9B8100DCF823 /* V2 */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
+		B300000C301D000000000001 /* Composition */ = {
+			isa = PBXGroup;
+			children = (
+				9311E8BD2FFD0500006045C4 /* AuthorizationCoordinatorBuilder.swift */,
+			);
+			path = Composition;
+			sourceTree = "<group>";
+		};
+		B4000101301E000000000001 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				A10000092FFD000000000001 /* LoginUserEndpoint.swift */,
+				A100000B2FFD000000000001 /* RegisterUserEndpoint.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		B4000102301E000000000001 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				B4000001301E000000000001 /* LoginUserRequestBody.swift */,
+				B4000003301E000000000001 /* RegisterUserRequestBody.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		B4000103301E000000000001 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				93DF14222692264C00A7A977 /* LoginUserResponse.swift */,
+				93DF141E2692249200A7A977 /* RegisterUserResponse.swift */,
+				93DF14242692266300A7A977 /* ForgotPasswordResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		B4000104301E000000000001 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				B4000005301E000000000001 /* RemoteLoginUserRepository.swift */,
+				B4000007301E000000000001 /* RemoteRegisterUserRepository.swift */,
+				B4000009301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift */,
+				B400000B301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift */,
+				B400000D301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		B4000105301E000000000001 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				B400000F301E000000000001 /* APIError+AuthorizationFailure.swift */,
+			);
+			path = Mappers;
+			sourceTree = "<group>";
+		};
+		B4000106301E000000000001 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				B4000013301E000000000001 /* AuthorizationEnvironmentRepository.swift */,
+				B4000015301E000000000001 /* AuthorizationTutorialRepository.swift */,
+				B4000017301E000000000001 /* LoginUserRepository.swift */,
+				B4000019301E000000000001 /* RegisterUserRepository.swift */,
+				B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		B60000103020000000000001 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				B60000013020000000000001 /* AuthorizationCoordinating.swift */,
+				B60000033020000000000001 /* AuthorizationFlowCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		D20000032FFD200000000001 /* Domain */ = {
