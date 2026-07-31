@@ -20,6 +20,9 @@ struct AuthorizationFlow: View {
     @State
     private var path: NavigationPath = .init()
 
+    @StateObject
+    private var viewModel: AuthorizationFlowViewModel
+
     private let authorizationUseCases: AuthorizationUseCases
     private let onAuthorizationSuccess: Observer<Void>
     private let onForgotPassword: Observer<Void>
@@ -28,12 +31,20 @@ struct AuthorizationFlow: View {
 
     init(
         authorizationUseCases: AuthorizationUseCases,
+        shouldPresentHelp: Bool,
+        onHelpCompleted: @escaping Observer<Void>,
         onAuthorizationSuccess: @escaping Observer<Void>,
         onForgotPassword: @escaping Observer<Void>,
         onPrivacyPolicy: @escaping Observer<Void>,
         onLoginError: @escaping Observer<AuthorizationFailure>
     ) {
         self.authorizationUseCases = authorizationUseCases
+        _viewModel = StateObject(
+            wrappedValue: AuthorizationFlowViewModel(
+                shouldPresentHelp: shouldPresentHelp,
+                onHelpCompleted: onHelpCompleted
+            )
+        )
         self.onAuthorizationSuccess = onAuthorizationSuccess
         self.onForgotPassword = onForgotPassword
         self.onPrivacyPolicy = onPrivacyPolicy
@@ -52,12 +63,20 @@ struct AuthorizationFlow: View {
                     }
                 }
         }
-        .onAppear {
-            authorizationUseCases.selectEnvironment(selectedEnvironment.env)
+    }
+
+    @ViewBuilder
+    private var initialScreen: some View {
+        if viewModel.isHelpPresented {
+            AuthorizationHelpScreen { _ in
+                viewModel.completeHelp()
+            }
+        } else {
+            loginScreen
         }
     }
 
-    private var initialScreen: some View {
+    private var loginScreen: some View {
         LoginScreenV2(
             environmentViewModel: selectedEnvironment,
             viewModel: LoginScreenV2ViewModel(
@@ -80,6 +99,9 @@ struct AuthorizationFlow: View {
                 }
             ))
             .authorizationNavigationBar()
+            .onAppear {
+                authorizationUseCases.selectEnvironment(selectedEnvironment.env)
+            }
     }
 
     private var environmentsScreen: some View {
@@ -116,5 +138,19 @@ struct AuthorizationFlow: View {
     private func goBack() {
         guard !path.isEmpty else { return }
         path.removeLast()
+    }
+}
+
+private struct AuthorizationHelpScreen: View {
+    @StateObject private var viewModel: HelpScreenViewModel
+
+    init(onDone: @escaping Observer<Void>) {
+        _viewModel = StateObject(
+            wrappedValue: HelpScreenViewModel(onDone: onDone)
+        )
+    }
+
+    var body: some View {
+        HelpScreen(loader: viewModel)
     }
 }

@@ -55,10 +55,15 @@ public final class AuthorizationRouter {
     }
 
     public func start(shouldPresentIntroScreens: Bool) {
-        if shouldPresentIntroScreens {
-            showHelpScreen()
-        } else {
-            showAuthorization()
+        switch version {
+        case .v1:
+            if shouldPresentIntroScreens {
+                showHelpScreen()
+            } else {
+                showAuthorization()
+            }
+        case .v2:
+            showAuthorization(shouldPresentHelp: shouldPresentIntroScreens)
         }
     }
 
@@ -115,22 +120,29 @@ public final class AuthorizationRouter {
         return loginViewController
     }
 
-    private func showAuthorization() {
-        navigationController.pushViewController(makeAuthorizationViewController(), animated: true)
+    private func showAuthorization(shouldPresentHelp: Bool = false) {
+        navigationController.pushViewController(
+            makeAuthorizationViewController(shouldPresentHelp: shouldPresentHelp),
+            animated: true
+        )
     }
 
-    private func makeAuthorizationViewController() -> UIViewController {
+    private func makeAuthorizationViewController(shouldPresentHelp: Bool = false) -> UIViewController {
         switch version {
         case .v1:
             return makeLoginViewController()
         case .v2:
-            return makeAuthorizationFlowV2ViewController()
+            return makeAuthorizationFlowV2ViewController(shouldPresentHelp: shouldPresentHelp)
         }
     }
 
-    private func makeAuthorizationFlowV2ViewController() -> UIViewController {
+    private func makeAuthorizationFlowV2ViewController(shouldPresentHelp: Bool) -> UIViewController {
         let loginFlow = AuthorizationFlow(
             authorizationUseCases: authorizationUseCases,
+            shouldPresentHelp: shouldPresentHelp,
+            onHelpCompleted: { [weak self] _ in
+                self?.tutorialRepository.markPresented()
+            },
             onAuthorizationSuccess: { [weak self] _ in
                 self?.performOnMain { [weak self] in
                     self?.onLoginSuccess?(())

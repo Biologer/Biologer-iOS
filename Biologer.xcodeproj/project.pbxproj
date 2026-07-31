@@ -281,6 +281,7 @@
 		B400001A301E000000000001 /* RegisterUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000019301E000000000001 /* RegisterUserRepository.swift */; };
 		B400001C301E000000000001 /* RegistrationLicensePreferenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */; };
 		B400001E301E000000000001 /* RegistrationLicensePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400001D301E000000000001 /* RegistrationLicensePreference.swift */; };
+		B5000002301F000000000001 /* AuthorizationFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5000001301F000000000001 /* AuthorizationFlowViewModel.swift */; };
 		C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */; };
 		C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */; };
 		C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */; };
@@ -611,6 +612,7 @@
 		B4000019301E000000000001 /* RegisterUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRepository.swift; sourceTree = "<group>"; };
 		B400001B301E000000000001 /* RegistrationLicensePreferenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicensePreferenceRepository.swift; sourceTree = "<group>"; };
 		B400001D301E000000000001 /* RegistrationLicensePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationLicensePreference.swift; sourceTree = "<group>"; };
+		B5000001301F000000000001 /* AuthorizationFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlowViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -1691,6 +1693,7 @@
 			isa = PBXGroup;
 			children = (
 				9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */,
+				B5000001301F000000000001 /* AuthorizationFlowViewModel.swift */,
 				9311E8B12FFCF233006045C4 /* RegistrationFlow.swift */,
 			);
 			path = V2;
@@ -2092,6 +2095,7 @@
 				A10000142FFD000000000001 /* RegistrationUseCase.swift in Sources */,
 				A10000122FFD000000000001 /* AuthorizationNavigationBarModifier.swift in Sources */,
 				9311E8A12FFCD405006045C4 /* AuthorizationFlow.swift in Sources */,
+				B5000002301F000000000001 /* AuthorizationFlowViewModel.swift in Sources */,
 				9311E8A52FFCDBA5006045C4 /* LoginScreenV2ViewModel.swift in Sources */,
 				A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */,
 				A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */,

@@ -3,6 +3,29 @@ import XCTest
 
 @MainActor
 final class AuthorizationV2ViewModelTests: XCTestCase {
+    func test_authorizationFlowStartsWithHelpWhenRequested() {
+        let sut = AuthorizationFlowViewModel(
+            shouldPresentHelp: true,
+            onHelpCompleted: { _ in }
+        )
+
+        XCTAssertTrue(sut.isHelpPresented)
+    }
+
+    func test_authorizationFlowCompletesHelpOnlyOnce() {
+        var completionCount = 0
+        let sut = AuthorizationFlowViewModel(
+            shouldPresentHelp: true,
+            onHelpCompleted: { _ in completionCount += 1 }
+        )
+
+        sut.completeHelp()
+        sut.completeHelp()
+
+        XCTAssertFalse(sut.isHelpPresented)
+        XCTAssertEqual(completionCount, 1)
+    }
+
     func test_personalInfo_updatesDraftAndNavigatesForValidInput() {
         let draft = RegistrationDraft()
         let validator = PersonalInfoValidatorStub()

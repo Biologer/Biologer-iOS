@@ -20,8 +20,8 @@ final class AuthorizationRouterTests: XCTestCase {
         XCTAssertTrue(context.navigationController.topViewController is UIHostingController<AuthorizationFlow>)
     }
 
-    func test_finishingTutorialUsesConfiguredVersion() {
-        let context = makeSUT(version: .v2)
+    func test_finishingTutorialInV1UsesLegacyHelpScreen() {
+        let context = makeSUT(version: .v1)
 
         context.router.start(shouldPresentIntroScreens: true)
         XCTAssertTrue(context.navigationController.topViewController === context.commonFactory.helpViewController)
@@ -29,8 +29,17 @@ final class AuthorizationRouterTests: XCTestCase {
         context.commonFactory.finishHelp()
 
         XCTAssertTrue(context.tutorialRepository.wasPresented)
+        XCTAssertTrue(context.navigationController.topViewController === context.authorizationFactory.loginViewController)
+    }
+
+    func test_startV2WithTutorialUsesHelpEmbeddedInFlow() {
+        let context = makeSUT(version: .v2)
+
+        context.router.start(shouldPresentIntroScreens: true)
+
         XCTAssertTrue(context.navigationController.topViewController is UIHostingController<AuthorizationFlow>)
-        XCTAssertFalse(context.navigationController.topViewController === context.authorizationFactory.loginViewController)
+        XCTAssertEqual(context.commonFactory.helpRequestCount, 0)
+        XCTAssertFalse(context.tutorialRepository.wasPresented)
     }
 
     func test_restartReplacesEntireAuthorizationStack() {
@@ -152,6 +161,7 @@ private final class AuthorizationViewControllerFactorySpy: AuthorizationViewCont
 
 private final class CommonViewControllerFactorySpy: CommonViewControllerFactory {
     let helpViewController = UIViewController()
+    private(set) var helpRequestCount = 0
     private var onHelpDone: Observer<Void>?
 
     func finishHelp() {
@@ -172,6 +182,7 @@ private final class CommonViewControllerFactorySpy: CommonViewControllerFactory 
     }
 
     func makeHelpScreen(onDone: @escaping Observer<Void>) -> UIViewController {
+        helpRequestCount += 1
         onHelpDone = onDone
         return helpViewController
     }
