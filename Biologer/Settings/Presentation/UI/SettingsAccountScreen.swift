@@ -10,42 +10,87 @@ struct SettingsAccountScreen: View {
     }
 
     var body: some View {
-        Form {
-            Section {
-                LabeledContent("Logout.lb.currentlyDB".localized) {
-                    Text(viewModel.context.environment)
-                        .multilineTextAlignment(.trailing)
-                }
-                LabeledContent("Logout.lb.asUser".localized) {
-                    VStack(alignment: .trailing) {
-                        Text(viewModel.context.username)
-                        Text(viewModel.context.email)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+        ScrollView {
+            VStack(spacing: 22) {
+                profileHeader
+
+                VStack(alignment: .leading, spacing: 10) {
+                    SettingsSectionHeader(
+                        title: "Logout.lb.currentlyDB".localized,
+                        systemImage: "server.rack"
+                    )
+
+                    HStack(spacing: 14) {
+                        SettingsIconBadge(systemImage: "network")
+
+                        Text(viewModel.context.environment)
+                            .font(.subheadline.weight(.medium))
+                            .foregroundColor(SettingsColorPalette.primaryText)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
+                    .padding(16)
+                    .settingsCard()
                 }
-            }
 
-            Section {
-                Button("Logout.btn.logout".localized, role: .destructive) {
+                Button(role: .destructive) {
                     isLogoutConfirmationPresented = true
+                } label: {
+                    Label("Logout.btn.logout".localized, systemImage: "rectangle.portrait.and.arrow.right")
                 }
-            }
-
-            Section(
-                footer: Text("DeleteAccount.lb.doYouWantLogout".localized)
-            ) {
-                Toggle(
-                    "DeleteAccount.lb.doYouWantToDeleteObservations".localized,
-                    isOn: $viewModel.shouldDeleteObservations
+                .buttonStyle(
+                    SettingsActionButtonStyle(
+                        tint: .red,
+                        isFilled: false
+                    )
                 )
-                Button("DeleteAccount.btn.deleteAccount".localized, role: .destructive) {
-                    isDeleteConfirmationPresented = true
+
+                VStack(alignment: .leading, spacing: 10) {
+                    SettingsSectionHeader(
+                        title: "DeleteAccount.btn.deleteAccount".localized,
+                        systemImage: "exclamationmark.triangle"
+                    )
+
+                    VStack(spacing: 0) {
+                        Toggle(
+                            "DeleteAccount.lb.doYouWantToDeleteObservations".localized,
+                            isOn: $viewModel.shouldDeleteObservations
+                        )
+                        .tint(SettingsColorPalette.primary)
+                        .foregroundColor(SettingsColorPalette.primaryText)
+                        .padding(16)
+
+                        Divider()
+                            .padding(.leading, 16)
+
+                        Text("DeleteAccount.lb.doYouWantLogout".localized)
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(16)
+                    }
+                    .settingsCard()
+
+                    Button(role: .destructive) {
+                        isDeleteConfirmationPresented = true
+                    } label: {
+                        Label("DeleteAccount.btn.deleteAccount".localized, systemImage: "trash")
+                    }
+                    .buttonStyle(
+                        SettingsActionButtonStyle(
+                            tint: .red
+                        )
+                    )
                 }
             }
+            .padding(.horizontal, 16)
+            .padding(.top, 12)
+            .padding(.bottom, 32)
         }
+        .settingsPageBackground()
         .navigationTitle("Settings.lb.userAccount".localized)
         .navigationBarTitleDisplayMode(.inline)
+        .tint(SettingsColorPalette.primary)
         .alert("Logout.lb.doYouWantLogout".localized, isPresented: $isLogoutConfirmationPresented) {
             Button("Common.btn.cancel".localized, role: .cancel) {}
             Button("Logout.btn.logout".localized, role: .destructive) {
@@ -58,5 +103,50 @@ struct SettingsAccountScreen: View {
                 viewModel.deleteAccount()
             }
         }
+    }
+
+    private var profileHeader: some View {
+        HStack(spacing: 16) {
+            ZStack {
+                Circle()
+                    .fill(.white.opacity(0.2))
+                    .frame(width: 58, height: 58)
+
+                Image(systemName: "person.fill")
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundColor(.white)
+            }
+
+            VStack(alignment: .leading, spacing: 5) {
+                Text(viewModel.context.username)
+                    .font(.title3.weight(.semibold))
+                    .foregroundColor(.white)
+
+                Text(viewModel.context.email)
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.8))
+                    .lineLimit(2)
+            }
+
+            Spacer(minLength: 8)
+
+            Image(systemName: "leaf.fill")
+                .font(.system(size: 38))
+                .foregroundColor(.white.opacity(0.16))
+        }
+        .padding(20)
+        .background(
+            LinearGradient(
+                colors: [
+                    SettingsColorPalette.forest,
+                    SettingsColorPalette.primary
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            ),
+            in: RoundedRectangle(cornerRadius: 22, style: .continuous)
+        )
+        .shadow(color: SettingsColorPalette.forest.opacity(0.24), radius: 12, y: 6)
+        .accessibilityElement(children: .combine)
     }
 }

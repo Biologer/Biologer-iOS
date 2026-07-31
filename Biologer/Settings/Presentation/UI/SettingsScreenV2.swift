@@ -6,85 +6,215 @@ struct SettingsScreenV2: View {
     let onDownloadTaxa: Observer<Void>
 
     var body: some View {
-        Form {
-            Section(header: Text("Settings.lb.dataEntry".localized)) {
-                Toggle(
-                    "Settings.lb.awayListEnglish.title".localized,
-                    isOn: Binding(
-                        get: { viewModel.preferences.alwaysUseEnglishNames },
-                        set: viewModel.setEnglishNamesEnabled
+        ScrollView {
+            LazyVStack(spacing: 22) {
+                projectOverview
+
+                settingsSection(
+                    title: "Settings.lb.dataEntry".localized,
+                    systemImage: "slider.horizontal.3"
+                ) {
+                    toggleRow(
+                        title: "Settings.lb.awayListEnglish.title".localized,
+                        systemImage: "character.book.closed",
+                        isOn: Binding(
+                            get: { viewModel.preferences.alwaysUseEnglishNames },
+                            set: viewModel.setEnglishNamesEnabled
+                        )
                     )
-                )
-                Toggle(
-                    "Settings.lb.adultDefault.title".localized,
-                    isOn: Binding(
-                        get: { viewModel.preferences.defaultsToAdult },
-                        set: viewModel.setAdultByDefaultEnabled
+
+                    rowDivider
+
+                    toggleRow(
+                        title: "Settings.lb.adultDefault.title".localized,
+                        systemImage: "leaf",
+                        isOn: Binding(
+                            get: { viewModel.preferences.defaultsToAdult },
+                            set: viewModel.setAdultByDefaultEnabled
+                        )
                     )
-                )
-            }
+                }
 
-            Section(header: Text("Settings.lb.userAccount".localized)) {
-                destinationRow(
-                    title: "Settings.lb.projectName.title".localized,
-                    systemImage: "folder",
-                    destination: .projectName
-                )
-                destinationRow(
-                    title: "Settings.lb.dataLicense.title".localized,
-                    systemImage: "doc.text",
-                    destination: .license(.data)
-                )
-                destinationRow(
-                    title: "Settings.lb.imageLicense.title".localized,
-                    systemImage: "photo",
-                    destination: .license(.image)
-                )
-            }
-
-            Section(header: Text("Settings.lb.otherDownloads".localized)) {
-                destinationRow(
-                    title: "Settings.lb.autoDownloadUpload.title".localized,
-                    systemImage: "arrow.triangle.2.circlepath",
-                    destination: .automaticDownload
-                )
-                actionRow(
-                    title: "Settings.lb.downloadTaxa.title".localized,
-                    systemImage: "arrow.down.circle",
-                    action: { onDownloadTaxa(()) }
-                )
-                actionRow(
-                    title: "Settings.lb.resetAllTaxa.title".localized,
-                    systemImage: "trash",
-                    role: .destructive,
-                    action: viewModel.requestTaxaReset
-                )
-            }
-
-            Section(header: Text("SettingsV2.section.support".localized)) {
-                destinationRow(
-                    title: "SideMenu.lb.Help".localized,
-                    systemImage: "questionmark.circle",
-                    destination: .help
-                )
-                destinationRow(
-                    title: "SideMenu.lb.aboutUs".localized,
-                    systemImage: "info.circle",
-                    destination: .about
-                )
-                destinationRow(
+                settingsSection(
                     title: "Settings.lb.userAccount".localized,
-                    systemImage: "person.crop.circle",
-                    destination: .account
-                )
+                    systemImage: "person.crop.circle"
+                ) {
+                    destinationRow(
+                        title: "Settings.lb.projectName.title".localized,
+                        systemImage: "folder",
+                        destination: .projectName
+                    )
+
+                    rowDivider
+
+                    destinationRow(
+                        title: "Settings.lb.dataLicense.title".localized,
+                        systemImage: "doc.text",
+                        destination: .license(.data)
+                    )
+
+                    rowDivider
+
+                    destinationRow(
+                        title: "Settings.lb.imageLicense.title".localized,
+                        systemImage: "photo",
+                        destination: .license(.image)
+                    )
+                }
+
+                settingsSection(
+                    title: "Settings.lb.otherDownloads".localized,
+                    systemImage: "arrow.down.circle"
+                ) {
+                    destinationRow(
+                        title: "Settings.lb.autoDownloadUpload.title".localized,
+                        systemImage: "arrow.triangle.2.circlepath",
+                        destination: .automaticDownload
+                    )
+
+                    rowDivider
+
+                    actionRow(
+                        title: "Settings.lb.downloadTaxa.title".localized,
+                        systemImage: "arrow.down.to.line",
+                        action: { onDownloadTaxa(()) }
+                    )
+
+                    rowDivider
+
+                    actionRow(
+                        title: "Settings.lb.resetAllTaxa.title".localized,
+                        systemImage: "trash",
+                        tint: .red,
+                        titleColor: .red,
+                        iconBackground: Color.red.opacity(0.1),
+                        role: .destructive,
+                        action: viewModel.requestTaxaReset
+                    )
+                }
+
+                settingsSection(
+                    title: "SettingsV2.section.support".localized,
+                    systemImage: "questionmark.circle"
+                ) {
+                    destinationRow(
+                        title: "SideMenu.lb.Help".localized,
+                        systemImage: "questionmark.circle",
+                        destination: .help
+                    )
+
+                    rowDivider
+
+                    destinationRow(
+                        title: "SideMenu.lb.aboutUs".localized,
+                        systemImage: "info.circle",
+                        destination: .about
+                    )
+
+                    rowDivider
+
+                    destinationRow(
+                        title: "Settings.lb.userAccount".localized,
+                        systemImage: "person.crop.circle",
+                        destination: .account
+                    )
+                }
             }
+            .padding(.horizontal, 16)
+            .padding(.top, 12)
+            .padding(.bottom, 32)
         }
+        .settingsPageBackground()
         .navigationTitle("SideMenu.lb.setup".localized)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
+        .tint(SettingsColorPalette.primary)
         .onAppear(perform: viewModel.reload)
         .alert(item: $viewModel.resetAlert) { alert in
             makeAlert(alert)
         }
+    }
+
+    private var projectOverview: some View {
+        HStack(spacing: 16) {
+            ZStack {
+                Circle()
+                    .fill(.white.opacity(0.2))
+                    .frame(width: 54, height: 54)
+
+                Image(systemName: "leaf.fill")
+                    .font(.system(size: 23, weight: .semibold))
+                    .foregroundColor(.white)
+            }
+
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Settings.lb.projectName.title".localized.uppercased())
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(.white.opacity(0.78))
+                    .tracking(0.6)
+
+                Text(projectName)
+                    .font(.title3.weight(.semibold))
+                    .foregroundColor(.white)
+                    .lineLimit(2)
+            }
+
+            Spacer(minLength: 8)
+
+            Image(systemName: "gearshape.fill")
+                .font(.system(size: 44, weight: .light))
+                .foregroundColor(.white.opacity(0.18))
+        }
+        .padding(20)
+        .background(
+            LinearGradient(
+                colors: [
+                    SettingsColorPalette.forest,
+                    SettingsColorPalette.primary
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            ),
+            in: RoundedRectangle(cornerRadius: 22, style: .continuous)
+        )
+        .shadow(color: SettingsColorPalette.forest.opacity(0.24), radius: 12, y: 6)
+        .accessibilityElement(children: .combine)
+    }
+
+    private var projectName: String {
+        let name = viewModel.preferences.projectName.trimmingCharacters(in: .whitespacesAndNewlines)
+        return name.isEmpty ? "-" : name
+    }
+
+    private func settingsSection<Content: View>(
+        title: String,
+        systemImage: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            SettingsSectionHeader(title: title, systemImage: systemImage)
+
+            VStack(spacing: 0) {
+                content()
+            }
+            .settingsCard()
+        }
+    }
+
+    private func toggleRow(
+        title: String,
+        systemImage: String,
+        isOn: Binding<Bool>
+    ) -> some View {
+        Toggle(isOn: isOn) {
+            rowLabel(
+                title: title,
+                systemImage: systemImage,
+                tint: SettingsColorPalette.primary
+            )
+        }
+        .tint(SettingsColorPalette.primary)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 13)
     }
 
     private func destinationRow(
@@ -93,26 +223,78 @@ struct SettingsScreenV2: View {
         destination: SettingsDestination
     ) -> some View {
         Button(action: { onSelectDestination(destination) }) {
-            HStack {
-                Label(title, systemImage: systemImage)
-                Spacer()
+            HStack(spacing: 12) {
+                rowLabel(
+                    title: title,
+                    systemImage: systemImage,
+                    tint: SettingsColorPalette.primary
+                )
+
+                Spacer(minLength: 8)
+
                 Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundColor(.secondary)
+                    .font(.caption.weight(.bold))
+                    .foregroundColor(Color(uiColor: .tertiaryLabel))
             }
+            .contentShape(Rectangle())
+            .padding(.horizontal, 16)
+            .padding(.vertical, 13)
         }
-        .foregroundColor(.primary)
+        .buttonStyle(.plain)
     }
 
     private func actionRow(
         title: String,
         systemImage: String,
+        tint: Color = SettingsColorPalette.primary,
+        titleColor: Color = SettingsColorPalette.primaryText,
+        iconBackground: Color = SettingsColorPalette.iconBackground,
         role: ButtonRole? = nil,
         action: @escaping () -> Void
     ) -> some View {
         Button(role: role, action: action) {
-            Label(title, systemImage: systemImage)
+            HStack(spacing: 12) {
+                rowLabel(
+                    title: title,
+                    systemImage: systemImage,
+                    tint: tint,
+                    titleColor: titleColor,
+                    iconBackground: iconBackground
+                )
+
+                Spacer(minLength: 8)
+            }
+            .contentShape(Rectangle())
+            .padding(.horizontal, 16)
+            .padding(.vertical, 13)
         }
+        .buttonStyle(.plain)
+    }
+
+    private func rowLabel(
+        title: String,
+        systemImage: String,
+        tint: Color,
+        titleColor: Color = SettingsColorPalette.primaryText,
+        iconBackground: Color = SettingsColorPalette.iconBackground
+    ) -> some View {
+        HStack(spacing: 12) {
+            SettingsIconBadge(
+                systemImage: systemImage,
+                tint: tint,
+                backgroundColor: iconBackground
+            )
+
+            Text(title)
+                .font(.body)
+                .foregroundColor(titleColor)
+                .multilineTextAlignment(.leading)
+        }
+    }
+
+    private var rowDivider: some View {
+        Divider()
+            .padding(.leading, 62)
     }
 
     private func makeAlert(_ alert: SettingsResetAlert) -> Alert {
