@@ -18,6 +18,9 @@ struct FindingDetailsScreenV2_Previews: PreviewProvider {
 
     private static func makeScreen(details: FindingDetails) -> some View {
         let repository = PreviewFindingDetailsRepository(details: details)
+        let uploadFindings = PreviewUploadFindingsUseCase(
+            onUpload: repository.markAsUploaded
+        )
 
         return NavigationStack {
             FindingDetailsScreenV2(
@@ -26,6 +29,7 @@ struct FindingDetailsScreenV2_Previews: PreviewProvider {
                     getFindingDetails: DefaultGetFindingDetailsUseCase(
                         repository: repository
                     ),
+                    uploadFindings: uploadFindings,
                     onEditFinding: { _ in },
                     onShowLocation: { _ in }
                 )
@@ -102,7 +106,7 @@ struct FindingDetailsScreenV2_Previews: PreviewProvider {
 }
 
 private final class PreviewFindingDetailsRepository: FindingDetailsRepository {
-    private let details: FindingDetails
+    private var details: FindingDetails
 
     init(details: FindingDetails) {
         self.details = details
@@ -113,5 +117,27 @@ private final class PreviewFindingDetailsRepository: FindingDetailsRepository {
             throw FindingsRepositoryError.findingNotFound(id)
         }
         return details
+    }
+
+    func markAsUploaded(id: UUID) throws {
+        guard details.id == id else {
+            throw FindingsRepositoryError.findingNotFound(id)
+        }
+        details = FindingDetails(
+            id: details.id,
+            taxonName: details.taxonName,
+            photos: details.photos,
+            developmentStageName: details.developmentStageName,
+            atlasCodeName: details.atlasCodeName,
+            location: details.location,
+            individuals: details.individuals,
+            observations: details.observations,
+            comment: details.comment,
+            habitat: details.habitat,
+            foundOn: details.foundOn,
+            foundDead: details.foundDead,
+            uploadStatus: .uploaded,
+            createdAt: details.createdAt
+        )
     }
 }

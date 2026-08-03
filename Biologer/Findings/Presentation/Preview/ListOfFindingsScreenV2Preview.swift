@@ -26,14 +26,11 @@ struct ListOfFindingsScreenV2_Previews: PreviewProvider {
         let viewModel = ListOfFindingsV2ViewModel(
             useCases: useCases,
             onAddFinding: {},
-            onFindingSelected: { _ in }
+            uploadFindings: PreviewUploadFindingsUseCase()
         )
 
         return NavigationStack {
-            ListOfFindingsScreenV2(
-                viewModel: viewModel,
-                onUploadFindings: { _ in }
-            )
+            ListOfFindingsScreenV2(viewModel: viewModel)
         }
     }
 

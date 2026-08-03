@@ -14,9 +14,9 @@ private final class FindingsFlowNavigation: ObservableObject {
 @MainActor
 struct FindingsFlow: View {
     private let getFindingDetails: GetFindingDetailsUseCase
+    private let uploadFindings: UploadFindingsUseCase
     private let onEditFinding: Observer<UUID>
     private let onShowLocation: Observer<FindingDetailsLocation>
-    private let onUploadFindings: Observer<Void>
 
     @StateObject private var navigation: FindingsFlowNavigation
     @StateObject private var listViewModel: ListOfFindingsV2ViewModel
@@ -24,38 +24,38 @@ struct FindingsFlow: View {
     init(
         listUseCases: FindingsUseCases,
         getFindingDetails: GetFindingDetailsUseCase,
+        uploadFindings: UploadFindingsUseCase,
         onAddFinding: @escaping Observer<Void>,
         onEditFinding: @escaping Observer<UUID>,
-        onShowLocation: @escaping Observer<FindingDetailsLocation>,
-        onUploadFindings: @escaping Observer<Void>
+        onShowLocation: @escaping Observer<FindingDetailsLocation>
     ) {
         let navigation = FindingsFlowNavigation()
 
         self.getFindingDetails = getFindingDetails
+        self.uploadFindings = uploadFindings
         self.onEditFinding = onEditFinding
         self.onShowLocation = onShowLocation
-        self.onUploadFindings = onUploadFindings
         _navigation = StateObject(wrappedValue: navigation)
         _listViewModel = StateObject(
             wrappedValue: ListOfFindingsV2ViewModel(
                 useCases: listUseCases,
                 onAddFinding: { onAddFinding(()) },
-                onFindingSelected: { id in
-                    navigation.path.append(FindingsDestination.details(id))
-                }
+                uploadFindings: uploadFindings
             )
         )
     }
 
     var body: some View {
         NavigationStack(path: $navigation.path) {
-            ListOfFindingsScreenV2(
-                viewModel: listViewModel,
-                onUploadFindings: onUploadFindings
-            )
+            ListOfFindingsScreenV2(viewModel: listViewModel)
             .navigationDestination(for: FindingsDestination.self) { destination in
                 destinationView(destination)
             }
+        }
+        .onChange(of: listViewModel.navigationFindingID) { id in
+            guard let id else { return }
+            navigation.path.append(FindingsDestination.details(id))
+            listViewModel.didHandleFindingNavigation()
         }
     }
 
@@ -66,6 +66,7 @@ struct FindingsFlow: View {
                 viewModel: FindingDetailsV2ViewModel(
                     findingID: id,
                     getFindingDetails: getFindingDetails,
+                    uploadFindings: uploadFindings,
                     onEditFinding: onEditFinding,
                     onShowLocation: onShowLocation
                 )

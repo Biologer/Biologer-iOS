@@ -22,16 +22,19 @@ struct FindingsFlow_Previews: PreviewProvider {
             deleteFinding: DefaultDeleteFindingUseCase(repository: repository),
             deleteAllFindings: DefaultDeleteAllFindingsUseCase(repository: repository)
         )
+        let uploadFindings = PreviewUploadFindingsUseCase(
+            onUpload: repository.markAsUploaded
+        )
 
         return FindingsFlow(
             listUseCases: listUseCases,
             getFindingDetails: DefaultGetFindingDetailsUseCase(
                 repository: repository
             ),
+            uploadFindings: uploadFindings,
             onAddFinding: { _ in },
             onEditFinding: { _ in },
-            onShowLocation: { _ in },
-            onUploadFindings: { _ in }
+            onShowLocation: { _ in }
         )
     }
 
@@ -180,5 +183,33 @@ private final class PreviewFindingsFlowRepository: FindingsRepository, FindingDe
 
     func deleteAll() throws {
         findings.removeAll()
+    }
+
+    func markAsUploaded(id: UUID) throws {
+        guard let index = findings.firstIndex(where: { $0.id == id }) else {
+            throw FindingsRepositoryError.findingNotFound(id)
+        }
+        findings[index] = findings[index].withUploadStatus(.uploaded)
+    }
+}
+
+private extension FindingDetails {
+    func withUploadStatus(_ uploadStatus: FindingUploadStatus) -> FindingDetails {
+        FindingDetails(
+            id: id,
+            taxonName: taxonName,
+            photos: photos,
+            developmentStageName: developmentStageName,
+            atlasCodeName: atlasCodeName,
+            location: location,
+            individuals: individuals,
+            observations: observations,
+            comment: comment,
+            habitat: habitat,
+            foundOn: foundOn,
+            foundDead: foundDead,
+            uploadStatus: uploadStatus,
+            createdAt: createdAt
+        )
     }
 }

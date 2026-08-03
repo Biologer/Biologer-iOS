@@ -89,3 +89,46 @@ struct FindingsFailureView: View {
         .padding(BiologerSpacing.xLarge)
     }
 }
+
+struct FindingsFilteredEmptyView: View {
+    let filter: FindingsListFilter
+
+    var body: some View {
+        VStack(spacing: BiologerSpacing.small) {
+            BiologerIconBadge(
+                systemImage: systemImage,
+                size: 52
+            )
+
+            Text(message)
+                .font(.subheadline.weight(.medium))
+                .foregroundColor(BiologerColors.textPrimary)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(BiologerSpacing.xLarge)
+        .biologerCard()
+    }
+
+    private var message: String {
+        switch filter {
+        case .all:
+            "ListOfFindingsV2.empty.title".localized
+        case .uploaded:
+            "ListOfFindingsV2.filter.empty.uploaded".localized
+        case .pending:
+            "ListOfFindingsV2.filter.empty.pending".localized
+        }
+    }
+
+    private var systemImage: String {
+        switch filter {
+        case .all:
+            "leaf"
+        case .uploaded:
+            "checkmark.circle"
+        case .pending:
+            "icloud.and.arrow.up"
+        }
+    }
+}

@@ -14,6 +14,16 @@ struct FindingDetailsScreenV2: View {
             .navigationBarTitleDisplayMode(.inline)
             .tint(BiologerColors.accent)
             .onAppear(perform: viewModel.loadDetails)
+            .alert(
+                "API.lb.error".localized,
+                isPresented: uploadErrorIsPresented
+            ) {
+                Button("Common.btn.ok".localized) {
+                    viewModel.dismissUploadError()
+                }
+            } message: {
+                Text("FindingDetailsV2.upload.failure".localized)
+            }
     }
 
     @ViewBuilder
@@ -64,7 +74,7 @@ struct FindingDetailsScreenV2: View {
             .padding(.bottom, BiologerSpacing.xxLarge)
         }
         .safeAreaInset(edge: .bottom) {
-            editButton
+            detailsActions(details)
         }
     }
 
@@ -237,14 +247,41 @@ struct FindingDetailsScreenV2: View {
         }
     }
 
-    private var editButton: some View {
-        Button(action: viewModel.didTapEdit) {
-            HStack(spacing: BiologerSpacing.xSmall) {
-                Image(systemName: "pencil")
-                Text("FindingDetailsV2.action.edit".localized)
+    private func detailsActions(_ details: FindingDetails) -> some View {
+        VStack(spacing: BiologerSpacing.xSmall) {
+            if details.uploadStatus == .pending {
+                Button(action: viewModel.didTapUpload) {
+                    HStack(spacing: BiologerSpacing.xSmall) {
+                        if viewModel.isUploading {
+                            ProgressView()
+                                .tint(.white)
+                        } else {
+                            Image(systemName: "icloud.and.arrow.up")
+                        }
+                        Text(
+                            viewModel.isUploading
+                                ? "FindingDetailsV2.upload.progress".localized
+                                : "FindingDetailsV2.action.upload".localized
+                        )
+                    }
+                }
+                .buttonStyle(BiologerActionButtonStyle())
+                .disabled(viewModel.isUploading)
             }
+
+            Button(action: viewModel.didTapEdit) {
+                HStack(spacing: BiologerSpacing.xSmall) {
+                    Image(systemName: "pencil")
+                    Text("FindingDetailsV2.action.edit".localized)
+                }
+            }
+            .buttonStyle(
+                BiologerActionButtonStyle(
+                    isFilled: details.uploadStatus == .uploaded
+                )
+            )
+            .disabled(viewModel.isUploading)
         }
-        .buttonStyle(BiologerActionButtonStyle())
         .padding(.horizontal, BiologerSpacing.regular)
         .padding(.vertical, BiologerSpacing.small)
         .background(.ultraThinMaterial)
@@ -343,6 +380,17 @@ struct FindingDetailsScreenV2: View {
 
     private func meters(_ value: Double) -> String {
         String(format: "%.1f m", value)
+    }
+
+    private var uploadErrorIsPresented: Binding<Bool> {
+        Binding(
+            get: { viewModel.hasUploadError },
+            set: { isPresented in
+                if !isPresented {
+                    viewModel.dismissUploadError()
+                }
+            }
+        )
     }
 }
 

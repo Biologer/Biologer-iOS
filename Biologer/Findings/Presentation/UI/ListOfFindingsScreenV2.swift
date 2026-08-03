@@ -4,20 +4,14 @@ struct ListOfFindingsScreenV2: View {
     @StateObject private var viewModel: ListOfFindingsV2ViewModel
     @State private var deletionSelection: FindingDeletionSelection?
 
-    private let onUploadFindings: Observer<Void>
-
-    init(
-        viewModel: ListOfFindingsV2ViewModel,
-        onUploadFindings: @escaping Observer<Void>
-    ) {
+    init(viewModel: ListOfFindingsV2ViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.onUploadFindings = onUploadFindings
     }
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             content
-            addFindingButton
+            floatingActionButton
         }
         .biologerPageBackground()
         .navigationTitle("SideMenu.lb.listOfFindings".localized)
@@ -49,7 +43,7 @@ struct ListOfFindingsScreenV2: View {
                 viewModel.dismissActionError()
             }
         } message: {
-            Text("ListOfFindingsV2.actionError.message".localized)
+            Text(actionErrorMessage)
         }
     }
 
@@ -69,7 +63,13 @@ struct ListOfFindingsScreenV2: View {
 
     private var findingsList: some View {
         List {
-            FindingsOverviewCard(findings: viewModel.findings)
+            FindingsOverviewCard(
+                findings: viewModel.findings,
+                selectedFilter: viewModel.selectedFilter,
+                isFilterInteractionEnabled: !viewModel.isUploadSelectionActive
+                    && !viewModel.isUploading,
+                onSelectFilter: viewModel.selectFilter
+            )
                 .listRowInsets(
                     EdgeInsets(
                         top: BiologerSpacing.small,
@@ -81,10 +81,31 @@ struct ListOfFindingsScreenV2: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
 
-            ForEach(viewModel.findings) { finding in
+            if viewModel.visibleFindings.isEmpty {
+                FindingsFilteredEmptyView(filter: viewModel.selectedFilter)
+                    .listRowInsets(
+                        EdgeInsets(
+                            top: BiologerSpacing.small,
+                            leading: BiologerSpacing.regular,
+                            bottom: BiologerSpacing.small,
+                            trailing: BiologerSpacing.regular
+                        )
+                    )
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+            }
+
+            ForEach(viewModel.visibleFindings) { finding in
                 FindingSummaryRow(
                     finding: finding,
+                    isUploadSelectionActive: viewModel.isUploadSelectionActive,
+                    isSelectedForUpload: viewModel.selectedUploadFindingIDs.contains(
+                        finding.id
+                    ),
                     onSelect: { viewModel.didSelectFinding(finding) },
+                    onToggleUploadSelection: {
+                        viewModel.toggleUploadSelection(for: finding)
+                    },
                     onDelete: { deletionSelection = .finding(finding) }
                 )
                 .listRowInsets(
@@ -100,7 +121,7 @@ struct ListOfFindingsScreenV2: View {
             }
 
             Color.clear
-                .frame(height: 76)
+                .frame(height: viewModel.isUploading ? 116 : 76)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
         }
@@ -111,12 +132,24 @@ struct ListOfFindingsScreenV2: View {
         }
     }
 
+    @ViewBuilder
+    private var floatingActionButton: some View {
+        if let progress = viewModel.uploadState.progress,
+           viewModel.isUploading {
+            uploadProgressCard(progress)
+        } else if viewModel.isUploadSelectionActive {
+            uploadSelectedButton
+        } else {
+            addFindingButton
+        }
+    }
+
     private var addFindingButton: some View {
         Button(action: viewModel.didTapAddFinding) {
-            Label(
-                "ListOfFindingsV2.add".localized,
-                systemImage: "plus"
-            )
+            HStack(spacing: BiologerSpacing.xSmall) {
+                Image(systemName: "plus")
+                Text("ListOfFindingsV2.add".localized)
+            }
             .font(.body.weight(.semibold))
             .foregroundColor(.white)
             .padding(.horizontal, BiologerSpacing.regular)
@@ -142,32 +175,111 @@ struct ListOfFindingsScreenV2: View {
         .padding(BiologerSpacing.large)
     }
 
+    private var uploadSelectedButton: some View {
+        Button(action: viewModel.uploadSelectedFindings) {
+            HStack(spacing: BiologerSpacing.xSmall) {
+                Image(systemName: "icloud.and.arrow.up")
+                Text(uploadSelectedButtonTitle)
+            }
+        }
+        .buttonStyle(BiologerActionButtonStyle())
+        .disabled(viewModel.selectedUploadFindingIDs.isEmpty)
+        .opacity(viewModel.selectedUploadFindingIDs.isEmpty ? 0.55 : 1)
+        .padding(BiologerSpacing.large)
+    }
+
+    private func uploadProgressCard(
+        _ progress: FindingUploadProgress
+    ) -> some View {
+        VStack(alignment: .leading, spacing: BiologerSpacing.small) {
+            HStack(spacing: BiologerSpacing.small) {
+                ProgressView()
+                    .tint(BiologerColors.accent)
+
+                Text("ListOfFindingsV2.upload.progress.title".localized)
+                    .font(.body.weight(.semibold))
+                    .foregroundColor(BiologerColors.textPrimary)
+
+                Spacer()
+
+                Text(
+                    String(
+                        format: "ListOfFindingsV2.upload.progress.count".localized,
+                        progress.completedCount,
+                        progress.totalCount
+                    )
+                )
+                .font(.subheadline.monospacedDigit().weight(.medium))
+                .foregroundColor(.secondary)
+            }
+
+            ProgressView(value: progress.fractionCompleted)
+                .tint(BiologerColors.accent)
+        }
+        .padding(BiologerSpacing.regular)
+        .frame(maxWidth: .infinity)
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18))
+        .overlay {
+            RoundedRectangle(cornerRadius: 18)
+                .stroke(BiologerColors.accent.opacity(0.18), lineWidth: 1)
+        }
+        .shadow(color: Color.black.opacity(0.12), radius: 12, y: 5)
+        .padding(BiologerSpacing.regular)
+    }
+
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                onUploadFindings(())
-            } label: {
-                Image(systemName: "icloud.and.arrow.up")
+        if viewModel.isUploadSelectionActive {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(
+                    "Common.btn.cancel".localized,
+                    action: viewModel.cancelUploadSelection
+                )
             }
-            .accessibilityLabel("ListOfFindingsV2.upload".localized)
-        }
 
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Menu {
-                Button(role: .destructive) {
-                    deletionSelection = .all
-                } label: {
-                    Label(
-                        "ListOfFindingsV2.deleteAll".localized,
-                        systemImage: "trash"
-                    )
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(
+                    viewModel.areAllPendingFindingsSelected
+                        ? "ListOfFindingsV2.selection.deselectAll".localized
+                        : "ListOfFindingsV2.selection.selectAll".localized,
+                    action: viewModel.toggleAllPendingFindings
+                )
+            }
+        } else {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: viewModel.beginUploadSelection) {
+                    Image(systemName: "icloud.and.arrow.up")
                 }
-                .disabled(viewModel.findings.isEmpty)
-            } label: {
-                Image(systemName: "ellipsis.circle")
+                .disabled(
+                    viewModel.pendingFindingsCount == 0
+                        || viewModel.isUploading
+                )
+                .accessibilityLabel("ListOfFindingsV2.upload".localized)
+            }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button(role: .destructive) {
+                        deletionSelection = .all
+                    } label: {
+                        Label(
+                            "ListOfFindingsV2.deleteAll".localized,
+                            systemImage: "trash"
+                        )
+                    }
+                    .disabled(viewModel.findings.isEmpty || viewModel.isUploading)
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                }
             }
         }
+    }
+
+    private var uploadSelectedButtonTitle: String {
+        String(
+            format: "ListOfFindingsV2.selection.upload".localized,
+            viewModel.selectedUploadFindingsCount
+        )
     }
 
     private var deletionConfirmationIsPresented: Binding<Bool> {
@@ -200,6 +312,19 @@ struct ListOfFindingsScreenV2: View {
             "ListOfFindingsV2.deleteAll.message".localized
         case nil:
             ""
+        }
+    }
+
+    private var actionErrorMessage: String {
+        switch viewModel.actionError {
+        case .uploadFindings(let completedCount, let totalCount):
+            return String(
+                format: "ListOfFindingsV2.upload.failure".localized,
+                completedCount,
+                totalCount
+            )
+        case .deleteFinding, .deleteAllFindings, nil:
+            return "ListOfFindingsV2.actionError.message".localized
         }
     }
 

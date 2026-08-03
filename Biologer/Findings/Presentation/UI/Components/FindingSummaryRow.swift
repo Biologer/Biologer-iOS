@@ -3,47 +3,80 @@ import UIKit
 
 struct FindingSummaryRow: View {
     let finding: FindingSummary
+    let isUploadSelectionActive: Bool
+    let isSelectedForUpload: Bool
     let onSelect: () -> Void
+    let onToggleUploadSelection: () -> Void
     let onDelete: () -> Void
 
     var body: some View {
         HStack(spacing: BiologerSpacing.xSmall) {
-            Button(action: onSelect) {
+            Button(action: primaryAction) {
                 HStack(spacing: BiologerSpacing.small) {
                     thumbnail
                     details
 
                     Spacer(minLength: BiologerSpacing.xxSmall)
 
-                    Image(systemName: "chevron.right")
-                        .font(.caption.weight(.bold))
-                        .foregroundColor(Color(uiColor: .tertiaryLabel))
+                    trailingIndicator
                 }
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
 
-            Button(role: .destructive, action: onDelete) {
-                Image(systemName: "trash")
-                    .font(.body.weight(.semibold))
-                    .foregroundColor(BiologerColors.destructive)
-                    .frame(width: 36, height: 44)
-                    .contentShape(Rectangle())
-            }
-            .buttonStyle(.borderless)
-            .accessibilityLabel(
-                "ListOfFindings.deleteScreen.btn.delete".localized
-            )
-        }
-        .padding(BiologerSpacing.small)
-        .biologerCard()
-        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            Button(role: .destructive, action: onDelete) {
-                Label(
-                    "ListOfFindings.deleteScreen.btn.delete".localized,
-                    systemImage: "trash"
+            if !isUploadSelectionActive {
+                Button(role: .destructive, action: onDelete) {
+                    Image(systemName: "trash")
+                        .font(.body.weight(.semibold))
+                        .foregroundColor(BiologerColors.destructive)
+                        .frame(width: 36, height: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.borderless)
+                .accessibilityLabel(
+                    "ListOfFindings.deleteScreen.btn.delete".localized
                 )
             }
+        }
+        .padding(BiologerSpacing.small)
+        .biologerCard(
+            isSelected: isUploadSelectionActive && isSelectedForUpload
+        )
+        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            if !isUploadSelectionActive {
+                Button(role: .destructive, action: onDelete) {
+                    Label(
+                        "ListOfFindings.deleteScreen.btn.delete".localized,
+                        systemImage: "trash"
+                    )
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var trailingIndicator: some View {
+        if isUploadSelectionActive {
+            Image(
+                systemName: isSelectedForUpload
+                    ? "checkmark.circle.fill"
+                    : "circle"
+            )
+            .font(.title3.weight(.semibold))
+            .foregroundColor(
+                isSelectedForUpload
+                    ? BiologerColors.accent
+                    : Color(uiColor: .tertiaryLabel)
+            )
+            .accessibilityLabel(
+                isSelectedForUpload
+                    ? "ListOfFindingsV2.selection.selected".localized
+                    : "ListOfFindingsV2.selection.notSelected".localized
+            )
+        } else {
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.bold))
+                .foregroundColor(Color(uiColor: .tertiaryLabel))
         }
     }
 
@@ -131,5 +164,13 @@ struct FindingSummaryRow: View {
 
     private var displayedTaxonName: String {
         finding.taxonName.isEmpty ? "-" : finding.taxonName
+    }
+
+    private func primaryAction() {
+        if isUploadSelectionActive {
+            onToggleUploadSelection()
+        } else {
+            onSelect()
+        }
     }
 }

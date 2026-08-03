@@ -2,6 +2,9 @@ import SwiftUI
 
 struct FindingsOverviewCard: View {
     let findings: [FindingSummary]
+    let selectedFilter: FindingsListFilter
+    let isFilterInteractionEnabled: Bool
+    let onSelectFilter: (FindingsListFilter) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: BiologerSpacing.regular) {
@@ -9,16 +12,19 @@ struct FindingsOverviewCard: View {
 
             HStack(spacing: BiologerSpacing.xSmall) {
                 metric(
+                    filter: .all,
                     title: "ListOfFindingsV2.summary.total".localized,
                     value: findings.count,
                     systemImage: "list.bullet"
                 )
                 metric(
+                    filter: .uploaded,
                     title: "ListOfFindingsV2.status.uploaded".localized,
                     value: uploadedFindingsCount,
                     systemImage: "checkmark.circle.fill"
                 )
                 metric(
+                    filter: .pending,
                     title: "ListOfFindingsV2.status.pending".localized,
                     value: findings.count - uploadedFindingsCount,
                     systemImage: "icloud.and.arrow.up"
@@ -79,32 +85,52 @@ struct FindingsOverviewCard: View {
     }
 
     private func metric(
+        filter: FindingsListFilter,
         title: String,
         value: Int,
         systemImage: String
     ) -> some View {
-        VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
-            FindingMetadataLabel(
-                title: title,
-                systemImage: systemImage
-            )
+        let isSelected = selectedFilter == filter
+
+        return Button(action: { onSelectFilter(filter) }) {
+            VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
+                FindingMetadataLabel(
+                    title: title,
+                    systemImage: systemImage
+                )
                 .font(.caption2.weight(.medium))
                 .lineLimit(1)
 
-            Text("\(value)")
-                .font(.headline.weight(.bold))
-        }
-        .foregroundColor(.white)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, BiologerSpacing.xSmall)
-        .padding(.vertical, BiologerSpacing.xSmall)
-        .background(
-            .white.opacity(0.15),
-            in: RoundedRectangle(
-                cornerRadius: BiologerRadius.control,
-                style: .continuous
+                Text("\(value)")
+                    .font(.headline.weight(.bold))
+            }
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, BiologerSpacing.xSmall)
+            .padding(.vertical, BiologerSpacing.xSmall)
+            .background(
+                .white.opacity(isSelected ? 0.3 : 0.15),
+                in: RoundedRectangle(
+                    cornerRadius: BiologerRadius.control,
+                    style: .continuous
+                )
             )
-        )
+            .overlay {
+                RoundedRectangle(
+                    cornerRadius: BiologerRadius.control,
+                    style: .continuous
+                )
+                .stroke(
+                    .white.opacity(isSelected ? 0.72 : 0),
+                    lineWidth: 1.5
+                )
+            }
+            .scaleEffect(isSelected ? 1 : 0.98)
+        }
+        .buttonStyle(.plain)
+        .disabled(!isFilterInteractionEnabled)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .animation(.easeOut(duration: 0.18), value: isSelected)
     }
 
     private var uploadedFindingsCount: Int {
