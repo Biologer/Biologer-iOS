@@ -19,6 +19,7 @@ final class FindingDetailsV2ViewModel: ObservableObject {
     private let uploadFindings: UploadFindingsUseCase
     private let onEditFinding: (UUID) -> Void
     private let onShowLocation: (FindingDetailsLocation) -> Void
+    private let onShowPhotos: ([FindingPhoto], Int) -> Void
     private var uploadTask: Task<Void, Never>?
 
     init(
@@ -26,13 +27,15 @@ final class FindingDetailsV2ViewModel: ObservableObject {
         getFindingDetails: GetFindingDetailsUseCase,
         uploadFindings: UploadFindingsUseCase,
         onEditFinding: @escaping (UUID) -> Void,
-        onShowLocation: @escaping (FindingDetailsLocation) -> Void
+        onShowLocation: @escaping (FindingDetailsLocation) -> Void,
+        onShowPhotos: @escaping ([FindingPhoto], Int) -> Void
     ) {
         self.findingID = findingID
         self.getFindingDetails = getFindingDetails
         self.uploadFindings = uploadFindings
         self.onEditFinding = onEditFinding
         self.onShowLocation = onShowLocation
+        self.onShowPhotos = onShowPhotos
     }
 
     var isUploading: Bool {
@@ -67,6 +70,18 @@ final class FindingDetailsV2ViewModel: ObservableObject {
     func didTapShowLocation() {
         guard !isUploading, let location = details?.location else { return }
         onShowLocation(location)
+    }
+
+    func didTapPhoto(at index: Int) {
+        guard
+            !isUploading,
+            let photos = details?.photos,
+            photos.indices.contains(index)
+        else {
+            return
+        }
+
+        onShowPhotos(photos, index)
     }
 
     func didTapUpload() {

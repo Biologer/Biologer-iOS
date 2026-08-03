@@ -14,22 +14,35 @@ final class FindingDetailsV2ViewModelTests: XCTestCase {
         XCTAssertEqual(context.sut.loadState, .content)
     }
 
-    func test_navigationActionsForwardFindingAndLocation() {
-        let details = makeDetails(status: .pending)
+    func test_navigationActionsForwardFindingLocationAndPhotos() {
+        let photos = [
+            FindingPhoto(name: "first.jpg", imageData: Data([1]), remoteURL: nil),
+            FindingPhoto(name: "second.jpg", imageData: Data([2]), remoteURL: nil)
+        ]
+        let details = makeDetails(status: .pending, photos: photos)
         var editedID: UUID?
         var shownLocation: FindingDetailsLocation?
+        var shownPhotos: [FindingPhoto]?
+        var shownPhotoIndex: Int?
         let context = makeSUT(
             details: details,
             onEdit: { editedID = $0 },
-            onShowLocation: { shownLocation = $0 }
+            onShowLocation: { shownLocation = $0 },
+            onShowPhotos: { photos, index in
+                shownPhotos = photos
+                shownPhotoIndex = index
+            }
         )
         context.sut.loadDetails()
 
         context.sut.didTapEdit()
         context.sut.didTapShowLocation()
+        context.sut.didTapPhoto(at: 1)
 
         XCTAssertEqual(editedID, details.id)
         XCTAssertEqual(shownLocation, details.location)
+        XCTAssertEqual(shownPhotos, photos)
+        XCTAssertEqual(shownPhotoIndex, 1)
     }
 
     func test_uploadShowsSpinnerThenReloadsUploadedDetails() async {
@@ -96,7 +109,8 @@ final class FindingDetailsV2ViewModelTests: XCTestCase {
     private func makeSUT(
         details: FindingDetails,
         onEdit: @escaping (UUID) -> Void = { _ in },
-        onShowLocation: @escaping (FindingDetailsLocation) -> Void = { _ in }
+        onShowLocation: @escaping (FindingDetailsLocation) -> Void = { _ in },
+        onShowPhotos: @escaping ([FindingPhoto], Int) -> Void = { _, _ in }
     ) -> FindingDetailsV2TestContext {
         let getDetails = FindingDetailsUseCaseStub(result: .success(details))
         let uploadFindings = FindingDetailsUploadUseCaseSpy()
@@ -105,7 +119,8 @@ final class FindingDetailsV2ViewModelTests: XCTestCase {
             getFindingDetails: getDetails,
             uploadFindings: uploadFindings,
             onEditFinding: onEdit,
-            onShowLocation: onShowLocation
+            onShowLocation: onShowLocation,
+            onShowPhotos: onShowPhotos
         )
         return FindingDetailsV2TestContext(
             sut: sut,
@@ -116,12 +131,13 @@ final class FindingDetailsV2ViewModelTests: XCTestCase {
 
     private func makeDetails(
         id: UUID = UUID(),
-        status: FindingUploadStatus
+        status: FindingUploadStatus,
+        photos: [FindingPhoto] = []
     ) -> FindingDetails {
         FindingDetails(
             id: id,
             taxonName: "Common kingfisher",
-            photos: [],
+            photos: photos,
             developmentStageName: "Adult",
             atlasCodeName: nil,
             location: FindingDetailsLocation(

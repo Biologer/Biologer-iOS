@@ -3,24 +3,29 @@ import UIKit
 
 struct FindingDetailsHero: View {
     let details: FindingDetails
+    let onTapPhoto: () -> Void
 
     var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            heroImage
+        Button(action: onTapPhoto) {
+            ZStack(alignment: .bottomLeading) {
+                heroImage
 
-            LinearGradient(
-                colors: [.clear, .black.opacity(0.72)],
-                startPoint: .center,
-                endPoint: .bottom
-            )
+                LinearGradient(
+                    colors: [.clear, .black.opacity(0.72)],
+                    startPoint: .center,
+                    endPoint: .bottom
+                )
 
-            Text(displayedTaxonName)
-                .font(.title2.weight(.bold))
-                .italic()
-                .foregroundColor(.white)
-                .lineLimit(3)
-                .padding(BiologerSpacing.large)
+                Text(displayedTaxonName)
+                    .font(.title2.weight(.bold))
+                    .italic()
+                    .foregroundColor(.white)
+                    .lineLimit(3)
+                    .padding(BiologerSpacing.large)
+            }
         }
+        .buttonStyle(.plain)
+        .disabled(details.photos.isEmpty)
         .frame(height: 238)
         .clipShape(
             RoundedRectangle(
@@ -45,6 +50,11 @@ struct FindingDetailsHero: View {
             y: 6
         )
         .accessibilityElement(children: .combine)
+        .accessibilityHint(
+            details.photos.isEmpty
+                ? ""
+                : "FindingPhotoGallery.openHint".localized
+        )
     }
 
     @ViewBuilder

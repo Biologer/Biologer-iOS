@@ -31,7 +31,8 @@ struct FindingDetailsScreenV2_Previews: PreviewProvider {
                     ),
                     uploadFindings: uploadFindings,
                     onEditFinding: { _ in },
-                    onShowLocation: { _ in }
+                    onShowLocation: { _ in },
+                    onShowPhotos: { _, _ in }
                 )
             )
         }

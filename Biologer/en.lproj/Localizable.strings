@@ -297,3 +297,8 @@
 "ListOfFindingsV2.upload.failure" = "%d of %d findings were uploaded. Please try again.";
 "FindingDetailsV2.upload.progress" = "Uploading...";
 "FindingDetailsV2.upload.failure" = "The finding couldn't be uploaded. Please try again.";
+"FindingPhotoGallery.close" = "Close";
+"FindingPhotoGallery.counter" = "%d of %d";
+"FindingPhotoGallery.zoomHint" = "Pinch or double-tap to zoom";
+"FindingPhotoGallery.unavailable" = "The photo isn't available.";
+"FindingPhotoGallery.openHint" = "Opens the full-screen photo gallery";

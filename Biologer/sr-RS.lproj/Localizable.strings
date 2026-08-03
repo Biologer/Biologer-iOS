@@ -297,3 +297,8 @@
 "ListOfFindingsV2.upload.failure" = "Послато је %d од %d налаза. Покушајте поново.";
 "FindingDetailsV2.upload.progress" = "Слање...";
 "FindingDetailsV2.upload.failure" = "Налаз није могуће послати. Покушајте поново.";
+"FindingPhotoGallery.close" = "Затвори";
+"FindingPhotoGallery.counter" = "%d од %d";
+"FindingPhotoGallery.zoomHint" = "Раширите прсте или додирните двапут за зумирање";
+"FindingPhotoGallery.unavailable" = "Фотографија није доступна.";
+"FindingPhotoGallery.openHint" = "Отвара галерију фотографија преко целог екрана";

@@ -3,6 +3,7 @@ import UIKit
 
 struct FindingDetailsPhotoGallery: View {
     let photos: [FindingPhoto]
+    let onTapPhoto: (Int) -> Void
 
     var body: some View {
         FindingDetailsSection(
@@ -12,9 +13,17 @@ struct FindingDetailsPhotoGallery: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: BiologerSpacing.small) {
                     ForEach(Array(photos.enumerated()), id: \.offset) { index, photo in
-                        thumbnail(photo)
+                        Button {
+                            onTapPhoto(index)
+                        } label: {
+                            thumbnail(photo)
+                        }
+                        .buttonStyle(.plain)
                             .accessibilityLabel(
                                 "\("FindingDetailsV2.section.photos".localized) \(index + 1)"
+                            )
+                            .accessibilityHint(
+                                "FindingPhotoGallery.openHint".localized
                             )
                     }
                 }

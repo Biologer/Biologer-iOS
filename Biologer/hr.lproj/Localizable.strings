@@ -297,3 +297,8 @@
 "ListOfFindingsV2.upload.failure" = "Preneseno je %d od %d nalaza. Pokušajte ponovno.";
 "FindingDetailsV2.upload.progress" = "Prijenos...";
 "FindingDetailsV2.upload.failure" = "Nalaz nije moguće prenijeti. Pokušajte ponovno.";
+"FindingPhotoGallery.close" = "Zatvori";
+"FindingPhotoGallery.counter" = "%d od %d";
+"FindingPhotoGallery.zoomHint" = "Raširite prste ili dodirnite dvaput za zumiranje";
+"FindingPhotoGallery.unavailable" = "Fotografija nije dostupna.";
+"FindingPhotoGallery.openHint" = "Otvara galeriju fotografija preko cijelog zaslona";

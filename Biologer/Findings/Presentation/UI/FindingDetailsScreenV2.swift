@@ -45,10 +45,16 @@ struct FindingDetailsScreenV2: View {
     private func detailsContent(_ details: FindingDetails) -> some View {
         ScrollView {
             LazyVStack(spacing: BiologerSpacing.large) {
-                FindingDetailsHero(details: details)
+                FindingDetailsHero(
+                    details: details,
+                    onTapPhoto: { viewModel.didTapPhoto(at: 0) }
+                )
 
                 if details.photos.count > 1 {
-                    FindingDetailsPhotoGallery(photos: details.photos)
+                    FindingDetailsPhotoGallery(
+                        photos: details.photos,
+                        onTapPhoto: viewModel.didTapPhoto
+                    )
                 }
 
                 overviewSection(details)

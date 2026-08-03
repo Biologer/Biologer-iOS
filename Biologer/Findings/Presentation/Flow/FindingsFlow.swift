@@ -6,9 +6,16 @@ private enum FindingsDestination: Hashable {
     case details(UUID)
 }
 
+private struct FindingPhotoGalleryPresentation: Identifiable {
+    let id = UUID()
+    let photos: [FindingPhoto]
+    let initialIndex: Int
+}
+
 @MainActor
 private final class FindingsFlowNavigation: ObservableObject {
     @Published var path: [FindingsDestination] = []
+    @Published var photoGallery: FindingPhotoGalleryPresentation?
 }
 
 @MainActor
@@ -57,6 +64,13 @@ struct FindingsFlow: View {
             navigation.path.append(FindingsDestination.details(id))
             listViewModel.didHandleFindingNavigation()
         }
+        .fullScreenCover(item: $navigation.photoGallery) { presentation in
+            FindingPhotoGalleryScreen(
+                photos: presentation.photos,
+                initialIndex: presentation.initialIndex,
+                onClose: { navigation.photoGallery = nil }
+            )
+        }
     }
 
     private func destinationView(_ destination: FindingsDestination) -> some View {
@@ -68,7 +82,13 @@ struct FindingsFlow: View {
                     getFindingDetails: getFindingDetails,
                     uploadFindings: uploadFindings,
                     onEditFinding: onEditFinding,
-                    onShowLocation: onShowLocation
+                    onShowLocation: onShowLocation,
+                    onShowPhotos: { photos, initialIndex in
+                        navigation.photoGallery = FindingPhotoGalleryPresentation(
+                            photos: photos,
+                            initialIndex: initialIndex
+                        )
+                    }
                 )
             )
         }
