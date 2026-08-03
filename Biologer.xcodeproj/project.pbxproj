@@ -632,6 +632,7 @@
 		E30000013021000000000001 /* Main */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Main; sourceTree = "<group>"; };
 		E30000023021000000000001 /* Settings */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Settings; sourceTree = "<group>"; };
 		F60000013023000000000001 /* DesignSystem */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DesignSystem; sourceTree = "<group>"; };
+		F80000013025000000000001 /* Findings */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Findings; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -842,6 +843,7 @@
 			children = (
 				E30000013021000000000001 /* Main */,
 				E30000023021000000000001 /* Settings */,
+				F80000013025000000000001 /* Findings */,
 				354D33A02E251FA300CE3D8D /* Files */,
 				93CC6596269C622E00949534 /* Storage */,
 				93DF14152692223F00A7A977 /* Network */,
@@ -1894,6 +1896,7 @@
 				E30000013021000000000001 /* Main */,
 				E30000023021000000000001 /* Settings */,
 				F60000013023000000000001 /* DesignSystem */,
+				F80000013025000000000001 /* Findings */,
 			);
 			name = Biologer;
 			packageProductDependencies = (
