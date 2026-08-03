@@ -264,3 +264,16 @@
 "DataLicense.lb.five" = "Затворена (доступно вама и уредницима)";
 "TabBar.add.title" = "Додај";
 "SettingsV2.section.support" = "Подршка";
+"FindingDetailsV2.nav.title" = "Детаљи налаза";
+"FindingDetailsV2.section.photos" = "Фотографије";
+"FindingDetailsV2.section.details" = "Подаци о налазу";
+"FindingDetailsV2.section.location" = "Локација";
+"FindingDetailsV2.section.individuals" = "Јединке";
+"FindingDetailsV2.section.observations" = "Опажања";
+"FindingDetailsV2.section.notes" = "Теренске белешке";
+"FindingDetailsV2.field.date" = "Забележено";
+"FindingDetailsV2.action.edit" = "Измени налаз";
+"FindingDetailsV2.action.showOnMap" = "Прикажи на мапи";
+"FindingDetailsV2.loading" = "Учитавање налаза…";
+"FindingDetailsV2.loadError.title" = "Није могуће учитати налаз";
+"FindingDetailsV2.loadError.message" = "Изабрани налаз није могао да се учита. Покушајте поново.";

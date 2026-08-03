@@ -264,3 +264,16 @@
 "DataLicense.lb.five" = "Zatvorena (dostupna samo vama i urednicima)";
 "TabBar.add.title" = "Dodaj";
 "SettingsV2.section.support" = "Podrška";
+"FindingDetailsV2.nav.title" = "Detalji nalaza";
+"FindingDetailsV2.section.photos" = "Fotografije";
+"FindingDetailsV2.section.details" = "Podaci o nalazu";
+"FindingDetailsV2.section.location" = "Lokacija";
+"FindingDetailsV2.section.individuals" = "Jedinke";
+"FindingDetailsV2.section.observations" = "Opažanja";
+"FindingDetailsV2.section.notes" = "Terenske bilješke";
+"FindingDetailsV2.field.date" = "Zabilježeno";
+"FindingDetailsV2.action.edit" = "Uredi nalaz";
+"FindingDetailsV2.action.showOnMap" = "Prikaži na karti";
+"FindingDetailsV2.loading" = "Učitavanje nalaza…";
+"FindingDetailsV2.loadError.title" = "Nije moguće učitati nalaz";
+"FindingDetailsV2.loadError.message" = "Odabrani nalaz nije mogao biti učitan. Pokušajte ponovo.";

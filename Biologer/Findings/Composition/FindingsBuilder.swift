@@ -14,38 +14,30 @@ final class FindingsBuilder {
 
     func makeViewController(
         onAddFinding: @escaping Observer<Void>,
-        onFindingSelected: @escaping Observer<UUID>,
+        onEditFinding: @escaping Observer<UUID>,
+        onShowLocation: @escaping Observer<FindingDetailsLocation>,
         onUploadFindings: @escaping Observer<Void>
     ) -> UIViewController {
-        let viewModel = makeViewModel(
-            onAddFinding: onAddFinding,
-            onFindingSelected: onFindingSelected
-        )
-        let screen = NavigationStack {
-            ListOfFindingsScreenV2(
-                viewModel: viewModel,
-                onUploadFindings: onUploadFindings
-            )
-        }
-        return UIHostingController(rootView: screen)
-    }
-
-    private func makeViewModel(
-        onAddFinding: @escaping Observer<Void>,
-        onFindingSelected: @escaping Observer<UUID>
-    ) -> ListOfFindingsV2ViewModel {
-        ListOfFindingsV2ViewModel(
-            useCases: makeUseCases(),
-            onAddFinding: { onAddFinding(()) },
-            onFindingSelected: onFindingSelected
-        )
-    }
-
-    private func makeUseCases() -> FindingsUseCases {
         let repository = RealmFindingsRepository(
             configuration: realmConfiguration
         )
-        return FindingsUseCases(
+        let screen = FindingsFlow(
+            listUseCases: makeListUseCases(repository: repository),
+            getFindingDetails: DefaultGetFindingDetailsUseCase(
+                repository: repository
+            ),
+            onAddFinding: onAddFinding,
+            onEditFinding: onEditFinding,
+            onShowLocation: onShowLocation,
+            onUploadFindings: onUploadFindings
+        )
+        return UIHostingController(rootView: screen)
+    }
+
+    private func makeListUseCases(
+        repository: RealmFindingsRepository
+    ) -> FindingsUseCases {
+        FindingsUseCases(
             getFindings: DefaultGetFindingsUseCase(repository: repository),
             deleteFinding: DefaultDeleteFindingUseCase(repository: repository),
             deleteAllFindings: DefaultDeleteAllFindingsUseCase(repository: repository)

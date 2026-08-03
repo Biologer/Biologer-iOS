@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-final class RealmFindingsRepository: FindingsRepository {
+final class RealmFindingsRepository: FindingsRepository, FindingDetailsRepository {
     private let configuration: Realm.Configuration
 
     init(configuration: Realm.Configuration) {
@@ -11,6 +11,14 @@ final class RealmFindingsRepository: FindingsRepository {
     func getAll() throws -> [FindingSummary] {
         let realm = try makeRealm()
         return realm.objects(DBFinding.self).map(FindingSummaryMapper.map)
+    }
+
+    func get(id: UUID) throws -> FindingDetails {
+        let realm = try makeRealm()
+        guard let finding = realm.object(ofType: DBFinding.self, forPrimaryKey: id) else {
+            throw FindingsRepositoryError.findingNotFound(id)
+        }
+        return FindingDetailsMapper.map(finding)
     }
 
     func delete(id: UUID) throws {

@@ -264,3 +264,16 @@
 "DataLicense.lb.five" = "Closed (available to you and the editors)";
 "TabBar.add.title" = "Add";
 "SettingsV2.section.support" = "Support";
+"FindingDetailsV2.nav.title" = "Finding details";
+"FindingDetailsV2.section.photos" = "Photos";
+"FindingDetailsV2.section.details" = "Observation details";
+"FindingDetailsV2.section.location" = "Location";
+"FindingDetailsV2.section.individuals" = "Individuals";
+"FindingDetailsV2.section.observations" = "Observations";
+"FindingDetailsV2.section.notes" = "Field notes";
+"FindingDetailsV2.field.date" = "Recorded";
+"FindingDetailsV2.action.edit" = "Edit finding";
+"FindingDetailsV2.action.showOnMap" = "Show on map";
+"FindingDetailsV2.loading" = "Loading finding...";
+"FindingDetailsV2.loadError.title" = "Unable to load finding";
+"FindingDetailsV2.loadError.message" = "The selected finding couldn't be loaded. Please try again.";
