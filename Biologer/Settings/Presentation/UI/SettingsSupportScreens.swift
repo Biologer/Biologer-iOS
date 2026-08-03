@@ -32,7 +32,7 @@ struct SettingsHelpScreen: View {
 
                 Text(pageIndicator)
                     .font(.subheadline.weight(.semibold))
-                    .foregroundColor(SettingsColorPalette.sectionTitle)
+                    .foregroundColor(BiologerColors.sectionTitle)
                     .monospacedDigit()
                     .frame(minWidth: 64)
 
@@ -45,11 +45,11 @@ struct SettingsHelpScreen: View {
         .padding(.horizontal, 16)
         .padding(.top, 12)
         .padding(.bottom, 20)
-        .settingsPageBackground()
+        .biologerPageBackground()
         .navigationTitle("SideMenu.lb.Help".localized)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .tint(SettingsColorPalette.primary)
+        .tint(BiologerColors.accent)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: { onBack(()) }) {
@@ -80,7 +80,7 @@ struct SettingsHelpScreen: View {
             VStack(spacing: 10) {
                 Text(item.title)
                     .font(.title2.weight(.bold))
-                    .foregroundColor(SettingsColorPalette.primaryText)
+                    .foregroundColor(BiologerColors.textPrimary)
                     .multilineTextAlignment(.center)
 
                 Text(item.description)
@@ -94,7 +94,7 @@ struct SettingsHelpScreen: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(20)
-        .settingsCard(cornerRadius: 24)
+        .biologerCard(cornerRadius: BiologerRadius.featureCard)
         .padding(.vertical, 4)
     }
 
@@ -108,11 +108,11 @@ struct SettingsHelpScreen: View {
                 .foregroundColor(.white)
                 .frame(width: 48, height: 48)
                 .background(
-                    SettingsColorPalette.primary,
+                    BiologerColors.accent,
                     in: Circle()
                 )
                 .shadow(
-                    color: SettingsColorPalette.forest.opacity(0.2),
+                    color: BiologerColors.brandStrong.opacity(0.2),
                     radius: 7,
                     y: 3
                 )
@@ -162,12 +162,12 @@ struct SettingsAboutScreen: View {
                         systemImage: "heart.fill"
                     )
                 }
-                .settingsCard()
+                .biologerCard()
 
                 VStack(spacing: 14) {
                     Text(viewModel.descriptionThree)
                         .font(.body)
-                        .foregroundColor(SettingsColorPalette.primaryText)
+                        .foregroundColor(BiologerColors.textPrimary)
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
 
@@ -175,22 +175,21 @@ struct SettingsAboutScreen: View {
                         Label(viewModel.envButtonTitle, systemImage: "safari")
                     }
                     .buttonStyle(
-                        SettingsActionButtonStyle(
-                            tint: SettingsColorPalette.primary,
+                        BiologerActionButtonStyle(
                             isFilled: false
                         )
                     )
                 }
                 .padding(18)
-                .settingsCard()
+                .biologerCard()
 
                 Text(viewModel.version)
                     .font(.caption.weight(.semibold))
-                    .foregroundColor(SettingsColorPalette.sectionTitle)
+                    .foregroundColor(BiologerColors.sectionTitle)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
                     .background(
-                        SettingsColorPalette.iconBackground,
+                        BiologerColors.iconBackground,
                         in: Capsule()
                     )
             }
@@ -198,11 +197,11 @@ struct SettingsAboutScreen: View {
             .padding(.top, 12)
             .padding(.bottom, 32)
         }
-        .settingsPageBackground()
+        .biologerPageBackground()
         .navigationTitle("SideMenu.lb.aboutUs".localized)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .tint(SettingsColorPalette.primary)
+        .tint(BiologerColors.accent)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: { onBack(()) }) {
@@ -231,20 +230,23 @@ struct SettingsAboutScreen: View {
         .background(
             LinearGradient(
                 colors: [
-                    SettingsColorPalette.forest,
-                    SettingsColorPalette.primary
+                    BiologerColors.brandStrong,
+                    BiologerColors.accent
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             ),
-            in: RoundedRectangle(cornerRadius: 22, style: .continuous)
+            in: RoundedRectangle(
+                cornerRadius: BiologerRadius.hero,
+                style: .continuous
+            )
         )
-        .shadow(color: SettingsColorPalette.forest.opacity(0.24), radius: 12, y: 6)
+        .shadow(color: BiologerColors.brandStrong.opacity(0.24), radius: 12, y: 6)
     }
 
     private var databaseCard: some View {
         HStack(alignment: .top, spacing: 14) {
-            SettingsIconBadge(systemImage: "server.rack")
+            BiologerIconBadge(systemImage: "server.rack")
 
             VStack(alignment: .leading, spacing: 7) {
                 Text(viewModel.currentDbDescription)
@@ -253,14 +255,14 @@ struct SettingsAboutScreen: View {
 
                 Text(viewModel.currentEnv)
                     .font(.subheadline.weight(.medium))
-                    .foregroundColor(SettingsColorPalette.primaryText)
+                    .foregroundColor(BiologerColors.textPrimary)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
             Spacer(minLength: 0)
         }
         .padding(16)
-        .settingsCard()
+        .biologerCard()
     }
 
     private func descriptionRow(
@@ -268,11 +270,11 @@ struct SettingsAboutScreen: View {
         systemImage: String
     ) -> some View {
         HStack(alignment: .top, spacing: 14) {
-            SettingsIconBadge(systemImage: systemImage)
+            BiologerIconBadge(systemImage: systemImage)
 
             Text(description)
                 .font(.body)
-                .foregroundColor(SettingsColorPalette.primaryText)
+                .foregroundColor(BiologerColors.textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
 
             Spacer(minLength: 0)

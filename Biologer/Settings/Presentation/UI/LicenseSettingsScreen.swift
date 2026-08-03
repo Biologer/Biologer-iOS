@@ -10,7 +10,7 @@ struct LicenseSettingsScreen: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 14) {
-                SettingsIconBadge(
+                BiologerIconBadge(
                     systemImage: headerIcon,
                     size: 64
                 )
@@ -23,10 +23,10 @@ struct LicenseSettingsScreen: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 32)
         }
-        .settingsPageBackground()
+        .biologerPageBackground()
         .navigationTitle(viewModel.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
-        .tint(SettingsColorPalette.primary)
+        .tint(BiologerColors.accent)
     }
 
     private var headerIcon: String {
@@ -43,17 +43,17 @@ struct LicenseSettingsScreen: View {
 
         return Button(action: { viewModel.select(option) }) {
             HStack(alignment: .top, spacing: 14) {
-                SettingsIconBadge(
+                BiologerIconBadge(
                     systemImage: headerIcon,
                     tint: isSelected
-                        ? SettingsColorPalette.forest
-                        : SettingsColorPalette.primary
+                        ? BiologerColors.brandStrong
+                        : BiologerColors.accent
                 )
 
                 VStack(alignment: .leading, spacing: 6) {
                     Text(option.title)
                         .font(.body.weight(.semibold))
-                        .foregroundColor(SettingsColorPalette.primaryText)
+                        .foregroundColor(BiologerColors.textPrimary)
                         .multilineTextAlignment(.leading)
 
                     Text(option.details)
@@ -69,14 +69,14 @@ struct LicenseSettingsScreen: View {
                     .font(.title3)
                     .foregroundColor(
                         isSelected
-                            ? SettingsColorPalette.primary
+                            ? BiologerColors.accent
                             : Color(uiColor: .tertiaryLabel)
                     )
                     .padding(.top, 6)
             }
             .padding(16)
             .contentShape(Rectangle())
-            .settingsCard(isSelected: isSelected)
+            .biologerCard(isSelected: isSelected)
         }
         .buttonStyle(.plain)
     }

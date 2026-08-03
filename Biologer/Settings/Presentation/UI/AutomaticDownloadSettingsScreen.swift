@@ -10,7 +10,7 @@ struct AutomaticDownloadSettingsScreen: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 14) {
-                SettingsIconBadge(
+                BiologerIconBadge(
                     systemImage: "arrow.triangle.2.circlepath",
                     size: 64
                 )
@@ -23,10 +23,10 @@ struct AutomaticDownloadSettingsScreen: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 32)
         }
-        .settingsPageBackground()
+        .biologerPageBackground()
         .navigationTitle("DownloadAndUpload.nav.title".localized)
         .navigationBarTitleDisplayMode(.inline)
-        .tint(SettingsColorPalette.primary)
+        .tint(BiologerColors.accent)
     }
 
     private func optionCard(_ option: AutomaticTaxonDownload) -> some View {
@@ -34,16 +34,16 @@ struct AutomaticDownloadSettingsScreen: View {
 
         return Button(action: { viewModel.select(option) }) {
             HStack(spacing: 14) {
-                SettingsIconBadge(
+                BiologerIconBadge(
                     systemImage: icon(for: option),
                     tint: isSelected
-                        ? SettingsColorPalette.forest
-                        : SettingsColorPalette.primary
+                        ? BiologerColors.brandStrong
+                        : BiologerColors.accent
                 )
 
                 Text(viewModel.title(for: option))
                     .font(.body.weight(.medium))
-                    .foregroundColor(SettingsColorPalette.primaryText)
+                    .foregroundColor(BiologerColors.textPrimary)
                     .multilineTextAlignment(.leading)
 
                 Spacer(minLength: 8)
@@ -52,13 +52,13 @@ struct AutomaticDownloadSettingsScreen: View {
                     .font(.title3)
                     .foregroundColor(
                         isSelected
-                            ? SettingsColorPalette.primary
+                            ? BiologerColors.accent
                             : Color(uiColor: .tertiaryLabel)
                     )
             }
             .padding(16)
             .contentShape(Rectangle())
-            .settingsCard(isSelected: isSelected)
+            .biologerCard(isSelected: isSelected)
         }
         .buttonStyle(.plain)
     }

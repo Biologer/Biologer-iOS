@@ -124,10 +124,10 @@ struct SettingsScreenV2: View {
             .padding(.top, 12)
             .padding(.bottom, 32)
         }
-        .settingsPageBackground()
+        .biologerPageBackground()
         .navigationTitle("SideMenu.lb.setup".localized)
         .navigationBarTitleDisplayMode(.large)
-        .tint(SettingsColorPalette.primary)
+        .tint(BiologerColors.accent)
         .onAppear(perform: viewModel.reload)
         .alert(item: $viewModel.resetAlert) { alert in
             makeAlert(alert)
@@ -168,15 +168,18 @@ struct SettingsScreenV2: View {
         .background(
             LinearGradient(
                 colors: [
-                    SettingsColorPalette.forest,
-                    SettingsColorPalette.primary
+                    BiologerColors.brandStrong,
+                    BiologerColors.accent
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             ),
-            in: RoundedRectangle(cornerRadius: 22, style: .continuous)
+            in: RoundedRectangle(
+                cornerRadius: BiologerRadius.hero,
+                style: .continuous
+            )
         )
-        .shadow(color: SettingsColorPalette.forest.opacity(0.24), radius: 12, y: 6)
+        .shadow(color: BiologerColors.brandStrong.opacity(0.24), radius: 12, y: 6)
         .accessibilityElement(children: .combine)
     }
 
@@ -191,12 +194,12 @@ struct SettingsScreenV2: View {
         @ViewBuilder content: () -> Content
     ) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            SettingsSectionHeader(title: title, systemImage: systemImage)
+            BiologerSectionHeader(title: title, systemImage: systemImage)
 
             VStack(spacing: 0) {
                 content()
             }
-            .settingsCard()
+            .biologerCard()
         }
     }
 
@@ -209,10 +212,10 @@ struct SettingsScreenV2: View {
             rowLabel(
                 title: title,
                 systemImage: systemImage,
-                tint: SettingsColorPalette.primary
+                tint: BiologerColors.accent
             )
         }
-        .tint(SettingsColorPalette.primary)
+        .tint(BiologerColors.accent)
         .padding(.horizontal, 16)
         .padding(.vertical, 13)
     }
@@ -227,7 +230,7 @@ struct SettingsScreenV2: View {
                 rowLabel(
                     title: title,
                     systemImage: systemImage,
-                    tint: SettingsColorPalette.primary
+                    tint: BiologerColors.accent
                 )
 
                 Spacer(minLength: 8)
@@ -246,9 +249,9 @@ struct SettingsScreenV2: View {
     private func actionRow(
         title: String,
         systemImage: String,
-        tint: Color = SettingsColorPalette.primary,
-        titleColor: Color = SettingsColorPalette.primaryText,
-        iconBackground: Color = SettingsColorPalette.iconBackground,
+        tint: Color = BiologerColors.accent,
+        titleColor: Color = BiologerColors.textPrimary,
+        iconBackground: Color = BiologerColors.iconBackground,
         role: ButtonRole? = nil,
         action: @escaping () -> Void
     ) -> some View {
@@ -275,11 +278,11 @@ struct SettingsScreenV2: View {
         title: String,
         systemImage: String,
         tint: Color,
-        titleColor: Color = SettingsColorPalette.primaryText,
-        iconBackground: Color = SettingsColorPalette.iconBackground
+        titleColor: Color = BiologerColors.textPrimary,
+        iconBackground: Color = BiologerColors.iconBackground
     ) -> some View {
         HStack(spacing: 12) {
-            SettingsIconBadge(
+            BiologerIconBadge(
                 systemImage: systemImage,
                 tint: tint,
                 backgroundColor: iconBackground

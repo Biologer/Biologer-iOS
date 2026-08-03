@@ -627,6 +627,7 @@
 		9311E7FD2FFBC258006045C4 /* APIClient */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = APIClient; sourceTree = "<group>"; };
 		E30000013021000000000001 /* Main */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Main; sourceTree = "<group>"; };
 		E30000023021000000000001 /* Settings */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Settings; sourceTree = "<group>"; };
+		F60000013023000000000001 /* DesignSystem */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DesignSystem; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -939,6 +940,7 @@
 		93142732262B5C5600542EFC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F60000013023000000000001 /* DesignSystem */,
 				93C2D1F826A5EAE400123216 /* Help */,
 				931B9DAA27669F4C00043BED /* Lottie Animations */,
 				9320E02E2751991D006812E5 /* Router */,
@@ -1869,6 +1871,7 @@
 				9311E7FD2FFBC258006045C4 /* APIClient */,
 				E30000013021000000000001 /* Main */,
 				E30000023021000000000001 /* Settings */,
+				F60000013023000000000001 /* DesignSystem */,
 			);
 			name = Biologer;
 			packageProductDependencies = (

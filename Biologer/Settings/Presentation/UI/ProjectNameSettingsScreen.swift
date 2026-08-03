@@ -16,14 +16,14 @@ struct ProjectNameSettingsScreen: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                SettingsIconBadge(
+                BiologerIconBadge(
                     systemImage: "folder.fill",
                     size: 68
                 )
                 .padding(.top, 18)
 
                 VStack(alignment: .leading, spacing: 12) {
-                    SettingsSectionHeader(
+                    BiologerSectionHeader(
                         title: "Settings.lb.projectName.title".localized,
                         systemImage: "pencil"
                     )
@@ -36,34 +36,38 @@ struct ProjectNameSettingsScreen: View {
                     .textInputAutocapitalization(.sentences)
                     .autocorrectionDisabled(false)
                     .submitLabel(.done)
-                    .foregroundColor(SettingsColorPalette.primaryText)
+                    .foregroundColor(BiologerColors.textPrimary)
                     .padding(.horizontal, 16)
                     .frame(minHeight: 52)
                     .background(
-                        SettingsColorPalette.pageBackground,
-                        in: RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        BiologerColors.pageBackground,
+                        in: RoundedRectangle(
+                            cornerRadius: BiologerRadius.control,
+                            style: .continuous
+                        )
                     )
                     .overlay {
-                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        RoundedRectangle(
+                            cornerRadius: BiologerRadius.control,
+                            style: .continuous
+                        )
                             .stroke(
                                 isProjectNameFocused
-                                    ? SettingsColorPalette.primary
-                                    : SettingsColorPalette.forest.opacity(0.14),
+                                    ? BiologerColors.accent
+                                    : BiologerColors.brandStrong.opacity(0.14),
                                 lineWidth: isProjectNameFocused ? 1.5 : 1
                             )
                     }
                     .onSubmit(save)
                 }
                 .padding(18)
-                .settingsCard()
+                .biologerCard()
 
                 Button(action: save) {
                     Label("Common.btn.ok".localized, systemImage: "checkmark")
                 }
                 .buttonStyle(
-                    SettingsActionButtonStyle(
-                        tint: SettingsColorPalette.primary
-                    )
+                    BiologerActionButtonStyle()
                 )
 
                 Spacer(minLength: 12)
@@ -71,10 +75,10 @@ struct ProjectNameSettingsScreen: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 32)
         }
-        .settingsPageBackground()
+        .biologerPageBackground()
         .navigationTitle("Settings.lb.projectName.title".localized)
         .navigationBarTitleDisplayMode(.inline)
-        .tint(SettingsColorPalette.primary)
+        .tint(BiologerColors.accent)
     }
 
     private func save() {

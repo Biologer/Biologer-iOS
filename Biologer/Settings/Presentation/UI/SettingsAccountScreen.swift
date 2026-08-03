@@ -15,22 +15,22 @@ struct SettingsAccountScreen: View {
                 profileHeader
 
                 VStack(alignment: .leading, spacing: 10) {
-                    SettingsSectionHeader(
+                    BiologerSectionHeader(
                         title: "Logout.lb.currentlyDB".localized,
                         systemImage: "server.rack"
                     )
 
                     HStack(spacing: 14) {
-                        SettingsIconBadge(systemImage: "network")
+                        BiologerIconBadge(systemImage: "network")
 
                         Text(viewModel.context.environment)
                             .font(.subheadline.weight(.medium))
-                            .foregroundColor(SettingsColorPalette.primaryText)
+                            .foregroundColor(BiologerColors.textPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     .padding(16)
-                    .settingsCard()
+                    .biologerCard()
                 }
 
                 Button(role: .destructive) {
@@ -39,14 +39,14 @@ struct SettingsAccountScreen: View {
                     Label("Logout.btn.logout".localized, systemImage: "rectangle.portrait.and.arrow.right")
                 }
                 .buttonStyle(
-                    SettingsActionButtonStyle(
-                        tint: .red,
+                    BiologerActionButtonStyle(
+                        role: .destructive,
                         isFilled: false
                     )
                 )
 
                 VStack(alignment: .leading, spacing: 10) {
-                    SettingsSectionHeader(
+                    BiologerSectionHeader(
                         title: "DeleteAccount.btn.deleteAccount".localized,
                         systemImage: "exclamationmark.triangle"
                     )
@@ -56,8 +56,8 @@ struct SettingsAccountScreen: View {
                             "DeleteAccount.lb.doYouWantToDeleteObservations".localized,
                             isOn: $viewModel.shouldDeleteObservations
                         )
-                        .tint(SettingsColorPalette.primary)
-                        .foregroundColor(SettingsColorPalette.primaryText)
+                        .tint(BiologerColors.accent)
+                        .foregroundColor(BiologerColors.textPrimary)
                         .padding(16)
 
                         Divider()
@@ -69,7 +69,7 @@ struct SettingsAccountScreen: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(16)
                     }
-                    .settingsCard()
+                    .biologerCard()
 
                     Button(role: .destructive) {
                         isDeleteConfirmationPresented = true
@@ -77,8 +77,8 @@ struct SettingsAccountScreen: View {
                         Label("DeleteAccount.btn.deleteAccount".localized, systemImage: "trash")
                     }
                     .buttonStyle(
-                        SettingsActionButtonStyle(
-                            tint: .red
+                        BiologerActionButtonStyle(
+                            role: .destructive
                         )
                     )
                 }
@@ -87,10 +87,10 @@ struct SettingsAccountScreen: View {
             .padding(.top, 12)
             .padding(.bottom, 32)
         }
-        .settingsPageBackground()
+        .biologerPageBackground()
         .navigationTitle("Settings.lb.userAccount".localized)
         .navigationBarTitleDisplayMode(.inline)
-        .tint(SettingsColorPalette.primary)
+        .tint(BiologerColors.accent)
         .alert("Logout.lb.doYouWantLogout".localized, isPresented: $isLogoutConfirmationPresented) {
             Button("Common.btn.cancel".localized, role: .cancel) {}
             Button("Logout.btn.logout".localized, role: .destructive) {
@@ -138,15 +138,18 @@ struct SettingsAccountScreen: View {
         .background(
             LinearGradient(
                 colors: [
-                    SettingsColorPalette.forest,
-                    SettingsColorPalette.primary
+                    BiologerColors.brandStrong,
+                    BiologerColors.accent
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             ),
-            in: RoundedRectangle(cornerRadius: 22, style: .continuous)
+            in: RoundedRectangle(
+                cornerRadius: BiologerRadius.hero,
+                style: .continuous
+            )
         )
-        .shadow(color: SettingsColorPalette.forest.opacity(0.24), radius: 12, y: 6)
+        .shadow(color: BiologerColors.brandStrong.opacity(0.24), radius: 12, y: 6)
         .accessibilityElement(children: .combine)
     }
 }

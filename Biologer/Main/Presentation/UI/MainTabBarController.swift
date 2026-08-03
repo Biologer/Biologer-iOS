@@ -69,7 +69,7 @@ final class MainTabBarController: UITabBarController, UITabBarControllerDelegate
         if #available(iOS 15.0, *) {
             tabBar.scrollEdgeAppearance = appearance
         }
-        tabBar.tintColor = .biologerGreenColor
+        tabBar.tintColor = BiologerUIColor.accent
         tabBar.unselectedItemTintColor = .secondaryLabel
     }
 }
