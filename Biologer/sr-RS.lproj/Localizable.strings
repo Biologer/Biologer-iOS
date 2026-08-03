@@ -159,6 +159,11 @@
 "ListOfFindingsV2.upload" = "Пошаљи налазе";
 "ListOfFindingsV2.deleteAll" = "Обриши све налазе";
 "ListOfFindingsV2.deleteAll.message" = "Овим ћете трајно обрисати све налазе.";
+"ListOfFindingsV2.delete.single.title" = "Обрисати налаз?";
+"ListOfFindingsV2.delete.single.message" = "Налаз „%@” биће трајно обрисан.";
+"ListOfFindingsV2.delete.selected.title" = "Обрисати изабране налазе?";
+"ListOfFindingsV2.delete.selected.message" = "Овом радњом трајно бришете изабране налазе (%d).";
+"ListOfFindingsV2.delete.all.title" = "Обрисати све налазе?";
 "ListOfFindingsV2.actionError.message" = "Измена није могла да се изврши. Покушајте поново.";
 
 // MARK: - Upload Findings
@@ -280,6 +285,8 @@
 "ListOfFindingsV2.selection.upload" = "Пошаљи (%d)";
 "ListOfFindingsV2.selection.selected" = "Изабрано";
 "ListOfFindingsV2.selection.notSelected" = "Није изабрано";
+"ListOfFindingsV2.selection.deleteMode" = "Изабери налазе за брисање";
+"ListOfFindingsV2.selection.delete" = "Обриши (%d)";
 "ListOfFindingsV2.filter.empty.uploaded" = "Нема послатих налаза.";
 "ListOfFindingsV2.filter.empty.pending" = "Нема налаза који чекају слање.";
 "FindingDetailsV2.loading" = "Учитавање налаза…";

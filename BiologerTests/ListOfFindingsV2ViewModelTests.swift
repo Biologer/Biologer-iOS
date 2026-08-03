@@ -71,9 +71,9 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
             [firstPending, secondPending]
         )
 
-        context.sut.toggleAllPendingFindings()
+        context.sut.toggleAllSelectableFindings()
         XCTAssertEqual(
-            context.sut.selectedUploadFindingIDs,
+            context.sut.selectedFindingIDs,
             Set([firstPending.id, secondPending.id])
         )
     }
@@ -86,7 +86,7 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
         context.uploadFindings.onCompletion = { completed.fulfill() }
         context.sut.loadFindings()
         context.sut.beginUploadSelection()
-        context.sut.toggleAllPendingFindings()
+        context.sut.toggleAllSelectableFindings()
 
         context.sut.uploadSelectedFindings()
 
@@ -117,7 +117,7 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
             }
         context.sut.loadFindings()
         context.sut.beginUploadSelection()
-        context.sut.toggleAllPendingFindings()
+        context.sut.toggleAllSelectableFindings()
 
         context.sut.uploadSelectedFindings()
 
@@ -128,6 +128,67 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
         )
         XCTAssertEqual(context.getFindings.callCount, 2)
         withExtendedLifetime(failureObservation) {}
+    }
+
+    func test_deletionSelectionIncludesEveryFindingAndRestoresPreviousFilter() {
+        let pending = makeFinding(status: .pending)
+        let uploaded = makeFinding(status: .uploaded)
+        let context = makeSUT(getResult: .success([pending, uploaded]))
+        context.sut.loadFindings()
+        context.sut.selectFilter(.uploaded)
+
+        context.sut.beginDeletionSelection()
+        context.sut.toggleAllSelectableFindings()
+
+        XCTAssertEqual(context.sut.selectionMode, .deletion)
+        XCTAssertEqual(context.sut.selectedFilter, .all)
+        XCTAssertEqual(
+            context.sut.selectedFindingIDs,
+            Set([pending.id, uploaded.id])
+        )
+
+        context.sut.cancelSelection()
+
+        XCTAssertNil(context.sut.selectionMode)
+        XCTAssertEqual(context.sut.selectedFindingIDs, [])
+        XCTAssertEqual(context.sut.selectedFilter, .uploaded)
+    }
+
+    func test_deleteSelectedFindingsDeletesSelectionAndReloadsOnce() {
+        let first = makeFinding(status: .pending)
+        let second = makeFinding(status: .uploaded)
+        let unselected = makeFinding(status: .pending)
+        let context = makeSUT(
+            getResult: .success([first, second, unselected])
+        )
+        context.sut.loadFindings()
+        context.sut.beginDeletionSelection()
+        context.sut.toggleSelection(for: first)
+        context.sut.toggleSelection(for: second)
+
+        context.sut.deleteSelectedFindings()
+
+        XCTAssertEqual(context.deleteFinding.receivedIDs, [first.id, second.id])
+        XCTAssertEqual(context.getFindings.callCount, 2)
+        XCTAssertNil(context.sut.selectionMode)
+        XCTAssertEqual(context.sut.selectedFindingIDs, [])
+        XCTAssertNil(context.sut.actionError)
+    }
+
+    func test_deleteSelectedFindingsPublishesErrorAndReloadsCurrentContent() {
+        let finding = makeFinding()
+        let context = makeSUT(getResult: .success([finding]))
+        context.deleteFinding.result = .failure(FindingsViewModelTestError.any)
+        context.sut.loadFindings()
+        context.sut.beginDeletionSelection()
+        context.sut.toggleSelection(for: finding)
+
+        context.sut.deleteSelectedFindings()
+
+        XCTAssertEqual(context.deleteFinding.receivedIDs, [finding.id])
+        XCTAssertEqual(context.getFindings.callCount, 2)
+        XCTAssertEqual(context.sut.actionError, .deleteFindings)
+        XCTAssertNil(context.sut.selectionMode)
     }
 
     func test_deleteFindingDeletesRequestedIDAndReloadsContent() {

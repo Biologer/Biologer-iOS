@@ -3,10 +3,11 @@ import UIKit
 
 struct FindingSummaryRow: View {
     let finding: FindingSummary
-    let isUploadSelectionActive: Bool
-    let isSelectedForUpload: Bool
+    let isSelectionActive: Bool
+    let isSelected: Bool
+    let isDestructiveSelection: Bool
     let onSelect: () -> Void
-    let onToggleUploadSelection: () -> Void
+    let onToggleSelection: () -> Void
     let onDelete: () -> Void
 
     var body: some View {
@@ -24,7 +25,7 @@ struct FindingSummaryRow: View {
             }
             .buttonStyle(.plain)
 
-            if !isUploadSelectionActive {
+            if !isSelectionActive {
                 Button(role: .destructive, action: onDelete) {
                     Image(systemName: "trash")
                         .font(.body.weight(.semibold))
@@ -40,10 +41,10 @@ struct FindingSummaryRow: View {
         }
         .padding(BiologerSpacing.small)
         .biologerCard(
-            isSelected: isUploadSelectionActive && isSelectedForUpload
+            isSelected: isSelectionActive && isSelected
         )
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            if !isUploadSelectionActive {
+            if !isSelectionActive {
                 Button(role: .destructive, action: onDelete) {
                     Label(
                         "ListOfFindings.deleteScreen.btn.delete".localized,
@@ -56,20 +57,20 @@ struct FindingSummaryRow: View {
 
     @ViewBuilder
     private var trailingIndicator: some View {
-        if isUploadSelectionActive {
+        if isSelectionActive {
             Image(
-                systemName: isSelectedForUpload
+                systemName: isSelected
                     ? "checkmark.circle.fill"
                     : "circle"
             )
             .font(.title3.weight(.semibold))
             .foregroundColor(
-                isSelectedForUpload
-                    ? BiologerColors.accent
+                isSelected
+                    ? selectionTint
                     : Color(uiColor: .tertiaryLabel)
             )
             .accessibilityLabel(
-                isSelectedForUpload
+                isSelected
                     ? "ListOfFindingsV2.selection.selected".localized
                     : "ListOfFindingsV2.selection.notSelected".localized
             )
@@ -166,9 +167,15 @@ struct FindingSummaryRow: View {
         finding.taxonName.isEmpty ? "-" : finding.taxonName
     }
 
+    private var selectionTint: Color {
+        isDestructiveSelection
+            ? BiologerColors.destructive
+            : BiologerColors.accent
+    }
+
     private func primaryAction() {
-        if isUploadSelectionActive {
-            onToggleUploadSelection()
+        if isSelectionActive {
+            onToggleSelection()
         } else {
             onSelect()
         }

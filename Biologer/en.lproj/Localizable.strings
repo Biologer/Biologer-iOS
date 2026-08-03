@@ -159,6 +159,11 @@
 "ListOfFindingsV2.upload" = "Upload findings";
 "ListOfFindingsV2.deleteAll" = "Delete all findings";
 "ListOfFindingsV2.deleteAll.message" = "This will permanently delete all findings.";
+"ListOfFindingsV2.delete.single.title" = "Delete finding?";
+"ListOfFindingsV2.delete.single.message" = "“%@” will be permanently deleted.";
+"ListOfFindingsV2.delete.selected.title" = "Delete selected findings?";
+"ListOfFindingsV2.delete.selected.message" = "This action will permanently delete the selected findings (%d).";
+"ListOfFindingsV2.delete.all.title" = "Delete all findings?";
 "ListOfFindingsV2.actionError.message" = "The change couldn't be completed. Please try again.";
 
 // MARK: - Upload Findings
@@ -280,6 +285,8 @@
 "ListOfFindingsV2.selection.upload" = "Upload (%d)";
 "ListOfFindingsV2.selection.selected" = "Selected";
 "ListOfFindingsV2.selection.notSelected" = "Not selected";
+"ListOfFindingsV2.selection.deleteMode" = "Select findings to delete";
+"ListOfFindingsV2.selection.delete" = "Delete (%d)";
 "ListOfFindingsV2.filter.empty.uploaded" = "There are no uploaded findings.";
 "ListOfFindingsV2.filter.empty.pending" = "No findings are waiting to be uploaded.";
 "FindingDetailsV2.loading" = "Loading finding...";

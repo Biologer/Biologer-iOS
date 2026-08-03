@@ -21,10 +21,9 @@ struct ListOfFindingsScreenV2: View {
             toolbarContent
         }
         .onAppear(perform: viewModel.loadFindings)
-        .confirmationDialog(
-            "ListOfFindings.deleteScreen.title".localized,
-            isPresented: deletionConfirmationIsPresented,
-            titleVisibility: .visible
+        .alert(
+            deletionTitle,
+            isPresented: deletionConfirmationIsPresented
         ) {
             Button(
                 "ListOfFindings.deleteScreen.btn.delete".localized,
@@ -66,7 +65,7 @@ struct ListOfFindingsScreenV2: View {
             FindingsOverviewCard(
                 findings: viewModel.findings,
                 selectedFilter: viewModel.selectedFilter,
-                isFilterInteractionEnabled: !viewModel.isUploadSelectionActive
+                isFilterInteractionEnabled: !viewModel.isSelectionActive
                     && !viewModel.isUploading,
                 onSelectFilter: viewModel.selectFilter
             )
@@ -98,13 +97,12 @@ struct ListOfFindingsScreenV2: View {
             ForEach(viewModel.visibleFindings) { finding in
                 FindingSummaryRow(
                     finding: finding,
-                    isUploadSelectionActive: viewModel.isUploadSelectionActive,
-                    isSelectedForUpload: viewModel.selectedUploadFindingIDs.contains(
-                        finding.id
-                    ),
+                    isSelectionActive: viewModel.isSelectionActive,
+                    isSelected: viewModel.selectedFindingIDs.contains(finding.id),
+                    isDestructiveSelection: viewModel.isDeletionSelectionActive,
                     onSelect: { viewModel.didSelectFinding(finding) },
-                    onToggleUploadSelection: {
-                        viewModel.toggleUploadSelection(for: finding)
+                    onToggleSelection: {
+                        viewModel.toggleSelection(for: finding)
                     },
                     onDelete: { deletionSelection = .finding(finding) }
                 )
@@ -139,6 +137,8 @@ struct ListOfFindingsScreenV2: View {
             uploadProgressCard(progress)
         } else if viewModel.isUploadSelectionActive {
             uploadSelectedButton
+        } else if viewModel.isDeletionSelectionActive {
+            deleteSelectedButton
         } else {
             addFindingButton
         }
@@ -183,8 +183,25 @@ struct ListOfFindingsScreenV2: View {
             }
         }
         .buttonStyle(BiologerActionButtonStyle())
-        .disabled(viewModel.selectedUploadFindingIDs.isEmpty)
-        .opacity(viewModel.selectedUploadFindingIDs.isEmpty ? 0.55 : 1)
+        .disabled(viewModel.selectedFindingIDs.isEmpty)
+        .opacity(viewModel.selectedFindingIDs.isEmpty ? 0.55 : 1)
+        .padding(BiologerSpacing.large)
+    }
+
+    private var deleteSelectedButton: some View {
+        Button {
+            deletionSelection = .selected(
+                count: viewModel.selectedDeletionFindingsCount
+            )
+        } label: {
+            HStack(spacing: BiologerSpacing.xSmall) {
+                Image(systemName: "trash")
+                Text(deleteSelectedButtonTitle)
+            }
+        }
+        .buttonStyle(BiologerActionButtonStyle(role: .destructive))
+        .disabled(viewModel.selectedFindingIDs.isEmpty)
+        .opacity(viewModel.selectedFindingIDs.isEmpty ? 0.55 : 1)
         .padding(BiologerSpacing.large)
     }
 
@@ -229,20 +246,20 @@ struct ListOfFindingsScreenV2: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
-        if viewModel.isUploadSelectionActive {
+        if viewModel.isSelectionActive {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(
                     "Common.btn.cancel".localized,
-                    action: viewModel.cancelUploadSelection
+                    action: viewModel.cancelSelection
                 )
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(
-                    viewModel.areAllPendingFindingsSelected
+                    viewModel.areAllSelectableFindingsSelected
                         ? "ListOfFindingsV2.selection.deselectAll".localized
                         : "ListOfFindingsV2.selection.selectAll".localized,
-                    action: viewModel.toggleAllPendingFindings
+                    action: viewModel.toggleAllSelectableFindings
                 )
             }
         } else {
@@ -259,6 +276,14 @@ struct ListOfFindingsScreenV2: View {
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
+                    Button(action: viewModel.beginDeletionSelection) {
+                        Label(
+                            "ListOfFindingsV2.selection.deleteMode".localized,
+                            systemImage: "checkmark.circle"
+                        )
+                    }
+                    .disabled(viewModel.findings.isEmpty || viewModel.isUploading)
+
                     Button(role: .destructive) {
                         deletionSelection = .all
                     } label: {
@@ -279,6 +304,13 @@ struct ListOfFindingsScreenV2: View {
         String(
             format: "ListOfFindingsV2.selection.upload".localized,
             viewModel.selectedUploadFindingsCount
+        )
+    }
+
+    private var deleteSelectedButtonTitle: String {
+        String(
+            format: "ListOfFindingsV2.selection.delete".localized,
+            viewModel.selectedDeletionFindingsCount
         )
     }
 
@@ -307,11 +339,32 @@ struct ListOfFindingsScreenV2: View {
     private var deletionMessage: String {
         switch deletionSelection {
         case .finding(let finding):
-            finding.taxonName.isEmpty ? "-" : finding.taxonName
+            return String(
+                format: "ListOfFindingsV2.delete.single.message".localized,
+                finding.taxonName.isEmpty ? "-" : finding.taxonName
+            )
+        case .selected(let count):
+            return String(
+                format: "ListOfFindingsV2.delete.selected.message".localized,
+                count
+            )
         case .all:
-            "ListOfFindingsV2.deleteAll.message".localized
+            return "ListOfFindingsV2.deleteAll.message".localized
         case nil:
-            ""
+            return ""
+        }
+    }
+
+    private var deletionTitle: String {
+        switch deletionSelection {
+        case .finding:
+            return "ListOfFindingsV2.delete.single.title".localized
+        case .selected:
+            return "ListOfFindingsV2.delete.selected.title".localized
+        case .all:
+            return "ListOfFindingsV2.delete.all.title".localized
+        case nil:
+            return ""
         }
     }
 
@@ -323,7 +376,7 @@ struct ListOfFindingsScreenV2: View {
                 completedCount,
                 totalCount
             )
-        case .deleteFinding, .deleteAllFindings, nil:
+        case .deleteFinding, .deleteFindings, .deleteAllFindings, nil:
             return "ListOfFindingsV2.actionError.message".localized
         }
     }
@@ -335,6 +388,8 @@ struct ListOfFindingsScreenV2: View {
         switch selection {
         case .finding(let finding):
             viewModel.deleteFinding(id: finding.id)
+        case .selected:
+            viewModel.deleteSelectedFindings()
         case .all:
             viewModel.deleteAllFindings()
         case nil:
@@ -345,5 +400,6 @@ struct ListOfFindingsScreenV2: View {
 
 private enum FindingDeletionSelection {
     case finding(FindingSummary)
+    case selected(count: Int)
     case all
 }
