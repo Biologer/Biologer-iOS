@@ -68,9 +68,10 @@ struct AuthorizationFlow: View {
     @ViewBuilder
     private var initialScreen: some View {
         if viewModel.isHelpPresented {
-            AuthorizationHelpScreen { _ in
+            BiologerHelpScreen { _ in
                 viewModel.completeHelp()
             }
+            .navigationBarBackButtonHidden(true)
         } else {
             loginScreen
         }
@@ -138,19 +139,5 @@ struct AuthorizationFlow: View {
     private func goBack() {
         guard !path.isEmpty else { return }
         path.removeLast()
-    }
-}
-
-private struct AuthorizationHelpScreen: View {
-    @StateObject private var viewModel: HelpScreenViewModel
-
-    init(onDone: @escaping Observer<Void>) {
-        _viewModel = StateObject(
-            wrappedValue: HelpScreenViewModel(onDone: onDone)
-        )
-    }
-
-    var body: some View {
-        HelpScreen(loader: viewModel)
     }
 }
