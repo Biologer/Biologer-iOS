@@ -302,6 +302,10 @@
 		E40000023022000000000001 /* MainCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000013022000000000001 /* MainCoordinatorTests.swift */; };
 		E40000043022000000000001 /* SettingsV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000033022000000000001 /* SettingsV2Tests.swift */; };
 		F70000023024000000000001 /* AuthorizationUIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70000013024000000000001 /* AuthorizationUIComponents.swift */; };
+		F90000023026000000000001 /* FindingsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90000013026000000000001 /* FindingsUseCaseTests.swift */; };
+		F90000043026000000000001 /* RealmFindingsRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90000033026000000000001 /* RealmFindingsRepositoryTests.swift */; };
+		F90000063026000000000001 /* ListOfFindingsV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90000053026000000000001 /* ListOfFindingsV2ViewModelTests.swift */; };
+		F90000073026000000000001 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F90000083026000000000001 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -625,6 +629,9 @@
 		E40000013022000000000001 /* MainCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorTests.swift; sourceTree = "<group>"; };
 		E40000033022000000000001 /* SettingsV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsV2Tests.swift; sourceTree = "<group>"; };
 		F70000013024000000000001 /* AuthorizationUIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationUIComponents.swift; sourceTree = "<group>"; };
+		F90000013026000000000001 /* FindingsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsUseCaseTests.swift; sourceTree = "<group>"; };
+		F90000033026000000000001 /* RealmFindingsRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFindingsRepositoryTests.swift; sourceTree = "<group>"; };
+		F90000053026000000000001 /* ListOfFindingsV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFindingsV2ViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -657,6 +664,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F90000073026000000000001 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,6 +882,9 @@
 			isa = PBXGroup;
 			children = (
 				931426FA262B53B100542EFC /* BiologerTests.swift */,
+				F90000013026000000000001 /* FindingsUseCaseTests.swift */,
+				F90000033026000000000001 /* RealmFindingsRepositoryTests.swift */,
+				F90000053026000000000001 /* ListOfFindingsV2ViewModelTests.swift */,
 				B3000009301D000000000001 /* AuthorizationRouterTests.swift */,
 				B3000007301D000000000001 /* AuthorizationV2ViewModelTests.swift */,
 				B3000005301D000000000001 /* LoginUserUseCaseTests.swift */,
@@ -1929,6 +1940,9 @@
 				931426F8262B53B000542EFC /* PBXTargetDependency */,
 			);
 			name = BiologerTests;
+			packageProductDependencies = (
+				F90000083026000000000001 /* RealmSwift */,
+			);
 			productName = BiologerTests;
 			productReference = 931426F6262B53B000542EFC /* BiologerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -2316,6 +2330,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				931426FB262B53B100542EFC /* BiologerTests.swift in Sources */,
+				F90000023026000000000001 /* FindingsUseCaseTests.swift in Sources */,
+				F90000043026000000000001 /* RealmFindingsRepositoryTests.swift in Sources */,
+				F90000063026000000000001 /* ListOfFindingsV2ViewModelTests.swift in Sources */,
 				B300000A301D000000000001 /* AuthorizationRouterTests.swift in Sources */,
 				B3000008301D000000000001 /* AuthorizationV2ViewModelTests.swift in Sources */,
 				B3000006301D000000000001 /* LoginUserUseCaseTests.swift in Sources */,
@@ -2755,6 +2772,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		20AA770440D603BCEC136BE7 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		F90000083026000000000001 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
