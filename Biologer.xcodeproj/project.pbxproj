@@ -250,6 +250,7 @@
 		93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */; };
 		93EB965F270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */; };
 		93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */; };
+		9E07DBAC3020692300DCF823 /* AuthorizationFlowPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E07DBAB3020691D00DCF823 /* AuthorizationFlowPreview.swift */; };
 		A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000022FFD000000000001 /* RegisterUserUseCase.swift */; };
 		A10000042FFD000000000001 /* AuthorizationUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000052FFD000000000001 /* AuthorizationUseCases.swift */; };
 		A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000072FFD000000000001 /* LoginUserUseCase.swift */; };
@@ -575,6 +576,7 @@
 		93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTaxonsPaginationInfoStorage.swift; sourceTree = "<group>"; };
 		93EB965E270E2EF300AFD3A8 /* MapTypeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreenViewModel.swift; sourceTree = "<group>"; };
 		93EB9660270E31EC00AFD3A8 /* MapTypeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeScreen.swift; sourceTree = "<group>"; };
+		9E07DBAB3020691D00DCF823 /* AuthorizationFlowPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlowPreview.swift; sourceTree = "<group>"; };
 		A10000022FFD000000000001 /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
 		A10000052FFD000000000001 /* AuthorizationUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationUseCases.swift; sourceTree = "<group>"; };
 		A10000072FFD000000000001 /* LoginUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserUseCase.swift; sourceTree = "<group>"; };
@@ -769,6 +771,7 @@
 		9311E8952FFBD579006045C4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				9E07DBAA3020690800DCF823 /* Preview */,
 				9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */,
 				B60000103020000000000001 /* Coordinator */,
 				B300000B301D000000000001 /* Flow */,
@@ -1723,6 +1726,14 @@
 			path = Validators;
 			sourceTree = "<group>";
 		};
+		9E07DBAA3020690800DCF823 /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				9E07DBAB3020691D00DCF823 /* AuthorizationFlowPreview.swift */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
 		B3000001301D000000000001 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -2120,6 +2131,7 @@
 				B60000023020000000000001 /* AuthorizationCoordinating.swift in Sources */,
 				B60000043020000000000001 /* AuthorizationFlowCoordinator.swift in Sources */,
 				9311E8A52FFCDBA5006045C4 /* LoginScreenV2ViewModel.swift in Sources */,
+				9E07DBAC3020692300DCF823 /* AuthorizationFlowPreview.swift in Sources */,
 				A10000062FFD000000000001 /* LoginUserUseCase.swift in Sources */,
 				A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */,
 				A100000A2FFD000000000001 /* RegisterUserEndpoint.swift in Sources */,
