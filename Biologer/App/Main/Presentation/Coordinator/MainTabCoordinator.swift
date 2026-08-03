@@ -1,24 +1,22 @@
 import UIKit
 
+@MainActor
 final class MainTabCoordinator: MainCoordinating {
-    typealias SettingsViewControllerFactory = (
+    typealias MainViewControllerFactory = (
         _ onDownloadTaxa: @escaping Observer<Void>,
         _ onLogout: @escaping Observer<Void>,
         _ onDeleteAccount: @escaping Observer<Bool>
     ) -> UIViewController
 
-    private let tabBarController: MainTabBarController
-    private let findingsNavigationController: UINavigationController
-    private let settingsNavigationController: UINavigationController
-    private let taxonRouter: TaxonRouting
-    private let makeSettingsViewController: SettingsViewControllerFactory
+    private let navigationController: UINavigationController
+    private let makeMainViewController: MainViewControllerFactory
 
     var rootViewController: UIViewController {
-        tabBarController
+        navigationController
     }
 
     var primaryNavigationController: UINavigationController {
-        findingsNavigationController
+        navigationController
     }
 
     var onLogout: Observer<Void>?
@@ -26,26 +24,18 @@ final class MainTabCoordinator: MainCoordinating {
     var onDeleteAccount: Observer<Bool>?
 
     init(
-        tabBarController: MainTabBarController = MainTabBarController(),
-        findingsNavigationController: UINavigationController,
-        settingsNavigationController: UINavigationController,
-        taxonRouter: TaxonRouting,
-        makeSettingsViewController: @escaping SettingsViewControllerFactory
+        navigationController: UINavigationController,
+        makeMainViewController: @escaping MainViewControllerFactory
     ) {
-        self.tabBarController = tabBarController
-        self.findingsNavigationController = findingsNavigationController
-        self.settingsNavigationController = settingsNavigationController
-        self.taxonRouter = taxonRouter
-        self.makeSettingsViewController = makeSettingsViewController
+        self.navigationController = navigationController
+        self.makeMainViewController = makeMainViewController
     }
 
     func start() {
-        taxonRouter.start()
-
-        let settingsViewController = makeSettingsViewController(
+        let viewController = makeMainViewController(
             { [weak self] _ in
                 guard let self else { return }
-                self.onStartDownloadTaxa?(self.settingsNavigationController)
+                self.onStartDownloadTaxa?(self.navigationController)
             },
             { [weak self] _ in
                 self?.onLogout?(())
@@ -54,19 +44,7 @@ final class MainTabCoordinator: MainCoordinating {
                 self?.onDeleteAccount?(deleteObservations)
             }
         )
-        settingsNavigationController.setViewControllers(
-            [settingsViewController],
-            animated: false
-        )
-
-        tabBarController.onAddTapped = { [weak self] _ in
-            guard let self else { return }
-            self.tabBarController.selectedIndex = 0
-            self.taxonRouter.startNewFinding()
-        }
-        tabBarController.setTabs(
-            findings: findingsNavigationController,
-            settings: settingsNavigationController
-        )
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.setViewControllers([viewController], animated: false)
     }
 }

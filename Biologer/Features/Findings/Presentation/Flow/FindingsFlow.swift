@@ -19,6 +19,20 @@ private final class FindingsFlowNavigation: ObservableObject {
 }
 
 @MainActor
+protocol FindingsFlowControlling: AnyObject {
+    func showListAndReload()
+}
+
+@MainActor
+final class FindingsFlowController: ObservableObject, FindingsFlowControlling {
+    @Published private(set) var reloadRequestID = UUID()
+
+    func showListAndReload() {
+        reloadRequestID = UUID()
+    }
+}
+
+@MainActor
 struct FindingsFlow: View {
     private let getFindingDetails: GetFindingDetailsUseCase
     private let uploadFindings: UploadFindingsUseCase
@@ -27,8 +41,10 @@ struct FindingsFlow: View {
 
     @StateObject private var navigation: FindingsFlowNavigation
     @StateObject private var listViewModel: ListOfFindingsV2ViewModel
+    @ObservedObject private var controller: FindingsFlowController
 
     init(
+        controller: FindingsFlowController,
         listUseCases: FindingsUseCases,
         getFindingDetails: GetFindingDetailsUseCase,
         uploadFindings: UploadFindingsUseCase,
@@ -42,6 +58,7 @@ struct FindingsFlow: View {
         self.uploadFindings = uploadFindings
         self.onEditFinding = onEditFinding
         self.onShowLocation = onShowLocation
+        self.controller = controller
         _navigation = StateObject(wrappedValue: navigation)
         _listViewModel = StateObject(
             wrappedValue: ListOfFindingsV2ViewModel(
@@ -63,6 +80,11 @@ struct FindingsFlow: View {
             guard let id else { return }
             navigation.path.append(FindingsDestination.details(id))
             listViewModel.didHandleFindingNavigation()
+        }
+        .onChange(of: controller.reloadRequestID) { _ in
+            navigation.photoGallery = nil
+            navigation.path.removeAll()
+            listViewModel.loadFindings()
         }
         .fullScreenCover(item: $navigation.photoGallery) { presentation in
             FindingPhotoGalleryScreen(

@@ -341,3 +341,7 @@
 "FindingLocationV2.selected" = "Изабрана локација";
 "FindingLocationV2.tapHint" = "Додирните мапу или померите маркер да подесите локацију.";
 "FindingLocationV2.resolvingAltitude" = "Провера надморске висине...";
+"FindingEditorV2.unsaved.title" = "Несачуване измене";
+"FindingEditorV2.unsaved.message" = "Имате несачуване измене. Да ли желите да их одбаците и отворите други налаз?";
+"FindingEditorV2.unsaved.continue" = "Настави уређивање";
+"FindingEditorV2.unsaved.discard" = "Одбаци измене";

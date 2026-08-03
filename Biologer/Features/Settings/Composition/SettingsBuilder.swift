@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 
+@MainActor
 final class SettingsBuilder {
     private let settingsStorage: SettingsStorage
     private let dataLicenseStorage: LicenseStorage
@@ -30,8 +31,22 @@ final class SettingsBuilder {
         onLogout: @escaping Observer<Void>,
         onDeleteAccount: @escaping Observer<Bool>
     ) -> UIViewController {
+        UIHostingController(
+            rootView: makeFlow(
+                onDownloadTaxa: onDownloadTaxa,
+                onLogout: onLogout,
+                onDeleteAccount: onDeleteAccount
+            )
+        )
+    }
+
+    func makeFlow(
+        onDownloadTaxa: @escaping Observer<Void>,
+        onLogout: @escaping Observer<Void>,
+        onDeleteAccount: @escaping Observer<Bool>
+    ) -> SettingsFlow {
         let environment = currentEnvironment()
-        let flow = SettingsFlow(
+        return SettingsFlow(
             useCases: makeUseCases(),
             accountContextProvider: { [weak self] in
                 SettingsAccountContext(
@@ -49,7 +64,6 @@ final class SettingsBuilder {
             onLogout: onLogout,
             onDeleteAccount: onDeleteAccount
         )
-        return UIHostingController(rootView: flow)
     }
 
     private func makeUseCases() -> SettingsUseCases {

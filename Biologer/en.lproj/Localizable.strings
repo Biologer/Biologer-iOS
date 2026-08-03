@@ -341,3 +341,7 @@
 "FindingLocationV2.selected" = "Selected location";
 "FindingLocationV2.tapHint" = "Tap the map or drag the marker to adjust the location.";
 "FindingLocationV2.resolvingAltitude" = "Checking altitude...";
+"FindingEditorV2.unsaved.title" = "Unsaved changes";
+"FindingEditorV2.unsaved.message" = "You have unsaved changes. Do you want to discard them and open another finding?";
+"FindingEditorV2.unsaved.continue" = "Continue editing";
+"FindingEditorV2.unsaved.discard" = "Discard changes";

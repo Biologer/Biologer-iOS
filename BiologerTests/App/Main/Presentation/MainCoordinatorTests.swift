@@ -32,97 +32,183 @@ final class MainCoordinatorTests: XCTestCase {
         XCTAssertTrue(coordinator === tab)
     }
 
-    func test_tabCoordinatorStartsThreeTabsAndSettingsFlow() {
+    func test_tabCoordinatorHostsSwiftUIMainSceneInNavigationBridge() {
         let context = makeTabCoordinator()
 
         context.coordinator.start()
 
-        XCTAssertTrue(context.taxonRouter.didStart)
-        XCTAssertEqual(context.tabBarController.viewControllers?.count, 3)
-        XCTAssertTrue(context.settingsNavigationController.topViewController === context.settingsViewController)
-        XCTAssertEqual(context.tabBarController.selectedIndex, 0)
-    }
-
-    func test_middleTabStartsNewFindingWithoutChangingSelection() throws {
-        let context = makeTabCoordinator()
-        context.coordinator.start()
-        let addAction = try XCTUnwrap(context.tabBarController.viewControllers?[1])
-
-        let shouldSelect = context.tabBarController.tabBarController(
-            context.tabBarController,
-            shouldSelect: addAction
+        XCTAssertTrue(context.coordinator.rootViewController === context.navigationController)
+        XCTAssertTrue(
+            context.coordinator.primaryNavigationController
+                === context.navigationController
         )
-
-        XCTAssertFalse(shouldSelect)
-        XCTAssertTrue(context.taxonRouter.didStartNewFinding)
-        XCTAssertEqual(context.tabBarController.selectedIndex, 0)
+        XCTAssertTrue(
+            context.navigationController.topViewController
+                === context.mainViewController
+        )
+        XCTAssertTrue(context.navigationController.isNavigationBarHidden)
     }
 
-    func test_settingsActionsAreForwardedByTabCoordinator() {
+    func test_tabCoordinatorForwardsLegacyAppActions() {
         let context = makeTabCoordinator()
-        var didRequestDownload = false
+        var downloadNavigationController: UINavigationController?
         var didRequestLogout = false
         var deleteObservations: Bool?
-        context.coordinator.onStartDownloadTaxa = { navigationController in
-            didRequestDownload = navigationController === context.settingsNavigationController
+        context.coordinator.onStartDownloadTaxa = {
+            downloadNavigationController = $0
         }
         context.coordinator.onLogout = { _ in
             didRequestLogout = true
         }
-        context.coordinator.onDeleteAccount = { value in
-            deleteObservations = value
+        context.coordinator.onDeleteAccount = {
+            deleteObservations = $0
         }
         context.coordinator.start()
 
-        context.settingsActions.onDownloadTaxa?(())
-        context.settingsActions.onLogout?(())
-        context.settingsActions.onDeleteAccount?(true)
+        context.actions.onDownloadTaxa?(())
+        context.actions.onLogout?(())
+        context.actions.onDeleteAccount?(true)
 
-        XCTAssertTrue(didRequestDownload)
+        XCTAssertTrue(downloadNavigationController === context.navigationController)
         XCTAssertTrue(didRequestLogout)
         XCTAssertEqual(deleteObservations, true)
     }
 
     private func makeTabCoordinator() -> MainTabCoordinatorTestContext {
-        let tabBarController = MainTabBarController()
-        tabBarController.loadViewIfNeeded()
-        let findingsNavigationController = UINavigationController()
-        let settingsNavigationController = UINavigationController()
-        let taxonRouter = TaxonRoutingSpy()
-        let settingsViewController = UIViewController()
-        let settingsActions = SettingsActionsSpy()
+        let navigationController = UINavigationController()
+        let mainViewController = UIViewController()
+        let actions = MainCoordinatorActionsSpy()
         let coordinator = MainTabCoordinator(
-            tabBarController: tabBarController,
-            findingsNavigationController: findingsNavigationController,
-            settingsNavigationController: settingsNavigationController,
-            taxonRouter: taxonRouter,
-            makeSettingsViewController: { onDownloadTaxa, onLogout, onDeleteAccount in
-                settingsActions.onDownloadTaxa = onDownloadTaxa
-                settingsActions.onLogout = onLogout
-                settingsActions.onDeleteAccount = onDeleteAccount
-                return settingsViewController
+            navigationController: navigationController,
+            makeMainViewController: { onDownloadTaxa, onLogout, onDeleteAccount in
+                actions.onDownloadTaxa = onDownloadTaxa
+                actions.onLogout = onLogout
+                actions.onDeleteAccount = onDeleteAccount
+                return mainViewController
             }
         )
         return MainTabCoordinatorTestContext(
             coordinator: coordinator,
-            tabBarController: tabBarController,
-            settingsNavigationController: settingsNavigationController,
-            taxonRouter: taxonRouter,
-            settingsViewController: settingsViewController,
-            settingsActions: settingsActions
+            navigationController: navigationController,
+            mainViewController: mainViewController,
+            actions: actions
         )
     }
 }
 
-private struct MainTabCoordinatorTestContext {
-    let coordinator: MainTabCoordinator
-    let tabBarController: MainTabBarController
-    let settingsNavigationController: UINavigationController
-    let taxonRouter: TaxonRoutingSpy
-    let settingsViewController: UIViewController
-    let settingsActions: SettingsActionsSpy
+@MainActor
+final class MainTabNavigationTests: XCTestCase {
+    func test_initialStateShowsFindingsWithCreateEditorPrepared() {
+        let context = makeSUT()
+
+        XCTAssertEqual(context.sut.selectedTab, .findings)
+        XCTAssertEqual(context.sut.editorMode, .create)
+        XCTAssertNil(context.sut.pendingEditorMode)
+    }
+
+    func test_addFromFindingsSelectsExistingCreateEditor() {
+        let context = makeSUT()
+        let initialSessionID = context.sut.editorSessionID
+
+        context.sut.openCreateEditor()
+
+        XCTAssertEqual(context.sut.selectedTab, .editor)
+        XCTAssertEqual(context.sut.editorMode, .create)
+        XCTAssertEqual(context.sut.editorSessionID, initialSessionID)
+    }
+
+    func test_editFromFindingsSelectsFreshEditSession() {
+        let context = makeSUT()
+        let id = UUID()
+        let initialSessionID = context.sut.editorSessionID
+
+        context.sut.openEditEditor(id: id)
+
+        XCTAssertEqual(context.sut.selectedTab, .editor)
+        XCTAssertEqual(context.sut.editorMode, .edit(id))
+        XCTAssertNotEqual(context.sut.editorSessionID, initialSessionID)
+    }
+
+    func test_unsavedEditorWaitsForConfirmationBeforeOpeningAnotherFinding() {
+        let context = makeSUT()
+        let id = UUID()
+        let initialSessionID = context.sut.editorSessionID
+        context.sut.updateEditorUnsavedChanges(true)
+
+        context.sut.openEditEditor(id: id)
+
+        XCTAssertEqual(context.sut.selectedTab, .editor)
+        XCTAssertEqual(context.sut.editorMode, .create)
+        XCTAssertEqual(context.sut.editorSessionID, initialSessionID)
+        XCTAssertEqual(context.sut.pendingEditorMode, .edit(id))
+    }
+
+    func test_continuingEditorKeepsUnsavedSession() {
+        let context = makeSUT()
+        let initialSessionID = context.sut.editorSessionID
+        context.sut.updateEditorUnsavedChanges(true)
+        context.sut.openEditEditor(id: UUID())
+
+        context.sut.continueEditing()
+
+        XCTAssertEqual(context.sut.editorMode, .create)
+        XCTAssertEqual(context.sut.editorSessionID, initialSessionID)
+        XCTAssertNil(context.sut.pendingEditorMode)
+    }
+
+    func test_discardingChangesOpensPendingEditorSession() {
+        let context = makeSUT()
+        let id = UUID()
+        let initialSessionID = context.sut.editorSessionID
+        context.sut.updateEditorUnsavedChanges(true)
+        context.sut.openEditEditor(id: id)
+
+        context.sut.discardChangesAndOpenPendingEditor()
+
+        XCTAssertEqual(context.sut.editorMode, .edit(id))
+        XCTAssertNotEqual(context.sut.editorSessionID, initialSessionID)
+        XCTAssertNil(context.sut.pendingEditorMode)
+    }
+
+    func test_savedFindingReloadsListAndPreparesFreshCreateSession() {
+        let context = makeSUT()
+        context.sut.openEditEditor(id: UUID())
+        let editSessionID = context.sut.editorSessionID
+
+        context.sut.didSaveFinding()
+
+        XCTAssertEqual(context.findingsFlowController.reloadCallCount, 1)
+        XCTAssertEqual(context.sut.selectedTab, .findings)
+        XCTAssertEqual(context.sut.editorMode, .create)
+        XCTAssertNotEqual(context.sut.editorSessionID, editSessionID)
+    }
+
+    private func makeSUT() -> MainTabNavigationTestContext {
+        let findingsFlowController = FindingsFlowControllerSpy()
+        return MainTabNavigationTestContext(
+            sut: MainTabNavigation(
+                findingsFlowController: findingsFlowController
+            ),
+            findingsFlowController: findingsFlowController
+        )
+    }
 }
 
+@MainActor
+private struct MainTabCoordinatorTestContext {
+    let coordinator: MainTabCoordinator
+    let navigationController: UINavigationController
+    let mainViewController: UIViewController
+    let actions: MainCoordinatorActionsSpy
+}
+
+@MainActor
+private struct MainTabNavigationTestContext {
+    let sut: MainTabNavigation
+    let findingsFlowController: FindingsFlowControllerSpy
+}
+
+@MainActor
 private final class MainCoordinatorStub: MainCoordinating {
     let rootViewController = UIViewController()
     let primaryNavigationController = UINavigationController()
@@ -133,20 +219,16 @@ private final class MainCoordinatorStub: MainCoordinating {
     func start() {}
 }
 
-private final class TaxonRoutingSpy: TaxonRouting {
-    private(set) var didStart = false
-    private(set) var didStartNewFinding = false
+@MainActor
+private final class FindingsFlowControllerSpy: FindingsFlowControlling {
+    private(set) var reloadCallCount = 0
 
-    func start() {
-        didStart = true
-    }
-
-    func startNewFinding() {
-        didStartNewFinding = true
+    func showListAndReload() {
+        reloadCallCount += 1
     }
 }
 
-private final class SettingsActionsSpy {
+private final class MainCoordinatorActionsSpy {
     var onDownloadTaxa: Observer<Void>?
     var onLogout: Observer<Void>?
     var onDeleteAccount: Observer<Bool>?

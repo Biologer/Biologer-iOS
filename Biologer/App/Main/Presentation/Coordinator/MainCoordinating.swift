@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 protocol MainCoordinating: AnyObject {
     var rootViewController: UIViewController { get }
     var primaryNavigationController: UINavigationController { get }

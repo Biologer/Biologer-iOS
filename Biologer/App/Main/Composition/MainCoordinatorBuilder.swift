@@ -3,6 +3,7 @@ enum MainUIVersion {
     case v2
 }
 
+@MainActor
 final class MainCoordinatorBuilder {
     private let version: MainUIVersion
     private let makeLegacyCoordinator: () -> MainCoordinating

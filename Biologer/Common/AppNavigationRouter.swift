@@ -9,10 +9,12 @@ import Foundation
 
 import UIKit
 
+@MainActor
 public protocol NavigationRouter {
     func start()
 }
 
+@MainActor
 public final class AppNavigationRouter: NavigationRouter {
     private let sideMenuNavigationController = BiologerNavigationViewController(shouldBeTransparent: false)
     private let mainNavigationController: BiologerNavigationViewController
@@ -169,25 +171,18 @@ public final class AppNavigationRouter: NavigationRouter {
                 )
             },
             makeTabCoordinator: { [unowned self] in
-                let findingsNavigationController = BiologerNavigationViewController(
-                    shouldBeTransparent: false
+                let navigationController = BiologerNavigationViewController(
+                    shouldBeTransparent: true
                 )
-                let settingsNavigationController = BiologerNavigationViewController(
-                    shouldBeTransparent: false
-                )
-                let settingsBuilder = self.makeSettingsBuilder()
+                let mainTabBuilder = self.makeMainTabBuilder()
                 return MainTabCoordinator(
-                    findingsNavigationController: findingsNavigationController,
-                    settingsNavigationController: settingsNavigationController,
-                    taxonRouter: self.makeTaxonRouter(
-                        navigationController: findingsNavigationController,
-                        showsSideMenuButton: false
-                    ),
-                    makeSettingsViewController: { onDownloadTaxa, onLogout, onDeleteAccount in
-                        settingsBuilder.makeViewController(
+                    navigationController: navigationController,
+                    makeMainViewController: { onDownloadTaxa, onLogout, onDeleteAccount in
+                        mainTabBuilder.makeViewController(
                             onDownloadTaxa: onDownloadTaxa,
                             onLogout: onLogout,
-                            onDeleteAccount: onDeleteAccount
+                            onDeleteAccount: onDeleteAccount,
+                            onShowFindingLocation: { _ in }
                         )
                     }
                 )
@@ -430,6 +425,34 @@ public final class AppNavigationRouter: NavigationRouter {
         )
     }
 
+    private func makeFindingsBuilder() -> FindingsBuilder {
+        FindingsBuilder(
+            remotePostService: remoteFindinPostService,
+            uploadImageService: remoteUploadImageService,
+            dataLicenseStorage: dataLicenseStorage,
+            imageLicenseStorage: imageLicenseStorage,
+            settingsStorage: userDefaultsSettingsStorage
+        )
+    }
+
+    private func makeFindingEditorBuilder() -> FindingEditorBuilder {
+        FindingEditorBuilder(
+            altitudeService: RemoteGetAltitudeService(
+                client: httpClient,
+                environmentStorage: environmentStorage
+            )
+        )
+    }
+
+    private func makeMainTabBuilder() -> MainTabBuilder {
+        MainTabBuilder(
+            findingsBuilder: makeFindingsBuilder(),
+            findingEditorBuilder: makeFindingEditorBuilder(),
+            settingsBuilder: makeSettingsBuilder(),
+            findingsFlowController: FindingsFlowController()
+        )
+    }
+
     private func deleteCurrentAccount(deleteObservations: Bool) {
         Task { [weak self] in
             guard let self else { return }
@@ -438,7 +461,7 @@ public final class AppNavigationRouter: NavigationRouter {
                     deleteObservations: deleteObservations
                 )
                 await MainActor.run {
-                    showMainAlert(
+                    self.showMainAlert(
                         popUpType: .success,
                         title: "DeleteAccount.lb.successTitle".localized,
                         description: "",
@@ -451,7 +474,7 @@ public final class AppNavigationRouter: NavigationRouter {
                 }
             } catch let error as APIError {
                 await MainActor.run {
-                    showMainAlert(
+                    self.showMainAlert(
                         popUpType: .error,
                         title: error.title,
                         description: error.description
@@ -459,7 +482,7 @@ public final class AppNavigationRouter: NavigationRouter {
                 }
             } catch {
                 await MainActor.run {
-                    showMainAlert(
+                    self.showMainAlert(
                         popUpType: .error,
                         title: "API.lb.error".localized,
                         description: error.localizedDescription

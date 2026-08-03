@@ -341,3 +341,7 @@
 "FindingLocationV2.selected" = "Odabrana lokacija";
 "FindingLocationV2.tapHint" = "Dodirnite kartu ili pomaknite marker kako biste prilagodili lokaciju.";
 "FindingLocationV2.resolvingAltitude" = "Provjera nadmorske visine...";
+"FindingEditorV2.unsaved.title" = "Nespremljene promjene";
+"FindingEditorV2.unsaved.message" = "Imate nespremljene promjene. Želite li ih odbaciti i otvoriti drugi nalaz?";
+"FindingEditorV2.unsaved.continue" = "Nastavi uređivanje";
+"FindingEditorV2.unsaved.discard" = "Odbaci promjene";

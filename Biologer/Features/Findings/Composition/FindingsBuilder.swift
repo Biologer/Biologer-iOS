@@ -28,10 +28,27 @@ final class FindingsBuilder {
     }
 
     func makeViewController(
+        controller: FindingsFlowController,
         onAddFinding: @escaping Observer<Void>,
         onEditFinding: @escaping Observer<UUID>,
         onShowLocation: @escaping Observer<FindingDetailsLocation>
     ) -> UIViewController {
+        UIHostingController(
+            rootView: makeFlow(
+                controller: controller,
+                onAddFinding: onAddFinding,
+                onEditFinding: onEditFinding,
+                onShowLocation: onShowLocation
+            )
+        )
+    }
+
+    func makeFlow(
+        controller: FindingsFlowController,
+        onAddFinding: @escaping Observer<Void>,
+        onEditFinding: @escaping Observer<UUID>,
+        onShowLocation: @escaping Observer<FindingDetailsLocation>
+    ) -> FindingsFlow {
         let repository = RealmFindingsRepository(
             configuration: realmConfiguration
         )
@@ -43,7 +60,8 @@ final class FindingsBuilder {
             imageLicenseStorage: imageLicenseStorage,
             settingsStorage: settingsStorage
         )
-        let screen = FindingsFlow(
+        return FindingsFlow(
+            controller: controller,
             listUseCases: makeListUseCases(repository: repository),
             getFindingDetails: DefaultGetFindingDetailsUseCase(
                 repository: repository
@@ -55,7 +73,6 @@ final class FindingsBuilder {
             onEditFinding: onEditFinding,
             onShowLocation: onShowLocation
         )
-        return UIHostingController(rootView: screen)
     }
 
     private func makeListUseCases(

@@ -12,7 +12,11 @@ struct SettingsFlow_Previews: PreviewProvider {
         }
     }
 
-    private static func makeSettingsFlow() -> some View {
+    static func makeSettingsFlow(
+        onDownloadTaxa: @escaping Observer<Void> = { _ in },
+        onLogout: @escaping Observer<Void> = { _ in },
+        onDeleteAccount: @escaping Observer<Bool> = { _ in }
+    ) -> SettingsFlow {
         let preferencesRepository = PreviewSettingsPreferencesRepository()
         let licenseRepository = PreviewSettingsLicenseRepository()
         let taxonDataRepository = PreviewDownloadedTaxaRepository()
@@ -39,9 +43,9 @@ struct SettingsFlow_Previews: PreviewProvider {
             },
             appVersion: "Version: 3.0.4 (Preview)",
             onOpenURL: { _ in },
-            onDownloadTaxa: { _ in },
-            onLogout: { _ in },
-            onDeleteAccount: { _ in }
+            onDownloadTaxa: onDownloadTaxa,
+            onLogout: onLogout,
+            onDeleteAccount: onDeleteAccount
         )
     }
 }
