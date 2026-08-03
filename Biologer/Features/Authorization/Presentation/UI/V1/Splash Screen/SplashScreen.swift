@@ -22,6 +22,8 @@ struct SplashScreen: View {
                 .resizable()
                 .scaledToFit()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .biologerPageBackground()
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(.all)
         .onAppear {
