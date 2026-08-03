@@ -32,6 +32,27 @@ final class RealmFindingsRepository: FindingsRepository, FindingDetailsRepositor
         }
     }
 
+    func delete(ids: [UUID]) throws {
+        guard !ids.isEmpty else { return }
+
+        let realm = try makeRealm()
+        var uniqueIDs = Set<UUID>()
+        let findings = try ids.compactMap { id -> DBFinding? in
+            guard uniqueIDs.insert(id).inserted else { return nil }
+            guard let finding = realm.object(
+                ofType: DBFinding.self,
+                forPrimaryKey: id
+            ) else {
+                throw FindingsRepositoryError.findingNotFound(id)
+            }
+            return finding
+        }
+
+        try realm.write {
+            realm.delete(findings)
+        }
+    }
+
     func deleteAll() throws {
         let realm = try makeRealm()
         let findings = realm.objects(DBFinding.self)

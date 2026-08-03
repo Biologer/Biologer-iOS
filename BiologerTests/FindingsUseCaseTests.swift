@@ -43,6 +43,26 @@ final class FindingsUseCaseTests: XCTestCase {
         }
     }
 
+    func test_deleteFindingsForwardsIDsToRepository() throws {
+        let ids = [UUID(), UUID()]
+        let repository = FindingsRepositorySpy()
+        let sut = DefaultDeleteFindingsUseCase(repository: repository)
+
+        try sut.execute(ids: ids)
+
+        XCTAssertEqual(repository.deletedFindingIDBatches, [ids])
+    }
+
+    func test_deleteFindingsForwardsRepositoryError() {
+        let repository = FindingsRepositorySpy()
+        repository.deleteFindingsResult = .failure(FindingsUseCaseTestError.any)
+        let sut = DefaultDeleteFindingsUseCase(repository: repository)
+
+        XCTAssertThrowsError(try sut.execute(ids: [UUID()])) { error in
+            XCTAssertTrue(error is FindingsUseCaseTestError)
+        }
+    }
+
     func test_deleteAllFindingsDelegatesToRepository() throws {
         let repository = FindingsRepositorySpy()
         let sut = DefaultDeleteAllFindingsUseCase(repository: repository)
@@ -80,8 +100,10 @@ private enum FindingsUseCaseTestError: Error {
 private final class FindingsRepositorySpy: FindingsRepository {
     var getAllResult: Result<[FindingSummary], Error> = .success([])
     var deleteResult: Result<Void, Error> = .success(())
+    var deleteFindingsResult: Result<Void, Error> = .success(())
     var deleteAllResult: Result<Void, Error> = .success(())
     private(set) var deletedFindingIDs: [UUID] = []
+    private(set) var deletedFindingIDBatches: [[UUID]] = []
     private(set) var deleteAllCallCount = 0
 
     func getAll() throws -> [FindingSummary] {
@@ -91,6 +113,11 @@ private final class FindingsRepositorySpy: FindingsRepository {
     func delete(id: UUID) throws {
         deletedFindingIDs.append(id)
         try deleteResult.get()
+    }
+
+    func delete(ids: [UUID]) throws {
+        deletedFindingIDBatches.append(ids)
+        try deleteFindingsResult.get()
     }
 
     func deleteAll() throws {

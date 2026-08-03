@@ -168,7 +168,10 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
 
         context.sut.deleteSelectedFindings()
 
-        XCTAssertEqual(context.deleteFinding.receivedIDs, [first.id, second.id])
+        XCTAssertEqual(
+            context.deleteFindings.receivedIDBatches,
+            [[first.id, second.id]]
+        )
         XCTAssertEqual(context.getFindings.callCount, 2)
         XCTAssertNil(context.sut.selectionMode)
         XCTAssertEqual(context.sut.selectedFindingIDs, [])
@@ -178,14 +181,14 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
     func test_deleteSelectedFindingsPublishesErrorAndReloadsCurrentContent() {
         let finding = makeFinding()
         let context = makeSUT(getResult: .success([finding]))
-        context.deleteFinding.result = .failure(FindingsViewModelTestError.any)
+        context.deleteFindings.result = .failure(FindingsViewModelTestError.any)
         context.sut.loadFindings()
         context.sut.beginDeletionSelection()
         context.sut.toggleSelection(for: finding)
 
         context.sut.deleteSelectedFindings()
 
-        XCTAssertEqual(context.deleteFinding.receivedIDs, [finding.id])
+        XCTAssertEqual(context.deleteFindings.receivedIDBatches, [[finding.id]])
         XCTAssertEqual(context.getFindings.callCount, 2)
         XCTAssertEqual(context.sut.actionError, .deleteFindings)
         XCTAssertNil(context.sut.selectionMode)
@@ -243,12 +246,14 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
     ) -> ListOfFindingsV2TestContext {
         let getFindings = GetFindingsUseCaseStub(result: getResult)
         let deleteFinding = DeleteFindingUseCaseSpy()
+        let deleteFindings = DeleteFindingsUseCaseSpy()
         let deleteAllFindings = DeleteAllFindingsUseCaseSpy()
         let uploadFindings = ListUploadFindingsUseCaseSpy()
         let sut = ListOfFindingsV2ViewModel(
             useCases: FindingsUseCases(
                 getFindings: getFindings,
                 deleteFinding: deleteFinding,
+                deleteFindings: deleteFindings,
                 deleteAllFindings: deleteAllFindings
             ),
             onAddFinding: onAddFinding,
@@ -258,6 +263,7 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
             sut: sut,
             getFindings: getFindings,
             deleteFinding: deleteFinding,
+            deleteFindings: deleteFindings,
             deleteAllFindings: deleteAllFindings,
             uploadFindings: uploadFindings
         )
@@ -281,6 +287,7 @@ private struct ListOfFindingsV2TestContext {
     let sut: ListOfFindingsV2ViewModel
     let getFindings: GetFindingsUseCaseStub
     let deleteFinding: DeleteFindingUseCaseSpy
+    let deleteFindings: DeleteFindingsUseCaseSpy
     let deleteAllFindings: DeleteAllFindingsUseCaseSpy
     let uploadFindings: ListUploadFindingsUseCaseSpy
 }
@@ -309,6 +316,16 @@ private final class DeleteFindingUseCaseSpy: DeleteFindingUseCase {
 
     func execute(id: UUID) throws {
         receivedIDs.append(id)
+        try result.get()
+    }
+}
+
+private final class DeleteFindingsUseCaseSpy: DeleteFindingsUseCase {
+    var result: Result<Void, Error> = .success(())
+    private(set) var receivedIDBatches: [[UUID]] = []
+
+    func execute(ids: [UUID]) throws {
+        receivedIDBatches.append(ids)
         try result.get()
     }
 }

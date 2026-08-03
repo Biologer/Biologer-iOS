@@ -21,6 +21,7 @@ struct ListOfFindingsScreenV2_Previews: PreviewProvider {
         let useCases = FindingsUseCases(
             getFindings: DefaultGetFindingsUseCase(repository: repository),
             deleteFinding: DefaultDeleteFindingUseCase(repository: repository),
+            deleteFindings: DefaultDeleteFindingsUseCase(repository: repository),
             deleteAllFindings: DefaultDeleteAllFindingsUseCase(repository: repository)
         )
         let viewModel = ListOfFindingsV2ViewModel(
@@ -128,6 +129,16 @@ private final class PreviewFindingsRepository: FindingsRepository {
             throw FindingsRepositoryError.findingNotFound(id)
         }
         findings.removeAll(where: { $0.id == id })
+    }
+
+    func delete(ids: [UUID]) throws {
+        if let missingID = ids.first(where: { id in
+            !findings.contains(where: { $0.id == id })
+        }) {
+            throw FindingsRepositoryError.findingNotFound(missingID)
+        }
+        let selectedIDs = Set(ids)
+        findings.removeAll(where: { selectedIDs.contains($0.id) })
     }
 
     func deleteAll() throws {

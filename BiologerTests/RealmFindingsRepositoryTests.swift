@@ -76,6 +76,35 @@ final class RealmFindingsRepositoryTests: XCTestCase {
         }
     }
 
+    func test_deleteFindingsRemovesOnlyRequestedFindings() throws {
+        let firstDeletedID = UUID()
+        let secondDeletedID = UUID()
+        let remainingID = UUID()
+        try store(makeFinding(id: firstDeletedID))
+        try store(makeFinding(id: remainingID))
+        try store(makeFinding(id: secondDeletedID))
+
+        try sut.delete(ids: [firstDeletedID, secondDeletedID])
+
+        XCTAssertEqual(Set(try sut.getAll().map(\.id)), Set([remainingID]))
+    }
+
+    func test_deleteFindingsIsAtomicWhenSelectionContainsUnknownID() throws {
+        let existingID = UUID()
+        let missingID = UUID()
+        try store(makeFinding(id: existingID))
+
+        XCTAssertThrowsError(
+            try sut.delete(ids: [existingID, missingID])
+        ) { error in
+            XCTAssertEqual(
+                error as? FindingsRepositoryError,
+                .findingNotFound(missingID)
+            )
+        }
+        XCTAssertEqual(Set(try sut.getAll().map(\.id)), Set([existingID]))
+    }
+
     func test_deleteAllRemovesEveryFinding() throws {
         try store(makeFinding())
         try store(makeFinding())

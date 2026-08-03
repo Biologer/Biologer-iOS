@@ -181,9 +181,7 @@ final class ListOfFindingsV2ViewModel: ObservableObject {
         cancelSelection()
 
         do {
-            for id in selectedIDs {
-                try useCases.deleteFinding.execute(id: id)
-            }
+            try useCases.deleteFindings.execute(ids: selectedIDs)
             actionError = nil
             loadFindings()
         } catch {

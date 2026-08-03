@@ -64,6 +64,7 @@ final class FindingsBuilder {
         FindingsUseCases(
             getFindings: DefaultGetFindingsUseCase(repository: repository),
             deleteFinding: DefaultDeleteFindingUseCase(repository: repository),
+            deleteFindings: DefaultDeleteFindingsUseCase(repository: repository),
             deleteAllFindings: DefaultDeleteAllFindingsUseCase(repository: repository)
         )
     }
