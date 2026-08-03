@@ -31,9 +31,14 @@ struct FindingEditorAlert: Identifiable, Equatable {
 
 @MainActor
 final class FindingEditorV2ViewModel: ObservableObject {
-    @Published var draft = FindingEditorDraft.empty()
+    @Published var draft = FindingEditorDraft.empty() {
+        didSet {
+            updateUnsavedChangesState()
+        }
+    }
     @Published private(set) var loadState: FindingEditorLoadState = .idle
     @Published private(set) var isSaving = false
+    @Published private(set) var hasUnsavedChanges = false
     @Published var alert: FindingEditorAlert?
 
     let mode: FindingEditorMode
@@ -45,8 +50,10 @@ final class FindingEditorV2ViewModel: ObservableObject {
     private let onSelectTaxon: () -> Void
     private let onAddPhoto: (FindingEditorPhotoSource) -> Void
     private let onShowPhotos: ([FindingEditorPhoto], Int) -> Void
+    private let onUnsavedChangesChanged: (Bool) -> Void
     private var didLoad = false
     private var savedFindingID: UUID?
+    private var loadedDraft: FindingEditorDraft?
 
     init(
         mode: FindingEditorMode,
@@ -56,7 +63,8 @@ final class FindingEditorV2ViewModel: ObservableObject {
         onSelectLocation: @escaping (FindingEditorLocation?) -> Void,
         onSelectTaxon: @escaping () -> Void,
         onAddPhoto: @escaping (FindingEditorPhotoSource) -> Void,
-        onShowPhotos: @escaping ([FindingEditorPhoto], Int) -> Void
+        onShowPhotos: @escaping ([FindingEditorPhoto], Int) -> Void,
+        onUnsavedChangesChanged: @escaping (Bool) -> Void = { _ in }
     ) {
         self.mode = mode
         self.loadFinding = loadFinding
@@ -66,6 +74,7 @@ final class FindingEditorV2ViewModel: ObservableObject {
         self.onSelectTaxon = onSelectTaxon
         self.onAddPhoto = onAddPhoto
         self.onShowPhotos = onShowPhotos
+        self.onUnsavedChangesChanged = onUnsavedChangesChanged
     }
 
     var isEditing: Bool {
@@ -83,7 +92,10 @@ final class FindingEditorV2ViewModel: ObservableObject {
         loadState = .loading
 
         do {
-            draft = try loadFinding.execute(mode: mode)
+            let loadedDraft = try loadFinding.execute(mode: mode)
+            self.loadedDraft = loadedDraft
+            draft = loadedDraft
+            updateUnsavedChangesState()
             loadState = .content
         } catch {
             loadState = .failure
@@ -103,6 +115,8 @@ final class FindingEditorV2ViewModel: ObservableObject {
         do {
             let id = try saveFinding.execute(draft: draft, mode: mode)
             savedFindingID = id
+            loadedDraft = draft
+            updateUnsavedChangesState()
             alert = FindingEditorAlert(kind: .saveSuccess(isEditing: isEditing))
         } catch let error as FindingEditorValidationError {
             alert = FindingEditorAlert(kind: .validation(error))
@@ -184,5 +198,13 @@ final class FindingEditorV2ViewModel: ObservableObject {
         guard let savedFindingID else { return }
         self.savedFindingID = nil
         onSaved(savedFindingID)
+    }
+
+    private func updateUnsavedChangesState() {
+        let hasUnsavedChanges = loadedDraft.map { draft != $0 } ?? false
+        guard hasUnsavedChanges != self.hasUnsavedChanges else { return }
+
+        self.hasUnsavedChanges = hasUnsavedChanges
+        onUnsavedChangesChanged(hasUnsavedChanges)
     }
 }

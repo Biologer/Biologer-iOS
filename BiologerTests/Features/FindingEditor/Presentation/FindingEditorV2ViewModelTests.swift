@@ -144,6 +144,37 @@ final class FindingEditorV2ViewModelTests: XCTestCase {
         XCTAssertNil(context.sut.draft.developmentStage)
     }
 
+    func test_editingLoadedDraftPublishesUnsavedChanges() {
+        let draft = makeDraft()
+        var receivedStates: [Bool] = []
+        let context = makeSUT(
+            draft: draft,
+            onUnsavedChangesChanged: { receivedStates.append($0) }
+        )
+        context.sut.load()
+
+        context.sut.draft.comment = "Updated field note"
+
+        XCTAssertTrue(context.sut.hasUnsavedChanges)
+        XCTAssertEqual(receivedStates, [true])
+    }
+
+    func test_successfulSaveClearsUnsavedChanges() {
+        let draft = makeDraft()
+        var receivedStates: [Bool] = []
+        let context = makeSUT(
+            draft: draft,
+            onUnsavedChangesChanged: { receivedStates.append($0) }
+        )
+        context.sut.load()
+        context.sut.draft.comment = "Updated field note"
+
+        context.sut.save()
+
+        XCTAssertFalse(context.sut.hasUnsavedChanges)
+        XCTAssertEqual(receivedStates, [true, false])
+    }
+
     private func makeSUT(
         draft: FindingEditorDraft,
         mode: FindingEditorMode = .create,
@@ -151,7 +182,8 @@ final class FindingEditorV2ViewModelTests: XCTestCase {
         onSelectLocation: @escaping (FindingEditorLocation?) -> Void = { _ in },
         onSelectTaxon: @escaping () -> Void = {},
         onAddPhoto: @escaping (FindingEditorPhotoSource) -> Void = { _ in },
-        onShowPhotos: @escaping ([FindingEditorPhoto], Int) -> Void = { _, _ in }
+        onShowPhotos: @escaping ([FindingEditorPhoto], Int) -> Void = { _, _ in },
+        onUnsavedChangesChanged: @escaping (Bool) -> Void = { _ in }
     ) -> FindingEditorViewModelTestContext {
         let loadFinding = FindingEditorLoadUseCaseStub(draft: draft)
         let saveFinding = FindingEditorSaveUseCaseSpy()
@@ -163,7 +195,8 @@ final class FindingEditorV2ViewModelTests: XCTestCase {
             onSelectLocation: onSelectLocation,
             onSelectTaxon: onSelectTaxon,
             onAddPhoto: onAddPhoto,
-            onShowPhotos: onShowPhotos
+            onShowPhotos: onShowPhotos,
+            onUnsavedChangesChanged: onUnsavedChangesChanged
         )
         return FindingEditorViewModelTestContext(
             sut: sut,

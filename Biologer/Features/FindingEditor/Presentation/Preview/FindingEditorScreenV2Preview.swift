@@ -4,44 +4,47 @@ import UIKit
 struct FindingEditorScreenV2_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            makeScreen(mode: .create, draft: createDraft)
+            makeFlow(mode: .create)
                 .previewDisplayName("Create finding V2")
 
-            makeScreen(mode: .edit(editDraft.id), draft: editDraft)
+            makeFlow(mode: .edit(editDraft.id))
                 .previewDisplayName("Edit finding V2")
 
-            makeScreen(mode: .edit(editDraft.id), draft: editDraft)
+            makeFlow(mode: .edit(editDraft.id))
                 .preferredColorScheme(.dark)
                 .previewDisplayName("Edit finding V2 - Dark")
         }
     }
 
-    private static func makeScreen(
+    static func makeFlow(
         mode: FindingEditorMode,
-        draft: FindingEditorDraft
-    ) -> some View {
+        onSaved: @escaping Observer<UUID> = { _ in },
+        onUnsavedChangesChanged: @escaping Observer<Bool> = { _ in }
+    ) -> FindingEditorFlow {
+        var draft = mode.findingID == nil ? createDraft : editDraft
+        if let findingID = mode.findingID {
+            draft.id = findingID
+        }
         let repository = PreviewFindingEditorRepository(draft: draft)
 
-        return NavigationStack {
-            FindingEditorFlow(
-                mode: mode,
-                loadFinding: DefaultLoadFindingEditorUseCase(
-                    repository: repository
-                ),
-                saveFinding: DefaultSaveFindingEditorUseCase(
-                    repository: repository
-                ),
-                searchTaxa: DefaultSearchFindingTaxaUseCase(
-                    repository: PreviewFindingTaxonSearchRepository()
-                ),
-                locationUseCases: FindingLocationUseCases(
-                    observeCurrentLocation: PreviewObserveCurrentFindingLocationUseCase(),
-                    resolveLocation: PreviewResolveFindingLocationUseCase()
-                ),
-                onSaved: { _ in },
-                onAddPhoto: { _ in }
-            )
-        }
+        return FindingEditorFlow(
+            mode: mode,
+            loadFinding: DefaultLoadFindingEditorUseCase(
+                repository: repository
+            ),
+            saveFinding: DefaultSaveFindingEditorUseCase(
+                repository: repository
+            ),
+            searchTaxa: DefaultSearchFindingTaxaUseCase(
+                repository: PreviewFindingTaxonSearchRepository()
+            ),
+            locationUseCases: FindingLocationUseCases(
+                observeCurrentLocation: PreviewObserveCurrentFindingLocationUseCase(),
+                resolveLocation: PreviewResolveFindingLocationUseCase()
+            ),
+            onSaved: onSaved,
+            onUnsavedChangesChanged: onUnsavedChangesChanged
+        )
     }
 
     private static let createDraft = FindingEditorDraft(
