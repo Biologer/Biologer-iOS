@@ -34,8 +34,11 @@ struct FindingEditorScreenV2_Previews: PreviewProvider {
                 searchTaxa: DefaultSearchFindingTaxaUseCase(
                     repository: PreviewFindingTaxonSearchRepository()
                 ),
+                locationUseCases: FindingLocationUseCases(
+                    observeCurrentLocation: PreviewObserveCurrentFindingLocationUseCase(),
+                    resolveLocation: PreviewResolveFindingLocationUseCase()
+                ),
                 onSaved: { _ in },
-                onSelectLocation: { _ in },
                 onAddPhoto: { _ in }
             )
         }
@@ -128,6 +131,22 @@ struct FindingEditorScreenV2_Previews: PreviewProvider {
 
     private static func imageData(named imageName: String) -> Data? {
         UIImage(named: imageName)?.jpegData(compressionQuality: 0.9)
+    }
+}
+
+private final class PreviewObserveCurrentFindingLocationUseCase:
+    ObserveCurrentFindingLocationUseCase {
+    func start(
+        onLocation: @escaping (FindingEditorLocation) -> Void,
+        onError: @escaping (FindingLocationRepositoryError) -> Void
+    ) {}
+
+    func stop() {}
+}
+
+private final class PreviewResolveFindingLocationUseCase: ResolveFindingLocationUseCase {
+    func execute(_ location: FindingEditorLocation) async -> FindingEditorLocation {
+        location
     }
 }
 

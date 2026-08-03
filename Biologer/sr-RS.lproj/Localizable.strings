@@ -332,3 +332,12 @@
 "FindingEditorV2.taxon.error.title" = "Претрага врста није могућа";
 "FindingEditorV2.taxon.error.message" = "Локалну базу врста није могуће претражити. Покушајте поново.";
 "FindingEditorV2.taxon.custom.title" = "Употребите прилагођени назив врсте";
+"FindingLocationV2.current" = "Користи тренутну локацију";
+"FindingLocationV2.confirm" = "Користи ову локацију";
+"FindingLocationV2.locating" = "Одређивање тренутне локације...";
+"FindingLocationV2.permissionDenied" = "Приступ локацији је искључен. И даље можете изабрати тачку на мапи.";
+"FindingLocationV2.unavailable" = "Тренутна локација није доступна. Изаберите тачку на мапи.";
+"FindingLocationV2.mapType" = "Тип мапе";
+"FindingLocationV2.selected" = "Изабрана локација";
+"FindingLocationV2.tapHint" = "Додирните мапу или померите маркер да подесите локацију.";
+"FindingLocationV2.resolvingAltitude" = "Провера надморске висине...";

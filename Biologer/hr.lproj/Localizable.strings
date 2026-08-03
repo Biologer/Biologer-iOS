@@ -332,3 +332,12 @@
 "FindingEditorV2.taxon.error.title" = "Pretraživanje vrsta nije moguće";
 "FindingEditorV2.taxon.error.message" = "Lokalnu bazu vrsta nije moguće pretražiti. Pokušajte ponovno.";
 "FindingEditorV2.taxon.custom.title" = "Upotrijebite prilagođeni naziv vrste";
+"FindingLocationV2.current" = "Upotrijebi trenutačnu lokaciju";
+"FindingLocationV2.confirm" = "Upotrijebi ovu lokaciju";
+"FindingLocationV2.locating" = "Određivanje trenutačne lokacije...";
+"FindingLocationV2.permissionDenied" = "Pristup lokaciji je isključen. I dalje možete odabrati točku na karti.";
+"FindingLocationV2.unavailable" = "Trenutačna lokacija nije dostupna. Odaberite točku na karti.";
+"FindingLocationV2.mapType" = "Vrsta karte";
+"FindingLocationV2.selected" = "Odabrana lokacija";
+"FindingLocationV2.tapHint" = "Dodirnite kartu ili pomaknite marker kako biste prilagodili lokaciju.";
+"FindingLocationV2.resolvingAltitude" = "Provjera nadmorske visine...";

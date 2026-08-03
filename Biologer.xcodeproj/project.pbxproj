@@ -315,6 +315,8 @@
 		FB000008302A000000000001 /* FindingTaxonSearchUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000007302A000000000001 /* FindingTaxonSearchUseCaseTests.swift */; };
 		FC000032302B000000000001 /* RealmFindingTaxonSearchRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC000031302B000000000001 /* RealmFindingTaxonSearchRepositoryTests.swift */; };
 		FC000034302B000000000001 /* FindingTaxonSearchV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC000033302B000000000001 /* FindingTaxonSearchV2ViewModelTests.swift */; };
+		FD000002302C000000000001 /* FindingLocationUseCasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD000001302C000000000001 /* FindingLocationUseCasesTests.swift */; };
+		FD000004302C000000000001 /* FindingLocationV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD000003302C000000000001 /* FindingLocationV2ViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -650,6 +652,8 @@
 		FB000007302A000000000001 /* FindingTaxonSearchUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingTaxonSearchUseCaseTests.swift; sourceTree = "<group>"; };
 		FC000031302B000000000001 /* RealmFindingTaxonSearchRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFindingTaxonSearchRepositoryTests.swift; sourceTree = "<group>"; };
 		FC000033302B000000000001 /* FindingTaxonSearchV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingTaxonSearchV2ViewModelTests.swift; sourceTree = "<group>"; };
+		FD000001302C000000000001 /* FindingLocationUseCasesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingLocationUseCasesTests.swift; sourceTree = "<group>"; };
+		FD000003302C000000000001 /* FindingLocationV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingLocationV2ViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -2069,6 +2073,7 @@
 			children = (
 				FB000001302A000000000001 /* FindingEditorUseCaseTests.swift */,
 				FB000007302A000000000001 /* FindingTaxonSearchUseCaseTests.swift */,
+				FD000001302C000000000001 /* FindingLocationUseCasesTests.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -2078,6 +2083,7 @@
 			children = (
 				FB000005302A000000000001 /* FindingEditorV2ViewModelTests.swift */,
 				FC000033302B000000000001 /* FindingTaxonSearchV2ViewModelTests.swift */,
+				FD000003302C000000000001 /* FindingLocationV2ViewModelTests.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -2556,6 +2562,8 @@
 				FB000008302A000000000001 /* FindingTaxonSearchUseCaseTests.swift in Sources */,
 				FC000032302B000000000001 /* RealmFindingTaxonSearchRepositoryTests.swift in Sources */,
 				FC000034302B000000000001 /* FindingTaxonSearchV2ViewModelTests.swift in Sources */,
+				FD000002302C000000000001 /* FindingLocationUseCasesTests.swift in Sources */,
+				FD000004302C000000000001 /* FindingLocationV2ViewModelTests.swift in Sources */,
 				B300000A301D000000000001 /* AuthorizationRouterTests.swift in Sources */,
 				B3000008301D000000000001 /* AuthorizationV2ViewModelTests.swift in Sources */,
 				B3000006301D000000000001 /* LoginUserUseCaseTests.swift in Sources */,

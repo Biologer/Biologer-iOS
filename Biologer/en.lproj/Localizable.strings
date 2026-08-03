@@ -332,3 +332,12 @@
 "FindingEditorV2.taxon.error.title" = "Unable to search species";
 "FindingEditorV2.taxon.error.message" = "The local species database could not be searched. Please try again.";
 "FindingEditorV2.taxon.custom.title" = "Use a custom species name";
+"FindingLocationV2.current" = "Use current location";
+"FindingLocationV2.confirm" = "Use this location";
+"FindingLocationV2.locating" = "Finding your current location...";
+"FindingLocationV2.permissionDenied" = "Location access is disabled. You can still select a point on the map.";
+"FindingLocationV2.unavailable" = "Your current location is unavailable. Select a point on the map.";
+"FindingLocationV2.mapType" = "Map type";
+"FindingLocationV2.selected" = "Selected location";
+"FindingLocationV2.tapHint" = "Tap the map or drag the marker to adjust the location.";
+"FindingLocationV2.resolvingAltitude" = "Checking altitude...";
