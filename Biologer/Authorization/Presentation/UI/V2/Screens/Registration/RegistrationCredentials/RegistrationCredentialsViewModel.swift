@@ -9,14 +9,12 @@ import Foundation
 
 @MainActor
 public final class RegistrationCredentialsViewModel: ObservableObject {
-    @Published
-    var emailTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = EmailTextFieldViewModel()
-
-    @Published
-    var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = RegisterPasswordTextFieldViewModel()
-
-    @Published
-    var repeatPasswordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = RepeatPasswordTextFieldViewModel()
+    @Published private(set) var email: String
+    @Published private(set) var password: String
+    @Published private(set) var repeatedPassword: String
+    @Published private(set) var emailError: String?
+    @Published private(set) var passwordError: String?
+    @Published private(set) var repeatedPasswordError: String?
 
     private let user: RegistrationDraft
 
@@ -31,18 +29,36 @@ public final class RegistrationCredentialsViewModel: ObservableObject {
         self.validator = validator
         self.onNextTapped = onNextTapped
         self.user = user
+        email = user.email
+        password = user.password
+        repeatedPassword = user.password
     }
 
     func nextButtonTapped() {
         validateFields()
     }
 
+    func updateEmail(_ email: String) {
+        self.email = email
+        emailError = nil
+    }
+
+    func updatePassword(_ password: String) {
+        self.password = password
+        passwordError = nil
+    }
+
+    func updateRepeatedPassword(_ password: String) {
+        repeatedPassword = password
+        repeatedPasswordError = nil
+    }
+
     private func validateFields() {
         do throws(RegisterUserValidationError) {
             let credentials = try validator.validateCredentials(
-                email: emailTextFieldViewModel.text,
-                password: passwordTextFieldViewModel.text,
-                repeatedPassword: repeatPasswordTextFieldViewModel.text
+                email: email,
+                password: password,
+                repeatedPassword: repeatedPassword
             )
             user.email = credentials.email
             user.password = credentials.password
@@ -75,62 +91,34 @@ public final class RegistrationCredentialsViewModel: ObservableObject {
 
 extension RegistrationCredentialsViewModel {
     private func setEmailRequired() {
-        objectWillChange.send()
-        emailTextFieldViewModel.errorText = "Common.tf.error.required".localized
-        emailTextFieldViewModel.type = .failure
+        emailError = "Common.tf.error.required".localized
     }
 
     private func setEmailIsNotValid() {
-        objectWillChange.send()
-        emailTextFieldViewModel.errorText = "Common.tf.email.error.notValid" .localized
-        emailTextFieldViewModel.type = .failure
+        emailError = "Common.tf.email.error.notValid".localized
     }
 
     private func setPasswordIsRequired() {
-        objectWillChange.send()
-        passwordTextFieldViewModel.errorText = "Common.tf.error.required".localized
-        passwordTextFieldViewModel.type = .failure
+        passwordError = "Common.tf.error.required".localized
     }
 
     private func setPasswordIsNotValid() {
-        objectWillChange.send()
-        passwordTextFieldViewModel.errorText = "Common.tf.password.error.notValid".localized
-        passwordTextFieldViewModel.type = .failure
+        passwordError = "Common.tf.password.error.notValid".localized
     }
 
     private func setPasswordDoesntMatches() {
-        objectWillChange.send()
-        repeatPasswordTextFieldViewModel.errorText = "Register.two.tf.repeatPassword.error".localized
-        repeatPasswordTextFieldViewModel.type = .failure
+        repeatedPasswordError = "Register.two.tf.repeatPassword.error".localized
     }
 
     private func setEmailValid() {
-        objectWillChange.send()
-        emailTextFieldViewModel.errorText = ""
-        emailTextFieldViewModel.type = .success
+        emailError = nil
     }
 
     private func setPasswordValid() {
-        objectWillChange.send()
-        passwordTextFieldViewModel.errorText = ""
-        passwordTextFieldViewModel.type = .success
+        passwordError = nil
     }
 
     private func setRepeatPasswordValid() {
-        objectWillChange.send()
-        repeatPasswordTextFieldViewModel.errorText = ""
-        repeatPasswordTextFieldViewModel.type = .success
-    }
-}
-
-extension RegistrationCredentialsViewModel {
-    public func toggleIsCodeEntryPassword() {
-        objectWillChange.send()
-        passwordTextFieldViewModel.isCodeEntry.toggle()
-    }
-
-    public func toggleIsCodeEntryRepeatPassword() {
-        objectWillChange.send()
-        repeatPasswordTextFieldViewModel.isCodeEntry.toggle()
+        repeatedPasswordError = nil
     }
 }

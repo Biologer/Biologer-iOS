@@ -8,12 +8,15 @@ private struct AuthorizationNavigationBarModifier: ViewModifier {
         content
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(BiologerColors.pageBackground, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 if let onBack {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: onBack) {
-                            Image("back_arrow")
-                                .foregroundColor(Color(.darkText))
+                            Image(systemName: "chevron.left")
+                                .font(.body.weight(.semibold))
+                                .foregroundColor(BiologerColors.sectionTitle)
                         }
                     }
                 }
@@ -21,12 +24,13 @@ private struct AuthorizationNavigationBarModifier: ViewModifier {
                 if let title {
                     ToolbarItem(placement: .principal) {
                         Text(title)
-                            .font(.system(size: navigationBarTitleSize, weight: .bold))
-                            .foregroundColor(Color(.darkText))
+                            .font(.headline)
+                            .foregroundColor(BiologerColors.textPrimary)
                             .multilineTextAlignment(.center)
                     }
                 }
             }
+            .tint(BiologerColors.accent)
     }
 }
 
@@ -35,6 +39,11 @@ extension View {
         title: String? = nil,
         onBack: (() -> Void)? = nil
     ) -> some View {
-        modifier(AuthorizationNavigationBarModifier(title: title, onBack: onBack))
+        modifier(
+            AuthorizationNavigationBarModifier(
+                title: title,
+                onBack: onBack
+            )
+        )
     }
 }

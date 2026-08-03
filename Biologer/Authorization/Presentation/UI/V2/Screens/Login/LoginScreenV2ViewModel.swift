@@ -12,8 +12,10 @@ public final class LoginScreenV2ViewModel: ObservableObject {
 
     @Published public var isLoading: Bool = false
     @Published public var environmentViewModel: EnvironmentViewModel
-    @Published public var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
-    @Published public var passwordTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol
+    @Published public private(set) var email: String = ""
+    @Published public private(set) var password: String = ""
+    @Published public private(set) var emailError: String?
+    @Published public private(set) var passwordError: String?
 
     private let useCase: LoginUserUseCase
     private let onSelectEnvironmentTapped: Observer<Void>
@@ -32,8 +34,6 @@ public final class LoginScreenV2ViewModel: ObservableObject {
         onLoginError: @escaping Observer<AuthorizationFailure>,
     ) {
         self.environmentViewModel = environmentViewModel
-        self.userNameTextFieldViewModel = UserNameTextFieldViewModel()
-        self.passwordTextFieldViewModel = PasswordTextFieldViewModel()
         self.onSelectEnvironmentTapped = onSelectEnvironmentTapped
         self.useCase = useCase
         self.onLoginSuccess = onLoginSuccess
@@ -58,13 +58,23 @@ public final class LoginScreenV2ViewModel: ObservableObject {
         self.environmentViewModel = environmentViewModel
     }
 
+    public func updateEmail(_ email: String) {
+        self.email = email
+        emailError = nil
+    }
+
+    public func updatePassword(_ password: String) {
+        self.password = password
+        passwordError = nil
+    }
+
     public func login() async {
         isLoading = true
         do throws(LoginError) {
             try await useCase.login(
-                email: userNameTextFieldViewModel.text,
-                username: userNameTextFieldViewModel.text,
-                password: passwordTextFieldViewModel.text
+                email: email,
+                username: email,
+                password: password
             )
             setEmailIsValid()
             setPasswordValid()
@@ -88,34 +98,22 @@ public final class LoginScreenV2ViewModel: ObservableObject {
 
 extension LoginScreenV2ViewModel {
     private func setEmailRequired() {
-        objectWillChange.send()
-        userNameTextFieldViewModel.setInvalid(with: "Common.tf.error.required".localized)
+        emailError = "Common.tf.error.required".localized
     }
 
     private func setEmailIsNotValidFormat() {
-        objectWillChange.send()
-        userNameTextFieldViewModel.setInvalid(with: "Common.tf.email.error.notValid".localized)
+        emailError = "Common.tf.email.error.notValid".localized
     }
 
     private func setPasswordIsNotValid() {
-        objectWillChange.send()
-        passwordTextFieldViewModel.setInvalid(with: "Common.tf.error.required".localized)
+        passwordError = "Common.tf.error.required".localized
     }
 
     private func setEmailIsValid() {
-        objectWillChange.send()
-        userNameTextFieldViewModel.setValid()
+        emailError = nil
     }
 
     private func setPasswordValid() {
-        objectWillChange.send()
-        passwordTextFieldViewModel.setValid()
-    }
-}
-
-extension LoginScreenV2ViewModel {
-    public func toggleIsCodeEntryPassword() {
-        objectWillChange.send()
-        passwordTextFieldViewModel.isCodeEntry.toggle()
+        passwordError = nil
     }
 }

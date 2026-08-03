@@ -35,9 +35,9 @@ final class AuthorizationV2ViewModelTests: XCTestCase {
             validator: validator,
             onNextTapped: { nextCallCount += 1 }
         )
-        sut.userNameTextFieldViewModel.text = "Nikola"
-        sut.lastNameTextFieldViewModel.text = "Popovic"
-        sut.institutionTextFieldViewModel.text = "Biologer"
+        sut.updateFirstName("Nikola")
+        sut.updateLastName("Popovic")
+        sut.updateInstitution("Biologer")
 
         sut.nextButtonTapped()
 
@@ -56,15 +56,28 @@ final class AuthorizationV2ViewModelTests: XCTestCase {
             validator: validator,
             onNextTapped: { nextCallCount += 1 }
         )
-        sut.emailTextFieldViewModel.text = "user@example.com"
-        sut.passwordTextFieldViewModel.text = "Password1"
-        sut.repeatPasswordTextFieldViewModel.text = "Password1"
+        sut.updateEmail("user@example.com")
+        sut.updatePassword("Password1")
+        sut.updateRepeatedPassword("Password1")
 
         sut.nextButtonTapped()
 
         XCTAssertEqual(draft.email, "user@example.com")
         XCTAssertEqual(draft.password, "Password1")
         XCTAssertEqual(nextCallCount, 1)
+    }
+
+    func test_credentials_acceptsContinuousPasswordUpdates() {
+        let sut = RegistrationCredentialsViewModel(
+            user: RegistrationDraft(),
+            validator: CredentialsValidatorStub(),
+            onNextTapped: { _ in }
+        )
+
+        sut.updatePassword("P")
+        sut.updatePassword("Password1")
+
+        XCTAssertEqual(sut.password, "Password1")
     }
 
     func test_registrationRequiresPrivacyConsent() async {
@@ -116,13 +129,35 @@ final class AuthorizationV2ViewModelTests: XCTestCase {
             onForgotPasswordTapped: {},
             onLoginError: { receivedFailure = $0 }
         )
-        sut.userNameTextFieldViewModel.text = "user@example.com"
-        sut.passwordTextFieldViewModel.text = "Password1"
+        sut.updateEmail("user@example.com")
+        sut.updatePassword("Password1")
 
         await sut.login()
 
         XCTAssertEqual(receivedFailure, failure)
         XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_loginPublishesInvalidEmailErrorImmediately() async {
+        let login = LoginUserUseCaseStub(result: .failure(.invalidEmail))
+        let environment = EnvironmentViewModelFactory().createEnvironment(type: .serbia)
+        let sut = LoginScreenV2ViewModel(
+            environmentViewModel: environment,
+            useCase: login,
+            onSelectEnvironmentTapped: {},
+            onLoginSuccess: {},
+            onRegisterTapped: {},
+            onForgotPasswordTapped: {},
+            onLoginError: { _ in }
+        )
+        sut.updateEmail("invalid-email")
+
+        await sut.login()
+
+        XCTAssertEqual(
+            sut.emailError,
+            "Common.tf.email.error.notValid".localized
+        )
     }
 
     private func makeRegistrationViewModel(

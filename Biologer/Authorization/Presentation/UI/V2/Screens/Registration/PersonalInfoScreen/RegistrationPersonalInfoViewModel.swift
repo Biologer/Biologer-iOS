@@ -9,14 +9,11 @@ import SwiftUI
 
 @MainActor
 public final class RegistrationPersonalInfoViewModel: ObservableObject {
-    @Published
-    var userNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = NameTextFieldViewModel()
-
-    @Published
-    var lastNameTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = SurnameTextFieldViewModel()
-
-    @Published
-    var institutionTextFieldViewModel: MaterialDesignTextFieldViewModelProtocol = InsititutionTextFieldViewModel()
+    @Published private(set) var firstName: String
+    @Published private(set) var lastName: String
+    @Published private(set) var institution: String
+    @Published private(set) var firstNameError: String?
+    @Published private(set) var lastNameError: String?
 
     private let user: RegistrationDraft
 
@@ -31,18 +28,35 @@ public final class RegistrationPersonalInfoViewModel: ObservableObject {
         self.validator = validator
         self.onNextTapped = onNextTapped
         self.user = user
+        firstName = user.username
+        lastName = user.lastname
+        institution = user.institution
     }
 
     func nextButtonTapped() {
         validateFields()
     }
 
+    func updateFirstName(_ firstName: String) {
+        self.firstName = firstName
+        firstNameError = nil
+    }
+
+    func updateLastName(_ lastName: String) {
+        self.lastName = lastName
+        lastNameError = nil
+    }
+
+    func updateInstitution(_ institution: String) {
+        self.institution = institution
+    }
+
     private func validateFields() {
         do throws(RegisterUserValidationError) {
             let personalInfo = try validator.validatePersonalInfo(
-                firstName: userNameTextFieldViewModel.text,
-                lastName: lastNameTextFieldViewModel.text,
-                institution: institutionTextFieldViewModel.text
+                firstName: firstName,
+                lastName: lastName,
+                institution: institution
             )
             user.username = personalInfo.firstName
             user.lastname = personalInfo.lastName
@@ -68,18 +82,15 @@ public final class RegistrationPersonalInfoViewModel: ObservableObject {
 
 extension RegistrationPersonalInfoViewModel {
     private func setNameIsRequired() {
-        objectWillChange.send()
-        userNameTextFieldViewModel.setInvalid(with: "Common.tf.error.required".localized)
+        firstNameError = "Common.tf.error.required".localized
     }
 
     private func setLastNameIsRequired() {
-        objectWillChange.send()
-        lastNameTextFieldViewModel.setInvalid(with: "Common.tf.error.required".localized)
+        lastNameError = "Common.tf.error.required".localized
     }
 
     private func setAllFieldsAreValid() {
-        objectWillChange.send()
-        userNameTextFieldViewModel.setValid()
-        lastNameTextFieldViewModel.setValid()
+        firstNameError = nil
+        lastNameError = nil
     }
 }

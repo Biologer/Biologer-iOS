@@ -1,19 +1,10 @@
-//
-//  RegistrationLicenseConsentScreen.swift
-//  Biologer
-//
-//  Created by Nikola Popovic on 7. 7. 2026..
-//
-
 import SwiftUI
 
 struct RegistrationLicenseConsentScreen: View {
-
     private let dataLicense: CheckMarkItem
     private let imageLicense: CheckMarkItem
 
-    @StateObject
-    private var viewModel: RegistrationLicenseConsentViewModel
+    @StateObject private var viewModel: RegistrationLicenseConsentViewModel
 
     init(
         viewModel: RegistrationLicenseConsentViewModel,
@@ -27,65 +18,109 @@ struct RegistrationLicenseConsentScreen: View {
 
     var body: some View {
         ZStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    Color.clear
-                    Image(viewModel.topImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                    RegisterLicenseView(
-                        dataLicense: viewModel.dataLicense,
-                        onDataTapped: viewModel.dataLicenseTapped)
-                    RegisterLicenseView(
-                        dataLicense: viewModel.imageLicense,
-                        onDataTapped: viewModel.imageLicenseTapped)
-                    Text("Register.three.lb.description".localized)
-                        .font(.titleFont)
-                        .lineLimit(nil)
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Button(action: {
-                        viewModel.onReadPrivacyPolicy(())
-                    }, label: {
-                        AttributedTextView(
-                            configuration: { label in
-                                label.attributedText = createUnderlinePrivacyPolicy(text: "Register.three.btn.privacyPolicy".localized)
-                                label.numberOfLines = 0
-                                label.textAlignment = .center
-                                label.textColor = UIColor.biologerGreenColor
-                            })
-                    })
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    VStack(spacing: BiologerSpacing.large) {
+                        AuthorizationStepHeader(
+                            step: 3,
+                            totalSteps: 3,
+                            systemImage: "checkmark.seal"
+                        )
+                        .padding(.top, BiologerSpacing.small)
 
-                    HStack {
-                        CheckView(
-                            isChecked: false,
-                            onToggle: { isChecked in
-                                viewModel.acceptPPCheckMark = isChecked
-                            })
-                        Text("Register.three.lb.acceptPrivacyPolicy".localized)
-                            .font(.titleFont)
-                        Spacer()
-                    }
-                    BiologerButton(
-                        title: "Register.three.btn.register".localized,
-                        onTapped: { _ in
+                        if !viewModel.topImage.isEmpty {
+                            Image(viewModel.topImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48, height: 48)
+                                .padding(BiologerSpacing.xSmall)
+                                .background(.white, in: Circle())
+                                .shadow(color: .black.opacity(0.08), radius: 6, y: 2)
+                        }
+
+                        VStack(spacing: BiologerSpacing.small) {
+                            AuthorizationNavigationCard(
+                                title: viewModel.dataLicense.title,
+                                subtitle: viewModel.dataLicense.placeholder,
+                                systemImage: "doc.text",
+                                action: viewModel.dataLicenseTapped
+                            )
+
+                            AuthorizationNavigationCard(
+                                title: viewModel.imageLicense.title,
+                                subtitle: viewModel.imageLicense.placeholder,
+                                systemImage: "photo",
+                                action: viewModel.imageLicenseTapped
+                            )
+                        }
+
+                        Text("Register.three.lb.description".localized)
+                            .font(.body)
+                            .foregroundColor(BiologerColors.textPrimary)
+                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(BiologerSpacing.regular)
+                            .biologerCard()
+
+                        Button(action: viewModel.privacyPolicyTapped) {
+                            Label(
+                                "Register.three.btn.privacyPolicy".localized,
+                                systemImage: "doc.text.magnifyingglass"
+                            )
+                        }
+                        .buttonStyle(
+                            BiologerActionButtonStyle(isFilled: false)
+                        )
+
+                        Toggle(
+                            "Register.three.lb.acceptPrivacyPolicy".localized,
+                            isOn: $viewModel.acceptPPCheckMark
+                        )
+                        .font(.body)
+                        .foregroundColor(BiologerColors.textPrimary)
+                        .tint(BiologerColors.accent)
+                        .padding(BiologerSpacing.regular)
+                        .biologerCard(
+                            isSelected: viewModel.acceptPPCheckMark
+                        )
+
+                        if !viewModel.errorLabel.isEmpty {
+                            Text(viewModel.errorLabel)
+                                .font(.footnote.weight(.medium))
+                                .foregroundColor(BiologerColors.destructive)
+                                .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+
+                        Button {
                             Task {
                                 await viewModel.registerTapped()
                             }
-                        })
-                    ErrorLabelView(text: viewModel.errorLabel)
-                        .font(.titleFont)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding()
+                        } label: {
+                            Label(
+                                "Register.three.btn.register".localized,
+                                systemImage: "person.badge.plus"
+                            )
+                        }
+                        .buttonStyle(BiologerActionButtonStyle())
+                    }
+                    .frame(
+                        width: max(
+                            0,
+                            geometry.size.width - (BiologerSpacing.regular * 2)
+                        )
+                    )
+                    .padding(.horizontal, BiologerSpacing.regular)
+                    .padding(.bottom, BiologerSpacing.xxLarge)
                 }
-                .padding(.horizontal, 30)
             }
+
             if viewModel.isLoading {
-                BiologerProgressView()
+                AuthorizationLoadingOverlay()
             }
         }
+        .biologerPageBackground()
         .navigationBarBackButtonHidden(true)
         .onAppear {
             viewModel.updateDataLicense(dataLicense)
@@ -100,30 +135,23 @@ struct RegistrationLicenseConsentScreen: View {
         .sheet(item: $viewModel.registrationPopup) { popup in
             switch popup {
             case .error(let error):
-                PopUpConfirmScreen(
-                    popUpType: .error,
-                    title: error.summary.isEmpty ? "API.lb.error".localized : error.summary,
-                    description: error.message,
-                    onButtonTapped: {
-                        viewModel.dismissRegistrationPopup()
-                    }
+                AuthorizationResultSheet(
+                    isSuccess: false,
+                    title: error.summary.isEmpty
+                        ? "API.lb.error".localized
+                        : error.summary,
+                    message: error.message,
+                    onConfirm: viewModel.dismissRegistrationPopup
                 )
             case .success:
-                PopUpConfirmScreen(
-                    popUpType: .success,
+                AuthorizationResultSheet(
+                    isSuccess: true,
                     title: "Register.three.successPopUp.title".localized,
-                    description: "Register.three.successPopUp.description".localized,
-                    onButtonTapped: {
-                        viewModel.confirmRegistrationSuccess()
-                    }
+                    message: "Register.three.successPopUp.description".localized,
+                    onConfirm: viewModel.confirmRegistrationSuccess
                 )
             }
         }
-    }
-
-    public func createUnderlinePrivacyPolicy(text: String) -> NSMutableAttributedString {
-        let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue]
-        return NSMutableAttributedString(string: text, attributes: underlineAttribute)
     }
 }
 
@@ -132,7 +160,7 @@ struct RegistrationLicenseConsentScreen_Previews: PreviewProvider {
         RegistrationLicenseConsentScreen(
             viewModel: RegistrationLicenseConsentViewModel(
                 user: RegistrationDraft(),
-                topImage: "",
+                topImage: "serbia_flag",
                 registerUserUseCase: StubRegistrationUseCase(),
                 dataLicense: CheckMarkItemMapper.getDataLicense()[0],
                 imageLicense: CheckMarkItemMapper.getImageLicense()[0],
@@ -146,13 +174,17 @@ struct RegistrationLicenseConsentScreen_Previews: PreviewProvider {
         )
     }
 
-    private class StubRegistrationUseCase: RegistrationUseCase {
+    private final class StubRegistrationUseCase: RegistrationUseCase {
         func validatePersonalInfo(
             firstName: String,
             lastName: String,
             institution: String
         ) throws(RegisterUserValidationError) -> RegistrationPersonalInfo {
-            RegistrationPersonalInfo(firstName: firstName, lastName: lastName, institution: institution)
+            RegistrationPersonalInfo(
+                firstName: firstName,
+                lastName: lastName,
+                institution: institution
+            )
         }
 
         func validateCredentials(
@@ -163,6 +195,9 @@ struct RegistrationLicenseConsentScreen_Previews: PreviewProvider {
             RegistrationCredentials(email: email, password: password)
         }
 
-        func createUser(request: RegistrationRequest) async throws(AuthorizationFailure) -> Void {}
+        func createUser(
+            request: RegistrationRequest
+        ) async throws(AuthorizationFailure) {
+        }
     }
 }

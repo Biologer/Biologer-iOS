@@ -301,6 +301,7 @@
 		E32762F717E4474CF6020981 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */; };
 		E40000023022000000000001 /* MainCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000013022000000000001 /* MainCoordinatorTests.swift */; };
 		E40000043022000000000001 /* SettingsV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000033022000000000001 /* SettingsV2Tests.swift */; };
+		F70000023024000000000001 /* AuthorizationUIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70000013024000000000001 /* AuthorizationUIComponents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -623,6 +624,7 @@
 		D20000202FFD200000000001 /* SetupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCaseTests.swift; sourceTree = "<group>"; };
 		E40000013022000000000001 /* MainCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorTests.swift; sourceTree = "<group>"; };
 		E40000033022000000000001 /* SettingsV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsV2Tests.swift; sourceTree = "<group>"; };
+		F70000013024000000000001 /* AuthorizationUIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationUIComponents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -1613,6 +1615,7 @@
 		9E07D717301C9B9D00DCF823 /* V2 */ = {
 			isa = PBXGroup;
 			children = (
+				F70000033024000000000001 /* Components */,
 				9E07D71C301C9C4F00DCF823 /* Models */,
 				9E07D718301C9BB300DCF823 /* Screens */,
 			);
@@ -1861,6 +1864,14 @@
 				D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		F70000033024000000000001 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F70000013024000000000001 /* AuthorizationUIComponents.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2126,6 +2137,7 @@
 				A10000102FFD000000000001 /* RegistrationLicensePreferenceUseCase.swift in Sources */,
 				A10000142FFD000000000001 /* RegistrationUseCase.swift in Sources */,
 				A10000122FFD000000000001 /* AuthorizationNavigationBarModifier.swift in Sources */,
+				F70000023024000000000001 /* AuthorizationUIComponents.swift in Sources */,
 				9311E8A12FFCD405006045C4 /* AuthorizationFlow.swift in Sources */,
 				B5000002301F000000000001 /* AuthorizationFlowViewModel.swift in Sources */,
 				B60000023020000000000001 /* AuthorizationCoordinating.swift in Sources */,

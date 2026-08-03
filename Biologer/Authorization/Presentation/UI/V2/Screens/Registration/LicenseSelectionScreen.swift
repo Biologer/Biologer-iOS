@@ -15,6 +15,9 @@ struct LicenseSelectionScreen: View {
     @Binding
     private var selectedItem: CheckMarkItem
 
+    @State
+    private var isSelectionLocked = false
+
     private let onSelectionChanged: Observer<CheckMarkItem>?
 
     init(
@@ -29,46 +32,86 @@ struct LicenseSelectionScreen: View {
 
     var body: some View {
         ScrollView {
-            VStack {
-                ForEach(items) { item in
-                    HStack {
-                        Button(action: {
-                            select(item)
-                        }, label: {
-                            Text(item.title)
-                                .font(.titleFont)
-                                .foregroundColor(Color.black)
-                                .multilineTextAlignment(.leading)
-                        })
-                        .padding()
-                        Spacer()
-                        Button(action: {
-                            select(item)
-                        }, label: {
-                            Image("check_mark")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 25)
-                                .isHidden(!item.isSelected)
+            LazyVStack(spacing: BiologerSpacing.small) {
+                BiologerIconBadge(
+                    systemImage: headerIcon,
+                    size: 64
+                )
+                .padding(.vertical, BiologerSpacing.small)
 
-                        })
-                        .padding(10)
-                    }
-                    Divider()
+                ForEach(items) { item in
+                    licenseCard(item)
                 }
             }
+            .padding(.horizontal, BiologerSpacing.regular)
+            .padding(.bottom, BiologerSpacing.xxLarge)
         }
+        .biologerPageBackground()
         .navigationBarBackButtonHidden(true)
         .onChange(of: selectedItem) { item in
             updateSelectedViewModel(with: item)
         }
     }
 
+    private var headerIcon: String {
+        items.first?.type == .image ? "photo.fill" : "doc.text.fill"
+    }
+
+    private func licenseCard(_ item: CheckMarkItem) -> some View {
+        Button(action: { select(item) }) {
+            HStack(alignment: .top, spacing: BiologerSpacing.small) {
+                BiologerIconBadge(
+                    systemImage: item.type == .image ? "photo" : "doc.text"
+                )
+
+                VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
+                    Text(item.title)
+                        .font(.body.weight(.semibold))
+                        .foregroundColor(BiologerColors.textPrimary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    Text(item.placeholder)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.leading)
+                }
+
+                Spacer(minLength: BiologerSpacing.xSmall)
+
+                Image(systemName: item.isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.title3)
+                    .foregroundColor(
+                        item.isSelected
+                            ? BiologerColors.accent
+                            : Color(uiColor: .tertiaryLabel)
+                    )
+                    .padding(.top, BiologerSpacing.xxSmall)
+            }
+            .padding(BiologerSpacing.regular)
+            .contentShape(Rectangle())
+            .biologerCard(isSelected: item.isSelected)
+        }
+        .buttonStyle(.plain)
+        .disabled(isSelectionLocked)
+    }
+
     private func select(_ item: CheckMarkItem) {
+        guard !isSelectionLocked else { return }
+        isSelectionLocked = true
+
         var selectedItem = item
         selectedItem.changeIsSelected(value: true)
-        self.selectedItem = selectedItem
-        onSelectionChanged?(selectedItem)
+
+        withAnimation(.easeInOut(duration: 0.18)) {
+            self.selectedItem = selectedItem
+            updateSelectedViewModel(with: selectedItem)
+        }
+
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            onSelectionChanged?(selectedItem)
+        }
     }
 
     private func updateSelectedViewModel(with item: CheckMarkItem) {

@@ -30,7 +30,7 @@ public final class RegistrationLicenseConsentViewModel: ObservableObject {
     public var topImage: String
     @Published public var acceptPPCheckMark: Bool = false
 
-    public var onReadPrivacyPolicy: Observer<Void>
+    private let onReadPrivacyPolicy: Observer<Void>
     private let onDataLicense: Observer<CheckMarkItem>
     private let onImageLicense: Observer<CheckMarkItem>
     private let onSuccess: Observer<Void>
@@ -61,6 +61,10 @@ public final class RegistrationLicenseConsentViewModel: ObservableObject {
 
     public func dataLicenseTapped() {
         onDataLicense((dataLicense))
+    }
+
+    public func privacyPolicyTapped() {
+        onReadPrivacyPolicy(())
     }
 
     public func imageLicenseTapped() {
