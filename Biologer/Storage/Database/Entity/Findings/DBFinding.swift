@@ -121,10 +121,16 @@ public class DBFindingIndividuals: Object {
 public class DBFindingIndividual: Object {
     @Persisted var value: Int
     @Persisted var isSelected: Bool
+    @Persisted var isUploaded: Bool
 
-    convenience init(value: Int, isSelected: Bool) {
+    convenience init(
+        value: Int,
+        isSelected: Bool,
+        isUploaded: Bool = false
+    ) {
         self.init()
         self.value = value
         self.isSelected = isSelected
+        self.isUploaded = isUploaded
     }
 }

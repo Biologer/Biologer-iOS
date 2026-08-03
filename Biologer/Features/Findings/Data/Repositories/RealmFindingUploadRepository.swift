@@ -31,7 +31,7 @@ final class RealmFindingUploadRepository: FindingUploadRepository {
     }
 
     func upload(id: UUID) async throws {
-        let snapshot = try makeSnapshot(id: id)
+        let snapshots = try makeSnapshots(id: id)
         let imageLicenseID = imageLicenseStorage.getLicense()?.id
             ?? CheckMarkItemMapper.getImageLicense().first?.id
             ?? 10
@@ -40,22 +40,30 @@ final class RealmFindingUploadRepository: FindingUploadRepository {
             ?? 10
         let projectName = settingsStorage.getSettings()?.projectName ?? ""
 
-        let photos = try await uploadImages(
-            snapshot.imageData,
-            imageLicenseID: imageLicenseID
-        )
-        let request = FindingUploadRequestMapper.makeRequest(
-            from: snapshot,
-            photos: photos,
-            dataLicenseID: dataLicenseID,
-            projectName: projectName
-        )
+        for snapshot in snapshots {
+            try Task.checkCancellation()
+            let photos = try await uploadImages(
+                snapshot.imageData,
+                imageLicenseID: imageLicenseID
+            )
+            let request = FindingUploadRequestMapper.makeRequest(
+                from: snapshot,
+                photos: photos,
+                dataLicenseID: dataLicenseID,
+                projectName: projectName
+            )
 
-        try await uploadFinding(request)
-        try markAsUploaded(id: snapshot.id)
+            try await uploadFinding(request)
+            try markComponentAsUploaded(
+                findingID: snapshot.id,
+                component: snapshot.component
+            )
+        }
+
+        try markAsUploaded(id: id)
     }
 
-    private func makeSnapshot(id: UUID) throws -> FindingUploadSnapshot {
+    private func makeSnapshots(id: UUID) throws -> [FindingUploadSnapshot] {
         let realm = try Realm(configuration: configuration)
         guard let finding = realm.object(
             ofType: DBFinding.self,
@@ -67,7 +75,7 @@ final class RealmFindingUploadRepository: FindingUploadRepository {
         let observationTypeIDs = Array(
             realm.objects(DBObservation.self).map(\.id)
         )
-        return FindingUploadRequestMapper.makeSnapshot(
+        return FindingUploadRequestMapper.makeSnapshots(
             from: finding,
             availableObservationTypeIDs: observationTypeIDs
         )
@@ -134,6 +142,38 @@ final class RealmFindingUploadRepository: FindingUploadRepository {
 
         try realm.write {
             finding.isUploaded = true
+        }
+    }
+
+    private func markComponentAsUploaded(
+        findingID: UUID,
+        component: FindingUploadComponent
+    ) throws {
+        guard component != .fallback else { return }
+
+        let realm = try Realm(configuration: configuration)
+        guard let finding = realm.object(
+            ofType: DBFinding.self,
+            forPrimaryKey: findingID
+        ) else {
+            throw FindingsRepositoryError.findingNotFound(findingID)
+        }
+
+        let individual: DBFindingIndividual?
+        switch component {
+        case .male:
+            individual = finding.individuals?.male
+        case .female:
+            individual = finding.individuals?.female
+        case .total:
+            individual = finding.individuals?.all
+        case .fallback:
+            individual = nil
+        }
+
+        guard let individual else { return }
+        try realm.write {
+            individual.isUploaded = true
         }
     }
 }

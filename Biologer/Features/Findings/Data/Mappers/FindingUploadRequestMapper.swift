@@ -1,7 +1,15 @@
 import Foundation
 
+enum FindingUploadComponent: Equatable {
+    case male
+    case female
+    case total
+    case fallback
+}
+
 struct FindingUploadSnapshot {
     let id: UUID
+    let component: FindingUploadComponent
     let imageData: [Data]
     let atlasCode: Int
     let accuracy: Int
@@ -26,39 +34,40 @@ struct FindingUploadSnapshot {
 }
 
 enum FindingUploadRequestMapper {
-    static func makeSnapshot(
+    static func makeSnapshots(
         from finding: DBFinding,
         availableObservationTypeIDs: [Int]
-    ) -> FindingUploadSnapshot {
-        let individual = selectedIndividual(from: finding.individuals)
-
-        return FindingUploadSnapshot(
-            id: finding.id,
-            imageData: finding.images.map(\.image),
-            atlasCode: finding.atlasCode?.id ?? 0,
-            accuracy: Int(finding.location?.accuracy ?? 0),
-            day: String(finding.dateOfCreation.get(.day)),
-            elevation: Int(finding.location?.altitude ?? 0),
-            foundDead: finding.foundDead.isEmpty ? 0 : 1,
-            foundDeadNote: finding.foundDead,
-            foundOn: finding.foundOn,
-            habitat: finding.habitat,
-            latitude: finding.location?.latitude ?? 0,
-            longitude: finding.location?.longitude ?? 0,
-            month: String(finding.dateOfCreation.get(.month)),
-            note: finding.comment,
-            number: individual.number,
-            observationTypeIDs: selectedObservationTypeIDs(
-                from: finding,
-                availableIDs: availableObservationTypeIDs
-            ),
-            sex: individual.sex,
-            developmentStageID: finding.devStage?.id,
-            taxonID: finding.taxon?.apiId,
-            taxonSuggestion: finding.taxon?.name ?? "",
-            time: finding.dateOfCreation.getHoursAndMuntes(),
-            year: String(finding.dateOfCreation.get(.year))
-        )
+    ) -> [FindingUploadSnapshot] {
+        pendingIndividuals(from: finding.individuals).map { individual in
+            FindingUploadSnapshot(
+                id: finding.id,
+                component: individual.component,
+                imageData: finding.images.map(\.image),
+                atlasCode: finding.atlasCode?.id ?? 0,
+                accuracy: Int(finding.location?.accuracy ?? 0),
+                day: String(finding.dateOfCreation.get(.day)),
+                elevation: Int(finding.location?.altitude ?? 0),
+                foundDead: finding.foundDead.isEmpty ? 0 : 1,
+                foundDeadNote: finding.foundDead,
+                foundOn: finding.foundOn,
+                habitat: finding.habitat,
+                latitude: finding.location?.latitude ?? 0,
+                longitude: finding.location?.longitude ?? 0,
+                month: String(finding.dateOfCreation.get(.month)),
+                note: finding.comment,
+                number: individual.number,
+                observationTypeIDs: selectedObservationTypeIDs(
+                    from: finding,
+                    availableIDs: availableObservationTypeIDs
+                ),
+                sex: individual.sex,
+                developmentStageID: finding.devStage?.id,
+                taxonID: finding.taxon?.apiId,
+                taxonSuggestion: finding.taxon?.name ?? "",
+                time: finding.dateOfCreation.getHoursAndMuntes(),
+                year: String(finding.dateOfCreation.get(.year))
+            )
+        }
     }
 
     static func makeRequest(
@@ -95,18 +104,56 @@ enum FindingUploadRequestMapper {
         )
     }
 
-    private static func selectedIndividual(
+    private static func pendingIndividuals(
         from individuals: DBFindingIndividuals?
-    ) -> (sex: String, number: Int) {
-        if let male = individuals?.male, male.isSelected {
-            return ("male", male.value)
+    ) -> [(component: FindingUploadComponent, sex: String, number: Int)] {
+        var genderIndividuals: [(
+            component: FindingUploadComponent,
+            sex: String,
+            number: Int
+        )] = []
+
+        if let male = individuals?.male,
+           male.isSelected,
+           male.value > 0,
+           !male.isUploaded {
+            genderIndividuals.append((.male, "male", male.value))
         }
 
-        if let female = individuals?.female, female.isSelected {
-            return ("female", female.value)
+        if let female = individuals?.female,
+           female.isSelected,
+           female.value > 0,
+           !female.isUploaded {
+            genderIndividuals.append((.female, "female", female.value))
         }
 
-        return ("", 1)
+        if !genderIndividuals.isEmpty {
+            return genderIndividuals
+        }
+
+        let hasGenderIndividuals = isActive(individuals?.male)
+            || isActive(individuals?.female)
+        if hasGenderIndividuals {
+            return []
+        }
+
+        if let total = individuals?.all,
+           total.isSelected,
+           total.value > 0,
+           !total.isUploaded {
+            return [(.total, "", total.value)]
+        }
+
+        if isActive(individuals?.all) {
+            return []
+        }
+
+        return [(.fallback, "", 1)]
+    }
+
+    private static func isActive(_ individual: DBFindingIndividual?) -> Bool {
+        guard let individual else { return false }
+        return individual.isSelected && individual.value > 0
     }
 
     private static func selectedObservationTypeIDs(

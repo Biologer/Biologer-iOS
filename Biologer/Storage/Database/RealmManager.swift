@@ -12,9 +12,13 @@ class RealmManager {
     
     // MARK:- functions
     static func realmConfig() -> Realm.Configuration {
-        return Realm.Configuration(schemaVersion: 3, migrationBlock: { (migration, oldSchemaVersion) in
-            /// Migration block. Useful when you upgrade the schema version.
-            
+        return Realm.Configuration(schemaVersion: 4, migrationBlock: { migration, oldSchemaVersion in
+            if oldSchemaVersion < 4 {
+                migration.enumerateObjects(ofType: DBFindingIndividual.className()) {
+                    _, newObject in
+                    newObject?["isUploaded"] = false
+                }
+            }
         })
     }
     
@@ -156,4 +160,3 @@ extension RealmManager: RealmOperations {
         }
     }
 }
-

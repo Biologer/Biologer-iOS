@@ -60,6 +60,8 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         XCTAssertEqual(body.project, "Wetland survey")
         XCTAssertEqual(body.taxon_id, 55)
         XCTAssertEqual(body.taxon_suggestion, "Salamandra salamandra")
+        XCTAssertEqual(body.number, 2)
+        XCTAssertEqual(body.sex, "")
         XCTAssertEqual(body.observation_types_ids, [101, 202])
         XCTAssertEqual(body.photos?.first?.license, "40")
         XCTAssertEqual(body.photos?.first?.path, "remote/leaf.jpg")
@@ -74,6 +76,78 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
             )?.isUploaded,
             true
         )
+    }
+
+    func test_uploadCreatesOneRequestAndImageUploadForEachSelectedGender() async throws {
+        let imageData = UIImage(systemName: "leaf")?.pngData()
+        let finding = makeGenderFinding(imageData: imageData)
+        try storeObservationTypes(ids: [101, 202])
+        try store(finding)
+        postImageService.results = [
+            .success(FindingImageResponse(file: "remote/male.jpg")),
+            .success(FindingImageResponse(file: "remote/female.jpg"))
+        ]
+
+        try await sut.upload(id: finding.id)
+
+        XCTAssertEqual(postFindingService.receivedBodies.map(\.sex), ["male", "female"])
+        XCTAssertEqual(postFindingService.receivedBodies.map(\.number), [2, 3])
+        XCTAssertEqual(
+            postFindingService.receivedBodies.map { $0.photos?.first?.path },
+            ["remote/male.jpg", "remote/female.jpg"]
+        )
+        XCTAssertEqual(postImageService.callCount, 2)
+
+        let assertionRealm = try await Realm(configuration: configuration)
+        assertionRealm.refresh()
+        let storedFinding = try XCTUnwrap(
+            assertionRealm.object(ofType: DBFinding.self, forPrimaryKey: finding.id)
+        )
+        XCTAssertTrue(storedFinding.individuals?.male?.isUploaded == true)
+        XCTAssertTrue(storedFinding.individuals?.female?.isUploaded == true)
+        XCTAssertTrue(storedFinding.isUploaded)
+    }
+
+    func test_retryAfterPartialGenderFailureOnlyUploadsPendingGender() async throws {
+        let finding = makeGenderFinding(imageData: nil)
+        try storeObservationTypes(ids: [101, 202])
+        try store(finding)
+        postFindingService.queuedResults = [
+            .success(FindingResponse()),
+            .failure(APIError(description: "Female upload failed"))
+        ]
+
+        do {
+            try await sut.upload(id: finding.id)
+            XCTFail("Expected the female upload to fail")
+        } catch {
+            XCTAssertTrue(error is APIError)
+        }
+
+        var assertionRealm = try await Realm(configuration: configuration)
+        assertionRealm.refresh()
+        var storedFinding = try XCTUnwrap(
+            assertionRealm.object(ofType: DBFinding.self, forPrimaryKey: finding.id)
+        )
+        XCTAssertTrue(storedFinding.individuals?.male?.isUploaded == true)
+        XCTAssertFalse(storedFinding.individuals?.female?.isUploaded == true)
+        XCTAssertFalse(storedFinding.isUploaded)
+
+        postFindingService.queuedResults = [.success(FindingResponse())]
+        try await sut.upload(id: finding.id)
+
+        XCTAssertEqual(
+            postFindingService.receivedBodies.map(\.sex),
+            ["male", "female", "female"]
+        )
+        assertionRealm = try await Realm(configuration: configuration)
+        assertionRealm.refresh()
+        storedFinding = try XCTUnwrap(
+            assertionRealm.object(ofType: DBFinding.self, forPrimaryKey: finding.id)
+        )
+        XCTAssertTrue(storedFinding.individuals?.male?.isUploaded == true)
+        XCTAssertTrue(storedFinding.individuals?.female?.isUploaded == true)
+        XCTAssertTrue(storedFinding.isUploaded)
     }
 
     func test_uploadLeavesFindingPendingWhenRemotePostFails() async throws {
@@ -169,6 +243,16 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         return finding
     }
 
+    private func makeGenderFinding(imageData: Data?) -> DBFinding {
+        let finding = makeFinding(imageData: imageData)
+        finding.individuals = DBFindingIndividuals(
+            male: DBFindingIndividual(value: 2, isSelected: true),
+            female: DBFindingIndividual(value: 3, isSelected: true),
+            all: nil
+        )
+        return finding
+    }
+
     private func makeLicense(
         id: Int,
         type: CheckMarkItemType
@@ -187,6 +271,7 @@ private final class PostFindingServiceSpy: PostFindingService {
     var result: Swift.Result<FindingResponse, APIError> = .success(
         FindingResponse()
     )
+    var queuedResults: [Swift.Result<FindingResponse, APIError>] = []
     private(set) var receivedBodies: [FindingRequestBody] = []
 
     func uploadFinding(
@@ -194,7 +279,7 @@ private final class PostFindingServiceSpy: PostFindingService {
         completion: @escaping (Swift.Result<FindingResponse, APIError>) -> Void
     ) {
         receivedBodies.append(findingBody)
-        completion(result)
+        completion(queuedResults.isEmpty ? result : queuedResults.removeFirst())
     }
 }
 
