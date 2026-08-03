@@ -9,49 +9,9 @@ struct AuthorizationBrandHeader: View {
             Image("biologer_logo_icon")
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: 250, maxHeight: 72)
+                .frame(maxWidth: 300, maxHeight: 100)
                 .padding(.horizontal, BiologerSpacing.regular)
                 .padding(.vertical, BiologerSpacing.small)
-                .background(
-                    .white,
-                    in: RoundedRectangle(
-                        cornerRadius: BiologerRadius.control,
-                        style: .continuous
-                    )
-                )
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, BiologerSpacing.large)
-                .padding(.vertical, BiologerSpacing.xLarge)
-
-            if let environmentImage, !environmentImage.isEmpty {
-                Image(environmentImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 38, height: 38)
-                    .padding(BiologerSpacing.xSmall)
-                    .background(.white, in: Circle())
-                    .padding(BiologerSpacing.small)
-            }
-        }
-        .background(
-            LinearGradient(
-                colors: [
-                    BiologerColors.brandStrong,
-                    BiologerColors.accent
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ),
-            in: RoundedRectangle(
-                cornerRadius: BiologerRadius.hero,
-                style: .continuous
-            )
-        )
-        .shadow(
-            color: BiologerColors.brandStrong.opacity(0.24),
-            radius: 12,
-            y: 6
-        )
     }
 }
 
@@ -72,7 +32,7 @@ struct AuthorizationStepHeader: View {
                     Capsule()
                         .fill(
                             index <= step
-                                ? BiologerColors.accent
+                                ? BiologerColors.brandStrong
                                 : BiologerColors.iconBackground
                         )
                         .frame(height: 5)
@@ -214,7 +174,7 @@ struct AuthorizationTextField: View {
     }
 
     private var iconColor: Color {
-        hasFailure ? BiologerColors.destructive : BiologerColors.accent
+        hasFailure ? BiologerColors.destructive : BiologerColors.brandStrong
     }
 }
 

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct BiologerIconBadge: View {
     let systemImage: String
-    var tint = BiologerColors.accent
+    var tint = BiologerColors.brandStrong
     var backgroundColor = BiologerColors.iconBackground
     var size: CGFloat = 34
 

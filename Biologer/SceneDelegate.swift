@@ -10,7 +10,7 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    private let authorizationUIVersion: AuthorizationUIVersion = .v1
+    private let authorizationUIVersion: AuthorizationUIVersion = .v2
     private let mainUIVersion: MainUIVersion = .v2
 
     var window: UIWindow?
