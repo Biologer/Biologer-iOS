@@ -146,6 +146,20 @@
 "ListOfFindings.deleteScreen.btn.cancel" = "Otkaži";
 "ListOfFindings.deleteScreen.btn.delete" = "Izbriši";
 "ListOfFindings.popUpUserVerified.description" = "Vaša email adresa nije potvrđena! Registracija je uspješno završena i možete koristiti osnovne funkcije Biologera. Međutim, nećete moći slati nalaze vrsta dok ne potvrdite svoju email adresu.";
+"ListOfFindingsV2.summary.title" = "Terenska opažanja";
+"ListOfFindingsV2.summary.total" = "Ukupno";
+"ListOfFindingsV2.status.uploaded" = "Poslano";
+"ListOfFindingsV2.status.pending" = "Čeka slanje";
+"ListOfFindingsV2.loading" = "Učitavanje nalaza…";
+"ListOfFindingsV2.empty.title" = "Još nema nalaza";
+"ListOfFindingsV2.loadError.title" = "Nije moguće učitati nalaze";
+"ListOfFindingsV2.loadError.message" = "Vaši nalazi se nisu mogli učitati. Pokušajte ponovo.";
+"ListOfFindingsV2.retry" = "Pokušaj ponovo";
+"ListOfFindingsV2.add" = "Dodaj nalaz";
+"ListOfFindingsV2.upload" = "Pošalji nalaze";
+"ListOfFindingsV2.deleteAll" = "Izbriši sve nalaze";
+"ListOfFindingsV2.deleteAll.message" = "Ovim ćete trajno izbrisati sve nalaze.";
+"ListOfFindingsV2.actionError.message" = "Izmjena se nije mogla izvršiti. Pokušajte ponovo.";
 
 // MARK: - Upload Findings
 "UploadFindings.noFindingsToUploadPopUp.title" = "Otpremanje nalaza...";

@@ -146,6 +146,20 @@
 "ListOfFindings.deleteScreen.btn.cancel" = "Otkaži";
 "ListOfFindings.deleteScreen.btn.delete" = "Obriši";
 "ListOfFindings.popUpUserVerified.description" = "Adresa vase e-pošte još uvek nije potvrđena! Uspešno ste se registrovali na Biologer i neke od osnovnih radnji će vam biti dostupne, ali ćete za slanje zabeležnih vrsta morati da otvorite e-poruku koju ste dobili i potvrdite vašu adresu.";
+"ListOfFindingsV2.summary.title" = "Terenska posmatranja";
+"ListOfFindingsV2.summary.total" = "Ukupno";
+"ListOfFindingsV2.status.uploaded" = "Poslato";
+"ListOfFindingsV2.status.pending" = "Čeka slanje";
+"ListOfFindingsV2.loading" = "Učitavanje nalaza…";
+"ListOfFindingsV2.empty.title" = "Još nema nalaza";
+"ListOfFindingsV2.loadError.title" = "Nije moguće učitati nalaze";
+"ListOfFindingsV2.loadError.message" = "Vaši nalazi nisu mogli da se učitaju. Pokušajte ponovo.";
+"ListOfFindingsV2.retry" = "Pokušaj ponovo";
+"ListOfFindingsV2.add" = "Dodaj nalaz";
+"ListOfFindingsV2.upload" = "Pošalji nalaze";
+"ListOfFindingsV2.deleteAll" = "Obriši sve nalaze";
+"ListOfFindingsV2.deleteAll.message" = "Ovim ćete trajno obrisati sve nalaze.";
+"ListOfFindingsV2.actionError.message" = "Izmena nije mogla da se izvrši. Pokušajte ponovo.";
 
 // MARK: - Upload Findings
 "UploadFindings.noFindingsToUploadPopUp.title" = "Slanje nalaza…";

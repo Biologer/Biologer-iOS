@@ -2776,11 +2776,6 @@
 			package = A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
-		F90000083026000000000001 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
 		24C5EBBB9744C818E9567D52 /* SideMenu */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3F98F03D535CAA250F5572BA /* XCRemoteSwiftPackageReference "SideMenu" */;
@@ -2825,6 +2820,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
 			productName = GoogleMapsCore;
+		};
+		F90000083026000000000001 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
