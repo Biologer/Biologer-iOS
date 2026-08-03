@@ -309,6 +309,10 @@
 		FA0000023027000000000001 /* UploadFindingsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0000013027000000000001 /* UploadFindingsUseCaseTests.swift */; };
 		FA0000043027000000000001 /* FindingDetailsV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0000033027000000000001 /* FindingDetailsV2ViewModelTests.swift */; };
 		FA0000063027000000000001 /* RealmFindingUploadRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0000053027000000000001 /* RealmFindingUploadRepositoryTests.swift */; };
+		FB000002302A000000000001 /* FindingEditorUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000001302A000000000001 /* FindingEditorUseCaseTests.swift */; };
+		FB000004302A000000000001 /* RealmFindingEditorRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000003302A000000000001 /* RealmFindingEditorRepositoryTests.swift */; };
+		FB000006302A000000000001 /* FindingEditorV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000005302A000000000001 /* FindingEditorV2ViewModelTests.swift */; };
+		FB000008302A000000000001 /* FindingTaxonSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000007302A000000000001 /* FindingTaxonSearchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -638,6 +642,10 @@
 		FA0000013027000000000001 /* UploadFindingsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFindingsUseCaseTests.swift; sourceTree = "<group>"; };
 		FA0000033027000000000001 /* FindingDetailsV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingDetailsV2ViewModelTests.swift; sourceTree = "<group>"; };
 		FA0000053027000000000001 /* RealmFindingUploadRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFindingUploadRepositoryTests.swift; sourceTree = "<group>"; };
+		FB000001302A000000000001 /* FindingEditorUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingEditorUseCaseTests.swift; sourceTree = "<group>"; };
+		FB000003302A000000000001 /* RealmFindingEditorRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFindingEditorRepositoryTests.swift; sourceTree = "<group>"; };
+		FB000005302A000000000001 /* FindingEditorV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingEditorV2ViewModelTests.swift; sourceTree = "<group>"; };
+		FB000007302A000000000001 /* FindingTaxonSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingTaxonSearchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -894,6 +902,10 @@
 				FA0000013027000000000001 /* UploadFindingsUseCaseTests.swift */,
 				FA0000033027000000000001 /* FindingDetailsV2ViewModelTests.swift */,
 				FA0000053027000000000001 /* RealmFindingUploadRepositoryTests.swift */,
+				FB000001302A000000000001 /* FindingEditorUseCaseTests.swift */,
+				FB000003302A000000000001 /* RealmFindingEditorRepositoryTests.swift */,
+				FB000005302A000000000001 /* FindingEditorV2ViewModelTests.swift */,
+				FB000007302A000000000001 /* FindingTaxonSearchTests.swift */,
 				B3000009301D000000000001 /* AuthorizationRouterTests.swift */,
 				B3000007301D000000000001 /* AuthorizationV2ViewModelTests.swift */,
 				B3000005301D000000000001 /* LoginUserUseCaseTests.swift */,
@@ -2345,6 +2357,10 @@
 				FA0000023027000000000001 /* UploadFindingsUseCaseTests.swift in Sources */,
 				FA0000043027000000000001 /* FindingDetailsV2ViewModelTests.swift in Sources */,
 				FA0000063027000000000001 /* RealmFindingUploadRepositoryTests.swift in Sources */,
+				FB000002302A000000000001 /* FindingEditorUseCaseTests.swift in Sources */,
+				FB000004302A000000000001 /* RealmFindingEditorRepositoryTests.swift in Sources */,
+				FB000006302A000000000001 /* FindingEditorV2ViewModelTests.swift in Sources */,
+				FB000008302A000000000001 /* FindingTaxonSearchTests.swift in Sources */,
 				B300000A301D000000000001 /* AuthorizationRouterTests.swift in Sources */,
 				B3000008301D000000000001 /* AuthorizationV2ViewModelTests.swift in Sources */,
 				B3000006301D000000000001 /* LoginUserUseCaseTests.swift in Sources */,
