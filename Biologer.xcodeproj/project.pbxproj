@@ -306,6 +306,9 @@
 		F90000043026000000000001 /* RealmFindingsRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90000033026000000000001 /* RealmFindingsRepositoryTests.swift */; };
 		F90000063026000000000001 /* ListOfFindingsV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90000053026000000000001 /* ListOfFindingsV2ViewModelTests.swift */; };
 		F90000073026000000000001 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F90000083026000000000001 /* RealmSwift */; };
+		FA0000023027000000000001 /* UploadFindingsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0000013027000000000001 /* UploadFindingsUseCaseTests.swift */; };
+		FA0000043027000000000001 /* FindingDetailsV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0000033027000000000001 /* FindingDetailsV2ViewModelTests.swift */; };
+		FA0000063027000000000001 /* RealmFindingUploadRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0000053027000000000001 /* RealmFindingUploadRepositoryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -632,6 +635,9 @@
 		F90000013026000000000001 /* FindingsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsUseCaseTests.swift; sourceTree = "<group>"; };
 		F90000033026000000000001 /* RealmFindingsRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFindingsRepositoryTests.swift; sourceTree = "<group>"; };
 		F90000053026000000000001 /* ListOfFindingsV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFindingsV2ViewModelTests.swift; sourceTree = "<group>"; };
+		FA0000013027000000000001 /* UploadFindingsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFindingsUseCaseTests.swift; sourceTree = "<group>"; };
+		FA0000033027000000000001 /* FindingDetailsV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingDetailsV2ViewModelTests.swift; sourceTree = "<group>"; };
+		FA0000053027000000000001 /* RealmFindingUploadRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFindingUploadRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -885,6 +891,9 @@
 				F90000013026000000000001 /* FindingsUseCaseTests.swift */,
 				F90000033026000000000001 /* RealmFindingsRepositoryTests.swift */,
 				F90000053026000000000001 /* ListOfFindingsV2ViewModelTests.swift */,
+				FA0000013027000000000001 /* UploadFindingsUseCaseTests.swift */,
+				FA0000033027000000000001 /* FindingDetailsV2ViewModelTests.swift */,
+				FA0000053027000000000001 /* RealmFindingUploadRepositoryTests.swift */,
 				B3000009301D000000000001 /* AuthorizationRouterTests.swift */,
 				B3000007301D000000000001 /* AuthorizationV2ViewModelTests.swift */,
 				B3000005301D000000000001 /* LoginUserUseCaseTests.swift */,
@@ -2333,6 +2342,9 @@
 				F90000023026000000000001 /* FindingsUseCaseTests.swift in Sources */,
 				F90000043026000000000001 /* RealmFindingsRepositoryTests.swift in Sources */,
 				F90000063026000000000001 /* ListOfFindingsV2ViewModelTests.swift in Sources */,
+				FA0000023027000000000001 /* UploadFindingsUseCaseTests.swift in Sources */,
+				FA0000043027000000000001 /* FindingDetailsV2ViewModelTests.swift in Sources */,
+				FA0000063027000000000001 /* RealmFindingUploadRepositoryTests.swift in Sources */,
 				B300000A301D000000000001 /* AuthorizationRouterTests.swift in Sources */,
 				B3000008301D000000000001 /* AuthorizationV2ViewModelTests.swift in Sources */,
 				B3000006301D000000000001 /* LoginUserUseCaseTests.swift in Sources */,

@@ -1,3 +1,4 @@
+import Combine
 import XCTest
 @testable import Biologer
 
@@ -34,20 +35,99 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
         XCTAssertEqual(context.sut.loadState, .failure)
     }
 
-    func test_navigationActionsForwardCallbacks() {
+    func test_navigationActionsPublishOutputs() {
         let finding = makeFinding()
         var addCallCount = 0
-        var selectedFindingID: UUID?
         let context = makeSUT(
-            onAddFinding: { addCallCount += 1 },
-            onFindingSelected: { selectedFindingID = $0 }
+            onAddFinding: { addCallCount += 1 }
         )
 
         context.sut.didTapAddFinding()
         context.sut.didSelectFinding(finding)
 
         XCTAssertEqual(addCallCount, 1)
-        XCTAssertEqual(selectedFindingID, finding.id)
+        XCTAssertEqual(context.sut.navigationFindingID, finding.id)
+
+        context.sut.didHandleFindingNavigation()
+        XCTAssertNil(context.sut.navigationFindingID)
+    }
+
+    func test_filteringAndUploadSelectionOnlyIncludePendingFindings() {
+        let firstPending = makeFinding(status: .pending)
+        let uploaded = makeFinding(status: .uploaded)
+        let secondPending = makeFinding(status: .pending)
+        let context = makeSUT(
+            getResult: .success([firstPending, uploaded, secondPending])
+        )
+        context.sut.loadFindings()
+
+        context.sut.selectFilter(.uploaded)
+        XCTAssertEqual(context.sut.visibleFindings, [uploaded])
+
+        context.sut.beginUploadSelection()
+        XCTAssertEqual(context.sut.selectedFilter, .pending)
+        XCTAssertEqual(
+            context.sut.visibleFindings,
+            [firstPending, secondPending]
+        )
+
+        context.sut.toggleAllPendingFindings()
+        XCTAssertEqual(
+            context.sut.selectedUploadFindingIDs,
+            Set([firstPending.id, secondPending.id])
+        )
+    }
+
+    func test_uploadSelectedFindingsPublishesProgressAndReloads() async {
+        let first = makeFinding(status: .pending)
+        let second = makeFinding(status: .pending)
+        let context = makeSUT(getResult: .success([first, second]))
+        let completed = expectation(description: "upload completed")
+        context.uploadFindings.onCompletion = { completed.fulfill() }
+        context.sut.loadFindings()
+        context.sut.beginUploadSelection()
+        context.sut.toggleAllPendingFindings()
+
+        context.sut.uploadSelectedFindings()
+
+        XCTAssertTrue(context.sut.isUploading)
+        await fulfillment(of: [completed], timeout: 1)
+        await Task.yield()
+        XCTAssertEqual(context.uploadFindings.receivedIDs, [[first.id, second.id]])
+        XCTAssertEqual(context.getFindings.callCount, 2)
+        XCTAssertEqual(context.sut.uploadState, .idle)
+    }
+
+    func test_uploadFailurePublishesCompletedCountAndReloads() async {
+        let first = makeFinding(status: .pending)
+        let second = makeFinding(status: .pending)
+        let context = makeSUT(getResult: .success([first, second]))
+        let failed = expectation(description: "upload failed")
+        context.uploadFindings.progresses = [
+            FindingUploadProgress(completedCount: 0, totalCount: 2),
+            FindingUploadProgress(completedCount: 1, totalCount: 2)
+        ]
+        context.uploadFindings.result = .failure(FindingsViewModelTestError.any)
+        let failureObservation = context.sut.$actionError
+            .compactMap { $0 }
+            .sink { error in
+                if error == .uploadFindings(completedCount: 1, totalCount: 2) {
+                    failed.fulfill()
+                }
+            }
+        context.sut.loadFindings()
+        context.sut.beginUploadSelection()
+        context.sut.toggleAllPendingFindings()
+
+        context.sut.uploadSelectedFindings()
+
+        await fulfillment(of: [failed], timeout: 1)
+        XCTAssertEqual(
+            context.sut.actionError,
+            .uploadFindings(completedCount: 1, totalCount: 2)
+        )
+        XCTAssertEqual(context.getFindings.callCount, 2)
+        withExtendedLifetime(failureObservation) {}
     }
 
     func test_deleteFindingDeletesRequestedIDAndReloadsContent() {
@@ -98,12 +178,12 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
 
     private func makeSUT(
         getResult: Result<[FindingSummary], Error> = .success([]),
-        onAddFinding: @escaping () -> Void = {},
-        onFindingSelected: @escaping (UUID) -> Void = { _ in }
+        onAddFinding: @escaping () -> Void = {}
     ) -> ListOfFindingsV2TestContext {
         let getFindings = GetFindingsUseCaseStub(result: getResult)
         let deleteFinding = DeleteFindingUseCaseSpy()
         let deleteAllFindings = DeleteAllFindingsUseCaseSpy()
+        let uploadFindings = ListUploadFindingsUseCaseSpy()
         let sut = ListOfFindingsV2ViewModel(
             useCases: FindingsUseCases(
                 getFindings: getFindings,
@@ -111,23 +191,26 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
                 deleteAllFindings: deleteAllFindings
             ),
             onAddFinding: onAddFinding,
-            onFindingSelected: onFindingSelected
+            uploadFindings: uploadFindings
         )
         return ListOfFindingsV2TestContext(
             sut: sut,
             getFindings: getFindings,
             deleteFinding: deleteFinding,
-            deleteAllFindings: deleteAllFindings
+            deleteAllFindings: deleteAllFindings,
+            uploadFindings: uploadFindings
         )
     }
 
-    private func makeFinding() -> FindingSummary {
+    private func makeFinding(
+        status: FindingUploadStatus = .pending
+    ) -> FindingSummary {
         FindingSummary(
             id: UUID(),
             taxonName: "Common kingfisher",
             thumbnailData: nil,
             developmentStageName: "Adult",
-            uploadStatus: .pending
+            uploadStatus: status
         )
     }
 }
@@ -138,6 +221,7 @@ private struct ListOfFindingsV2TestContext {
     let getFindings: GetFindingsUseCaseStub
     let deleteFinding: DeleteFindingUseCaseSpy
     let deleteAllFindings: DeleteAllFindingsUseCaseSpy
+    let uploadFindings: ListUploadFindingsUseCaseSpy
 }
 
 private enum FindingsViewModelTestError: Error {
@@ -175,5 +259,41 @@ private final class DeleteAllFindingsUseCaseSpy: DeleteAllFindingsUseCase {
     func execute() throws {
         callCount += 1
         try result.get()
+    }
+}
+
+private final class ListUploadFindingsUseCaseSpy: UploadFindingsUseCase {
+    var result: Result<Void, Error> = .success(())
+    var progresses: [FindingUploadProgress] = []
+    var onCompletion: (() -> Void)?
+    private(set) var receivedIDs: [[UUID]] = []
+
+    func execute(
+        ids: [UUID],
+        onProgress: @escaping (FindingUploadProgress) async -> Void
+    ) async throws {
+        receivedIDs.append(ids)
+
+        let reportedProgresses = progresses.isEmpty
+            ? [
+                FindingUploadProgress(completedCount: 0, totalCount: ids.count),
+                FindingUploadProgress(
+                    completedCount: ids.count,
+                    totalCount: ids.count
+                )
+            ]
+            : progresses
+
+        for progress in reportedProgresses {
+            await onProgress(progress)
+        }
+
+        do {
+            try result.get()
+            onCompletion?()
+        } catch {
+            onCompletion?()
+            throw error
+        }
     }
 }
