@@ -12,6 +12,7 @@ struct AuthorizationBrandHeader: View {
                 .frame(maxWidth: 300, maxHeight: 100)
                 .padding(.horizontal, BiologerSpacing.regular)
                 .padding(.vertical, BiologerSpacing.small)
+        }
     }
 }
 
