@@ -1,0 +1,85 @@
+import SwiftUI
+
+struct TaxonSyncScreen: View {
+    @ObservedObject var viewModel: TaxonSyncViewModel
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 18) {
+                header
+                statusCard
+                if let progress = viewModel.progress { progressCard(progress) }
+                actions
+            }
+            .padding(16)
+        }
+        .biologerPageBackground()
+    }
+
+    private var header: some View {
+        HStack(spacing: 14) {
+            BiologerIconBadge(systemImage: "leaf.fill", tint: .white, backgroundColor: BiologerColors.accent)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Taxon database").font(.title3.weight(.bold)).foregroundStyle(.white)
+                Text("Keep your species search current").font(.subheadline).foregroundStyle(.white.opacity(0.82))
+            }
+            Spacer()
+        }
+        .padding(18)
+        .background(LinearGradient(colors: [BiologerColors.brandStrong, BiologerColors.accent], startPoint: .topLeading, endPoint: .bottomTrailing))
+        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+    }
+
+    private var statusCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(viewModel.statusTitle).font(.headline).foregroundStyle(BiologerColors.textPrimary)
+                    Text(viewModel.statusMessage).font(.subheadline).foregroundStyle(BiologerColors.textPrimary.opacity(0.7))
+                }
+                Spacer()
+                Image(systemName: "arrow.triangle.2.circlepath").font(.title2).foregroundStyle(BiologerColors.brandStrong)
+            }
+            if case .idle(let status) = viewModel.state {
+                metadata(status)
+            } else if case .completed(let status) = viewModel.state {
+                metadata(status)
+            }
+        }
+        .padding(16)
+        .biologerCard()
+    }
+
+    private func metadata(_ status: TaxonCatalogStatus) -> some View {
+        HStack(spacing: 18) {
+            Label("\(status.localTaxaCount)", systemImage: "number")
+            Label(status.scope.environmentHost, systemImage: "server.rack")
+                .lineLimit(1)
+        }
+        .font(.caption.weight(.medium)).foregroundStyle(BiologerColors.textPrimary.opacity(0.7))
+    }
+
+    private func progressCard(_ progress: TaxonSyncProgress) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack { Text("Progress").font(.subheadline.weight(.semibold)); Spacer(); Text("\(Int(progress.fractionCompleted * 100))%") }
+            ProgressView(value: progress.fractionCompleted).tint(BiologerColors.brandStrong)
+            HStack { Text("\(progress.importedTaxaCount) of \(progress.totalTaxaCount) taxa"); Spacer(); Text("Page \(progress.completedPages) of \(progress.totalPages)") }
+                .font(.caption).foregroundStyle(BiologerColors.textPrimary.opacity(0.7))
+        }
+        .padding(16)
+        .biologerCard()
+    }
+
+    private var actions: some View {
+        VStack(spacing: 10) {
+            if let primary = viewModel.primaryAction {
+                Button(primary.title) { viewModel.perform(primary.action) }
+                    .buttonStyle(BiologerActionButtonStyle())
+            }
+            if viewModel.canPause {
+                Button("Pause") { viewModel.perform(.pause) }
+                    .buttonStyle(BiologerActionButtonStyle(isFilled: false))
+            }
+        }
+    }
+}
