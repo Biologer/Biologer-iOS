@@ -21,6 +21,7 @@ public final class TaxonRouter: NSObject {
     private let settingsStorage: SettingsStorage
     private let userStorage: UserStorage
     private let showsSideMenuButton: Bool
+    private let taxonSyncComposition: TaxonSyncComposition
     private var biologerProgressBarDelegate: BiologerProgressBarDelegate?
     private var onLoadingDone: (() -> Void)?
     public var onSideMenuTapped: Observer<Void>?
@@ -40,6 +41,7 @@ public final class TaxonRouter: NSObject {
          uiKitCommonFactory: CommonViewControllerFactory,
          alertFactory: AlertViewControllerFactory,
          userStorage: UserStorage,
+         taxonSyncComposition: TaxonSyncComposition,
          showsSideMenuButton: Bool = true) {
         self.navigationController = navigationController
         self.location = location
@@ -52,6 +54,7 @@ public final class TaxonRouter: NSObject {
         self.uiKitCommonFactory = uiKitCommonFactory
         self.alertFactory = alertFactory
         self.userStorage = userStorage
+        self.taxonSyncComposition = taxonSyncComposition
         self.showsSideMenuButton = showsSideMenuButton
     }
     
@@ -244,7 +247,21 @@ public final class TaxonRouter: NSObject {
                                                })
         vc.setBiologerBackBarButtonItem(target: self, action: #selector(goBack))
         vc.setBiologerTitle(text: "NewTaxon.search.nav.title".localized)
+        vc.setBiologerRightButtonItem(
+            image: UIImage(systemName: "arrow.triangle.2.circlepath"),
+            action: { [weak self] in self?.showTaxonSyncFlow() }
+        )
         self.navigationController.pushViewController(vc, animated: true)
+    }
+
+    private func showTaxonSyncFlow() {
+        let flow = TaxonSyncFlow(
+            useCases: taxonSyncComposition.useCases,
+            scopeProvider: taxonSyncComposition.scopeProvider
+        )
+        let viewController = UIHostingController(rootView: flow)
+        viewController.setBiologerTitle(text: "Taxon database")
+        self.navigationController.pushViewController(viewController, animated: true)
     }
     
     private func showDevStageScreen(stages: [DevStageViewModel],

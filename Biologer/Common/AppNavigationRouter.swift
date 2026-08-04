@@ -418,6 +418,7 @@ public final class AppNavigationRouter: NavigationRouter {
             uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
             alertFactory: swiftUIAlertViewControllerFactory,
             userStorage: userStorage,
+            taxonSyncComposition: taxonSyncComposition,
             showsSideMenuButton: showsSideMenuButton
         )
     }
