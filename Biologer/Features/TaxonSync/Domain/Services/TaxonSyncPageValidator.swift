@@ -1,3 +1,5 @@
+import Foundation
+
 struct TaxonSyncPageValidator {
     func validate(
         _ page: TaxonSyncPage,
@@ -17,7 +19,12 @@ struct TaxonSyncPageValidator {
 
         guard page.lastPage >= page.currentPage,
               !page.entries.isEmpty,
-              page.totalEntries >= page.entries.count else {
+              page.totalEntries >= page.entries.count,
+              page.entries.allSatisfy({
+                  $0.id > 0
+                      && !$0.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+              }),
+              Set(page.entries.map(\.id)).count == page.entries.count else {
             throw .invalidResponse
         }
     }

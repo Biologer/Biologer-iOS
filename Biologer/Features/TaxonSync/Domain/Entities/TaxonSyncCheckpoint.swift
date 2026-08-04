@@ -19,6 +19,16 @@ struct TaxonSyncCheckpoint: Equatable, Sendable {
             totalTaxaCount: totalTaxaCount
         )
     }
+
+    var isValid: Bool {
+        nextPage > 0
+            && perPage > 0
+            && totalPages > 0
+            && nextPage <= totalPages
+            && totalTaxaCount > 0
+            && importedTaxaCount >= 0
+            && importedTaxaCount <= totalTaxaCount
+    }
 }
 
 struct TaxonSyncMetadata: Equatable, Sendable {

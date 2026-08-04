@@ -5,6 +5,10 @@ protocol TaxonCatalogCSVParsing {
     func parse(stream: InputStream) throws -> [TaxonCatalogEntry]
 }
 
+private enum TaxonCatalogCSVParserError: Error {
+    case invalidRow
+}
+
 struct TaxonCatalogCSVParser: TaxonCatalogCSVParsing {
     func parse(stream: InputStream) throws -> [TaxonCatalogEntry] {
         let reader = try CSVReader(
@@ -16,7 +20,9 @@ struct TaxonCatalogCSVParser: TaxonCatalogCSVParsing {
 
         while reader.next() != nil {
             guard let entry = makeEntry(from: reader) else {
-                continue
+                // A partial bundled catalog must never advance the baseline timestamp,
+                // otherwise the missing row might not be returned by the delta endpoint.
+                throw TaxonCatalogCSVParserError.invalidRow
             }
 
             entries.append(entry)
@@ -72,7 +78,9 @@ struct TaxonCatalogCSVParser: TaxonCatalogCSVParsing {
                 }
 
                 return TaxonCatalogTranslation(
-                    id: (taxonID * 10) + index,
+                    // Bundled CSV translations have no server identifier.
+                    // Negative IDs keep them outside the positive API ID space.
+                    id: -((taxonID * 10) + index + 1),
                     locale: locale(at: index),
                     nativeName: name,
                     details: nil

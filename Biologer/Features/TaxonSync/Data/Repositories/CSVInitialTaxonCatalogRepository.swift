@@ -21,9 +21,8 @@ final class CSVInitialTaxonCatalogRepository: InitialTaxonCatalogRepository {
     func loadInitialCatalog(
         scope: TaxonCatalogScope
     ) throws(TaxonSyncFailure) -> InitialTaxonCatalog? {
-        let resourceName = fileResolver.resourceName(for: scope)
-
-        guard let fileURL = bundle.url(
+        guard let resourceName = fileResolver.resourceName(for: scope),
+              let fileURL = bundle.url(
             forResource: resourceName,
             withExtension: "csv"
         ), let stream = InputStream(url: fileURL) else {

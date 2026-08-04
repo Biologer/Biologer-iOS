@@ -57,10 +57,17 @@ actor TaxonSyncController: TaxonSyncControlling {
     func state(
         scope: TaxonCatalogScope
     ) async -> TaxonSyncState {
-        if let state = stateStore.state(for: scope) {
-            return state
+        if let cachedState = stateStore.state(for: scope) {
+            switch cachedState {
+            case .working, .updateAvailable, .waitingForNetwork, .paused:
+                return cachedState
+            case .idle, .completed, .failed:
+                break
+            }
         }
 
+        // Stable states are rebuilt from persistence each time an entry point opens.
+        // This keeps the UI correct if Settings or logout deleted the shared Realm data.
         let state = makeInitialState(scope: scope)
         stateStore.store(state, scope: scope)
         return state
@@ -160,6 +167,12 @@ actor TaxonSyncController: TaxonSyncControlling {
         publish(.working(phase: .checking, progress: nil), scope: scope)
 
         var metadata = try metadataRepository.loadMetadata(scope: scope)
+        if try catalogRepository.count() == 0 {
+            metadata = try resetMetadataForEmptyCatalog(
+                scope: scope,
+                metadata: metadata
+            )
+        }
 
         if let checkpoint = metadata.checkpoint {
             let update = TaxonSyncUpdate(
@@ -222,14 +235,10 @@ actor TaxonSyncController: TaxonSyncControlling {
 
         // A deleted local catalog invalidates any old metadata for this active environment.
         if localTaxaCount == 0 {
-            if metadata.initialCatalogTimestamp != nil
-                || metadata.lastSuccessfulSyncTimestamp != nil
-                || metadata.checkpoint != nil {
-                metadata.initialCatalogTimestamp = nil
-                metadata.lastSuccessfulSyncTimestamp = nil
-                metadata.checkpoint = nil
-                try metadataRepository.saveMetadata(metadata)
-            }
+            metadata = try resetMetadataForEmptyCatalog(
+                scope: scope,
+                metadata: metadata
+            )
 
             try loadInitialCatalogIfAvailable(
                 scope: scope,
@@ -289,6 +298,13 @@ actor TaxonSyncController: TaxonSyncControlling {
         var startedAt: Int64
         var knownProgress: TaxonSyncProgress?
         var cachedPage: TaxonSyncPage?
+        var cyclePageSize: Int
+
+        if let checkpoint = metadata.checkpoint,
+           !checkpoint.isValid {
+            metadata.checkpoint = nil
+            try metadataRepository.saveMetadata(metadata)
+        }
 
         // Priority is: persisted resume point, an in-memory checked page, then a new cycle.
         if let checkpoint = metadata.checkpoint {
@@ -306,6 +322,7 @@ actor TaxonSyncController: TaxonSyncControlling {
             updatedAfter = checkpoint.updatedAfter
             startedAt = checkpoint.startedAt
             knownProgress = checkpoint.progress
+            cyclePageSize = max(checkpoint.perPage, 1)
         } else if let pendingUpdate = pendingUpdates[scope],
                   pendingUpdate.updatedAfter == metadata.effectiveUpdatedAfter {
             nextPage = 1
@@ -314,6 +331,7 @@ actor TaxonSyncController: TaxonSyncControlling {
             startedAt = pendingUpdate.startedAt
             knownProgress = nil
             cachedPage = pendingUpdate.firstPage
+            cyclePageSize = pageSize
         } else {
             pendingUpdates.removeValue(forKey: scope)
             nextPage = 1
@@ -321,6 +339,7 @@ actor TaxonSyncController: TaxonSyncControlling {
             updatedAfter = metadata.effectiveUpdatedAfter
             startedAt = timestampProvider()
             knownProgress = nil
+            cyclePageSize = pageSize
         }
 
         while true {
@@ -345,7 +364,7 @@ actor TaxonSyncController: TaxonSyncControlling {
                     scope: scope,
                     request: TaxonSyncPageRequest(
                         page: nextPage,
-                        perPage: pageSize,
+                        perPage: cyclePageSize,
                         updatedAfter: updatedAfter
                     )
                 )
@@ -372,7 +391,7 @@ actor TaxonSyncController: TaxonSyncControlling {
                 scope: scope,
                 metadata: metadata,
                 previouslyImportedTaxaCount: importedTaxaCount,
-                pageSize: pageSize,
+                pageSize: cyclePageSize,
                 updatedAfter: updatedAfter,
                 startedAt: startedAt
             )
@@ -447,12 +466,12 @@ actor TaxonSyncController: TaxonSyncControlling {
         let localTaxaCount = try catalogRepository.count()
         let availability: TaxonCatalogAvailability
 
-        if metadata.checkpoint != nil {
+        if localTaxaCount == 0 {
+            availability = .empty
+        } else if metadata.checkpoint != nil {
             availability = .partial
         } else if metadata.lastSuccessfulSyncTimestamp != nil {
             availability = .ready
-        } else if localTaxaCount == 0 {
-            availability = .empty
         } else if metadata.initialCatalogTimestamp != nil {
             availability = .initialCatalogLoaded
         } else {
@@ -501,5 +520,27 @@ actor TaxonSyncController: TaxonSyncControlling {
 
     private func removeObserver(id: UUID) {
         stateStore.removeObserver(id: id)
+    }
+
+    private func resetMetadataForEmptyCatalog(
+        scope: TaxonCatalogScope,
+        metadata initialMetadata: TaxonSyncMetadata
+    ) throws(TaxonSyncFailure) -> TaxonSyncMetadata {
+        pendingUpdates.removeValue(forKey: scope)
+
+        guard initialMetadata.initialCatalogTimestamp != nil
+                || initialMetadata.lastSuccessfulSyncTimestamp != nil
+                || initialMetadata.checkpoint != nil else {
+            return initialMetadata
+        }
+
+        let metadata = TaxonSyncMetadata(
+            scope: scope,
+            initialCatalogTimestamp: nil,
+            lastSuccessfulSyncTimestamp: nil,
+            checkpoint: nil
+        )
+        try metadataRepository.saveMetadata(metadata)
+        return metadata
     }
 }
