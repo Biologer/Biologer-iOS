@@ -1,8 +1,13 @@
 protocol TaxonSyncMetadataRepository {
     func loadMetadata(
         scope: TaxonCatalogScope
-    ) throws -> TaxonSyncMetadata
+    ) throws(TaxonSyncFailure) -> TaxonSyncMetadata
 
-    func saveMetadata(_ metadata: TaxonSyncMetadata) throws
-    func clearMetadata(scope: TaxonCatalogScope) throws
+    func saveMetadata(
+        _ metadata: TaxonSyncMetadata
+    ) throws(TaxonSyncFailure)
+
+    func clearMetadata(
+        scope: TaxonCatalogScope
+    ) throws(TaxonSyncFailure)
 }

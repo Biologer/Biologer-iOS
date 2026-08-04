@@ -1,10 +1,9 @@
 protocol TaxonCatalogRepository {
-    func count(scope: TaxonCatalogScope) throws -> Int
-    func upsert(
-        _ entries: [TaxonCatalogEntry],
-        scope: TaxonCatalogScope
-    ) throws
-    func deleteAll(scope: TaxonCatalogScope) throws
+    func count() throws(TaxonSyncFailure) -> Int
+
+    func upsert(_ entries: [TaxonCatalogEntry]) throws(TaxonSyncFailure)
+
+    func deleteAll() throws(TaxonSyncFailure)
 }
 
 protocol InitialTaxonCatalogRepository {
