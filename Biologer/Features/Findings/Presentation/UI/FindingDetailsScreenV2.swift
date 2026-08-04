@@ -24,6 +24,14 @@ struct FindingDetailsScreenV2: View {
             } message: {
                 Text("FindingDetailsV2.upload.failure".localized)
             }
+            .alert(
+                "Common.title.warning".localized,
+                isPresented: submissionWarningIsPresented
+            ) {
+                Button("Common.btn.ok".localized) {}
+            } message: {
+                Text("ListOfFindings.popUpUserVerified.description".localized)
+            }
     }
 
     @ViewBuilder
@@ -304,6 +312,17 @@ struct FindingDetailsScreenV2: View {
                 .foregroundColor(.secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private var submissionWarningIsPresented: Binding<Bool> {
+        Binding(
+            get: { viewModel.showsSubmissionWarning },
+            set: { isPresented in
+                if !isPresented {
+                    viewModel.dismissSubmissionWarning()
+                }
+            }
+        )
     }
 
     private var failureView: some View {

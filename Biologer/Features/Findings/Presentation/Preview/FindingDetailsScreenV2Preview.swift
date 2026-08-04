@@ -30,6 +30,7 @@ struct FindingDetailsScreenV2_Previews: PreviewProvider {
                         repository: repository
                     ),
                     uploadFindings: uploadFindings,
+                    checkSubmissionAccess: PreviewFindingSubmissionAccessUseCase(),
                     onEditFinding: { _ in },
                     onShowLocation: { _ in },
                     onShowPhotos: { _, _ in }

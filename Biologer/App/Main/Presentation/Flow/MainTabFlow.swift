@@ -108,8 +108,7 @@ private struct MainTabEditorContent<Content: View>: View {
 struct MainTabFlow<FindingsContent: View, EditorContent: View, SettingsContent: View>: View {
     typealias FindingsFactory = (
         _ onAddFinding: @escaping Observer<Void>,
-        _ onEditFinding: @escaping Observer<UUID>,
-        _ onShowLocation: @escaping Observer<FindingDetailsLocation>
+        _ onEditFinding: @escaping Observer<UUID>
     ) -> FindingsContent
 
     typealias EditorFactory = (
@@ -123,24 +122,20 @@ struct MainTabFlow<FindingsContent: View, EditorContent: View, SettingsContent: 
     private let findings: FindingsContent
     private let makeEditor: EditorFactory
     private let settings: SettingsContent
-    private let onShowFindingLocation: Observer<FindingDetailsLocation>
 
     init(
         navigation: MainTabNavigation,
         makeFindings: @escaping FindingsFactory,
         makeEditor: @escaping EditorFactory,
-        settings: SettingsContent,
-        onShowFindingLocation: @escaping Observer<FindingDetailsLocation>
+        settings: SettingsContent
     ) {
         _navigation = StateObject(wrappedValue: navigation)
         findings = makeFindings(
             { _ in navigation.openCreateEditor() },
-            { id in navigation.openEditEditor(id: id) },
-            onShowFindingLocation
+            { id in navigation.openEditEditor(id: id) }
         )
         self.makeEditor = makeEditor
         self.settings = settings
-        self.onShowFindingLocation = onShowFindingLocation
     }
 
     var body: some View {

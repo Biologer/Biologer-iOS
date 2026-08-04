@@ -345,3 +345,7 @@
 "FindingEditorV2.unsaved.message" = "Имате несачуване измене. Да ли желите да их одбаците и отворите други налаз?";
 "FindingEditorV2.unsaved.continue" = "Настави уређивање";
 "FindingEditorV2.unsaved.discard" = "Одбаци измене";
+"FindingLocationDetailsV2.nav.title" = "Локација налаза";
+"FindingLocationDetailsV2.card.title" = "Забележена локација";
+"FindingLocationDetailsV2.mapStyle" = "Тип мапе";
+"FindingLocationDetailsV2.canvas.placeholder" = "Мапа је доступна када је апликација покренута.";

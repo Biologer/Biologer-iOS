@@ -13,10 +13,12 @@ final class FindingDetailsV2ViewModel: ObservableObject {
     @Published private(set) var details: FindingDetails?
     @Published private(set) var loadState: FindingDetailsV2LoadState = .idle
     @Published private(set) var uploadState: FindingUploadViewState = .idle
+    @Published private(set) var showsSubmissionWarning = false
 
     private let findingID: UUID
     private let getFindingDetails: GetFindingDetailsUseCase
     private let uploadFindings: UploadFindingsUseCase
+    private let checkSubmissionAccess: CheckFindingSubmissionAccessUseCase
     private let onEditFinding: (UUID) -> Void
     private let onShowLocation: (FindingDetailsLocation) -> Void
     private let onShowPhotos: ([FindingPhoto], Int) -> Void
@@ -26,6 +28,7 @@ final class FindingDetailsV2ViewModel: ObservableObject {
         findingID: UUID,
         getFindingDetails: GetFindingDetailsUseCase,
         uploadFindings: UploadFindingsUseCase,
+        checkSubmissionAccess: CheckFindingSubmissionAccessUseCase,
         onEditFinding: @escaping (UUID) -> Void,
         onShowLocation: @escaping (FindingDetailsLocation) -> Void,
         onShowPhotos: @escaping ([FindingPhoto], Int) -> Void
@@ -33,6 +36,7 @@ final class FindingDetailsV2ViewModel: ObservableObject {
         self.findingID = findingID
         self.getFindingDetails = getFindingDetails
         self.uploadFindings = uploadFindings
+        self.checkSubmissionAccess = checkSubmissionAccess
         self.onEditFinding = onEditFinding
         self.onShowLocation = onShowLocation
         self.onShowPhotos = onShowPhotos
@@ -86,6 +90,10 @@ final class FindingDetailsV2ViewModel: ObservableObject {
 
     func didTapUpload() {
         guard details?.uploadStatus == .pending, !isUploading else { return }
+        guard checkSubmissionAccess.execute() else {
+            showsSubmissionWarning = true
+            return
+        }
 
         let initialProgress = FindingUploadProgress(
             completedCount: 0,
@@ -116,5 +124,9 @@ final class FindingDetailsV2ViewModel: ObservableObject {
 
     func dismissUploadError() {
         uploadState = .idle
+    }
+
+    func dismissSubmissionWarning() {
+        showsSubmissionWarning = false
     }
 }

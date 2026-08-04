@@ -10,6 +10,7 @@ final class FindingsBuilder {
     private let dataLicenseStorage: LicenseStorage
     private let imageLicenseStorage: LicenseStorage
     private let settingsStorage: SettingsStorage
+    private let userStorage: UserStorage
 
     init(
         realmConfiguration: Realm.Configuration = RealmManager.realmConfig(),
@@ -17,7 +18,8 @@ final class FindingsBuilder {
         uploadImageService: PostFindingImageService,
         dataLicenseStorage: LicenseStorage,
         imageLicenseStorage: LicenseStorage,
-        settingsStorage: SettingsStorage
+        settingsStorage: SettingsStorage,
+        userStorage: UserStorage
     ) {
         self.realmConfiguration = realmConfiguration
         self.remotePostService = remotePostService
@@ -25,20 +27,19 @@ final class FindingsBuilder {
         self.dataLicenseStorage = dataLicenseStorage
         self.imageLicenseStorage = imageLicenseStorage
         self.settingsStorage = settingsStorage
+        self.userStorage = userStorage
     }
 
     func makeViewController(
         controller: FindingsFlowController,
         onAddFinding: @escaping Observer<Void>,
-        onEditFinding: @escaping Observer<UUID>,
-        onShowLocation: @escaping Observer<FindingDetailsLocation>
+        onEditFinding: @escaping Observer<UUID>
     ) -> UIViewController {
         UIHostingController(
             rootView: makeFlow(
                 controller: controller,
                 onAddFinding: onAddFinding,
-                onEditFinding: onEditFinding,
-                onShowLocation: onShowLocation
+                onEditFinding: onEditFinding
             )
         )
     }
@@ -46,8 +47,7 @@ final class FindingsBuilder {
     func makeFlow(
         controller: FindingsFlowController,
         onAddFinding: @escaping Observer<Void>,
-        onEditFinding: @escaping Observer<UUID>,
-        onShowLocation: @escaping Observer<FindingDetailsLocation>
+        onEditFinding: @escaping Observer<UUID>
     ) -> FindingsFlow {
         let repository = RealmFindingsRepository(
             configuration: realmConfiguration
@@ -60,6 +60,11 @@ final class FindingsBuilder {
             imageLicenseStorage: imageLicenseStorage,
             settingsStorage: settingsStorage
         )
+        let submissionAccess = DefaultCheckFindingSubmissionAccessUseCase(
+            repository: StoredFindingSubmissionAccessRepository(
+                userStorage: userStorage
+            )
+        )
         return FindingsFlow(
             controller: controller,
             listUseCases: makeListUseCases(repository: repository),
@@ -69,9 +74,9 @@ final class FindingsBuilder {
             uploadFindings: DefaultUploadFindingsUseCase(
                 repository: uploadRepository
             ),
+            checkSubmissionAccess: submissionAccess,
             onAddFinding: onAddFinding,
-            onEditFinding: onEditFinding,
-            onShowLocation: onShowLocation
+            onEditFinding: onEditFinding
         )
     }
 

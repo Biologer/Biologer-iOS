@@ -52,6 +52,39 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
         XCTAssertNil(context.sut.navigationFindingID)
     }
 
+    func test_unverifiedUserSeesWarningBeforeCreatingFinding() {
+        var addCallCount = 0
+        let context = makeSUT(
+            onAddFinding: { addCallCount += 1 },
+            isSubmissionAllowed: false
+        )
+
+        context.sut.didTapAddFinding()
+
+        XCTAssertEqual(context.sut.submissionWarning, .createFinding)
+        XCTAssertEqual(addCallCount, 0)
+
+        context.sut.dismissSubmissionWarning()
+
+        XCTAssertNil(context.sut.submissionWarning)
+        XCTAssertEqual(addCallCount, 1)
+    }
+
+    func test_unverifiedUserCannotBeginUploadSelection() {
+        let finding = makeFinding(status: .pending)
+        let context = makeSUT(
+            getResult: .success([finding]),
+            isSubmissionAllowed: false
+        )
+        context.sut.loadFindings()
+
+        context.sut.beginUploadSelection()
+
+        XCTAssertEqual(context.sut.submissionWarning, .uploadFindings)
+        XCTAssertNil(context.sut.selectionMode)
+        XCTAssertEqual(context.sut.selectedFindingIDs, [])
+    }
+
     func test_filteringAndUploadSelectionOnlyIncludePendingFindings() {
         let firstPending = makeFinding(status: .pending)
         let uploaded = makeFinding(status: .uploaded)
@@ -242,7 +275,8 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
 
     private func makeSUT(
         getResult: Result<[FindingSummary], Error> = .success([]),
-        onAddFinding: @escaping () -> Void = {}
+        onAddFinding: @escaping () -> Void = {},
+        isSubmissionAllowed: Bool = true
     ) -> ListOfFindingsV2TestContext {
         let getFindings = GetFindingsUseCaseStub(result: getResult)
         let deleteFinding = DeleteFindingUseCaseSpy()
@@ -257,7 +291,10 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
                 deleteAllFindings: deleteAllFindings
             ),
             onAddFinding: onAddFinding,
-            uploadFindings: uploadFindings
+            uploadFindings: uploadFindings,
+            checkSubmissionAccess: FindingSubmissionAccessUseCaseStub(
+                isAllowed: isSubmissionAllowed
+            )
         )
         return ListOfFindingsV2TestContext(
             sut: sut,
@@ -294,6 +331,14 @@ private struct ListOfFindingsV2TestContext {
 
 private enum FindingsViewModelTestError: Error {
     case any
+}
+
+private struct FindingSubmissionAccessUseCaseStub: CheckFindingSubmissionAccessUseCase {
+    let isAllowed: Bool
+
+    func execute() -> Bool {
+        isAllowed
+    }
 }
 
 private final class GetFindingsUseCaseStub: GetFindingsUseCase {

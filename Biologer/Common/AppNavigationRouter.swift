@@ -181,8 +181,7 @@ public final class AppNavigationRouter: NavigationRouter {
                         mainTabBuilder.makeViewController(
                             onDownloadTaxa: onDownloadTaxa,
                             onLogout: onLogout,
-                            onDeleteAccount: onDeleteAccount,
-                            onShowFindingLocation: { _ in }
+                            onDeleteAccount: onDeleteAccount
                         )
                     }
                 )
@@ -431,7 +430,8 @@ public final class AppNavigationRouter: NavigationRouter {
             uploadImageService: remoteUploadImageService,
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage,
-            settingsStorage: userDefaultsSettingsStorage
+            settingsStorage: userDefaultsSettingsStorage,
+            userStorage: userStorage
         )
     }
 

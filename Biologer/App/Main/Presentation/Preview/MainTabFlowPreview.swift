@@ -21,11 +21,10 @@ struct MainTabFlow_Previews: PreviewProvider {
 
         return MainTabFlow(
             navigation: navigation,
-            makeFindings: { onAddFinding, onEditFinding, onShowLocation in
+            makeFindings: { onAddFinding, onEditFinding in
                 FindingsFlow_Previews.makeFlow(
                     onAddFinding: onAddFinding,
-                    onEditFinding: onEditFinding,
-                    onShowLocation: onShowLocation
+                    onEditFinding: onEditFinding
                 )
             },
             makeEditor: { mode, onSaved, onUnsavedChangesChanged in
@@ -35,8 +34,7 @@ struct MainTabFlow_Previews: PreviewProvider {
                     onUnsavedChangesChanged: onUnsavedChangesChanged
                 )
             },
-            settings: SettingsFlow_Previews.makeSettingsFlow(),
-            onShowFindingLocation: { _ in }
+            settings: SettingsFlow_Previews.makeSettingsFlow()
         )
     }
 }

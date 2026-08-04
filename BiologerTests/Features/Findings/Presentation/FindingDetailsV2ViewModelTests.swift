@@ -106,11 +106,31 @@ final class FindingDetailsV2ViewModelTests: XCTestCase {
         XCTAssertEqual(context.sut.uploadState, .idle)
     }
 
+    func test_unverifiedUserCannotUploadPendingFinding() async {
+        let details = makeDetails(status: .pending)
+        let context = makeSUT(
+            details: details,
+            isSubmissionAllowed: false
+        )
+        context.sut.loadDetails()
+
+        context.sut.didTapUpload()
+        await Task.yield()
+
+        XCTAssertTrue(context.sut.showsSubmissionWarning)
+        XCTAssertEqual(context.uploadFindings.receivedIDs, [])
+        XCTAssertEqual(context.sut.uploadState, .idle)
+
+        context.sut.dismissSubmissionWarning()
+        XCTAssertFalse(context.sut.showsSubmissionWarning)
+    }
+
     private func makeSUT(
         details: FindingDetails,
         onEdit: @escaping (UUID) -> Void = { _ in },
         onShowLocation: @escaping (FindingDetailsLocation) -> Void = { _ in },
-        onShowPhotos: @escaping ([FindingPhoto], Int) -> Void = { _, _ in }
+        onShowPhotos: @escaping ([FindingPhoto], Int) -> Void = { _, _ in },
+        isSubmissionAllowed: Bool = true
     ) -> FindingDetailsV2TestContext {
         let getDetails = FindingDetailsUseCaseStub(result: .success(details))
         let uploadFindings = FindingDetailsUploadUseCaseSpy()
@@ -118,6 +138,9 @@ final class FindingDetailsV2ViewModelTests: XCTestCase {
             findingID: details.id,
             getFindingDetails: getDetails,
             uploadFindings: uploadFindings,
+            checkSubmissionAccess: FindingDetailsSubmissionAccessUseCaseStub(
+                isAllowed: isSubmissionAllowed
+            ),
             onEditFinding: onEdit,
             onShowLocation: onShowLocation,
             onShowPhotos: onShowPhotos
@@ -171,6 +194,14 @@ private struct FindingDetailsV2TestContext {
 
 private enum FindingDetailsTestError: Error {
     case any
+}
+
+private struct FindingDetailsSubmissionAccessUseCaseStub: CheckFindingSubmissionAccessUseCase {
+    let isAllowed: Bool
+
+    func execute() -> Bool {
+        isAllowed
+    }
 }
 
 private final class FindingDetailsUseCaseStub: GetFindingDetailsUseCase {

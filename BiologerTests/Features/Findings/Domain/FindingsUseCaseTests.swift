@@ -82,6 +82,15 @@ final class FindingsUseCaseTests: XCTestCase {
         }
     }
 
+    func test_checkSubmissionAccessReturnsRepositoryValue() {
+        let repository = FindingSubmissionAccessRepositoryStub(isVerified: true)
+        let sut = DefaultCheckFindingSubmissionAccessUseCase(
+            repository: repository
+        )
+
+        XCTAssertTrue(sut.execute())
+    }
+
     private func makeFinding() -> FindingSummary {
         FindingSummary(
             id: UUID(),
@@ -95,6 +104,14 @@ final class FindingsUseCaseTests: XCTestCase {
 
 private enum FindingsUseCaseTestError: Error {
     case any
+}
+
+private struct FindingSubmissionAccessRepositoryStub: FindingSubmissionAccessRepository {
+    let isVerified: Bool
+
+    func isUserVerified() -> Bool {
+        isVerified
+    }
 }
 
 private final class FindingsRepositorySpy: FindingsRepository {

@@ -21,6 +21,11 @@ enum FindingsSelectionMode: Equatable {
     case deletion
 }
 
+enum FindingSubmissionWarning: Equatable {
+    case createFinding
+    case uploadFindings
+}
+
 @MainActor
 final class ListOfFindingsV2ViewModel: ObservableObject {
     @Published private(set) var findings: [FindingSummary] = []
@@ -31,9 +36,11 @@ final class ListOfFindingsV2ViewModel: ObservableObject {
     @Published private(set) var selectedFindingIDs: Set<UUID> = []
     @Published private(set) var uploadState: FindingUploadViewState = .idle
     @Published private(set) var navigationFindingID: UUID?
+    @Published private(set) var submissionWarning: FindingSubmissionWarning?
 
     private let useCases: FindingsUseCases
     private let uploadFindings: UploadFindingsUseCase
+    private let checkSubmissionAccess: CheckFindingSubmissionAccessUseCase
     private let onAddFinding: () -> Void
     private var filterBeforeSelection: FindingsListFilter?
     private var uploadTask: Task<Void, Never>?
@@ -41,11 +48,13 @@ final class ListOfFindingsV2ViewModel: ObservableObject {
     init(
         useCases: FindingsUseCases,
         onAddFinding: @escaping () -> Void,
-        uploadFindings: UploadFindingsUseCase
+        uploadFindings: UploadFindingsUseCase,
+        checkSubmissionAccess: CheckFindingSubmissionAccessUseCase
     ) {
         self.useCases = useCases
         self.onAddFinding = onAddFinding
         self.uploadFindings = uploadFindings
+        self.checkSubmissionAccess = checkSubmissionAccess
     }
 
     var isUploading: Bool {
@@ -102,6 +111,10 @@ final class ListOfFindingsV2ViewModel: ObservableObject {
 
     func didTapAddFinding() {
         guard !isUploading, !isSelectionActive else { return }
+        guard checkSubmissionAccess.execute() else {
+            submissionWarning = .createFinding
+            return
+        }
         onAddFinding()
     }
 
@@ -120,6 +133,10 @@ final class ListOfFindingsV2ViewModel: ObservableObject {
     }
 
     func beginUploadSelection() {
+        guard checkSubmissionAccess.execute() else {
+            submissionWarning = .uploadFindings
+            return
+        }
         beginSelection(mode: .upload, filter: .pending)
     }
 
@@ -160,6 +177,11 @@ final class ListOfFindingsV2ViewModel: ObservableObject {
     }
 
     func uploadSelectedFindings() {
+        guard checkSubmissionAccess.execute() else {
+            submissionWarning = .uploadFindings
+            return
+        }
+
         let selectedIDs = findings
             .filter { finding in
                 finding.uploadStatus == .pending
@@ -217,6 +239,15 @@ final class ListOfFindingsV2ViewModel: ObservableObject {
 
         if case .failure = uploadState {
             uploadState = .idle
+        }
+    }
+
+    func dismissSubmissionWarning() {
+        let warning = submissionWarning
+        submissionWarning = nil
+
+        if warning == .createFinding {
+            onAddFinding()
         }
     }
 

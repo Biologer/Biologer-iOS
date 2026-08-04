@@ -4,6 +4,7 @@ import SwiftUI
 
 private enum FindingsDestination: Hashable {
     case details(UUID)
+    case location(FindingDetailsLocation)
 }
 
 private struct FindingPhotoGalleryPresentation: Identifiable {
@@ -36,8 +37,8 @@ final class FindingsFlowController: ObservableObject, FindingsFlowControlling {
 struct FindingsFlow: View {
     private let getFindingDetails: GetFindingDetailsUseCase
     private let uploadFindings: UploadFindingsUseCase
+    private let checkSubmissionAccess: CheckFindingSubmissionAccessUseCase
     private let onEditFinding: Observer<UUID>
-    private let onShowLocation: Observer<FindingDetailsLocation>
 
     @StateObject private var navigation: FindingsFlowNavigation
     @StateObject private var listViewModel: ListOfFindingsV2ViewModel
@@ -48,23 +49,24 @@ struct FindingsFlow: View {
         listUseCases: FindingsUseCases,
         getFindingDetails: GetFindingDetailsUseCase,
         uploadFindings: UploadFindingsUseCase,
+        checkSubmissionAccess: CheckFindingSubmissionAccessUseCase,
         onAddFinding: @escaping Observer<Void>,
-        onEditFinding: @escaping Observer<UUID>,
-        onShowLocation: @escaping Observer<FindingDetailsLocation>
+        onEditFinding: @escaping Observer<UUID>
     ) {
         let navigation = FindingsFlowNavigation()
 
         self.getFindingDetails = getFindingDetails
         self.uploadFindings = uploadFindings
+        self.checkSubmissionAccess = checkSubmissionAccess
         self.onEditFinding = onEditFinding
-        self.onShowLocation = onShowLocation
         self.controller = controller
         _navigation = StateObject(wrappedValue: navigation)
         _listViewModel = StateObject(
             wrappedValue: ListOfFindingsV2ViewModel(
                 useCases: listUseCases,
                 onAddFinding: { onAddFinding(()) },
-                uploadFindings: uploadFindings
+                uploadFindings: uploadFindings,
+                checkSubmissionAccess: checkSubmissionAccess
             )
         )
     }
@@ -95,6 +97,7 @@ struct FindingsFlow: View {
         }
     }
 
+    @ViewBuilder
     private func destinationView(_ destination: FindingsDestination) -> some View {
         switch destination {
         case .details(let id):
@@ -103,8 +106,11 @@ struct FindingsFlow: View {
                     findingID: id,
                     getFindingDetails: getFindingDetails,
                     uploadFindings: uploadFindings,
+                    checkSubmissionAccess: checkSubmissionAccess,
                     onEditFinding: onEditFinding,
-                    onShowLocation: onShowLocation,
+                    onShowLocation: { location in
+                        navigation.path.append(.location(location))
+                    },
                     onShowPhotos: { photos, initialIndex in
                         navigation.photoGallery = FindingPhotoGalleryPresentation(
                             photos: photos,
@@ -113,6 +119,8 @@ struct FindingsFlow: View {
                     }
                 )
             )
+        case .location(let location):
+            FindingLocationDetailsFlow(location: location)
         }
     }
 }

@@ -23,8 +23,7 @@ final class MainTabBuilder {
     func makeViewController(
         onDownloadTaxa: @escaping Observer<Void>,
         onLogout: @escaping Observer<Void>,
-        onDeleteAccount: @escaping Observer<Bool>,
-        onShowFindingLocation: @escaping Observer<FindingDetailsLocation>
+        onDeleteAccount: @escaping Observer<Bool>
     ) -> UIViewController {
         let navigation = MainTabNavigation(
             findingsFlowController: findingsFlowController
@@ -33,13 +32,11 @@ final class MainTabBuilder {
             navigation: navigation,
             makeFindings: { [findingsBuilder, findingsFlowController]
                 onAddFinding,
-                onEditFinding,
-                onShowLocation in
+                onEditFinding in
                 findingsBuilder.makeFlow(
                     controller: findingsFlowController,
                     onAddFinding: onAddFinding,
-                    onEditFinding: onEditFinding,
-                    onShowLocation: onShowLocation
+                    onEditFinding: onEditFinding
                 )
             },
             makeEditor: { [findingEditorBuilder]
@@ -56,8 +53,7 @@ final class MainTabBuilder {
                 onDownloadTaxa: onDownloadTaxa,
                 onLogout: onLogout,
                 onDeleteAccount: onDeleteAccount
-            ),
-            onShowFindingLocation: onShowFindingLocation
+            )
         )
         return UIHostingController(rootView: flow)
     }

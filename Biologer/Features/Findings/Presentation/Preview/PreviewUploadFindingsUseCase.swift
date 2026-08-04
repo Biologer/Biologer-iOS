@@ -27,3 +27,11 @@ final class PreviewUploadFindingsUseCase: UploadFindingsUseCase {
         }
     }
 }
+
+struct PreviewFindingSubmissionAccessUseCase: CheckFindingSubmissionAccessUseCase {
+    var isAllowed = true
+
+    func execute() -> Bool {
+        isAllowed
+    }
+}

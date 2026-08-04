@@ -345,3 +345,7 @@
 "FindingEditorV2.unsaved.message" = "You have unsaved changes. Do you want to discard them and open another finding?";
 "FindingEditorV2.unsaved.continue" = "Continue editing";
 "FindingEditorV2.unsaved.discard" = "Discard changes";
+"FindingLocationDetailsV2.nav.title" = "Finding location";
+"FindingLocationDetailsV2.card.title" = "Recorded location";
+"FindingLocationDetailsV2.mapStyle" = "Map type";
+"FindingLocationDetailsV2.canvas.placeholder" = "The map is available when the app is running.";

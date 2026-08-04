@@ -27,7 +27,8 @@ struct ListOfFindingsScreenV2_Previews: PreviewProvider {
         let viewModel = ListOfFindingsV2ViewModel(
             useCases: useCases,
             onAddFinding: {},
-            uploadFindings: PreviewUploadFindingsUseCase()
+            uploadFindings: PreviewUploadFindingsUseCase(),
+            checkSubmissionAccess: PreviewFindingSubmissionAccessUseCase()
         )
 
         return NavigationStack {

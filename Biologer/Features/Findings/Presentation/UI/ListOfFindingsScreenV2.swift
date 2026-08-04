@@ -44,6 +44,14 @@ struct ListOfFindingsScreenV2: View {
         } message: {
             Text(actionErrorMessage)
         }
+        .alert(
+            "Common.title.warning".localized,
+            isPresented: submissionWarningIsPresented
+        ) {
+            Button("Common.btn.ok".localized) {}
+        } message: {
+            Text("ListOfFindings.popUpUserVerified.description".localized)
+        }
     }
 
     @ViewBuilder
@@ -331,6 +339,17 @@ struct ListOfFindingsScreenV2: View {
             set: { isPresented in
                 if !isPresented {
                     viewModel.dismissActionError()
+                }
+            }
+        )
+    }
+
+    private var submissionWarningIsPresented: Binding<Bool> {
+        Binding(
+            get: { viewModel.submissionWarning != nil },
+            set: { isPresented in
+                if !isPresented {
+                    viewModel.dismissSubmissionWarning()
                 }
             }
         )

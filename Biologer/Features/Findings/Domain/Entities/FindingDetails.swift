@@ -23,7 +23,7 @@ struct FindingPhoto: Equatable {
     let remoteURL: URL?
 }
 
-struct FindingDetailsLocation: Equatable {
+struct FindingDetailsLocation: Equatable, Hashable {
     let latitude: Double
     let longitude: Double
     let altitude: Double

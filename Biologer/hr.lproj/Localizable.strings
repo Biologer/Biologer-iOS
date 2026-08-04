@@ -345,3 +345,7 @@
 "FindingEditorV2.unsaved.message" = "Imate nespremljene promjene. Želite li ih odbaciti i otvoriti drugi nalaz?";
 "FindingEditorV2.unsaved.continue" = "Nastavi uređivanje";
 "FindingEditorV2.unsaved.discard" = "Odbaci promjene";
+"FindingLocationDetailsV2.nav.title" = "Lokacija nalaza";
+"FindingLocationDetailsV2.card.title" = "Zabilježena lokacija";
+"FindingLocationDetailsV2.mapStyle" = "Vrsta karte";
+"FindingLocationDetailsV2.canvas.placeholder" = "Karta je dostupna kada je aplikacija pokrenuta.";
