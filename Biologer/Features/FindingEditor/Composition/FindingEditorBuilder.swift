@@ -6,13 +6,16 @@ import UIKit
 final class FindingEditorBuilder {
     private let realmConfiguration: Realm.Configuration
     private let altitudeService: GetAltitudeService
+    private let taxonSyncComposition: TaxonSyncComposition
 
     init(
         realmConfiguration: Realm.Configuration = RealmManager.realmConfig(),
-        altitudeService: GetAltitudeService
+        altitudeService: GetAltitudeService,
+        taxonSyncComposition: TaxonSyncComposition
     ) {
         self.realmConfiguration = realmConfiguration
         self.altitudeService = altitudeService
+        self.taxonSyncComposition = taxonSyncComposition
     }
 
     func makeViewController(
@@ -64,6 +67,7 @@ final class FindingEditorBuilder {
                     altitudeRepository: altitudeRepository
                 )
             ),
+            taxonSyncComposition: taxonSyncComposition,
             onSaved: onSaved,
             onUnsavedChangesChanged: onUnsavedChangesChanged
         )

@@ -2,6 +2,12 @@ import SwiftUI
 
 struct TaxonSyncScreen: View {
     @ObservedObject var viewModel: TaxonSyncViewModel
+    let onContinue: (() -> Void)?
+
+    init(viewModel: TaxonSyncViewModel, onContinue: (() -> Void)? = nil) {
+        self.viewModel = viewModel
+        self.onContinue = onContinue
+    }
 
     var body: some View {
         ScrollView {
@@ -10,6 +16,11 @@ struct TaxonSyncScreen: View {
                 statusCard
                 if let progress = viewModel.progress { progressCard(progress) }
                 actions
+                if let onContinue {
+                    Button("TaxonSync.action.continue".localized, action: onContinue)
+                        .buttonStyle(BiologerActionButtonStyle(isFilled: false))
+                        .padding(.top, 4)
+                }
             }
             .padding(16)
         }
@@ -20,8 +31,8 @@ struct TaxonSyncScreen: View {
         HStack(spacing: 14) {
             BiologerIconBadge(systemImage: "leaf.fill", tint: .white, backgroundColor: BiologerColors.accent)
             VStack(alignment: .leading, spacing: 4) {
-                Text("Taxon database").font(.title3.weight(.bold)).foregroundStyle(.white)
-                Text("Keep your species search current").font(.subheadline).foregroundStyle(.white.opacity(0.82))
+                Text("TaxonSync.title".localized).font(.title3.weight(.bold)).foregroundStyle(.white)
+                Text("TaxonSync.subtitle".localized).font(.subheadline).foregroundStyle(.white.opacity(0.82))
             }
             Spacer()
         }
@@ -61,9 +72,9 @@ struct TaxonSyncScreen: View {
 
     private func progressCard(_ progress: TaxonSyncProgress) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack { Text("Progress").font(.subheadline.weight(.semibold)); Spacer(); Text("\(Int(progress.fractionCompleted * 100))%") }
+            HStack { Text("TaxonSync.progress.title".localized).font(.subheadline.weight(.semibold)); Spacer(); Text("\(Int(progress.fractionCompleted * 100))%") }
             ProgressView(value: progress.fractionCompleted).tint(BiologerColors.brandStrong)
-            HStack { Text("\(progress.importedTaxaCount) of \(progress.totalTaxaCount) taxa"); Spacer(); Text("Page \(progress.completedPages) of \(progress.totalPages)") }
+            HStack { Text(String(format: "TaxonSync.progress.taxa".localized, progress.importedTaxaCount, progress.totalTaxaCount)); Spacer(); Text(String(format: "TaxonSync.progress.pages".localized, progress.completedPages, progress.totalPages)) }
                 .font(.caption).foregroundStyle(BiologerColors.textPrimary.opacity(0.7))
         }
         .padding(16)
@@ -77,7 +88,7 @@ struct TaxonSyncScreen: View {
                     .buttonStyle(BiologerActionButtonStyle())
             }
             if viewModel.canPause {
-                Button("Pause") { viewModel.perform(.pause) }
+                Button("TaxonSync.action.pause".localized) { viewModel.perform(.pause) }
                     .buttonStyle(BiologerActionButtonStyle(isFilled: false))
             }
         }

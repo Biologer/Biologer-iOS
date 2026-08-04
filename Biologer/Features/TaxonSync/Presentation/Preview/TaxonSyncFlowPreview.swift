@@ -9,34 +9,80 @@ private struct PreviewTaxonAction: CheckTaxonUpdatesUseCase, StartTaxonSyncUseCa
     func execute(scope: TaxonCatalogScope) async throws(TaxonSyncFailure) -> TaxonSyncCheckResult { .upToDate(.init(scope: scope, availability: .ready, localTaxaCount: 1240, lastSuccessfulSyncTimestamp: nil)) }
     func execute(scope: TaxonCatalogScope) async {}
 }
-private struct PreviewTaxonScope: TaxonCatalogScopeProviding { func currentScope() -> TaxonCatalogScope? { .init(environmentHost: "api.biologer.org") } }
+private struct PreviewTaxonScope: TaxonCatalogScopeProviding {
+    let scope: TaxonCatalogScope
+    func currentScope() -> TaxonCatalogScope? { scope }
+}
+
+enum TaxonSyncPreviewFactory {
+    static func makeComposition(
+        state: TaxonSyncState? = nil
+    ) -> TaxonSyncComposition {
+        let scope = TaxonCatalogScope(environmentHost: "api.biologer.org")
+        let previewState = state ?? .idle(.init(
+            scope: scope,
+            availability: .partial,
+            localTaxaCount: 742,
+            lastSuccessfulSyncTimestamp: nil
+        ))
+        let stateUseCase = PreviewTaxonState(state: previewState)
+        let actionUseCase = PreviewTaxonAction()
+
+        return TaxonSyncComposition(
+            useCases: TaxonSyncUseCases(
+                getState: stateUseCase,
+                observeState: stateUseCase,
+                checkForUpdates: actionUseCase,
+                start: actionUseCase,
+                pause: actionUseCase,
+                resume: actionUseCase
+            ),
+            scopeProvider: PreviewTaxonScope(scope: scope)
+        )
+    }
+}
 
 struct TaxonSyncFlowPreview: View {
     private let previewState: TaxonSyncState
+    private let showsContinueAction: Bool
 
     init(state: TaxonSyncState = .idle(.init(
         scope: .init(environmentHost: "api.biologer.org"),
         availability: .partial,
         localTaxaCount: 742,
         lastSuccessfulSyncTimestamp: nil
-    ))) {
+    )), showsContinueAction: Bool = false) {
         previewState = state
+        self.showsContinueAction = showsContinueAction
     }
 
     var body: some View {
+        let composition = TaxonSyncPreviewFactory.makeComposition(
+            state: previewState
+        )
         NavigationStack {
-            TaxonSyncFlow(useCases: makeUseCases(), scopeProvider: PreviewTaxonScope())
+            TaxonSyncFlow(
+                useCases: composition.useCases,
+                scopeProvider: composition.scopeProvider,
+                onContinue: showsContinueAction ? {} : nil
+            )
         }
-    }
-
-    private func makeUseCases() -> TaxonSyncUseCases {
-        let state = PreviewTaxonState(state: previewState)
-        let action = PreviewTaxonAction()
-        return TaxonSyncUseCases(getState: state, observeState: state, checkForUpdates: action, start: action, pause: action, resume: action)
     }
 }
 
 #Preview("Partial catalog") { TaxonSyncFlowPreview() }
+
+#Preview("Startup - empty catalog") {
+    TaxonSyncFlowPreview(
+        state: .idle(.init(
+            scope: .init(environmentHost: "api.biologer.org"),
+            availability: .empty,
+            localTaxaCount: 0,
+            lastSuccessfulSyncTimestamp: nil
+        )),
+        showsContinueAction: true
+    )
+}
 
 #Preview("Downloading") {
     TaxonSyncFlowPreview(state: .working(

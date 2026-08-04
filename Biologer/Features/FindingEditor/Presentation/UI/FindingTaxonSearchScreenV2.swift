@@ -2,9 +2,11 @@ import SwiftUI
 
 struct FindingTaxonSearchScreenV2: View {
     @StateObject private var viewModel: FindingTaxonSearchV2ViewModel
+    private let onTaxonSync: (() -> Void)?
 
-    init(viewModel: FindingTaxonSearchV2ViewModel) {
+    init(viewModel: FindingTaxonSearchV2ViewModel, onTaxonSync: (() -> Void)? = nil) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.onTaxonSync = onTaxonSync
     }
 
     var body: some View {
@@ -18,6 +20,16 @@ struct FindingTaxonSearchScreenV2: View {
         .biologerPageBackground()
         .navigationTitle("NewTaxon.search.nav.title".localized)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if let onTaxonSync {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: onTaxonSync) {
+                        Image(systemName: "arrow.triangle.2.circlepath")
+                    }
+                    .accessibilityLabel("TaxonSync.title".localized)
+                }
+            }
+        }
         .searchable(
             text: $viewModel.query,
             placement: .navigationBarDrawer(displayMode: .always),

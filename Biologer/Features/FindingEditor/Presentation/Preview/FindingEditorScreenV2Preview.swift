@@ -42,6 +42,7 @@ struct FindingEditorScreenV2_Previews: PreviewProvider {
                 observeCurrentLocation: PreviewObserveCurrentFindingLocationUseCase(),
                 resolveLocation: PreviewResolveFindingLocationUseCase()
             ),
+            taxonSyncComposition: TaxonSyncPreviewFactory.makeComposition(),
             onSaved: onSaved,
             onUnsavedChangesChanged: onUnsavedChangesChanged
         )

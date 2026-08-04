@@ -62,24 +62,24 @@ final class TaxonSyncViewModel: ObservableObject {
         switch state {
         case .idle(let status), .completed(let status): return availabilityTitle(status.availability)
         case .working(let phase, _): return phaseTitle(phase)
-        case .updateAvailable: return "Updates available"
-        case .waitingForNetwork: return "Waiting for connection"
-        case .paused: return "Download paused"
-        case .failed: return "Update failed"
-        case .none: return "Taxon database"
+        case .updateAvailable: return "TaxonSync.status.update.title".localized
+        case .waitingForNetwork: return "TaxonSync.status.waiting.title".localized
+        case .paused: return "TaxonSync.status.paused.title".localized
+        case .failed: return "TaxonSync.status.failed.title".localized
+        case .none: return "TaxonSync.title".localized
         }
     }
 
     var statusMessage: String {
         switch state {
         case .idle(let status), .completed(let status):
-            return status.availability == .ready ? "The local taxon database is ready to use." : "Download the taxon database to search species offline."
-        case .working: return "Your taxon database is being updated."
-        case .updateAvailable(let update): return "\(update.changedTaxaCount) taxa are ready to download."
-        case .waitingForNetwork: return "A network connection is required to continue."
-        case .paused: return "The download is paused and can be resumed at any time."
-        case .failed: return errorMessage ?? "The taxon database could not be updated."
-        case .none: return "Keep the taxon database up to date for reliable search."
+            return availabilityMessage(status.availability)
+        case .working: return "TaxonSync.status.working.message".localized
+        case .updateAvailable(let update): return String(format: "TaxonSync.status.update.message".localized, update.changedTaxaCount)
+        case .waitingForNetwork: return "TaxonSync.status.waiting.message".localized
+        case .paused: return "TaxonSync.status.paused.message".localized
+        case .failed(let failure, _): return errorMessage ?? message(for: failure)
+        case .none: return "TaxonSync.status.default.message".localized
         }
     }
 
@@ -92,27 +92,80 @@ final class TaxonSyncViewModel: ObservableObject {
 
     var primaryAction: (title: String, action: Action)? {
         switch state {
-        case .updateAvailable: return ("Download updates", .start)
-        case .paused, .waitingForNetwork: return ("Resume", .resume)
-        case .failed, .idle, .completed: return ("Check for updates", .check)
+        case .updateAvailable: return ("TaxonSync.action.download".localized, .start)
+        case .paused, .waitingForNetwork: return ("TaxonSync.action.resume".localized, .resume)
+        case .failed(_, let progress):
+            return ("TaxonSync.action.retry".localized, progress == nil ? .start : .resume)
+        case .idle(let status):
+            return status.availability == .empty
+                ? ("TaxonSync.action.downloadDatabase".localized, .start)
+                : ("TaxonSync.action.check".localized, .check)
+        case .completed:
+            return ("TaxonSync.action.check".localized, .check)
         default: return nil
         }
     }
 
     var canPause: Bool {
-        if case .working = state { return true }
+        if case .working(let phase, _) = state {
+            return phase == .downloading || phase == .importing
+        }
         return false
     }
 
     private func availabilityTitle(_ availability: TaxonCatalogAvailability) -> String {
-        switch availability { case .empty: return "Taxon database is empty"; case .initialCatalogLoaded: return "Initial catalog loaded"; case .partial: return "Catalog is partially loaded"; case .ready: return "Catalog is up to date" }
+        switch availability {
+        case .empty:
+            return "TaxonSync.status.empty.title".localized
+        case .initialCatalogLoaded:
+            return "TaxonSync.status.initial.title".localized
+        case .partial:
+            return "TaxonSync.status.partial.title".localized
+        case .ready:
+            return "TaxonSync.status.ready.title".localized
+        }
     }
 
     private func phaseTitle(_ phase: TaxonSyncPhase) -> String {
-        switch phase { case .loadingInitialCatalog: return "Loading initial catalog"; case .checking: return "Checking for updates"; case .downloading: return "Downloading updates"; case .importing: return "Importing taxa" }
+        switch phase {
+        case .loadingInitialCatalog:
+            return "TaxonSync.phase.initial".localized
+        case .checking:
+            return "TaxonSync.phase.checking".localized
+        case .downloading:
+            return "TaxonSync.phase.downloading".localized
+        case .importing:
+            return "TaxonSync.phase.importing".localized
+        }
+    }
+
+    private func availabilityMessage(
+        _ availability: TaxonCatalogAvailability
+    ) -> String {
+        switch availability {
+        case .empty:
+            return "TaxonSync.status.empty.message".localized
+        case .initialCatalogLoaded:
+            return "TaxonSync.status.initial.message".localized
+        case .partial:
+            return "TaxonSync.status.partial.message".localized
+        case .ready:
+            return "TaxonSync.status.ready.message".localized
+        }
     }
 
     private func message(for failure: TaxonSyncFailure) -> String {
-        switch failure { case .networkUnavailable: return "Check your internet connection and try again."; case .unauthorized: return "Your session has expired. Please log in again."; case .initialCatalogUnavailable: return "The initial taxon catalog is unavailable."; case .localPersistence: return "The local taxon database could not be saved."; default: return "The taxon database could not be updated." }
+        switch failure {
+        case .networkUnavailable:
+            return "TaxonSync.error.network".localized
+        case .unauthorized:
+            return "TaxonSync.error.unauthorized".localized
+        case .initialCatalogUnavailable:
+            return "TaxonSync.error.initial".localized
+        case .localPersistence:
+            return "TaxonSync.error.persistence".localized
+        default:
+            return "TaxonSync.status.failed.message".localized
+        }
     }
 }

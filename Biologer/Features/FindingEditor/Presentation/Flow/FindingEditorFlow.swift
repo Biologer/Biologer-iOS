@@ -16,6 +16,7 @@ private final class FindingEditorFlowNavigation: ObservableObject {
     @Published var photoGallery: FindingEditorGalleryPresentation?
     @Published var photoPicker: FindingEditorPhotoPickerPresentation?
     @Published var showsTaxonSearch = false
+    @Published var showsTaxonSync = false
     @Published var showsLocationSelection = false
 }
 
@@ -25,6 +26,7 @@ struct FindingEditorFlow: View {
     @StateObject private var viewModel: FindingEditorV2ViewModel
     private let searchTaxa: SearchFindingTaxaUseCase
     private let locationUseCases: FindingLocationUseCases
+    private let taxonSyncComposition: TaxonSyncComposition
 
     init(
         mode: FindingEditorMode,
@@ -32,12 +34,14 @@ struct FindingEditorFlow: View {
         saveFinding: SaveFindingEditorUseCase,
         searchTaxa: SearchFindingTaxaUseCase,
         locationUseCases: FindingLocationUseCases,
+        taxonSyncComposition: TaxonSyncComposition,
         onSaved: @escaping (UUID) -> Void,
         onUnsavedChangesChanged: @escaping (Bool) -> Void = { _ in }
     ) {
         let navigation = FindingEditorFlowNavigation()
         self.searchTaxa = searchTaxa
         self.locationUseCases = locationUseCases
+        self.taxonSyncComposition = taxonSyncComposition
         _navigation = StateObject(wrappedValue: navigation)
         _viewModel = StateObject(
             wrappedValue: FindingEditorV2ViewModel(
@@ -82,7 +86,16 @@ struct FindingEditorFlow: View {
                                 viewModel.selectTaxon(taxon)
                                 navigation.showsTaxonSearch = false
                             }
-                        )
+                        ),
+                        onTaxonSync: {
+                            navigation.showsTaxonSync = true
+                        }
+                    )
+                }
+                .navigationDestination(isPresented: $navigation.showsTaxonSync) {
+                    TaxonSyncFlow(
+                        useCases: taxonSyncComposition.useCases,
+                        scopeProvider: taxonSyncComposition.scopeProvider
                     )
                 }
                 .navigationDestination(isPresented: $navigation.showsLocationSelection) {

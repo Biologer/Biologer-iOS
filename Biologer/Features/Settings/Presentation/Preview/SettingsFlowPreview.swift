@@ -46,60 +46,16 @@ struct SettingsFlow_Previews: PreviewProvider {
             onDownloadTaxa: onDownloadTaxa,
             onLogout: onLogout,
             onDeleteAccount: onDeleteAccount,
-            taxonSyncComposition: PreviewTaxonSyncComposition.make()
+            taxonSyncComposition: TaxonSyncPreviewFactory.makeComposition(
+                state: .idle(.init(
+                    scope: .init(environmentHost: "api.biologer.org"),
+                    availability: .ready,
+                    localTaxaCount: 1240,
+                    lastSuccessfulSyncTimestamp: nil
+                ))
+            )
         )
     }
-}
-
-private enum PreviewTaxonSyncComposition {
-    static func make() -> TaxonSyncComposition {
-        let scope = TaxonCatalogScope(environmentHost: "dev.biologer.org")
-        let status = TaxonCatalogStatus(
-            scope: scope,
-            availability: .ready,
-            localTaxaCount: 1240,
-            lastSuccessfulSyncTimestamp: nil
-        )
-        let state = PreviewStateUseCase(state: .idle(status))
-        let actions = PreviewActionUseCase()
-        return TaxonSyncComposition(
-            useCases: TaxonSyncUseCases(
-                getState: state,
-                observeState: state,
-                checkForUpdates: actions,
-                start: actions,
-                pause: actions,
-                resume: actions
-            ),
-            scopeProvider: PreviewScopeProvider(scope: scope)
-        )
-    }
-}
-
-private struct PreviewStateUseCase: GetTaxonSyncStateUseCase, ObserveTaxonSyncStateUseCase {
-    let state: TaxonSyncState
-
-    func execute(scope: TaxonCatalogScope) async -> TaxonSyncState { state }
-
-    func execute(scope: TaxonCatalogScope) async -> AsyncStream<TaxonSyncState> {
-        AsyncStream { continuation in
-            continuation.yield(state)
-            continuation.finish()
-        }
-    }
-}
-
-private struct PreviewActionUseCase: CheckTaxonUpdatesUseCase, StartTaxonSyncUseCase, PauseTaxonSyncUseCase, ResumeTaxonSyncUseCase {
-    func execute(scope: TaxonCatalogScope) async throws(TaxonSyncFailure) -> TaxonSyncCheckResult {
-        .upToDate(.init(scope: scope, availability: .ready, localTaxaCount: 1240, lastSuccessfulSyncTimestamp: nil))
-    }
-
-    func execute(scope: TaxonCatalogScope) async {}
-}
-
-private struct PreviewScopeProvider: TaxonCatalogScopeProviding {
-    let scope: TaxonCatalogScope
-    func currentScope() -> TaxonCatalogScope? { scope }
 }
 
 private final class PreviewSettingsPreferencesRepository: SettingsPreferencesRepository {

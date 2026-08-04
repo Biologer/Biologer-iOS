@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 import UIKit
 
@@ -21,6 +22,8 @@ public final class AppNavigationRouter: NavigationRouter {
     private let authorizationUIVersion: AuthorizationUIVersion
     private let mainUIVersion: MainUIVersion
     private var downloadTaxonNavigationController: BiologerNavigationViewController?
+    private var didSkipTaxonSyncStartup = false
+    private var isMainCoordinatorPresented = false
 
     // MARK: - Services
 
@@ -53,11 +56,18 @@ public final class AppNavigationRouter: NavigationRouter {
         return client
     }()
 
+    private lazy var authenticatedAPIHttpClient: APIClientProtocol = {
+        AuthenticatedAPIClientDecorator(
+            decoratee: apiHttpClient,
+            tokenStorage: tokenStorage
+        )
+    }()
+
     // One composition graph is kept for the whole authenticated app session.
     // Settings, startup and Taxon Search will consume useCases from this object.
     private lazy var taxonSyncComposition: TaxonSyncComposition = {
         TaxonSyncBuilder(
-            apiClient: apiHttpClient,
+            apiClient: authenticatedAPIHttpClient,
             environmentStorage: environmentStorage
         ).makeComposition()
     }()
@@ -202,8 +212,12 @@ public final class AppNavigationRouter: NavigationRouter {
                 self?.logout()
             }
         }
-        coordinator.onStartDownloadTaxa = { [weak self] navigationController in
-            self?.downloadTaxonRouter.start(navigationController: navigationController)
+        if mainUIVersion == .v1 {
+            coordinator.onStartDownloadTaxa = { [weak self] navigationController in
+                self?.downloadTaxonRouter.start(
+                    navigationController: navigationController
+                )
+            }
         }
         coordinator.onDeleteAccount = { [weak self] deleteObservations in
             self?.deleteCurrentAccount(deleteObservations: deleteObservations)
@@ -316,6 +330,37 @@ public final class AppNavigationRouter: NavigationRouter {
 
     // MARK: - Private Functions
     private func showMainCoordinator() {
+        guard mainUIVersion == .v2 else {
+            presentMainCoordinator()
+            return
+        }
+
+        guard !didSkipTaxonSyncStartup else {
+            presentMainCoordinator()
+            return
+        }
+
+        guard let scope = taxonSyncComposition.scopeProvider.currentScope() else {
+            presentMainCoordinator()
+            return
+        }
+
+        Task { [weak self] in
+            guard let self else { return }
+            let state = await taxonSyncComposition.useCases.getState.execute(scope: scope)
+            await MainActor.run {
+                if self.isTaxonCatalogReady(state) {
+                    self.presentMainCoordinator()
+                } else {
+                    self.showTaxonSyncStartup()
+                }
+            }
+        }
+    }
+
+    private func presentMainCoordinator() {
+        guard !isMainCoordinatorPresented else { return }
+        isMainCoordinatorPresented = true
         mainCoordinator.start()
         UINavigationBar.appearance().barTintColor = .biologerGreenColor
         let rootViewController = mainCoordinator.rootViewController
@@ -329,7 +374,33 @@ public final class AppNavigationRouter: NavigationRouter {
         )
     }
 
+    private func showTaxonSyncStartup() {
+        let flow = TaxonSyncFlow(
+            useCases: taxonSyncComposition.useCases,
+            scopeProvider: taxonSyncComposition.scopeProvider,
+            onContinue: { [weak self] in
+                guard let self else { return }
+                self.didSkipTaxonSyncStartup = true
+                self.presentMainCoordinator()
+            }
+        )
+        let viewController = UIHostingController(rootView: flow)
+        viewController.setBiologerTitle(text: "TaxonSync.title".localized)
+        mainNavigationController.setViewControllers([viewController], animated: false)
+    }
+
+    private func isTaxonCatalogReady(_ state: TaxonSyncState) -> Bool {
+        switch state {
+        case .idle(let status), .completed(let status):
+            return status.availability == .ready
+        default:
+            return false
+        }
+    }
+
     private func logout() {
+        didSkipTaxonSyncStartup = false
+        isMainCoordinatorPresented = false
         logoutUseCase.logout()
 
         self.mainNavigationController.dismiss(animated: true, completion: {
@@ -391,8 +462,12 @@ public final class AppNavigationRouter: NavigationRouter {
                 response.data.forEach( {
                     RealmManager.add(DBObservetationMapper.mapForDB(observationResponse: $0))
                 })
-                self.downloadTaxonRouter.start(navigationController: self.mainCoordinator.primaryNavigationController,
-                                               sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: false)
+                if self.mainUIVersion == .v1 {
+                    self.downloadTaxonRouter.start(
+                        navigationController: self.mainCoordinator.primaryNavigationController,
+                        sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: false
+                    )
+                }
             }
         })
     }
@@ -418,7 +493,6 @@ public final class AppNavigationRouter: NavigationRouter {
             uiKitCommonFactory: IOSUIKitCommonViewControllerFactory(),
             alertFactory: swiftUIAlertViewControllerFactory,
             userStorage: userStorage,
-            taxonSyncComposition: taxonSyncComposition,
             showsSideMenuButton: showsSideMenuButton
         )
     }
@@ -451,7 +525,8 @@ public final class AppNavigationRouter: NavigationRouter {
             altitudeService: RemoteGetAltitudeService(
                 client: httpClient,
                 environmentStorage: environmentStorage
-            )
+            ),
+            taxonSyncComposition: taxonSyncComposition
         )
     }
 

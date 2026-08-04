@@ -1,4 +1,4 @@
-enum MainUIVersion {
+enum MainUIVersion: Equatable {
     case v1
     case v2
 }
