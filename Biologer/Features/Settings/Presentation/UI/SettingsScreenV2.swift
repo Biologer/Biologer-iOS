@@ -77,7 +77,7 @@ struct SettingsScreenV2: View {
                     actionRow(
                         title: "Settings.lb.downloadTaxa.title".localized,
                         systemImage: "arrow.down.to.line",
-                        action: { onDownloadTaxa(()) }
+                        action: { onSelectDestination(.taxonSync) }
                     )
 
                     rowDivider

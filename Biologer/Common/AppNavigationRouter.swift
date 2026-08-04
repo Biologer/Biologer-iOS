@@ -429,7 +429,8 @@ public final class AppNavigationRouter: NavigationRouter {
             imageLicenseStorage: imageLicenseStorage,
             taxonPaginationStorage: taxonPaginationInfoStorage,
             environmentStorage: environmentStorage,
-            userStorage: userStorage
+            userStorage: userStorage,
+            taxonSyncComposition: taxonSyncComposition
         )
     }
 

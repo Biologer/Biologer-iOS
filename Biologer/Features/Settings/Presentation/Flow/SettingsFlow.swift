@@ -4,6 +4,7 @@ enum SettingsDestination: Hashable {
     case projectName
     case license(SettingsLicenseKind)
     case automaticDownload
+    case taxonSync
     case help
     case about
     case account
@@ -17,6 +18,7 @@ struct SettingsFlow: View {
     private let onDownloadTaxa: Observer<Void>
     private let onLogout: Observer<Void>
     private let onDeleteAccount: Observer<Bool>
+    private let taxonSyncComposition: TaxonSyncComposition
 
     @StateObject private var settingsViewModel: SettingsScreenV2ViewModel
     @State private var path: [SettingsDestination] = []
@@ -28,7 +30,8 @@ struct SettingsFlow: View {
         onOpenURL: @escaping Observer<String>,
         onDownloadTaxa: @escaping Observer<Void>,
         onLogout: @escaping Observer<Void>,
-        onDeleteAccount: @escaping Observer<Bool>
+        onDeleteAccount: @escaping Observer<Bool>,
+        taxonSyncComposition: TaxonSyncComposition
     ) {
         self.useCases = useCases
         self.accountContextProvider = accountContextProvider
@@ -37,6 +40,7 @@ struct SettingsFlow: View {
         self.onDownloadTaxa = onDownloadTaxa
         self.onLogout = onLogout
         self.onDeleteAccount = onDeleteAccount
+        self.taxonSyncComposition = taxonSyncComposition
         _settingsViewModel = StateObject(
             wrappedValue: SettingsScreenV2ViewModel(
                 preferencesUseCase: useCases.preferences,
@@ -83,6 +87,11 @@ struct SettingsFlow: View {
                 viewModel: AutomaticDownloadSettingsViewModel(
                     useCase: useCases.preferences
                 )
+            )
+        case .taxonSync:
+            TaxonSyncFlow(
+                useCases: taxonSyncComposition.useCases,
+                scopeProvider: taxonSyncComposition.scopeProvider
             )
         case .help:
             BiologerHelpScreen(onDone: { _ in goBack() })

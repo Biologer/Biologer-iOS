@@ -9,6 +9,7 @@ final class SettingsBuilder {
     private let taxonPaginationStorage: TaxonsPaginationInfoStorage
     private let environmentStorage: EnvironmentStorage
     private let userStorage: UserStorage
+    private let taxonSyncComposition: TaxonSyncComposition
 
     init(
         settingsStorage: SettingsStorage,
@@ -16,7 +17,8 @@ final class SettingsBuilder {
         imageLicenseStorage: LicenseStorage,
         taxonPaginationStorage: TaxonsPaginationInfoStorage,
         environmentStorage: EnvironmentStorage,
-        userStorage: UserStorage
+        userStorage: UserStorage,
+        taxonSyncComposition: TaxonSyncComposition
     ) {
         self.settingsStorage = settingsStorage
         self.dataLicenseStorage = dataLicenseStorage
@@ -24,6 +26,7 @@ final class SettingsBuilder {
         self.taxonPaginationStorage = taxonPaginationStorage
         self.environmentStorage = environmentStorage
         self.userStorage = userStorage
+        self.taxonSyncComposition = taxonSyncComposition
     }
 
     func makeViewController(
@@ -62,7 +65,8 @@ final class SettingsBuilder {
             },
             onDownloadTaxa: onDownloadTaxa,
             onLogout: onLogout,
-            onDeleteAccount: onDeleteAccount
+            onDeleteAccount: onDeleteAccount,
+            taxonSyncComposition: taxonSyncComposition
         )
     }
 
