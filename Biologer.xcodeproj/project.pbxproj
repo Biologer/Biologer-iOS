@@ -663,6 +663,7 @@
 		F60000013023000000000001 /* DesignSystem */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DesignSystem; sourceTree = "<group>"; };
 		F80000013025000000000001 /* Findings */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Findings; sourceTree = "<group>"; };
 		FC000001302B000000000001 /* FindingEditor */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FindingEditor; sourceTree = "<group>"; };
+		FE000001302D000000000001 /* TaxonSync */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TaxonSync; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1919,6 +1920,7 @@
 				F80000013025000000000001 /* Findings */,
 				FC000001302B000000000001 /* FindingEditor */,
 				E30000023021000000000001 /* Settings */,
+				FE000001302D000000000001 /* TaxonSync */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -2128,6 +2130,7 @@
 				F60000013023000000000001 /* DesignSystem */,
 				F80000013025000000000001 /* Findings */,
 				FC000001302B000000000001 /* FindingEditor */,
+				FE000001302D000000000001 /* TaxonSync */,
 			);
 			name = Biologer;
 			packageProductDependencies = (
