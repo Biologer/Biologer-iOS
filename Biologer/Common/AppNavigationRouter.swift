@@ -53,6 +53,15 @@ public final class AppNavigationRouter: NavigationRouter {
         return client
     }()
 
+    // One composition graph is kept for the whole authenticated app session.
+    // Settings, startup and Taxon Search will consume useCases from this object.
+    private lazy var taxonSyncComposition: TaxonSyncComposition = {
+        TaxonSyncBuilder(
+            apiClient: apiHttpClient,
+            environmentStorage: environmentStorage
+        ).makeComposition()
+    }()
+
     private lazy var remoteProfileService: ProfileService = {
        return RemoteProfileService(client: httpClient, environmentStorage: environmentStorage)
     }()

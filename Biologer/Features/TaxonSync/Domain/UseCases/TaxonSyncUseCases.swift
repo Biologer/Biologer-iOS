@@ -1,5 +1,3 @@
-// Each use case is intentionally a narrow adapter over the same app-scoped controller.
-// View models receive only the operation they need instead of the whole orchestrator.
 protocol GetTaxonSyncStateUseCase {
     func execute(scope: TaxonCatalogScope) async -> TaxonSyncState
 }
@@ -26,4 +24,15 @@ protocol PauseTaxonSyncUseCase {
 
 protocol ResumeTaxonSyncUseCase {
     func execute(scope: TaxonCatalogScope) async
+}
+
+/// The shared use-case graph consumed by startup, Settings and Taxon Search.
+/// Every property is backed by the same TaxonSyncController instance.
+struct TaxonSyncUseCases {
+    let getState: GetTaxonSyncStateUseCase
+    let observeState: ObserveTaxonSyncStateUseCase
+    let checkForUpdates: CheckTaxonUpdatesUseCase
+    let start: StartTaxonSyncUseCase
+    let pause: PauseTaxonSyncUseCase
+    let resume: ResumeTaxonSyncUseCase
 }
