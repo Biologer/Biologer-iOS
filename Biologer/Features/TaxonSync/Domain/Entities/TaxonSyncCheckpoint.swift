@@ -19,13 +19,13 @@ struct TaxonSyncCheckpoint: Equatable, Sendable {
 
 struct TaxonSyncMetadata: Equatable, Sendable {
     let scope: TaxonCatalogScope
-    var seedTimestamp: Int64?
+    var initialCatalogTimestamp: Int64?
     var lastSuccessfulSyncTimestamp: Int64?
     var checkpoint: TaxonSyncCheckpoint?
 
     var effectiveUpdatedAfter: Int64 {
         lastSuccessfulSyncTimestamp
-            ?? seedTimestamp
+            ?? initialCatalogTimestamp
             ?? 0
     }
 }

@@ -31,7 +31,7 @@ struct TaxonCatalogStage: Identifiable, Equatable, Sendable {
     let updatedAt: String?
 }
 
-struct TaxonCatalogSeed: Equatable, Sendable {
+struct InitialTaxonCatalog: Equatable, Sendable {
     let entries: [TaxonCatalogEntry]
     let updatedAt: Int64
 }

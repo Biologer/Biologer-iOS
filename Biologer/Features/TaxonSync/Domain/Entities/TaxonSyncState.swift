@@ -24,7 +24,7 @@ enum TaxonSyncCheckResult: Equatable, Sendable {
 }
 
 enum TaxonSyncPhase: Equatable, Sendable {
-    case seeding
+    case loadingInitialCatalog
     case checking
     case downloading
     case importing
@@ -34,7 +34,7 @@ enum TaxonSyncFailure: Error, Equatable, Sendable {
     case networkUnavailable
     case unauthorized
     case invalidResponse
-    case catalogSeedUnavailable
+    case initialCatalogUnavailable
     case localPersistence
     case unknown
 }

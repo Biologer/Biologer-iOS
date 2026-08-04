@@ -7,8 +7,8 @@ protocol TaxonCatalogRepository {
     func deleteAll(scope: TaxonCatalogScope) throws
 }
 
-protocol TaxonCatalogSeedRepository {
-    func loadSeed(
+protocol InitialTaxonCatalogRepository {
+    func loadInitialCatalog(
         scope: TaxonCatalogScope
-    ) throws -> TaxonCatalogSeed?
+    ) throws(TaxonSyncFailure) -> InitialTaxonCatalog?
 }
