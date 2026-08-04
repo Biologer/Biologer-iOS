@@ -1,3 +1,3 @@
 struct TaxonCatalogScope: Hashable, Sendable {
-    let environmentIdentifier: String
+    let environmentHost: String
 }

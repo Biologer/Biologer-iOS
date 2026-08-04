@@ -2,5 +2,5 @@ protocol TaxonUpdatesRepository {
     func fetchPage(
         scope: TaxonCatalogScope,
         request: TaxonSyncPageRequest
-    ) async throws -> TaxonSyncPage
+    ) async throws(TaxonSyncFailure) -> TaxonSyncPage
 }

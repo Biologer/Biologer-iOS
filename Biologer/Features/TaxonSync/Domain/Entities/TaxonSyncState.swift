@@ -30,7 +30,7 @@ enum TaxonSyncPhase: Equatable, Sendable {
     case importing
 }
 
-enum TaxonSyncFailure: Equatable, Sendable {
+enum TaxonSyncFailure: Error, Equatable, Sendable {
     case networkUnavailable
     case unauthorized
     case invalidResponse
