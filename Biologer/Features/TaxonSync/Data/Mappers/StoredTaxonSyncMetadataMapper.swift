@@ -12,7 +12,8 @@ enum StoredTaxonSyncMetadataMapper {
                     totalPages: $0.totalPages,
                     totalTaxaCount: $0.totalTaxaCount,
                     importedTaxaCount: $0.importedTaxaCount,
-                    updatedAfter: $0.updatedAfter
+                    updatedAfter: $0.updatedAfter,
+                    startedAt: $0.startedAt
                 )
             }
         )
@@ -34,7 +35,8 @@ enum StoredTaxonSyncMetadataMapper {
                     totalPages: $0.totalPages,
                     totalTaxaCount: $0.totalTaxaCount,
                     importedTaxaCount: $0.importedTaxaCount,
-                    updatedAfter: $0.updatedAfter
+                    updatedAfter: $0.updatedAfter,
+                    startedAt: $0.startedAt
                 )
             }
         )

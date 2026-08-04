@@ -12,5 +12,6 @@ extension StoredTaxonSyncMetadata {
         let totalTaxaCount: Int
         let importedTaxaCount: Int
         let updatedAfter: Int64
+        let startedAt: Int64
     }
 }

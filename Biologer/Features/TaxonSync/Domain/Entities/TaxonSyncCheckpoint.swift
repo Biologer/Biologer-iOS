@@ -1,11 +1,15 @@
 struct TaxonSyncCheckpoint: Equatable, Sendable {
     let scope: TaxonCatalogScope
+    /// The next page to request. A page is advanced only after its Realm write succeeds.
     let nextPage: Int
     let perPage: Int
     let totalPages: Int
     let totalTaxaCount: Int
     let importedTaxaCount: Int
+    /// The baseline used for every request in this sync cycle.
     let updatedAfter: Int64
+    /// The cycle start, used as the next successful-sync timestamp.
+    let startedAt: Int64
 
     var progress: TaxonSyncProgress {
         TaxonSyncProgress(
