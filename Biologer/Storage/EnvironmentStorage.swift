@@ -6,6 +6,6 @@
 //
 
 public protocol EnvironmentStorage {
-    func getEnvironment() -> Environment?
-    func saveEnvironment(env: Environment)
+    func getEnvironment() -> AppEnvironment?
+    func saveEnvironment(env: AppEnvironment)
 }

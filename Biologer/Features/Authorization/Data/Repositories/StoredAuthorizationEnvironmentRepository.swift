@@ -7,7 +7,7 @@ final class StoredAuthorizationEnvironmentRepository: AuthorizationEnvironmentRe
         self.storage = storage
     }
 
-    func save(_ environment: Environment) {
+    func save(_ environment: AppEnvironment) {
         storage.saveEnvironment(env: environment)
     }
 }

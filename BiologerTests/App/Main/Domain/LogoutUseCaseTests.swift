@@ -12,7 +12,7 @@ final class LogoutUseCaseTests: XCTestCase {
 
     func test_sessionStore_startsAuthenticatedWithPersistedToken() {
         let tokenStorage = TokenStorageSpy()
-        tokenStorage.token = Token(accessToken: "access", refreshToken: "refresh")
+        tokenStorage.token = AuthToken(accessToken: "access", refreshToken: "refresh")
 
         let sut = DefaultSessionStore(tokenStorage: tokenStorage)
 
@@ -21,7 +21,7 @@ final class LogoutUseCaseTests: XCTestCase {
 
     func test_sessionStore_marksUnauthenticatedAfterSessionExpiration() {
         let tokenStorage = TokenStorageSpy()
-        tokenStorage.token = Token(accessToken: "access", refreshToken: "refresh")
+        tokenStorage.token = AuthToken(accessToken: "access", refreshToken: "refresh")
         let sut = DefaultSessionStore(tokenStorage: tokenStorage)
 
         sut.markUnauthenticated()
@@ -48,14 +48,14 @@ final class LogoutUseCaseTests: XCTestCase {
 }
 
 private final class TokenStorageSpy: TokenStorage {
-    var token: Token?
+    var token: AuthToken?
     private(set) var didDelete = false
 
-    func getToken() -> Token? {
+    func getToken() -> AuthToken? {
         token
     }
 
-    func saveToken(token: Token) {}
+    func saveToken(token: AuthToken) {}
 
     func delete() {
         didDelete = true

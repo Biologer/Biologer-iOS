@@ -83,7 +83,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenRotatedRefreshResponse_whenRefreshing_thenNewTokensAreStored() async throws {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "old", refreshToken: "old-refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "old", refreshToken: "old-refresh"))
         let client = APIClientStub { _ in
             RefreshTokenResponse(accessToken: "new", refreshToken: "new-refresh")
         }
@@ -106,7 +106,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenRefreshResponseWithoutRefreshToken_whenRefreshing_thenExistingRefreshTokenIsKept() async throws {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "old", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "old", refreshToken: "refresh"))
         let client = APIClientStub { _ in
             RefreshTokenResponse(accessToken: "new", refreshToken: nil)
         }
@@ -127,7 +127,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenEmptyAccessTokenInRefreshResponse_whenRefreshing_thenDecodingFails() async {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "old", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "old", refreshToken: "refresh"))
         let client = APIClientStub { _ in
             RefreshTokenResponse(accessToken: "", refreshToken: nil)
         }
@@ -152,7 +152,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenInvalidGrantRefreshError_whenRefreshing_thenSessionExpires() async {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "old", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "old", refreshToken: "refresh"))
         let client = APIClientStub { _ in
             throw APIClientError.badRequest(
                 APIErrorPayload(
@@ -187,7 +187,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenOtherBadRequestDuringRefresh_whenRefreshing_thenOriginalAPIErrorIsKept() async {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "old", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "old", refreshToken: "refresh"))
         let expectedError = APIClientError.badRequest(
             APIErrorPayload(
                 message: "Invalid scope",
@@ -219,7 +219,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenSessionChangeDuringRefresh_whenRefreshCompletes_thenOldTokenIsNotStored() async {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "old", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "old", refreshToken: "refresh"))
         let client = BlockingAPIClient(response: RefreshTokenResponse(accessToken: "new", refreshToken: "rotated"))
         let sut = RemoteAccessTokenRefresher(
             client: client,
@@ -231,7 +231,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
         let task = Task { try await sut.refreshAccessToken(for: session) }
 
         await client.waitUntilCalled()
-        storage.saveToken(token: Token(accessToken: "different", refreshToken: "different-refresh"))
+        storage.saveToken(token: AuthToken(accessToken: "different", refreshToken: "different-refresh"))
         client.resume()
 
         do {
@@ -250,7 +250,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenValidAccessToken_whenRequestSucceeds_thenRequestUsesStoredTokenWithoutRefreshing() async throws {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "access", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "access", refreshToken: "refresh"))
         let client = RecordingAPIClient(results: [.success(TestResponse(value: "ok"))])
         let refresher = CountingRefresher()
         let sut = AuthenticatedAPIClientDecorator(decoratee: client, tokenStorage: storage, tokenRefresher: refresher)
@@ -267,7 +267,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_given401Response_whenRefreshSucceeds_thenOriginalRequestIsRetriedOnce() async throws {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "expired", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "expired", refreshToken: "refresh"))
         let client = RecordingAPIClient(results: [
             .failure(APIClientError.unauthorized(nil)),
             .success(TestResponse(value: "ok"))
@@ -286,7 +286,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_given401OnOriginalAndRetry_whenRetryFails_thenSessionExpiresOnce() async throws {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "expired", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "expired", refreshToken: "refresh"))
         let client = RecordingAPIClient(results: [
             .failure(APIClientError.unauthorized(nil)),
             .failure(APIClientError.unauthorized(nil))
@@ -314,7 +314,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenRejectedRefresh_whenRequestFails_thenSessionExpiresOnce() async throws {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "expired", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "expired", refreshToken: "refresh"))
         let client = RecordingAPIClient(results: [.failure(APIClientError.unauthorized(nil))])
         let refresher = FailingRefresher(error: AccessTokenRefreshError.sessionExpired(nil))
         let expiration = ExpirationRecorder()
@@ -341,7 +341,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenNetworkFailureDuringRefresh_whenRequestFails_thenSessionIsKept() async throws {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "expired", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "expired", refreshToken: "refresh"))
         let client = RecordingAPIClient(results: [.failure(APIClientError.unauthorized(nil))])
         let refresher = FailingRefresher(error: APIClientError.requestFailed(message: "offline", code: nil))
         let expiration = ExpirationRecorder()
@@ -366,7 +366,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
 
     func test_givenEmptyStoredAccessToken_whenRequestStarts_thenSessionExpiresWithoutRefresh() async {
         // Given
-        let storage = TestTokenStorage(token: Token(accessToken: "", refreshToken: "refresh"))
+        let storage = TestTokenStorage(token: AuthToken(accessToken: "", refreshToken: "refresh"))
         let client = RecordingAPIClient(results: [])
         let refresher = CountingRefresher()
         let expiration = ExpirationRecorder()
@@ -406,19 +406,19 @@ private struct TestEndpoint: APIEndpoint {
 
 private final class TestTokenStorage: TokenStorage, @unchecked Sendable {
     private let lock = NSLock()
-    private var token: Token?
+    private var token: AuthToken?
 
-    init(token: Token? = nil) { self.token = token }
-    func getToken() -> Token? { lock.withLock { token } }
-    func saveToken(token: Token) { lock.withLock { self.token = token } }
+    init(token: AuthToken? = nil) { self.token = token }
+    func getToken() -> AuthToken? { lock.withLock { token } }
+    func saveToken(token: AuthToken) { lock.withLock { self.token = token } }
     func delete() { lock.withLock { token = nil } }
 }
 
 private final class TestEnvironmentStorage: EnvironmentStorage {
-    func getEnvironment() -> Environment? {
-        Environment(host: "example.com", path: "", clientSecret: "secret", cliendId: "client")
+    func getEnvironment() -> AppEnvironment? {
+        AppEnvironment(host: "example.com", path: "", clientSecret: "secret", cliendId: "client")
     }
-    func saveEnvironment(env: Environment) {}
+    func saveEnvironment(env: AppEnvironment) {}
 }
 
 private final class APIClientStub: APIClientProtocol, @unchecked Sendable {
@@ -511,7 +511,7 @@ private final class SavingRefresher: AccessTokenRefreshing {
     init(storage: TokenStorage, accessToken: String) { self.storage = storage; self.accessToken = accessToken }
     func refreshAccessToken(for session: TokenSnapshot) async throws -> String {
         callCount += 1
-        storage.saveToken(token: Token(accessToken: accessToken, refreshToken: session.refreshToken))
+        storage.saveToken(token: AuthToken(accessToken: accessToken, refreshToken: session.refreshToken))
         return accessToken
     }
 }

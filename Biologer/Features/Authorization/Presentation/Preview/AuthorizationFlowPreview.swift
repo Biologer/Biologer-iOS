@@ -118,9 +118,9 @@ private final class PreviewRegistrationLicensePreferenceRepository:
 private final class PreviewAuthorizationEnvironmentRepository:
     AuthorizationEnvironmentRepository {
 
-    private var selectedEnvironment: Environment?
+    private var selectedEnvironment: AppEnvironment?
 
-    func save(_ environment: Environment) {
+    func save(_ environment: AppEnvironment) {
         selectedEnvironment = environment
     }
 }

@@ -57,7 +57,7 @@ final class RemoteAccessTokenRefresher: AccessTokenRefreshing {
             }
 
             tokenStorage.saveToken(
-                token: Token(
+                token: AuthToken(
                     accessToken: response.accessToken,
                     refreshToken: refreshToken
                 )

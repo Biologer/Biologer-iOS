@@ -85,8 +85,8 @@ final class RemoteAccountRepositoryTests: XCTestCase {
         )
     }
 
-    private func makeEnvironment() -> Biologer.Environment {
-        Biologer.Environment(
+    private func makeEnvironment() -> Biologer.AppEnvironment {
+        Biologer.AppEnvironment(
             host: "api.biologer.org",
             path: "",
             clientSecret: "secret",
@@ -110,15 +110,15 @@ private final class AccountAPIClientStub: APIClientProtocol {
 }
 
 private final class AccountEnvironmentStorageStub: EnvironmentStorage {
-    private let environment: Biologer.Environment?
+    private let environment: Biologer.AppEnvironment?
 
-    init(environment: Biologer.Environment?) {
+    init(environment: Biologer.AppEnvironment?) {
         self.environment = environment
     }
 
-    func getEnvironment() -> Biologer.Environment? {
+    func getEnvironment() -> Biologer.AppEnvironment? {
         environment
     }
 
-    func saveEnvironment(env: Biologer.Environment) {}
+    func saveEnvironment(env: Biologer.AppEnvironment) {}
 }

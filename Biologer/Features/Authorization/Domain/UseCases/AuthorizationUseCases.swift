@@ -15,7 +15,7 @@ struct AuthorizationUseCases {
         self.selectEnvironmentUseCase = selectEnvironmentUseCase
     }
 
-    func selectEnvironment(_ environment: Environment) {
+    func selectEnvironment(_ environment: AppEnvironment) {
         selectEnvironmentUseCase.select(environment)
     }
 }

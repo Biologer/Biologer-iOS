@@ -66,9 +66,7 @@
 		93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */; };
 		93B041792711F6CD007DB833 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B041782711F6CD007DB833 /* RealmManager.swift */; };
 		93B0417E2712096F007DB833 /* DBFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0417D2712096F007DB833 /* DBFinding.swift */; };
-		93C2D1EB269F020600123216 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EA269F020600123216 /* Environment.swift */; };
 		93C2D1ED269F1BEC00123216 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EC269F1BEC00123216 /* TokenStorage.swift */; };
-		93C2D1EF269F1BFF00123216 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EE269F1BFF00123216 /* Token.swift */; };
 		93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */; };
 		93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6594269C61E900949534 /* EnvironmentStorage.swift */; };
 		93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */; };
@@ -225,9 +223,7 @@
 		93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItem.swift; sourceTree = "<group>"; };
 		93B041782711F6CD007DB833 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		93B0417D2712096F007DB833 /* DBFinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBFinding.swift; sourceTree = "<group>"; };
-		93C2D1EA269F020600123216 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		93C2D1EC269F1BEC00123216 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
-		93C2D1EE269F1BFF00123216 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTokenStorage.swift; sourceTree = "<group>"; };
 		93CC6594269C61E900949534 /* EnvironmentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentStorage.swift; sourceTree = "<group>"; };
 		93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainEnvironmentStorage.swift; sourceTree = "<group>"; };
@@ -423,8 +419,6 @@
 			isa = PBXGroup;
 			children = (
 				B3000003301D000000000001 /* AuthorizationFailure.swift */,
-				93C2D1EA269F020600123216 /* Environment.swift */,
-				93C2D1EE269F1BFF00123216 /* Token.swift */,
 				A100000D2FFD000000000001 /* RegistrationRequest.swift */,
 				B400001D301E000000000001 /* RegistrationLicensePreference.swift */,
 			);
@@ -1291,10 +1285,8 @@
 				93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */,
 				9311E8B82FFCF5E5006045C4 /* RegistrationLicenseConsentViewModel.swift in Sources */,
 				9311E8B22FFCF23A006045C4 /* RegistrationFlow.swift in Sources */,
-				93C2D1EF269F1BFF00123216 /* Token.swift in Sources */,
 				93565D2B26F72BD500A588E6 /* NoInternetConnectionValidator.swift in Sources */,
 				9311E8B42FFCF3F9006045C4 /* RegistrationCredentialsViewModel.swift in Sources */,
-				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
 				931D3FEF274ABCCD00352C8E /* Settings.swift in Sources */,
 			);

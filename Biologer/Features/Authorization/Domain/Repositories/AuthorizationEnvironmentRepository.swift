@@ -1,5 +1,5 @@
 import Foundation
 
 protocol AuthorizationEnvironmentRepository {
-    func save(_ environment: Environment)
+    func save(_ environment: AppEnvironment)
 }

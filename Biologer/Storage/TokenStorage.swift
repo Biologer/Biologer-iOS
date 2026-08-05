@@ -6,7 +6,7 @@
 //
 
 public protocol TokenStorage {
-    func getToken() -> Token?
-    func saveToken(token: Token)
+    func getToken() -> AuthToken?
+    func saveToken(token: AuthToken)
     func delete()
 }

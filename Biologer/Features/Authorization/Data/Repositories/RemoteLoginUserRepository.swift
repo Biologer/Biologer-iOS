@@ -31,7 +31,7 @@ final class RemoteLoginUserRepository: LoginUserRepository {
         do {
             let response = try await client.send(endpoint)
             tokenStorage.saveToken(
-                token: Token(
+                token: AuthToken(
                     accessToken: response.accessToken,
                     refreshToken: response.refreshToken
                 )
