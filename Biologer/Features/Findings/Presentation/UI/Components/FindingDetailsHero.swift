@@ -98,8 +98,8 @@ struct FindingDetailsHero: View {
 
             Text(
                 isUploaded
-                    ? "ListOfFindingsV2.status.uploaded".localized
-                    : "ListOfFindingsV2.status.pending".localized
+                    ? "ListOfFindings.status.uploaded".localized
+                    : "ListOfFindings.status.pending".localized
             )
         }
         .font(.caption.weight(.semibold))

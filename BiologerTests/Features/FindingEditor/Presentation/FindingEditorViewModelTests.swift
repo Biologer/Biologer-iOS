@@ -2,7 +2,7 @@ import XCTest
 @testable import Biologer
 
 @MainActor
-final class FindingEditorV2ViewModelTests: XCTestCase {
+final class FindingEditorViewModelTests: XCTestCase {
     func test_loadPublishesDraftContent() {
         let expectedDraft = makeDraft()
         let context = makeSUT(draft: expectedDraft)
@@ -187,7 +187,7 @@ final class FindingEditorV2ViewModelTests: XCTestCase {
     ) -> FindingEditorViewModelTestContext {
         let loadFinding = FindingEditorLoadUseCaseStub(draft: draft)
         let saveFinding = FindingEditorSaveUseCaseSpy()
-        let sut = FindingEditorV2ViewModel(
+        let sut = FindingEditorViewModel(
             mode: mode,
             loadFinding: loadFinding,
             saveFinding: saveFinding,
@@ -226,7 +226,7 @@ final class FindingEditorV2ViewModelTests: XCTestCase {
 
 @MainActor
 private struct FindingEditorViewModelTestContext {
-    let sut: FindingEditorV2ViewModel
+    let sut: FindingEditorViewModel
     let saveFinding: FindingEditorSaveUseCaseSpy
 }
 

@@ -78,9 +78,9 @@ struct AuthorizationFlow: View {
     }
 
     private var loginScreen: some View {
-        LoginScreenV2(
+        LoginScreen(
             environmentViewModel: selectedEnvironment,
-            viewModel: LoginScreenV2ViewModel(
+            viewModel: LoginScreenViewModel(
                 environmentViewModel: selectedEnvironment,
                 useCase: authorizationUseCases.login,
                 onSelectEnvironmentTapped: {

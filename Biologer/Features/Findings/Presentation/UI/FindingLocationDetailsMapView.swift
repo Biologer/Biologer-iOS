@@ -38,7 +38,7 @@ struct FindingLocationDetailsMapView: UIViewRepresentable {
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "FindingLocationDetailsV2.canvas.placeholder".localized
+        label.text = "FindingLocationDetails.canvas.placeholder".localized
         label.textColor = BiologerUIColor.textPrimary
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center

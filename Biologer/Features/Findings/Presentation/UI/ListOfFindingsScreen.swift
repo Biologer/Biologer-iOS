@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct ListOfFindingsScreenV2: View {
-    @StateObject private var viewModel: ListOfFindingsV2ViewModel
+struct ListOfFindingsScreen: View {
+    @StateObject private var viewModel: ListOfFindingsViewModel
     @State private var deletionSelection: FindingDeletionSelection?
 
-    init(viewModel: ListOfFindingsV2ViewModel) {
+    init(viewModel: ListOfFindingsViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -156,7 +156,7 @@ struct ListOfFindingsScreenV2: View {
         Button(action: viewModel.didTapAddFinding) {
             HStack(spacing: BiologerSpacing.xSmall) {
                 Image(systemName: "plus")
-                Text("ListOfFindingsV2.add".localized)
+                Text("ListOfFindings.add".localized)
             }
             .font(.body.weight(.semibold))
             .foregroundColor(.white)
@@ -221,7 +221,7 @@ struct ListOfFindingsScreenV2: View {
                 ProgressView()
                     .tint(BiologerColors.accent)
 
-                Text("ListOfFindingsV2.upload.progress.title".localized)
+                Text("ListOfFindings.upload.progress.title".localized)
                     .font(.body.weight(.semibold))
                     .foregroundColor(BiologerColors.textPrimary)
 
@@ -229,7 +229,7 @@ struct ListOfFindingsScreenV2: View {
 
                 Text(
                     String(
-                        format: "ListOfFindingsV2.upload.progress.count".localized,
+                        format: "ListOfFindings.upload.progress.count".localized,
                         progress.completedCount,
                         progress.totalCount
                     )
@@ -265,8 +265,8 @@ struct ListOfFindingsScreenV2: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(
                     viewModel.areAllSelectableFindingsSelected
-                        ? "ListOfFindingsV2.selection.deselectAll".localized
-                        : "ListOfFindingsV2.selection.selectAll".localized,
+                        ? "ListOfFindings.selection.deselectAll".localized
+                        : "ListOfFindings.selection.selectAll".localized,
                     action: viewModel.toggleAllSelectableFindings
                 )
             }
@@ -279,14 +279,14 @@ struct ListOfFindingsScreenV2: View {
                     viewModel.pendingFindingsCount == 0
                         || viewModel.isUploading
                 )
-                .accessibilityLabel("ListOfFindingsV2.upload".localized)
+                .accessibilityLabel("ListOfFindings.upload".localized)
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     Button(action: viewModel.beginDeletionSelection) {
                         Label(
-                            "ListOfFindingsV2.selection.deleteMode".localized,
+                            "ListOfFindings.selection.deleteMode".localized,
                             systemImage: "checkmark.circle"
                         )
                     }
@@ -296,7 +296,7 @@ struct ListOfFindingsScreenV2: View {
                         deletionSelection = .all
                     } label: {
                         Label(
-                            "ListOfFindingsV2.deleteAll".localized,
+                            "ListOfFindings.deleteAll".localized,
                             systemImage: "trash"
                         )
                     }
@@ -310,14 +310,14 @@ struct ListOfFindingsScreenV2: View {
 
     private var uploadSelectedButtonTitle: String {
         String(
-            format: "ListOfFindingsV2.selection.upload".localized,
+            format: "ListOfFindings.selection.upload".localized,
             viewModel.selectedUploadFindingsCount
         )
     }
 
     private var deleteSelectedButtonTitle: String {
         String(
-            format: "ListOfFindingsV2.selection.delete".localized,
+            format: "ListOfFindings.selection.delete".localized,
             viewModel.selectedDeletionFindingsCount
         )
     }
@@ -359,16 +359,16 @@ struct ListOfFindingsScreenV2: View {
         switch deletionSelection {
         case .finding(let finding):
             return String(
-                format: "ListOfFindingsV2.delete.single.message".localized,
+                format: "ListOfFindings.delete.single.message".localized,
                 finding.taxonName.isEmpty ? "-" : finding.taxonName
             )
         case .selected(let count):
             return String(
-                format: "ListOfFindingsV2.delete.selected.message".localized,
+                format: "ListOfFindings.delete.selected.message".localized,
                 count
             )
         case .all:
-            return "ListOfFindingsV2.deleteAll.message".localized
+            return "ListOfFindings.deleteAll.message".localized
         case nil:
             return ""
         }
@@ -377,11 +377,11 @@ struct ListOfFindingsScreenV2: View {
     private var deletionTitle: String {
         switch deletionSelection {
         case .finding:
-            return "ListOfFindingsV2.delete.single.title".localized
+            return "ListOfFindings.delete.single.title".localized
         case .selected:
-            return "ListOfFindingsV2.delete.selected.title".localized
+            return "ListOfFindings.delete.selected.title".localized
         case .all:
-            return "ListOfFindingsV2.delete.all.title".localized
+            return "ListOfFindings.delete.all.title".localized
         case nil:
             return ""
         }
@@ -391,12 +391,12 @@ struct ListOfFindingsScreenV2: View {
         switch viewModel.actionError {
         case .uploadFindings(let completedCount, let totalCount):
             return String(
-                format: "ListOfFindingsV2.upload.failure".localized,
+                format: "ListOfFindings.upload.failure".localized,
                 completedCount,
                 totalCount
             )
         case .deleteFinding, .deleteFindings, .deleteAllFindings, nil:
-            return "ListOfFindingsV2.actionError.message".localized
+            return "ListOfFindings.actionError.message".localized
         }
     }
 

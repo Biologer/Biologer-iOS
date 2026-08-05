@@ -12,12 +12,12 @@ struct FindingEditorPhotoSection: View {
         VStack(alignment: .leading, spacing: BiologerSpacing.small) {
             HStack(spacing: BiologerSpacing.small) {
                 addButton(
-                    title: "FindingEditorV2.photo.camera".localized,
+                    title: "FindingEditor.photo.camera".localized,
                     systemImage: "camera.fill",
                     action: onCamera
                 )
                 addButton(
-                    title: "FindingEditorV2.photo.library".localized,
+                    title: "FindingEditor.photo.library".localized,
                     systemImage: "photo.on.rectangle.angled",
                     action: onLibrary
                 )
@@ -51,7 +51,7 @@ struct FindingEditorPhotoSection: View {
                 }
             }
 
-            Text("FindingEditorV2.photo.limit".localized)
+            Text("FindingEditor.photo.limit".localized)
                 .font(.caption)
                 .foregroundColor(.secondary)
         }

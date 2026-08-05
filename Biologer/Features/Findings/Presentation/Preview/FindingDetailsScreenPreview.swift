@@ -1,18 +1,18 @@
 import SwiftUI
 import UIKit
 
-struct FindingDetailsScreenV2_Previews: PreviewProvider {
+struct FindingDetailsScreen_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             makeScreen(details: detailedFinding)
-                .previewDisplayName("Finding details V2")
+                .previewDisplayName("Finding details ")
 
             makeScreen(details: detailedFinding)
                 .preferredColorScheme(.dark)
-                .previewDisplayName("Finding details V2 - Dark")
+                .previewDisplayName("Finding details  - Dark")
 
             makeScreen(details: minimalFinding)
-                .previewDisplayName("Finding details V2 - Minimal")
+                .previewDisplayName("Finding details  - Minimal")
         }
     }
 
@@ -23,8 +23,8 @@ struct FindingDetailsScreenV2_Previews: PreviewProvider {
         )
 
         return NavigationStack {
-            FindingDetailsScreenV2(
-                viewModel: FindingDetailsV2ViewModel(
+            FindingDetailsScreen(
+                viewModel: FindingDetailsViewModel(
                     findingID: details.id,
                     getFindingDetails: DefaultGetFindingDetailsUseCase(
                         repository: repository

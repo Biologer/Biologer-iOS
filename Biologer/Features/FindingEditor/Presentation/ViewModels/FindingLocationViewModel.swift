@@ -37,7 +37,7 @@ struct FindingLocationCameraTarget: Equatable {
 }
 
 @MainActor
-final class FindingLocationV2ViewModel: ObservableObject {
+final class FindingLocationViewModel: ObservableObject {
     @Published private(set) var selectedLocation: FindingEditorLocation?
     @Published private(set) var currentLocation: FindingEditorLocation?
     @Published private(set) var cameraTarget: FindingLocationCameraTarget

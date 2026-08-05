@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct FindingLocationScreenV2: View {
-    @ObservedObject private var viewModel: FindingLocationV2ViewModel
+struct FindingLocationScreen: View {
+    @ObservedObject private var viewModel: FindingLocationViewModel
 
-    init(viewModel: FindingLocationV2ViewModel) {
+    init(viewModel: FindingLocationViewModel) {
         self.viewModel = viewModel
     }
 
@@ -40,18 +40,18 @@ struct FindingLocationScreenV2: View {
         switch viewModel.status {
         case .locating:
             banner(
-                text: "FindingLocationV2.locating".localized,
+                text: "FindingLocation.locating".localized,
                 systemImage: "location.fill",
                 showsProgress: true
             )
         case .authorizationDenied:
             banner(
-                text: "FindingLocationV2.permissionDenied".localized,
+                text: "FindingLocation.permissionDenied".localized,
                 systemImage: "location.slash"
             )
         case .unavailable:
             banner(
-                text: "FindingLocationV2.unavailable".localized,
+                text: "FindingLocation.unavailable".localized,
                 systemImage: "exclamationmark.triangle"
             )
         case .idle, .ready:
@@ -63,13 +63,13 @@ struct FindingLocationScreenV2: View {
         VStack(spacing: BiologerSpacing.xSmall) {
             mapControlButton(
                 systemImage: "location.fill",
-                accessibilityLabel: "FindingLocationV2.current".localized,
+                accessibilityLabel: "FindingLocation.current".localized,
                 action: viewModel.useCurrentLocation
             )
 
             Menu {
                 Picker(
-                    "FindingLocationV2.mapType".localized,
+                    "FindingLocation.mapType".localized,
                     selection: $viewModel.mapStyle
                 ) {
                     ForEach(FindingLocationMapStyle.allCases) { style in
@@ -84,7 +84,7 @@ struct FindingLocationScreenV2: View {
                     .background(.regularMaterial, in: Circle())
                     .shadow(color: .black.opacity(0.12), radius: 6, y: 2)
             }
-            .accessibilityLabel("FindingLocationV2.mapType".localized)
+            .accessibilityLabel("FindingLocation.mapType".localized)
         }
         .padding(BiologerSpacing.regular)
     }
@@ -94,10 +94,10 @@ struct FindingLocationScreenV2: View {
             HStack(spacing: BiologerSpacing.xSmall) {
                 BiologerIconBadge(systemImage: "mappin.and.ellipse", size: 36)
                 VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
-                    Text("FindingLocationV2.selected".localized)
+                    Text("FindingLocation.selected".localized)
                         .font(.headline)
                         .foregroundColor(BiologerColors.textPrimary)
-                    Text("FindingLocationV2.tapHint".localized)
+                    Text("FindingLocation.tapHint".localized)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -137,8 +137,8 @@ struct FindingLocationScreenV2: View {
                     }
                     Text(
                         viewModel.isResolvingAltitude
-                            ? "FindingLocationV2.resolvingAltitude".localized
-                            : "FindingLocationV2.confirm".localized
+                            ? "FindingLocation.resolvingAltitude".localized
+                            : "FindingLocation.confirm".localized
                     )
                 }
             }

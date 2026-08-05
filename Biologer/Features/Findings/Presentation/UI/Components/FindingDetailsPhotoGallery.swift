@@ -7,7 +7,7 @@ struct FindingDetailsPhotoGallery: View {
 
     var body: some View {
         FindingDetailsSection(
-            title: "FindingDetailsV2.section.photos".localized,
+            title: "FindingDetails.section.photos".localized,
             systemImage: "photo.on.rectangle.angled"
         ) {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -20,7 +20,7 @@ struct FindingDetailsPhotoGallery: View {
                         }
                         .buttonStyle(.plain)
                             .accessibilityLabel(
-                                "\("FindingDetailsV2.section.photos".localized) \(index + 1)"
+                                "\("FindingDetails.section.photos".localized) \(index + 1)"
                             )
                             .accessibilityHint(
                                 "FindingPhotoGallery.openHint".localized

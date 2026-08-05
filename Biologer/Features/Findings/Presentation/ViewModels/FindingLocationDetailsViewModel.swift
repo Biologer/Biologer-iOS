@@ -23,7 +23,7 @@ enum FindingLocationDetailsMapStyle: String, CaseIterable, Identifiable {
 }
 
 @MainActor
-final class FindingLocationDetailsV2ViewModel: ObservableObject {
+final class FindingLocationDetailsViewModel: ObservableObject {
     let location: FindingDetailsLocation
     @Published var mapStyle: FindingLocationDetailsMapStyle = .standard
 

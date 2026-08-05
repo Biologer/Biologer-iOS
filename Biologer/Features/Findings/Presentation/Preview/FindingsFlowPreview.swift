@@ -5,11 +5,11 @@ struct FindingsFlow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             makeFlow()
-                .previewDisplayName("Findings flow V2")
+                .previewDisplayName("Findings flow ")
 
             makeFlow()
                 .preferredColorScheme(.dark)
-                .previewDisplayName("Findings flow V2 - Dark")
+                .previewDisplayName("Findings flow  - Dark")
         }
     }
 

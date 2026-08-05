@@ -71,8 +71,8 @@ struct FindingSummaryRow: View {
             )
             .accessibilityLabel(
                 isSelected
-                    ? "ListOfFindingsV2.selection.selected".localized
-                    : "ListOfFindingsV2.selection.notSelected".localized
+                    ? "ListOfFindings.selection.selected".localized
+                    : "ListOfFindings.selection.notSelected".localized
             )
         } else {
             Image(systemName: "chevron.right")
@@ -142,8 +142,8 @@ struct FindingSummaryRow: View {
         let isUploaded = finding.uploadStatus == .uploaded
         return FindingMetadataLabel(
             title: isUploaded
-                ? "ListOfFindingsV2.status.uploaded".localized
-                : "ListOfFindingsV2.status.pending".localized,
+                ? "ListOfFindings.status.uploaded".localized
+                : "ListOfFindings.status.pending".localized,
             systemImage: isUploaded
                 ? "checkmark.circle.fill"
                 : "icloud.and.arrow.up"

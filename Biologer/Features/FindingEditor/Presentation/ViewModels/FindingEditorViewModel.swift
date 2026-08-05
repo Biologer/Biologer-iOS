@@ -30,7 +30,7 @@ struct FindingEditorAlert: Identifiable, Equatable {
 }
 
 @MainActor
-final class FindingEditorV2ViewModel: ObservableObject {
+final class FindingEditorViewModel: ObservableObject {
     @Published var draft = FindingEditorDraft.empty() {
         didSet {
             updateUnsavedChangesState()

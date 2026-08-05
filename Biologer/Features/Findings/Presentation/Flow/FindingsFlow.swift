@@ -41,7 +41,7 @@ struct FindingsFlow: View {
     private let onEditFinding: Observer<UUID>
 
     @StateObject private var navigation: FindingsFlowNavigation
-    @StateObject private var listViewModel: ListOfFindingsV2ViewModel
+    @StateObject private var listViewModel: ListOfFindingsViewModel
     @ObservedObject private var controller: FindingsFlowController
 
     init(
@@ -62,7 +62,7 @@ struct FindingsFlow: View {
         self.controller = controller
         _navigation = StateObject(wrappedValue: navigation)
         _listViewModel = StateObject(
-            wrappedValue: ListOfFindingsV2ViewModel(
+            wrappedValue: ListOfFindingsViewModel(
                 useCases: listUseCases,
                 onAddFinding: { onAddFinding(()) },
                 uploadFindings: uploadFindings,
@@ -73,7 +73,7 @@ struct FindingsFlow: View {
 
     var body: some View {
         NavigationStack(path: $navigation.path) {
-            ListOfFindingsScreenV2(viewModel: listViewModel)
+            ListOfFindingsScreen(viewModel: listViewModel)
             .navigationDestination(for: FindingsDestination.self) { destination in
                 destinationView(destination)
             }
@@ -101,8 +101,8 @@ struct FindingsFlow: View {
     private func destinationView(_ destination: FindingsDestination) -> some View {
         switch destination {
         case .details(let id):
-            FindingDetailsScreenV2(
-                viewModel: FindingDetailsV2ViewModel(
+            FindingDetailsScreen(
+                viewModel: FindingDetailsViewModel(
                     findingID: id,
                     getFindingDetails: getFindingDetails,
                     uploadFindings: uploadFindings,

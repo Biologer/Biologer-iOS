@@ -17,7 +17,7 @@ enum SettingsResetAlert: Identifiable {
     }
 }
 
-final class SettingsScreenV2ViewModel: ObservableObject {
+final class SettingsScreenViewModel: ObservableObject {
     @Published private(set) var preferences: SettingsPreferences
     @Published var resetAlert: SettingsResetAlert?
 

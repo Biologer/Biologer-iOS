@@ -2,7 +2,7 @@ import XCTest
 @testable import Biologer
 
 @MainActor
-final class FindingLocationV2ViewModelTests: XCTestCase {
+final class FindingLocationViewModelTests: XCTestCase {
     func test_startSelectsFirstCurrentLocationAndStopEndsObservation() async {
         let current = makeLocation(latitude: 44.8, longitude: 20.4, altitude: 120)
         let observer = FindingLocationObserverStub()
@@ -84,8 +84,8 @@ final class FindingLocationV2ViewModelTests: XCTestCase {
         observer: FindingLocationObserverStub = FindingLocationObserverStub(),
         resolver: FindingLocationResolverStub = FindingLocationResolverStub(),
         onSelect: @escaping (FindingEditorLocation) -> Void = { _ in }
-    ) -> FindingLocationV2ViewModel {
-        FindingLocationV2ViewModel(
+    ) -> FindingLocationViewModel {
+        FindingLocationViewModel(
             initialLocation: initialLocation,
             useCases: FindingLocationUseCases(
                 observeCurrentLocation: observer,

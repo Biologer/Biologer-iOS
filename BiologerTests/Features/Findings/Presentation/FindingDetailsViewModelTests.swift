@@ -3,7 +3,7 @@ import XCTest
 @testable import Biologer
 
 @MainActor
-final class FindingDetailsV2ViewModelTests: XCTestCase {
+final class FindingDetailsViewModelTests: XCTestCase {
     func test_loadDetailsPublishesRepositoryContent() {
         let details = makeDetails(status: .pending)
         let context = makeSUT(details: details)
@@ -131,10 +131,10 @@ final class FindingDetailsV2ViewModelTests: XCTestCase {
         onShowLocation: @escaping (FindingDetailsLocation) -> Void = { _ in },
         onShowPhotos: @escaping ([FindingPhoto], Int) -> Void = { _, _ in },
         isSubmissionAllowed: Bool = true
-    ) -> FindingDetailsV2TestContext {
+    ) -> FindingDetailsTestContext {
         let getDetails = FindingDetailsUseCaseStub(result: .success(details))
         let uploadFindings = FindingDetailsUploadUseCaseSpy()
-        let sut = FindingDetailsV2ViewModel(
+        let sut = FindingDetailsViewModel(
             findingID: details.id,
             getFindingDetails: getDetails,
             uploadFindings: uploadFindings,
@@ -145,7 +145,7 @@ final class FindingDetailsV2ViewModelTests: XCTestCase {
             onShowLocation: onShowLocation,
             onShowPhotos: onShowPhotos
         )
-        return FindingDetailsV2TestContext(
+        return FindingDetailsTestContext(
             sut: sut,
             getDetails: getDetails,
             uploadFindings: uploadFindings
@@ -186,8 +186,8 @@ final class FindingDetailsV2ViewModelTests: XCTestCase {
 }
 
 @MainActor
-private struct FindingDetailsV2TestContext {
-    let sut: FindingDetailsV2ViewModel
+private struct FindingDetailsTestContext {
+    let sut: FindingDetailsViewModel
     let getDetails: FindingDetailsUseCaseStub
     let uploadFindings: FindingDetailsUploadUseCaseSpy
 }

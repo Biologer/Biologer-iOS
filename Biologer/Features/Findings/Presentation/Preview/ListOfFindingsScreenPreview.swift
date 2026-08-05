@@ -1,18 +1,18 @@
 import SwiftUI
 import UIKit
 
-struct ListOfFindingsScreenV2_Previews: PreviewProvider {
+struct ListOfFindingsScreen_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             makeScreen(findings: previewFindings)
-                .previewDisplayName("Findings V2")
+                .previewDisplayName("Findings ")
 
             makeScreen(findings: previewFindings)
                 .preferredColorScheme(.dark)
-                .previewDisplayName("Findings V2 - Dark")
+                .previewDisplayName("Findings  - Dark")
 
             makeScreen(findings: [])
-                .previewDisplayName("Findings V2 - Empty")
+                .previewDisplayName("Findings  - Empty")
         }
     }
 
@@ -24,7 +24,7 @@ struct ListOfFindingsScreenV2_Previews: PreviewProvider {
             deleteFindings: DefaultDeleteFindingsUseCase(repository: repository),
             deleteAllFindings: DefaultDeleteAllFindingsUseCase(repository: repository)
         )
-        let viewModel = ListOfFindingsV2ViewModel(
+        let viewModel = ListOfFindingsViewModel(
             useCases: useCases,
             onAddFinding: {},
             uploadFindings: PreviewUploadFindingsUseCase(),
@@ -32,7 +32,7 @@ struct ListOfFindingsScreenV2_Previews: PreviewProvider {
         )
 
         return NavigationStack {
-            ListOfFindingsScreenV2(viewModel: viewModel)
+            ListOfFindingsScreen(viewModel: viewModel)
         }
     }
 

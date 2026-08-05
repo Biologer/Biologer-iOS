@@ -7,7 +7,7 @@ struct FindingsLoadingView: View {
                 .controlSize(.large)
                 .tint(BiologerColors.accent)
 
-            Text("ListOfFindingsV2.loading".localized)
+            Text("ListOfFindings.loading".localized)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
@@ -31,7 +31,7 @@ struct FindingsEmptyView: View {
             }
 
             VStack(spacing: BiologerSpacing.xSmall) {
-                Text("ListOfFindingsV2.empty.title".localized)
+                Text("ListOfFindings.empty.title".localized)
                     .font(.title3.weight(.semibold))
                     .foregroundColor(BiologerColors.textPrimary)
 
@@ -65,18 +65,18 @@ struct FindingsFailureView: View {
             )
 
             VStack(spacing: BiologerSpacing.xSmall) {
-                Text("ListOfFindingsV2.loadError.title".localized)
+                Text("ListOfFindings.loadError.title".localized)
                     .font(.title3.weight(.semibold))
                     .foregroundColor(BiologerColors.textPrimary)
 
-                Text("ListOfFindingsV2.loadError.message".localized)
+                Text("ListOfFindings.loadError.message".localized)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             }
 
             Button(
-                "ListOfFindingsV2.retry".localized,
+                "ListOfFindings.retry".localized,
                 action: onRetry
             )
             .buttonStyle(BiologerActionButtonStyle())
@@ -113,11 +113,11 @@ struct FindingsFilteredEmptyView: View {
     private var message: String {
         switch filter {
         case .all:
-            "ListOfFindingsV2.empty.title".localized
+            "ListOfFindings.empty.title".localized
         case .uploaded:
-            "ListOfFindingsV2.filter.empty.uploaded".localized
+            "ListOfFindings.filter.empty.uploaded".localized
         case .pending:
-            "ListOfFindingsV2.filter.empty.pending".localized
+            "ListOfFindings.filter.empty.pending".localized
         }
     }
 

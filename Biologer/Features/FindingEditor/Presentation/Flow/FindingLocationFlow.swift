@@ -2,7 +2,7 @@ import SwiftUI
 
 @MainActor
 struct FindingLocationFlow: View {
-    @StateObject private var viewModel: FindingLocationV2ViewModel
+    @StateObject private var viewModel: FindingLocationViewModel
 
     init(
         initialLocation: FindingEditorLocation?,
@@ -10,7 +10,7 @@ struct FindingLocationFlow: View {
         onSelect: @escaping (FindingEditorLocation) -> Void
     ) {
         _viewModel = StateObject(
-            wrappedValue: FindingLocationV2ViewModel(
+            wrappedValue: FindingLocationViewModel(
                 initialLocation: initialLocation,
                 useCases: useCases,
                 onSelect: onSelect
@@ -19,6 +19,6 @@ struct FindingLocationFlow: View {
     }
 
     var body: some View {
-        FindingLocationScreenV2(viewModel: viewModel)
+        FindingLocationScreen(viewModel: viewModel)
     }
 }

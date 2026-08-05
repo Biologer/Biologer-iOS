@@ -1,17 +1,17 @@
 import SwiftUI
 
 struct FindingLocationDetailsFlow: View {
-    @StateObject private var viewModel: FindingLocationDetailsV2ViewModel
+    @StateObject private var viewModel: FindingLocationDetailsViewModel
 
     init(location: FindingDetailsLocation) {
         _viewModel = StateObject(
-            wrappedValue: FindingLocationDetailsV2ViewModel(
+            wrappedValue: FindingLocationDetailsViewModel(
                 location: location
             )
         )
     }
 
     var body: some View {
-        FindingLocationDetailsScreenV2(viewModel: viewModel)
+        FindingLocationDetailsScreen(viewModel: viewModel)
     }
 }

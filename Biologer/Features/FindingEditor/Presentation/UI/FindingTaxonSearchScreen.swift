@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct FindingTaxonSearchScreenV2: View {
-    @StateObject private var viewModel: FindingTaxonSearchV2ViewModel
+struct FindingTaxonSearchScreen: View {
+    @StateObject private var viewModel: FindingTaxonSearchViewModel
     private let onTaxonSync: (() -> Void)?
 
-    init(viewModel: FindingTaxonSearchV2ViewModel, onTaxonSync: (() -> Void)? = nil) {
+    init(viewModel: FindingTaxonSearchViewModel, onTaxonSync: (() -> Void)? = nil) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.onTaxonSync = onTaxonSync
     }
@@ -33,7 +33,7 @@ struct FindingTaxonSearchScreenV2: View {
         .searchable(
             text: $viewModel.query,
             placement: .navigationBarDrawer(displayMode: .always),
-            prompt: "FindingEditorV2.taxon.searchPrompt".localized
+            prompt: "FindingEditor.taxon.searchPrompt".localized
         )
         .textInputAutocapitalization(.never)
         .autocorrectionDisabled()
@@ -46,13 +46,13 @@ struct FindingTaxonSearchScreenV2: View {
         case .idle:
             messageState(
                 systemImage: "text.magnifyingglass",
-                title: "FindingEditorV2.taxon.searchStart.title".localized,
-                message: "FindingEditorV2.taxon.searchStart.message".localized
+                title: "FindingEditor.taxon.searchStart.title".localized,
+                message: "FindingEditor.taxon.searchStart.message".localized
             )
         case .loading:
             VStack(spacing: BiologerSpacing.small) {
                 ProgressView().controlSize(.large).tint(BiologerColors.accent)
-                Text("FindingEditorV2.taxon.searching".localized)
+                Text("FindingEditor.taxon.searching".localized)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
@@ -64,7 +64,7 @@ struct FindingTaxonSearchScreenV2: View {
                 taxonRow(taxon)
             }
             if viewModel.results.count == 100 {
-                Text("FindingEditorV2.taxon.refineSearch".localized)
+                Text("FindingEditor.taxon.refineSearch".localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -74,14 +74,14 @@ struct FindingTaxonSearchScreenV2: View {
             customNameButton
             messageState(
                 systemImage: "leaf",
-                title: "FindingEditorV2.taxon.noResults.title".localized,
-                message: "FindingEditorV2.taxon.noResults.message".localized
+                title: "FindingEditor.taxon.noResults.title".localized,
+                message: "FindingEditor.taxon.noResults.message".localized
             )
         case .failure:
             messageState(
                 systemImage: "exclamationmark.arrow.triangle.2.circlepath",
-                title: "FindingEditorV2.taxon.error.title".localized,
-                message: "FindingEditorV2.taxon.error.message".localized,
+                title: "FindingEditor.taxon.error.title".localized,
+                message: "FindingEditor.taxon.error.message".localized,
                 retryAction: viewModel.retry
             )
         }
@@ -92,7 +92,7 @@ struct FindingTaxonSearchScreenV2: View {
             HStack(spacing: BiologerSpacing.small) {
                 BiologerIconBadge(systemImage: "pencil", size: 38)
                 VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
-                    Text("FindingEditorV2.taxon.custom.title".localized)
+                    Text("FindingEditor.taxon.custom.title".localized)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Text(viewModel.normalizedQuery)
@@ -149,7 +149,7 @@ struct FindingTaxonSearchScreenV2: View {
                     .multilineTextAlignment(.center)
             }
             if let retryAction {
-                Button("ListOfFindingsV2.retry".localized, action: retryAction)
+                Button("ListOfFindings.retry".localized, action: retryAction)
                     .buttonStyle(BiologerActionButtonStyle())
                     .frame(maxWidth: 240)
             }

@@ -3,11 +3,11 @@ import XCTest
 @testable import Biologer
 
 @MainActor
-final class FindingTaxonSearchV2ViewModelTests: XCTestCase {
+final class FindingTaxonSearchViewModelTests: XCTestCase {
     func test_queryPublishesDebouncedResults() async {
         let expected = makeTaxon(id: 1, name: "Salamandra salamandra")
         let search = FindingTaxonSearchUseCaseStub(result: .success([expected]))
-        let sut = FindingTaxonSearchV2ViewModel(
+        let sut = FindingTaxonSearchViewModel(
             searchTaxa: search,
             onSelect: { _ in }
         )
@@ -26,7 +26,7 @@ final class FindingTaxonSearchV2ViewModelTests: XCTestCase {
 
     func test_customNameCreatesTaxonWithoutAPIID() {
         var selectedTaxon: FindingEditorTaxon?
-        let sut = FindingTaxonSearchV2ViewModel(
+        let sut = FindingTaxonSearchViewModel(
             searchTaxa: FindingTaxonSearchUseCaseStub(result: .success([])),
             onSelect: { selectedTaxon = $0 }
         )
@@ -41,7 +41,7 @@ final class FindingTaxonSearchV2ViewModelTests: XCTestCase {
     func test_selectForwardsDatabaseTaxon() {
         let taxon = makeTaxon(id: 1, name: "Alcedo atthis")
         var selectedTaxon: FindingEditorTaxon?
-        let sut = FindingTaxonSearchV2ViewModel(
+        let sut = FindingTaxonSearchViewModel(
             searchTaxa: FindingTaxonSearchUseCaseStub(result: .success([])),
             onSelect: { selectedTaxon = $0 }
         )

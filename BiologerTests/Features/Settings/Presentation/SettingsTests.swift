@@ -2,7 +2,7 @@ import XCTest
 @testable import Biologer
 
 @MainActor
-final class SettingsV2Tests: XCTestCase {
+final class SettingsTests: XCTestCase {
     func test_settings_whenDecodingLegacyPayload_preservesActivePreferences() throws {
         // Given
         let data = try XCTUnwrap(
@@ -135,7 +135,7 @@ final class SettingsV2Tests: XCTestCase {
     }
 
     func test_storedPreferencesRepositoryMapsAndPersistsDomainValues() {
-        let storage = SettingsV2StorageSpy(settings: Settings())
+        let storage = SettingsStorageSpy(settings: Settings())
         let sut = StoredSettingsPreferencesRepository(storage: storage)
         let preferences = SettingsPreferences(
             alwaysUseEnglishNames: true,
@@ -153,8 +153,8 @@ final class SettingsV2Tests: XCTestCase {
     }
 
     func test_storedLicenseRepositoryPersistsSelectedImageLicense() throws {
-        let dataStorage = SettingsV2LicenseStorageSpy()
-        let imageStorage = SettingsV2LicenseStorageSpy()
+        let dataStorage = SettingsLicenseStorageSpy()
+        let imageStorage = SettingsLicenseStorageSpy()
         let sut = StoredSettingsLicenseRepository(
             dataLicenseStorage: dataStorage,
             imageLicenseStorage: imageStorage
@@ -171,7 +171,7 @@ final class SettingsV2Tests: XCTestCase {
         let preferencesUseCase = SettingsPreferencesUseCaseSpy()
         let taxonDataUseCase = SettingsTaxonDataUseCaseSpy()
         taxonDataUseCase.hasDownloadedTaxaResult = false
-        let sut = SettingsScreenV2ViewModel(
+        let sut = SettingsScreenViewModel(
             preferencesUseCase: preferencesUseCase,
             taxonDataUseCase: taxonDataUseCase
         )
@@ -186,7 +186,7 @@ final class SettingsV2Tests: XCTestCase {
         let preferencesUseCase = SettingsPreferencesUseCaseSpy()
         let taxonDataUseCase = SettingsTaxonDataUseCaseSpy()
         taxonDataUseCase.hasDownloadedTaxaResult = true
-        let sut = SettingsScreenV2ViewModel(
+        let sut = SettingsScreenViewModel(
             preferencesUseCase: preferencesUseCase,
             taxonDataUseCase: taxonDataUseCase
         )
@@ -415,7 +415,7 @@ private final class SettingsTaxonDataUseCaseSpy: SettingsTaxonDataUseCase {
     }
 }
 
-private final class SettingsV2StorageSpy: SettingsStorage {
+private final class SettingsStorageSpy: SettingsStorage {
     private var settings: Settings?
     private(set) var savedSettings: Settings?
 
@@ -433,7 +433,7 @@ private final class SettingsV2StorageSpy: SettingsStorage {
     }
 }
 
-private final class SettingsV2LicenseStorageSpy: LicenseStorage {
+private final class SettingsLicenseStorageSpy: LicenseStorage {
     private var license: CheckMarkItem?
     private(set) var savedLicense: CheckMarkItem?
 

@@ -3,7 +3,7 @@ import XCTest
 @testable import Biologer
 
 @MainActor
-final class ListOfFindingsV2ViewModelTests: XCTestCase {
+final class ListOfFindingsViewModelTests: XCTestCase {
     func test_loadFindingsPublishesContent() {
         let finding = makeFinding()
         let context = makeSUT(getResult: .success([finding]))
@@ -277,13 +277,13 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
         getResult: Result<[FindingSummary], Error> = .success([]),
         onAddFinding: @escaping () -> Void = {},
         isSubmissionAllowed: Bool = true
-    ) -> ListOfFindingsV2TestContext {
+    ) -> ListOfFindingsTestContext {
         let getFindings = GetFindingsUseCaseStub(result: getResult)
         let deleteFinding = DeleteFindingUseCaseSpy()
         let deleteFindings = DeleteFindingsUseCaseSpy()
         let deleteAllFindings = DeleteAllFindingsUseCaseSpy()
         let uploadFindings = ListUploadFindingsUseCaseSpy()
-        let sut = ListOfFindingsV2ViewModel(
+        let sut = ListOfFindingsViewModel(
             useCases: FindingsUseCases(
                 getFindings: getFindings,
                 deleteFinding: deleteFinding,
@@ -296,7 +296,7 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
                 isAllowed: isSubmissionAllowed
             )
         )
-        return ListOfFindingsV2TestContext(
+        return ListOfFindingsTestContext(
             sut: sut,
             getFindings: getFindings,
             deleteFinding: deleteFinding,
@@ -320,8 +320,8 @@ final class ListOfFindingsV2ViewModelTests: XCTestCase {
 }
 
 @MainActor
-private struct ListOfFindingsV2TestContext {
-    let sut: ListOfFindingsV2ViewModel
+private struct ListOfFindingsTestContext {
+    let sut: ListOfFindingsViewModel
     let getFindings: GetFindingsUseCaseStub
     let deleteFinding: DeleteFindingUseCaseSpy
     let deleteFindings: DeleteFindingsUseCaseSpy

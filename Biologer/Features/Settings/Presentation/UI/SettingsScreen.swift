@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct SettingsScreenV2: View {
-    @ObservedObject var viewModel: SettingsScreenV2ViewModel
+struct SettingsScreen: View {
+    @ObservedObject var viewModel: SettingsScreenViewModel
     let onSelectDestination: Observer<SettingsDestination>
     let onDownloadTaxa: Observer<Void>
 
@@ -94,7 +94,7 @@ struct SettingsScreenV2: View {
                 }
 
                 settingsSection(
-                    title: "SettingsV2.section.support".localized,
+                    title: "Settings.section.support".localized,
                     systemImage: "questionmark.circle"
                 ) {
                     destinationRow(

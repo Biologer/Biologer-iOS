@@ -10,7 +10,7 @@ enum FindingTaxonSearchState: Equatable {
 }
 
 @MainActor
-final class FindingTaxonSearchV2ViewModel: ObservableObject {
+final class FindingTaxonSearchViewModel: ObservableObject {
     @Published var query = ""
     @Published private(set) var results: [FindingEditorTaxon] = []
     @Published private(set) var state: FindingTaxonSearchState = .idle

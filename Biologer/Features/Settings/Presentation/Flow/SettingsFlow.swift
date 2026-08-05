@@ -19,7 +19,7 @@ struct SettingsFlow: View {
     private let logoutUseCase: LogoutUseCase
     private let taxonSyncComposition: TaxonSyncComposition
 
-    @StateObject private var settingsViewModel: SettingsScreenV2ViewModel
+    @StateObject private var settingsViewModel: SettingsScreenViewModel
     @State private var path: [SettingsDestination] = []
 
     init(
@@ -39,7 +39,7 @@ struct SettingsFlow: View {
         self.logoutUseCase = logoutUseCase
         self.taxonSyncComposition = taxonSyncComposition
         _settingsViewModel = StateObject(
-            wrappedValue: SettingsScreenV2ViewModel(
+            wrappedValue: SettingsScreenViewModel(
                 preferencesUseCase: useCases.preferences,
                 taxonDataUseCase: useCases.taxonData
             )
@@ -48,7 +48,7 @@ struct SettingsFlow: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            SettingsScreenV2(
+            SettingsScreen(
                 viewModel: settingsViewModel,
                 onSelectDestination: { destination in
                     path.append(destination)

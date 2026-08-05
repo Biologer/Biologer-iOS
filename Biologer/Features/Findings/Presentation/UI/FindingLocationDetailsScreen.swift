@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct FindingLocationDetailsScreenV2: View {
-    @ObservedObject var viewModel: FindingLocationDetailsV2ViewModel
+struct FindingLocationDetailsScreen: View {
+    @ObservedObject var viewModel: FindingLocationDetailsViewModel
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -20,7 +20,7 @@ struct FindingLocationDetailsScreenV2: View {
 
             locationCard
         }
-        .navigationTitle("FindingLocationDetailsV2.nav.title".localized)
+        .navigationTitle("FindingLocationDetails.nav.title".localized)
         .navigationBarTitleDisplayMode(.inline)
         .tint(BiologerColors.accent)
         .toolbar {
@@ -41,7 +41,7 @@ struct FindingLocationDetailsScreenV2: View {
                 )
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("FindingLocationDetailsV2.card.title".localized)
+                    Text("FindingLocationDetails.card.title".localized)
                         .font(.headline)
                         .foregroundColor(BiologerColors.textPrimary)
 
@@ -118,7 +118,7 @@ struct FindingLocationDetailsScreenV2: View {
         } label: {
             Image(systemName: "map")
         }
-        .accessibilityLabel("FindingLocationDetailsV2.mapStyle".localized)
+        .accessibilityLabel("FindingLocationDetails.mapStyle".localized)
     }
 
     private var coordinateSummary: String {

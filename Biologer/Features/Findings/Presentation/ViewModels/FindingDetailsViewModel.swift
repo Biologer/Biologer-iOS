@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-enum FindingDetailsV2LoadState: Equatable {
+enum FindingDetailsLoadState: Equatable {
     case idle
     case loading
     case content
@@ -9,9 +9,9 @@ enum FindingDetailsV2LoadState: Equatable {
 }
 
 @MainActor
-final class FindingDetailsV2ViewModel: ObservableObject {
+final class FindingDetailsViewModel: ObservableObject {
     @Published private(set) var details: FindingDetails?
-    @Published private(set) var loadState: FindingDetailsV2LoadState = .idle
+    @Published private(set) var loadState: FindingDetailsLoadState = .idle
     @Published private(set) var uploadState: FindingUploadViewState = .idle
     @Published private(set) var showsSubmissionWarning = false
 

@@ -1,16 +1,16 @@
 import SwiftUI
 
-struct FindingDetailsScreenV2: View {
-    @StateObject private var viewModel: FindingDetailsV2ViewModel
+struct FindingDetailsScreen: View {
+    @StateObject private var viewModel: FindingDetailsViewModel
 
-    init(viewModel: FindingDetailsV2ViewModel) {
+    init(viewModel: FindingDetailsViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
         content
             .biologerPageBackground()
-            .navigationTitle("FindingDetailsV2.nav.title".localized)
+            .navigationTitle("FindingDetails.nav.title".localized)
             .navigationBarTitleDisplayMode(.inline)
             .tint(BiologerColors.accent)
             .onAppear(perform: viewModel.loadDetails)
@@ -22,7 +22,7 @@ struct FindingDetailsScreenV2: View {
                     viewModel.dismissUploadError()
                 }
             } message: {
-                Text("FindingDetailsV2.upload.failure".localized)
+                Text("FindingDetails.upload.failure".localized)
             }
             .alert(
                 "Common.title.warning".localized,
@@ -94,11 +94,11 @@ struct FindingDetailsScreenV2: View {
 
     private func overviewSection(_ details: FindingDetails) -> some View {
         FindingDetailsSection(
-            title: "FindingDetailsV2.section.details".localized,
+            title: "FindingDetails.section.details".localized,
             systemImage: "doc.text.magnifyingglass"
         ) {
             FindingDetailsInfoRow(
-                title: "FindingDetailsV2.field.date".localized,
+                title: "FindingDetails.field.date".localized,
                 value: details.createdAt.formatted(date: .abbreviated, time: .shortened),
                 systemImage: "calendar"
             )
@@ -125,7 +125,7 @@ struct FindingDetailsScreenV2: View {
 
     private func locationSection(_ location: FindingDetailsLocation) -> some View {
         FindingDetailsSection(
-            title: "FindingDetailsV2.section.location".localized,
+            title: "FindingDetails.section.location".localized,
             systemImage: "location"
         ) {
             FindingDetailsInfoRow(
@@ -163,7 +163,7 @@ struct FindingDetailsScreenV2: View {
             Button(action: viewModel.didTapShowLocation) {
                 HStack(spacing: BiologerSpacing.xSmall) {
                     Image(systemName: "map")
-                    Text("FindingDetailsV2.action.showOnMap".localized)
+                    Text("FindingDetails.action.showOnMap".localized)
                 }
             }
             .buttonStyle(
@@ -179,7 +179,7 @@ struct FindingDetailsScreenV2: View {
         _ individuals: FindingDetailsIndividuals
     ) -> some View {
         FindingDetailsSection(
-            title: "FindingDetailsV2.section.individuals".localized,
+            title: "FindingDetails.section.individuals".localized,
             systemImage: "number"
         ) {
             if let total = individuals.total {
@@ -218,7 +218,7 @@ struct FindingDetailsScreenV2: View {
 
     private func observationsSection(_ observations: [String]) -> some View {
         FindingDetailsSection(
-            title: "FindingDetailsV2.section.observations".localized,
+            title: "FindingDetails.section.observations".localized,
             systemImage: "eye"
         ) {
             ForEach(Array(observations.enumerated()), id: \.offset) { index, observation in
@@ -227,7 +227,7 @@ struct FindingDetailsScreenV2: View {
                 }
 
                 FindingDetailsInfoRow(
-                    title: "FindingDetailsV2.section.observations".localized,
+                    title: "FindingDetails.section.observations".localized,
                     value: observation,
                     systemImage: "checkmark.circle"
                 )
@@ -237,7 +237,7 @@ struct FindingDetailsScreenV2: View {
 
     private func notesSection(_ details: FindingDetails) -> some View {
         FindingDetailsSection(
-            title: "FindingDetailsV2.section.notes".localized,
+            title: "FindingDetails.section.notes".localized,
             systemImage: "note.text"
         ) {
             noteRows(details)
@@ -274,8 +274,8 @@ struct FindingDetailsScreenV2: View {
                         }
                         Text(
                             viewModel.isUploading
-                                ? "FindingDetailsV2.upload.progress".localized
-                                : "FindingDetailsV2.action.upload".localized
+                                ? "FindingDetails.upload.progress".localized
+                                : "FindingDetails.action.upload".localized
                         )
                     }
                 }
@@ -286,7 +286,7 @@ struct FindingDetailsScreenV2: View {
             Button(action: viewModel.didTapEdit) {
                 HStack(spacing: BiologerSpacing.xSmall) {
                     Image(systemName: "pencil")
-                    Text("FindingDetailsV2.action.edit".localized)
+                    Text("FindingDetails.action.edit".localized)
                 }
             }
             .buttonStyle(
@@ -307,7 +307,7 @@ struct FindingDetailsScreenV2: View {
                 .controlSize(.large)
                 .tint(BiologerColors.accent)
 
-            Text("FindingDetailsV2.loading".localized)
+            Text("FindingDetails.loading".localized)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
@@ -337,18 +337,18 @@ struct FindingDetailsScreenV2: View {
             )
 
             VStack(spacing: BiologerSpacing.xSmall) {
-                Text("FindingDetailsV2.loadError.title".localized)
+                Text("FindingDetails.loadError.title".localized)
                     .font(.title3.weight(.semibold))
                     .foregroundColor(BiologerColors.textPrimary)
 
-                Text("FindingDetailsV2.loadError.message".localized)
+                Text("FindingDetails.loadError.message".localized)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             }
 
             Button(
-                "ListOfFindingsV2.retry".localized,
+                "ListOfFindings.retry".localized,
                 action: viewModel.loadDetails
             )
             .buttonStyle(BiologerActionButtonStyle())

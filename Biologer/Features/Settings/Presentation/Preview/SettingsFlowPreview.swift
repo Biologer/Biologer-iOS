@@ -4,11 +4,11 @@ struct SettingsFlow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             makeSettingsFlow()
-                .previewDisplayName("Settings V2")
+                .previewDisplayName("Settings ")
 
             makeSettingsFlow()
                 .preferredColorScheme(.dark)
-                .previewDisplayName("Settings V2 - Dark")
+                .previewDisplayName("Settings  - Dark")
         }
     }
 

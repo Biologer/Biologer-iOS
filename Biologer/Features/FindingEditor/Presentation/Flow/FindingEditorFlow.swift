@@ -23,7 +23,7 @@ private final class FindingEditorFlowNavigation: ObservableObject {
 @MainActor
 struct FindingEditorFlow: View {
     @StateObject private var navigation: FindingEditorFlowNavigation
-    @StateObject private var viewModel: FindingEditorV2ViewModel
+    @StateObject private var viewModel: FindingEditorViewModel
     private let searchTaxa: SearchFindingTaxaUseCase
     private let locationUseCases: FindingLocationUseCases
     private let taxonSyncComposition: TaxonSyncComposition
@@ -44,7 +44,7 @@ struct FindingEditorFlow: View {
         self.taxonSyncComposition = taxonSyncComposition
         _navigation = StateObject(wrappedValue: navigation)
         _viewModel = StateObject(
-            wrappedValue: FindingEditorV2ViewModel(
+            wrappedValue: FindingEditorViewModel(
                 mode: mode,
                 loadFinding: loadFinding,
                 saveFinding: saveFinding,
@@ -77,10 +77,10 @@ struct FindingEditorFlow: View {
 
     var body: some View {
         NavigationStack {
-            FindingEditorScreenV2(viewModel: viewModel)
+            FindingEditorScreen(viewModel: viewModel)
                 .navigationDestination(isPresented: $navigation.showsTaxonSearch) {
-                    FindingTaxonSearchScreenV2(
-                        viewModel: FindingTaxonSearchV2ViewModel(
+                    FindingTaxonSearchScreen(
+                        viewModel: FindingTaxonSearchViewModel(
                             searchTaxa: searchTaxa,
                             onSelect: { taxon in
                                 viewModel.selectTaxon(taxon)

@@ -1,5 +1,5 @@
 //
-//  LoginScreenV2ViewModel.swift
+//  LoginScreenViewModel.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 7. 7. 2026..
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @MainActor
-public final class LoginScreenV2ViewModel: ObservableObject {
+public final class LoginScreenViewModel: ObservableObject {
 
     @Published public var isLoading: Bool = false
     @Published public var environmentViewModel: EnvironmentViewModel
@@ -96,7 +96,7 @@ public final class LoginScreenV2ViewModel: ObservableObject {
     }
 }
 
-extension LoginScreenV2ViewModel {
+extension LoginScreenViewModel {
     private func setEmailRequired() {
         emailError = "Common.tf.error.required".localized
     }

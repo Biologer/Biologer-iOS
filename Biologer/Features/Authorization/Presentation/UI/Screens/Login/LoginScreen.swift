@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct LoginScreenV2: View {
+struct LoginScreen: View {
     private let environmentViewModel: EnvironmentViewModel
 
-    @StateObject private var viewModel: LoginScreenV2ViewModel
+    @StateObject private var viewModel: LoginScreenViewModel
 
     init(
         environmentViewModel: EnvironmentViewModel,
-        viewModel: LoginScreenV2ViewModel
+        viewModel: LoginScreenViewModel
     ) {
         self.environmentViewModel = environmentViewModel
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -135,12 +135,12 @@ struct LoginScreenV2: View {
     }
 }
 
-struct LoginScreenV2_Previews: PreviewProvider {
+struct LoginScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LoginScreenV2(
+        LoginScreen(
             environmentViewModel: EnvironmentViewModelFactory()
                 .createEnvironment(type: .croatia),
-            viewModel: LoginScreenV2ViewModel(
+            viewModel: LoginScreenViewModel(
                 environmentViewModel: EnvironmentViewModelFactory()
                     .createEnvironment(type: .croatia),
                 useCase: StubLoginUseCase(),

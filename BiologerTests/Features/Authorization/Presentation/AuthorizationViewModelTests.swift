@@ -2,7 +2,7 @@ import XCTest
 @testable import Biologer
 
 @MainActor
-final class AuthorizationV2ViewModelTests: XCTestCase {
+final class AuthorizationViewModelTests: XCTestCase {
     func test_authorizationFlowStartsWithHelpWhenRequested() {
         let sut = AuthorizationFlowViewModel(
             shouldPresentHelp: true,
@@ -120,7 +120,7 @@ final class AuthorizationV2ViewModelTests: XCTestCase {
         let login = LoginUserUseCaseStub(result: .failure(.authorizationFailed(failure)))
         var receivedFailure: AuthorizationFailure?
         let environment = EnvironmentViewModelFactory().createEnvironment(type: .serbia)
-        let sut = LoginScreenV2ViewModel(
+        let sut = LoginScreenViewModel(
             environmentViewModel: environment,
             useCase: login,
             onSelectEnvironmentTapped: {},
@@ -141,7 +141,7 @@ final class AuthorizationV2ViewModelTests: XCTestCase {
     func test_loginPublishesInvalidEmailErrorImmediately() async {
         let login = LoginUserUseCaseStub(result: .failure(.invalidEmail))
         let environment = EnvironmentViewModelFactory().createEnvironment(type: .serbia)
-        let sut = LoginScreenV2ViewModel(
+        let sut = LoginScreenViewModel(
             environmentViewModel: environment,
             useCase: login,
             onSelectEnvironmentTapped: {},

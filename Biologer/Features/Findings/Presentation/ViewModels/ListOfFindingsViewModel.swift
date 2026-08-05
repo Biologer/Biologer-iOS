@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-enum ListOfFindingsV2LoadState: Equatable {
+enum ListOfFindingsLoadState: Equatable {
     case idle
     case loading
     case empty
@@ -9,7 +9,7 @@ enum ListOfFindingsV2LoadState: Equatable {
     case failure
 }
 
-enum ListOfFindingsV2ActionError: Equatable {
+enum ListOfFindingsActionError: Equatable {
     case deleteFinding
     case deleteFindings
     case deleteAllFindings
@@ -27,10 +27,10 @@ enum FindingSubmissionWarning: Equatable {
 }
 
 @MainActor
-final class ListOfFindingsV2ViewModel: ObservableObject {
+final class ListOfFindingsViewModel: ObservableObject {
     @Published private(set) var findings: [FindingSummary] = []
-    @Published private(set) var loadState: ListOfFindingsV2LoadState = .idle
-    @Published private(set) var actionError: ListOfFindingsV2ActionError?
+    @Published private(set) var loadState: ListOfFindingsLoadState = .idle
+    @Published private(set) var actionError: ListOfFindingsActionError?
     @Published private(set) var selectedFilter: FindingsListFilter = .all
     @Published private(set) var selectionMode: FindingsSelectionMode?
     @Published private(set) var selectedFindingIDs: Set<UUID> = []

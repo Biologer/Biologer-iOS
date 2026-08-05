@@ -13,19 +13,19 @@ struct FindingsOverviewCard: View {
             HStack(spacing: BiologerSpacing.xSmall) {
                 metric(
                     filter: .all,
-                    title: "ListOfFindingsV2.summary.total".localized,
+                    title: "ListOfFindings.summary.total".localized,
                     value: findings.count,
                     systemImage: "list.bullet"
                 )
                 metric(
                     filter: .uploaded,
-                    title: "ListOfFindingsV2.status.uploaded".localized,
+                    title: "ListOfFindings.status.uploaded".localized,
                     value: uploadedFindingsCount,
                     systemImage: "checkmark.circle.fill"
                 )
                 metric(
                     filter: .pending,
-                    title: "ListOfFindingsV2.status.pending".localized,
+                    title: "ListOfFindings.status.pending".localized,
                     value: findings.count - uploadedFindingsCount,
                     systemImage: "icloud.and.arrow.up"
                 )
@@ -66,7 +66,7 @@ struct FindingsOverviewCard: View {
             }
 
             VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
-                Text("ListOfFindingsV2.summary.title".localized.uppercased())
+                Text("ListOfFindings.summary.title".localized.uppercased())
                     .font(.caption.weight(.semibold))
                     .foregroundColor(.white.opacity(0.78))
                     .tracking(0.5)

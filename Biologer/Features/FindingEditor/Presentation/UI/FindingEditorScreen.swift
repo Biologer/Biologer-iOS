@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct FindingEditorScreenV2: View {
-    @ObservedObject private var viewModel: FindingEditorV2ViewModel
+struct FindingEditorScreen: View {
+    @ObservedObject private var viewModel: FindingEditorViewModel
 
-    init(viewModel: FindingEditorV2ViewModel) {
+    init(viewModel: FindingEditorViewModel) {
         self.viewModel = viewModel
     }
 
@@ -63,7 +63,7 @@ struct FindingEditorScreenV2: View {
 
     private var locationSection: some View {
         FindingEditorSection(
-            title: "FindingDetailsV2.section.location".localized,
+            title: "FindingDetails.section.location".localized,
             systemImage: "location"
         ) {
             if let location = viewModel.draft.location {
@@ -114,7 +114,7 @@ struct FindingEditorScreenV2: View {
 
     private var photoSection: some View {
         FindingEditorSection(
-            title: "FindingDetailsV2.section.photos".localized,
+            title: "FindingDetails.section.photos".localized,
             systemImage: "photo.on.rectangle.angled"
         ) {
             FindingEditorPhotoSection(
@@ -129,7 +129,7 @@ struct FindingEditorScreenV2: View {
 
     private var taxonSection: some View {
         FindingEditorSection(
-            title: "FindingEditorV2.section.taxon".localized,
+            title: "FindingEditor.section.taxon".localized,
             systemImage: "leaf"
         ) {
             Button(action: viewModel.requestTaxonSelection) {
@@ -143,7 +143,7 @@ struct FindingEditorScreenV2: View {
 
                         Text(
                             viewModel.draft.taxonName.isEmpty
-                                ? "FindingEditorV2.taxon.search".localized
+                                ? "FindingEditor.taxon.search".localized
                                 : viewModel.draft.taxonName
                         )
                         .font(.body.weight(.medium))
@@ -165,7 +165,7 @@ struct FindingEditorScreenV2: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .accessibilityHint("FindingEditorV2.taxon.searchHint".localized)
+            .accessibilityHint("FindingEditor.taxon.searchHint".localized)
 
             if let taxon = viewModel.draft.taxon, !taxon.developmentStages.isEmpty {
                 optionMenu(
@@ -191,16 +191,16 @@ struct FindingEditorScreenV2: View {
 
     private var individualsSection: some View {
         FindingEditorSection(
-            title: "FindingDetailsV2.section.individuals".localized,
+            title: "FindingDetails.section.individuals".localized,
             systemImage: "number"
         ) {
             Picker(
-                "FindingEditorV2.individuals.mode".localized,
+                "FindingEditor.individuals.mode".localized,
                 selection: $viewModel.draft.individualEntryMode
             ) {
-                Text("FindingEditorV2.individuals.total".localized)
+                Text("FindingEditor.individuals.total".localized)
                     .tag(FindingIndividualEntryMode.total)
-                Text("FindingEditorV2.individuals.gender".localized)
+                Text("FindingEditor.individuals.gender".localized)
                     .tag(FindingIndividualEntryMode.gender)
             }
             .pickerStyle(.segmented)
@@ -230,7 +230,7 @@ struct FindingEditorScreenV2: View {
 
     private var observationsSection: some View {
         FindingEditorSection(
-            title: "FindingDetailsV2.section.observations".localized,
+            title: "FindingDetails.section.observations".localized,
             systemImage: "eye"
         ) {
             ForEach(viewModel.draft.observations) { observation in
@@ -265,7 +265,7 @@ struct FindingEditorScreenV2: View {
 
     private var fieldNotesSection: some View {
         FindingEditorSection(
-            title: "FindingDetailsV2.section.notes".localized,
+            title: "FindingDetails.section.notes".localized,
             systemImage: "note.text"
         ) {
             FindingEditorField(
@@ -320,7 +320,7 @@ struct FindingEditorScreenV2: View {
                 }
                 Text(
                     viewModel.isSaving
-                        ? "FindingEditorV2.action.saving".localized
+                        ? "FindingEditor.action.saving".localized
                         : "NewTaxon.btn.save.text".localized
                 )
             }
@@ -335,7 +335,7 @@ struct FindingEditorScreenV2: View {
     private var loadingView: some View {
         VStack(spacing: BiologerSpacing.regular) {
             ProgressView().controlSize(.large).tint(BiologerColors.accent)
-            Text("FindingEditorV2.loading".localized)
+            Text("FindingEditor.loading".localized)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
@@ -351,11 +351,11 @@ struct FindingEditorScreenV2: View {
                 backgroundColor: BiologerColors.destructive.opacity(0.1),
                 size: 64
             )
-            Text("FindingEditorV2.loadError".localized)
+            Text("FindingEditor.loadError".localized)
                 .font(.title3.weight(.semibold))
                 .foregroundColor(BiologerColors.textPrimary)
                 .multilineTextAlignment(.center)
-            Button("ListOfFindingsV2.retry".localized, action: viewModel.retryLoad)
+            Button("ListOfFindings.retry".localized, action: viewModel.retryLoad)
                 .buttonStyle(BiologerActionButtonStyle())
                 .frame(maxWidth: 260)
             Spacer()
@@ -367,8 +367,8 @@ struct FindingEditorScreenV2: View {
 
     private var navigationTitle: String {
         viewModel.isEditing
-            ? "FindingEditorV2.nav.edit".localized
-            : "FindingEditorV2.nav.create".localized
+            ? "FindingEditor.nav.edit".localized
+            : "FindingEditor.nav.create".localized
     }
 
     private var atlasOptions: [FindingEditorOption] {
@@ -420,7 +420,7 @@ struct FindingEditorScreenV2: View {
                     Text(title)
                         .font(.caption)
                         .foregroundColor(.secondary)
-                    Text(selection?.name ?? "FindingEditorV2.option.select".localized)
+                    Text(selection?.name ?? "FindingEditor.option.select".localized)
                         .font(.body.weight(.medium))
                         .foregroundColor(BiologerColors.textPrimary)
                         .multilineTextAlignment(.leading)
@@ -450,7 +450,7 @@ struct FindingEditorScreenV2: View {
         case .validation, .saveFailure:
             "API.lb.error".localized
         case .saveSuccess:
-            "FindingEditorV2.saveSuccess.title".localized
+            "FindingEditor.saveSuccess.title".localized
         }
     }
 
@@ -459,15 +459,15 @@ struct FindingEditorScreenV2: View {
         case .photoLimit:
             "NewTaxon.image.errorPopUp.description".localized
         case .saveFailure:
-            "FindingEditorV2.saveError".localized
+            "FindingEditor.saveError".localized
         case .saveSuccess(let isEditing):
             isEditing
-                ? "FindingEditorV2.saveSuccess.updated".localized
-                : "FindingEditorV2.saveSuccess.created".localized
+                ? "FindingEditor.saveSuccess.updated".localized
+                : "FindingEditor.saveSuccess.created".localized
         case .validation(let error):
             switch error {
             case .locationRequired:
-                "FindingEditorV2.validation.location".localized
+                "FindingEditor.validation.location".localized
             case .taxonRequired:
                 "NewTaxon.popUpError.description.title.taxonNameRequired".localized
             case .individualCountRequired:

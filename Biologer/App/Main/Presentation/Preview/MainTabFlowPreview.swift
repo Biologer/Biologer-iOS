@@ -4,11 +4,11 @@ struct MainTabFlow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             makeFlow()
-                .previewDisplayName("Main tabs V2")
+                .previewDisplayName("Main tabs ")
 
             makeFlow()
                 .preferredColorScheme(.dark)
-                .previewDisplayName("Main tabs V2 - Dark")
+                .previewDisplayName("Main tabs  - Dark")
         }
     }
 
@@ -28,7 +28,7 @@ struct MainTabFlow_Previews: PreviewProvider {
                 )
             },
             makeEditor: { mode, onSaved, onUnsavedChangesChanged in
-                FindingEditorScreenV2_Previews.makeFlow(
+                FindingEditorScreen_Previews.makeFlow(
                     mode: mode,
                     onSaved: onSaved,
                     onUnsavedChangesChanged: onUnsavedChangesChanged

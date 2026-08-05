@@ -1,18 +1,18 @@
 import SwiftUI
 import UIKit
 
-struct FindingEditorScreenV2_Previews: PreviewProvider {
+struct FindingEditorScreen_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             makeFlow(mode: .create)
-                .previewDisplayName("Create finding V2")
+                .previewDisplayName("Create finding ")
 
             makeFlow(mode: .edit(editDraft.id))
-                .previewDisplayName("Edit finding V2")
+                .previewDisplayName("Edit finding ")
 
             makeFlow(mode: .edit(editDraft.id))
                 .preferredColorScheme(.dark)
-                .previewDisplayName("Edit finding V2 - Dark")
+                .previewDisplayName("Edit finding  - Dark")
         }
     }
 

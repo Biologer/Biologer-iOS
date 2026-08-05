@@ -175,21 +175,21 @@ struct MainTabFlow<FindingsContent: View, EditorContent: View, SettingsContent: 
         }
         .tint(BiologerColors.accent)
         .alert(
-            "FindingEditorV2.unsaved.title".localized,
+            "FindingEditor.unsaved.title".localized,
             isPresented: unsavedChangesAlertIsPresented
         ) {
             Button(
-                "FindingEditorV2.unsaved.continue".localized,
+                "FindingEditor.unsaved.continue".localized,
                 role: .cancel,
                 action: navigation.continueEditing
             )
             Button(
-                "FindingEditorV2.unsaved.discard".localized,
+                "FindingEditor.unsaved.discard".localized,
                 role: .destructive,
                 action: navigation.discardChangesAndOpenPendingEditor
             )
         } message: {
-            Text("FindingEditorV2.unsaved.message".localized)
+            Text("FindingEditor.unsaved.message".localized)
         }
     }
 
