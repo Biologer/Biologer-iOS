@@ -121,5 +121,4 @@ private final class AccountEnvironmentStorageStub: EnvironmentStorage {
     }
 
     func saveEnvironment(env: Biologer.Environment) {}
-    func delete() {}
 }

@@ -1,15 +1,14 @@
 import Foundation
 
-public struct ObservationDataResponse: Codable {
+struct ObservationDataResponse: Decodable {
     let data: [ObservationResponse]
 
-    public struct ObservationResponse: Codable {
+    struct ObservationResponse: Decodable {
         let id: Int
-        let slug: String
         let translations: [ObservationTranslationResponse]
     }
 
-    public struct ObservationTranslationResponse: Codable {
+    struct ObservationTranslationResponse: Decodable {
         let id: Int
         let locale: String
         let name: String

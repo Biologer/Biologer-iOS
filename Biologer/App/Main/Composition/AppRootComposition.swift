@@ -135,8 +135,12 @@ final class AppRootComposition {
     private lazy var tokenStorage: TokenStorage = KeychainTokenStorage()
     private lazy var environmentStorage: EnvironmentStorage = KeychainEnvironmentStorage()
     private lazy var userStorage: UserStorage = UserDefaultsUserStorage()
-    private lazy var dataLicenseStorage: LicenseStorage = UserDefaultsDataLicenseStorage()
-    private lazy var imageLicenseStorage: LicenseStorage = UserDefaultsImageLicenseStorage()
+    private lazy var dataLicenseStorage: LicenseStorage = {
+        UserDefaultsLicenseStorage(key: "dataLicense.key")
+    }()
+    private lazy var imageLicenseStorage: LicenseStorage = {
+        UserDefaultsLicenseStorage(key: "imageLicense.key")
+    }()
     private lazy var settingsStorage: SettingsStorage = {
         let storage = UserDefaultsSettingsStorage()
         if storage.getSettings() == nil {

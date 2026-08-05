@@ -134,7 +134,4 @@ private final class UserStorageSpy: UserStorage {
         user = nil
     }
 
-    func deleteAllForUser() {
-        user = nil
-    }
 }

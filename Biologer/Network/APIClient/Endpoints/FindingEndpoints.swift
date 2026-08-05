@@ -1,7 +1,7 @@
 import Foundation
 
 struct UploadFindingEndpoint: APIEndpoint {
-    typealias Response = FindingResponse
+    typealias Response = EmptyAPIResponse
 
     let host: String
     let path = APIConstants.uploadFindingPath

@@ -1,9 +1,9 @@
 import Foundation
 
-public struct UserDataResponse: Codable {
+struct UserDataResponse: Decodable {
     let data: UserResponse
 
-    public struct UserResponse: Codable {
+    struct UserResponse: Decodable {
         let id: Int
         let first_name: String
         let last_name: String
@@ -12,7 +12,7 @@ public struct UserDataResponse: Codable {
         let is_verified: Bool
         let settings: Settings
 
-        public struct Settings: Codable {
+        struct Settings: Decodable {
             let data_license: Int
             let image_license: Int
             let language: String

@@ -8,8 +8,7 @@
 import Foundation
 
 public final class UserDefaultsSettingsStorage: SettingsStorage {
-    
-    let settingsKey = "settings.key"
+    private let settingsKey = "settings.key"
     
     public func getSettings() -> Settings? {
         let userDefaults = UserDefaults.standard
@@ -28,10 +27,5 @@ public final class UserDefaultsSettingsStorage: SettingsStorage {
         } catch {
             print(error.localizedDescription)
         }
-    }
-    
-    public func delete() {
-        let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: settingsKey)
     }
 }

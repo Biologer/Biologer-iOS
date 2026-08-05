@@ -168,5 +168,4 @@ private final class PrepareSessionUserStorageSpy: UserStorage {
     func getUser() -> User? { user }
     func save(user: User) { self.user = user }
     func delete() { user = nil }
-    func deleteAllForUser() { user = nil }
 }

@@ -1,7 +1,7 @@
 import Foundation
 
 struct RegisterUserEndpoint: APIEndpoint {
-    typealias Response = RegisterUserResponse
+    typealias Response = AuthorizationTokenResponse
 
     let host: String
     let path = APIConstants.registerUserPath

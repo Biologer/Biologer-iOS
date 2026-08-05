@@ -1,10 +1,10 @@
 import Foundation
 
-public struct GetAlitutdeByLocationResponse: Codable {
+struct GetAltitudeByLocationResponse: Decodable {
     let elevation: Int
 }
 
-public struct GetAltitudeByLocationBody: Codable {
+struct GetAltitudeByLocationBody: Encodable {
     let latitude: Double
     let longitude: Double
 }

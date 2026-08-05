@@ -7,8 +7,8 @@
 
 import RealmSwift
 
-public enum DBObservationMapper {
-    public static func mapForDB(observationResponse: ObservationDataResponse.ObservationResponse) -> DBObservation {
+enum DBObservationMapper {
+    static func mapForDB(observationResponse: ObservationDataResponse.ObservationResponse) -> DBObservation {
         let dbObservationTranslations = List<DBObservationTranslation>()
         observationResponse.translations.forEach({
             dbObservationTranslations.append(DBObservationTranslation(id: $0.id, local: $0.locale, name: $0.name))

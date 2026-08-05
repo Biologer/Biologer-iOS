@@ -1,7 +1,7 @@
 import Foundation
 
 struct GetAltitudeEndpoint: APIEndpoint {
-    typealias Response = GetAlitutdeByLocationResponse
+    typealias Response = GetAltitudeByLocationResponse
 
     let host: String
     let path = APIConstants.getAltitudePath

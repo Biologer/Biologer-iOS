@@ -76,7 +76,6 @@ private final class LogoutUserStorageSpy: UserStorage {
         didDelete = true
     }
 
-    func deleteAllForUser() {}
 }
 
 private final class LogoutLocalDataDeletingSpy: LogoutLocalDataDeleting {

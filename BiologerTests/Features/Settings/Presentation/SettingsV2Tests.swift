@@ -68,6 +68,24 @@ final class SettingsV2Tests: XCTestCase {
         XCTAssertEqual(sut.settings.language, "sr-Latn")
     }
 
+    func test_licenseStorage_whenSavingLicense_returnsPersistedLicense() throws {
+        // Given
+        let suiteName = "UserDefaultsLicenseStorageTests.\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+        let license = try XCTUnwrap(CheckMarkItemMapper.getDataLicense().last)
+        let sut = UserDefaultsLicenseStorage(
+            key: "license.test.key",
+            defaults: defaults
+        )
+
+        // When
+        sut.saveLicense(license: license)
+
+        // Then
+        XCTAssertEqual(sut.getLicense(), license)
+    }
+
     func test_preferencesUseCaseUpdatesSelectedToggle() {
         let repository = SettingsPreferencesRepositorySpy()
         let sut = DefaultSettingsPreferencesUseCase(repository: repository)
@@ -409,10 +427,6 @@ private final class SettingsV2StorageSpy: SettingsStorage {
         self.settings = settings
         savedSettings = settings
     }
-
-    func delete() {
-        settings = nil
-    }
 }
 
 private final class SettingsV2LicenseStorageSpy: LicenseStorage {
@@ -426,9 +440,5 @@ private final class SettingsV2LicenseStorageSpy: LicenseStorage {
     func saveLicense(license: CheckMarkItem) {
         self.license = license
         savedLicense = license
-    }
-
-    func delete() {
-        license = nil
     }
 }

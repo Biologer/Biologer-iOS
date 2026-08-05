@@ -1,8 +1,6 @@
 import Foundation
 
-public struct FindingResponse: Codable {}
-
-public struct FindingRequestBody: Codable {
+struct FindingRequestBody: Encodable {
     let atlasCode: Int?
     let accuracy: Int?
     let data_license: String?
@@ -29,11 +27,11 @@ public struct FindingRequestBody: Codable {
     let year: String?
 }
 
-public struct FindingPhotoRequestBody: Codable {
+struct FindingPhotoRequestBody: Encodable {
     let license: String
     let path: String
 }
 
-public struct FindingImageResponse: Codable {
+struct FindingImageResponse: Decodable {
     let file: String?
 }

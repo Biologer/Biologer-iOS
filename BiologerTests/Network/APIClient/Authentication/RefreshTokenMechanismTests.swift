@@ -419,7 +419,6 @@ private final class TestEnvironmentStorage: EnvironmentStorage {
         Environment(host: "example.com", path: "", clientSecret: "secret", cliendId: "client")
     }
     func saveEnvironment(env: Environment) {}
-    func delete() {}
 }
 
 private final class APIClientStub: APIClientProtocol, @unchecked Sendable {

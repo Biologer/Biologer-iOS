@@ -32,8 +32,8 @@ final class RemoteLoginUserRepository: LoginUserRepository {
             let response = try await client.send(endpoint)
             tokenStorage.saveToken(
                 token: Token(
-                    accessToken: response.access_token,
-                    refreshToken: response.refresh_token
+                    accessToken: response.accessToken,
+                    refreshToken: response.refreshToken
                 )
             )
         } catch let error as APIClientError {

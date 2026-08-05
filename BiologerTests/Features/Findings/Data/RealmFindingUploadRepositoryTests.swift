@@ -294,10 +294,6 @@ private final class FindingUploadLicenseStorageStub: LicenseStorage {
     func saveLicense(license: CheckMarkItem) {
         self.license = license
     }
-
-    func delete() {
-        license = nil
-    }
 }
 
 private final class FindingUploadSettingsStorageStub: SettingsStorage {
@@ -313,9 +309,5 @@ private final class FindingUploadSettingsStorageStub: SettingsStorage {
 
     func saveSettings(settings: Settings) {
         self.settings = settings
-    }
-
-    func delete() {
-        settings = nil
     }
 }
