@@ -501,7 +501,7 @@ public final class AppNavigationRouter: NavigationRouter {
             uploadFindings: uploadFindings,
             factory: SwiftUITaxonViewControllerFactory(
                 getAltitudeService: RemoteGetAltitudeService(
-                    client: httpClient,
+                    client: authenticatedAPIHttpClient,
                     environmentStorage: environmentStorage
                 )
             ),
@@ -539,7 +539,7 @@ public final class AppNavigationRouter: NavigationRouter {
     private func makeFindingEditorBuilder() -> FindingEditorBuilder {
         FindingEditorBuilder(
             altitudeService: RemoteGetAltitudeService(
-                client: httpClient,
+                client: authenticatedAPIHttpClient,
                 environmentStorage: environmentStorage
             ),
             taxonSyncComposition: taxonSyncComposition
