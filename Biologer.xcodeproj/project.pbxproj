@@ -44,6 +44,7 @@
 		931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426EC262B53B000542EFC /* Preview Assets.xcassets */; };
 		931426F0262B53B000542EFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931426EE262B53B000542EFC /* LaunchScreen.storyboard */; };
 		931426FB262B53B100542EFC /* BiologerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426FA262B53B100542EFC /* BiologerTests.swift */; };
+		E1000001302F000000000001 /* RefreshTokenMechanismTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000002302F000000000001 /* RefreshTokenMechanismTests.swift */; };
 		93142706262B53B100542EFC /* BiologerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142705262B53B100542EFC /* BiologerUITests.swift */; };
 		9314271B262B58AA00542EFC /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314271A262B58AA00542EFC /* LoginScreen.swift */; };
 		9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314272A262B5AEE00542EFC /* MaterialDesignTextField.swift */; };
@@ -371,6 +372,7 @@
 		931426F1262B53B000542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		931426F6262B53B000542EFC /* BiologerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426FA262B53B100542EFC /* BiologerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerTests.swift; sourceTree = "<group>"; };
+		E1000002302F000000000001 /* RefreshTokenMechanismTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network/APIClient/Authentication/RefreshTokenMechanismTests.swift; sourceTree = "<group>"; };
 		931426FC262B53B100542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93142701262B53B100542EFC /* BiologerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93142705262B53B100542EFC /* BiologerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerUITests.swift; sourceTree = "<group>"; };
@@ -905,6 +907,7 @@
 			isa = PBXGroup;
 			children = (
 				931426FA262B53B100542EFC /* BiologerTests.swift */,
+				E1000002302F000000000001 /* RefreshTokenMechanismTests.swift */,
 				FC000010302B000000000001 /* App */,
 				FC000020302B000000000001 /* Features */,
 				931426FC262B53B100542EFC /* Info.plist */,
@@ -2553,6 +2556,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				931426FB262B53B100542EFC /* BiologerTests.swift in Sources */,
+				E1000001302F000000000001 /* RefreshTokenMechanismTests.swift in Sources */,
 				F90000023026000000000001 /* FindingsUseCaseTests.swift in Sources */,
 				F90000043026000000000001 /* RealmFindingsRepositoryTests.swift in Sources */,
 				F90000063026000000000001 /* ListOfFindingsV2ViewModelTests.swift in Sources */,

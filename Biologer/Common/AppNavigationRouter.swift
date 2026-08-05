@@ -56,10 +56,26 @@ public final class AppNavigationRouter: NavigationRouter {
         return client
     }()
 
+    private lazy var accessTokenRefresher: AccessTokenRefreshing = {
+        RemoteAccessTokenRefresher(
+            client: apiHttpClient,
+            environmentStorage: environmentStorage,
+            tokenStorage: tokenStorage
+        )
+    }()
+
+    private lazy var tokenRefreshCoordinator: TokenRefreshCoordinator = {
+        TokenRefreshCoordinator(refresher: accessTokenRefresher)
+    }()
+
     private lazy var authenticatedAPIHttpClient: APIClientProtocol = {
         AuthenticatedAPIClientDecorator(
             decoratee: apiHttpClient,
-            tokenStorage: tokenStorage
+            tokenStorage: tokenStorage,
+            tokenRefresher: tokenRefreshCoordinator,
+            onSessionExpired: { [weak self] in
+                self?.logout()
+            }
         )
     }()
 
