@@ -1,10 +1,3 @@
-//
-//  TaxonsPaginationInfo.swift
-//  Biologer
-//
-//  Created by Nikola Popovic on 7.11.21..
-//
-
 import Foundation
 
 public final class TaxonsPaginationInfo: Codable {
@@ -12,16 +5,17 @@ public final class TaxonsPaginationInfo: Codable {
     public let perPage: Int
     public let lastPage: Int
     public let total: Int
-    
+
     public var isAllTaxonDownloaded: Bool {
-        return currentPage == lastPage
+        currentPage == lastPage
     }
-    
-    init(currentPage: Int,
-         perPage: Int = APIConstants.taxonsPerPage,
-         lastPage: Int,
-         total: Int) {
-        
+
+    init(
+        currentPage: Int,
+        perPage: Int = APIConstants.taxonsPerPage,
+        lastPage: Int,
+        total: Int
+    ) {
         self.currentPage = currentPage
         self.perPage = perPage
         self.lastPage = lastPage
