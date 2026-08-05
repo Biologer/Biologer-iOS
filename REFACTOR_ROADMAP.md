@@ -4,30 +4,29 @@
 
 Cilj refaktora je da aplikacija na kraju:
 
-- koristi samo V2 implementaciju;
+- koristi jednu aktivnu implementaciju bez version flag-ova i V1/V2 sufiksa;
 - koristi SwiftUI navigaciju i nove ekrane;
 - bude organizovana po feature-ima i Clean Architecture slojevima;
 - koristi novi `APIClient` sa bezbednim refresh-token mehanizmom;
 - ne zavisi od legacy router-a, coordinator-a, servisa i UIKit navigacije;
-- sačuva postojeće korisničke podatke tokom prelaska sa V1 na V2;
-- omogući bezbedno uklanjanje kompletnog starog koda.
+- sačuva postojeće korisničke podatke;
+- nema preostali kompatibilnosni sloj starog koda.
 
-Brisanje V1 treba da bude poslednji, skoro mehanički korak. Pre toga V2 mora potpuno prestati da zavisi od legacy mreže, servisa, storage modela i UIKit coordinator-a.
+## Trenutno stanje — 5. avgust 2026.
 
-## Trenutno stanje
+Refaktor i fizičko brisanje legacy aplikacije su završeni.
 
-| Oblast | Šta još nedostaje |
+| Oblast | Status |
 | --- | --- |
-| Authorization | V2 koristi novi `APIClient`, ali ga i dalje pokreću UIKit `AuthorizationFlowCoordinator` i version builder. |
-| Main | `MainTabFlow` je SwiftUI, ali ga pokreću `MainTabCoordinator` i `AppNavigationRouter`. |
-| Findings | Lista, details i editor su V2, ali upload nalaza i slika koristi legacy servise. |
-| FindingEditor | Lokalni deo je nov, ali dobijanje nadmorske visine koristi stari `GetAltitudeService`. |
-| Settings | UI je V2, ali Account, logout i delete account završavaju u legacy `AppNavigationRouter`-u. |
-| TaxonSync | Skoro je samostalan, ali novi authenticated client još nema refresh token. |
-| Startup | Profil i observation types učitavaju se legacy servisima. |
-| Network | Novi `APIClient` postoji za login, register i TaxonSync; ostatak još koristi stari `HTTPClient`. |
+| Authorization | SwiftUI flow koristi repositories i novi `APIClient`; nema UIKit coordinator-a ni version builder-a. |
+| Main | `AppRootFlow` i `MainTabFlow` vode kompletnu SwiftUI navigaciju. |
+| Findings | Lista, details, editor, altitude i upload koriste nove repository/APIClient tokove. |
+| Settings/Session | Account, logout, delete account, profil i observation sync koriste use case/repository slojeve i `SessionStore`. |
+| TaxonSync | Samostalan feature sa startup integracijom iz `AppRootFlow`-a. |
+| Network | Svi aktivni endpoint-i koriste novi `APIClient`; refresh koordinira jedan in-flight zahtev i bezbedno obrađuje paralelne `401` odgovore. |
+| Cleanup | Legacy router-i, coordinator-i, servisi, HTTP stack, UI, resursi, API error model, V1/V2 nazivi i compatibility alias-i su uklonjeni. |
 
-Najvažnije ograničenje je da `Network/APIClient/AuthenticatedAPIClientDecorator.swift` trenutno samo dodaje access token. Ne osvežava ga kada dobije `401`.
+Preostala razvojna stavka je Force Update preko Firebase Remote Config-a. Ona je namerno odložena dok se ne potvrde Firebase konfiguracija i release strategija. SwiftUI lifecycle prelazak je opcioni korak i nije uslov za završetak refaktora; jedan root `UIHostingController` u `SceneDelegate`-u ostaje nameran app-lifecycle adapter.
 
 ## Važna napomena za Firebase Force Update
 
@@ -42,7 +41,9 @@ Postoje dve mogućnosti:
 
 Za pouzdano serversko blokiranje svih starih buildova potreban je backend check.
 
-## Preporučeni redosled refaktora
+## Originalni plan i arhitektonske odluke
+
+Sledeće sekcije čuvaju originalni redosled migracije i razloge iza odluka. Statusna tabela iznad je merodavna za trenutno stanje projekta.
 
 ### 1. Završiti novi APIClient i Session infrastrukturu
 
@@ -445,8 +446,6 @@ Finalno uklanjanje je bolje podeliti na više smislenih commitova:
 
 ## Sledeći konkretan korak
 
-Sledeća celina treba da bude novi `APIClient` sa bezbednim refresh-token mehanizmom.
+Sledeća razvojna celina je Force Update, kada Firebase Remote Config i release strategija budu potvrđeni.
 
-Nakon toga, kao mali vertikalni primer, treba prebaciti altitude endpoint na novi client. Kada se potvrdi da taj obrazac odgovara, istim putem treba migrirati Finding upload, Account i Observation sync.
-
-Tek kada svi aktivni feature-i prestanu da zavise od legacy infrastrukture, treba napraviti `AppRootFlow`, isključiti V1 putanje, proveriti V2-only aplikaciju i započeti fizičko brisanje starog koda.
+Pre produkcionog release-a ostaju ručna regresiona provera scenarija iz sekcije „Testovi i provera ponašanja“ i TestFlight validacija očuvanja postojećih Realm, UserDefaults i Keychain podataka.
