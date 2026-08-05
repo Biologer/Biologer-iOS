@@ -2,6 +2,33 @@ import XCTest
 @testable import Biologer
 
 final class LogoutUseCaseTests: XCTestCase {
+    func test_sessionStore_startsUnauthenticatedWithoutPersistedToken() {
+        let tokenStorage = TokenStorageSpy()
+
+        let sut = DefaultSessionStore(tokenStorage: tokenStorage)
+
+        XCTAssertEqual(sut.state, .unauthenticated)
+    }
+
+    func test_sessionStore_startsAuthenticatedWithPersistedToken() {
+        let tokenStorage = TokenStorageSpy()
+        tokenStorage.token = Token(accessToken: "access", refreshToken: "refresh")
+
+        let sut = DefaultSessionStore(tokenStorage: tokenStorage)
+
+        XCTAssertEqual(sut.state, .authenticated)
+    }
+
+    func test_sessionStore_marksUnauthenticatedAfterSessionExpiration() {
+        let tokenStorage = TokenStorageSpy()
+        tokenStorage.token = Token(accessToken: "access", refreshToken: "refresh")
+        let sut = DefaultSessionStore(tokenStorage: tokenStorage)
+
+        sut.markUnauthenticated()
+
+        XCTAssertEqual(sut.state, .unauthenticated)
+    }
+
     func test_logout_clearsSessionAndLocalData() {
         let tokenStorage = TokenStorageSpy()
         let userStorage = LogoutUserStorageSpy()
@@ -24,16 +51,18 @@ final class LogoutUseCaseTests: XCTestCase {
 }
 
 private final class TokenStorageSpy: TokenStorage {
+    var token: Token?
     private(set) var didDelete = false
 
     func getToken() -> Token? {
-        nil
+        token
     }
 
     func saveToken(token: Token) {}
 
     func delete() {
         didDelete = true
+        token = nil
     }
 }
 

@@ -73,6 +73,7 @@ public final class AppNavigationRouter: NavigationRouter {
             decoratee: apiHttpClient,
             tokenStorage: tokenStorage,
             tokenRefresher: tokenRefreshCoordinator,
+            sessionStore: sessionStore,
             onSessionExpired: { [weak self] in
                 self?.logout()
             }
@@ -103,7 +104,8 @@ public final class AppNavigationRouter: NavigationRouter {
             tokenStorage: tokenStorage,
             userStorage: userStorage,
             taxonPaginationInfoStorage: taxonPaginationInfoStorage,
-            localDataDeleting: RealmLogoutLocalDataDeleter()
+            localDataDeleting: RealmLogoutLocalDataDeleter(),
+            sessionStore: sessionStore
         )
     }()
 
@@ -267,6 +269,10 @@ public final class AppNavigationRouter: NavigationRouter {
         return KeychainTokenStorage()
     }()
 
+    private lazy var sessionStore: SessionStore = {
+        DefaultSessionStore(tokenStorage: tokenStorage)
+    }()
+
     private lazy var userStorage: UserStorage = {
         return UserDefaultsUserStorage()
     }()
@@ -424,6 +430,8 @@ public final class AppNavigationRouter: NavigationRouter {
     }
 
     private func launchApp() {
+        // Synchronize the in-memory session state after login/register or app relaunch.
+        sessionStore.synchronize()
         if let _ = tokenStorage.getToken() {
             let vc = authorizationFactory.makeSplashScreen(onSplashScreenDone: { [weak self] in
                 self?.showMainCoordinator()

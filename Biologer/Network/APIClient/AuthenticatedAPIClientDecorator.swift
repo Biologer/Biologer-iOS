@@ -6,6 +6,7 @@ import Foundation
 final class AuthenticatedAPIClientDecorator: APIClientProtocol {
     private let decoratee: APIClientProtocol
     private let tokenStorage: TokenStorage
+    private let sessionStore: SessionStore?
     private let tokenRefresher: AccessTokenRefreshing
     private let onSessionExpired: @MainActor () -> Void
 
@@ -13,10 +14,12 @@ final class AuthenticatedAPIClientDecorator: APIClientProtocol {
         decoratee: APIClientProtocol,
         tokenStorage: TokenStorage,
         tokenRefresher: AccessTokenRefreshing,
+        sessionStore: SessionStore? = nil,
         onSessionExpired: @escaping @MainActor () -> Void = {}
     ) {
         self.decoratee = decoratee
         self.tokenStorage = tokenStorage
+        self.sessionStore = sessionStore
         self.tokenRefresher = tokenRefresher
         self.onSessionExpired = onSessionExpired
     }
@@ -106,6 +109,7 @@ final class AuthenticatedAPIClientDecorator: APIClientProtocol {
         }
 
         tokenStorage.delete()
+        sessionStore?.markUnauthenticated()
         onSessionExpired()
     }
 }

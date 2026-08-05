@@ -13,17 +13,20 @@ final class DefaultLogoutUseCase: LogoutUseCase {
     private let userStorage: UserStorage
     private let taxonPaginationInfoStorage: TaxonsPaginationInfoStorage
     private let localDataDeleting: LogoutLocalDataDeleting
+    private let sessionStore: SessionStore?
 
     init(
         tokenStorage: TokenStorage,
         userStorage: UserStorage,
         taxonPaginationInfoStorage: TaxonsPaginationInfoStorage,
-        localDataDeleting: LogoutLocalDataDeleting
+        localDataDeleting: LogoutLocalDataDeleting,
+        sessionStore: SessionStore? = nil
     ) {
         self.tokenStorage = tokenStorage
         self.userStorage = userStorage
         self.taxonPaginationInfoStorage = taxonPaginationInfoStorage
         self.localDataDeleting = localDataDeleting
+        self.sessionStore = sessionStore
     }
 
     func logout() {
@@ -31,5 +34,6 @@ final class DefaultLogoutUseCase: LogoutUseCase {
         userStorage.delete()
         taxonPaginationInfoStorage.delete()
         localDataDeleting.deleteLocalData()
+        sessionStore?.markUnauthenticated()
     }
 }
