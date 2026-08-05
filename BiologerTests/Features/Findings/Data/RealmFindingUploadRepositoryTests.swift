@@ -7,8 +7,7 @@ import XCTest
 final class RealmFindingUploadRepositoryTests: XCTestCase {
     private var configuration: Realm.Configuration!
     private var realm: Realm!
-    private var postFindingService: PostFindingServiceSpy!
-    private var postImageService: PostFindingImageServiceSpy!
+    private var remoteRepository: FindingRemoteUploadRepositorySpy!
     private var sut: RealmFindingUploadRepository!
 
     override func setUpWithError() throws {
@@ -17,15 +16,13 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
             inMemoryIdentifier: "RealmFindingUploadRepositoryTests.\(UUID().uuidString)"
         )
         realm = try Realm(configuration: configuration)
-        postFindingService = PostFindingServiceSpy()
-        postImageService = PostFindingImageServiceSpy()
+        remoteRepository = FindingRemoteUploadRepositorySpy()
 
         let settings = Settings()
         settings.setProjectName(name: "Wetland survey")
         sut = RealmFindingUploadRepository(
             configuration: configuration,
-            remotePostService: postFindingService,
-            uploadImageService: postImageService,
+            remoteRepository: remoteRepository,
             dataLicenseStorage: FindingUploadLicenseStorageStub(
                 license: makeLicense(id: 30, type: .data)
             ),
@@ -38,8 +35,7 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
 
     override func tearDown() {
         sut = nil
-        postImageService = nil
-        postFindingService = nil
+        remoteRepository = nil
         realm = nil
         configuration = nil
         super.tearDown()
@@ -49,13 +45,11 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         let finding = makeFinding(imageData: UIImage(systemName: "leaf")?.pngData())
         try storeObservationTypes(ids: [101, 202])
         try store(finding)
-        postImageService.results = [
-            .success(FindingImageResponse(file: "remote/leaf.jpg"))
-        ]
+        remoteRepository.imageResults = ["remote/leaf.jpg"]
 
         try await sut.upload(id: finding.id)
 
-        let body = try XCTUnwrap(postFindingService.receivedBodies.first)
+        let body = try XCTUnwrap(remoteRepository.receivedBodies.first)
         XCTAssertEqual(body.data_license, "30")
         XCTAssertEqual(body.project, "Wetland survey")
         XCTAssertEqual(body.taxon_id, 55)
@@ -65,7 +59,7 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         XCTAssertEqual(body.observation_types_ids, [101, 202])
         XCTAssertEqual(body.photos?.first?.license, "40")
         XCTAssertEqual(body.photos?.first?.path, "remote/leaf.jpg")
-        XCTAssertEqual(postImageService.callCount, 1)
+        XCTAssertEqual(remoteRepository.imageCallCount, 1)
 
         let assertionRealm = try await Realm(configuration: configuration)
         assertionRealm.refresh()
@@ -83,20 +77,17 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         let finding = makeGenderFinding(imageData: imageData)
         try storeObservationTypes(ids: [101, 202])
         try store(finding)
-        postImageService.results = [
-            .success(FindingImageResponse(file: "remote/male.jpg")),
-            .success(FindingImageResponse(file: "remote/female.jpg"))
-        ]
+        remoteRepository.imageResults = ["remote/male.jpg", "remote/female.jpg"]
 
         try await sut.upload(id: finding.id)
 
-        XCTAssertEqual(postFindingService.receivedBodies.map(\.sex), ["male", "female"])
-        XCTAssertEqual(postFindingService.receivedBodies.map(\.number), [2, 3])
+        XCTAssertEqual(remoteRepository.receivedBodies.map(\.sex), ["male", "female"])
+        XCTAssertEqual(remoteRepository.receivedBodies.map(\.number), [2, 3])
         XCTAssertEqual(
-            postFindingService.receivedBodies.map { $0.photos?.first?.path },
+            remoteRepository.receivedBodies.map { $0.photos?.first?.path },
             ["remote/male.jpg", "remote/female.jpg"]
         )
-        XCTAssertEqual(postImageService.callCount, 2)
+        XCTAssertEqual(remoteRepository.imageCallCount, 2)
 
         let assertionRealm = try await Realm(configuration: configuration)
         assertionRealm.refresh()
@@ -112,8 +103,8 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         let finding = makeGenderFinding(imageData: nil)
         try storeObservationTypes(ids: [101, 202])
         try store(finding)
-        postFindingService.queuedResults = [
-            .success(FindingResponse()),
+        remoteRepository.queuedFindingResults = [
+            .success(()),
             .failure(APIError(description: "Female upload failed"))
         ]
 
@@ -133,11 +124,11 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         XCTAssertFalse(storedFinding.individuals?.female?.isUploaded == true)
         XCTAssertFalse(storedFinding.isUploaded)
 
-        postFindingService.queuedResults = [.success(FindingResponse())]
+        remoteRepository.queuedFindingResults = [.success(())]
         try await sut.upload(id: finding.id)
 
         XCTAssertEqual(
-            postFindingService.receivedBodies.map(\.sex),
+            remoteRepository.receivedBodies.map(\.sex),
             ["male", "female", "female"]
         )
         assertionRealm = try await Realm(configuration: configuration)
@@ -154,7 +145,7 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         let finding = makeFinding(imageData: nil)
         try storeObservationTypes(ids: [101, 202])
         try store(finding)
-        postFindingService.result = .failure(
+        remoteRepository.findingResult = .failure(
             APIError(description: "Upload failed")
         )
 
@@ -267,35 +258,25 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
     }
 }
 
-private final class PostFindingServiceSpy: PostFindingService {
-    var result: Swift.Result<FindingResponse, APIError> = .success(
-        FindingResponse()
-    )
-    var queuedResults: [Swift.Result<FindingResponse, APIError>] = []
+private final class FindingRemoteUploadRepositorySpy: FindingRemoteUploadRepository {
+    var findingResult: Swift.Result<Void, APIError> = .success(())
+    var queuedFindingResults: [Swift.Result<Void, APIError>] = []
     private(set) var receivedBodies: [FindingRequestBody] = []
+    var imageResults: [String] = []
+    private(set) var imageCallCount = 0
 
-    func uploadFinding(
-        findingBody: FindingRequestBody,
-        completion: @escaping (Swift.Result<FindingResponse, APIError>) -> Void
-    ) {
-        receivedBodies.append(findingBody)
-        completion(queuedResults.isEmpty ? result : queuedResults.removeFirst())
+    func uploadFinding(_ body: FindingRequestBody) async throws {
+        let result = queuedFindingResults.isEmpty ? findingResult : queuedFindingResults.removeFirst()
+        receivedBodies.append(body)
+        try result.get()
     }
-}
 
-private final class PostFindingImageServiceSpy: PostFindingImageService {
-    var results: [Swift.Result<FindingImageResponse, APIError>] = []
-    private(set) var callCount = 0
-
-    func uploadFindingImages(
-        taxonImages: TaxonImage,
-        completion: @escaping (Swift.Result<FindingImageResponse, APIError>) -> Void
-    ) {
-        let result = results.indices.contains(callCount)
-            ? results[callCount]
-            : .failure(APIError(description: "Missing image response"))
-        callCount += 1
-        completion(result)
+    func uploadImage(_ image: TaxonImage) async throws -> String {
+        defer { imageCallCount += 1 }
+        guard imageResults.indices.contains(imageCallCount) else {
+            throw APIError(description: "Missing image response")
+        }
+        return imageResults[imageCallCount]
     }
 }
 

@@ -89,7 +89,7 @@ public final class AppNavigationRouter: NavigationRouter {
     }()
 
     private lazy var remoteProfileService: ProfileService = {
-       return RemoteProfileService(client: httpClient, environmentStorage: environmentStorage)
+       return RemoteProfileService(client: authenticatedAPIHttpClient, environmentStorage: environmentStorage)
     }()
 
     private lazy var userAccountUseCase: UserAccountUseCase = {
@@ -119,7 +119,7 @@ public final class AppNavigationRouter: NavigationRouter {
     }()
 
     private lazy var remoteObservationService: ObservationService = {
-       return RemoteObservationService(client: httpClient, environmentStorage: environmentStorage)
+       return RemoteObservationService(client: authenticatedAPIHttpClient, environmentStorage: environmentStorage)
     }()
 
     private lazy var taxonServiceCoordinator: TaxonServiceCoordinator = {
@@ -128,15 +128,15 @@ public final class AppNavigationRouter: NavigationRouter {
     }()
 
     private lazy var remoteTaxonService: TaxonService = {
-        return RemoteTaxonService(client: httpClient, environmentStorage: environmentStorage)
+        return RemoteTaxonService(client: authenticatedAPIHttpClient, environmentStorage: environmentStorage)
     }()
 
     private lazy var remoteFindinPostService: PostFindingService = {
-        return RemotePostFindingService(client: httpClient, environmentStorage: environmentStorage)
+        return RemotePostFindingService(client: authenticatedAPIHttpClient, environmentStorage: environmentStorage)
     }()
 
     private lazy var remoteUploadImageService: PostFindingImageService = {
-        return RemotePostFindingImageService(client: httpClient, environmentStorage: environmentStorage)
+        return RemotePostFindingImageService(client: authenticatedAPIHttpClient, environmentStorage: environmentStorage)
     }()
 
     private lazy var uploadFindings: UploadFindings = {
@@ -527,8 +527,10 @@ public final class AppNavigationRouter: NavigationRouter {
 
     private func makeFindingsBuilder() -> FindingsBuilder {
         FindingsBuilder(
-            remotePostService: remoteFindinPostService,
-            uploadImageService: remoteUploadImageService,
+            remoteRepository: RemoteFindingUploadRepository(
+                client: authenticatedAPIHttpClient,
+                environmentStorage: environmentStorage
+            ),
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage,
             settingsStorage: userDefaultsSettingsStorage,
@@ -538,7 +540,7 @@ public final class AppNavigationRouter: NavigationRouter {
 
     private func makeFindingEditorBuilder() -> FindingEditorBuilder {
         FindingEditorBuilder(
-            altitudeService: RemoteGetAltitudeService(
+            altitudeRepository: RemoteFindingAltitudeRepository(
                 client: authenticatedAPIHttpClient,
                 environmentStorage: environmentStorage
             ),

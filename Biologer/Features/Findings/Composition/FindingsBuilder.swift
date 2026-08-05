@@ -5,8 +5,7 @@ import UIKit
 @MainActor
 final class FindingsBuilder {
     private let realmConfiguration: Realm.Configuration
-    private let remotePostService: PostFindingService
-    private let uploadImageService: PostFindingImageService
+    private let remoteRepository: FindingRemoteUploadRepository
     private let dataLicenseStorage: LicenseStorage
     private let imageLicenseStorage: LicenseStorage
     private let settingsStorage: SettingsStorage
@@ -14,16 +13,14 @@ final class FindingsBuilder {
 
     init(
         realmConfiguration: Realm.Configuration = RealmManager.realmConfig(),
-        remotePostService: PostFindingService,
-        uploadImageService: PostFindingImageService,
+        remoteRepository: FindingRemoteUploadRepository,
         dataLicenseStorage: LicenseStorage,
         imageLicenseStorage: LicenseStorage,
         settingsStorage: SettingsStorage,
         userStorage: UserStorage
     ) {
         self.realmConfiguration = realmConfiguration
-        self.remotePostService = remotePostService
-        self.uploadImageService = uploadImageService
+        self.remoteRepository = remoteRepository
         self.dataLicenseStorage = dataLicenseStorage
         self.imageLicenseStorage = imageLicenseStorage
         self.settingsStorage = settingsStorage
@@ -54,8 +51,7 @@ final class FindingsBuilder {
         )
         let uploadRepository = RealmFindingUploadRepository(
             configuration: realmConfiguration,
-            remotePostService: remotePostService,
-            uploadImageService: uploadImageService,
+            remoteRepository: remoteRepository,
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage,
             settingsStorage: settingsStorage

@@ -5,16 +5,16 @@ import UIKit
 @MainActor
 final class FindingEditorBuilder {
     private let realmConfiguration: Realm.Configuration
-    private let altitudeService: GetAltitudeService
+    private let altitudeRepository: FindingAltitudeRepository
     private let taxonSyncComposition: TaxonSyncComposition
 
     init(
         realmConfiguration: Realm.Configuration = RealmManager.realmConfig(),
-        altitudeService: GetAltitudeService,
+        altitudeRepository: FindingAltitudeRepository,
         taxonSyncComposition: TaxonSyncComposition
     ) {
         self.realmConfiguration = realmConfiguration
-        self.altitudeService = altitudeService
+        self.altitudeRepository = altitudeRepository
         self.taxonSyncComposition = taxonSyncComposition
     }
 
@@ -44,10 +44,6 @@ final class FindingEditorBuilder {
             configuration: realmConfiguration
         )
         let locationRepository = CoreLocationFindingCurrentLocationRepository()
-        let altitudeRepository = ServiceFindingAltitudeRepository(
-            service: altitudeService
-        )
-
         return FindingEditorFlow(
             mode: mode,
             loadFinding: DefaultLoadFindingEditorUseCase(

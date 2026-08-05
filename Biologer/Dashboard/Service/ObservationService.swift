@@ -16,72 +16,33 @@ public final class RemoteObservationService: ObservationService {
     
     public typealias Result = Swift.Result<ObservationDataResponse, APIError>
     
-    private let client: HTTPClient
+    private let client: APIClientProtocol
     private let environmentStorage: EnvironmentStorage
     
-    public init(client: HTTPClient,
+    public init(client: APIClientProtocol,
                 environmentStorage: EnvironmentStorage) {
         self.client = client
         self.environmentStorage = environmentStorage
     }
     
     public func getObservationTypes(completion: @escaping (Result) -> Void) {
-        if let env = environmentStorage.getEnvironment() {
-            let request = try! ObservationRequest(host: env.host).asURLRequest()
-            client.perform(from: request) { result in
-                switch result {
-                case .failure(let error):
-                    completion(.failure(APIError(description: error.localizedDescription)))
-                case .success(let result):
-                    if result.1.statusCode == 200, let response = try? JSONDecoder().decode(ObservationDataResponse.self, from: result.0) {
-                        completion(.success(response))
-                    } else {
-                        completion(.failure(APIError(description: ErrorConstant.parsingErrorConstant)))
-                    }
-                }
-            }
-        } else {
+        guard let env = environmentStorage.getEnvironment() else {
             completion(.failure(APIError(description: ErrorConstant.environmentNotSelected)))
+            return
         }
-    }
-    
-    private class ObservationRequest: APIRequest {
-        
-        var method: HTTPMethod = .get
-        
-        var host: String
-        
-        var path: String = APIConstants.observationTypesPath
-        
-        var queryParameters: [URLQueryItem]? = nil
-        
-        var body: Data?
-        
-        var headers: HTTPHeaders?
-        
-        init(host: String) {
-            var headers = HTTPHeaders()
-            headers.add(name: HTTPHeaderName.contentType, value: APIConstants.applicationJson)
-            headers.add(name: HTTPHeaderName.acceept, value: APIConstants.applicationJson)
-            headers.add(name: HTTPHeaderName.userAgent, value: APIConstants.userAgentName)
-            
-            self.headers = headers
-            self.host = host
-            
-            let time = fetchLastUpdatedTime()
-            self.queryParameters = [URLQueryItem(name: APIConstants.updatedAfter, value: "\(time)")]
-            
-            saveLastUpdatedTime()
-        }
-        
-        private func fetchLastUpdatedTime() -> Int {
-            return UserDefaults.standard.integer(forKey: APIConstants.updatedAfter)
-        }
-        
-        private func saveLastUpdatedTime() {
-            let timestamp = Int(Date().timeIntervalSince1970)
-            UserDefaults.standard.set(timestamp, forKey: APIConstants.updatedAfter)
-            UserDefaults.standard.synchronize()
+
+        let updatedAfter = UserDefaults.standard.integer(forKey: APIConstants.updatedAfter)
+        UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: APIConstants.updatedAfter)
+
+        Task {
+            do {
+                let endpoint = ObservationTypesEndpoint(host: env.host, updatedAfter: updatedAfter)
+                completion(.success(try await client.send(endpoint)))
+            } catch let error as APIClientError {
+                completion(.failure(error.asAPIError()))
+            } catch {
+                completion(.failure(APIError(description: error.localizedDescription)))
+            }
         }
     }
 }

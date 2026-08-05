@@ -8,23 +8,20 @@ private enum RealmFindingUploadRepositoryError: Error {
 
 final class RealmFindingUploadRepository: FindingUploadRepository {
     private let configuration: Realm.Configuration
-    private let remotePostService: PostFindingService
-    private let uploadImageService: PostFindingImageService
+    private let remoteRepository: FindingRemoteUploadRepository
     private let dataLicenseStorage: LicenseStorage
     private let imageLicenseStorage: LicenseStorage
     private let settingsStorage: SettingsStorage
 
     init(
         configuration: Realm.Configuration,
-        remotePostService: PostFindingService,
-        uploadImageService: PostFindingImageService,
+        remoteRepository: FindingRemoteUploadRepository,
         dataLicenseStorage: LicenseStorage,
         imageLicenseStorage: LicenseStorage,
         settingsStorage: SettingsStorage
     ) {
         self.configuration = configuration
-        self.remotePostService = remotePostService
-        self.uploadImageService = uploadImageService
+        self.remoteRepository = remoteRepository
         self.dataLicenseStorage = dataLicenseStorage
         self.imageLicenseStorage = imageLicenseStorage
         self.settingsStorage = settingsStorage
@@ -93,7 +90,7 @@ final class RealmFindingUploadRepository: FindingUploadRepository {
                 throw RealmFindingUploadRepositoryError.invalidImageData
             }
 
-            let path = try await uploadImage(TaxonImage(image: image))
+            let path = try await remoteRepository.uploadImage(TaxonImage(image: image))
             photos.append(
                 FindingPhotoRequestBody(
                     license: String(imageLicenseID),
@@ -105,30 +102,8 @@ final class RealmFindingUploadRepository: FindingUploadRepository {
         return photos
     }
 
-    private func uploadImage(_ image: TaxonImage) async throws -> String {
-        try await withCheckedThrowingContinuation { continuation in
-            uploadImageService.uploadFindingImages(taxonImages: image) { result in
-                switch result {
-                case .success(let response):
-                    continuation.resume(returning: response.file ?? "")
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
-    }
-
     private func uploadFinding(_ request: FindingRequestBody) async throws {
-        try await withCheckedThrowingContinuation { continuation in
-            remotePostService.uploadFinding(findingBody: request) { result in
-                switch result {
-                case .success:
-                    continuation.resume(returning: ())
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+        try await remoteRepository.uploadFinding(request)
     }
 
     private func markAsUploaded(id: UUID) throws {
