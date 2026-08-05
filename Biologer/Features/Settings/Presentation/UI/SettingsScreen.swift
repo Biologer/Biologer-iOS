@@ -98,7 +98,7 @@ struct SettingsScreen: View {
                     systemImage: "questionmark.circle"
                 ) {
                     destinationRow(
-                        title: "SideMenu.lb.Help".localized,
+                        title: "Settings.support.help".localized,
                         systemImage: "questionmark.circle",
                         destination: .help
                     )
@@ -106,7 +106,7 @@ struct SettingsScreen: View {
                     rowDivider
 
                     destinationRow(
-                        title: "SideMenu.lb.aboutUs".localized,
+                        title: "Settings.support.about".localized,
                         systemImage: "info.circle",
                         destination: .about
                     )
@@ -125,7 +125,7 @@ struct SettingsScreen: View {
             .padding(.bottom, 32)
         }
         .biologerPageBackground()
-        .navigationTitle("SideMenu.lb.setup".localized)
+        .navigationTitle("Settings.title".localized)
         .navigationBarTitleDisplayMode(.large)
         .tint(BiologerColors.accent)
         .onAppear(perform: viewModel.reload)

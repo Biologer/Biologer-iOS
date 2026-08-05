@@ -19,13 +19,13 @@ enum FindingLocationMapStyle: String, CaseIterable, Identifiable {
     var localizedTitle: String {
         switch self {
         case .standard:
-            "NewTaxon.mapType.normal.title".localized
+            "Finding.mapType.normal".localized
         case .hybrid:
-            "NewTaxon.mapType.hybrid.title".localized
+            "Finding.mapType.hybrid".localized
         case .terrain:
-            "NewTaxon.mapType.terrain.title".localized
+            "Finding.mapType.terrain".localized
         case .satellite:
-            "NewTaxon.mapType.satellite.title".localized
+            "Finding.mapType.satellite".localized
         }
     }
 }

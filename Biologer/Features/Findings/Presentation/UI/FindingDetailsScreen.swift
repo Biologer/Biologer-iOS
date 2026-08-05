@@ -106,7 +106,7 @@ struct FindingDetailsScreen: View {
             if let developmentStageName = details.developmentStageName {
                 FindingDetailsDivider()
                 FindingDetailsInfoRow(
-                    title: "NewTaxon.tf.developmentStage.placeholder".localized,
+                    title: "Finding.field.developmentStage".localized,
                     value: developmentStageName,
                     systemImage: "circle.hexagongrid"
                 )
@@ -115,7 +115,7 @@ struct FindingDetailsScreen: View {
             if let atlasCodeName = details.atlasCodeName {
                 FindingDetailsDivider()
                 FindingDetailsInfoRow(
-                    title: "NewTaxon.tf.nesting.placeholder".localized,
+                    title: "Finding.field.nestingAtlasCode".localized,
                     value: atlasCodeName,
                     systemImage: "bird"
                 )
@@ -129,7 +129,7 @@ struct FindingDetailsScreen: View {
             systemImage: "location"
         ) {
             FindingDetailsInfoRow(
-                title: "NewTaxon.lb.latitude".localized,
+                title: "Finding.field.latitude".localized,
                 value: coordinate(location.latitude),
                 systemImage: "arrow.up.and.down"
             )
@@ -137,7 +137,7 @@ struct FindingDetailsScreen: View {
             FindingDetailsDivider()
 
             FindingDetailsInfoRow(
-                title: "NewTaxon.lb.longitued".localized,
+                title: "Finding.field.longitude".localized,
                 value: coordinate(location.longitude),
                 systemImage: "arrow.left.and.right"
             )
@@ -145,7 +145,7 @@ struct FindingDetailsScreen: View {
             FindingDetailsDivider()
 
             FindingDetailsInfoRow(
-                title: "NewTaxon.lb.altitude".localized,
+                title: "Finding.field.altitude".localized,
                 value: meters(location.altitude),
                 systemImage: "mountain.2"
             )
@@ -153,7 +153,7 @@ struct FindingDetailsScreen: View {
             FindingDetailsDivider()
 
             FindingDetailsInfoRow(
-                title: "NewTaxon.lb.accuracyTitle".localized,
+                title: "Finding.field.accuracy".localized,
                 value: meters(location.accuracy),
                 systemImage: "scope"
             )
@@ -184,7 +184,7 @@ struct FindingDetailsScreen: View {
         ) {
             if let total = individuals.total {
                 FindingDetailsInfoRow(
-                    title: "NewTaxon.tf.individual.placeholder".localized,
+                    title: "Finding.field.individuals".localized,
                     value: String(total),
                     systemImage: "sum"
                 )
@@ -196,7 +196,7 @@ struct FindingDetailsScreen: View {
 
             if let male = individuals.male {
                 FindingDetailsInfoRow(
-                    title: "NewTaxon.tf.maleIndividual.placeholder".localized,
+                    title: "Finding.field.maleIndividuals".localized,
                     value: String(male),
                     systemImage: "person"
                 )
@@ -208,7 +208,7 @@ struct FindingDetailsScreen: View {
 
             if let female = individuals.female {
                 FindingDetailsInfoRow(
-                    title: "NewTaxon.tf.femaleIndividual.placeholder".localized,
+                    title: "Finding.field.femaleIndividuals".localized,
                     value: String(female),
                     systemImage: "person.fill"
                 )
@@ -369,28 +369,28 @@ struct FindingDetailsScreen: View {
         [
             details.comment.map {
                 FindingNoteValue(
-                    title: "NewTaxon.tf.comment.placeholder".localized,
+                    title: "Finding.field.comment".localized,
                     value: $0,
                     systemImage: "text.bubble"
                 )
             },
             details.habitat.map {
                 FindingNoteValue(
-                    title: "NewTaxon.tf.habitat.placeholder".localized,
+                    title: "Finding.field.habitat".localized,
                     value: $0,
                     systemImage: "leaf"
                 )
             },
             details.foundOn.map {
                 FindingNoteValue(
-                    title: "NewTaxon.tf.foundOn.placeholder".localized,
+                    title: "Finding.field.foundOn".localized,
                     value: $0,
                     systemImage: "magnifyingglass"
                 )
             },
             details.foundDead.map {
                 FindingNoteValue(
-                    title: "NewTaxon.tf.foundDead.placeholder".localized,
+                    title: "Finding.field.causeOfDeath".localized,
                     value: $0,
                     systemImage: "cross.case"
                 )

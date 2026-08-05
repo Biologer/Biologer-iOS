@@ -71,7 +71,7 @@ struct FindingsOverviewCard: View {
                     .foregroundColor(.white.opacity(0.78))
                     .tracking(0.5)
 
-                Text("SideMenu.lb.listOfFindings".localized)
+                Text("Findings.title".localized)
                     .font(.title3.weight(.semibold))
                     .foregroundColor(.white)
             }

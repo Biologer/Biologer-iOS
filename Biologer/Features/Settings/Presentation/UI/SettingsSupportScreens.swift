@@ -76,7 +76,7 @@ struct SettingsAboutScreen: View {
             .padding(.bottom, 32)
         }
         .biologerPageBackground()
-        .navigationTitle("SideMenu.lb.aboutUs".localized)
+        .navigationTitle("Settings.support.about".localized)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .tint(BiologerColors.accent)

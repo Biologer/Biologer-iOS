@@ -14,7 +14,7 @@ struct ListOfFindingsScreen: View {
             floatingActionButton
         }
         .biologerPageBackground()
-        .navigationTitle("SideMenu.lb.listOfFindings".localized)
+        .navigationTitle("Findings.title".localized)
         .navigationBarTitleDisplayMode(.large)
         .tint(BiologerColors.accent)
         .toolbar {

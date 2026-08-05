@@ -144,7 +144,7 @@ struct MainTabFlow<FindingsContent: View, EditorContent: View, SettingsContent: 
                 .tag(MainTab.findings)
                 .tabItem {
                     Label(
-                        "SideMenu.lb.listOfFindings".localized,
+                        "Findings.title".localized,
                         systemImage: "list.bullet"
                     )
                 }
@@ -168,7 +168,7 @@ struct MainTabFlow<FindingsContent: View, EditorContent: View, SettingsContent: 
                 .tag(MainTab.settings)
                 .tabItem {
                     Label(
-                        "SideMenu.lb.setup".localized,
+                        "Settings.title".localized,
                         systemImage: "gearshape"
                     )
                 }

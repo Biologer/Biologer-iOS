@@ -55,12 +55,12 @@ struct FindingLocationDetailsScreen: View {
 
             HStack(spacing: BiologerSpacing.small) {
                 metric(
-                    title: "NewTaxon.lb.altitude".localized,
+                    title: "Finding.field.altitude".localized,
                     value: meters(viewModel.location.altitude),
                     systemImage: "mountain.2"
                 )
                 metric(
-                    title: "NewTaxon.lb.accuracyTitle".localized,
+                    title: "Finding.field.accuracy".localized,
                     value: meters(viewModel.location.accuracy),
                     systemImage: "scope"
                 )

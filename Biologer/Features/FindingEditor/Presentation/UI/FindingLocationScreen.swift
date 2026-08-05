@@ -28,7 +28,7 @@ struct FindingLocationScreen: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             selectionCard
         }
-        .navigationTitle("NewTaxon.map.nav.title".localized)
+        .navigationTitle("FindingEditor.location.title".localized)
         .navigationBarTitleDisplayMode(.inline)
         .tint(BiologerColors.accent)
         .onAppear(perform: viewModel.start)
@@ -110,19 +110,19 @@ struct FindingLocationScreen: View {
                     spacing: BiologerSpacing.xSmall
                 ) {
                     value(
-                        title: "NewTaxon.lb.latitude".localized,
+                        title: "Finding.field.latitude".localized,
                         text: coordinate(location.latitude)
                     )
                     value(
-                        title: "NewTaxon.lb.longitued".localized,
+                        title: "Finding.field.longitude".localized,
                         text: coordinate(location.longitude)
                     )
                     value(
-                        title: "NewTaxon.lb.altitude".localized,
+                        title: "Finding.field.altitude".localized,
                         text: meters(location.altitude)
                     )
                     value(
-                        title: "NewTaxon.lb.accuracyTitle".localized,
+                        title: "Finding.field.accuracy".localized,
                         text: meters(location.accuracy)
                     )
                 }

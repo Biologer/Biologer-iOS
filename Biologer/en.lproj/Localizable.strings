@@ -14,10 +14,6 @@
 "Common.btn.yes" = "Yes";
 "Common.btn.no" = "No";
 "Common.btn.cancel" = "Cancel";
-"Common.title.downloading" = "Downloading...";
-"Common.title.downloaded" = "Downloaded!";
-"Common.title.notConnectedToWiFi" = "You are not connected to Wi-Fi. Do you want to download anyway?";
-"Common.title.notConnectedToInternet" = "You are not connected to the internet.";
 "Common.title.warning" = "Warning!";
 
 // MARK: - API Error
@@ -65,55 +61,41 @@
 "Register.three.successPopUp.description" = "Registration is almost complete! To verify your identity, we will send an email with a confirmation link. Open the link to verify your email and log in to Biologer.";
 
 // MARK: - Side Menu Screen
-"SideMenu.lb.listOfFindings" = "List of findings";
-"SideMenu.lb.setup" = "Setup";
-"SideMenu.lb.Logout" = "Logout";
-"SideMenu.lb.DeleteAccount" = "Delete account";
-"SideMenu.lb.aboutUs" = "About us";
-"SideMenu.lb.AboutBiologer" = "About Biologer";
-"SideMenu.lb.Help" = "Help";
+"Findings.title" = "List of findings";
+"Settings.title" = "Setup";
+"Settings.support.about" = "About us";
+"Settings.support.help" = "Help";
 
 // MARK: - New Taxon Screen
-"NewTaxon.lb.nav.title" = "Data entry";
-"NewTaxon.lb.locationTitle" = "Location:";
-"NewTaxon.lb.accuracyTitle" = "Accuracy:";
-"NewTaxon.lb.latitude" = "Latitude:";
-"NewTaxon.lb.longitued" = "Longitude:";
-"NewTaxon.lb.altitude" = "Altitude:";
-"NewTaxon.lb.waitingForCordinate" = "Waiting for coordinates...";
-"NewTaxon.lb.accuracyUnknown" = "Unknown";
-"NewTaxon.btn.setLocation.title" = "Set location";
-"NewTaxon.lb.image.title" = "Images:";
-"NewTaxon.lb.info.title" = "Info:";
-"NewTaxon.tf.taxonName.placeholder" = "Taxon name";
-"NewTaxon.tf.nesting.placeholder" = "Nesting atlas code";
-"NewTaxon.tf.comment.placeholder" = "Comment";
-"NewTaxon.tf.individual.placeholder" = "Number of individuals";
-"NewTaxon.tf.maleIndividual.placeholder" = "Number of males";
-"NewTaxon.tf.femaleIndividual.placeholder" = "Number of females";
-"NewTaxon.tf.developmentStage.placeholder" = "Development stage of taxon";
-"NewTaxon.tf.habitat.placeholder" = "Habitat";
-"NewTaxon.tf.foundOn.placeholder" = "Found on";
-"NewTaxon.tf.foundDead.placeholder" = "Cause of death";
-"NewTaxon.tf.foundDead.text" = "Found dead?";
-"NewTaxon.btn.callObservation.text" = "Call";
-"NewTaxon.btn.exuviaeObservation.text" = "Exuviae";
-"NewTaxon.btn.save.text" = "Save";
-"NewTaxon.map.nav.title" = "Select location";
-"NewTaxon.image.nav.title" = "Image previews";
-"NewTaxon.image.placeholder.title" = "No images added";
-"NewTaxon.search.nav.title" = "Search taxons";
-"NewTaxon.nestingAtlas.nav.title" = "Nesting Atlas Code";
-"NewTaxon.mapType.normal.title" = "Normal";
-"NewTaxon.mapType.hybrid.title" = "Hybrid";
-"NewTaxon.mapType.terrain.title" = "Terrain";
-"NewTaxon.mapType.satellite.title" = "Satellite";
-"NewTaxon.map.accuracy.text" = "Accuracy of coordinates:";
-"NewTaxon.map.accuracy.description" = "Move the marker to change accuracy.";
-"NewTaxon.image.errorPopUp.title" = "Attention!";
-"NewTaxon.image.errorPopUp.description" = "You can add only three photos.";
-"NewTaxon.popUpError.description.title.taxonNameRequired" = "Taxon name is required.";
-"NewTaxon.popUpError.description.title.minimumNumberOfIndividualsIsOne" = "The minimum number of individuals is one.";
+"Finding.field.accuracy" = "Accuracy:";
+"Finding.field.latitude" = "Latitude:";
+"Finding.field.longitude" = "Longitude:";
+"Finding.field.altitude" = "Altitude:";
+"FindingEditor.location.waiting" = "Waiting for coordinates...";
+"FindingEditor.location.set" = "Set location";
+"FindingEditor.taxon.name" = "Taxon name";
+"Finding.field.nestingAtlasCode" = "Nesting atlas code";
+"Finding.field.comment" = "Comment";
+"Finding.field.individuals" = "Number of individuals";
+"Finding.field.maleIndividuals" = "Number of males";
+"Finding.field.femaleIndividuals" = "Number of females";
+"Finding.field.developmentStage" = "Development stage of taxon";
+"Finding.field.habitat" = "Habitat";
+"Finding.field.foundOn" = "Found on";
+"Finding.field.causeOfDeath" = "Cause of death";
+"Finding.field.foundDead" = "Found dead?";
+"FindingEditor.action.save" = "Save";
+"FindingEditor.location.title" = "Select location";
+"FindingEditor.photo.empty" = "No images added";
+"FindingEditor.taxon.searchTitle" = "Search taxons";
+"Finding.mapType.normal" = "Normal";
+"Finding.mapType.hybrid" = "Hybrid";
+"Finding.mapType.terrain" = "Terrain";
+"Finding.mapType.satellite" = "Satellite";
+"FindingEditor.photo.limit.title" = "Attention!";
+"FindingEditor.photo.limit.message" = "You can add only three photos.";
+"FindingEditor.validation.taxonName" = "Taxon name is required.";
+"FindingEditor.validation.individuals" = "The minimum number of individuals is one.";
 
 // MARK: - Nesting Atlas Code
 "NestingAtlasCode.title.1" = "0. Species observed but suspected to be on migration or summering as a non-breeder";
@@ -135,15 +117,9 @@
 "NestingAtlasCode.title.17" = "16. Nest with young seen or heard";
 
 // MARK: - Download Taxon
-"DownloadTaxon.doYouWantDownload.title" = "Do you want to download taxa?";
 
 // MARK: - List Of Findings
-"ListOfFindings.nav.title" = "Biologer";
 "ListOfFindings.noFindings.title" = "Your field records will appear here. To add a new observation of a species, just use the \"+\" sign and fill out the form. Once you have a stable internet connection, use the upload button to send all records to the server.";
-"ListOfFindings.deleteScreen.title" = "Do you want to delete?";
-"ListOfFindings.deleteScreen.lb.allTitle" = "All findings";
-"ListOfFindings.deleteScreen.lb.selectedTitle" = "Selected finding";
-"ListOfFindings.deleteScreen.btn.cancel" = "Cancel";
 "ListOfFindings.deleteScreen.btn.delete" = "Delete";
 "ListOfFindings.popUpUserVerified.description" = "Your email address is not confirmed! Your registration was successful, and you can use some basic functionality of Biologer. However, you will not be able to submit species observations until you validate your email address.";
 "ListOfFindings.summary.title" = "Field observations";
@@ -167,36 +143,19 @@
 "ListOfFindings.actionError.message" = "The change couldn't be completed. Please try again.";
 
 // MARK: - Upload Findings
-"UploadFindings.noFindingsToUploadPopUp.title" = "Uploading findings...";
-"UploadFindings.noFindingsToUploadPopUp.description" = "There are no findings to upload.";
-"UploadFindings.yesOrNoPopUp.title" = "Do you want to upload findings?";
-"UploadFindings.uploadedFindingPopUp.title" = "Success!";
-"UploadFindings.uploadedFindingPopUp.description" = "All findings have been uploaded!";
 
 // MARK: - Settings Screen
 "Settings.lb.dataEntry" = "Data Entry";
-"Settings.lb.chooseSpecisGroup.title" = "Choose Species groups";
-"Settings.lb.chooseSpecisGroup.desc" = "By selecting only certain groups (e.g., birds, butterflies, or plants), it will be easier to find species for data entry. Other species will not appear in the dropdown menu.";
 "Settings.lb.awayListEnglish.title" = "Always list English names";
-"Settings.lb.awayListEnglish.desc" = "Allows Biologer to list English names for species even if the phone locale is set to another language.";
 "Settings.lb.adultDefault.title" = "Set as adult by default";
-"Settings.lb.adultDefault.desc" = "Sets the life stage to adult by default, if the adult stage exists for the observed taxa.";
-"Settings.lb.advanceObservation.title" = "Advanced observation entry";
-"Settings.lb.advanceObservation.desc" = "Enables advanced options that can be entered with your occurrence (e.g., number of individuals, stage, sex).";
 "Settings.lb.userAccount" = "User account";
 "Settings.lb.projectName.title" = "Project name";
-"Settings.lb.projectName.desc" = "Sets the project title if your data was collected during a project.";
 "Settings.lb.dataLicense.title" = "Data license";
-"Settings.lb.dataLicense.desc" = "Choose a different license for your data collected through the application.";
 "Settings.lb.imageLicense.title" = "Image license";
-"Settings.lb.imageLicense.desc" = "Choose a different license for images sent through the application.";
 "Settings.lb.otherDownloads" = "Downloads";
 "Settings.lb.autoDownloadUpload.title" = "Auto download and upload";
-"Settings.lb.autoDownloadUpload.desc" = "Allows data to be automatically downloaded and uploaded without user intervention. By default, data will be transferred only on Wi-Fi.";
 "Settings.lb.downloadTaxa.title" = "Download all taxa";
-"Settings.lb.downloadTaxa.desc" = "Re-downloads the entire taxonomic tree in your application from the Biologer server.";
 "Settings.lb.resetAllTaxa.title" = "Reset all taxa";
-"Settings.lb.resetAllTaxa.description" = "This action will remove all taxa from the app. However, you can still download the latest taxa from the server in the section above.";
 "Settings.lb.resetAllTaxa.yesOrNoAlert.title" = "Do you want to delete all taxa?";
 "Settings.lb.resetAllTaxa.confirmAlert.title" = "Delete taxa";
 "Settings.lb.resetAllTaxa.confirmAlert.description" = "All taxa have been successfully deleted!";
@@ -211,22 +170,16 @@
 "DownloadAndUpload.nav.onlyWifi" = "Only on Wi-Fi network";
 "DownloadAndUpload.nav.onAnyNetwork" = "On any network";
 "DownloadAndUpload.nav.alwaysAsk" = "Always ask user";
-"DownloadAndUpload.popUp.success.title" = "Taxon update";
-"DownloadAndUpload.popUp.success.description" = "All taxa are up to date!";
 
 // MARK: - Logout Screen
 "Logout.lb.currentlyDB" = "You are currently logged into a database:";
-"Logout.lb.asUser" = "As user:";
 "Logout.lb.doYouWantLogout" = "Do you want to log out from this Biologer database?";
 "Logout.btn.logout" = "Logout";
 
 // MARK: - Delete Account Screen
-"DeleteAccount.lb.currentlyDB" = "You are currently logged into a database:";
-"DeleteAccount.lb.asUser" = "As user:";
 "DeleteAccount.lb.doYouWantLogout" = "This action will delete your user account from the Biologer server. If you would like to use the Biologer application, you must register on the preferred Biologer server again.";
 "DeleteAccount.lb.doYouWantToDeleteObservations" = "Do you want to delete your observations, too?";
 "DeleteAccount.btn.deleteAccount" = "Delete account";
-"DeleteAccount.lb.successTitle" = "User was deleted successfully!";
 
 // MARK: - About Biologer Screen
 "AboutBiologer.lb.currentlyDB" = "You are currently logged into a database:";

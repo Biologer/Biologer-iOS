@@ -73,22 +73,22 @@ struct FindingEditorScreen: View {
                     spacing: BiologerSpacing.small
                 ) {
                     locationValue(
-                        title: "NewTaxon.lb.latitude".localized,
+                        title: "Finding.field.latitude".localized,
                         value: coordinate(location.latitude),
                         systemImage: "arrow.up.and.down"
                     )
                     locationValue(
-                        title: "NewTaxon.lb.longitued".localized,
+                        title: "Finding.field.longitude".localized,
                         value: coordinate(location.longitude),
                         systemImage: "arrow.left.and.right"
                     )
                     locationValue(
-                        title: "NewTaxon.lb.altitude".localized,
+                        title: "Finding.field.altitude".localized,
                         value: meters(location.altitude),
                         systemImage: "mountain.2"
                     )
                     locationValue(
-                        title: "NewTaxon.lb.accuracyTitle".localized,
+                        title: "Finding.field.accuracy".localized,
                         value: meters(location.accuracy),
                         systemImage: "scope"
                     )
@@ -96,7 +96,7 @@ struct FindingEditorScreen: View {
             } else {
                 HStack(spacing: BiologerSpacing.small) {
                     BiologerIconBadge(systemImage: "location.slash", size: 36)
-                    Text("NewTaxon.lb.waitingForCordinate".localized)
+                    Text("FindingEditor.location.waiting".localized)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
@@ -105,7 +105,7 @@ struct FindingEditorScreen: View {
             Button(action: viewModel.requestLocationSelection) {
                 HStack(spacing: BiologerSpacing.xSmall) {
                     Image(systemName: "map")
-                    Text("NewTaxon.btn.setLocation.title".localized)
+                    Text("FindingEditor.location.set".localized)
                 }
             }
             .buttonStyle(BiologerActionButtonStyle(isFilled: false))
@@ -137,7 +137,7 @@ struct FindingEditorScreen: View {
                     BiologerIconBadge(systemImage: "text.magnifyingglass", size: 38)
 
                     VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
-                        Text("NewTaxon.tf.taxonName.placeholder".localized)
+                        Text("FindingEditor.taxon.name".localized)
                             .font(.caption)
                             .foregroundColor(.secondary)
 
@@ -169,7 +169,7 @@ struct FindingEditorScreen: View {
 
             if let taxon = viewModel.draft.taxon, !taxon.developmentStages.isEmpty {
                 optionMenu(
-                    title: "NewTaxon.tf.developmentStage.placeholder".localized,
+                    title: "Finding.field.developmentStage".localized,
                     systemImage: "circle.hexagongrid",
                     selection: viewModel.draft.developmentStage,
                     options: taxon.developmentStages,
@@ -179,7 +179,7 @@ struct FindingEditorScreen: View {
 
             if viewModel.draft.taxon?.usesAtlasCodes == true {
                 optionMenu(
-                    title: "NewTaxon.tf.nesting.placeholder".localized,
+                    title: "Finding.field.nestingAtlasCode".localized,
                     systemImage: "bird",
                     selection: viewModel.draft.atlasCode,
                     options: atlasOptions,
@@ -208,19 +208,19 @@ struct FindingEditorScreen: View {
             switch viewModel.draft.individualEntryMode {
             case .total:
                 FindingEditorCounter(
-                    title: "NewTaxon.tf.individual.placeholder".localized,
+                    title: "Finding.field.individuals".localized,
                     systemImage: "sum",
                     value: $viewModel.draft.totalIndividuals
                 )
             case .gender:
                 FindingEditorCounter(
-                    title: "NewTaxon.tf.maleIndividual.placeholder".localized,
+                    title: "Finding.field.maleIndividuals".localized,
                     systemImage: "person",
                     value: $viewModel.draft.maleIndividuals
                 )
                 Divider()
                 FindingEditorCounter(
-                    title: "NewTaxon.tf.femaleIndividual.placeholder".localized,
+                    title: "Finding.field.femaleIndividuals".localized,
                     systemImage: "person.fill",
                     value: $viewModel.draft.femaleIndividuals
                 )
@@ -269,29 +269,29 @@ struct FindingEditorScreen: View {
             systemImage: "note.text"
         ) {
             FindingEditorField(
-                title: "NewTaxon.tf.comment.placeholder".localized,
+                title: "Finding.field.comment".localized,
                 systemImage: "text.bubble",
-                prompt: "NewTaxon.tf.comment.placeholder".localized,
+                prompt: "Finding.field.comment".localized,
                 text: $viewModel.draft.comment,
                 axis: .vertical
             )
 
             FindingEditorField(
-                title: "NewTaxon.tf.habitat.placeholder".localized,
+                title: "Finding.field.habitat".localized,
                 systemImage: "leaf",
-                prompt: "NewTaxon.tf.habitat.placeholder".localized,
+                prompt: "Finding.field.habitat".localized,
                 text: $viewModel.draft.habitat
             )
 
             FindingEditorField(
-                title: "NewTaxon.tf.foundOn.placeholder".localized,
+                title: "Finding.field.foundOn".localized,
                 systemImage: "magnifyingglass",
-                prompt: "NewTaxon.tf.foundOn.placeholder".localized,
+                prompt: "Finding.field.foundOn".localized,
                 text: $viewModel.draft.foundOn
             )
 
             Toggle(isOn: $viewModel.draft.isFoundDead) {
-                Label("NewTaxon.tf.foundDead.text".localized, systemImage: "cross.case")
+                Label("Finding.field.foundDead".localized, systemImage: "cross.case")
                     .font(.body.weight(.medium))
                     .foregroundColor(BiologerColors.textPrimary)
             }
@@ -299,9 +299,9 @@ struct FindingEditorScreen: View {
 
             if viewModel.draft.isFoundDead {
                 FindingEditorField(
-                    title: "NewTaxon.tf.foundDead.placeholder".localized,
+                    title: "Finding.field.causeOfDeath".localized,
                     systemImage: "text.alignleft",
-                    prompt: "NewTaxon.tf.foundDead.placeholder".localized,
+                    prompt: "Finding.field.causeOfDeath".localized,
                     text: $viewModel.draft.causeOfDeath
                 )
                 .transition(.opacity.combined(with: .move(edge: .top)))
@@ -321,7 +321,7 @@ struct FindingEditorScreen: View {
                 Text(
                     viewModel.isSaving
                         ? "FindingEditor.action.saving".localized
-                        : "NewTaxon.btn.save.text".localized
+                        : "FindingEditor.action.save".localized
                 )
             }
         }
@@ -446,7 +446,7 @@ struct FindingEditorScreen: View {
     private func alertTitle(_ alert: FindingEditorAlert) -> String {
         switch alert.kind {
         case .photoLimit:
-            "NewTaxon.image.errorPopUp.title".localized
+            "FindingEditor.photo.limit.title".localized
         case .validation, .saveFailure:
             "API.lb.error".localized
         case .saveSuccess:
@@ -457,7 +457,7 @@ struct FindingEditorScreen: View {
     private func alertMessage(_ alert: FindingEditorAlert) -> String {
         switch alert.kind {
         case .photoLimit:
-            "NewTaxon.image.errorPopUp.description".localized
+            "FindingEditor.photo.limit.message".localized
         case .saveFailure:
             "FindingEditor.saveError".localized
         case .saveSuccess(let isEditing):
@@ -469,9 +469,9 @@ struct FindingEditorScreen: View {
             case .locationRequired:
                 "FindingEditor.validation.location".localized
             case .taxonRequired:
-                "NewTaxon.popUpError.description.title.taxonNameRequired".localized
+                "FindingEditor.validation.taxonName".localized
             case .individualCountRequired:
-                "NewTaxon.popUpError.description.title.minimumNumberOfIndividualsIsOne".localized
+                "FindingEditor.validation.individuals".localized
             }
         }
     }

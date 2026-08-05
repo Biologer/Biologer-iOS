@@ -18,7 +18,7 @@ struct FindingTaxonSearchScreen: View {
             .padding(.vertical, BiologerSpacing.small)
         }
         .biologerPageBackground()
-        .navigationTitle("NewTaxon.search.nav.title".localized)
+        .navigationTitle("FindingEditor.taxon.searchTitle".localized)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if let onTaxonSync {

@@ -92,7 +92,7 @@ struct SettingsFlow: View {
             )
         case .help:
             BiologerHelpScreen(onDone: { _ in goBack() })
-                .navigationTitle("SideMenu.lb.Help".localized)
+                .navigationTitle("Settings.support.help".localized)
                 .navigationBarTitleDisplayMode(.inline)
         case .about:
             let context = accountContextProvider()

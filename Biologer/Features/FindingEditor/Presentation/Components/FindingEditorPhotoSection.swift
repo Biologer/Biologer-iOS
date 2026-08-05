@@ -29,7 +29,7 @@ struct FindingEditorPhotoSection: View {
                         .font(.title2)
                         .foregroundColor(BiologerColors.accent)
 
-                    Text("NewTaxon.image.placeholder.title".localized)
+                    Text("FindingEditor.photo.empty".localized)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
