@@ -36,7 +36,6 @@
 		931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931426EC262B53B000542EFC /* Preview Assets.xcassets */; };
 		931426F0262B53B000542EFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931426EE262B53B000542EFC /* LaunchScreen.storyboard */; };
 		931426FB262B53B100542EFC /* BiologerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426FA262B53B100542EFC /* BiologerTests.swift */; };
-		E1000001302F000000000001 /* RefreshTokenMechanismTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000002302F000000000001 /* RefreshTokenMechanismTests.swift */; };
 		93142706262B53B100542EFC /* BiologerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142705262B53B100542EFC /* BiologerUITests.swift */; };
 		93142734262B5C6600542EFC /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142733262B5C6600542EFC /* Observer.swift */; };
 		93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */; };
@@ -68,7 +67,6 @@
 		93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A7E2662691D77E001D6AEF /* CheckMarkItem.swift */; };
 		93B041792711F6CD007DB833 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B041782711F6CD007DB833 /* RealmManager.swift */; };
 		93B0417E2712096F007DB833 /* DBFinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0417D2712096F007DB833 /* DBFinding.swift */; };
-
 		93C2D1EB269F020600123216 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EA269F020600123216 /* Environment.swift */; };
 		93C2D1ED269F1BEC00123216 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EC269F1BEC00123216 /* TokenStorage.swift */; };
 		93C2D1EF269F1BFF00123216 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EE269F1BFF00123216 /* Token.swift */; };
@@ -113,6 +111,7 @@
 		D20000042FFD200000000001 /* UserAccountUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */; };
 		D20000102FFD200000000001 /* LogoutUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000112FFD200000000001 /* LogoutUseCaseTests.swift */; };
 		DE04B675C7024DC8452D3AA2 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA759BF9731C6666BBC73B4 /* CSV */; };
+		E1000001302F000000000001 /* Network/APIClient/Authentication/RefreshTokenMechanismTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000002302F000000000001 /* Network/APIClient/Authentication/RefreshTokenMechanismTests.swift */; };
 		E32762F717E4474CF6020981 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */; };
 		E40000023022000000000001 /* PrepareSessionUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000013022000000000001 /* PrepareSessionUseCaseTests.swift */; };
 		E40000043022000000000001 /* SettingsV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40000033022000000000001 /* SettingsV2Tests.swift */; };
@@ -182,7 +181,6 @@
 		931426F1262B53B000542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		931426F6262B53B000542EFC /* BiologerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		931426FA262B53B100542EFC /* BiologerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerTests.swift; sourceTree = "<group>"; };
-		E1000002302F000000000001 /* RefreshTokenMechanismTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network/APIClient/Authentication/RefreshTokenMechanismTests.swift; sourceTree = "<group>"; };
 		931426FC262B53B100542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93142701262B53B100542EFC /* BiologerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93142705262B53B100542EFC /* BiologerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerUITests.swift; sourceTree = "<group>"; };
@@ -271,6 +269,7 @@
 		C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientErrorMappingTests.swift; sourceTree = "<group>"; };
 		D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCaseTests.swift; sourceTree = "<group>"; };
 		D20000112FFD200000000001 /* LogoutUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCaseTests.swift; sourceTree = "<group>"; };
+		E1000002302F000000000001 /* Network/APIClient/Authentication/RefreshTokenMechanismTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network/APIClient/Authentication/RefreshTokenMechanismTests.swift; sourceTree = "<group>"; };
 		E40000013022000000000001 /* PrepareSessionUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareSessionUseCaseTests.swift; sourceTree = "<group>"; };
 		E40000033022000000000001 /* SettingsV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsV2Tests.swift; sourceTree = "<group>"; };
 		F70000013024000000000001 /* AuthorizationUIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationUIComponents.swift; sourceTree = "<group>"; };
@@ -489,7 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				931426FA262B53B100542EFC /* BiologerTests.swift */,
-				E1000002302F000000000001 /* RefreshTokenMechanismTests.swift */,
+				E1000002302F000000000001 /* Network/APIClient/Authentication/RefreshTokenMechanismTests.swift */,
 				FC000010302B000000000001 /* App */,
 				FC000020302B000000000001 /* Features */,
 				931426FC262B53B100542EFC /* Info.plist */,
@@ -1304,7 +1303,6 @@
 				9373F82626F926CD00C18F91 /* User.swift in Sources */,
 				9309AB172744324300825246 /* Date+Extensions.swift in Sources */,
 				9311E8AE2FFCEE47006045C4 /* RegistrationPersonalInfoScreen.swift in Sources */,
-				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
 				931D3FEC274ABC9800352C8E /* SettingsStorage.swift in Sources */,
 				9373F82026F924E800C18F91 /* UserStorage.swift in Sources */,
 				93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */,
@@ -1327,7 +1325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				931426FB262B53B100542EFC /* BiologerTests.swift in Sources */,
-				E1000001302F000000000001 /* RefreshTokenMechanismTests.swift in Sources */,
+				E1000001302F000000000001 /* Network/APIClient/Authentication/RefreshTokenMechanismTests.swift in Sources */,
 				F90000023026000000000001 /* FindingsUseCaseTests.swift in Sources */,
 				F90000043026000000000001 /* RealmFindingsRepositoryTests.swift in Sources */,
 				F90000063026000000000001 /* ListOfFindingsV2ViewModelTests.swift in Sources */,
