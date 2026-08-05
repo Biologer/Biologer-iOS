@@ -9,10 +9,11 @@ final class RemoteAccountRepository: AccountRepository {
         self.environmentStorage = environmentStorage
     }
 
-    func loadCurrentUser() async throws(APIError) -> UserDataResponse {
+    func loadCurrentUser() async throws(APIError) -> User {
         do {
             let endpoint = GetProfileEndpoint(host: try environmentHost())
-            return try await client.send(endpoint)
+            let response = try await client.send(endpoint)
+            return User(response.data)
         } catch let error as APIError {
             throw error
         } catch let error as APIClientError {
@@ -44,5 +45,23 @@ final class RemoteAccountRepository: AccountRepository {
             throw APIError(description: ErrorConstant.environmentNotSelected)
         }
         return environment.host
+    }
+}
+
+private extension User {
+    convenience init(_ response: UserDataResponse.UserResponse) {
+        self.init(
+            id: response.id,
+            firstName: response.first_name,
+            lastName: response.last_name,
+            email: response.email,
+            fullName: response.full_name,
+            isVerified: response.is_verified,
+            settings: Settings(
+                dataLicense: response.settings.data_license,
+                imageLicense: response.settings.image_license,
+                language: response.settings.language
+            )
+        )
     }
 }

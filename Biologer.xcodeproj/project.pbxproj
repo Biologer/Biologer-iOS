@@ -110,7 +110,6 @@
 		93390DAD2702FF2300DD68CE /* NewTaxonLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */; };
 		93390DAF2703010B00DD68CE /* NewTaxonLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */; };
 		93390DB12703077F00DD68CE /* NewTaxonSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */; };
-		933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */; };
 		933EF7F626EFBAD800F1EBC4 /* PopUpConfirmScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F526EFBAD800F1EBC4 /* PopUpConfirmScreen.swift */; };
 		933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */; };
 		933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift */; };
@@ -287,10 +286,7 @@
 		C10000022FFD100000000001 /* RegistrationInputValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */; };
 		C10000042FFD100000000001 /* RegistrationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */; };
 		C10000062FFD100000000001 /* APIClientErrorMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */; };
-		D20000012FFD200000000001 /* UserAccountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000022FFD200000000001 /* UserAccountUseCase.swift */; };
 		D20000042FFD200000000001 /* UserAccountUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */; };
-		D20000062FFD200000000001 /* LogoutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000072FFD200000000001 /* LogoutUseCase.swift */; };
-		D20000082FFD200000000001 /* RealmLogoutLocalDataDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */; };
 		D20000102FFD200000000001 /* LogoutUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000112FFD200000000001 /* LogoutUseCaseTests.swift */; };
 		D20000132FFD200000000001 /* SetupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000142FFD200000000001 /* SetupUseCase.swift */; };
 		D20000152FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */; };
@@ -316,6 +312,7 @@
 		FC000034302B000000000001 /* FindingTaxonSearchV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC000033302B000000000001 /* FindingTaxonSearchV2ViewModelTests.swift */; };
 		FD000002302C000000000001 /* FindingLocationUseCasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD000001302C000000000001 /* FindingLocationUseCasesTests.swift */; };
 		FD000004302C000000000001 /* FindingLocationV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD000003302C000000000001 /* FindingLocationV2ViewModelTests.swift */; };
+		FF1000023030000000000001 /* RemoteAccountRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1000013030000000000001 /* RemoteAccountRepositoryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -449,7 +446,6 @@
 		93390DAC2702FF2300DD68CE /* NewTaxonLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonLocationView.swift; sourceTree = "<group>"; };
 		93390DAE2703010B00DD68CE /* NewTaxonLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonLocationViewModel.swift; sourceTree = "<group>"; };
 		93390DB02703077F00DD68CE /* NewTaxonSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonSectionView.swift; sourceTree = "<group>"; };
-		933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		933EF7F526EFBAD800F1EBC4 /* PopUpConfirmScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpConfirmScreen.swift; sourceTree = "<group>"; };
 		933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerFactory.swift; sourceTree = "<group>"; };
 		933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAlertViewControllerFactory.swift; sourceTree = "<group>"; };
@@ -626,10 +622,7 @@
 		C10000032FFD100000000001 /* RegistrationInputValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInputValidatorTests.swift; sourceTree = "<group>"; };
 		C10000052FFD100000000001 /* RegistrationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUseCaseTests.swift; sourceTree = "<group>"; };
 		C10000072FFD100000000001 /* APIClientErrorMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientErrorMappingTests.swift; sourceTree = "<group>"; };
-		D20000022FFD200000000001 /* UserAccountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCase.swift; sourceTree = "<group>"; };
 		D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountUseCaseTests.swift; sourceTree = "<group>"; };
-		D20000072FFD200000000001 /* LogoutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCase.swift; sourceTree = "<group>"; };
-		D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLogoutLocalDataDeleter.swift; sourceTree = "<group>"; };
 		D20000112FFD200000000001 /* LogoutUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCaseTests.swift; sourceTree = "<group>"; };
 		D20000142FFD200000000001 /* SetupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUseCase.swift; sourceTree = "<group>"; };
 		D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSetupTaxonLocalDataStore.swift; sourceTree = "<group>"; };
@@ -652,6 +645,7 @@
 		FC000033302B000000000001 /* FindingTaxonSearchV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingTaxonSearchV2ViewModelTests.swift; sourceTree = "<group>"; };
 		FD000001302C000000000001 /* FindingLocationUseCasesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingLocationUseCasesTests.swift; sourceTree = "<group>"; };
 		FD000003302C000000000001 /* FindingLocationV2ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingLocationV2ViewModelTests.swift; sourceTree = "<group>"; };
+		FF1000013030000000000001 /* RemoteAccountRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAccountRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -1173,14 +1167,6 @@
 			path = SideMenuScreen;
 			sourceTree = "<group>";
 		};
-		933EF7E626EE365E00F1EBC4 /* Splash Screen */ = {
-			isa = PBXGroup;
-			children = (
-				933EF7E126EE33BE00F1EBC4 /* SplashScreen.swift */,
-			);
-			path = "Splash Screen";
-			sourceTree = "<group>";
-		};
 		93565D2626F7278600A588E6 /* ListOfFindings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1685,7 +1671,6 @@
 		9E07D71D301C9C6700DCF823 /* V1 */ = {
 			isa = PBXGroup;
 			children = (
-				933EF7E626EE365E00F1EBC4 /* Splash Screen */,
 				93A7E25F2691D5DD001D6AEF /* Login */,
 				93A7E2602691D5E3001D6AEF /* Register */,
 				93142728262B5A8100542EFC /* ViewModel */,
@@ -1870,8 +1855,6 @@
 		D20000032FFD200000000001 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				D20000022FFD200000000001 /* UserAccountUseCase.swift */,
-				D20000072FFD200000000001 /* LogoutUseCase.swift */,
 				D20000142FFD200000000001 /* SetupUseCase.swift */,
 			);
 			path = Domain;
@@ -1880,7 +1863,6 @@
 		D20000122FFD200000000001 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				D20000092FFD200000000001 /* RealmLogoutLocalDataDeleter.swift */,
 				D20000162FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift */,
 			);
 			path = Data;
@@ -1942,6 +1924,7 @@
 		FC000012302B000000000001 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				D20000112FFD200000000001 /* LogoutUseCaseTests.swift */,
 				E40000013022000000000001 /* PrepareSessionUseCaseTests.swift */,
 			);
 			path = Domain;
@@ -1998,6 +1981,8 @@
 		FC000025302B000000000001 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				FC000036302B000000000001 /* Data */,
+				FC000035302B000000000001 /* Domain */,
 				FC000026302B000000000001 /* Presentation */,
 			);
 			path = Settings;
@@ -2098,11 +2083,25 @@
 		FC000030302B000000000001 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				D20000112FFD200000000001 /* LogoutUseCaseTests.swift */,
 				D20000202FFD200000000001 /* SetupUseCaseTests.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		FC000035302B000000000001 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
 				D20000052FFD200000000001 /* UserAccountUseCaseTests.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		FC000036302B000000000001 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				FF1000013030000000000001 /* RemoteAccountRepositoryTests.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2345,7 +2344,6 @@
 				93731E40288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift in Sources */,
 				93A7E2782691E1A4001D6AEF /* EmailTextFieldViewModel.swift in Sources */,
 				93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */,
-				933EF7E226EE33BE00F1EBC4 /* SplashScreen.swift in Sources */,
 				931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */,
 				9300757626877C6B005A4DE0 /* SideMenuRouterRouter.swift in Sources */,
 				931D3FDF274792B500352C8E /* UserDefaultsImageLicenseStorage.swift in Sources */,
@@ -2534,9 +2532,6 @@
 				93E3CBF02737DAEE0090FF93 /* TaxonServiceCoordinator.swift in Sources */,
 				931D3FEF274ABCCD00352C8E /* Settings.swift in Sources */,
 				93334EB72677E4E40094A483 /* NoItemsView.swift in Sources */,
-				D20000012FFD200000000001 /* UserAccountUseCase.swift in Sources */,
-				D20000062FFD200000000001 /* LogoutUseCase.swift in Sources */,
-				D20000082FFD200000000001 /* RealmLogoutLocalDataDeleter.swift in Sources */,
 				D20000132FFD200000000001 /* SetupUseCase.swift in Sources */,
 				D20000152FFD200000000001 /* RealmSetupTaxonLocalDataStore.swift in Sources */,
 				D20000172FFD200000000001 /* SetupFlow.swift in Sources */,
@@ -2574,6 +2569,7 @@
 				D20000192FFD200000000001 /* SetupUseCaseTests.swift in Sources */,
 				E40000023022000000000001 /* PrepareSessionUseCaseTests.swift in Sources */,
 				E40000043022000000000001 /* SettingsV2Tests.swift in Sources */,
+				FF1000023030000000000001 /* RemoteAccountRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

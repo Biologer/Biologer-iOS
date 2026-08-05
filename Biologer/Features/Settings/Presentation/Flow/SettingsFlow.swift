@@ -11,8 +11,6 @@ enum SettingsDestination: Hashable {
 }
 
 struct SettingsFlow: View {
-    @SwiftUI.Environment(\.openURL) private var openURL
-
     private let useCases: SettingsUseCases
     private let accountContextProvider: () -> SettingsAccountContext
     private let appVersion: String
@@ -101,7 +99,6 @@ struct SettingsFlow: View {
             SettingsAboutScreen(
                 environment: context.environment,
                 version: appVersion,
-                onOpenURL: openExternalURL,
                 onBack: { _ in goBack() }
             )
         case .account:
@@ -118,10 +115,5 @@ struct SettingsFlow: View {
     private func goBack() {
         guard !path.isEmpty else { return }
         path.removeLast()
-    }
-
-    private func openExternalURL(_ urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        openURL(url)
     }
 }

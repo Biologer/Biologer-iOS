@@ -2,7 +2,7 @@ import Foundation
 
 protocol UserAccountUseCase {
     func loadCurrentUser() async throws(APIError) -> User
-    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError) -> Void
+    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError)
 }
 
 final class DefaultUserAccountUseCase: UserAccountUseCase {
@@ -18,13 +18,12 @@ final class DefaultUserAccountUseCase: UserAccountUseCase {
     }
 
     func loadCurrentUser() async throws(APIError) -> User {
-        let response = try await accountRepository.loadCurrentUser()
-        let user = User(response.data)
+        let user = try await accountRepository.loadCurrentUser()
         userStorage.save(user: user)
         return user
     }
 
-    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError) -> Void {
+    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError) {
         guard let userID = userStorage.getUser()?.id else {
             throw APIError(description: ErrorConstant.accountDeletionFailed)
         }
@@ -32,24 +31,6 @@ final class DefaultUserAccountUseCase: UserAccountUseCase {
         try await accountRepository.deleteCurrentUser(
             userID: userID,
             deleteObservations: deleteObservations
-        )
-    }
-}
-
-private extension User {
-    convenience init(_ response: UserDataResponse.UserResponse) {
-        self.init(
-            id: response.id,
-            firstName: response.first_name,
-            lastName: response.last_name,
-            email: response.email,
-            fullName: response.full_name,
-            isVerified: response.is_verified,
-            settings: Settings(
-                dataLicense: response.settings.data_license,
-                imageLicense: response.settings.image_license,
-                language: response.settings.language
-            )
         )
     }
 }

@@ -23,70 +23,59 @@ final class UserAccountUseCaseTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_loadCurrentUser_mapsAndStoresProfileResponse() async throws {
-        accountRepository.profileResult = .success(makeProfileResponse())
+    func test_loadCurrentUser_whenRepositorySucceeds_storesAndReturnsUser() async throws {
+        // Given
+        let expectedUser = makeUser(id: 42)
+        accountRepository.userResult = .success(expectedUser)
 
+        // When
         let user = try await sut.loadCurrentUser()
 
-        XCTAssertEqual(user.id, 42)
-        XCTAssertEqual(user.firstName, "Nikola")
-        XCTAssertEqual(user.lastName, "Popovic")
-        XCTAssertEqual(user.email, "nikola@example.com")
-        XCTAssertEqual(user.fullName, "Nikola Popovic")
-        XCTAssertTrue(user.isVerified)
-        XCTAssertEqual(user.settings.dataLicense, 10)
-        XCTAssertEqual(user.settings.imageLicense, 20)
-        XCTAssertEqual(user.settings.language, "sr-Latn")
-        XCTAssertTrue(user === userStorage.savedUser)
+        // Then
+        XCTAssertTrue(user === expectedUser)
+        XCTAssertTrue(userStorage.savedUser === expectedUser)
     }
 
-    func test_loadCurrentUser_propagatesProfileError() async {
+    func test_loadCurrentUser_whenRepositoryFails_propagatesErrorWithoutStoringUser() async {
+        // Given
         let expectedError = APIError(description: "Profile failed")
-        accountRepository.profileResult = .failure(expectedError)
+        accountRepository.userResult = .failure(expectedError)
 
+        // When
         do {
             _ = try await sut.loadCurrentUser()
             XCTFail("Expected loadCurrentUser to throw.")
         } catch {
+            // Then
             XCTAssertTrue(error === expectedError)
             XCTAssertNil(userStorage.savedUser)
         }
     }
 
-    func test_deleteCurrentUser_delegatesToProfileService() async throws {
+    func test_deleteCurrentUser_whenUserExists_delegatesDeletionToRepository() async throws {
+        // Given
         userStorage.user = makeUser(id: 42)
 
+        // When
         try await sut.deleteCurrentUser(deleteObservations: true)
 
+        // Then
         XCTAssertEqual(accountRepository.deletedUserID, 42)
         XCTAssertEqual(accountRepository.deletedObservations, true)
     }
 
-    func test_deleteCurrentUser_throwsWhenUserIsMissing() async {
+    func test_deleteCurrentUser_whenUserIsMissing_throwsAccountDeletionError() async {
+        // Given
+        userStorage.user = nil
+
+        // When
         do {
             try await sut.deleteCurrentUser(deleteObservations: false)
             XCTFail("Expected deleteCurrentUser to throw.")
         } catch {
+            // Then
             XCTAssertEqual(error.description, ErrorConstant.accountDeletionFailed)
         }
-    }
-
-    private func makeProfileResponse() -> UserDataResponse {
-        UserDataResponse(
-            data: UserDataResponse.UserResponse(
-                id: 42,
-                first_name: "Nikola",
-                last_name: "Popovic",
-                email: "nikola@example.com",
-                full_name: "Nikola Popovic",
-                is_verified: true,
-                settings: UserDataResponse.UserResponse.Settings(
-                    data_license: 10,
-                    image_license: 20,
-                    language: "sr-Latn"
-                )
-            )
-        )
     }
 
     private func makeUser(id: Int) -> User {
@@ -107,13 +96,15 @@ final class UserAccountUseCaseTests: XCTestCase {
 }
 
 private final class AccountRepositorySpy: AccountRepository {
-    var profileResult: Result<UserDataResponse, APIError> = .failure(APIError(description: "Missing profile result"))
+    var userResult: Result<User, APIError> = .failure(
+        APIError(description: "Missing user result")
+    )
     var deletionResult: Result<Void, APIError> = .success(())
-    var deletedUserID: Int?
-    var deletedObservations: Bool?
+    private(set) var deletedUserID: Int?
+    private(set) var deletedObservations: Bool?
 
-    func loadCurrentUser() async throws(APIError) -> UserDataResponse {
-        try profileResult.get()
+    func loadCurrentUser() async throws(APIError) -> User {
+        try userResult.get()
     }
 
     func deleteCurrentUser(
@@ -128,9 +119,7 @@ private final class AccountRepositorySpy: AccountRepository {
 
 private final class UserStorageSpy: UserStorage {
     var user: User?
-    var savedUser: User?
-    private(set) var didDelete = false
-    private(set) var didDeleteAllForUser = false
+    private(set) var savedUser: User?
 
     func getUser() -> User? {
         user
@@ -142,12 +131,10 @@ private final class UserStorageSpy: UserStorage {
     }
 
     func delete() {
-        didDelete = true
         user = nil
     }
 
     func deleteAllForUser() {
-        didDeleteAllForUser = true
         user = nil
     }
 }

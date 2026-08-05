@@ -1,21 +1,20 @@
 import SwiftUI
 
 struct SettingsAboutScreen: View {
-    @StateObject private var viewModel: AboutBiologerScreenViewModel
+    @SwiftUI.Environment(\.openURL) private var openURL
+    @StateObject private var viewModel: SettingsAboutViewModel
     let onBack: Observer<Void>
 
     init(
         environment: String,
         version: String,
-        onOpenURL: @escaping Observer<String>,
         onBack: @escaping Observer<Void>
     ) {
         self.onBack = onBack
         _viewModel = StateObject(
-            wrappedValue: AboutBiologerScreenViewModel(
-                currentEnv: environment,
-                version: version,
-                onEnvTapped: onOpenURL
+            wrappedValue: SettingsAboutViewModel(
+                environment: environment,
+                version: version
             )
         )
     }
@@ -50,8 +49,8 @@ struct SettingsAboutScreen: View {
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Button(action: viewModel.envTapped) {
-                        Label(viewModel.envButtonTitle, systemImage: "safari")
+                    Button(action: openEnvironment) {
+                        Label(viewModel.environment, systemImage: "safari")
                     }
                     .buttonStyle(
                         BiologerActionButtonStyle(
@@ -92,7 +91,7 @@ struct SettingsAboutScreen: View {
 
     private var brandHeader: some View {
         VStack(spacing: 14) {
-            Image(viewModel.topImge)
+            Image(viewModel.logoImageName)
                 .resizable()
                 .scaledToFit()
                 .frame(maxWidth: 250, maxHeight: 78)
@@ -128,11 +127,11 @@ struct SettingsAboutScreen: View {
             BiologerIconBadge(systemImage: "server.rack")
 
             VStack(alignment: .leading, spacing: 7) {
-                Text(viewModel.currentDbDescription)
+                Text(viewModel.currentDatabaseDescription)
                     .font(.caption.weight(.semibold))
                     .foregroundColor(.secondary)
 
-                Text(viewModel.currentEnv)
+                Text(viewModel.environment)
                     .font(.subheadline.weight(.medium))
                     .foregroundColor(BiologerColors.textPrimary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -159,5 +158,10 @@ struct SettingsAboutScreen: View {
             Spacer(minLength: 0)
         }
         .padding(16)
+    }
+
+    private func openEnvironment() {
+        guard let url = viewModel.environmentURL else { return }
+        openURL(url)
     }
 }

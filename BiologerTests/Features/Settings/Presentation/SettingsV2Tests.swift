@@ -181,6 +181,34 @@ final class SettingsV2Tests: XCTestCase {
         XCTAssertNil(sut.errorMessage)
     }
 
+    func test_aboutViewModel_whenEnvironmentUsesHTTPS_exposesExternalURL() {
+        // Given
+        let sut = SettingsAboutViewModel(
+            environment: "https://api.biologer.org",
+            version: "3.0.4"
+        )
+
+        // When
+        let url = sut.environmentURL
+
+        // Then
+        XCTAssertEqual(url?.absoluteString, "https://api.biologer.org")
+    }
+
+    func test_aboutViewModel_whenEnvironmentHasUnsupportedScheme_doesNotExposeURL() {
+        // Given
+        let sut = SettingsAboutViewModel(
+            environment: "javascript:alert(1)",
+            version: "3.0.4"
+        )
+
+        // When
+        let url = sut.environmentURL
+
+        // Then
+        XCTAssertNil(url)
+    }
+
     private func makeAccountViewModel(
         accountUseCase: UserAccountUseCase = SettingsAccountUseCaseSpy(),
         logoutUseCase: LogoutUseCase = SettingsLogoutUseCaseSpy()
