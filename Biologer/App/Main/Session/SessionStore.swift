@@ -1,6 +1,6 @@
 import Foundation
 
-enum SessionState: Equatable {
+enum SessionState: Equatable, Sendable {
     case checking
     case unauthenticated
     case authenticated

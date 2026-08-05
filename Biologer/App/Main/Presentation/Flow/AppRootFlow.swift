@@ -1,38 +1,30 @@
 import SwiftUI
 
-enum AppRootState: Equatable {
-    case launching
-    case authorization
-    case preparingSession
-    case taxonSync
-    case main
-}
-
 @MainActor
 struct AppRootFlow: View {
     let composition: AppRootComposition
 
-    @State private var rootState: AppRootState = .launching
-    @State private var alert: AppRootAlert?
+    @StateObject private var viewModel: AppRootViewModel
 
     init(
         composition: AppRootComposition
     ) {
         self.composition = composition
+        _viewModel = StateObject(wrappedValue: composition.rootViewModel)
     }
 
     var body: some View {
         Group {
-            switch rootState {
+            switch viewModel.state {
             case .launching:
                 SplashScreen {
-                    finishLaunching()
+                    viewModel.finishLaunching()
                 }
             case .authorization:
                 authorizationFlow
             case .preparingSession:
                 ProgressView()
-                    .task { await prepareSession() }
+                    .task { await viewModel.prepareSession() }
             case .taxonSync:
                 taxonSyncFlow
             case .main:
@@ -40,14 +32,12 @@ struct AppRootFlow: View {
             }
         }
         .onAppear {
-            composition.sessionStore.onStateChange = { state in
-                route(for: state)
-            }
+            viewModel.startObservingSession()
         }
         .onDisappear {
-            composition.sessionStore.onStateChange = nil
+            viewModel.stopObservingSession()
         }
-        .alert(item: $alert, content: makeAlert)
+        .alert(item: $viewModel.alert, content: makeAlert)
     }
 
     private var authorizationFlow: some View {
@@ -55,7 +45,7 @@ struct AppRootFlow: View {
             authorizationUseCases: composition.authorizationUseCases,
             shouldPresentHelp: !composition.tutorialRepository.wasPresented,
             onHelpCompleted: { _ in composition.tutorialRepository.markPresented() },
-            onAuthorizationSuccess: { _ in composition.sessionStore.synchronize() }
+            onAuthorizationSuccess: { _ in viewModel.authorizationSucceeded() }
         )
     }
 
@@ -79,7 +69,7 @@ struct AppRootFlow: View {
                 )
             },
             settings: composition.settingsBuilder.makeFlow(
-                onDownloadTaxa: { _ in rootState = .taxonSync }
+                onDownloadTaxa: { _ in viewModel.showTaxonSync() }
             )
         )
     }
@@ -88,53 +78,8 @@ struct AppRootFlow: View {
         TaxonSyncFlow(
             useCases: composition.taxonSyncComposition.useCases,
             scopeProvider: composition.taxonSyncComposition.scopeProvider,
-            onContinue: { rootState = .main }
+            onContinue: { viewModel.showMain() }
         )
-    }
-
-    private func finishLaunching() {
-        composition.sessionStore.synchronize()
-        route(for: composition.sessionStore.state)
-    }
-
-    private func route(for state: SessionState) {
-        let nextState: AppRootState
-        switch state {
-        case .checking:
-            nextState = .launching
-        case .unauthenticated:
-            nextState = .authorization
-        case .authenticated:
-            nextState = .preparingSession
-        }
-
-        guard rootState != nextState else { return }
-        DispatchQueue.main.async {
-            rootState = nextState
-        }
-    }
-
-    private func prepareSession() async {
-        do {
-            try await composition.prepareSessionUseCase.execute()
-            guard let scope = composition.taxonSyncComposition.scopeProvider.currentScope() else {
-                rootState = .main
-                return
-            }
-            let state = await composition.taxonSyncComposition.useCases.getState.execute(scope: scope)
-            rootState = isTaxonCatalogReady(state) ? .main : .taxonSync
-        } catch {
-            alert = AppRootAlert(message: error.description)
-        }
-    }
-
-    private func isTaxonCatalogReady(_ state: TaxonSyncState) -> Bool {
-        switch state {
-        case .idle(let status), .completed(let status):
-            return status.availability == .ready
-        default:
-            return false
-        }
     }
 
     private func makeAlert(_ alert: AppRootAlert) -> Alert {
@@ -142,16 +87,11 @@ struct AppRootFlow: View {
             title: Text("API.lb.error".localized),
             message: Text(alert.message),
             primaryButton: .default(Text("TaxonSync.action.retry".localized)) {
-                Task { await prepareSession() }
+                Task { await viewModel.prepareSession() }
             },
             secondaryButton: .destructive(Text("Logout.btn.logout".localized)) {
-                composition.logoutUseCase.logout()
+                viewModel.logout()
             }
         )
     }
-}
-
-private struct AppRootAlert: Identifiable {
-    let id = UUID()
-    let message: String
 }

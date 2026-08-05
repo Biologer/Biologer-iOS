@@ -2,6 +2,16 @@ import Foundation
 
 @MainActor
 final class AppRootComposition {
+    lazy var rootViewModel: AppRootViewModel = {
+        AppRootViewModel(
+            sessionStore: sessionStore,
+            prepareSessionUseCase: prepareSessionUseCase,
+            getTaxonSyncStateUseCase: taxonSyncComposition.useCases.getState,
+            taxonScopeProvider: taxonSyncComposition.scopeProvider,
+            logoutUseCase: logoutUseCase
+        )
+    }()
+
     lazy var sessionStore: SessionStore = {
         DefaultSessionStore(tokenStorage: tokenStorage)
     }()
