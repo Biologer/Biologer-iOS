@@ -11,13 +11,14 @@ enum SettingsDestination: Hashable {
 }
 
 struct SettingsFlow: View {
+    @SwiftUI.Environment(\.openURL) private var openURL
+
     private let useCases: SettingsUseCases
     private let accountContextProvider: () -> SettingsAccountContext
     private let appVersion: String
-    private let onOpenURL: Observer<String>
     private let onDownloadTaxa: Observer<Void>
-    private let onLogout: Observer<Void>
-    private let onDeleteAccount: Observer<Bool>
+    private let accountUseCase: UserAccountUseCase
+    private let logoutUseCase: LogoutUseCase
     private let taxonSyncComposition: TaxonSyncComposition
 
     @StateObject private var settingsViewModel: SettingsScreenV2ViewModel
@@ -27,19 +28,17 @@ struct SettingsFlow: View {
         useCases: SettingsUseCases,
         accountContextProvider: @escaping () -> SettingsAccountContext,
         appVersion: String,
-        onOpenURL: @escaping Observer<String>,
         onDownloadTaxa: @escaping Observer<Void>,
-        onLogout: @escaping Observer<Void>,
-        onDeleteAccount: @escaping Observer<Bool>,
+        accountUseCase: UserAccountUseCase,
+        logoutUseCase: LogoutUseCase,
         taxonSyncComposition: TaxonSyncComposition
     ) {
         self.useCases = useCases
         self.accountContextProvider = accountContextProvider
         self.appVersion = appVersion
-        self.onOpenURL = onOpenURL
         self.onDownloadTaxa = onDownloadTaxa
-        self.onLogout = onLogout
-        self.onDeleteAccount = onDeleteAccount
+        self.accountUseCase = accountUseCase
+        self.logoutUseCase = logoutUseCase
         self.taxonSyncComposition = taxonSyncComposition
         _settingsViewModel = StateObject(
             wrappedValue: SettingsScreenV2ViewModel(
@@ -102,15 +101,15 @@ struct SettingsFlow: View {
             SettingsAboutScreen(
                 environment: context.environment,
                 version: appVersion,
-                onOpenURL: onOpenURL,
+                onOpenURL: openExternalURL,
                 onBack: { _ in goBack() }
             )
         case .account:
             SettingsAccountScreen(
                 viewModel: SettingsAccountViewModel(
                     context: accountContextProvider(),
-                    onLogout: onLogout,
-                    onDeleteAccount: onDeleteAccount
+                    accountUseCase: accountUseCase,
+                    logoutUseCase: logoutUseCase
                 )
             )
         }
@@ -119,5 +118,10 @@ struct SettingsFlow: View {
     private func goBack() {
         guard !path.isEmpty else { return }
         path.removeLast()
+    }
+
+    private func openExternalURL(_ urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        openURL(url)
     }
 }

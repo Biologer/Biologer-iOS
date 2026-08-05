@@ -75,7 +75,9 @@ final class AppRootComposition {
             taxonPaginationStorage: taxonPaginationStorage,
             environmentStorage: environmentStorage,
             userStorage: userStorage,
-            taxonSyncComposition: taxonSyncComposition
+            taxonSyncComposition: taxonSyncComposition,
+            accountUseCase: accountUseCase,
+            logoutUseCase: logoutUseCase
         )
     }()
 

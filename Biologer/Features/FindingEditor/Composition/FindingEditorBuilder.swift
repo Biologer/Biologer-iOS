@@ -1,6 +1,5 @@
+import Foundation
 import RealmSwift
-import SwiftUI
-import UIKit
 
 @MainActor
 final class FindingEditorBuilder {
@@ -16,20 +15,6 @@ final class FindingEditorBuilder {
         self.realmConfiguration = realmConfiguration
         self.altitudeRepository = altitudeRepository
         self.taxonSyncComposition = taxonSyncComposition
-    }
-
-    func makeViewController(
-        mode: FindingEditorMode,
-        onSaved: @escaping Observer<UUID>,
-        onUnsavedChangesChanged: @escaping Observer<Bool>
-    ) -> UIViewController {
-        UIHostingController(
-            rootView: makeFlow(
-                mode: mode,
-                onSaved: onSaved,
-                onUnsavedChangesChanged: onUnsavedChangesChanged
-            )
-        )
     }
 
     func makeFlow(

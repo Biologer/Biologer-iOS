@@ -79,25 +79,7 @@ struct AppRootFlow: View {
                 )
             },
             settings: composition.settingsBuilder.makeFlow(
-                onDownloadTaxa: { _ in rootState = .taxonSync },
-                onLogout: { _ in composition.logoutUseCase.logout() },
-                onDeleteAccount: { deleteObservations in
-                    Task {
-                        do {
-                            try await composition.accountUseCase.deleteCurrentUser(
-                                deleteObservations: deleteObservations
-                            )
-                            composition.logoutUseCase.logout()
-                        } catch let error as APIError {
-                            alert = AppRootAlert(kind: .accountDeletion, message: error.description)
-                        } catch {
-                            alert = AppRootAlert(
-                                kind: .accountDeletion,
-                                message: error.localizedDescription
-                            )
-                        }
-                    }
-                }
+                onDownloadTaxa: { _ in rootState = .taxonSync }
             )
         )
     }
@@ -142,7 +124,7 @@ struct AppRootFlow: View {
             let state = await composition.taxonSyncComposition.useCases.getState.execute(scope: scope)
             rootState = isTaxonCatalogReady(state) ? .main : .taxonSync
         } catch {
-            alert = AppRootAlert(kind: .sessionPreparation, message: error.description)
+            alert = AppRootAlert(message: error.description)
         }
     }
 
@@ -156,35 +138,20 @@ struct AppRootFlow: View {
     }
 
     private func makeAlert(_ alert: AppRootAlert) -> Alert {
-        switch alert.kind {
-        case .sessionPreparation:
-            return Alert(
-                title: Text("API.lb.error".localized),
-                message: Text(alert.message),
-                primaryButton: .default(Text("TaxonSync.action.retry".localized)) {
-                    Task { await prepareSession() }
-                },
-                secondaryButton: .destructive(Text("Logout.btn.logout".localized)) {
-                    composition.logoutUseCase.logout()
-                }
-            )
-        case .accountDeletion:
-            return Alert(
-                title: Text("API.lb.error".localized),
-                message: Text(alert.message),
-                dismissButton: .default(Text("Common.btn.ok".localized))
-            )
-        }
+        Alert(
+            title: Text("API.lb.error".localized),
+            message: Text(alert.message),
+            primaryButton: .default(Text("TaxonSync.action.retry".localized)) {
+                Task { await prepareSession() }
+            },
+            secondaryButton: .destructive(Text("Logout.btn.logout".localized)) {
+                composition.logoutUseCase.logout()
+            }
+        )
     }
 }
 
 private struct AppRootAlert: Identifiable {
-    enum Kind {
-        case sessionPreparation
-        case accountDeletion
-    }
-
     let id = UUID()
-    let kind: Kind
     let message: String
 }

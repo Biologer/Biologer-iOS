@@ -1,6 +1,7 @@
 import XCTest
 @testable import Biologer
 
+@MainActor
 final class SettingsV2Tests: XCTestCase {
     func test_preferencesUseCaseUpdatesSelectedToggle() {
         let repository = SettingsPreferencesRepositorySpy()
@@ -112,6 +113,109 @@ final class SettingsV2Tests: XCTestCase {
 
         XCTAssertTrue(taxonDataUseCase.didReset)
         XCTAssertEqual(sut.resetAlert?.id, SettingsResetAlert.completed.id)
+    }
+
+    func test_accountViewModel_logoutWhenRequested_invokesLogoutUseCase() {
+        // Given
+        let logoutUseCase = SettingsLogoutUseCaseSpy()
+        let sut = makeAccountViewModel(logoutUseCase: logoutUseCase)
+
+        // When
+        sut.logout()
+
+        // Then
+        XCTAssertEqual(logoutUseCase.logoutCallCount, 1)
+    }
+
+    func test_accountViewModel_deleteAccountWhenRequestSucceeds_deletesSelectedDataAndLogsOut() async {
+        // Given
+        let accountUseCase = SettingsAccountUseCaseSpy()
+        let logoutUseCase = SettingsLogoutUseCaseSpy()
+        let sut = makeAccountViewModel(
+            accountUseCase: accountUseCase,
+            logoutUseCase: logoutUseCase
+        )
+        sut.shouldDeleteObservations = true
+
+        // When
+        await sut.deleteAccount()
+
+        // Then
+        XCTAssertEqual(accountUseCase.deleteRequests, [true])
+        XCTAssertEqual(logoutUseCase.logoutCallCount, 1)
+        XCTAssertFalse(sut.isLoading)
+        XCTAssertNil(sut.errorMessage)
+    }
+
+    func test_accountViewModel_deleteAccountWhenRequestFails_publishesErrorWithoutLogout() async {
+        // Given
+        let accountUseCase = SettingsAccountUseCaseSpy()
+        accountUseCase.deleteResult = .failure(APIError(description: "delete failed"))
+        let logoutUseCase = SettingsLogoutUseCaseSpy()
+        let sut = makeAccountViewModel(
+            accountUseCase: accountUseCase,
+            logoutUseCase: logoutUseCase
+        )
+
+        // When
+        await sut.deleteAccount()
+
+        // Then
+        XCTAssertEqual(accountUseCase.deleteRequests, [false])
+        XCTAssertEqual(logoutUseCase.logoutCallCount, 0)
+        XCTAssertEqual(sut.errorMessage, "delete failed")
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_accountViewModel_dismissErrorWhenErrorExists_clearsPublishedError() async {
+        // Given
+        let accountUseCase = SettingsAccountUseCaseSpy()
+        accountUseCase.deleteResult = .failure(APIError(description: "delete failed"))
+        let sut = makeAccountViewModel(accountUseCase: accountUseCase)
+        await sut.deleteAccount()
+
+        // When
+        sut.dismissError()
+
+        // Then
+        XCTAssertNil(sut.errorMessage)
+    }
+
+    private func makeAccountViewModel(
+        accountUseCase: UserAccountUseCase = SettingsAccountUseCaseSpy(),
+        logoutUseCase: LogoutUseCase = SettingsLogoutUseCaseSpy()
+    ) -> SettingsAccountViewModel {
+        SettingsAccountViewModel(
+            context: SettingsAccountContext(
+                email: "user@example.com",
+                username: "Biologer User",
+                environment: "https://api.biologer.org"
+            ),
+            accountUseCase: accountUseCase,
+            logoutUseCase: logoutUseCase
+        )
+    }
+}
+
+private final class SettingsAccountUseCaseSpy: UserAccountUseCase {
+    var deleteResult: Result<Void, APIError> = .success(())
+    private(set) var deleteRequests: [Bool] = []
+
+    func loadCurrentUser() async throws(APIError) -> User {
+        fatalError("Not used by SettingsAccountViewModel.")
+    }
+
+    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError) {
+        deleteRequests.append(deleteObservations)
+        try deleteResult.get()
+    }
+}
+
+private final class SettingsLogoutUseCaseSpy: LogoutUseCase {
+    private(set) var logoutCallCount = 0
+
+    func logout() {
+        logoutCallCount += 1
     }
 }
 

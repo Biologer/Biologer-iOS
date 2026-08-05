@@ -1,6 +1,5 @@
+import Foundation
 import RealmSwift
-import SwiftUI
-import UIKit
 
 @MainActor
 final class FindingsBuilder {
@@ -25,20 +24,6 @@ final class FindingsBuilder {
         self.imageLicenseStorage = imageLicenseStorage
         self.settingsStorage = settingsStorage
         self.userStorage = userStorage
-    }
-
-    func makeViewController(
-        controller: FindingsFlowController,
-        onAddFinding: @escaping Observer<Void>,
-        onEditFinding: @escaping Observer<UUID>
-    ) -> UIViewController {
-        UIHostingController(
-            rootView: makeFlow(
-                controller: controller,
-                onAddFinding: onAddFinding,
-                onEditFinding: onEditFinding
-            )
-        )
     }
 
     func makeFlow(

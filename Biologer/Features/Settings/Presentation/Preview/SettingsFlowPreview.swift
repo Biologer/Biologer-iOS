@@ -13,9 +13,7 @@ struct SettingsFlow_Previews: PreviewProvider {
     }
 
     static func makeSettingsFlow(
-        onDownloadTaxa: @escaping Observer<Void> = { _ in },
-        onLogout: @escaping Observer<Void> = { _ in },
-        onDeleteAccount: @escaping Observer<Bool> = { _ in }
+        onDownloadTaxa: @escaping Observer<Void> = { _ in }
     ) -> SettingsFlow {
         let preferencesRepository = PreviewSettingsPreferencesRepository()
         let licenseRepository = PreviewSettingsLicenseRepository()
@@ -42,10 +40,9 @@ struct SettingsFlow_Previews: PreviewProvider {
                 )
             },
             appVersion: "Version: 3.0.4 (Preview)",
-            onOpenURL: { _ in },
             onDownloadTaxa: onDownloadTaxa,
-            onLogout: onLogout,
-            onDeleteAccount: onDeleteAccount,
+            accountUseCase: PreviewUserAccountUseCase(),
+            logoutUseCase: PreviewLogoutUseCase(),
             taxonSyncComposition: TaxonSyncPreviewFactory.makeComposition(
                 state: .idle(.init(
                     scope: .init(environmentHost: "api.biologer.org"),
@@ -56,6 +53,26 @@ struct SettingsFlow_Previews: PreviewProvider {
             )
         )
     }
+}
+
+private final class PreviewUserAccountUseCase: UserAccountUseCase {
+    func loadCurrentUser() async throws(APIError) -> User {
+        User(
+            id: 1,
+            firstName: "Nikola",
+            lastName: "Popovic",
+            email: "field.biologist@example.com",
+            fullName: "Nikola Popovic",
+            isVerified: true,
+            settings: User.Settings(dataLicense: 1, imageLicense: 1, language: "en")
+        )
+    }
+
+    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError) {}
+}
+
+private final class PreviewLogoutUseCase: LogoutUseCase {
+    func logout() {}
 }
 
 private final class PreviewSettingsPreferencesRepository: SettingsPreferencesRepository {

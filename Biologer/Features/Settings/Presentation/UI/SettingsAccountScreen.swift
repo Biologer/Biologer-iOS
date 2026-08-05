@@ -91,6 +91,13 @@ struct SettingsAccountScreen: View {
         .navigationTitle("Settings.lb.userAccount".localized)
         .navigationBarTitleDisplayMode(.inline)
         .tint(BiologerColors.accent)
+        .disabled(viewModel.isLoading)
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+                    .controlSize(.large)
+            }
+        }
         .alert("Logout.lb.doYouWantLogout".localized, isPresented: $isLogoutConfirmationPresented) {
             Button("Common.btn.cancel".localized, role: .cancel) {}
             Button("Logout.btn.logout".localized, role: .destructive) {
@@ -100,8 +107,25 @@ struct SettingsAccountScreen: View {
         .alert("DeleteAccount.lb.doYouWantLogout".localized, isPresented: $isDeleteConfirmationPresented) {
             Button("Common.btn.cancel".localized, role: .cancel) {}
             Button("DeleteAccount.btn.deleteAccount".localized, role: .destructive) {
-                viewModel.deleteAccount()
+                Task { await viewModel.deleteAccount() }
             }
+        }
+        .alert(
+            "API.lb.error".localized,
+            isPresented: Binding(
+                get: { viewModel.errorMessage != nil },
+                set: { isPresented in
+                    if !isPresented {
+                        viewModel.dismissError()
+                    }
+                }
+            )
+        ) {
+            Button("Common.btn.ok".localized) {
+                viewModel.dismissError()
+            }
+        } message: {
+            Text(viewModel.errorMessage ?? "")
         }
     }
 

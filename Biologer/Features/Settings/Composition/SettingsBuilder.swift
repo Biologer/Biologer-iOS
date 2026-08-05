@@ -1,5 +1,4 @@
-import SwiftUI
-import UIKit
+import Foundation
 
 @MainActor
 final class SettingsBuilder {
@@ -10,6 +9,8 @@ final class SettingsBuilder {
     private let environmentStorage: EnvironmentStorage
     private let userStorage: UserStorage
     private let taxonSyncComposition: TaxonSyncComposition
+    private let accountUseCase: UserAccountUseCase
+    private let logoutUseCase: LogoutUseCase
 
     init(
         settingsStorage: SettingsStorage,
@@ -18,7 +19,9 @@ final class SettingsBuilder {
         taxonPaginationStorage: TaxonsPaginationInfoStorage,
         environmentStorage: EnvironmentStorage,
         userStorage: UserStorage,
-        taxonSyncComposition: TaxonSyncComposition
+        taxonSyncComposition: TaxonSyncComposition,
+        accountUseCase: UserAccountUseCase,
+        logoutUseCase: LogoutUseCase
     ) {
         self.settingsStorage = settingsStorage
         self.dataLicenseStorage = dataLicenseStorage
@@ -27,26 +30,12 @@ final class SettingsBuilder {
         self.environmentStorage = environmentStorage
         self.userStorage = userStorage
         self.taxonSyncComposition = taxonSyncComposition
-    }
-
-    func makeViewController(
-        onDownloadTaxa: @escaping Observer<Void>,
-        onLogout: @escaping Observer<Void>,
-        onDeleteAccount: @escaping Observer<Bool>
-    ) -> UIViewController {
-        UIHostingController(
-            rootView: makeFlow(
-                onDownloadTaxa: onDownloadTaxa,
-                onLogout: onLogout,
-                onDeleteAccount: onDeleteAccount
-            )
-        )
+        self.accountUseCase = accountUseCase
+        self.logoutUseCase = logoutUseCase
     }
 
     func makeFlow(
-        onDownloadTaxa: @escaping Observer<Void>,
-        onLogout: @escaping Observer<Void>,
-        onDeleteAccount: @escaping Observer<Bool>
+        onDownloadTaxa: @escaping Observer<Void>
     ) -> SettingsFlow {
         let environment = currentEnvironment()
         return SettingsFlow(
@@ -59,13 +48,9 @@ final class SettingsBuilder {
                 )
             },
             appVersion: currentAppVersion(),
-            onOpenURL: { urlString in
-                guard let url = URL(string: urlString) else { return }
-                UIApplication.shared.open(url)
-            },
             onDownloadTaxa: onDownloadTaxa,
-            onLogout: onLogout,
-            onDeleteAccount: onDeleteAccount,
+            accountUseCase: accountUseCase,
+            logoutUseCase: logoutUseCase,
             taxonSyncComposition: taxonSyncComposition
         )
     }

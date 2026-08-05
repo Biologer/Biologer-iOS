@@ -6,28 +6,48 @@ struct SettingsAccountContext {
     let environment: String
 }
 
+@MainActor
 final class SettingsAccountViewModel: ObservableObject {
     let context: SettingsAccountContext
     @Published var shouldDeleteObservations = false
+    @Published private(set) var isLoading = false
+    @Published private(set) var errorMessage: String?
 
-    private let onLogout: Observer<Void>
-    private let onDeleteAccount: Observer<Bool>
+    private let accountUseCase: UserAccountUseCase
+    private let logoutUseCase: LogoutUseCase
 
     init(
         context: SettingsAccountContext,
-        onLogout: @escaping Observer<Void>,
-        onDeleteAccount: @escaping Observer<Bool>
+        accountUseCase: UserAccountUseCase,
+        logoutUseCase: LogoutUseCase
     ) {
         self.context = context
-        self.onLogout = onLogout
-        self.onDeleteAccount = onDeleteAccount
+        self.accountUseCase = accountUseCase
+        self.logoutUseCase = logoutUseCase
     }
 
     func logout() {
-        onLogout(())
+        logoutUseCase.logout()
     }
 
-    func deleteAccount() {
-        onDeleteAccount(shouldDeleteObservations)
+    func deleteAccount() async {
+        guard !isLoading else { return }
+
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+
+        do {
+            try await accountUseCase.deleteCurrentUser(
+                deleteObservations: shouldDeleteObservations
+            )
+            logoutUseCase.logout()
+        } catch {
+            errorMessage = error.description
+        }
+    }
+
+    func dismissError() {
+        errorMessage = nil
     }
 }
