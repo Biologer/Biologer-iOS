@@ -36,4 +36,15 @@ final class RemoteObservationRepository: ObservationRepository {
             throw APIError(description: error.localizedDescription)
         }
     }
+
+    func synchronizeObservationTypes() async throws(APIError) {
+        let response = try await getObservationTypes()
+        response.data.forEach {
+            RealmManager.add(DBObservetationMapper.mapForDB(observationResponse: $0))
+        }
+    }
+
+    func hasStoredObservationTypes() -> Bool {
+        !RealmManager.get(fromEntity: DBObservation.self).isEmpty
+    }
 }

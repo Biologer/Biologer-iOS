@@ -1,12 +1,7 @@
 import UIKit
 
-enum AuthorizationUIVersion {
-    case v1
-    case v2
-}
-
+/// Legacy V1 composition. V2 authorization is composed by AppRootComposition.
 final class AuthorizationCoordinatorBuilder {
-    private let version: AuthorizationUIVersion
     private let apiClient: APIClientProtocol
     private let httpClient: HTTPClient
     private let navigationController: UINavigationController
@@ -21,7 +16,6 @@ final class AuthorizationCoordinatorBuilder {
     private let imageLicenseStorage: LicenseStorage
 
     init(
-        version: AuthorizationUIVersion,
         apiClient: APIClientProtocol,
         httpClient: HTTPClient,
         navigationController: UINavigationController,
@@ -35,7 +29,6 @@ final class AuthorizationCoordinatorBuilder {
         dataLicenseStorage: LicenseStorage,
         imageLicenseStorage: LicenseStorage
     ) {
-        self.version = version
         self.apiClient = apiClient
         self.httpClient = httpClient
         self.navigationController = navigationController
@@ -51,92 +44,28 @@ final class AuthorizationCoordinatorBuilder {
     }
 
     func makeCoordinator() -> AuthorizationCoordinating {
-        switch version {
-        case .v1:
-            makeLegacyRouter()
-        case .v2:
-            makeFlowCoordinator()
-        }
-    }
-
-    private func makeLegacyRouter() -> AuthorizationRouter {
         AuthorizationRouter(
             factory: authorizationFactory,
             commonViewControllerFactory: commonViewControllerFactory,
             swiftUICommonViewControllerFactory: swiftUICommonViewControllerFactory,
             swiftUIAlertViewControllerFactory: swiftUIAlertViewControllerFactory,
             navigationController: navigationController,
-            loginUseCase: makeLoginUseCase(),
-            registerService: makeRegisterService(),
+            loginUseCase: DefaultLoginUserUseCase(
+                repository: RemoteLoginUserRepository(
+                    client: apiClient,
+                    environmentStorage: environmentStorage,
+                    tokenStorage: tokenStorage
+                )
+            ),
+            registerService: RemoteRegisterUserService(
+                client: httpClient,
+                environmentStorage: environmentStorage
+            ),
             environmentStorage: environmentStorage,
             tutorialRepository: tutorialRepository,
             tokenStorage: tokenStorage,
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage
-        )
-    }
-
-    private func makeFlowCoordinator() -> AuthorizationFlowCoordinator {
-        AuthorizationFlowCoordinator(
-            navigationController: navigationController,
-            authorizationUseCases: makeAuthorizationUseCases(),
-            environmentStorage: environmentStorage,
-            tutorialRepository: tutorialRepository,
-            alertViewControllerFactory: swiftUIAlertViewControllerFactory
-        )
-    }
-
-    private func makeAuthorizationUseCases() -> AuthorizationUseCases {
-        AuthorizationUseCases(
-            login: makeLoginUseCase(),
-            registration: makeRegistrationUseCase(),
-            selectEnvironmentUseCase: DefaultSelectAuthorizationEnvironmentUseCase(
-                repository: StoredAuthorizationEnvironmentRepository(storage: environmentStorage)
-            )
-        )
-    }
-
-    private func makeLoginUseCase() -> LoginUserUseCase {
-        DefaultLoginUserUseCase(
-            repository: RemoteLoginUserRepository(
-                client: apiClient,
-                environmentStorage: environmentStorage,
-                tokenStorage: tokenStorage
-            )
-        )
-    }
-
-    private func makeRegistrationUseCase() -> RegistrationUseCase {
-        DefaultRegistrationUseCase(
-            validator: DefaultRegistrationInputValidator(),
-            licensePreferenceUseCase: makeLicensePreferenceUseCase(),
-            registerUseCase: makeRegisterUseCase()
-        )
-    }
-
-    private func makeRegisterUseCase() -> RegisterUserUseCase {
-        DefaultRegisterUserUseCase(
-            repository: RemoteRegisterUserRepository(
-                client: apiClient,
-                environmentStorage: environmentStorage,
-                tokenStorage: tokenStorage
-            )
-        )
-    }
-
-    private func makeLicensePreferenceUseCase() -> RegistrationLicensePreferenceUseCase {
-        DefaultRegistrationLicensePreferenceUseCase(
-            repository: StoredRegistrationLicensePreferenceRepository(
-                dataLicenseStorage: dataLicenseStorage,
-                imageLicenseStorage: imageLicenseStorage
-            )
-        )
-    }
-
-    private func makeRegisterService() -> RegisterUserService {
-        RemoteRegisterUserService(
-            client: httpClient,
-            environmentStorage: environmentStorage
         )
     }
 }

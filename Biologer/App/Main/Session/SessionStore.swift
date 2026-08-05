@@ -8,6 +8,7 @@ enum SessionState: Equatable {
 
 protocol SessionStore: AnyObject {
     var state: SessionState { get }
+    var onStateChange: ((SessionState) -> Void)? { get set }
     func synchronize()
     func markAuthenticated()
     func markUnauthenticated()

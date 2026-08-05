@@ -22,21 +22,17 @@ struct AuthorizationFlow: View {
 
     @StateObject
     private var viewModel: AuthorizationFlowViewModel
+    @State private var errorAlert: AuthorizationAlert?
+    @SwiftUI.Environment(\.openURL) private var openURL
 
     private let authorizationUseCases: AuthorizationUseCases
     private let onAuthorizationSuccess: Observer<Void>
-    private let onForgotPassword: Observer<Void>
-    private let onPrivacyPolicy: Observer<Void>
-    private let onLoginError: Observer<AuthorizationFailure>
 
     init(
         authorizationUseCases: AuthorizationUseCases,
         shouldPresentHelp: Bool,
         onHelpCompleted: @escaping Observer<Void>,
-        onAuthorizationSuccess: @escaping Observer<Void>,
-        onForgotPassword: @escaping Observer<Void>,
-        onPrivacyPolicy: @escaping Observer<Void>,
-        onLoginError: @escaping Observer<AuthorizationFailure>
+        onAuthorizationSuccess: @escaping Observer<Void>
     ) {
         self.authorizationUseCases = authorizationUseCases
         _viewModel = StateObject(
@@ -46,9 +42,6 @@ struct AuthorizationFlow: View {
             )
         )
         self.onAuthorizationSuccess = onAuthorizationSuccess
-        self.onForgotPassword = onForgotPassword
-        self.onPrivacyPolicy = onPrivacyPolicy
-        self.onLoginError = onLoginError
     }
 
     var body: some View {
@@ -62,6 +55,13 @@ struct AuthorizationFlow: View {
                         registrationFlow
                     }
                 }
+        }
+        .alert(item: $errorAlert) { alert in
+            Alert(
+                title: Text(alert.title),
+                message: Text(alert.message),
+                dismissButton: .default(Text("Common.btn.ok".localized))
+            )
         }
     }
 
@@ -93,10 +93,13 @@ struct AuthorizationFlow: View {
                     path.append(Screen.registration)
                 },
                 onForgotPasswordTapped: {
-                    onForgotPassword(())
+                    openExternalPage(path: "/password/reset")
                 },
                 onLoginError: { error in
-                    onLoginError(error)
+                    errorAlert = AuthorizationAlert(
+                        title: error.summary.isEmpty ? "API.lb.error".localized : error.summary,
+                        message: error.message
+                    )
                 }
             ))
             .authorizationNavigationBar()
@@ -130,7 +133,9 @@ struct AuthorizationFlow: View {
             path: $path,
             registrationUseCase: authorizationUseCases.registration,
             environmentImage: selectedEnvironment.image,
-            onPrivacyPolicy: onPrivacyPolicy,
+            onPrivacyPolicy: { _ in
+                openExternalPage(path: "/pages/privacy-policy")
+            },
             registrationSuccess: {
                 onAuthorizationSuccess(())
             })
@@ -140,4 +145,23 @@ struct AuthorizationFlow: View {
         guard !path.isEmpty else { return }
         path.removeLast()
     }
+
+    private func openExternalPage(path: String) {
+        guard let url = URL(
+            string: "https://\(selectedEnvironment.env.host)\(selectedEnvironment.env.path)\(path)"
+        ) else {
+            errorAlert = AuthorizationAlert(
+                title: "API.lb.error".localized,
+                message: "API.lb.parsingError".localized
+            )
+            return
+        }
+        openURL(url)
+    }
+}
+
+private struct AuthorizationAlert: Identifiable {
+    let id = UUID()
+    let title: String
+    let message: String
 }

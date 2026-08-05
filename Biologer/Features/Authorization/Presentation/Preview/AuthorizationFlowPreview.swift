@@ -39,24 +39,6 @@ private struct PreviewAuthorizationFlow: View {
                     message: "The mocked authorization request completed successfully."
                 )
             },
-            onForgotPassword: { _ in
-                showEvent(
-                    title: "Forgot password",
-                    message: "The forgot-password callback was triggered."
-                )
-            },
-            onPrivacyPolicy: { _ in
-                showEvent(
-                    title: "Privacy policy",
-                    message: "The privacy-policy callback was triggered."
-                )
-            },
-            onLoginError: { failure in
-                showEvent(
-                    title: failure.summary.isEmpty ? "Login failed" : failure.summary,
-                    message: failure.message
-                )
-            }
         )
         .alert(item: $event) { event in
             Alert(

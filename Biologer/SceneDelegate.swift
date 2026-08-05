@@ -10,32 +10,34 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    private let authorizationUIVersion: AuthorizationUIVersion = .v2
-    private let mainUIVersion: MainUIVersion = .v2
+    private let appInterfaceVersion: AppInterfaceVersion = .v2
 
     var window: UIWindow?
-    var navigationController: BiologerNavigationViewController!
+    var navigationController: BiologerNavigationViewController?
     var appRouter: AppNavigationRouter?
-
+    private var appRootComposition: AppRootComposition?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
-            navigationController = BiologerNavigationViewController(shouldBeTransparent: true)
             let window = UIWindow(windowScene: windowScene)
-            appRouter = AppNavigationRouter(
-                mainNavigationController: navigationController,
-                authorizationUIVersion: authorizationUIVersion,
-                mainUIVersion: mainUIVersion
-            )
-            appRouter?.start()
-            window.rootViewController = navigationController
+            if appInterfaceVersion == .v2 {
+                let composition = AppRootComposition()
+                appRootComposition = composition
+                window.rootViewController = UIHostingController(
+                    rootView: AppRootFlow(composition: composition)
+                )
+            } else {
+                let navigationController = BiologerNavigationViewController(shouldBeTransparent: true)
+                self.navigationController = navigationController
+                appRouter = AppNavigationRouter(
+                    mainNavigationController: navigationController
+                )
+                appRouter?.start()
+                window.rootViewController = navigationController
+            }
             self.window = window
             window.makeKeyAndVisible()
         }
-    }
-    
-    private func startApp() {
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
