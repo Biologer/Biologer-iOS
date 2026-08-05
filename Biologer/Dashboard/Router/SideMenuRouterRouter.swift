@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 import SideMenu
 
-public final class SideMenuRouterRouter: NavigationRouter {
+public final class SideMenuRouterRouter {
     
     private let navigationController: UINavigationController
     private let mainNavigationController: UINavigationController
