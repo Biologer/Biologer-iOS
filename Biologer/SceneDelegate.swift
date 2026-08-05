@@ -5,39 +5,24 @@
 //  Created by Nikola Popovic on 17.4.21..
 //
 
-import UIKit
 import SwiftUI
+import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
-    private let appInterfaceVersion: AppInterfaceVersion = .v2
-
     var window: UIWindow?
-    var navigationController: BiologerNavigationViewController?
-    var appRouter: AppNavigationRouter?
     private var appRootComposition: AppRootComposition?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            if appInterfaceVersion == .v2 {
-                let composition = AppRootComposition()
-                appRootComposition = composition
-                window.rootViewController = UIHostingController(
-                    rootView: AppRootFlow(composition: composition)
-                )
-            } else {
-                let navigationController = BiologerNavigationViewController(shouldBeTransparent: true)
-                self.navigationController = navigationController
-                appRouter = AppNavigationRouter(
-                    mainNavigationController: navigationController
-                )
-                appRouter?.start()
-                window.rootViewController = navigationController
-            }
-            self.window = window
-            window.makeKeyAndVisible()
-        }
+        guard let windowScene = scene as? UIWindowScene else { return }
+
+        let composition = AppRootComposition()
+        let window = UIWindow(windowScene: windowScene)
+        appRootComposition = composition
+        window.rootViewController = UIHostingController(
+            rootView: AppRootFlow(composition: composition)
+        )
+        self.window = window
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -67,6 +52,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
