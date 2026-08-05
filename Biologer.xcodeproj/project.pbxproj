@@ -113,10 +113,8 @@
 		93593DEF2FFBA9CC00DB36AF /* EnvironmentsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93593DEE2FFBA9C000DB36AF /* EnvironmentsConstants.swift */; };
 		935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */; };
 		936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C6268889D60080C771 /* UIViewController+Extensions.swift */; };
-		936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CA26891A240080C771 /* AboutBiologerScreen.swift */; };
 		936035CD26891DC50080C771 /* HelpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CC26891DC50080C771 /* HelpScreen.swift */; };
 		936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CE26891E670080C771 /* HelpScreenViewModel.swift */; };
-		936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */; };
 		936219F3271C42A400BAEF8F /* DBObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936219F2271C42A400BAEF8F /* DBObservation.swift */; };
 		936219F5271C441200BAEF8F /* DBAtlasCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936219F4271C441200BAEF8F /* DBAtlasCode.swift */; };
 		936219F8271C44AE00BAEF8F /* DBAtlasCodeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936219F7271C44AE00BAEF8F /* DBAtlasCodeMapper.swift */; };
@@ -125,9 +123,6 @@
 		936616D52703954A00F02A83 /* NewTaxonImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */; };
 		936616D72703B43600F02A83 /* MaterialDesignTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */; };
 		936754E8271E2F340036632E /* DBFindingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936754E7271E2F340036632E /* DBFindingMapper.swift */; };
-		93731E3D288E7F8E00EB7C71 /* DeleteAccountScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93731E3C288E7F8E00EB7C71 /* DeleteAccountScreen.swift */; };
-		93731E40288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93731E3F288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift */; };
-		9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81926F9133200C18F91 /* ProfileService.swift */; };
 		9373F81C26F9136B00C18F91 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81B26F9136B00C18F91 /* UserResponse.swift */; };
 		9373F81E26F9175100C18F91 /* Auth2HttpClientDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */; };
 		9373F82026F924E800C18F91 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81F26F924E800C18F91 /* UserStorage.swift */; };
@@ -167,8 +162,6 @@
 		93C2D1ED269F1BEC00123216 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EC269F1BEC00123216 /* TokenStorage.swift */; };
 		93C2D1EF269F1BFF00123216 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EE269F1BFF00123216 /* Token.swift */; };
 		93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */; };
-		93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */; };
-		93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */; };
 		93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */; };
 		93CC65872699941A00949534 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65862699941900949534 /* View+Extensions.swift */; };
 		93CC658B269C401300949534 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC658A269C401300949534 /* APIRequest.swift */; };
@@ -388,10 +381,8 @@
 		93593DEE2FFBA9C000DB36AF /* EnvironmentsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentsConstants.swift; sourceTree = "<group>"; };
 		935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItemMapper.swift; sourceTree = "<group>"; };
 		936035C6268889D60080C771 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
-		936035CA26891A240080C771 /* AboutBiologerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBiologerScreen.swift; sourceTree = "<group>"; };
 		936035CC26891DC50080C771 /* HelpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreen.swift; sourceTree = "<group>"; };
 		936035CE26891E670080C771 /* HelpScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewModel.swift; sourceTree = "<group>"; };
-		936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBiologerScreenViewModel.swift; sourceTree = "<group>"; };
 		936219F2271C42A400BAEF8F /* DBObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBObservation.swift; sourceTree = "<group>"; };
 		936219F4271C441200BAEF8F /* DBAtlasCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DBAtlasCode.swift; path = "../New Group/DBAtlasCode.swift"; sourceTree = "<group>"; };
 		936219F7271C44AE00BAEF8F /* DBAtlasCodeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBAtlasCodeMapper.swift; sourceTree = "<group>"; };
@@ -400,9 +391,6 @@
 		936616D42703954A00F02A83 /* NewTaxonImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaxonImageViewModel.swift; sourceTree = "<group>"; };
 		936616D62703B43600F02A83 /* MaterialDesignTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialDesignTextArea.swift; sourceTree = "<group>"; };
 		936754E7271E2F340036632E /* DBFindingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBFindingMapper.swift; sourceTree = "<group>"; };
-		93731E3C288E7F8E00EB7C71 /* DeleteAccountScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountScreen.swift; sourceTree = "<group>"; };
-		93731E3F288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountScreenViewModel.swift; sourceTree = "<group>"; };
-		9373F81926F9133200C18F91 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		9373F81B26F9136B00C18F91 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		9373F81D26F9175100C18F91 /* Auth2HttpClientDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth2HttpClientDecorator.swift; sourceTree = "<group>"; };
 		9373F81F26F924E800C18F91 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
@@ -442,8 +430,6 @@
 		93C2D1EC269F1BEC00123216 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		93C2D1EE269F1BFF00123216 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTokenStorage.swift; sourceTree = "<group>"; };
-		93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreen.swift; sourceTree = "<group>"; };
-		93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreenViewModel.swift; sourceTree = "<group>"; };
 		93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationViewControler+Extensions.swift"; sourceTree = "<group>"; };
 		93CC65862699941900949534 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		93CC658A269C401300949534 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -929,10 +915,7 @@
 		93334EAA2677DCA70094A483 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				93731E3B288E7F6100EB7C71 /* DeleteAccountScreen */,
 				93334EC226789B660094A483 /* TaxonScreens */,
-				93C2D1F926A5EAFD00123216 /* LogoutScreen */,
-				93C2D1F626A5EAC300123216 /* AboutScreen */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -940,10 +923,7 @@
 		93334EB22677E1340094A483 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				93731E3E288E82BA00EB7C71 /* DeleteAccountScreen */,
 				9389463A26F614CD0000D850 /* TaxonScreens */,
-				9389463D26F614E30000D850 /* LogoutScreen */,
-				9389463C26F614DD0000D850 /* AboutScreen */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1029,26 +1009,9 @@
 			path = "Atlas Code";
 			sourceTree = "<group>";
 		};
-		93731E3B288E7F6100EB7C71 /* DeleteAccountScreen */ = {
-			isa = PBXGroup;
-			children = (
-				93731E3C288E7F8E00EB7C71 /* DeleteAccountScreen.swift */,
-			);
-			path = DeleteAccountScreen;
-			sourceTree = "<group>";
-		};
-		93731E3E288E82BA00EB7C71 /* DeleteAccountScreen */ = {
-			isa = PBXGroup;
-			children = (
-				93731E3F288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift */,
-			);
-			path = DeleteAccountScreen;
-			sourceTree = "<group>";
-		};
 		9373F81826F9131000C18F91 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				9373F81926F9133200C18F91 /* ProfileService.swift */,
 				93842AF326FA4449008ECA80 /* ObservationService.swift */,
 				9314DA26270758B0007896F9 /* TaxonService.swift */,
 				93E3CBEF2737DAEE0090FF93 /* TaxonServiceCoordinator.swift */,
@@ -1077,22 +1040,6 @@
 				93565D2926F727B000A588E6 /* NewTaxon */,
 			);
 			path = TaxonScreens;
-			sourceTree = "<group>";
-		};
-		9389463C26F614DD0000D850 /* AboutScreen */ = {
-			isa = PBXGroup;
-			children = (
-				936035D026891E890080C771 /* AboutBiologerScreenViewModel.swift */,
-			);
-			path = AboutScreen;
-			sourceTree = "<group>";
-		};
-		9389463D26F614E30000D850 /* LogoutScreen */ = {
-			isa = PBXGroup;
-			children = (
-				93C2D1FC26A5F31300123216 /* LogoutScreenViewModel.swift */,
-			);
-			path = LogoutScreen;
 			sourceTree = "<group>";
 		};
 		938D934C2705E8330068E27C /* Views */ = {
@@ -1230,14 +1177,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		93C2D1F626A5EAC300123216 /* AboutScreen */ = {
-			isa = PBXGroup;
-			children = (
-				936035CA26891A240080C771 /* AboutBiologerScreen.swift */,
-			);
-			path = AboutScreen;
-			sourceTree = "<group>";
-		};
 		93C2D1F826A5EAE400123216 /* Help */ = {
 			isa = PBXGroup;
 			children = (
@@ -1246,14 +1185,6 @@
 				937F828126F7B6B500593786 /* HelpItemManager.swift */,
 			);
 			path = Help;
-			sourceTree = "<group>";
-		};
-		93C2D1F926A5EAFD00123216 /* LogoutScreen */ = {
-			isa = PBXGroup;
-			children = (
-				93C2D1FA26A5EB1800123216 /* LogoutScreen.swift */,
-			);
-			path = LogoutScreen;
 			sourceTree = "<group>";
 		};
 		93CC6596269C622E00949534 /* Storage */ = {
@@ -1948,7 +1879,6 @@
 				935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */,
 				9311E8A32FFCDB79006045C4 /* LoginScreenV2.swift in Sources */,
 				93B041792711F6CD007DB833 /* RealmManager.swift in Sources */,
-				93731E40288E82D800EB7C71 /* DeleteAccountScreenViewModel.swift in Sources */,
 				93A7E2672691D77E001D6AEF /* CheckMarkItem.swift in Sources */,
 				931426E6262B53AD00542EFC /* SceneDelegate.swift in Sources */,
 				931D3FDF274792B500352C8E /* UserDefaultsImageLicenseStorage.swift in Sources */,
@@ -2003,13 +1933,11 @@
 				9314DA2227074E4E007896F9 /* TaxonSearchBarView.swift in Sources */,
 				9314272B262B5AEE00542EFC /* MaterialDesignTextField.swift in Sources */,
 				93842AF426FA4449008ECA80 /* ObservationService.swift in Sources */,
-				93731E3D288E7F8E00EB7C71 /* DeleteAccountScreen.swift in Sources */,
 				9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */,
 				9314DA1C27073CF3007896F9 /* TaxonSearchScreenViewModel.swift in Sources */,
 				9311E8AC2FFCED8F006045C4 /* RegistrationDraft.swift in Sources */,
 				938D9361270632400068E27C /* ImagesPreviewScreen.swift in Sources */,
 				93BF6299262B7E6B00DDFB44 /* Color+Extensions.swift in Sources */,
-				9373F81A26F9133200C18F91 /* ProfileService.swift in Sources */,
 				931D3FE12747948800352C8E /* UserDefaultsDataLicenseStorage.swift in Sources */,
 				93EB9661270E31EC00AFD3A8 /* MapTypeScreen.swift in Sources */,
 				9311E8B62FFCF43A006045C4 /* RegistrationCredentialsScreen.swift in Sources */,
@@ -2037,7 +1965,6 @@
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				938D935D27060E6B0068E27C /* TaxonLocation.swift in Sources */,
 				9311E8AE2FFCEE47006045C4 /* RegistrationPersonalInfoScreen.swift in Sources */,
-				93C2D1FB26A5EB1800123216 /* LogoutScreen.swift in Sources */,
 				93390DAF2703010B00DD68CE /* NewTaxonLocationViewModel.swift in Sources */,
 				933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift in Sources */,
 				93E3CBF42737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift in Sources */,
@@ -2047,7 +1974,6 @@
 				931D3FEC274ABC9800352C8E /* SettingsStorage.swift in Sources */,
 				93565D2526F7275D00A588E6 /* NewTaxonScreenViewModel.swift in Sources */,
 				9373F82026F924E800C18F91 /* UserStorage.swift in Sources */,
-				93C2D1FD26A5F31300123216 /* LogoutScreenViewModel.swift in Sources */,
 				93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */,
 				9311E8A92FFCE395006045C4 /* EnvironmentSelectionScreen.swift in Sources */,
 				931D3FEA27481D0600352C8E /* UploadFindings.swift in Sources */,
@@ -2073,7 +1999,6 @@
 				93C2D1EF269F1BFF00123216 /* Token.swift in Sources */,
 				93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */,
 				9320E040275806C4006812E5 /* GetAlitutdeByLocationResponse.swift in Sources */,
-				936035CB26891A240080C771 /* AboutBiologerScreen.swift in Sources */,
 				93DF14192692228900A7A977 /* URLSessionHTTPClient.swift in Sources */,
 				93390DAB270251A200DD68CE /* TokenRefreshingHTTPClientDecorator.swift in Sources */,
 				93565D2B26F72BD500A588E6 /* NoInternetConnectionValidator.swift in Sources */,
@@ -2082,7 +2007,6 @@
 				933EF7F626EFBAD800F1EBC4 /* PopUpConfirmScreen.swift in Sources */,
 				93565D1D26F723BF00A588E6 /* TaxonViewControllerFactory.swift in Sources */,
 				93171D88273BDBFD0038B2B2 /* PostFindingImageService.swift in Sources */,
-				936035D126891E890080C771 /* AboutBiologerScreenViewModel.swift in Sources */,
 				9311E8B42FFCF3F9006045C4 /* RegistrationCredentialsViewModel.swift in Sources */,
 				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
