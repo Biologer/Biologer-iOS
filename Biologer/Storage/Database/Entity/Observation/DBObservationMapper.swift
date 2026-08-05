@@ -5,10 +5,9 @@
 //  Created by Nikola Popovic on 2.11.21..
 //
 
-import Foundation
 import RealmSwift
 
-public final class DBObservetationMapper {
+public enum DBObservationMapper {
     public static func mapForDB(observationResponse: ObservationDataResponse.ObservationResponse) -> DBObservation {
         let dbObservationTranslations = List<DBObservationTranslation>()
         observationResponse.translations.forEach({

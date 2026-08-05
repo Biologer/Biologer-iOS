@@ -13,25 +13,11 @@ public enum AutomaticTaxonDownloadPreference: String, Codable {
     case alwaysAskUser
 }
 
-public class Settings: Codable {
-    public private(set) var chooseSpeciesGroup: Bool = false
+public final class Settings: Codable {
     public private(set) var alwaysEnglishName: Bool = false
     public private(set) var setAdultByDefault: Bool = false
-    public private(set) var advanceObservationEntry: Bool = false
     public private(set) var projectName: String = ""
-    public private(set) var selectedAutoDownloadTaxon: AutoDownloadTaxon = AutoDownloadTaxon(type: .alwaysAskUser,
-                                                                                isSelected: true)
-    public var autoDownloadTaxon: [AutoDownloadTaxon] = [AutoDownloadTaxon(type: .onlyWiFi,
-                                                                           isSelected: false),
-                                                         AutoDownloadTaxon(type: .onAnyNetwork,
-                                                                           isSelected: false),
-                                                         AutoDownloadTaxon(type: .alwaysAskUser,
-                                                                           isSelected: true)
-    ]
-    
-    public func toggleChooseSpecisGroup() {
-        chooseSpeciesGroup.toggle()
-    }
+    public private(set) var selectedAutoDownloadTaxon = AutoDownloadTaxon(type: .alwaysAskUser)
     
     public func toggleAlwaysEnglishName() {
         alwaysEnglishName.toggle()
@@ -41,30 +27,19 @@ public class Settings: Codable {
         setAdultByDefault.toggle()
     }
     
-    public func toggleAdvanceObservationEntry() {
-        advanceObservationEntry.toggle()
-    }
-    
     public func setProjectName(name: String) {
         projectName = name
     }
     
     public func setAutoDownloadTaxonBy(type: AutomaticTaxonDownloadPreference) {
-        autoDownloadTaxon.forEach({ $0.isSelected = false })
-        if let selectedItem = autoDownloadTaxon.first(where: { $0.type == type}) {
-            selectedItem.isSelected = true
-            selectedAutoDownloadTaxon = selectedItem
-        }
+        selectedAutoDownloadTaxon = AutoDownloadTaxon(type: type)
     }
     
-    public class AutoDownloadTaxon: Codable {
-        public var type: AutomaticTaxonDownloadPreference
-        public var isSelected: Bool
+    public final class AutoDownloadTaxon: Codable {
+        public let type: AutomaticTaxonDownloadPreference
         
-        init(type: AutomaticTaxonDownloadPreference,
-             isSelected: Bool) {
+        init(type: AutomaticTaxonDownloadPreference) {
             self.type = type
-            self.isSelected = isSelected
         }
     }
 }

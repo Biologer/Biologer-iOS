@@ -3,6 +3,71 @@ import XCTest
 
 @MainActor
 final class SettingsV2Tests: XCTestCase {
+    func test_settings_whenDecodingLegacyPayload_preservesActivePreferences() throws {
+        // Given
+        let data = try XCTUnwrap(
+            """
+            {
+              "chooseSpeciesGroup": true,
+              "alwaysEnglishName": true,
+              "setAdultByDefault": true,
+              "advanceObservationEntry": true,
+              "projectName": "Legacy project",
+              "selectedAutoDownloadTaxon": {
+                "type": "onlyWiFi",
+                "isSelected": true
+              },
+              "autoDownloadTaxon": [
+                {
+                  "type": "onlyWiFi",
+                  "isSelected": true
+                }
+              ]
+            }
+            """.data(using: .utf8)
+        )
+
+        // When
+        let sut = try JSONDecoder().decode(Settings.self, from: data)
+
+        // Then
+        XCTAssertTrue(sut.alwaysEnglishName)
+        XCTAssertTrue(sut.setAdultByDefault)
+        XCTAssertEqual(sut.projectName, "Legacy project")
+        XCTAssertEqual(sut.selectedAutoDownloadTaxon.type, .onlyWiFi)
+    }
+
+    func test_user_whenDecodingLegacySettingsPayload_preservesActiveValues() throws {
+        // Given
+        let data = try XCTUnwrap(
+            """
+            {
+              "id": 42,
+              "firstName": "Nikola",
+              "lastName": "Popovic",
+              "email": "nikola@example.com",
+              "fullName": "Nikola Popovic",
+              "isVerified": true,
+              "settings": {
+                "dataLicense": 10,
+                "imageLicense": 20,
+                "language": "sr-Latn",
+                "projectName": "Legacy project"
+              }
+            }
+            """.data(using: .utf8)
+        )
+
+        // When
+        let sut = try JSONDecoder().decode(User.self, from: data)
+
+        // Then
+        XCTAssertEqual(sut.id, 42)
+        XCTAssertEqual(sut.settings.dataLicense, 10)
+        XCTAssertEqual(sut.settings.imageLicense, 20)
+        XCTAssertEqual(sut.settings.language, "sr-Latn")
+    }
+
     func test_preferencesUseCaseUpdatesSelectedToggle() {
         let repository = SettingsPreferencesRepositorySpy()
         let sut = DefaultSettingsPreferencesUseCase(repository: repository)

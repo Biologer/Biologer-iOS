@@ -20,16 +20,13 @@ public final class User: Codable {
         let dataLicense: Int
         let imageLicense: Int
         let language: String
-        var projectName: String
 
         init(dataLicense: Int,
              imageLicense: Int,
-             language: String,
-             projectName: String = "") {
+             language: String) {
             self.dataLicense = dataLicense
             self.imageLicense = imageLicense
             self.language = language
-            self.projectName = projectName
         }
     }
     

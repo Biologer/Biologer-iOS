@@ -38,7 +38,7 @@
 		931426FB262B53B100542EFC /* BiologerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931426FA262B53B100542EFC /* BiologerTests.swift */; };
 		E1000001302F000000000001 /* RefreshTokenMechanismTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000002302F000000000001 /* RefreshTokenMechanismTests.swift */; };
 		93142706262B53B100542EFC /* BiologerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142705262B53B100542EFC /* BiologerUITests.swift */; };
-		93142734262B5C6600542EFC /* ViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142733262B5C6600542EFC /* ViewHelper.swift */; };
+		93142734262B5C6600542EFC /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93142733262B5C6600542EFC /* Observer.swift */; };
 		93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */; };
 		931857EE2731A47C0051AA45 /* DBTaxon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931857ED2731A47C0051AA45 /* DBTaxon.swift */; };
 		931D3FDD2747925300352C8E /* LicenseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FDC2747925300352C8E /* LicenseStorage.swift */; };
@@ -48,7 +48,6 @@
 		931D3FEF274ABCCD00352C8E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FEE274ABCCC00352C8E /* Settings.swift */; };
 		931D3FF1274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FF0274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift */; };
 		9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320DE9129352EFF009FD87D /* APIConstants.swift */; };
-		9320E0322752A880006812E5 /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320E0312752A880006812E5 /* UserDefaultsConstants.swift */; };
 		932F0444276B9F8F003E03EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 932F0446276B9F8F003E03EC /* InfoPlist.strings */; };
 		933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7FB26F08AC000F1EBC4 /* APIError.swift */; };
 		934C8F2727315CC30094D1E7 /* DBObservationMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934C8F2627315CC30094D1E7 /* DBObservationMapper.swift */; };
@@ -189,7 +188,7 @@
 		93142701262B53B100542EFC /* BiologerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiologerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93142705262B53B100542EFC /* BiologerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerUITests.swift; sourceTree = "<group>"; };
 		93142707262B53B100542EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		93142733262B5C6600542EFC /* ViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHelper.swift; sourceTree = "<group>"; };
+		93142733262B5C6600542EFC /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentViewModelFactory.swift; sourceTree = "<group>"; };
 		931857ED2731A47C0051AA45 /* DBTaxon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTaxon.swift; sourceTree = "<group>"; };
 		931D3FDC2747925300352C8E /* LicenseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseStorage.swift; sourceTree = "<group>"; };
@@ -199,7 +198,6 @@
 		931D3FEE274ABCCC00352C8E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		931D3FF0274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSettingsStorage.swift; sourceTree = "<group>"; };
 		9320DE9129352EFF009FD87D /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
-		9320E0312752A880006812E5 /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
 		932F043C276B53B4003E03EC /* sr-RS */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-RS"; path = "sr-RS.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		932F043D276B53B4003E03EC /* sr-RS */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-RS"; path = "sr-RS.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		932F043E276B53D0003E03EC /* sr-Latn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-Latn"; path = "sr-Latn.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -537,7 +535,7 @@
 				931D3FE42748189200352C8E /* Constants */,
 				9309AB182744326600825246 /* Extensions */,
 				931426E9262B53B000542EFC /* Assets.xcassets */,
-				93142733262B5C6600542EFC /* ViewHelper.swift */,
+				93142733262B5C6600542EFC /* Observer.swift */,
 				93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */,
 			);
 			path = Common;
@@ -556,7 +554,6 @@
 			children = (
 				93593DEE2FFBA9C000DB36AF /* EnvironmentsConstants.swift */,
 				9320DE9129352EFF009FD87D /* APIConstants.swift */,
-				9320E0312752A880006812E5 /* UserDefaultsConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1297,7 +1294,6 @@
 				9311E8B02FFCEE75006045C4 /* RegistrationPersonalInfoViewModel.swift in Sources */,
 				937F828226F7B6B500593786 /* HelpItemManager.swift in Sources */,
 				934C8F2727315CC30094D1E7 /* DBObservationMapper.swift in Sources */,
-				9320E0322752A880006812E5 /* UserDefaultsConstants.swift in Sources */,
 				936219F3271C42A400BAEF8F /* DBObservation.swift in Sources */,
 				9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */,
 				9311E8AC2FFCED8F006045C4 /* RegistrationDraft.swift in Sources */,
@@ -1305,7 +1301,7 @@
 				9311E8B62FFCF43A006045C4 /* RegistrationCredentialsScreen.swift in Sources */,
 				9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */,
 				93B0417E2712096F007DB833 /* DBFinding.swift in Sources */,
-				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
+				93142734262B5C6600542EFC /* Observer.swift in Sources */,
 				93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
 				9373F82626F926CD00C18F91 /* User.swift in Sources */,

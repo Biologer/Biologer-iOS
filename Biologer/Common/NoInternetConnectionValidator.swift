@@ -7,8 +7,7 @@
 
 import Foundation
 
-class NoInternetConnectionValidator {
-    
+enum NoInternetConnectionValidator {
     typealias NSErrorCode = Int
     
     static func noInternetConnection(errorCode: NSErrorCode) -> Bool {

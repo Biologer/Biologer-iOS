@@ -5,8 +5,6 @@
 //  Created by Nikola Popovic on 14.7.21..
 //
 
-import Foundation
-
 let GoogleMapsKey = ""
 
 let cliendIdDev = ""

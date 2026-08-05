@@ -1,6 +1,4 @@
-import Foundation
-
-public final class APIConstants {
+public enum APIConstants {
     public static let applicationJson = "application/json"
     public static let userAgentName = "BiologerApp"
     public static let grantTypeRefreshToken = "refresh_token"

@@ -8,15 +8,14 @@
 import Foundation
 
 extension Date {
-    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
-        return calendar.component(component, from: self)
+    func component(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        calendar.component(component, from: self)
     }
     
-    func getHoursAndMuntes() -> String {
-        
+    func formattedHoursAndMinutes() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        
+
         return dateFormatter.string(from: self)
     }
 }

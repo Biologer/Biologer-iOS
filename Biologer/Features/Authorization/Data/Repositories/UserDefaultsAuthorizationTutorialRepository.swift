@@ -6,7 +6,7 @@ final class UserDefaultsAuthorizationTutorialRepository: AuthorizationTutorialRe
 
     init(
         defaults: UserDefaults = .standard,
-        key: String = UserDefaultsConstants.shouldPresentTutorialKey
+        key: String = "shouldPresentTutorialKey.key"
     ) {
         self.defaults = defaults
         self.key = key

@@ -1,6 +1,4 @@
-import Foundation
-
-public final class HelpItemManager {
+public enum HelpItemManager {
     static func createHelpItems() -> [HelpItemViewModel] {
         [
             HelpItemViewModel(

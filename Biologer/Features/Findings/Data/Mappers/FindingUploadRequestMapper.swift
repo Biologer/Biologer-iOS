@@ -45,7 +45,7 @@ enum FindingUploadRequestMapper {
                 imageData: finding.images.map(\.image),
                 atlasCode: finding.atlasCode?.id ?? 0,
                 accuracy: Int(finding.location?.accuracy ?? 0),
-                day: String(finding.dateOfCreation.get(.day)),
+                day: String(finding.dateOfCreation.component(.day)),
                 elevation: Int(finding.location?.altitude ?? 0),
                 foundDead: finding.foundDead.isEmpty ? 0 : 1,
                 foundDeadNote: finding.foundDead,
@@ -53,7 +53,7 @@ enum FindingUploadRequestMapper {
                 habitat: finding.habitat,
                 latitude: finding.location?.latitude ?? 0,
                 longitude: finding.location?.longitude ?? 0,
-                month: String(finding.dateOfCreation.get(.month)),
+                month: String(finding.dateOfCreation.component(.month)),
                 note: finding.comment,
                 number: individual.number,
                 observationTypeIDs: selectedObservationTypeIDs(
@@ -64,8 +64,8 @@ enum FindingUploadRequestMapper {
                 developmentStageID: finding.devStage?.id,
                 taxonID: finding.taxon?.apiId,
                 taxonSuggestion: finding.taxon?.name ?? "",
-                time: finding.dateOfCreation.getHoursAndMuntes(),
-                year: String(finding.dateOfCreation.get(.year))
+                time: finding.dateOfCreation.formattedHoursAndMinutes(),
+                year: String(finding.dateOfCreation.component(.year))
             )
         }
     }

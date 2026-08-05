@@ -5,9 +5,7 @@
 //  Created by Nikola Popovic on 18.9.21..
 //
 
-import Foundation
-
-public final class CheckMarkItemMapper {
+public enum CheckMarkItemMapper {
     public static func getDataLicense() -> [CheckMarkItem] {
         let placeholder = "Register.three.dataLicense.placeholder".localized
         let dataLicenses = [CheckMarkItem(id: 10,

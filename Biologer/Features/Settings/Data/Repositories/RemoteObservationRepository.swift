@@ -40,7 +40,7 @@ final class RemoteObservationRepository: ObservationRepository {
     func synchronizeObservationTypes() async throws(APIError) {
         let response = try await getObservationTypes()
         response.data.forEach {
-            RealmManager.add(DBObservetationMapper.mapForDB(observationResponse: $0))
+            RealmManager.add(DBObservationMapper.mapForDB(observationResponse: $0))
         }
     }
 
