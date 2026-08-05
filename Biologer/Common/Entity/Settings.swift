@@ -7,6 +7,12 @@
 
 import Foundation
 
+public enum AutomaticTaxonDownloadPreference: String, Codable {
+    case onlyWiFi
+    case onAnyNetwork
+    case alwaysAskUser
+}
+
 public class Settings: Codable {
     public private(set) var chooseSpeciesGroup: Bool = false
     public private(set) var alwaysEnglishName: Bool = false
@@ -43,7 +49,7 @@ public class Settings: Codable {
         projectName = name
     }
     
-    public func setAutoDownloadTaxonBy(type: SetupRadioAndTitleModelType) {
+    public func setAutoDownloadTaxonBy(type: AutomaticTaxonDownloadPreference) {
         autoDownloadTaxon.forEach({ $0.isSelected = false })
         if let selectedItem = autoDownloadTaxon.first(where: { $0.type == type}) {
             selectedItem.isSelected = true
@@ -52,10 +58,10 @@ public class Settings: Codable {
     }
     
     public class AutoDownloadTaxon: Codable {
-        public var type: SetupRadioAndTitleModelType
+        public var type: AutomaticTaxonDownloadPreference
         public var isSelected: Bool
         
-        init(type: SetupRadioAndTitleModelType,
+        init(type: AutomaticTaxonDownloadPreference,
              isSelected: Bool) {
             self.type = type
             self.isSelected = isSelected

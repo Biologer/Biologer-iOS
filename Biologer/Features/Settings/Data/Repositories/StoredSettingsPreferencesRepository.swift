@@ -39,7 +39,7 @@ final class StoredSettingsPreferencesRepository: SettingsPreferencesRepository {
         return settings
     }
 
-    private func map(_ value: SetupRadioAndTitleModelType) -> AutomaticTaxonDownload {
+    private func map(_ value: AutomaticTaxonDownloadPreference) -> AutomaticTaxonDownload {
         switch value {
         case .onlyWiFi:
             .onlyWiFi
@@ -50,7 +50,7 @@ final class StoredSettingsPreferencesRepository: SettingsPreferencesRepository {
         }
     }
 
-    private func map(_ value: AutomaticTaxonDownload) -> SetupRadioAndTitleModelType {
+    private func map(_ value: AutomaticTaxonDownload) -> AutomaticTaxonDownloadPreference {
         switch value {
         case .onlyWiFi:
             .onlyWiFi
