@@ -15,14 +15,12 @@
 		354D33AA2E251FB200CE3D8D /* hr_taxa.csv in Resources */ = {isa = PBXBuildFile; fileRef = 354D33A32E251FB200CE3D8D /* hr_taxa.csv */; };
 		37A91D690FB26CFE4FD5A28F /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 5896F8DE7867D8B66D3E94D8 /* GoogleMaps */; };
 		48EAC3EA0A8BF6975ED56472 /* GoogleMapsBase in Frameworks */ = {isa = PBXBuildFile; productRef = F5254AA56B7F8B2BF18358A5 /* GoogleMapsBase */; };
-		5CD8ABFF6D60438625D7FBE0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7BECEBE942BE77AE1E3A29CA /* Lottie */; };
 		7DE140D5F1E34A254DC8F49C /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = F8A9ECBAE4415F491D84EB6A /* GoogleMapsCore */; };
 		9309AB172744324300825246 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9309AB162744324300825246 /* Date+Extensions.swift */; };
 		9311E89D2FFBE8D9006045C4 /* AuthInputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E89C2FFBE8D7006045C4 /* AuthInputValidator.swift */; };
 		9311E8A12FFCD405006045C4 /* AuthorizationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */; };
 		9311E8A32FFCDB79006045C4 /* LoginScreenV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A22FFCDB71006045C4 /* LoginScreenV2.swift */; };
 		9311E8A52FFCDBA5006045C4 /* LoginScreenV2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A42FFCDB9E006045C4 /* LoginScreenV2ViewModel.swift */; };
-		9311E8A72FFCE061006045C4 /* BiologerProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A62FFCE04D006045C4 /* BiologerProgressView.swift */; };
 		9311E8A92FFCE395006045C4 /* EnvironmentSelectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8A82FFCE38B006045C4 /* EnvironmentSelectionScreen.swift */; };
 		9311E8AC2FFCED8F006045C4 /* RegistrationDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8AB2FFCED8A006045C4 /* RegistrationDraft.swift */; };
 		9311E8AE2FFCEE47006045C4 /* RegistrationPersonalInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311E8AD2FFCEE40006045C4 /* RegistrationPersonalInfoScreen.swift */; };
@@ -46,29 +44,16 @@
 		9314273C262B684B00542EFC /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9314273B262B684B00542EFC /* Color.xcassets */; };
 		93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */; };
 		931857EE2731A47C0051AA45 /* DBTaxon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931857ED2731A47C0051AA45 /* DBTaxon.swift */; };
-		931B9DA927669F2000043BED /* LottieAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B9DA827669F2000043BED /* LottieAnimationView.swift */; };
 		931D3FDD2747925300352C8E /* LicenseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FDC2747925300352C8E /* LicenseStorage.swift */; };
 		931D3FDF274792B500352C8E /* UserDefaultsImageLicenseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FDE274792B500352C8E /* UserDefaultsImageLicenseStorage.swift */; };
 		931D3FE12747948800352C8E /* UserDefaultsDataLicenseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FE02747948800352C8E /* UserDefaultsDataLicenseStorage.swift */; };
-		931D3FE72748193D00352C8E /* PopUpYesAndNoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FE62748193D00352C8E /* PopUpYesAndNoScreen.swift */; };
-		FA1000013030000000000001 /* CheckMarkScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1000023030000000000001 /* CheckMarkScreen.swift */; };
 		931D3FEC274ABC9800352C8E /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FEB274ABC9800352C8E /* SettingsStorage.swift */; };
 		931D3FEF274ABCCD00352C8E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FEE274ABCCC00352C8E /* Settings.swift */; };
 		931D3FF1274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FF0274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift */; };
-		931D3FF3274AD6C800352C8E /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FF2274AD6C800352C8E /* CheckInternetConnection.swift */; };
 		9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320DE9129352EFF009FD87D /* APIConstants.swift */; };
 		9320E0322752A880006812E5 /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320E0312752A880006812E5 /* UserDefaultsConstants.swift */; };
 		932F0444276B9F8F003E03EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 932F0446276B9F8F003E03EC /* InfoPlist.strings */; };
 		93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93334EC0267894820094A483 /* UIScreen+Extensions.swift */; };
-		93381DAB2762A0130015BD0D /* BiologerNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93381DAA2762A0130015BD0D /* BiologerNavigationViewController.swift */; };
-		93387CD927679C9B006789D2 /* lottie_error.json in Resources */ = {isa = PBXBuildFile; fileRef = 93387CD827679C9B006789D2 /* lottie_error.json */; };
-		93387CDF2767A040006789D2 /* lottie_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 93387CDE2767A040006789D2 /* lottie_success.json */; };
-		93387CE32767A66C006789D2 /* lottie_warning.json in Resources */ = {isa = PBXBuildFile; fileRef = 93387CE22767A66C006789D2 /* lottie_warning.json */; };
-		93387CE52767A89C006789D2 /* lottie_question.json in Resources */ = {isa = PBXBuildFile; fileRef = 93387CE42767A89C006789D2 /* lottie_question.json */; };
-		93387CE72767B012006789D2 /* lottie_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 93387CE62767B012006789D2 /* lottie_info.json */; };
-		933EF7F626EFBAD800F1EBC4 /* PopUpConfirmScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F526EFBAD800F1EBC4 /* PopUpConfirmScreen.swift */; };
-		933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */; };
-		933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift */; };
 		933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7FB26F08AC000F1EBC4 /* APIError.swift */; };
 		934C8F2727315CC30094D1E7 /* DBObservationMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934C8F2627315CC30094D1E7 /* DBObservationMapper.swift */; };
 		9351D4552779E73B0091D4D9 /* FontConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351D4542779E73B0091D4D9 /* FontConstants.swift */; };
@@ -78,7 +63,6 @@
 		93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D3626F7397000A588E6 /* String+Extensions.swift */; };
 		93593DEF2FFBA9CC00DB36AF /* EnvironmentsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93593DEE2FFBA9C000DB36AF /* EnvironmentsConstants.swift */; };
 		935AF66626F643CB00C56D46 /* CheckMarkItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */; };
-		936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035C6268889D60080C771 /* UIViewController+Extensions.swift */; };
 		936035CD26891DC50080C771 /* HelpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CC26891DC50080C771 /* HelpScreen.swift */; };
 		936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CE26891E670080C771 /* HelpScreenViewModel.swift */; };
 		936219F3271C42A400BAEF8F /* DBObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936219F2271C42A400BAEF8F /* DBObservation.swift */; };
@@ -101,11 +85,7 @@
 		93C2D1ED269F1BEC00123216 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EC269F1BEC00123216 /* TokenStorage.swift */; };
 		93C2D1EF269F1BFF00123216 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1EE269F1BFF00123216 /* Token.swift */; };
 		93C2D1F1269F1CD800123216 /* KeychainTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */; };
-		93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */; };
 		93CC65872699941A00949534 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC65862699941900949534 /* View+Extensions.swift */; };
-		93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */; };
-		93CC6591269C55EC00949534 /* BlokingProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */; };
-		93CC6593269C564F00949534 /* CircularProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6592269C564F00949534 /* CircularProgressViewController.swift */; };
 		93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6594269C61E900949534 /* EnvironmentStorage.swift */; };
 		93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */; };
 		93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF141E2692249200A7A977 /* RegisterUserResponse.swift */; };
@@ -126,7 +106,6 @@
 		A10000122FFD000000000001 /* AuthorizationNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000132FFD000000000001 /* AuthorizationNavigationBarModifier.swift */; };
 		A10000142FFD000000000001 /* RegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000152FFD000000000001 /* RegistrationUseCase.swift */; };
 		A69400C2B1422A8EBB645F1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20AA770440D603BCEC136BE7 /* RealmSwift */; };
-		B2F6E59410152D518B73140F /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 5E9386650B33D0CB40ABB20C /* Reachability */; };
 		B3000004301D000000000001 /* AuthorizationFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3000003301D000000000001 /* AuthorizationFailure.swift */; };
 		B3000006301D000000000001 /* LoginUserUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3000005301D000000000001 /* LoginUserUseCaseTests.swift */; };
 		B3000008301D000000000001 /* AuthorizationV2ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3000007301D000000000001 /* AuthorizationV2ViewModelTests.swift */; };
@@ -202,7 +181,6 @@
 		9311E8A02FFCD400006045C4 /* AuthorizationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlow.swift; sourceTree = "<group>"; };
 		9311E8A22FFCDB71006045C4 /* LoginScreenV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenV2.swift; sourceTree = "<group>"; };
 		9311E8A42FFCDB9E006045C4 /* LoginScreenV2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenV2ViewModel.swift; sourceTree = "<group>"; };
-		9311E8A62FFCE04D006045C4 /* BiologerProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerProgressView.swift; sourceTree = "<group>"; };
 		9311E8A82FFCE38B006045C4 /* EnvironmentSelectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentSelectionScreen.swift; sourceTree = "<group>"; };
 		9311E8AB2FFCED8A006045C4 /* RegistrationDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDraft.swift; sourceTree = "<group>"; };
 		9311E8AD2FFCEE40006045C4 /* RegistrationPersonalInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPersonalInfoScreen.swift; sourceTree = "<group>"; };
@@ -232,16 +210,12 @@
 		9314273B262B684B00542EFC /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		9314274F262B6DEA00542EFC /* EnvironmentViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentViewModelFactory.swift; sourceTree = "<group>"; };
 		931857ED2731A47C0051AA45 /* DBTaxon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTaxon.swift; sourceTree = "<group>"; };
-		931B9DA827669F2000043BED /* LottieAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimationView.swift; sourceTree = "<group>"; };
 		931D3FDC2747925300352C8E /* LicenseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseStorage.swift; sourceTree = "<group>"; };
 		931D3FDE274792B500352C8E /* UserDefaultsImageLicenseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsImageLicenseStorage.swift; sourceTree = "<group>"; };
 		931D3FE02747948800352C8E /* UserDefaultsDataLicenseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsDataLicenseStorage.swift; sourceTree = "<group>"; };
-		931D3FE62748193D00352C8E /* PopUpYesAndNoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpYesAndNoScreen.swift; sourceTree = "<group>"; };
-		FA1000023030000000000001 /* CheckMarkScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkScreen.swift; sourceTree = "<group>"; };
 		931D3FEB274ABC9800352C8E /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
 		931D3FEE274ABCCC00352C8E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		931D3FF0274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSettingsStorage.swift; sourceTree = "<group>"; };
-		931D3FF2274AD6C800352C8E /* CheckInternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetConnection.swift; sourceTree = "<group>"; };
 		9320DE9129352EFF009FD87D /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		9320E0312752A880006812E5 /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
 		932F043C276B53B4003E03EC /* sr-RS */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-RS"; path = "sr-RS.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -256,15 +230,6 @@
 		932F0449276B9F99003E03EC /* sr-Latn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-Latn"; path = "sr-Latn.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		932F044A276B9F9B003E03EC /* sr-RS */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-RS"; path = "sr-RS.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		93334EC0267894820094A483 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
-		93381DAA2762A0130015BD0D /* BiologerNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologerNavigationViewController.swift; sourceTree = "<group>"; };
-		93387CD827679C9B006789D2 /* lottie_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_error.json; sourceTree = "<group>"; };
-		93387CDE2767A040006789D2 /* lottie_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_success.json; sourceTree = "<group>"; };
-		93387CE22767A66C006789D2 /* lottie_warning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_warning.json; sourceTree = "<group>"; };
-		93387CE42767A89C006789D2 /* lottie_question.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_question.json; sourceTree = "<group>"; };
-		93387CE62767B012006789D2 /* lottie_info.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_info.json; sourceTree = "<group>"; };
-		933EF7F526EFBAD800F1EBC4 /* PopUpConfirmScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpConfirmScreen.swift; sourceTree = "<group>"; };
-		933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerFactory.swift; sourceTree = "<group>"; };
-		933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAlertViewControllerFactory.swift; sourceTree = "<group>"; };
 		933EF7FB26F08AC000F1EBC4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		934C8F2627315CC30094D1E7 /* DBObservationMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBObservationMapper.swift; sourceTree = "<group>"; };
 		9351D4542779E73B0091D4D9 /* FontConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConstants.swift; sourceTree = "<group>"; };
@@ -276,7 +241,6 @@
 		93565D3626F7397000A588E6 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		93593DEE2FFBA9C000DB36AF /* EnvironmentsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentsConstants.swift; sourceTree = "<group>"; };
 		935AF66526F643CB00C56D46 /* CheckMarkItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkItemMapper.swift; sourceTree = "<group>"; };
-		936035C6268889D60080C771 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		936035CC26891DC50080C771 /* HelpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreen.swift; sourceTree = "<group>"; };
 		936035CE26891E670080C771 /* HelpScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewModel.swift; sourceTree = "<group>"; };
 		936219F2271C42A400BAEF8F /* DBObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBObservation.swift; sourceTree = "<group>"; };
@@ -299,11 +263,7 @@
 		93C2D1EC269F1BEC00123216 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		93C2D1EE269F1BFF00123216 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTokenStorage.swift; sourceTree = "<group>"; };
-		93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationViewControler+Extensions.swift"; sourceTree = "<group>"; };
 		93CC65862699941900949534 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokingProgressViewController.swift; sourceTree = "<group>"; };
-		93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlokingProgressViewController.xib; sourceTree = "<group>"; };
-		93CC6592269C564F00949534 /* CircularProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressViewController.swift; sourceTree = "<group>"; };
 		93CC6594269C61E900949534 /* EnvironmentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentStorage.swift; sourceTree = "<group>"; };
 		93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainEnvironmentStorage.swift; sourceTree = "<group>"; };
 		93DF141E2692249200A7A977 /* RegisterUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserResponse.swift; sourceTree = "<group>"; };
@@ -386,8 +346,6 @@
 				37A91D690FB26CFE4FD5A28F /* GoogleMaps in Frameworks */,
 				2E14D0DD8F2CD7F439564B3C /* GooglePlaces in Frameworks */,
 				A69400C2B1422A8EBB645F1F /* RealmSwift in Frameworks */,
-				B2F6E59410152D518B73140F /* Reachability in Frameworks */,
-				5CD8ABFF6D60438625D7FBE0 /* Lottie in Frameworks */,
 				DE04B675C7024DC8452D3AA2 /* CSV in Frameworks */,
 				48EAC3EA0A8BF6975ED56472 /* GoogleMapsBase in Frameworks */,
 				7DE140D5F1E34A254DC8F49C /* GoogleMapsCore in Frameworks */,
@@ -630,19 +588,14 @@
 		93142732262B5C5600542EFC /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				931B9DAA27669F4C00043BED /* Lottie Animations */,
 				931D3FED274ABCB900352C8E /* Entity */,
 				931D3FE5274818A400352C8E /* Mappers */,
 				931D3FE42748189200352C8E /* Constants */,
-				931D3FE32748183500352C8E /* Factory */,
-				931D3FE22748182B00352C8E /* Screens */,
 				9309AB182744326600825246 /* Extensions */,
 				9314273B262B684B00542EFC /* Color.xcassets */,
 				931426E9262B53B000542EFC /* Assets.xcassets */,
 				93142733262B5C6600542EFC /* ViewHelper.swift */,
 				93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */,
-				931D3FF2274AD6C800352C8E /* CheckInternetConnection.swift */,
-				93381DAA2762A0130015BD0D /* BiologerNavigationViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -653,42 +606,6 @@
 				931857ED2731A47C0051AA45 /* DBTaxon.swift */,
 			);
 			path = Taxon;
-			sourceTree = "<group>";
-		};
-		931B9DAA27669F4C00043BED /* Lottie Animations */ = {
-			isa = PBXGroup;
-			children = (
-				93387CE22767A66C006789D2 /* lottie_warning.json */,
-				93387CDE2767A040006789D2 /* lottie_success.json */,
-				93387CE42767A89C006789D2 /* lottie_question.json */,
-				93387CE62767B012006789D2 /* lottie_info.json */,
-				93387CD827679C9B006789D2 /* lottie_error.json */,
-				931B9DA827669F2000043BED /* LottieAnimationView.swift */,
-			);
-			path = "Lottie Animations";
-			sourceTree = "<group>";
-		};
-		931D3FE22748182B00352C8E /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				9311E8A62FFCE04D006045C4 /* BiologerProgressView.swift */,
-				933EF7F526EFBAD800F1EBC4 /* PopUpConfirmScreen.swift */,
-				FA1000023030000000000001 /* CheckMarkScreen.swift */,
-				93CC658E269C55CE00949534 /* BlokingProgressViewController.swift */,
-				93CC6590269C55EC00949534 /* BlokingProgressViewController.xib */,
-				93CC6592269C564F00949534 /* CircularProgressViewController.swift */,
-				931D3FE62748193D00352C8E /* PopUpYesAndNoScreen.swift */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		931D3FE32748183500352C8E /* Factory */ = {
-			isa = PBXGroup;
-			children = (
-				933EF7F726EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift */,
-				933EF7F926EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift */,
-			);
-			path = Factory;
 			sourceTree = "<group>";
 		};
 		931D3FE42748189200352C8E /* Constants */ = {
@@ -771,8 +688,6 @@
 			children = (
 				93BF628D262B7B5200DDFB44 /* UIColor+Extensions.swift */,
 				93334EC0267894820094A483 /* UIScreen+Extensions.swift */,
-				936035C6268889D60080C771 /* UIViewController+Extensions.swift */,
-				93C2D1FE26A600C700123216 /* UINavigationViewControler+Extensions.swift */,
 				93565D3626F7397000A588E6 /* String+Extensions.swift */,
 				93B0C1BB29094D9F002B92B3 /* UIView+Extensions.swift */,
 			);
@@ -1264,8 +1179,6 @@
 				5896F8DE7867D8B66D3E94D8 /* GoogleMaps */,
 				57F87B1337474A625678D363 /* GooglePlaces */,
 				20AA770440D603BCEC136BE7 /* RealmSwift */,
-				5E9386650B33D0CB40ABB20C /* Reachability */,
-				7BECEBE942BE77AE1E3A29CA /* Lottie */,
 				7DA759BF9731C6666BBC73B4 /* CSV */,
 				F5254AA56B7F8B2BF18358A5 /* GoogleMapsBase */,
 				F8A9ECBAE4415F491D84EB6A /* GoogleMapsCore */,
@@ -1353,8 +1266,6 @@
 				168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
 				F68E6CE4ABA5344E5536438F /* XCRemoteSwiftPackageReference "ios-places-sdk" */,
 				A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */,
-				9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
-				DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				94D86614E44E216891E54D53 /* XCRemoteSwiftPackageReference "CSV.swift" */,
 			);
 			productRefGroup = 931426E1262B53AD00542EFC /* Products */;
@@ -1373,8 +1284,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93387CDF2767A040006789D2 /* lottie_success.json in Resources */,
-				93387CE32767A66C006789D2 /* lottie_warning.json in Resources */,
 				931426F0262B53B000542EFC /* LaunchScreen.storyboard in Resources */,
 				93565D3026F736B900A588E6 /* Localizable.strings in Resources */,
 				354D33A62E251FB200CE3D8D /* dev_taxa.csv in Resources */,
@@ -1384,12 +1293,8 @@
 				354D33AA2E251FB200CE3D8D /* hr_taxa.csv in Resources */,
 				9314273C262B684B00542EFC /* Color.xcassets in Resources */,
 				931426ED262B53B000542EFC /* Preview Assets.xcassets in Resources */,
-				93387CE52767A89C006789D2 /* lottie_question.json in Resources */,
-				93387CE72767B012006789D2 /* lottie_info.json in Resources */,
-				93CC6591269C55EC00949534 /* BlokingProgressViewController.xib in Resources */,
 				932F0444276B9F8F003E03EC /* InfoPlist.strings in Resources */,
 				931426EA262B53B000542EFC /* Assets.xcassets in Resources */,
-				93387CD927679C9B006789D2 /* lottie_error.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1422,10 +1327,7 @@
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
 				93E3CBF22737EF240090FF93 /* TaxonsPaginationInfo.swift in Sources */,
 				93BF628E262B7B5200DDFB44 /* UIColor+Extensions.swift in Sources */,
-				931B9DA927669F2000043BED /* LottieAnimationView.swift in Sources */,
 				93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */,
-				936035C7268889D70080C771 /* UIViewController+Extensions.swift in Sources */,
-				93CC6593269C564F00949534 /* CircularProgressViewController.swift in Sources */,
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
 				931857EE2731A47C0051AA45 /* DBTaxon.swift in Sources */,
 				9351D4572779E8BB0091D4D9 /* Font+Extensions.swift in Sources */,
@@ -1433,7 +1335,6 @@
 				936219F8271C44AE00BAEF8F /* DBAtlasCodeMapper.swift in Sources */,
 				93593DEF2FFBA9CC00DB36AF /* EnvironmentsConstants.swift in Sources */,
 				936219FA271C482900BAEF8F /* DBFindingTaxon.swift in Sources */,
-				93C2D1FF26A600C700123216 /* UINavigationViewControler+Extensions.swift in Sources */,
 				936219F5271C441200BAEF8F /* DBAtlasCode.swift in Sources */,
 				93334EC1267894820094A483 /* UIScreen+Extensions.swift in Sources */,
 				936616D72703B43600F02A83 /* MaterialDesignTextArea.swift in Sources */,
@@ -1474,11 +1375,9 @@
 				A10000082FFD000000000001 /* LoginUserEndpoint.swift in Sources */,
 				A100000A2FFD000000000001 /* RegisterUserEndpoint.swift in Sources */,
 				9311E8BC2FFD0241006045C4 /* LicenseSelectionScreen.swift in Sources */,
-				931D3FF3274AD6C800352C8E /* CheckInternetConnection.swift in Sources */,
 				931D3FDD2747925300352C8E /* LicenseStorage.swift in Sources */,
 				93565D3726F7397000A588E6 /* String+Extensions.swift in Sources */,
 				9311E8B02FFCEE75006045C4 /* RegistrationPersonalInfoViewModel.swift in Sources */,
-				9311E8A72FFCE061006045C4 /* BiologerProgressView.swift in Sources */,
 				937F828226F7B6B500593786 /* HelpItemManager.swift in Sources */,
 				934C8F2727315CC30094D1E7 /* DBObservationMapper.swift in Sources */,
 				9320E0322752A880006812E5 /* UserDefaultsConstants.swift in Sources */,
@@ -1491,20 +1390,15 @@
 				9311E8B62FFCF43A006045C4 /* RegistrationCredentialsScreen.swift in Sources */,
 				9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */,
 				93B0417E2712096F007DB833 /* DBFinding.swift in Sources */,
-				931D3FE72748193D00352C8E /* PopUpYesAndNoScreen.swift in Sources */,
-				FA1000013030000000000001 /* CheckMarkScreen.swift in Sources */,
 				93142734262B5C6600542EFC /* ViewHelper.swift in Sources */,
 				93BF629E262B807D00DDFB44 /* BiologerButton.swift in Sources */,
 				93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */,
 				9351D4552779E73B0091D4D9 /* FontConstants.swift in Sources */,
-				933EF7F826EFBE0B00F1EBC4 /* AlertViewControllerFactory.swift in Sources */,
 				936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */,
-				93CC658F269C55CE00949534 /* BlokingProgressViewController.swift in Sources */,
 				9373F82626F926CD00C18F91 /* User.swift in Sources */,
 				9309AB172744324300825246 /* Date+Extensions.swift in Sources */,
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				9311E8AE2FFCEE47006045C4 /* RegistrationPersonalInfoScreen.swift in Sources */,
-				933EF7FA26EFBE8000F1EBC4 /* SwiftUIAlertViewControllerFactory.swift in Sources */,
 				93E3CBF42737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift in Sources */,
 				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
 				931D3FEC274ABC9800352C8E /* SettingsStorage.swift in Sources */,
@@ -1514,12 +1408,10 @@
 				93142750262B6DEA00542EFC /* EnvironmentViewModelFactory.swift in Sources */,
 				9311E8B82FFCF5E5006045C4 /* RegistrationLicenseConsentViewModel.swift in Sources */,
 				93DF142D269253B900A7A977 /* CheckView.swift in Sources */,
-				93381DAB2762A0130015BD0D /* BiologerNavigationViewController.swift in Sources */,
 				9311E8B22FFCF23A006045C4 /* RegistrationFlow.swift in Sources */,
 				93C2D1EF269F1BFF00123216 /* Token.swift in Sources */,
 				93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */,
 				93565D2B26F72BD500A588E6 /* NoInternetConnectionValidator.swift in Sources */,
-				933EF7F626EFBAD800F1EBC4 /* PopUpConfirmScreen.swift in Sources */,
 				9311E8B42FFCF3F9006045C4 /* RegistrationCredentialsViewModel.swift in Sources */,
 				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
@@ -1934,28 +1826,12 @@
 				version = 2.5.2;
 			};
 		};
-		9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
-			requirement = {
-				kind = exactVersion;
-				version = 5.0.0;
-			};
-		};
 		A01A548B8F79E059A45429D6 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				kind = exactVersion;
 				version = 10.25.0;
-			};
-		};
-		DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
-			requirement = {
-				kind = exactVersion;
-				version = 3.3.0;
 			};
 		};
 		E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
@@ -1992,20 +1868,10 @@
 			package = 168052714A5A50B43C661278 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
 			productName = GoogleMaps;
 		};
-		5E9386650B33D0CB40ABB20C /* Reachability */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9BC208DA302CE5DFA76D5982 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
-			productName = Reachability;
-		};
 		6B399BFC597AD224B8FFFE0B /* SwiftKeychainWrapper */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E3B17D57C919BEBB0F58820E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
-		};
-		7BECEBE942BE77AE1E3A29CA /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DC8BDFE9077BEC846C19C1F8 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
 		};
 		7DA759BF9731C6666BBC73B4 /* CSV */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -1,5 +1,5 @@
 {
-  "originHash" : "c599844a39df358f51ad6b90f00d5bea1a0379bca3be5f7343debaf2a2455fb3",
+  "originHash" : "9be19ec8def398e7164ce5b0b34d940d333c0a807ef04bb03a63e90b61282db2",
   "pins" : [
     {
       "identity" : "csv.swift",
@@ -26,24 +26,6 @@
       "state" : {
         "revision" : "db961cdf29b116c497baf87c1ef8188082089fb7",
         "version" : "8.3.0"
-      }
-    },
-    {
-      "identity" : "lottie-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/airbnb/lottie-ios.git",
-      "state" : {
-        "revision" : "4a6058cbbdfe4f74aeae92c8bd51ad3b0de2a1ee",
-        "version" : "3.3.0"
-      }
-    },
-    {
-      "identity" : "reachability.swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ashleymills/Reachability.swift.git",
-      "state" : {
-        "revision" : "98e968e7b6c1318fb61df23e347bc319761e8acb",
-        "version" : "5.0.0"
       }
     },
     {
