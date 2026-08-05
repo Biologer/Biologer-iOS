@@ -7,7 +7,7 @@ public struct HelpItemViewModel: Hashable, Identifiable {
     var image: String
 }
 
-public final class HelpScreenViewModel: HelpScreenLoader, ObservableObject {
+public final class HelpScreenViewModel: ObservableObject {
     var items: [HelpItemViewModel] = HelpItemManager.createHelpItems()
     @Published var currentPageIndex: Int = 0
 
