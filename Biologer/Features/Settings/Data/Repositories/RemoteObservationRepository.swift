@@ -18,26 +18,26 @@ final class RemoteObservationRepository: ObservationRepository {
         self.date = date
     }
 
-    func getObservationTypes() async throws(APIError) -> ObservationDataResponse {
+    func getObservationTypes() async throws(SettingsDataFailure) -> ObservationDataResponse {
         do {
             guard let environment = environmentStorage.getEnvironment() else {
-                throw APIError(description: ErrorConstant.environmentNotSelected)
+                throw SettingsDataFailure(message: "API.lb.envError".localized)
             }
 
             let updatedAfter = userDefaults.integer(forKey: APIConstants.updatedAfter)
             userDefaults.set(Int(date().timeIntervalSince1970), forKey: APIConstants.updatedAfter)
             let endpoint = ObservationTypesEndpoint(host: environment.host, updatedAfter: updatedAfter)
             return try await client.send(endpoint)
-        } catch let error as APIError {
+        } catch let error as SettingsDataFailure {
             throw error
         } catch let error as APIClientError {
-            throw error.asAPIError()
+            throw SettingsDataFailure(message: error.failureDetails.message)
         } catch {
-            throw APIError(description: error.localizedDescription)
+            throw SettingsDataFailure(message: error.localizedDescription)
         }
     }
 
-    func synchronizeObservationTypes() async throws(APIError) {
+    func synchronizeObservationTypes() async throws(SettingsDataFailure) {
         let response = try await getObservationTypes()
         response.data.forEach {
             RealmManager.add(DBObservationMapper.mapForDB(observationResponse: $0))

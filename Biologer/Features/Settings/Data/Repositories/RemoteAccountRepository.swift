@@ -9,21 +9,24 @@ final class RemoteAccountRepository: AccountRepository {
         self.environmentStorage = environmentStorage
     }
 
-    func loadCurrentUser() async throws(APIError) -> User {
+    func loadCurrentUser() async throws(SettingsDataFailure) -> User {
         do {
             let endpoint = GetProfileEndpoint(host: try environmentHost())
             let response = try await client.send(endpoint)
             return User(response.data)
-        } catch let error as APIError {
+        } catch let error as SettingsDataFailure {
             throw error
         } catch let error as APIClientError {
-            throw error.asAPIError()
+            throw SettingsDataFailure(message: error.failureDetails.message)
         } catch {
-            throw APIError(description: error.localizedDescription)
+            throw SettingsDataFailure(message: error.localizedDescription)
         }
     }
 
-    func deleteCurrentUser(userID: Int, deleteObservations: Bool) async throws(APIError) {
+    func deleteCurrentUser(
+        userID: Int,
+        deleteObservations: Bool
+    ) async throws(SettingsDataFailure) {
         do {
             let endpoint = DeleteAccountEndpoint(
                 host: try environmentHost(),
@@ -31,18 +34,18 @@ final class RemoteAccountRepository: AccountRepository {
                 deleteObservations: deleteObservations
             )
             _ = try await client.send(endpoint)
-        } catch let error as APIError {
+        } catch let error as SettingsDataFailure {
             throw error
         } catch let error as APIClientError {
-            throw error.asAPIError()
+            throw SettingsDataFailure(message: error.failureDetails.message)
         } catch {
-            throw APIError(description: error.localizedDescription)
+            throw SettingsDataFailure(message: error.localizedDescription)
         }
     }
 
-    private func environmentHost() throws(APIError) -> String {
+    private func environmentHost() throws(SettingsDataFailure) -> String {
         guard let environment = environmentStorage.getEnvironment() else {
-            throw APIError(description: ErrorConstant.environmentNotSelected)
+            throw SettingsDataFailure(message: "API.lb.envError".localized)
         }
         return environment.host
     }

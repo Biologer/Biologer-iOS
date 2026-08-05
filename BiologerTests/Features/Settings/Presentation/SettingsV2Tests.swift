@@ -233,7 +233,9 @@ final class SettingsV2Tests: XCTestCase {
     func test_accountViewModel_deleteAccountWhenRequestFails_publishesErrorWithoutLogout() async {
         // Given
         let accountUseCase = SettingsAccountUseCaseSpy()
-        accountUseCase.deleteResult = .failure(APIError(description: "delete failed"))
+        accountUseCase.deleteResult = .failure(
+            SettingsDataFailure(message: "delete failed")
+        )
         let logoutUseCase = SettingsLogoutUseCaseSpy()
         let sut = makeAccountViewModel(
             accountUseCase: accountUseCase,
@@ -253,7 +255,9 @@ final class SettingsV2Tests: XCTestCase {
     func test_accountViewModel_dismissErrorWhenErrorExists_clearsPublishedError() async {
         // Given
         let accountUseCase = SettingsAccountUseCaseSpy()
-        accountUseCase.deleteResult = .failure(APIError(description: "delete failed"))
+        accountUseCase.deleteResult = .failure(
+            SettingsDataFailure(message: "delete failed")
+        )
         let sut = makeAccountViewModel(accountUseCase: accountUseCase)
         await sut.deleteAccount()
 
@@ -309,14 +313,14 @@ final class SettingsV2Tests: XCTestCase {
 }
 
 private final class SettingsAccountUseCaseSpy: UserAccountUseCase {
-    var deleteResult: Result<Void, APIError> = .success(())
+    var deleteResult: Result<Void, SettingsDataFailure> = .success(())
     private(set) var deleteRequests: [Bool] = []
 
-    func loadCurrentUser() async throws(APIError) -> User {
+    func loadCurrentUser() async throws(SettingsDataFailure) -> User {
         fatalError("Not used by SettingsAccountViewModel.")
     }
 
-    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError) {
+    func deleteCurrentUser(deleteObservations: Bool) async throws(SettingsDataFailure) {
         deleteRequests.append(deleteObservations)
         try deleteResult.get()
     }

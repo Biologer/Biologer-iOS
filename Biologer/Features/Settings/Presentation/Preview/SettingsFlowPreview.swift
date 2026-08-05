@@ -56,7 +56,7 @@ struct SettingsFlow_Previews: PreviewProvider {
 }
 
 private final class PreviewUserAccountUseCase: UserAccountUseCase {
-    func loadCurrentUser() async throws(APIError) -> User {
+    func loadCurrentUser() async throws(SettingsDataFailure) -> User {
         User(
             id: 1,
             firstName: "Nikola",
@@ -68,7 +68,7 @@ private final class PreviewUserAccountUseCase: UserAccountUseCase {
         )
     }
 
-    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError) {}
+    func deleteCurrentUser(deleteObservations: Bool) async throws(SettingsDataFailure) {}
 }
 
 private final class PreviewLogoutUseCase: LogoutUseCase {

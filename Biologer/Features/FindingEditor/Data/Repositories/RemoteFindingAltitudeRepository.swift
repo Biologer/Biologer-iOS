@@ -9,9 +9,12 @@ final class RemoteFindingAltitudeRepository: FindingAltitudeRepository {
         self.environmentStorage = environmentStorage
     }
 
-    func altitude(latitude: Double, longitude: Double) async throws -> Double {
+    func altitude(
+        latitude: Double,
+        longitude: Double
+    ) async throws(FindingAltitudeRepositoryError) -> Double {
         guard let environment = environmentStorage.getEnvironment() else {
-            throw APIError(description: ErrorConstant.environmentNotSelected)
+            throw .environmentUnavailable
         }
 
         do {
@@ -23,12 +26,8 @@ final class RemoteFindingAltitudeRepository: FindingAltitudeRepository {
                 )
             )
             return Double(response.elevation)
-        } catch let error as APIClientError {
-            throw error.asAPIError()
-        } catch let error as APIError {
-            throw error
         } catch {
-            throw APIError(description: error.localizedDescription)
+            throw .altitudeUnavailable
         }
     }
 }

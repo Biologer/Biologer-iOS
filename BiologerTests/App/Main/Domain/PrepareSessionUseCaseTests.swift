@@ -24,7 +24,7 @@ final class PrepareSessionUseCaseTests: XCTestCase {
     func test_execute_whenAccountRequestFailsAndCachedUserExists_synchronizesObservations() async throws {
         // Given
         let accountUseCase = PrepareSessionAccountUseCaseSpy()
-        accountUseCase.loadError = APIError(description: "account")
+        accountUseCase.loadError = SettingsDataFailure(message: "account")
         let observationRepository = PrepareSessionObservationRepositorySpy()
         let sut = DefaultPrepareSessionUseCase(
             accountUseCase: accountUseCase,
@@ -43,7 +43,7 @@ final class PrepareSessionUseCaseTests: XCTestCase {
     func test_execute_whenAccountRequestFailsAndCachedUserIsMissing_throwsAccountError() async {
         // Given
         let accountUseCase = PrepareSessionAccountUseCaseSpy()
-        accountUseCase.loadError = APIError(description: "account")
+        accountUseCase.loadError = SettingsDataFailure(message: "account")
         let observationRepository = PrepareSessionObservationRepositorySpy()
         let sut = DefaultPrepareSessionUseCase(
             accountUseCase: accountUseCase,
@@ -57,7 +57,7 @@ final class PrepareSessionUseCaseTests: XCTestCase {
             XCTFail("Expected account error.")
         } catch {
             // Then
-            XCTAssertEqual(error.description, "account")
+            XCTAssertEqual(error.message, "account")
             XCTAssertEqual(observationRepository.synchronizeCallCount, 0)
         }
     }
@@ -65,7 +65,9 @@ final class PrepareSessionUseCaseTests: XCTestCase {
     func test_execute_whenObservationRequestFailsAndStoredObservationsExist_completesSuccessfully() async throws {
         // Given
         let observationRepository = PrepareSessionObservationRepositorySpy()
-        observationRepository.synchronizeError = APIError(description: "observations")
+        observationRepository.synchronizeError = SettingsDataFailure(
+            message: "observations"
+        )
         observationRepository.hasStored = true
         let sut = DefaultPrepareSessionUseCase(
             accountUseCase: PrepareSessionAccountUseCaseSpy(),
@@ -84,7 +86,9 @@ final class PrepareSessionUseCaseTests: XCTestCase {
     func test_execute_whenObservationRequestFailsAndStoredObservationsAreMissing_throwsObservationError() async {
         // Given
         let observationRepository = PrepareSessionObservationRepositorySpy()
-        observationRepository.synchronizeError = APIError(description: "observations")
+        observationRepository.synchronizeError = SettingsDataFailure(
+            message: "observations"
+        )
         observationRepository.hasStored = false
         let sut = DefaultPrepareSessionUseCase(
             accountUseCase: PrepareSessionAccountUseCaseSpy(),
@@ -98,7 +102,7 @@ final class PrepareSessionUseCaseTests: XCTestCase {
             XCTFail("Expected observation error.")
         } catch {
             // Then
-            XCTAssertEqual(error.description, "observations")
+            XCTAssertEqual(error.message, "observations")
             XCTAssertEqual(observationRepository.hasStoredCallCount, 1)
         }
     }
@@ -117,10 +121,10 @@ final class PrepareSessionUseCaseTests: XCTestCase {
 }
 
 private final class PrepareSessionAccountUseCaseSpy: UserAccountUseCase {
-    var loadError: APIError?
+    var loadError: SettingsDataFailure?
     private(set) var loadCallCount = 0
 
-    func loadCurrentUser() async throws(APIError) -> User {
+    func loadCurrentUser() async throws(SettingsDataFailure) -> User {
         loadCallCount += 1
         if let loadError { throw loadError }
         return User(
@@ -134,20 +138,20 @@ private final class PrepareSessionAccountUseCaseSpy: UserAccountUseCase {
         )
     }
 
-    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError) {}
+    func deleteCurrentUser(deleteObservations: Bool) async throws(SettingsDataFailure) {}
 }
 
 private final class PrepareSessionObservationRepositorySpy: ObservationRepository {
-    var synchronizeError: APIError?
+    var synchronizeError: SettingsDataFailure?
     var hasStored = false
     private(set) var synchronizeCallCount = 0
     private(set) var hasStoredCallCount = 0
 
-    func getObservationTypes() async throws(APIError) -> ObservationDataResponse {
+    func getObservationTypes() async throws(SettingsDataFailure) -> ObservationDataResponse {
         fatalError("Not used by the session preparation use case.")
     }
 
-    func synchronizeObservationTypes() async throws(APIError) {
+    func synchronizeObservationTypes() async throws(SettingsDataFailure) {
         synchronizeCallCount += 1
         if let synchronizeError { throw synchronizeError }
     }

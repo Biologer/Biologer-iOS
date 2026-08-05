@@ -40,7 +40,7 @@ final class RemoteAccountRepositoryTests: XCTestCase {
             XCTFail("Expected environment error.")
         } catch {
             // Then
-            XCTAssertEqual(error.description, ErrorConstant.environmentNotSelected)
+            XCTAssertEqual(error.message, "API.lb.envError".localized)
             XCTAssertNil(client.receivedEndpoint)
         }
     }

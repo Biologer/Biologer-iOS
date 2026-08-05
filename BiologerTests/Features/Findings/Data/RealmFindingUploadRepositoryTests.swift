@@ -110,14 +110,17 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         try store(finding)
         remoteRepository.queuedFindingResults = [
             .success(()),
-            .failure(APIError(description: "Female upload failed"))
+            .failure(FindingUploadFailure(message: "Female upload failed"))
         ]
 
         do {
             try await sut.upload(id: finding.id)
             XCTFail("Expected the female upload to fail")
         } catch {
-            XCTAssertTrue(error is APIError)
+            XCTAssertEqual(
+                error as? FindingUploadFailure,
+                FindingUploadFailure(message: "Female upload failed")
+            )
         }
 
         var assertionRealm = try await Realm(configuration: configuration)
@@ -151,14 +154,17 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         try storeObservationTypes(ids: [101, 202])
         try store(finding)
         remoteRepository.findingResult = .failure(
-            APIError(description: "Upload failed")
+            FindingUploadFailure(message: "Upload failed")
         )
 
         do {
             try await sut.upload(id: finding.id)
             XCTFail("Expected upload to fail")
         } catch {
-            XCTAssertTrue(error is APIError)
+            XCTAssertEqual(
+                error as? FindingUploadFailure,
+                FindingUploadFailure(message: "Upload failed")
+            )
         }
 
         let assertionRealm = try await Realm(configuration: configuration)
@@ -295,24 +301,28 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
 }
 
 private final class FindingRemoteUploadRepositorySpy: FindingRemoteUploadRepository {
-    var findingResult: Swift.Result<Void, APIError> = .success(())
-    var queuedFindingResults: [Swift.Result<Void, APIError>] = []
+    var findingResult: Swift.Result<Void, FindingUploadFailure> = .success(())
+    var queuedFindingResults: [Swift.Result<Void, FindingUploadFailure>] = []
     private(set) var receivedBodies: [FindingRequestBody] = []
     private(set) var receivedImageData: [Data] = []
     var imageResults: [String] = []
     private(set) var imageCallCount = 0
 
-    func uploadFinding(_ body: FindingRequestBody) async throws {
+    func uploadFinding(
+        _ body: FindingRequestBody
+    ) async throws(FindingUploadFailure) {
         let result = queuedFindingResults.isEmpty ? findingResult : queuedFindingResults.removeFirst()
         receivedBodies.append(body)
         try result.get()
     }
 
-    func uploadImage(_ imageData: Data) async throws -> String {
+    func uploadImage(
+        _ imageData: Data
+    ) async throws(FindingUploadFailure) -> String {
         defer { imageCallCount += 1 }
         receivedImageData.append(imageData)
         guard imageResults.indices.contains(imageCallCount) else {
-            throw APIError(description: "Missing image response")
+            throw FindingUploadFailure(message: "Missing image response")
         }
         return imageResults[imageCallCount]
     }

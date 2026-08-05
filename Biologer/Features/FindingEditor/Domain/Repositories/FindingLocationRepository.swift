@@ -5,6 +5,11 @@ enum FindingLocationRepositoryError: Error, Equatable {
     case locationUnavailable
 }
 
+enum FindingAltitudeRepositoryError: Error, Equatable {
+    case environmentUnavailable
+    case altitudeUnavailable
+}
+
 protocol FindingCurrentLocationRepository: AnyObject {
     func start(
         onLocation: @escaping (FindingEditorLocation) -> Void,
@@ -15,5 +20,8 @@ protocol FindingCurrentLocationRepository: AnyObject {
 }
 
 protocol FindingAltitudeRepository {
-    func altitude(latitude: Double, longitude: Double) async throws -> Double
+    func altitude(
+        latitude: Double,
+        longitude: Double
+    ) async throws(FindingAltitudeRepositoryError) -> Double
 }

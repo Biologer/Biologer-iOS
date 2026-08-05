@@ -38,7 +38,7 @@ final class FindingLocationUseCasesTests: XCTestCase {
     func test_resolveLocationKeepsExistingAltitudeWhenRemoteLookupFails() async {
         let initial = makeLocation(altitude: 12)
         let repository = FindingAltitudeRepositoryStub(
-            result: .failure(FindingLocationUseCaseTestError.altitudeUnavailable)
+            result: .failure(.altitudeUnavailable)
         )
         let sut = DefaultResolveFindingLocationUseCase(
             altitudeRepository: repository
@@ -57,10 +57,6 @@ final class FindingLocationUseCasesTests: XCTestCase {
             accuracy: 5
         )
     }
-}
-
-private enum FindingLocationUseCaseTestError: Error {
-    case altitudeUnavailable
 }
 
 private final class FindingCurrentLocationRepositorySpy:
@@ -87,14 +83,17 @@ private final class FindingCurrentLocationRepositorySpy:
 }
 
 private final class FindingAltitudeRepositoryStub: FindingAltitudeRepository {
-    let result: Result<Double, Error>
+    let result: Result<Double, FindingAltitudeRepositoryError>
     private(set) var receivedCoordinates: [(latitude: Double, longitude: Double)] = []
 
-    init(result: Result<Double, Error>) {
+    init(result: Result<Double, FindingAltitudeRepositoryError>) {
         self.result = result
     }
 
-    func altitude(latitude: Double, longitude: Double) async throws -> Double {
+    func altitude(
+        latitude: Double,
+        longitude: Double
+    ) async throws(FindingAltitudeRepositoryError) -> Double {
         receivedCoordinates.append((latitude, longitude))
         return try result.get()
     }

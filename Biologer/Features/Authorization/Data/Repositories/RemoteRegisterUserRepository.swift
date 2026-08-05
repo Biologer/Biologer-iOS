@@ -17,7 +17,7 @@ final class RemoteRegisterUserRepository: RegisterUserRepository {
 
     func createUser(request: RegistrationRequest) async throws(AuthorizationFailure) {
         guard let environment = environmentStorage.getEnvironment() else {
-            throw AuthorizationFailure(message: ErrorConstant.environmentNotSelected)
+            throw AuthorizationFailure(message: "API.lb.envError".localized)
         }
 
         let endpoint = RegisterUserEndpoint(
@@ -36,7 +36,7 @@ final class RemoteRegisterUserRepository: RegisterUserRepository {
                 )
             )
         } catch let error as APIClientError {
-            throw error.asAPIError().asAuthorizationFailure
+            throw error.asAuthorizationFailure
         } catch {
             throw AuthorizationFailure(message: error.localizedDescription)
         }

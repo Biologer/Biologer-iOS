@@ -92,7 +92,7 @@ final class AppRootViewModel: ObservableObject {
             guard sessionStore.state == .authenticated, state == .preparingSession else {
                 return
             }
-            alert = AppRootAlert(message: error.description)
+            alert = AppRootAlert(message: error.message)
         }
     }
 

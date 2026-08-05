@@ -38,7 +38,7 @@ final class UserAccountUseCaseTests: XCTestCase {
 
     func test_loadCurrentUser_whenRepositoryFails_propagatesErrorWithoutStoringUser() async {
         // Given
-        let expectedError = APIError(description: "Profile failed")
+        let expectedError = SettingsDataFailure(message: "Profile failed")
         accountRepository.userResult = .failure(expectedError)
 
         // When
@@ -47,7 +47,7 @@ final class UserAccountUseCaseTests: XCTestCase {
             XCTFail("Expected loadCurrentUser to throw.")
         } catch {
             // Then
-            XCTAssertTrue(error === expectedError)
+            XCTAssertEqual(error, expectedError)
             XCTAssertNil(userStorage.savedUser)
         }
     }
@@ -74,7 +74,7 @@ final class UserAccountUseCaseTests: XCTestCase {
             XCTFail("Expected deleteCurrentUser to throw.")
         } catch {
             // Then
-            XCTAssertEqual(error.description, ErrorConstant.accountDeletionFailed)
+            XCTAssertEqual(error.message, "API.lb.accountDeletionFailed".localized)
         }
     }
 
@@ -96,21 +96,21 @@ final class UserAccountUseCaseTests: XCTestCase {
 }
 
 private final class AccountRepositorySpy: AccountRepository {
-    var userResult: Result<User, APIError> = .failure(
-        APIError(description: "Missing user result")
+    var userResult: Result<User, SettingsDataFailure> = .failure(
+        SettingsDataFailure(message: "Missing user result")
     )
-    var deletionResult: Result<Void, APIError> = .success(())
+    var deletionResult: Result<Void, SettingsDataFailure> = .success(())
     private(set) var deletedUserID: Int?
     private(set) var deletedObservations: Bool?
 
-    func loadCurrentUser() async throws(APIError) -> User {
+    func loadCurrentUser() async throws(SettingsDataFailure) -> User {
         try userResult.get()
     }
 
     func deleteCurrentUser(
         userID: Int,
         deleteObservations: Bool
-    ) async throws(APIError) {
+    ) async throws(SettingsDataFailure) {
         deletedUserID = userID
         deletedObservations = deleteObservations
         try deletionResult.get()

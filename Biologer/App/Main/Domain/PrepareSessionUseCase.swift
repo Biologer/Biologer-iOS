@@ -1,7 +1,7 @@
 import Foundation
 
 protocol PrepareSessionUseCase {
-    func execute() async throws(APIError)
+    func execute() async throws(SettingsDataFailure)
 }
 
 final class DefaultPrepareSessionUseCase: PrepareSessionUseCase {
@@ -19,7 +19,7 @@ final class DefaultPrepareSessionUseCase: PrepareSessionUseCase {
         self.userStorage = userStorage
     }
 
-    func execute() async throws(APIError) {
+    func execute() async throws(SettingsDataFailure) {
         do {
             _ = try await accountUseCase.loadCurrentUser()
         } catch {

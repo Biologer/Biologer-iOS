@@ -1,8 +1,8 @@
 import Foundation
 
 protocol UserAccountUseCase {
-    func loadCurrentUser() async throws(APIError) -> User
-    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError)
+    func loadCurrentUser() async throws(SettingsDataFailure) -> User
+    func deleteCurrentUser(deleteObservations: Bool) async throws(SettingsDataFailure)
 }
 
 final class DefaultUserAccountUseCase: UserAccountUseCase {
@@ -17,15 +17,17 @@ final class DefaultUserAccountUseCase: UserAccountUseCase {
         self.userStorage = userStorage
     }
 
-    func loadCurrentUser() async throws(APIError) -> User {
+    func loadCurrentUser() async throws(SettingsDataFailure) -> User {
         let user = try await accountRepository.loadCurrentUser()
         userStorage.save(user: user)
         return user
     }
 
-    func deleteCurrentUser(deleteObservations: Bool) async throws(APIError) {
+    func deleteCurrentUser(deleteObservations: Bool) async throws(SettingsDataFailure) {
         guard let userID = userStorage.getUser()?.id else {
-            throw APIError(description: ErrorConstant.accountDeletionFailed)
+            throw SettingsDataFailure(
+                message: "API.lb.accountDeletionFailed".localized
+            )
         }
 
         try await accountRepository.deleteCurrentUser(

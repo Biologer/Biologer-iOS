@@ -43,7 +43,7 @@ final class SettingsAccountViewModel: ObservableObject {
             )
             logoutUseCase.logout()
         } catch {
-            errorMessage = error.description
+            errorMessage = error.message
         }
     }
 

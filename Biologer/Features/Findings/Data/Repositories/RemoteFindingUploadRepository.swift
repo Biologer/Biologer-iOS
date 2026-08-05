@@ -1,8 +1,8 @@
 import Foundation
 
 protocol FindingRemoteUploadRepository {
-    func uploadFinding(_ body: FindingRequestBody) async throws
-    func uploadImage(_ imageData: Data) async throws -> String
+    func uploadFinding(_ body: FindingRequestBody) async throws(FindingUploadFailure)
+    func uploadImage(_ imageData: Data) async throws(FindingUploadFailure) -> String
 }
 
 final class RemoteFindingUploadRepository: FindingRemoteUploadRepository {
@@ -14,9 +14,9 @@ final class RemoteFindingUploadRepository: FindingRemoteUploadRepository {
         self.environmentStorage = environmentStorage
     }
 
-    func uploadFinding(_ body: FindingRequestBody) async throws {
+    func uploadFinding(_ body: FindingRequestBody) async throws(FindingUploadFailure) {
         guard let environment = environmentStorage.getEnvironment() else {
-            throw APIError(description: ErrorConstant.environmentNotSelected)
+            throw FindingUploadFailure(message: "API.lb.envError".localized)
         }
 
         do {
@@ -24,17 +24,15 @@ final class RemoteFindingUploadRepository: FindingRemoteUploadRepository {
                 UploadFindingEndpoint(host: environment.host, findingBody: body)
             )
         } catch let error as APIClientError {
-            throw error.asAPIError()
-        } catch let error as APIError {
-            throw error
+            throw FindingUploadFailure(message: error.failureDetails.message)
         } catch {
-            throw APIError(description: error.localizedDescription)
+            throw FindingUploadFailure(message: error.localizedDescription)
         }
     }
 
-    func uploadImage(_ imageData: Data) async throws -> String {
+    func uploadImage(_ imageData: Data) async throws(FindingUploadFailure) -> String {
         guard let environment = environmentStorage.getEnvironment() else {
-            throw APIError(description: ErrorConstant.environmentNotSelected)
+            throw FindingUploadFailure(message: "API.lb.envError".localized)
         }
 
         do {
@@ -46,11 +44,9 @@ final class RemoteFindingUploadRepository: FindingRemoteUploadRepository {
             )
             return response.file ?? ""
         } catch let error as APIClientError {
-            throw error.asAPIError()
-        } catch let error as APIError {
-            throw error
+            throw FindingUploadFailure(message: error.failureDetails.message)
         } catch {
-            throw APIError(description: error.localizedDescription)
+            throw FindingUploadFailure(message: error.localizedDescription)
         }
     }
 }

@@ -48,7 +48,6 @@
 		931D3FF1274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931D3FF0274ABEAD00352C8E /* UserDefaultsSettingsStorage.swift */; };
 		9320DE9229352EFF009FD87D /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320DE9129352EFF009FD87D /* APIConstants.swift */; };
 		932F0444276B9F8F003E03EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 932F0446276B9F8F003E03EC /* InfoPlist.strings */; };
-		933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF7FB26F08AC000F1EBC4 /* APIError.swift */; };
 		934C8F2727315CC30094D1E7 /* DBObservationMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934C8F2627315CC30094D1E7 /* DBObservationMapper.swift */; };
 		93565D2B26F72BD500A588E6 /* NoInternetConnectionValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */; };
 		93565D3026F736B900A588E6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93565D3226F736B900A588E6 /* Localizable.strings */; };
@@ -96,7 +95,7 @@
 		B400000A301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000009301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift */; };
 		B400000C301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400000B301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift */; };
 		B400000E301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400000D301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift */; };
-		B4000010301E000000000001 /* APIError+AuthorizationFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400000F301E000000000001 /* APIError+AuthorizationFailure.swift */; };
+		B4000010301E000000000001 /* APIClientError+AuthorizationFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B400000F301E000000000001 /* APIClientError+AuthorizationFailure.swift */; };
 		B4000012301E000000000001 /* SelectAuthorizationEnvironmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000011301E000000000001 /* SelectAuthorizationEnvironmentUseCase.swift */; };
 		B4000014301E000000000001 /* AuthorizationEnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000013301E000000000001 /* AuthorizationEnvironmentRepository.swift */; };
 		B4000016301E000000000001 /* AuthorizationTutorialRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000015301E000000000001 /* AuthorizationTutorialRepository.swift */; };
@@ -206,7 +205,6 @@
 		932F0448276B9F97003E03EC /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		932F0449276B9F99003E03EC /* sr-Latn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-Latn"; path = "sr-Latn.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		932F044A276B9F9B003E03EC /* sr-RS */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-RS"; path = "sr-RS.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		933EF7FB26F08AC000F1EBC4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		934C8F2627315CC30094D1E7 /* DBObservationMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBObservationMapper.swift; sourceTree = "<group>"; };
 		93565D2A26F72BD500A588E6 /* NoInternetConnectionValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetConnectionValidator.swift; sourceTree = "<group>"; };
 		93565D3126F736B900A588E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -255,7 +253,7 @@
 		B4000009301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredAuthorizationEnvironmentRepository.swift; sourceTree = "<group>"; };
 		B400000B301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAuthorizationTutorialRepository.swift; sourceTree = "<group>"; };
 		B400000D301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredRegistrationLicensePreferenceRepository.swift; sourceTree = "<group>"; };
-		B400000F301E000000000001 /* APIError+AuthorizationFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIError+AuthorizationFailure.swift"; sourceTree = "<group>"; };
+		B400000F301E000000000001 /* APIClientError+AuthorizationFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClientError+AuthorizationFailure.swift"; sourceTree = "<group>"; };
 		B4000011301E000000000001 /* SelectAuthorizationEnvironmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAuthorizationEnvironmentUseCase.swift; sourceTree = "<group>"; };
 		B4000013301E000000000001 /* AuthorizationEnvironmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationEnvironmentRepository.swift; sourceTree = "<group>"; };
 		B4000015301E000000000001 /* AuthorizationTutorialRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTutorialRepository.swift; sourceTree = "<group>"; };
@@ -655,7 +653,6 @@
 			isa = PBXGroup;
 			children = (
 				9311E7FD2FFBC258006045C4 /* APIClient */,
-				933EF7FB26F08AC000F1EBC4 /* APIError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -833,7 +830,7 @@
 		B4000105301E000000000001 /* Mappers */ = {
 			isa = PBXGroup;
 			children = (
-				B400000F301E000000000001 /* APIError+AuthorizationFailure.swift */,
+				B400000F301E000000000001 /* APIClientError+AuthorizationFailure.swift */,
 			);
 			path = Mappers;
 			sourceTree = "<group>";
@@ -1269,7 +1266,7 @@
 				B400000A301E000000000001 /* StoredAuthorizationEnvironmentRepository.swift in Sources */,
 				B400000C301E000000000001 /* UserDefaultsAuthorizationTutorialRepository.swift in Sources */,
 				B400000E301E000000000001 /* StoredRegistrationLicensePreferenceRepository.swift in Sources */,
-				B4000010301E000000000001 /* APIError+AuthorizationFailure.swift in Sources */,
+				B4000010301E000000000001 /* APIClientError+AuthorizationFailure.swift in Sources */,
 				A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */,
 				A100000C2FFD000000000001 /* RegistrationRequest.swift in Sources */,
 				A100000E2FFD000000000001 /* RegistrationInputValidator.swift in Sources */,
@@ -1316,7 +1313,6 @@
 				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
 				93CC6595269C61E900949534 /* EnvironmentStorage.swift in Sources */,
 				931D3FEF274ABCCD00352C8E /* Settings.swift in Sources */,
-				933EF7FC26F08AC000F1EBC4 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

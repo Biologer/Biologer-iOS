@@ -17,7 +17,7 @@ final class RemoteLoginUserRepository: LoginUserRepository {
 
     func login(email: String, password: String) async throws(AuthorizationFailure) {
         guard let environment = environmentStorage.getEnvironment() else {
-            throw AuthorizationFailure(message: ErrorConstant.environmentNotSelected)
+            throw AuthorizationFailure(message: "API.lb.envError".localized)
         }
 
         let endpoint = LoginUserEndpoint(
@@ -37,7 +37,7 @@ final class RemoteLoginUserRepository: LoginUserRepository {
                 )
             )
         } catch let error as APIClientError {
-            throw error.asAPIError().asAuthorizationFailure
+            throw error.asAuthorizationFailure
         } catch {
             throw AuthorizationFailure(message: error.localizedDescription)
         }

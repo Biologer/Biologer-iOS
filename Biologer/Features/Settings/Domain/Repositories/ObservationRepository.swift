@@ -1,7 +1,7 @@
 import Foundation
 
 protocol ObservationRepository {
-    func getObservationTypes() async throws(APIError) -> ObservationDataResponse
-    func synchronizeObservationTypes() async throws(APIError)
+    func getObservationTypes() async throws(SettingsDataFailure) -> ObservationDataResponse
+    func synchronizeObservationTypes() async throws(SettingsDataFailure)
     func hasStoredObservationTypes() -> Bool
 }

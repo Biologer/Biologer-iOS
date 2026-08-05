@@ -2,20 +2,24 @@ import XCTest
 @testable import Biologer
 
 final class APIClientErrorMappingTests: XCTestCase {
-    func test_asAPIError_mapsNoInternetRequestFailure() {
+    func test_asAuthorizationFailure_whenNetworkIsUnavailable_mapsLocalizedOfflineDetails() {
+        // Given
         let sut = APIClientError.requestFailed(
             message: "The Internet connection appears to be offline.",
             code: NSURLErrorNotConnectedToInternet
         )
 
-        let error = sut.asAPIError()
+        // When
+        let error = sut.asAuthorizationFailure
 
-        XCTAssertEqual(error.title, ErrorConstant.noInternetConnectionTitle)
-        XCTAssertEqual(error.description, ErrorConstant.noInternetConnectionDescription)
+        // Then
+        XCTAssertEqual(error.summary, "API.lb.noInternetError".localized)
+        XCTAssertEqual(error.message, "API.lb.noInternetDescriptionError".localized)
         XCTAssertFalse(error.isInternetConnectionAvailable)
     }
 
-    func test_asAPIError_mapsValidationPayloadFirstFieldError() {
+    func test_asAuthorizationFailure_whenValidationPayloadContainsFieldError_mapsFirstFieldError() {
+        // Given
         let payload = APIErrorPayload(
             message: "Validation failed",
             error: nil,
@@ -25,14 +29,17 @@ final class APIClientErrorMappingTests: XCTestCase {
         )
         let sut = APIClientError.validationFailed(payload)
 
-        let error = sut.asAPIError()
+        // When
+        let error = sut.asAuthorizationFailure
 
-        XCTAssertEqual(error.title, "Validation failed")
-        XCTAssertEqual(error.description, "Email has already been taken")
+        // Then
+        XCTAssertEqual(error.summary, "Validation failed")
+        XCTAssertEqual(error.message, "Email has already been taken")
         XCTAssertTrue(error.isInternetConnectionAvailable)
     }
 
-    func test_asAPIError_mapsOAuthPayloadDescription() {
+    func test_asAuthorizationFailure_whenOAuthPayloadContainsDescription_mapsOAuthDetails() {
+        // Given
         let payload = APIErrorPayload(
             message: nil,
             error: "invalid_grant",
@@ -42,9 +49,11 @@ final class APIClientErrorMappingTests: XCTestCase {
         )
         let sut = APIClientError.badRequest(payload)
 
-        let error = sut.asAPIError()
+        // When
+        let error = sut.asAuthorizationFailure
 
-        XCTAssertEqual(error.title, "invalid_grant")
-        XCTAssertEqual(error.description, "The user credentials were incorrect.")
+        // Then
+        XCTAssertEqual(error.summary, "invalid_grant")
+        XCTAssertEqual(error.message, "The user credentials were incorrect.")
     }
 }
