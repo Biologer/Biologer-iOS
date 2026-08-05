@@ -88,13 +88,12 @@ public final class AppNavigationRouter: NavigationRouter {
         ).makeComposition()
     }()
 
-    private lazy var remoteProfileService: ProfileService = {
-       return RemoteProfileService(client: authenticatedAPIHttpClient, environmentStorage: environmentStorage)
-    }()
-
     private lazy var userAccountUseCase: UserAccountUseCase = {
         DefaultUserAccountUseCase(
-            profileService: remoteProfileService,
+            accountRepository: RemoteAccountRepository(
+                client: authenticatedAPIHttpClient,
+                environmentStorage: environmentStorage
+            ),
             userStorage: userStorage
         )
     }()
@@ -118,8 +117,8 @@ public final class AppNavigationRouter: NavigationRouter {
         )
     }()
 
-    private lazy var remoteObservationService: ObservationService = {
-       return RemoteObservationService(client: authenticatedAPIHttpClient, environmentStorage: environmentStorage)
+    private lazy var observationRepository: ObservationRepository = {
+       return RemoteObservationRepository(client: authenticatedAPIHttpClient, environmentStorage: environmentStorage)
     }()
 
     private lazy var taxonServiceCoordinator: TaxonServiceCoordinator = {
@@ -468,24 +467,34 @@ public final class AppNavigationRouter: NavigationRouter {
     }
 
     private func getObservation() {
-        remoteObservationService.getObservationTypes(completion: { [weak self] result in
+        Task { [weak self] in
             guard let self = self else { return }
-            self.onLoading((false))
-            switch result {
-            case .failure(let error):
-                print("Observation error: \(error.description)")
-            case .success(let response):
-                response.data.forEach( {
-                    RealmManager.add(DBObservetationMapper.mapForDB(observationResponse: $0))
-                })
-                if self.mainUIVersion == .v1 {
-                    self.downloadTaxonRouter.start(
-                        navigationController: self.mainCoordinator.primaryNavigationController,
-                        sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: false
-                    )
+            do {
+                let response = try await self.observationRepository.getObservationTypes()
+                await MainActor.run {
+                    self.onLoading(false)
+                    response.data.forEach {
+                        RealmManager.add(DBObservetationMapper.mapForDB(observationResponse: $0))
+                    }
+                    if self.mainUIVersion == .v1 {
+                        self.downloadTaxonRouter.start(
+                            navigationController: self.mainCoordinator.primaryNavigationController,
+                            sholdPresentConfirmationWhenAllTaxonAleadyDownloaded: false
+                        )
+                    }
+                }
+            } catch let error as APIError {
+                await MainActor.run {
+                    self.onLoading(false)
+                    print("Observation error: \(error.description)")
+                }
+            } catch {
+                await MainActor.run {
+                    self.onLoading(false)
+                    print("Observation error: \(error.localizedDescription)")
                 }
             }
-        })
+        }
     }
 
     private func makeTaxonRouter(

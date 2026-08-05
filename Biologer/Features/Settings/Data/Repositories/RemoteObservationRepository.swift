@@ -1,0 +1,39 @@
+import Foundation
+
+final class RemoteObservationRepository: ObservationRepository {
+    private let client: APIClientProtocol
+    private let environmentStorage: EnvironmentStorage
+    private let userDefaults: UserDefaults
+    private let date: () -> Date
+
+    init(
+        client: APIClientProtocol,
+        environmentStorage: EnvironmentStorage,
+        userDefaults: UserDefaults = .standard,
+        date: @escaping () -> Date = Date.init
+    ) {
+        self.client = client
+        self.environmentStorage = environmentStorage
+        self.userDefaults = userDefaults
+        self.date = date
+    }
+
+    func getObservationTypes() async throws(APIError) -> ObservationDataResponse {
+        do {
+            guard let environment = environmentStorage.getEnvironment() else {
+                throw APIError(description: ErrorConstant.environmentNotSelected)
+            }
+
+            let updatedAfter = userDefaults.integer(forKey: APIConstants.updatedAfter)
+            userDefaults.set(Int(date().timeIntervalSince1970), forKey: APIConstants.updatedAfter)
+            let endpoint = ObservationTypesEndpoint(host: environment.host, updatedAfter: updatedAfter)
+            return try await client.send(endpoint)
+        } catch let error as APIError {
+            throw error
+        } catch let error as APIClientError {
+            throw error.asAPIError()
+        } catch {
+            throw APIError(description: error.localizedDescription)
+        }
+    }
+}

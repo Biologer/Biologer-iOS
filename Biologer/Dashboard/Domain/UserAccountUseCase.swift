@@ -6,19 +6,19 @@ protocol UserAccountUseCase {
 }
 
 final class DefaultUserAccountUseCase: UserAccountUseCase {
-    private let profileService: ProfileService
+    private let accountRepository: AccountRepository
     private let userStorage: UserStorage
 
     init(
-        profileService: ProfileService,
+        accountRepository: AccountRepository,
         userStorage: UserStorage
     ) {
-        self.profileService = profileService
+        self.accountRepository = accountRepository
         self.userStorage = userStorage
     }
 
     func loadCurrentUser() async throws(APIError) -> User {
-        let response = try await profileService.getMyProfile()
+        let response = try await accountRepository.loadCurrentUser()
         let user = User(response.data)
         userStorage.save(user: user)
         return user
@@ -29,53 +29,10 @@ final class DefaultUserAccountUseCase: UserAccountUseCase {
             throw APIError(description: ErrorConstant.accountDeletionFailed)
         }
 
-        try await profileService.deleteUser(
+        try await accountRepository.deleteCurrentUser(
             userID: userID,
             deleteObservations: deleteObservations
         )
-    }
-}
-
-private extension ProfileService {
-    func getMyProfile() async throws(APIError) -> UserDataResponse {
-        do {
-            return try await withCheckedThrowingContinuation { continuation in
-                getMyProfile { result in
-                    switch result {
-                    case .success(let response):
-                        continuation.resume(returning: response)
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                    }
-                }
-            }
-        } catch let error as APIError {
-            throw error
-        } catch {
-            throw APIError(description: error.localizedDescription)
-        }
-    }
-
-    func deleteUser(
-        userID: Int,
-        deleteObservations: Bool
-    ) async throws(APIError) -> Void {
-        do {
-            return try await withCheckedThrowingContinuation { continuation in
-                deleteUser(userID: userID, deleteObservations: deleteObservations) { result in
-                    switch result {
-                    case .success:
-                        continuation.resume(returning: ())
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                    }
-                }
-            }
-        } catch let error as APIError {
-            throw error
-        } catch {
-            throw APIError(description: error.localizedDescription)
-        }
     }
 }
 

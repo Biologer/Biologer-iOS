@@ -2,16 +2,16 @@ import XCTest
 @testable import Biologer
 
 final class UserAccountUseCaseTests: XCTestCase {
-    private var profileService: ProfileServiceSpy!
+    private var accountRepository: AccountRepositorySpy!
     private var userStorage: UserStorageSpy!
     private var sut: DefaultUserAccountUseCase!
 
     override func setUp() {
         super.setUp()
-        profileService = ProfileServiceSpy()
+        accountRepository = AccountRepositorySpy()
         userStorage = UserStorageSpy()
         sut = DefaultUserAccountUseCase(
-            profileService: profileService,
+            accountRepository: accountRepository,
             userStorage: userStorage
         )
     }
@@ -19,12 +19,12 @@ final class UserAccountUseCaseTests: XCTestCase {
     override func tearDown() {
         sut = nil
         userStorage = nil
-        profileService = nil
+        accountRepository = nil
         super.tearDown()
     }
 
     func test_loadCurrentUser_mapsAndStoresProfileResponse() async throws {
-        profileService.profileResult = .success(makeProfileResponse())
+        accountRepository.profileResult = .success(makeProfileResponse())
 
         let user = try await sut.loadCurrentUser()
 
@@ -42,7 +42,7 @@ final class UserAccountUseCaseTests: XCTestCase {
 
     func test_loadCurrentUser_propagatesProfileError() async {
         let expectedError = APIError(description: "Profile failed")
-        profileService.profileResult = .failure(expectedError)
+        accountRepository.profileResult = .failure(expectedError)
 
         do {
             _ = try await sut.loadCurrentUser()
@@ -58,8 +58,8 @@ final class UserAccountUseCaseTests: XCTestCase {
 
         try await sut.deleteCurrentUser(deleteObservations: true)
 
-        XCTAssertEqual(profileService.deletedUserID, 42)
-        XCTAssertEqual(profileService.deletedObservations, true)
+        XCTAssertEqual(accountRepository.deletedUserID, 42)
+        XCTAssertEqual(accountRepository.deletedObservations, true)
     }
 
     func test_deleteCurrentUser_throwsWhenUserIsMissing() async {
@@ -106,24 +106,23 @@ final class UserAccountUseCaseTests: XCTestCase {
     }
 }
 
-private final class ProfileServiceSpy: ProfileService {
-    var profileResult: ProfileResult = .failure(APIError(description: "Missing profile result"))
-    var deletionResult: DeletionResult = .success(())
+private final class AccountRepositorySpy: AccountRepository {
+    var profileResult: Result<UserDataResponse, APIError> = .failure(APIError(description: "Missing profile result"))
+    var deletionResult: Result<Void, APIError> = .success(())
     var deletedUserID: Int?
     var deletedObservations: Bool?
 
-    func getMyProfile(completion: @escaping (ProfileResult) -> Void) {
-        completion(profileResult)
+    func loadCurrentUser() async throws(APIError) -> UserDataResponse {
+        try profileResult.get()
     }
 
-    func deleteUser(
+    func deleteCurrentUser(
         userID: Int,
-        deleteObservations: Bool,
-        completion: @escaping (DeletionResult) -> Void
-    ) {
+        deleteObservations: Bool
+    ) async throws(APIError) {
         deletedUserID = userID
         deletedObservations = deleteObservations
-        completion(deletionResult)
+        try deletionResult.get()
     }
 }
 
