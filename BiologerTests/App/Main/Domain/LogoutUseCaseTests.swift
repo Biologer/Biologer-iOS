@@ -32,12 +32,10 @@ final class LogoutUseCaseTests: XCTestCase {
     func test_logout_clearsSessionAndLocalData() {
         let tokenStorage = TokenStorageSpy()
         let userStorage = LogoutUserStorageSpy()
-        let paginationStorage = TaxonPaginationInfoStorageSpy()
         let localDataDeleting = LogoutLocalDataDeletingSpy()
         let sut = DefaultLogoutUseCase(
             tokenStorage: tokenStorage,
             userStorage: userStorage,
-            taxonPaginationInfoStorage: paginationStorage,
             localDataDeleting: localDataDeleting
         )
 
@@ -45,7 +43,6 @@ final class LogoutUseCaseTests: XCTestCase {
 
         XCTAssertTrue(tokenStorage.didDelete)
         XCTAssertTrue(userStorage.didDelete)
-        XCTAssertTrue(paginationStorage.didDelete)
         XCTAssertTrue(localDataDeleting.didDeleteLocalData)
     }
 }
@@ -80,26 +77,6 @@ private final class LogoutUserStorageSpy: UserStorage {
     }
 
     func deleteAllForUser() {}
-}
-
-private final class TaxonPaginationInfoStorageSpy: TaxonsPaginationInfoStorage {
-    private(set) var didDelete = false
-
-    func getPaginationInfo() -> TaxonsPaginationInfo? {
-        nil
-    }
-
-    func getLastReadFromFile() -> Int64? {
-        nil
-    }
-
-    func savePagination(paginationInfo: TaxonsPaginationInfo) {}
-
-    func saveLastReadFromFile(_ date: Int64) {}
-
-    func delete() {
-        didDelete = true
-    }
 }
 
 private final class LogoutLocalDataDeletingSpy: LogoutLocalDataDeleting {

@@ -5,7 +5,6 @@ final class SettingsBuilder {
     private let settingsStorage: SettingsStorage
     private let dataLicenseStorage: LicenseStorage
     private let imageLicenseStorage: LicenseStorage
-    private let taxonPaginationStorage: TaxonsPaginationInfoStorage
     private let environmentStorage: EnvironmentStorage
     private let userStorage: UserStorage
     private let taxonSyncComposition: TaxonSyncComposition
@@ -16,7 +15,6 @@ final class SettingsBuilder {
         settingsStorage: SettingsStorage,
         dataLicenseStorage: LicenseStorage,
         imageLicenseStorage: LicenseStorage,
-        taxonPaginationStorage: TaxonsPaginationInfoStorage,
         environmentStorage: EnvironmentStorage,
         userStorage: UserStorage,
         taxonSyncComposition: TaxonSyncComposition,
@@ -26,7 +24,6 @@ final class SettingsBuilder {
         self.settingsStorage = settingsStorage
         self.dataLicenseStorage = dataLicenseStorage
         self.imageLicenseStorage = imageLicenseStorage
-        self.taxonPaginationStorage = taxonPaginationStorage
         self.environmentStorage = environmentStorage
         self.userStorage = userStorage
         self.taxonSyncComposition = taxonSyncComposition
@@ -67,9 +64,7 @@ final class SettingsBuilder {
                 )
             ),
             taxonData: DefaultSettingsTaxonDataUseCase(
-                repository: RealmDownloadedTaxaRepository(
-                    paginationStorage: taxonPaginationStorage
-                )
+                repository: RealmDownloadedTaxaRepository()
             )
         )
     }

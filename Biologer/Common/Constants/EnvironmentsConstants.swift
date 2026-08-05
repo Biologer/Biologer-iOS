@@ -9,18 +9,6 @@ import Foundation
 
 let GoogleMapsKey = ""
 
-let serbiaHost = ""
-let croatiaHost = ""
-let bosnianAndHerzegovinHost = ""
-let montenegroHost = ""
-let devHost = ""
-
-let serbiaPath = ""
-let croatiaPath = ""
-let bosnianAndHerzegovinaPath = ""
-let montenegroPath = ""
-let devPath = ""
-
 let cliendIdDev = ""
 let cliendIdSer = ""
 let cliendIdCro = ""

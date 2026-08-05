@@ -82,7 +82,6 @@ final class AppRootComposition {
             settingsStorage: settingsStorage,
             dataLicenseStorage: dataLicenseStorage,
             imageLicenseStorage: imageLicenseStorage,
-            taxonPaginationStorage: taxonPaginationStorage,
             environmentStorage: environmentStorage,
             userStorage: userStorage,
             taxonSyncComposition: taxonSyncComposition,
@@ -124,7 +123,6 @@ final class AppRootComposition {
         DefaultLogoutUseCase(
             tokenStorage: tokenStorage,
             userStorage: userStorage,
-            taxonPaginationInfoStorage: taxonPaginationStorage,
             localDataDeleting: RealmLogoutLocalDataDeleter(),
             sessionStore: sessionStore
         )
@@ -146,10 +144,6 @@ final class AppRootComposition {
         }
         return storage
     }()
-    private lazy var taxonPaginationStorage: TaxonsPaginationInfoStorage = {
-        UserDefaultsTaxonsPaginationInfoStorage()
-    }()
-
     private lazy var apiClient: APIClientProtocol = {
         APIClient(session: URLSession(configuration: .default))
     }()

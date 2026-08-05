@@ -7,11 +7,6 @@
 
 import Foundation
 
-public struct APIErrorResponse: Codable {
-    let error: String
-    let error_description: String
-}
-
 public final class APIError: Error, Identifiable {
     let title: String
     let description: String

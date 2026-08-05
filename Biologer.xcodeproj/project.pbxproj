@@ -61,7 +61,6 @@
 		936035CF26891E670080C771 /* HelpScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936035CE26891E670080C771 /* HelpScreenViewModel.swift */; };
 		936219F3271C42A400BAEF8F /* DBObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936219F2271C42A400BAEF8F /* DBObservation.swift */; };
 		936219F5271C441200BAEF8F /* DBAtlasCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936219F4271C441200BAEF8F /* DBAtlasCode.swift */; };
-		936219F8271C44AE00BAEF8F /* DBAtlasCodeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936219F7271C44AE00BAEF8F /* DBAtlasCodeMapper.swift */; };
 		936219FA271C482900BAEF8F /* DBFindingTaxon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936219F9271C482900BAEF8F /* DBFindingTaxon.swift */; };
 		9373F82026F924E800C18F91 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F81F26F924E800C18F91 /* UserStorage.swift */; };
 		9373F82426F9259D00C18F91 /* UserDefaultsUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373F82326F9259D00C18F91 /* UserDefaultsUserStorage.swift */; };
@@ -79,9 +78,6 @@
 		93CC6598269C625500949534 /* KeychainEnvironmentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */; };
 		93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF141E2692249200A7A977 /* RegisterUserResponse.swift */; };
 		93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF14222692264C00A7A977 /* LoginUserResponse.swift */; };
-		93E3CBF22737EF240090FF93 /* TaxonsPaginationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF12737EF240090FF93 /* TaxonsPaginationInfo.swift */; };
-		93E3CBF42737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF32737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift */; };
-		93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */; };
 		9E07DBAC3020692300DCF823 /* AuthorizationFlowPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E07DBAB3020691D00DCF823 /* AuthorizationFlowPreview.swift */; };
 		A10000012FFD000000000001 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000022FFD000000000001 /* RegisterUserUseCase.swift */; };
 		A10000042FFD000000000001 /* AuthorizationUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000052FFD000000000001 /* AuthorizationUseCases.swift */; };
@@ -228,7 +224,6 @@
 		936035CE26891E670080C771 /* HelpScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewModel.swift; sourceTree = "<group>"; };
 		936219F2271C42A400BAEF8F /* DBObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBObservation.swift; sourceTree = "<group>"; };
 		936219F4271C441200BAEF8F /* DBAtlasCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DBAtlasCode.swift; path = "../New Group/DBAtlasCode.swift"; sourceTree = "<group>"; };
-		936219F7271C44AE00BAEF8F /* DBAtlasCodeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBAtlasCodeMapper.swift; sourceTree = "<group>"; };
 		936219F9271C482900BAEF8F /* DBFindingTaxon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBFindingTaxon.swift; sourceTree = "<group>"; };
 		9373F81F26F924E800C18F91 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
 		9373F82326F9259D00C18F91 /* UserDefaultsUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsUserStorage.swift; sourceTree = "<group>"; };
@@ -245,9 +240,6 @@
 		93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainEnvironmentStorage.swift; sourceTree = "<group>"; };
 		93DF141E2692249200A7A977 /* RegisterUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserResponse.swift; sourceTree = "<group>"; };
 		93DF14222692264C00A7A977 /* LoginUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserResponse.swift; sourceTree = "<group>"; };
-		93E3CBF12737EF240090FF93 /* TaxonsPaginationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonsPaginationInfo.swift; sourceTree = "<group>"; };
-		93E3CBF32737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonsPaginationInfoStorage.swift; sourceTree = "<group>"; };
-		93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTaxonsPaginationInfoStorage.swift; sourceTree = "<group>"; };
 		9E07DBAB3020691D00DCF823 /* AuthorizationFlowPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlowPreview.swift; sourceTree = "<group>"; };
 		A10000022FFD000000000001 /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
 		A10000052FFD000000000001 /* AuthorizationUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationUseCases.swift; sourceTree = "<group>"; };
@@ -375,7 +367,6 @@
 		9309AB192744329300825246 /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
-				93E3CBF52737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift */,
 				93C2D1F0269F1CD800123216 /* KeychainTokenStorage.swift */,
 				93CC6597269C625500949534 /* KeychainEnvironmentStorage.swift */,
 			);
@@ -600,7 +591,6 @@
 			isa = PBXGroup;
 			children = (
 				936219F4271C441200BAEF8F /* DBAtlasCode.swift */,
-				936219F7271C44AE00BAEF8F /* DBAtlasCodeMapper.swift */,
 			);
 			path = "Atlas Code";
 			sourceTree = "<group>";
@@ -658,11 +648,9 @@
 				9309AB1A2744329900825246 /* Userdefaults */,
 				9309AB192744329300825246 /* Keychain */,
 				93B041772711F64E007DB833 /* Database */,
-				93E3CBF12737EF240090FF93 /* TaxonsPaginationInfo.swift */,
 				93CC6594269C61E900949534 /* EnvironmentStorage.swift */,
 				93C2D1EC269F1BEC00123216 /* TokenStorage.swift */,
 				9373F81F26F924E800C18F91 /* UserStorage.swift */,
-				93E3CBF32737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift */,
 				931D3FDC2747925300352C8E /* LicenseStorage.swift */,
 				931D3FEB274ABC9800352C8E /* SettingsStorage.swift */,
 			);
@@ -1260,12 +1248,10 @@
 				93C2D1ED269F1BEC00123216 /* TokenStorage.swift in Sources */,
 				9311E8BA2FFCF648006045C4 /* RegistrationLicenseConsentScreen.swift in Sources */,
 				931426E4262B53AD00542EFC /* AppDelegate.swift in Sources */,
-				93E3CBF22737EF240090FF93 /* TaxonsPaginationInfo.swift in Sources */,
 				93DF14232692264C00A7A977 /* LoginUserResponse.swift in Sources */,
 				936035CD26891DC50080C771 /* HelpScreen.swift in Sources */,
 				931857EE2731A47C0051AA45 /* DBTaxon.swift in Sources */,
 				9311E89D2FFBE8D9006045C4 /* AuthInputValidator.swift in Sources */,
-				936219F8271C44AE00BAEF8F /* DBAtlasCodeMapper.swift in Sources */,
 				93593DEF2FFBA9CC00DB36AF /* EnvironmentsConstants.swift in Sources */,
 				936219FA271C482900BAEF8F /* DBFindingTaxon.swift in Sources */,
 				936219F5271C441200BAEF8F /* DBAtlasCode.swift in Sources */,
@@ -1326,7 +1312,6 @@
 				9309AB172744324300825246 /* Date+Extensions.swift in Sources */,
 				93DF141F2692249200A7A977 /* RegisterUserResponse.swift in Sources */,
 				9311E8AE2FFCEE47006045C4 /* RegistrationPersonalInfoScreen.swift in Sources */,
-				93E3CBF42737EFF00090FF93 /* TaxonsPaginationInfoStorage.swift in Sources */,
 				93CC65872699941A00949534 /* View+Extensions.swift in Sources */,
 				931D3FEC274ABC9800352C8E /* SettingsStorage.swift in Sources */,
 				9373F82026F924E800C18F91 /* UserStorage.swift in Sources */,
@@ -1336,7 +1321,6 @@
 				9311E8B82FFCF5E5006045C4 /* RegistrationLicenseConsentViewModel.swift in Sources */,
 				9311E8B22FFCF23A006045C4 /* RegistrationFlow.swift in Sources */,
 				93C2D1EF269F1BFF00123216 /* Token.swift in Sources */,
-				93E3CBF62737F07A0090FF93 /* KeychainTaxonsPaginationInfoStorage.swift in Sources */,
 				93565D2B26F72BD500A588E6 /* NoInternetConnectionValidator.swift in Sources */,
 				9311E8B42FFCF3F9006045C4 /* RegistrationCredentialsViewModel.swift in Sources */,
 				93C2D1EB269F020600123216 /* Environment.swift in Sources */,
