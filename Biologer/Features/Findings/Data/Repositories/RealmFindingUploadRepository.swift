@@ -1,6 +1,7 @@
 import Foundation
+import ImageIO
 import RealmSwift
-import UIKit
+import UniformTypeIdentifiers
 
 private enum RealmFindingUploadRepositoryError: Error {
     case invalidImageData
@@ -86,11 +87,11 @@ final class RealmFindingUploadRepository: FindingUploadRepository {
 
         for imageData in images {
             try Task.checkCancellation()
-            guard let image = UIImage(data: imageData) else {
+            guard let uploadData = Self.makeJPEGData(from: imageData) else {
                 throw RealmFindingUploadRepositoryError.invalidImageData
             }
 
-            let path = try await remoteRepository.uploadImage(TaxonImage(image: image))
+            let path = try await remoteRepository.uploadImage(uploadData)
             photos.append(
                 FindingPhotoRequestBody(
                     license: String(imageLicenseID),
@@ -100,6 +101,33 @@ final class RealmFindingUploadRepository: FindingUploadRepository {
         }
 
         return photos
+    }
+
+    private static func makeJPEGData(from imageData: Data) -> Data? {
+        guard
+            let source = CGImageSourceCreateWithData(imageData as CFData, nil),
+            let image = CGImageSourceCreateImageAtIndex(source, 0, nil)
+        else {
+            return nil
+        }
+
+        let encodedData = NSMutableData()
+        guard let destination = CGImageDestinationCreateWithData(
+            encodedData,
+            UTType.jpeg.identifier as CFString,
+            1,
+            nil
+        ) else {
+            return nil
+        }
+
+        CGImageDestinationAddImage(
+            destination,
+            image,
+            [kCGImageDestinationLossyCompressionQuality: 0.7] as CFDictionary
+        )
+        guard CGImageDestinationFinalize(destination) else { return nil }
+        return encodedData as Data
     }
 
     private func uploadFinding(_ request: FindingRequestBody) async throws {

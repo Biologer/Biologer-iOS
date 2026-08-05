@@ -42,7 +42,8 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
     }
 
     func test_uploadMapsSnapshotUploadsImageAndMarksFindingAsUploaded() async throws {
-        let finding = makeFinding(imageData: UIImage(systemName: "leaf")?.pngData())
+        let imageData = try XCTUnwrap(UIImage(systemName: "leaf")?.pngData())
+        let finding = makeFinding(imageData: imageData)
         try storeObservationTypes(ids: [101, 202])
         try store(finding)
         remoteRepository.imageResults = ["remote/leaf.jpg"]
@@ -60,6 +61,10 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         XCTAssertEqual(body.photos?.first?.license, "40")
         XCTAssertEqual(body.photos?.first?.path, "remote/leaf.jpg")
         XCTAssertEqual(remoteRepository.imageCallCount, 1)
+        XCTAssertEqual(
+            remoteRepository.receivedImageData.first?.starts(with: [0xFF, 0xD8]),
+            true
+        )
 
         let assertionRealm = try await Realm(configuration: configuration)
         assertionRealm.refresh()
@@ -167,6 +172,37 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         )
     }
 
+    func test_upload_withInvalidImageData_doesNotCallRemoteOrMarkFindingAsUploaded() async throws {
+        // Given
+        let finding = makeFinding(imageData: Data([0x00, 0x01, 0x02]))
+        try storeObservationTypes(ids: [101, 202])
+        try store(finding)
+
+        // When
+        var receivedError: Error?
+        do {
+            try await sut.upload(id: finding.id)
+        } catch {
+            receivedError = error
+        }
+
+        // Then
+        XCTAssertNotNil(receivedError)
+        XCTAssertEqual(remoteRepository.imageCallCount, 0)
+        XCTAssertTrue(remoteRepository.receivedImageData.isEmpty)
+        XCTAssertTrue(remoteRepository.receivedBodies.isEmpty)
+
+        let assertionRealm = try await Realm(configuration: configuration)
+        assertionRealm.refresh()
+        XCTAssertEqual(
+            assertionRealm.object(
+                ofType: DBFinding.self,
+                forPrimaryKey: finding.id
+            )?.isUploaded,
+            false
+        )
+    }
+
     func test_uploadThrowsNotFoundForUnknownFinding() async {
         let missingID = UUID()
 
@@ -262,6 +298,7 @@ private final class FindingRemoteUploadRepositorySpy: FindingRemoteUploadReposit
     var findingResult: Swift.Result<Void, APIError> = .success(())
     var queuedFindingResults: [Swift.Result<Void, APIError>] = []
     private(set) var receivedBodies: [FindingRequestBody] = []
+    private(set) var receivedImageData: [Data] = []
     var imageResults: [String] = []
     private(set) var imageCallCount = 0
 
@@ -271,8 +308,9 @@ private final class FindingRemoteUploadRepositorySpy: FindingRemoteUploadReposit
         try result.get()
     }
 
-    func uploadImage(_ image: TaxonImage) async throws -> String {
+    func uploadImage(_ imageData: Data) async throws -> String {
         defer { imageCallCount += 1 }
+        receivedImageData.append(imageData)
         guard imageResults.indices.contains(imageCallCount) else {
             throw APIError(description: "Missing image response")
         }

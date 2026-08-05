@@ -2,7 +2,7 @@ import Foundation
 
 protocol FindingRemoteUploadRepository {
     func uploadFinding(_ body: FindingRequestBody) async throws
-    func uploadImage(_ image: TaxonImage) async throws -> String
+    func uploadImage(_ imageData: Data) async throws -> String
 }
 
 final class RemoteFindingUploadRepository: FindingRemoteUploadRepository {
@@ -32,16 +32,18 @@ final class RemoteFindingUploadRepository: FindingRemoteUploadRepository {
         }
     }
 
-    func uploadImage(_ image: TaxonImage) async throws -> String {
+    func uploadImage(_ imageData: Data) async throws -> String {
         guard let environment = environmentStorage.getEnvironment() else {
             throw APIError(description: ErrorConstant.environmentNotSelected)
         }
-        guard let endpoint = UploadFindingImageEndpoint(host: environment.host, taxonImage: image) else {
-            throw APIError(description: ErrorConstant.parsingErrorConstant)
-        }
 
         do {
-            let response = try await client.send(endpoint)
+            let response = try await client.send(
+                UploadFindingImageEndpoint(
+                    host: environment.host,
+                    imageData: imageData
+                )
+            )
             return response.file ?? ""
         } catch let error as APIClientError {
             throw error.asAPIError()

@@ -23,11 +23,7 @@ struct UploadFindingImageEndpoint: APIEndpoint {
     let headers: [String: String]
     let body: APIRequestBody
 
-    init?(host: String, taxonImage: TaxonImage) {
-        guard let imageData = taxonImage.image.jpegData(compressionQuality: 0.7) else {
-            return nil
-        }
-
+    init(host: String, imageData: Data) {
         let boundary = "Boundary-\(UUID().uuidString)"
         self.host = host
         self.headers = [
@@ -38,7 +34,7 @@ struct UploadFindingImageEndpoint: APIEndpoint {
         self.body = .data(
             Self.multipartBody(
                 imageData: imageData,
-                fileName: "\(taxonImage.imageUrl ?? "").jpg",
+                fileName: ".jpg",
                 boundary: boundary
             )
         )
