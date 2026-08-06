@@ -21,10 +21,10 @@ struct ListOfFindingsScreen: View {
             content
             floatingActionButton
         }
-        .biologerPageBackground()
-        .navigationTitle("Findings.title".localized)
-        .navigationBarTitleDisplayMode(.large)
-        .tint(BiologerColors.accent)
+        .biologerScreen(
+            title: "Findings.title".localized,
+            titleDisplayMode: .large
+        )
         .toolbar {
             toolbarContent
         }
@@ -69,13 +69,22 @@ struct ListOfFindingsScreen: View {
     private var content: some View {
         switch viewModel.loadState {
         case .idle, .loading:
-            FindingsLoadingView()
+            BiologerLoadingStateView(
+                message: "ListOfFindings.loading".localized
+            )
         case .empty:
             FindingsEmptyView()
         case .content:
             findingsList
         case .failure:
-            FindingsFailureView(onRetry: viewModel.loadFindings)
+            BiologerMessageStateView(
+                systemImage: "exclamationmark.arrow.triangle.2.circlepath",
+                title: "ListOfFindings.loadError.title".localized,
+                message: "ListOfFindings.loadError.message".localized,
+                actionTitle: "ListOfFindings.retry".localized,
+                style: .failure,
+                action: viewModel.loadFindings
+            )
         }
     }
 

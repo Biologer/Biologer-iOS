@@ -26,10 +26,7 @@ struct FindingDetailsScreen: View {
 
     var body: some View {
         content
-            .biologerPageBackground()
-            .navigationTitle("FindingDetails.nav.title".localized)
-            .navigationBarTitleDisplayMode(.inline)
-            .tint(BiologerColors.accent)
+            .biologerScreen(title: "FindingDetails.nav.title".localized)
             .onAppear(perform: viewModel.loadDetails)
             .alert(
                 "API.lb.error".localized,
@@ -55,15 +52,17 @@ struct FindingDetailsScreen: View {
     private var content: some View {
         switch viewModel.loadState {
         case .idle, .loading:
-            loadingView
+            BiologerLoadingStateView(
+                message: "FindingDetails.loading".localized
+            )
         case .content:
             if let details = viewModel.details {
                 detailsContent(details)
             } else {
-                failureView
+                loadFailureView
             }
         case .failure:
-            failureView
+            loadFailureView
         }
     }
 
@@ -318,19 +317,6 @@ struct FindingDetailsScreen: View {
         .background(.ultraThinMaterial)
     }
 
-    private var loadingView: some View {
-        VStack(spacing: BiologerSpacing.regular) {
-            ProgressView()
-                .controlSize(.large)
-                .tint(BiologerColors.accent)
-
-            Text("FindingDetails.loading".localized)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-
     private var submissionWarningIsPresented: Binding<Bool> {
         Binding(
             get: { viewModel.showsSubmissionWarning },
@@ -342,40 +328,15 @@ struct FindingDetailsScreen: View {
         )
     }
 
-    private var failureView: some View {
-        VStack(spacing: BiologerSpacing.regular) {
-            Spacer()
-
-            BiologerIconBadge(
-                systemImage: "exclamationmark.arrow.triangle.2.circlepath",
-                tint: BiologerColors.destructive,
-                backgroundColor: BiologerColors.destructive.opacity(0.1),
-                size: 64
-            )
-
-            VStack(spacing: BiologerSpacing.xSmall) {
-                Text("FindingDetails.loadError.title".localized)
-                    .font(.title3.weight(.semibold))
-                    .foregroundColor(BiologerColors.textPrimary)
-
-                Text("FindingDetails.loadError.message".localized)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            }
-
-            Button(
-                "ListOfFindings.retry".localized,
-                action: viewModel.loadDetails
-            )
-            .buttonStyle(BiologerActionButtonStyle())
-            .frame(maxWidth: 260)
-
-            Spacer()
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(BiologerSpacing.xLarge)
+    private var loadFailureView: some View {
+        BiologerMessageStateView(
+            systemImage: "exclamationmark.arrow.triangle.2.circlepath",
+            title: "FindingDetails.loadError.title".localized,
+            message: "FindingDetails.loadError.message".localized,
+            actionTitle: "ListOfFindings.retry".localized,
+            style: .failure,
+            action: viewModel.loadDetails
+        )
     }
 
     private func containsNotes(_ details: FindingDetails) -> Bool {

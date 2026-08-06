@@ -44,40 +44,21 @@ struct EnvironmentSelectionScreen: View {
     private func environmentCard(_ environment: EnvironmentViewModel) -> some View {
         let isSelected = environment.id == selectedEnvironment.id
 
-        return Button(action: { select(environment) }) {
-            HStack(spacing: BiologerSpacing.regular) {
-                Image(environment.image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 44, height: 44)
-
-                VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
-                    Text(environment.title)
-                        .font(.body.weight(.semibold))
-                        .foregroundColor(BiologerColors.textPrimary)
-                        .multilineTextAlignment(.leading)
-
-                    Text(environment.env.host)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
-                }
-
-                Spacer(minLength: BiologerSpacing.xSmall)
-
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .font(.title3)
-                    .foregroundColor(
-                        isSelected
-                            ? BiologerColors.accent
-                            : Color(uiColor: .tertiaryLabel)
-                    )
-            }
-            .padding(BiologerSpacing.regular)
-            .contentShape(Rectangle())
-            .biologerCard(isSelected: isSelected)
+        return BiologerSelectionCard(
+            title: environment.title,
+            subtitle: environment.env.host,
+            isSelected: isSelected,
+            verticalAlignment: .center,
+            subtitleFont: .caption,
+            subtitleLineLimit: 1,
+            indicatorTopPadding: 0,
+            action: { select(environment) }
+        ) {
+            Image(environment.image)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 44, height: 44)
         }
-        .buttonStyle(.plain)
         .disabled(isSelectionLocked)
     }
 

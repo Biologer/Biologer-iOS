@@ -87,10 +87,7 @@ struct SettingsAccountScreen: View {
             .padding(.top, 12)
             .padding(.bottom, 32)
         }
-        .biologerPageBackground()
-        .navigationTitle("Settings.lb.userAccount".localized)
-        .navigationBarTitleDisplayMode(.inline)
-        .tint(BiologerColors.accent)
+        .biologerScreen(title: "Settings.lb.userAccount".localized)
         .biologerLoadingOverlay(isPresented: viewModel.isLoading)
         .alert("Logout.lb.doYouWantLogout".localized, isPresented: $isLogoutConfirmationPresented) {
             Button("Common.btn.cancel".localized, role: .cancel) {}
@@ -144,21 +141,7 @@ struct SettingsAccountScreen: View {
                 .foregroundColor(.white.opacity(0.16))
         }
         .padding(20)
-        .background(
-            LinearGradient(
-                colors: [
-                    BiologerColors.brandStrong,
-                    BiologerColors.accent
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ),
-            in: RoundedRectangle(
-                cornerRadius: BiologerRadius.hero,
-                style: .continuous
-            )
-        )
-        .shadow(color: BiologerColors.brandStrong.opacity(0.24), radius: 12, y: 6)
+        .biologerHeroCard()
         .accessibilityElement(children: .combine)
     }
 

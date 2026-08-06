@@ -39,9 +39,7 @@ struct FindingLocationScreen: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             selectionCard
         }
-        .navigationTitle("FindingEditor.location.title".localized)
-        .navigationBarTitleDisplayMode(.inline)
-        .tint(BiologerColors.accent)
+        .biologerScreen(title: "FindingEditor.location.title".localized)
         .onAppear(perform: viewModel.start)
         .onDisappear(perform: viewModel.stop)
     }

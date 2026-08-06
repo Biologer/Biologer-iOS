@@ -26,10 +26,7 @@ struct FindingEditorScreen: View {
 
     var body: some View {
         content
-            .biologerPageBackground()
-            .navigationTitle(navigationTitle)
-            .navigationBarTitleDisplayMode(.inline)
-            .tint(BiologerColors.accent)
+            .biologerScreen(title: navigationTitle)
             .onAppear(perform: viewModel.load)
             .alert(item: $viewModel.alert) { alert in
                 Alert(
@@ -47,11 +44,19 @@ struct FindingEditorScreen: View {
     private var content: some View {
         switch viewModel.loadState {
         case .idle, .loading:
-            loadingView
+            BiologerLoadingStateView(
+                message: "FindingEditor.loading".localized
+            )
         case .content:
             editorContent
         case .failure:
-            failureView
+            BiologerMessageStateView(
+                systemImage: "exclamationmark.arrow.triangle.2.circlepath",
+                title: "FindingEditor.loadError".localized,
+                actionTitle: "ListOfFindings.retry".localized,
+                style: .failure,
+                action: viewModel.retryLoad
+            )
         }
     }
 
@@ -350,39 +355,6 @@ struct FindingEditorScreen: View {
         .padding(.horizontal, BiologerSpacing.regular)
         .padding(.vertical, BiologerSpacing.small)
         .background(.ultraThinMaterial)
-    }
-
-    private var loadingView: some View {
-        VStack(spacing: BiologerSpacing.regular) {
-            ProgressView().controlSize(.large).tint(BiologerColors.accent)
-            Text("FindingEditor.loading".localized)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-
-    private var failureView: some View {
-        VStack(spacing: BiologerSpacing.regular) {
-            Spacer()
-            BiologerIconBadge(
-                systemImage: "exclamationmark.arrow.triangle.2.circlepath",
-                tint: BiologerColors.destructive,
-                backgroundColor: BiologerColors.destructive.opacity(0.1),
-                size: 64
-            )
-            Text("FindingEditor.loadError".localized)
-                .font(.title3.weight(.semibold))
-                .foregroundColor(BiologerColors.textPrimary)
-                .multilineTextAlignment(.center)
-            Button("ListOfFindings.retry".localized, action: viewModel.retryLoad)
-                .buttonStyle(BiologerActionButtonStyle())
-                .frame(maxWidth: 260)
-            Spacer()
-            Spacer()
-        }
-        .padding(BiologerSpacing.xLarge)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private var navigationTitle: String {

@@ -92,21 +92,7 @@ struct SettingsAboutScreen: View {
         }
         .frame(maxWidth: .infinity)
         .padding(22)
-        .background(
-            LinearGradient(
-                colors: [
-                    BiologerColors.brandStrong,
-                    BiologerColors.accent
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ),
-            in: RoundedRectangle(
-                cornerRadius: BiologerRadius.hero,
-                style: .continuous
-            )
-        )
-        .shadow(color: BiologerColors.brandStrong.opacity(0.24), radius: 12, y: 6)
+        .biologerHeroCard()
     }
 
     private var databaseCard: some View {

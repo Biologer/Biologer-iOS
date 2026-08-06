@@ -26,9 +26,7 @@ struct FindingLocationDetailsScreen: View {
 
             locationCard
         }
-        .navigationTitle("FindingLocationDetails.nav.title".localized)
-        .navigationBarTitleDisplayMode(.inline)
-        .tint(BiologerColors.accent)
+        .biologerScreen(title: "FindingLocationDetails.nav.title".localized)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 mapStyleMenu

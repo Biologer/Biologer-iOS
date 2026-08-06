@@ -75,10 +75,7 @@ struct ProjectNameSettingsScreen: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 32)
         }
-        .biologerPageBackground()
-        .navigationTitle("Settings.lb.projectName.title".localized)
-        .navigationBarTitleDisplayMode(.inline)
-        .tint(BiologerColors.accent)
+        .biologerScreen(title: "Settings.lb.projectName.title".localized)
     }
 
     private func save() {

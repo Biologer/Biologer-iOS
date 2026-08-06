@@ -52,8 +52,7 @@ struct SettingsFlow: View {
             )
         case .help:
             BiologerHelpScreen(onDone: goBack)
-                .navigationTitle("Settings.support.help".localized)
-                .navigationBarTitleDisplayMode(.inline)
+                .biologerScreen(title: "Settings.support.help".localized)
         case .about:
             SettingsAboutScreen(
                 viewModel: viewModel.aboutViewModel,

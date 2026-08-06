@@ -23,9 +23,7 @@ struct FindingTaxonSearchScreen: View {
             .padding(.horizontal, BiologerSpacing.regular)
             .padding(.vertical, BiologerSpacing.small)
         }
-        .biologerPageBackground()
-        .navigationTitle("FindingEditor.taxon.searchTitle".localized)
-        .navigationBarTitleDisplayMode(.inline)
+        .biologerScreen(title: "FindingEditor.taxon.searchTitle".localized)
         .toolbar {
             if let onTaxonSync {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -43,7 +41,6 @@ struct FindingTaxonSearchScreen: View {
         )
         .textInputAutocapitalization(.never)
         .autocorrectionDisabled()
-        .tint(BiologerColors.accent)
     }
 
     @ViewBuilder
@@ -56,14 +53,10 @@ struct FindingTaxonSearchScreen: View {
                 message: "FindingEditor.taxon.searchStart.message".localized
             )
         case .loading:
-            VStack(spacing: BiologerSpacing.small) {
-                ProgressView().controlSize(.large).tint(BiologerColors.accent)
-                Text("FindingEditor.taxon.searching".localized)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.top, BiologerSpacing.xxLarge)
+            BiologerLoadingStateView(
+                message: "FindingEditor.taxon.searching".localized,
+                fillsAvailableSpace: false
+            )
         case .results:
             customNameButton
             ForEach(viewModel.results, id: \.apiID) { taxon in
@@ -146,25 +139,15 @@ struct FindingTaxonSearchScreen: View {
         message: String,
         retryAction: (() -> Void)? = nil
     ) -> some View {
-        VStack(spacing: BiologerSpacing.regular) {
-            BiologerIconBadge(systemImage: systemImage, size: 62)
-            VStack(spacing: BiologerSpacing.xSmall) {
-                Text(title)
-                    .font(.title3.weight(.semibold))
-                    .foregroundColor(BiologerColors.textPrimary)
-                Text(message)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            }
-            if let retryAction {
-                Button("ListOfFindings.retry".localized, action: retryAction)
-                    .buttonStyle(BiologerActionButtonStyle())
-                    .frame(maxWidth: 240)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.horizontal, BiologerSpacing.xLarge)
-        .padding(.top, BiologerSpacing.xxLarge)
+        BiologerMessageStateView(
+            systemImage: systemImage,
+            title: title,
+            message: message,
+            actionTitle: retryAction == nil
+                ? nil
+                : "ListOfFindings.retry".localized,
+            fillsAvailableSpace: false,
+            action: retryAction
+        )
     }
 }

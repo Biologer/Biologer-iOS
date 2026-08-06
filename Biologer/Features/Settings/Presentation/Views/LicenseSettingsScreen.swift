@@ -23,10 +23,7 @@ struct LicenseSettingsScreen: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 32)
         }
-        .biologerPageBackground()
-        .navigationTitle(viewModel.navigationTitle)
-        .navigationBarTitleDisplayMode(.inline)
-        .tint(BiologerColors.accent)
+        .biologerScreen(title: viewModel.navigationTitle)
     }
 
     private var headerIcon: String {
@@ -41,43 +38,19 @@ struct LicenseSettingsScreen: View {
     private func optionCard(_ option: SettingsLicenseOption) -> some View {
         let isSelected = viewModel.selectedOptionID == option.id
 
-        return Button(action: { viewModel.select(option) }) {
-            HStack(alignment: .top, spacing: 14) {
-                BiologerIconBadge(
-                    systemImage: headerIcon,
-                    tint: isSelected
-                        ? BiologerColors.brandStrong
-                        : BiologerColors.accent
-                )
-
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(option.title)
-                        .font(.body.weight(.semibold))
-                        .foregroundColor(BiologerColors.textPrimary)
-                        .multilineTextAlignment(.leading)
-
-                    Text(option.details)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                Spacer(minLength: 8)
-
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .font(.title3)
-                    .foregroundColor(
-                        isSelected
-                            ? BiologerColors.accent
-                            : Color(uiColor: .tertiaryLabel)
-                    )
-                    .padding(.top, 6)
-            }
-            .padding(16)
-            .contentShape(Rectangle())
-            .biologerCard(isSelected: isSelected)
+        return BiologerSelectionCard(
+            title: option.title,
+            subtitle: option.details,
+            isSelected: isSelected,
+            indicatorTopPadding: 6,
+            action: { viewModel.select(option) }
+        ) {
+            BiologerIconBadge(
+                systemImage: headerIcon,
+                tint: isSelected
+                    ? BiologerColors.brandStrong
+                    : BiologerColors.accent
+            )
         }
-        .buttonStyle(.plain)
     }
 }

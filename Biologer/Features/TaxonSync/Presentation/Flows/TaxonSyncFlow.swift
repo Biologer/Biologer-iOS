@@ -14,8 +14,7 @@ struct TaxonSyncFlow: View {
 
     var body: some View {
         TaxonSyncScreen(viewModel: viewModel, onContinue: onContinue)
-            .navigationTitle("TaxonSync.title".localized)
-            .navigationBarTitleDisplayMode(.inline)
+            .biologerScreen(title: "TaxonSync.title".localized)
             .onAppear { viewModel.onAppear() }
             .onDisappear { viewModel.onDisappear() }
     }

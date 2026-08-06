@@ -58,41 +58,17 @@ struct LicenseSelectionScreen: View {
     }
 
     private func licenseCard(_ item: CheckMarkItem) -> some View {
-        Button(action: { select(item) }) {
-            HStack(alignment: .top, spacing: BiologerSpacing.small) {
-                BiologerIconBadge(
-                    systemImage: item.type == .image ? "photo" : "doc.text"
-                )
-
-                VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
-                    Text(item.title)
-                        .font(.body.weight(.semibold))
-                        .foregroundColor(BiologerColors.textPrimary)
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    Text(item.placeholder)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.leading)
-                }
-
-                Spacer(minLength: BiologerSpacing.xSmall)
-
-                Image(systemName: item.isSelected ? "checkmark.circle.fill" : "circle")
-                    .font(.title3)
-                    .foregroundColor(
-                        item.isSelected
-                            ? BiologerColors.accent
-                            : Color(uiColor: .tertiaryLabel)
-                    )
-                    .padding(.top, BiologerSpacing.xxSmall)
-            }
-            .padding(BiologerSpacing.regular)
-            .contentShape(Rectangle())
-            .biologerCard(isSelected: item.isSelected)
+        BiologerSelectionCard(
+            title: item.title,
+            subtitle: item.placeholder,
+            isSelected: item.isSelected,
+            subtitleFont: .caption,
+            action: { select(item) }
+        ) {
+            BiologerIconBadge(
+                systemImage: item.type == .image ? "photo" : "doc.text"
+            )
         }
-        .buttonStyle(.plain)
         .disabled(isSelectionLocked)
     }
 

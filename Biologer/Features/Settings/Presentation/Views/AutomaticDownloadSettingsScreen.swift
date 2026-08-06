@@ -23,44 +23,27 @@ struct AutomaticDownloadSettingsScreen: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 32)
         }
-        .biologerPageBackground()
-        .navigationTitle("DownloadAndUpload.nav.title".localized)
-        .navigationBarTitleDisplayMode(.inline)
-        .tint(BiologerColors.accent)
+        .biologerScreen(title: "DownloadAndUpload.nav.title".localized)
     }
 
     private func optionCard(_ option: AutomaticTaxonDownload) -> some View {
         let isSelected = viewModel.selectedOption == option
 
-        return Button(action: { viewModel.select(option) }) {
-            HStack(spacing: 14) {
-                BiologerIconBadge(
-                    systemImage: icon(for: option),
-                    tint: isSelected
-                        ? BiologerColors.brandStrong
-                        : BiologerColors.accent
-                )
-
-                Text(viewModel.title(for: option))
-                    .font(.body.weight(.medium))
-                    .foregroundColor(BiologerColors.textPrimary)
-                    .multilineTextAlignment(.leading)
-
-                Spacer(minLength: 8)
-
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .font(.title3)
-                    .foregroundColor(
-                        isSelected
-                            ? BiologerColors.accent
-                            : Color(uiColor: .tertiaryLabel)
-                    )
-            }
-            .padding(16)
-            .contentShape(Rectangle())
-            .biologerCard(isSelected: isSelected)
+        return BiologerSelectionCard(
+            title: viewModel.title(for: option),
+            isSelected: isSelected,
+            verticalAlignment: .center,
+            titleFont: .body.weight(.medium),
+            indicatorTopPadding: 0,
+            action: { viewModel.select(option) }
+        ) {
+            BiologerIconBadge(
+                systemImage: icon(for: option),
+                tint: isSelected
+                    ? BiologerColors.brandStrong
+                    : BiologerColors.accent
+            )
         }
-        .buttonStyle(.plain)
     }
 
     private func icon(for option: AutomaticTaxonDownload) -> String {

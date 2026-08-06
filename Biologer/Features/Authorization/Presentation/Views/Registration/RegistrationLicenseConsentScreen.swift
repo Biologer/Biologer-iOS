@@ -29,110 +29,105 @@ struct RegistrationLicenseConsentScreen: View {
     }
 
     var body: some View {
-        ZStack {
-            GeometryReader { geometry in
-                ScrollView(.vertical) {
-                    VStack(spacing: BiologerSpacing.large) {
-                        AuthorizationStepHeader(
-                            step: 3,
-                            totalSteps: 3,
-                            systemImage: "checkmark.seal"
-                        )
-                        .padding(.top, BiologerSpacing.small)
+        GeometryReader { geometry in
+            ScrollView(.vertical) {
+                VStack(spacing: BiologerSpacing.large) {
+                    AuthorizationStepHeader(
+                        step: 3,
+                        totalSteps: 3,
+                        systemImage: "checkmark.seal"
+                    )
+                    .padding(.top, BiologerSpacing.small)
 
-                        if !viewModel.topImage.isEmpty {
-                            Image(viewModel.topImage)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 48, height: 48)
-                                .padding(BiologerSpacing.xSmall)
-                                .background(.white, in: Circle())
-                                .shadow(color: .black.opacity(0.08), radius: 6, y: 2)
-                        }
+                    if !viewModel.topImage.isEmpty {
+                        Image(viewModel.topImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 48, height: 48)
+                            .padding(BiologerSpacing.xSmall)
+                            .background(.white, in: Circle())
+                            .shadow(color: .black.opacity(0.08), radius: 6, y: 2)
+                    }
 
-                        VStack(spacing: BiologerSpacing.small) {
-                            AuthorizationNavigationCard(
-                                title: viewModel.dataLicense.title,
-                                subtitle: viewModel.dataLicense.placeholder,
-                                systemImage: "doc.text",
-                                action: { onDataLicense(viewModel.dataLicense) }
-                            )
-
-                            AuthorizationNavigationCard(
-                                title: viewModel.imageLicense.title,
-                                subtitle: viewModel.imageLicense.placeholder,
-                                systemImage: "photo",
-                                action: { onImageLicense(viewModel.imageLicense) }
-                            )
-                        }
-
-                        Text("Register.three.lb.description".localized)
-                            .font(.body)
-                            .foregroundColor(BiologerColors.textPrimary)
-                            .multilineTextAlignment(.leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(BiologerSpacing.regular)
-                            .biologerCard()
-
-                        Button(action: onPrivacyPolicy) {
-                            Label(
-                                "Register.three.btn.privacyPolicy".localized,
-                                systemImage: "doc.text.magnifyingglass"
-                            )
-                        }
-                        .buttonStyle(
-                            BiologerActionButtonStyle(isFilled: false)
+                    VStack(spacing: BiologerSpacing.small) {
+                        AuthorizationNavigationCard(
+                            title: viewModel.dataLicense.title,
+                            subtitle: viewModel.dataLicense.placeholder,
+                            systemImage: "doc.text",
+                            action: { onDataLicense(viewModel.dataLicense) }
                         )
 
-                        Toggle(
-                            "Register.three.lb.acceptPrivacyPolicy".localized,
-                            isOn: $viewModel.acceptPPCheckMark
+                        AuthorizationNavigationCard(
+                            title: viewModel.imageLicense.title,
+                            subtitle: viewModel.imageLicense.placeholder,
+                            systemImage: "photo",
+                            action: { onImageLicense(viewModel.imageLicense) }
                         )
+                    }
+
+                    Text("Register.three.lb.description".localized)
                         .font(.body)
                         .foregroundColor(BiologerColors.textPrimary)
-                        .tint(BiologerColors.accent)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(BiologerSpacing.regular)
-                        .biologerCard(
-                            isSelected: viewModel.acceptPPCheckMark
+                        .biologerCard()
+
+                    Button(action: onPrivacyPolicy) {
+                        Label(
+                            "Register.three.btn.privacyPolicy".localized,
+                            systemImage: "doc.text.magnifyingglass"
                         )
-
-                        if !viewModel.errorLabel.isEmpty {
-                            Text(viewModel.errorLabel)
-                                .font(.footnote.weight(.medium))
-                                .foregroundColor(BiologerColors.destructive)
-                                .multilineTextAlignment(.center)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-
-                        Button {
-                            Task {
-                                await viewModel.registerTapped()
-                            }
-                        } label: {
-                            Label(
-                                "Register.three.btn.register".localized,
-                                systemImage: "person.badge.plus"
-                            )
-                        }
-                        .buttonStyle(BiologerActionButtonStyle())
                     }
-                    .frame(
-                        width: max(
-                            0,
-                            geometry.size.width - (BiologerSpacing.regular * 2)
-                        )
+                    .buttonStyle(
+                        BiologerActionButtonStyle(isFilled: false)
                     )
-                    .padding(.horizontal, BiologerSpacing.regular)
-                    .padding(.bottom, BiologerSpacing.xxLarge)
-                }
-            }
 
-            if viewModel.isLoading {
-                BiologerLoadingOverlay()
+                    Toggle(
+                        "Register.three.lb.acceptPrivacyPolicy".localized,
+                        isOn: $viewModel.acceptPPCheckMark
+                    )
+                    .font(.body)
+                    .foregroundColor(BiologerColors.textPrimary)
+                    .tint(BiologerColors.accent)
+                    .padding(BiologerSpacing.regular)
+                    .biologerCard(
+                        isSelected: viewModel.acceptPPCheckMark
+                    )
+
+                    if !viewModel.errorLabel.isEmpty {
+                        Text(viewModel.errorLabel)
+                            .font(.footnote.weight(.medium))
+                            .foregroundColor(BiologerColors.destructive)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
+                    Button {
+                        Task {
+                            await viewModel.registerTapped()
+                        }
+                    } label: {
+                        Label(
+                            "Register.three.btn.register".localized,
+                            systemImage: "person.badge.plus"
+                        )
+                    }
+                    .buttonStyle(BiologerActionButtonStyle())
+                }
+                .frame(
+                    width: max(
+                        0,
+                        geometry.size.width - (BiologerSpacing.regular * 2)
+                    )
+                )
+                .padding(.horizontal, BiologerSpacing.regular)
+                .padding(.bottom, BiologerSpacing.xxLarge)
             }
         }
         .biologerPageBackground()
+        .biologerLoadingOverlay(isPresented: viewModel.isLoading)
         .navigationBarBackButtonHidden(true)
         .onAppear {
             viewModel.updateDataLicense(dataLicense)

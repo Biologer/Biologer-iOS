@@ -29,93 +29,88 @@ struct LoginScreen: View {
     }
 
     var body: some View {
-        ZStack {
-            ScrollView {
-                VStack(spacing: BiologerSpacing.large) {
-                    AuthorizationBrandHeader(
-                        environmentImage: viewModel.environmentViewModel.image
+        ScrollView {
+            VStack(spacing: BiologerSpacing.large) {
+                AuthorizationBrandHeader(
+                    environmentImage: viewModel.environmentViewModel.image
+                )
+
+                VStack(spacing: BiologerSpacing.small) {
+                    AuthorizationTextField(
+                        text: Binding(
+                            get: { viewModel.email },
+                            set: viewModel.updateEmail
+                        ),
+                        placeholder: "Login.tf.username.placeholder".localized,
+                        errorText: viewModel.emailError,
+                        systemImage: "envelope",
+                        keyboardType: .emailAddress,
+                        textContentType: .username
                     )
 
-                    VStack(spacing: BiologerSpacing.small) {
-                        AuthorizationTextField(
-                            text: Binding(
-                                get: { viewModel.email },
-                                set: viewModel.updateEmail
-                            ),
-                            placeholder: "Login.tf.username.placeholder".localized,
-                            errorText: viewModel.emailError,
-                            systemImage: "envelope",
-                            keyboardType: .emailAddress,
-                            textContentType: .username
-                        )
+                    AuthorizationTextField(
+                        text: Binding(
+                            get: { viewModel.password },
+                            set: viewModel.updatePassword
+                        ),
+                        placeholder: "Login.tf.password.placeholder".localized,
+                        errorText: viewModel.passwordError,
+                        systemImage: "lock",
+                        textContentType: .password,
+                        isSecure: true
+                    )
+                }
 
-                        AuthorizationTextField(
-                            text: Binding(
-                                get: { viewModel.password },
-                                set: viewModel.updatePassword
-                            ),
-                            placeholder: "Login.tf.password.placeholder".localized,
-                            errorText: viewModel.passwordError,
-                            systemImage: "lock",
-                            textContentType: .password,
-                            isSecure: true
-                        )
-                    }
+                environmentCard
 
-                    environmentCard
-
-                    Button {
-                        Task {
-                            switch await viewModel.login() {
-                            case .success:
-                                onLoginSuccess()
-                            case .authorizationFailure(let error):
-                                onLoginError(error)
-                            case .validationFailure:
-                                break
-                            }
+                Button {
+                    Task {
+                        switch await viewModel.login() {
+                        case .success:
+                            onLoginSuccess()
+                        case .authorizationFailure(let error):
+                            onLoginError(error)
+                        case .validationFailure:
+                            break
                         }
-                    } label: {
-                        Label(
-                            "Login.btn.login".localized,
-                            systemImage: "arrow.right.circle.fill"
-                        )
                     }
-                    .buttonStyle(BiologerActionButtonStyle())
+                } label: {
+                    Label(
+                        "Login.btn.login".localized,
+                        systemImage: "arrow.right.circle.fill"
+                    )
+                }
+                .buttonStyle(BiologerActionButtonStyle())
 
-                    VStack(spacing: BiologerSpacing.regular) {
-                        HStack(spacing: BiologerSpacing.xSmall) {
-                            Text("Login.lb.noAccount".localized)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+                VStack(spacing: BiologerSpacing.regular) {
+                    HStack(spacing: BiologerSpacing.xSmall) {
+                        Text("Login.lb.noAccount".localized)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
 
-                            Button(action: onRegister) {
-                                Text("Login.btn.register".localized)
-                                    .font(.subheadline.weight(.semibold))
-                                    .foregroundColor(BiologerColors.sectionTitle)
-                            }
-                            .buttonStyle(.plain)
-                        }
-
-                        Button(action: onForgotPassword) {
-                            Text("Login.btn.forgotPassword".localized)
+                        Button(action: onRegister) {
+                            Text("Login.btn.register".localized)
                                 .font(.subheadline.weight(.semibold))
                                 .foregroundColor(BiologerColors.sectionTitle)
                         }
                         .buttonStyle(.plain)
                     }
-                    .padding(.top, BiologerSpacing.xxSmall)
-                }
-                .padding(.horizontal, BiologerSpacing.regular)
-                .padding(.top, BiologerSpacing.small)
-                .padding(.bottom, BiologerSpacing.xxLarge)
-            }
 
-            if viewModel.isLoading {
-                BiologerLoadingOverlay()
+                    Button(action: onForgotPassword) {
+                        Text("Login.btn.forgotPassword".localized)
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundColor(BiologerColors.sectionTitle)
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(.top, BiologerSpacing.xxSmall)
             }
+            .padding(.horizontal, BiologerSpacing.regular)
+            .padding(.top, BiologerSpacing.small)
+            .padding(.bottom, BiologerSpacing.xxLarge)
         }
         .biologerPageBackground()
+        .biologerLoadingOverlay(isPresented: viewModel.isLoading)
         .onAppear {
             viewModel.updateEnvironment(environmentViewModel)
         }

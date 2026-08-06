@@ -1,20 +1,5 @@
 import SwiftUI
 
-struct FindingsLoadingView: View {
-    var body: some View {
-        VStack(spacing: BiologerSpacing.regular) {
-            ProgressView()
-                .controlSize(.large)
-                .tint(BiologerColors.accent)
-
-            Text("ListOfFindings.loading".localized)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
 struct FindingsEmptyView: View {
     var body: some View {
         VStack(spacing: BiologerSpacing.large) {
@@ -47,46 +32,6 @@ struct FindingsEmptyView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(BiologerSpacing.regular)
-    }
-}
-
-struct FindingsFailureView: View {
-    let onRetry: () -> Void
-
-    var body: some View {
-        VStack(spacing: BiologerSpacing.regular) {
-            Spacer()
-
-            BiologerIconBadge(
-                systemImage: "exclamationmark.arrow.triangle.2.circlepath",
-                tint: BiologerColors.destructive,
-                backgroundColor: BiologerColors.destructive.opacity(0.1),
-                size: 64
-            )
-
-            VStack(spacing: BiologerSpacing.xSmall) {
-                Text("ListOfFindings.loadError.title".localized)
-                    .font(.title3.weight(.semibold))
-                    .foregroundColor(BiologerColors.textPrimary)
-
-                Text("ListOfFindings.loadError.message".localized)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            }
-
-            Button(
-                "ListOfFindings.retry".localized,
-                action: onRetry
-            )
-            .buttonStyle(BiologerActionButtonStyle())
-            .frame(maxWidth: 260)
-
-            Spacer()
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(BiologerSpacing.xLarge)
     }
 }
 

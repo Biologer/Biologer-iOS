@@ -32,25 +32,7 @@ struct FindingsOverviewCard: View {
             }
         }
         .padding(BiologerSpacing.regular)
-        .background(
-            LinearGradient(
-                colors: [
-                    BiologerColors.brandStrong,
-                    BiologerColors.accent
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ),
-            in: RoundedRectangle(
-                cornerRadius: BiologerRadius.hero,
-                style: .continuous
-            )
-        )
-        .shadow(
-            color: BiologerColors.brandStrong.opacity(0.24),
-            radius: 12,
-            y: 6
-        )
+        .biologerHeroCard()
     }
 
     private var header: some View {

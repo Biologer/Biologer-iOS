@@ -124,10 +124,10 @@ struct SettingsScreen: View {
             .padding(.top, 12)
             .padding(.bottom, 32)
         }
-        .biologerPageBackground()
-        .navigationTitle("Settings.title".localized)
-        .navigationBarTitleDisplayMode(.large)
-        .tint(BiologerColors.accent)
+        .biologerScreen(
+            title: "Settings.title".localized,
+            titleDisplayMode: .large
+        )
         .onAppear(perform: viewModel.reload)
         .alert(item: $viewModel.resetAlert) { alert in
             makeAlert(alert)
@@ -165,21 +165,7 @@ struct SettingsScreen: View {
                 .foregroundColor(.white.opacity(0.18))
         }
         .padding(20)
-        .background(
-            LinearGradient(
-                colors: [
-                    BiologerColors.brandStrong,
-                    BiologerColors.accent
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ),
-            in: RoundedRectangle(
-                cornerRadius: BiologerRadius.hero,
-                style: .continuous
-            )
-        )
-        .shadow(color: BiologerColors.brandStrong.opacity(0.24), radius: 12, y: 6)
+        .biologerHeroCard()
         .accessibilityElement(children: .combine)
     }
 
