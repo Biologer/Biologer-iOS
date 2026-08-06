@@ -22,14 +22,14 @@ struct RegistrationFlow: View {
     @Binding
     private var path: NavigationPath
 
-    private let onPrivacyPolicy: Observer<Void>
-    private let registrationSuccess: Observer<Void>
+    private let onPrivacyPolicy: () -> Void
+    private let registrationSuccess: () -> Void
 
     init(
         path: Binding<NavigationPath>,
         viewModel: RegistrationFlowViewModel,
-        onPrivacyPolicy: @escaping Observer<Void>,
-        registrationSuccess: @escaping Observer<Void>
+        onPrivacyPolicy: @escaping () -> Void,
+        registrationSuccess: @escaping () -> Void
     ) {
         self.onPrivacyPolicy = onPrivacyPolicy
         self.registrationSuccess = registrationSuccess
@@ -113,10 +113,10 @@ struct RegistrationFlow: View {
             viewModel: viewModel.licenseConsentViewModel,
             dataLicense: viewModel.selectedDataLicense,
             imageLicense: viewModel.selectedImageLicense,
-            onPrivacyPolicy: { onPrivacyPolicy(()) },
+            onPrivacyPolicy: onPrivacyPolicy,
             onDataLicense: { _ in path.append(Screen.dataLicense) },
             onImageLicense: { _ in path.append(Screen.imageLicense) },
-            onRegistrationSuccess: { registrationSuccess(()) }
+            onRegistrationSuccess: registrationSuccess
         )
         .biologerNavigationBar(
             title: "Register.three.nav.title".localized,

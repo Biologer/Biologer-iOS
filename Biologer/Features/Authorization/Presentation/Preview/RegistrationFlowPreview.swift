@@ -18,8 +18,8 @@ private struct PreviewRegistrationFlow: View {
             RegistrationFlow(
                 path: $path,
                 viewModel: viewModel,
-                onPrivacyPolicy: { _ in },
-                registrationSuccess: { _ in }
+                onPrivacyPolicy: {},
+                registrationSuccess: {}
             )
         }
     }

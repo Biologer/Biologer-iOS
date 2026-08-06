@@ -14,8 +14,8 @@ struct FindingsFlow_Previews: PreviewProvider {
     }
 
     static func makeFlow(
-        onAddFinding: @escaping Observer<Void> = { _ in },
-        onEditFinding: @escaping Observer<UUID> = { _ in }
+        onAddFinding: @escaping () -> Void = {},
+        onEditFinding: @escaping (UUID) -> Void = { _ in }
     ) -> FindingsFlow {
         let repository = PreviewFindingsFlowRepository(
             findings: previewFindings

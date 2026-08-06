@@ -18,8 +18,8 @@ struct FindingEditorScreen_Previews: PreviewProvider {
 
     static func makeFlow(
         mode: FindingEditorMode,
-        onSaved: @escaping Observer<UUID> = { _ in },
-        onUnsavedChangesChanged: @escaping Observer<Bool> = { _ in }
+        onSaved: @escaping (UUID) -> Void = { _ in },
+        onUnsavedChangesChanged: @escaping (Bool) -> Void = { _ in }
     ) -> FindingEditorFlow {
         var draft = mode.findingID == nil ? createDraft : editDraft
         if let findingID = mode.findingID {

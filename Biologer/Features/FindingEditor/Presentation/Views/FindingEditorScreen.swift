@@ -2,18 +2,18 @@ import SwiftUI
 
 struct FindingEditorScreen: View {
     @ObservedObject private var viewModel: FindingEditorViewModel
-    private let onSaved: Observer<UUID>
-    private let onSelectLocation: Observer<FindingEditorLocation?>
+    private let onSaved: (UUID) -> Void
+    private let onSelectLocation: (FindingEditorLocation?) -> Void
     private let onSelectTaxon: () -> Void
-    private let onAddPhoto: Observer<FindingEditorPhotoSource>
+    private let onAddPhoto: (FindingEditorPhotoSource) -> Void
     private let onShowPhotos: ([FindingEditorPhoto], Int) -> Void
 
     init(
         viewModel: FindingEditorViewModel,
-        onSaved: @escaping Observer<UUID>,
-        onSelectLocation: @escaping Observer<FindingEditorLocation?>,
+        onSaved: @escaping (UUID) -> Void,
+        onSelectLocation: @escaping (FindingEditorLocation?) -> Void,
         onSelectTaxon: @escaping () -> Void,
-        onAddPhoto: @escaping Observer<FindingEditorPhotoSource>,
+        onAddPhoto: @escaping (FindingEditorPhotoSource) -> Void,
         onShowPhotos: @escaping ([FindingEditorPhoto], Int) -> Void
     ) {
         self.viewModel = viewModel

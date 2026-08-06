@@ -2,15 +2,15 @@ import SwiftUI
 
 struct FindingDetailsScreen: View {
     @StateObject private var viewModel: FindingDetailsViewModel
-    private let onEditFinding: Observer<UUID>
-    private let onShowLocation: Observer<FindingDetailsLocation>
+    private let onEditFinding: (UUID) -> Void
+    private let onShowLocation: (FindingDetailsLocation) -> Void
     private let onShowPhotos: ([FindingPhoto], Int) -> Void
 
     init(
         findingID: UUID,
         useCases: FindingDetailsUseCases,
-        onEditFinding: @escaping Observer<UUID>,
-        onShowLocation: @escaping Observer<FindingDetailsLocation>,
+        onEditFinding: @escaping (UUID) -> Void,
+        onShowLocation: @escaping (FindingDetailsLocation) -> Void,
         onShowPhotos: @escaping ([FindingPhoto], Int) -> Void
     ) {
         _viewModel = StateObject(

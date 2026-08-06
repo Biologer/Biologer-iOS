@@ -19,7 +19,7 @@ struct MainTabFlow_Previews: PreviewProvider {
             findingsFlowController: findingsFlowController
         )
         let findingsFlow = FindingsFlow_Previews.makeFlow(
-            onAddFinding: { _ in viewModel.openCreateEditor() },
+            onAddFinding: viewModel.openCreateEditor,
             onEditFinding: { viewModel.openEditEditor(id: $0) }
         )
 
@@ -36,8 +36,8 @@ struct MainTabFlow_Previews: PreviewProvider {
 private struct PreviewFindingEditorFlowBuilder: FindingEditorFlowBuilding {
     func makeFlow(
         mode: FindingEditorMode,
-        onSaved: @escaping Observer<UUID>,
-        onUnsavedChangesChanged: @escaping Observer<Bool>
+        onSaved: @escaping (UUID) -> Void,
+        onUnsavedChangesChanged: @escaping (Bool) -> Void
     ) -> FindingEditorFlow {
         FindingEditorScreen_Previews.makeFlow(
             mode: mode,

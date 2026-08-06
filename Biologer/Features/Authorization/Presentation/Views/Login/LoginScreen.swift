@@ -4,7 +4,7 @@ struct LoginScreen: View {
     private let environmentViewModel: EnvironmentViewModel
     private let onSelectEnvironment: () -> Void
     private let onLoginSuccess: () -> Void
-    private let onLoginError: Observer<AuthorizationFailure>
+    private let onLoginError: (AuthorizationFailure) -> Void
     private let onRegister: () -> Void
     private let onForgotPassword: () -> Void
 
@@ -15,7 +15,7 @@ struct LoginScreen: View {
         viewModel: LoginScreenViewModel,
         onSelectEnvironment: @escaping () -> Void,
         onLoginSuccess: @escaping () -> Void,
-        onLoginError: @escaping Observer<AuthorizationFailure>,
+        onLoginError: @escaping (AuthorizationFailure) -> Void,
         onRegister: @escaping () -> Void,
         onForgotPassword: @escaping () -> Void
     ) {

@@ -4,11 +4,11 @@ struct SettingsFlow: View {
     @State private var path: [SettingsDestination] = []
     @StateObject private var viewModel: SettingsFlowViewModel
 
-    private let onDownloadTaxa: Observer<Void>
+    private let onDownloadTaxa: () -> Void
 
     init(
         viewModel: SettingsFlowViewModel,
-        onDownloadTaxa: @escaping Observer<Void>
+        onDownloadTaxa: @escaping () -> Void
     ) {
         self.onDownloadTaxa = onDownloadTaxa
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -33,7 +33,7 @@ struct SettingsFlow: View {
         case .projectName:
             ProjectNameSettingsScreen(
                 viewModel: viewModel.projectNameViewModel,
-                onSaved: { _ in
+                onSaved: {
                     viewModel.settingsViewModel.reload()
                     goBack()
                 }
@@ -51,13 +51,13 @@ struct SettingsFlow: View {
                 viewModel: viewModel.taxonSyncViewModel
             )
         case .help:
-            BiologerHelpScreen(onDone: { _ in goBack() })
+            BiologerHelpScreen(onDone: goBack)
                 .navigationTitle("Settings.support.help".localized)
                 .navigationBarTitleDisplayMode(.inline)
         case .about:
             SettingsAboutScreen(
                 viewModel: viewModel.aboutViewModel,
-                onBack: { _ in goBack() }
+                onBack: goBack
             )
         case .account:
             SettingsAccountScreen(

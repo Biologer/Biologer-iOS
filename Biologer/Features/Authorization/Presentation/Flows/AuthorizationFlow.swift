@@ -19,13 +19,13 @@ struct AuthorizationFlow: View {
 
     @SwiftUI.Environment(\.openURL) private var openURL
 
-    private let onHelpCompleted: Observer<Void>
-    private let onAuthorizationSuccess: Observer<Void>
+    private let onHelpCompleted: () -> Void
+    private let onAuthorizationSuccess: () -> Void
 
     init(
         viewModel: AuthorizationFlowViewModel,
-        onHelpCompleted: @escaping Observer<Void>,
-        onAuthorizationSuccess: @escaping Observer<Void>
+        onHelpCompleted: @escaping () -> Void,
+        onAuthorizationSuccess: @escaping () -> Void
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.onHelpCompleted = onHelpCompleted
@@ -57,9 +57,9 @@ struct AuthorizationFlow: View {
     @ViewBuilder
     private var initialScreen: some View {
         if viewModel.isHelpPresented {
-            BiologerHelpScreen { _ in
+            BiologerHelpScreen {
                 guard viewModel.completeHelp() else { return }
-                onHelpCompleted(())
+                onHelpCompleted()
             }
             .navigationBarBackButtonHidden(true)
         } else {
@@ -72,7 +72,7 @@ struct AuthorizationFlow: View {
             environmentViewModel: viewModel.selectedEnvironment,
             viewModel: viewModel.loginViewModel,
             onSelectEnvironment: { path.append(Screen.environments) },
-            onLoginSuccess: { onAuthorizationSuccess(()) },
+            onLoginSuccess: onAuthorizationSuccess,
             onLoginError: viewModel.present,
             onRegister: { path.append(Screen.registration) },
             onForgotPassword: { openExternalPage(.forgotPassword) }
@@ -107,12 +107,11 @@ struct AuthorizationFlow: View {
         RegistrationFlow(
             path: $path,
             viewModel: viewModel.registrationFlowViewModel,
-            onPrivacyPolicy: { _ in
+            onPrivacyPolicy: {
                 openExternalPage(.privacyPolicy)
             },
-            registrationSuccess: {
-                onAuthorizationSuccess(())
-            })
+            registrationSuccess: onAuthorizationSuccess
+        )
     }
 
     private func goBack() {

@@ -13,7 +13,7 @@ struct SettingsFlow_Previews: PreviewProvider {
     }
 
     static func makeSettingsFlow(
-        onDownloadTaxa: @escaping Observer<Void> = { _ in }
+        onDownloadTaxa: @escaping () -> Void = {}
     ) -> SettingsFlow {
         let preferencesRepository = PreviewSettingsPreferencesRepository()
         let licenseRepository = PreviewSettingsLicenseRepository()

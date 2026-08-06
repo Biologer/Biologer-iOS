@@ -4,12 +4,12 @@ struct ListOfFindingsScreen: View {
     @ObservedObject private var viewModel: ListOfFindingsViewModel
     @State private var deletionSelection: FindingDeletionSelection?
     private let onAddFinding: () -> Void
-    private let onSelectFinding: Observer<UUID>
+    private let onSelectFinding: (UUID) -> Void
 
     init(
         viewModel: ListOfFindingsViewModel,
         onAddFinding: @escaping () -> Void,
-        onSelectFinding: @escaping Observer<UUID>
+        onSelectFinding: @escaping (UUID) -> Void
     ) {
         self.viewModel = viewModel
         self.onAddFinding = onAddFinding

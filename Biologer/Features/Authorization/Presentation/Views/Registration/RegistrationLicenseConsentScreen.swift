@@ -4,8 +4,8 @@ struct RegistrationLicenseConsentScreen: View {
     private let dataLicense: CheckMarkItem
     private let imageLicense: CheckMarkItem
     private let onPrivacyPolicy: () -> Void
-    private let onDataLicense: Observer<CheckMarkItem>
-    private let onImageLicense: Observer<CheckMarkItem>
+    private let onDataLicense: (CheckMarkItem) -> Void
+    private let onImageLicense: (CheckMarkItem) -> Void
     private let onRegistrationSuccess: () -> Void
 
     @ObservedObject private var viewModel: RegistrationLicenseConsentViewModel
@@ -15,8 +15,8 @@ struct RegistrationLicenseConsentScreen: View {
         dataLicense: CheckMarkItem,
         imageLicense: CheckMarkItem,
         onPrivacyPolicy: @escaping () -> Void,
-        onDataLicense: @escaping Observer<CheckMarkItem>,
-        onImageLicense: @escaping Observer<CheckMarkItem>,
+        onDataLicense: @escaping (CheckMarkItem) -> Void,
+        onImageLicense: @escaping (CheckMarkItem) -> Void,
         onRegistrationSuccess: @escaping () -> Void
     ) {
         self.dataLicense = dataLicense

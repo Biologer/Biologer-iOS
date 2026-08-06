@@ -24,8 +24,8 @@ private struct PreviewAuthorizationFlow: View {
     var body: some View {
         AuthorizationFlow(
             viewModel: viewModel,
-            onHelpCompleted: { _ in },
-            onAuthorizationSuccess: { _ in }
+            onHelpCompleted: {},
+            onAuthorizationSuccess: {}
         )
     }
 }

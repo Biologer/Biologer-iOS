@@ -18,12 +18,12 @@ struct LicenseSelectionScreen: View {
     @State
     private var isSelectionLocked = false
 
-    private let onSelectionChanged: Observer<CheckMarkItem>?
+    private let onSelectionChanged: ((CheckMarkItem) -> Void)?
 
     init(
         selectedItem: Binding<CheckMarkItem>,
         items: [CheckMarkItem],
-        onSelectionChanged: Observer<CheckMarkItem>? = nil
+        onSelectionChanged: ((CheckMarkItem) -> Void)? = nil
     ) {
         _selectedItem = selectedItem
         _items = State(initialValue: items.selecting(selectedItem.wrappedValue))

@@ -34,15 +34,15 @@ struct FindingsFlow: View {
     @ObservedObject private var controller: FindingsFlowController
 
     private let detailsUseCases: FindingDetailsUseCases
-    private let onAddFinding: Observer<Void>
-    private let onEditFinding: Observer<UUID>
+    private let onAddFinding: () -> Void
+    private let onEditFinding: (UUID) -> Void
 
     init(
         viewModel: FindingsFlowViewModel,
         controller: FindingsFlowController,
         detailsUseCases: FindingDetailsUseCases,
-        onAddFinding: @escaping Observer<Void>,
-        onEditFinding: @escaping Observer<UUID>
+        onAddFinding: @escaping () -> Void,
+        onEditFinding: @escaping (UUID) -> Void
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.controller = controller
@@ -55,7 +55,7 @@ struct FindingsFlow: View {
         NavigationStack(path: $path) {
             ListOfFindingsScreen(
                 viewModel: viewModel.listViewModel,
-                onAddFinding: { onAddFinding(()) },
+                onAddFinding: onAddFinding,
                 onSelectFinding: { path.append(.details($0)) }
             )
             .navigationDestination(for: Destination.self) { destination in

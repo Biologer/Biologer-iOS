@@ -26,7 +26,7 @@ final class SettingsFlowBuilder {
     }
 
     func makeFlow(
-        onDownloadTaxa: @escaping Observer<Void>
+        onDownloadTaxa: @escaping () -> Void
     ) -> SettingsFlow {
         let context = accountContextProvider()
         let flowViewModel = SettingsFlowViewModel(

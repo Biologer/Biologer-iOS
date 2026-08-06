@@ -3,11 +3,11 @@ import SwiftUI
 struct SettingsAboutScreen: View {
     @SwiftUI.Environment(\.openURL) private var openURL
     @ObservedObject private var viewModel: SettingsAboutViewModel
-    let onBack: Observer<Void>
+    let onBack: () -> Void
 
     init(
         viewModel: SettingsAboutViewModel,
-        onBack: @escaping Observer<Void>
+        onBack: @escaping () -> Void
     ) {
         self.onBack = onBack
         self.viewModel = viewModel
@@ -72,7 +72,7 @@ struct SettingsAboutScreen: View {
         .biologerPageBackground()
         .biologerNavigationBar(
             title: "Settings.support.about".localized,
-            onBack: { onBack(()) }
+            onBack: onBack
         )
     }
 

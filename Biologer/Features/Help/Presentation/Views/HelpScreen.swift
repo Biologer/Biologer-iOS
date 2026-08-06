@@ -2,9 +2,9 @@ import SwiftUI
 
 struct BiologerHelpScreen: View {
     @StateObject private var viewModel: HelpScreenViewModel
-    private let onDone: Observer<Void>
+    private let onDone: () -> Void
 
-    init(onDone: @escaping Observer<Void>) {
+    init(onDone: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: HelpScreenViewModel())
         self.onDone = onDone
     }
@@ -58,7 +58,7 @@ struct BiologerHelpScreen: View {
 
     private func nextTapped() {
         guard viewModel.nextTapped() else { return }
-        onDone(())
+        onDone()
     }
 
     private func helpCard(_ item: HelpItemViewModel) -> some View {

@@ -3,11 +3,11 @@ import SwiftUI
 struct ProjectNameSettingsScreen: View {
     @ObservedObject private var viewModel: ProjectNameSettingsViewModel
     @FocusState private var isProjectNameFocused: Bool
-    let onSaved: Observer<Void>
+    let onSaved: () -> Void
 
     init(
         viewModel: ProjectNameSettingsViewModel,
-        onSaved: @escaping Observer<Void>
+        onSaved: @escaping () -> Void
     ) {
         self.viewModel = viewModel
         self.onSaved = onSaved
@@ -83,6 +83,6 @@ struct ProjectNameSettingsScreen: View {
 
     private func save() {
         viewModel.save()
-        onSaved(())
+        onSaved()
     }
 }

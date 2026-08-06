@@ -14,7 +14,7 @@ final class AuthorizationFlowBuilder {
     }
 
     func makeFlow(
-        onAuthorizationSuccess: @escaping Observer<Void>
+        onAuthorizationSuccess: @escaping () -> Void
     ) -> AuthorizationFlow {
         let defaultEnvironment = environmentFactory.createEnvironment(type: .serbia)
         let registrationDraft = RegistrationDraft()
@@ -54,7 +54,7 @@ final class AuthorizationFlowBuilder {
                 ),
                 registrationFlowViewModel: registrationFlowViewModel
             ),
-            onHelpCompleted: { [tutorial = useCases.tutorial] _ in
+            onHelpCompleted: { [tutorial = useCases.tutorial] in
                 tutorial.markPresented()
             },
             onAuthorizationSuccess: onAuthorizationSuccess

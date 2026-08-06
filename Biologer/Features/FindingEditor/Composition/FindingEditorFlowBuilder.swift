@@ -4,8 +4,8 @@ import Foundation
 protocol FindingEditorFlowBuilding {
     func makeFlow(
         mode: FindingEditorMode,
-        onSaved: @escaping Observer<UUID>,
-        onUnsavedChangesChanged: @escaping Observer<Bool>
+        onSaved: @escaping (UUID) -> Void,
+        onUnsavedChangesChanged: @escaping (Bool) -> Void
     ) -> FindingEditorFlow
 }
 
@@ -28,8 +28,8 @@ final class FindingEditorFlowBuilder: FindingEditorFlowBuilding {
 
     func makeFlow(
         mode: FindingEditorMode,
-        onSaved: @escaping Observer<UUID>,
-        onUnsavedChangesChanged: @escaping Observer<Bool>
+        onSaved: @escaping (UUID) -> Void,
+        onUnsavedChangesChanged: @escaping (Bool) -> Void
     ) -> FindingEditorFlow {
         FindingEditorFlow(
             mode: mode,
@@ -41,7 +41,7 @@ final class FindingEditorFlowBuilder: FindingEditorFlowBuilding {
 
     func makeViewModel(
         mode: FindingEditorMode,
-        onUnsavedChangesChanged: @escaping Observer<Bool>
+        onUnsavedChangesChanged: @escaping (Bool) -> Void
     ) -> FindingEditorFlowViewModel {
         FindingEditorFlowViewModel(
             editorViewModel: FindingEditorViewModel(

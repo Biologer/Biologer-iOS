@@ -42,13 +42,13 @@ struct AppRootFlow: View {
 
     private var authorizationFlow: some View {
         composition.authorizationFlowBuilder.makeFlow(
-            onAuthorizationSuccess: { _ in viewModel.authorizationSucceeded() }
+            onAuthorizationSuccess: viewModel.authorizationSucceeded
         )
     }
 
     private var mainFlow: some View {
         composition.mainTabFlowBuilder.makeFlow(
-            onDownloadTaxa: { _ in viewModel.showTaxonSync() }
+            onDownloadTaxa: viewModel.showTaxonSync
         )
     }
 

@@ -2,12 +2,12 @@ import SwiftUI
 
 struct FindingLocationScreen: View {
     @StateObject private var viewModel: FindingLocationViewModel
-    private let onSelect: Observer<FindingEditorLocation>
+    private let onSelect: (FindingEditorLocation) -> Void
 
     init(
         initialLocation: FindingEditorLocation?,
         useCases: FindingLocationUseCases,
-        onSelect: @escaping Observer<FindingEditorLocation>
+        onSelect: @escaping (FindingEditorLocation) -> Void
     ) {
         _viewModel = StateObject(
             wrappedValue: FindingLocationViewModel(

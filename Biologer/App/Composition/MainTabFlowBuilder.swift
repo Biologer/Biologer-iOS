@@ -20,14 +20,14 @@ final class MainTabFlowBuilder {
     }
 
     func makeFlow(
-        onDownloadTaxa: @escaping Observer<Void>
+        onDownloadTaxa: @escaping () -> Void
     ) -> MainTabFlow {
         let viewModel = MainTabFlowViewModel(
             findingsFlowController: findingsFlowController
         )
         let findingsFlow = findingsFlowBuilder.makeFlow(
             controller: findingsFlowController,
-            onAddFinding: { _ in
+            onAddFinding: {
                 viewModel.openCreateEditor()
             },
             onEditFinding: { findingID in

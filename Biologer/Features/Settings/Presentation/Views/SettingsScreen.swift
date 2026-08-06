@@ -2,8 +2,8 @@ import SwiftUI
 
 struct SettingsScreen: View {
     @ObservedObject var viewModel: SettingsScreenViewModel
-    let onSelectDestination: Observer<SettingsDestination>
-    let onDownloadTaxa: Observer<Void>
+    let onSelectDestination: (SettingsDestination) -> Void
+    let onDownloadTaxa: () -> Void
 
     var body: some View {
         ScrollView {

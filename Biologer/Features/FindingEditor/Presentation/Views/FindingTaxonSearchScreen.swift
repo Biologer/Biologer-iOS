@@ -2,12 +2,12 @@ import SwiftUI
 
 struct FindingTaxonSearchScreen: View {
     @ObservedObject private var viewModel: FindingTaxonSearchViewModel
-    private let onSelectTaxon: Observer<FindingEditorTaxon>
+    private let onSelectTaxon: (FindingEditorTaxon) -> Void
     private let onTaxonSync: (() -> Void)?
 
     init(
         viewModel: FindingTaxonSearchViewModel,
-        onSelectTaxon: @escaping Observer<FindingEditorTaxon>,
+        onSelectTaxon: @escaping (FindingEditorTaxon) -> Void,
         onTaxonSync: (() -> Void)? = nil
     ) {
         self.viewModel = viewModel

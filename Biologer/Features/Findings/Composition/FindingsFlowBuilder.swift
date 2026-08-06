@@ -10,8 +10,8 @@ final class FindingsFlowBuilder {
 
     func makeFlow(
         controller: FindingsFlowController,
-        onAddFinding: @escaping Observer<Void>,
-        onEditFinding: @escaping Observer<UUID>
+        onAddFinding: @escaping () -> Void,
+        onEditFinding: @escaping (UUID) -> Void
     ) -> FindingsFlow {
         let listViewModel = ListOfFindingsViewModel(useCases: useCases.list)
 

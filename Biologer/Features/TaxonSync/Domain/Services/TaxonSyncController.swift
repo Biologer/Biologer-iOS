@@ -80,9 +80,9 @@ actor TaxonSyncController: TaxonSyncControlling {
         return stateStore.stream(
             scope: scope,
             initialState: initialState
-        ) { [weak self] observerID in
+        ) { [weak self] subscriptionID in
             Task {
-                await self?.removeObserver(id: observerID)
+                await self?.removeSubscription(id: subscriptionID)
             }
         }
     }
@@ -518,8 +518,8 @@ actor TaxonSyncController: TaxonSyncControlling {
         stateStore.publish(state, scope: scope)
     }
 
-    private func removeObserver(id: UUID) {
-        stateStore.removeObserver(id: id)
+    private func removeSubscription(id: UUID) {
+        stateStore.removeSubscription(id: id)
     }
 
     private func resetMetadataForEmptyCatalog(

@@ -1,17 +1,15 @@
 import Foundation
 
-/// Keeps the latest state and broadcasts only the newest value to observers.
+/// Keeps the latest state and broadcasts only the newest value to subscribers.
 /// It is owned by TaxonSyncController and is not a second synchronization engine.
 final class TaxonSyncStateStore {
-    typealias ObserverTermination = @Sendable (UUID) -> Void
-
-    private struct Observer {
+    private struct Subscription {
         let scope: TaxonCatalogScope
         let continuation: AsyncStream<TaxonSyncState>.Continuation
     }
 
     private var states: [TaxonCatalogScope: TaxonSyncState] = [:]
-    private var observers: [UUID: Observer] = [:]
+    private var subscriptions: [UUID: Subscription] = [:]
 
     func state(for scope: TaxonCatalogScope) -> TaxonSyncState? {
         states[scope]
@@ -27,9 +25,9 @@ final class TaxonSyncStateStore {
     func stream(
         scope: TaxonCatalogScope,
         initialState: TaxonSyncState,
-        onTermination: @escaping ObserverTermination
+        onTermination: @escaping @Sendable (UUID) -> Void
     ) -> AsyncStream<TaxonSyncState> {
-        let observerID = UUID()
+        let subscriptionID = UUID()
         var streamContinuation: AsyncStream<TaxonSyncState>.Continuation?
         let stream = AsyncStream<TaxonSyncState>(
             bufferingPolicy: .bufferingNewest(1)
@@ -41,12 +39,12 @@ final class TaxonSyncStateStore {
             return stream
         }
 
-        observers[observerID] = Observer(
+        subscriptions[subscriptionID] = Subscription(
             scope: scope,
             continuation: streamContinuation
         )
         streamContinuation.onTermination = { _ in
-            onTermination(observerID)
+            onTermination(subscriptionID)
         }
         streamContinuation.yield(initialState)
         return stream
@@ -58,12 +56,12 @@ final class TaxonSyncStateStore {
     ) {
         states[scope] = state
 
-        observers.values
+        subscriptions.values
             .filter { $0.scope == scope }
             .forEach { $0.continuation.yield(state) }
     }
 
-    func removeObserver(id: UUID) {
-        observers.removeValue(forKey: id)
+    func removeSubscription(id: UUID) {
+        subscriptions.removeValue(forKey: id)
     }
 }
