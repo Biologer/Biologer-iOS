@@ -3,35 +3,6 @@ import XCTest
 
 @MainActor
 final class AuthorizationViewModelTests: XCTestCase {
-    func test_init_givenHelpIsRequested_whenViewModelIsCreated_thenHelpIsPresented() {
-        // Given
-        let shouldPresentHelp = true
-
-        // When
-        let sut = makeAuthorizationSUT(
-            shouldPresentHelp: shouldPresentHelp
-        ).sut
-
-        // Then
-        XCTAssertTrue(sut.isHelpPresented)
-    }
-
-    func test_completeHelp_givenHelpIsPresented_whenCalledTwice_thenCompletesOnlyOnce() {
-        // Given
-        let sut = makeAuthorizationSUT(
-            shouldPresentHelp: true
-        ).sut
-
-        // When
-        let firstCompletion = sut.completeHelp()
-        let secondCompletion = sut.completeHelp()
-
-        // Then
-        XCTAssertTrue(firstCompletion)
-        XCTAssertFalse(secondCompletion)
-        XCTAssertFalse(sut.isHelpPresented)
-    }
-
     func test_init_givenDefaultEnvironment_whenViewModelIsCreated_thenPublishesAndMarksDefault() {
         // Given
         let factory = EnvironmentViewModelFactory()
@@ -397,7 +368,6 @@ final class AuthorizationViewModelTests: XCTestCase {
     }
 
     private func makeAuthorizationSUT(
-        shouldPresentHelp: Bool = false,
         defaultEnvironment: EnvironmentViewModel? = nil,
         environments: [EnvironmentViewModel]? = nil,
         loginUseCase: LoginUserUseCase = LoginUserUseCaseStub(result: .success(()))
@@ -412,7 +382,6 @@ final class AuthorizationViewModelTests: XCTestCase {
         let registrationUseCase = RegistrationUseCaseSpy()
         let sut = AuthorizationFlowViewModel(
             selectEnvironment: environmentSpy,
-            shouldPresentHelp: shouldPresentHelp,
             defaultEnvironment: selectedEnvironment,
             environments: environments ?? factory.createAllEnvironments(),
             loginViewModel: LoginScreenViewModel(

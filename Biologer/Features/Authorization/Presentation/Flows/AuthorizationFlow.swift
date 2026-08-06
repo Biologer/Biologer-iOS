@@ -15,6 +15,7 @@ struct AuthorizationFlow: View {
     }
 
     @State private var path: NavigationPath = .init()
+    @State private var isHelpPresented: Bool
     @StateObject private var viewModel: AuthorizationFlowViewModel
 
     @SwiftUI.Environment(\.openURL) private var openURL
@@ -24,10 +25,12 @@ struct AuthorizationFlow: View {
 
     init(
         viewModel: AuthorizationFlowViewModel,
+        shouldPresentHelp: Bool,
         onHelpCompleted: @escaping () -> Void,
         onAuthorizationSuccess: @escaping () -> Void
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        _isHelpPresented = State(initialValue: shouldPresentHelp)
         self.onHelpCompleted = onHelpCompleted
         self.onAuthorizationSuccess = onAuthorizationSuccess
     }
@@ -56,9 +59,10 @@ struct AuthorizationFlow: View {
 
     @ViewBuilder
     private var initialScreen: some View {
-        if viewModel.isHelpPresented {
+        if isHelpPresented {
             BiologerHelpScreen {
-                guard viewModel.completeHelp() else { return }
+                guard isHelpPresented else { return }
+                isHelpPresented = false
                 onHelpCompleted()
             }
             .navigationBarBackButtonHidden(true)

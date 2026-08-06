@@ -22,7 +22,6 @@ struct AuthorizationResultPresentation: Identifiable {
 
 @MainActor
 final class AuthorizationFlowViewModel: ObservableObject {
-    @Published private(set) var isHelpPresented: Bool
     @Published var selectedEnvironment: EnvironmentViewModel
     @Published private(set) var environments: [EnvironmentViewModel]
     @Published var result: AuthorizationResultPresentation?
@@ -35,7 +34,6 @@ final class AuthorizationFlowViewModel: ObservableObject {
 
     init(
         selectEnvironment: SelectAuthorizationEnvironmentUseCase,
-        shouldPresentHelp: Bool,
         defaultEnvironment: EnvironmentViewModel,
         environments: [EnvironmentViewModel],
         loginViewModel: LoginScreenViewModel,
@@ -44,19 +42,10 @@ final class AuthorizationFlowViewModel: ObservableObject {
         self.selectEnvironment = selectEnvironment
         self.loginViewModel = loginViewModel
         self.registrationFlowViewModel = registrationFlowViewModel
-        isHelpPresented = shouldPresentHelp
         var selectedEnvironment = defaultEnvironment
         selectedEnvironment.changeIsSelected(value: true)
         self.selectedEnvironment = selectedEnvironment
         self.environments = environments.selecting(defaultEnvironment)
-    }
-
-    @discardableResult
-    func completeHelp() -> Bool {
-        guard isHelpPresented else { return false }
-
-        isHelpPresented = false
-        return true
     }
 
     func prepareLogin() {

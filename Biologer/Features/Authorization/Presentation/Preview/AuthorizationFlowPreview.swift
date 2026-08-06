@@ -14,16 +14,17 @@ struct AuthorizationFlowPreview: PreviewProvider {
 
 private struct PreviewAuthorizationFlow: View {
     private let viewModel: AuthorizationFlowViewModel
+    private let shouldPresentHelp: Bool
 
     init(shouldPresentHelp: Bool) {
-        viewModel = PreviewAuthorizationComposition.makeFlowViewModel(
-            shouldPresentHelp: shouldPresentHelp
-        )
+        self.shouldPresentHelp = shouldPresentHelp
+        viewModel = PreviewAuthorizationComposition.makeFlowViewModel()
     }
 
     var body: some View {
         AuthorizationFlow(
             viewModel: viewModel,
+            shouldPresentHelp: shouldPresentHelp,
             onHelpCompleted: {},
             onAuthorizationSuccess: {}
         )
@@ -32,15 +33,12 @@ private struct PreviewAuthorizationFlow: View {
 
 @MainActor
 enum PreviewAuthorizationComposition {
-    static func makeFlowViewModel(
-        shouldPresentHelp: Bool = false
-    ) -> AuthorizationFlowViewModel {
+    static func makeFlowViewModel() -> AuthorizationFlowViewModel {
         let environmentFactory = EnvironmentViewModelFactory()
         let defaultEnvironment = environmentFactory.createEnvironment(type: .serbia)
         let useCases = makeUseCases()
         return AuthorizationFlowViewModel(
             selectEnvironment: useCases.selectEnvironment,
-            shouldPresentHelp: shouldPresentHelp,
             defaultEnvironment: defaultEnvironment,
             environments: environmentFactory.createAllEnvironments(),
             loginViewModel: LoginScreenViewModel(

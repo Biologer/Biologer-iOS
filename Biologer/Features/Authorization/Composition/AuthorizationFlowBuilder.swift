@@ -45,7 +45,6 @@ final class AuthorizationFlowBuilder {
         return AuthorizationFlow(
             viewModel: AuthorizationFlowViewModel(
                 selectEnvironment: useCases.selectEnvironment,
-                shouldPresentHelp: useCases.tutorial.shouldPresent,
                 defaultEnvironment: defaultEnvironment,
                 environments: environmentFactory.createAllEnvironments(),
                 loginViewModel: LoginScreenViewModel(
@@ -54,6 +53,7 @@ final class AuthorizationFlowBuilder {
                 ),
                 registrationFlowViewModel: registrationFlowViewModel
             ),
+            shouldPresentHelp: useCases.tutorial.shouldPresent,
             onHelpCompleted: { [tutorial = useCases.tutorial] in
                 tutorial.markPresented()
             },
