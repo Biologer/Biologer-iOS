@@ -118,3 +118,31 @@ struct BiologerMessageStateView: View {
         }
     }
 }
+
+#Preview("BiologerLoadingStateView") {
+    BiologerLoadingStateView(
+        message: "ListOfFindings.loading".localized
+    )
+    .biologerPageBackground()
+}
+
+#Preview("BiologerMessageStateView - Standard") {
+    BiologerMessageStateView(
+        systemImage: "leaf",
+        title: "ListOfFindings.empty.title".localized,
+        message: "ListOfFindings.noFindings.title".localized
+    )
+    .biologerPageBackground()
+}
+
+#Preview("BiologerMessageStateView - Failure") {
+    BiologerMessageStateView(
+        systemImage: "exclamationmark.arrow.triangle.2.circlepath",
+        title: "ListOfFindings.loadError.title".localized,
+        message: "ListOfFindings.loadError.message".localized,
+        actionTitle: "ListOfFindings.retry".localized,
+        style: .failure,
+        action: {}
+    )
+    .biologerPageBackground()
+}

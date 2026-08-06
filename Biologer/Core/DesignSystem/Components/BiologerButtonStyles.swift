@@ -61,3 +61,53 @@ struct BiologerActionButtonStyle: ButtonStyle {
         isFilled ? BiologerColors.primaryActionForeground : tint
     }
 }
+
+#Preview("BiologerActionButtonStyle - Primary") {
+    VStack(spacing: BiologerSpacing.regular) {
+        Button("Common.btn.ok".localized) {}
+            .buttonStyle(BiologerActionButtonStyle())
+
+        Button("Common.btn.cancel".localized) {}
+            .buttonStyle(
+                BiologerActionButtonStyle(isFilled: false)
+            )
+
+    }
+    .padding(BiologerSpacing.xLarge)
+    .biologerPageBackground()
+}
+
+#Preview("BiologerActionButtonStyle - Destructive") {
+    VStack(spacing: BiologerSpacing.regular) {
+        Button("ListOfFindings.deleteScreen.btn.delete".localized) {}
+            .buttonStyle(
+                BiologerActionButtonStyle(role: .destructive)
+            )
+
+        Button("Common.btn.cancel".localized) {}
+            .buttonStyle(
+                BiologerActionButtonStyle(
+                    role: .destructive,
+                    isFilled: false
+                )
+            )
+    }
+    .padding(BiologerSpacing.xLarge)
+    .biologerPageBackground()
+}
+
+#Preview("BiologerActionButtonStyle - Disabled") {
+    VStack(spacing: BiologerSpacing.regular) {
+        Button("Common.btn.ok".localized) {}
+            .buttonStyle(BiologerActionButtonStyle())
+            .disabled(true)
+
+        Button("ListOfFindings.deleteScreen.btn.delete".localized) {}
+            .buttonStyle(
+                BiologerActionButtonStyle(role: .destructive)
+            )
+            .disabled(true)
+    }
+    .padding(BiologerSpacing.xLarge)
+    .biologerPageBackground()
+}

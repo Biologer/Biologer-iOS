@@ -81,3 +81,30 @@ struct BiologerSelectionCard<Leading: View>: View {
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
+
+#Preview("BiologerSelectionCard - Selected") {
+    BiologerSelectionCard(
+        title: "Settings.lb.dataLicense.title".localized,
+        subtitle: "Register.three.lb.description".localized,
+        isSelected: true,
+        action: {}
+    ) {
+        BiologerIconBadge(systemImage: "doc.text")
+    }
+    .padding(BiologerSpacing.xLarge)
+    .biologerPageBackground()
+}
+
+#Preview("BiologerSelectionCard - Unselected") {
+    BiologerSelectionCard(
+        title: "Settings.lb.imageLicense.title".localized,
+        isSelected: false,
+        verticalAlignment: .center,
+        indicatorTopPadding: 0,
+        action: {}
+    ) {
+        BiologerIconBadge(systemImage: "photo")
+    }
+    .padding(BiologerSpacing.xLarge)
+    .biologerPageBackground()
+}

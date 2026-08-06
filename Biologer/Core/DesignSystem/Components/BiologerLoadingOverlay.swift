@@ -28,6 +28,18 @@ private struct BiologerLoadingOverlayModifier: ViewModifier {
     }
 }
 
+#Preview("BiologerLoadingOverlay") {
+    VStack(spacing: BiologerSpacing.regular) {
+        BiologerIconBadge(systemImage: "leaf.fill", size: 64)
+        Text("Findings.title".localized)
+            .font(.title3.weight(.semibold))
+            .foregroundColor(BiologerColors.textPrimary)
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .biologerPageBackground()
+    .biologerLoadingOverlay(isPresented: true)
+}
+
 extension View {
     func biologerLoadingOverlay(isPresented: Bool) -> some View {
         modifier(BiologerLoadingOverlayModifier(isPresented: isPresented))

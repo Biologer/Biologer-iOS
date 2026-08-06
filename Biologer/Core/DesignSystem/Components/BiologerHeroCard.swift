@@ -34,3 +34,21 @@ extension View {
         modifier(BiologerHeroCardModifier(cornerRadius: cornerRadius))
     }
 }
+
+#Preview("BiologerHeroCard") {
+    HStack(spacing: BiologerSpacing.regular) {
+        Image(systemName: "leaf.fill")
+            .font(.title)
+            .foregroundColor(.white)
+
+        Text("Findings.title".localized)
+            .font(.title3.weight(.semibold))
+            .foregroundColor(.white)
+
+        Spacer()
+    }
+    .padding(BiologerSpacing.large)
+    .biologerHeroCard()
+    .padding(BiologerSpacing.xLarge)
+    .biologerPageBackground()
+}

@@ -26,3 +26,32 @@ extension View {
         )
     }
 }
+
+#Preview("BiologerScreen - Inline") {
+    NavigationStack {
+        VStack(spacing: BiologerSpacing.regular) {
+            BiologerIconBadge(systemImage: "leaf.fill", size: 64)
+            Text("Findings.title".localized)
+                .font(.title3.weight(.semibold))
+                .foregroundColor(BiologerColors.textPrimary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .biologerScreen(title: "Findings.title".localized)
+    }
+}
+
+#Preview("BiologerScreen - Large") {
+    NavigationStack {
+        VStack(spacing: BiologerSpacing.regular) {
+            BiologerIconBadge(systemImage: "leaf.fill", size: 64)
+            Text("Findings.title".localized)
+                .font(.title3.weight(.semibold))
+                .foregroundColor(BiologerColors.textPrimary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .biologerScreen(
+            title: "Findings.title".localized,
+            titleDisplayMode: .large
+        )
+    }
+}

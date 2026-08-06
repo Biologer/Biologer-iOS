@@ -48,3 +48,21 @@ extension View {
         background(BiologerColors.pageBackground.ignoresSafeArea())
     }
 }
+
+#Preview("BiologerCard - Default") {
+    Text("Findings.title".localized)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(BiologerSpacing.regular)
+        .biologerCard()
+        .padding(BiologerSpacing.xLarge)
+        .biologerPageBackground()
+}
+
+#Preview("BiologerCard - Selected") {
+    Text("Settings.title".localized)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(BiologerSpacing.regular)
+        .biologerCard(isSelected: true)
+        .padding(BiologerSpacing.xLarge)
+        .biologerPageBackground()
+}

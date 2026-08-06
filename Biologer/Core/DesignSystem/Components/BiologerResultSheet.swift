@@ -66,3 +66,21 @@ struct BiologerResultSheet: View {
             : BiologerColors.destructive.opacity(0.1)
     }
 }
+
+#Preview("BiologerResultSheet - Success") {
+    BiologerResultSheet(
+        style: .success,
+        title: "FindingEditor.saveSuccess.title".localized,
+        message: "FindingEditor.saveSuccess.created".localized,
+        onConfirm: {}
+    )
+}
+
+#Preview("BiologerResultSheet - Failure") {
+    BiologerResultSheet(
+        style: .failure,
+        title: "API.lb.error".localized,
+        message: "ListOfFindings.loadError.message".localized,
+        onConfirm: {}
+    )
+}

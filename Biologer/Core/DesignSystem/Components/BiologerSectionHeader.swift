@@ -12,3 +12,13 @@ struct BiologerSectionHeader: View {
             .padding(.horizontal, BiologerSpacing.xxSmall)
     }
 }
+
+#Preview("BiologerSectionHeader") {
+    BiologerSectionHeader(
+        title: "Settings.lb.dataEntry".localized,
+        systemImage: "slider.horizontal.3"
+    )
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(BiologerSpacing.xLarge)
+    .biologerPageBackground()
+}

@@ -42,3 +42,32 @@ struct BiologerActivityIndicator: View {
         }
     }
 }
+
+#Preview("BiologerActivityIndicator - Sizes") {
+    HStack(spacing: BiologerSpacing.xLarge) {
+        BiologerActivityIndicator(size: .compact)
+        BiologerActivityIndicator()
+        BiologerActivityIndicator(size: .large)
+    }
+    .padding(BiologerSpacing.xLarge)
+    .biologerPageBackground()
+}
+
+#Preview("BiologerActivityIndicator - Inverse") {
+    HStack(spacing: BiologerSpacing.xLarge) {
+        BiologerActivityIndicator(
+            size: .compact,
+            tone: .inverse
+        )
+        BiologerActivityIndicator(
+            size: .regular,
+            tone: .inverse
+        )
+        BiologerActivityIndicator(
+            size: .large,
+            tone: .inverse
+        )
+    }
+    .padding(BiologerSpacing.xLarge)
+    .background(BiologerColors.brandStrong)
+}

@@ -47,3 +47,26 @@ extension View {
         )
     }
 }
+
+#Preview("BiologerNavigationBar - Root") {
+    NavigationStack {
+        Text("Findings.title".localized)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .biologerPageBackground()
+            .biologerNavigationBar(
+                title: "Findings.title".localized
+            )
+    }
+}
+
+#Preview("BiologerNavigationBar - Back") {
+    NavigationStack {
+        Text("Findings.title".localized)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .biologerPageBackground()
+            .biologerNavigationBar(
+                title: "Findings.title".localized,
+                onBack: {}
+            )
+    }
+}
