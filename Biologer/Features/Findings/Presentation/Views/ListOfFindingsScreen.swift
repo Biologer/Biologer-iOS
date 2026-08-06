@@ -244,8 +244,7 @@ struct ListOfFindingsScreen: View {
     ) -> some View {
         VStack(alignment: .leading, spacing: BiologerSpacing.small) {
             HStack(spacing: BiologerSpacing.small) {
-                ProgressView()
-                    .tint(BiologerColors.accent)
+                BiologerActivityIndicator()
 
                 Text("ListOfFindings.upload.progress.title".localized)
                     .font(.body.weight(.semibold))

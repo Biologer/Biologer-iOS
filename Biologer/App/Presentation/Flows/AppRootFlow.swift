@@ -23,7 +23,7 @@ struct AppRootFlow: View {
             case .authorization:
                 authorizationFlow
             case .preparingSession:
-                ProgressView()
+                BiologerActivityIndicator(size: .large)
                     .task { await viewModel.prepareSession() }
             case .taxonSync:
                 taxonSyncFlow

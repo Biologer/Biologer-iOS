@@ -283,8 +283,10 @@ struct FindingDetailsScreen: View {
                 Button(action: viewModel.didTapUpload) {
                     HStack(spacing: BiologerSpacing.xSmall) {
                         if viewModel.isUploading {
-                            ProgressView()
-                                .tint(.white)
+                            BiologerActivityIndicator(
+                                size: .compact,
+                                tone: .inverse
+                            )
                         } else {
                             Image(systemName: "icloud.and.arrow.up")
                         }

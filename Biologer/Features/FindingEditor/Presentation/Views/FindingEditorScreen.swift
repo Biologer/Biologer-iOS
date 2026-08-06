@@ -339,7 +339,10 @@ struct FindingEditorScreen: View {
         Button(action: viewModel.save) {
             HStack(spacing: BiologerSpacing.xSmall) {
                 if viewModel.isSaving {
-                    ProgressView().tint(.white)
+                    BiologerActivityIndicator(
+                        size: .compact,
+                        tone: .inverse
+                    )
                 } else {
                     Image(systemName: "checkmark.circle")
                 }

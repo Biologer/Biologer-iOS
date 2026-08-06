@@ -109,9 +109,10 @@ struct FindingPhotoGalleryScreen: View {
             AsyncImage(url: remoteURL) { phase in
                 switch phase {
                 case .empty:
-                    ProgressView()
-                        .controlSize(.large)
-                        .tint(.white)
+                    BiologerActivityIndicator(
+                        size: .large,
+                        tone: .inverse
+                    )
                 case .success(let image):
                     ZoomableFindingPhoto {
                         image

@@ -6,9 +6,7 @@ struct BiologerLoadingOverlay: View {
             Color.black.opacity(0.18)
                 .ignoresSafeArea()
 
-            ProgressView()
-                .controlSize(.large)
-                .tint(BiologerColors.primaryActionBackground)
+            BiologerActivityIndicator(size: .large)
                 .padding(BiologerSpacing.xLarge)
                 .background(BiologerColors.surface, in: Circle())
                 .shadow(color: .black.opacity(0.12), radius: 12, y: 5)

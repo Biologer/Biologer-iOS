@@ -145,7 +145,10 @@ struct FindingLocationScreen: View {
             } label: {
                 HStack(spacing: BiologerSpacing.xSmall) {
                     if viewModel.isResolvingAltitude {
-                        ProgressView().tint(.white)
+                        BiologerActivityIndicator(
+                            size: .compact,
+                            tone: .inverse
+                        )
                     } else {
                         Image(systemName: "checkmark.circle")
                     }
@@ -172,7 +175,7 @@ struct FindingLocationScreen: View {
     ) -> some View {
         HStack(spacing: BiologerSpacing.xSmall) {
             if showsProgress {
-                ProgressView().tint(BiologerColors.accent)
+                BiologerActivityIndicator(size: .compact)
             } else {
                 Image(systemName: systemImage)
                     .foregroundColor(BiologerColors.accent)

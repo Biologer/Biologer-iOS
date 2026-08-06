@@ -6,9 +6,7 @@ struct BiologerLoadingStateView: View {
 
     var body: some View {
         VStack(spacing: BiologerSpacing.regular) {
-            ProgressView()
-                .controlSize(.large)
-                .tint(BiologerColors.accent)
+            BiologerActivityIndicator(size: .large)
 
             Text(message)
                 .font(.subheadline)
