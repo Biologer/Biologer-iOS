@@ -69,7 +69,7 @@ struct LicenseSelectionScreen: View {
                 systemImage: item.type == .image ? "photo" : "doc.text"
             )
         }
-        .disabled(isSelectionLocked)
+        .allowsHitTesting(!isSelectionLocked)
     }
 
     private func select(_ item: CheckMarkItem) {

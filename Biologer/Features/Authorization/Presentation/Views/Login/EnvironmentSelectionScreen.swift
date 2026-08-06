@@ -59,7 +59,7 @@ struct EnvironmentSelectionScreen: View {
                 .scaledToFit()
                 .frame(width: 44, height: 44)
         }
-        .disabled(isSelectionLocked)
+        .allowsHitTesting(!isSelectionLocked)
     }
 
     private func select(_ environment: EnvironmentViewModel) {
