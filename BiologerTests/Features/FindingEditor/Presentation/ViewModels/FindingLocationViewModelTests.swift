@@ -55,25 +55,18 @@ final class FindingLocationViewModelTests: XCTestCase {
         XCTAssertEqual(sut.cameraTarget.longitude, current.longitude)
     }
 
-    func test_confirmResolvesAltitudeBeforeForwardingSelection() async {
+    func test_confirmResolvesAltitudeBeforeReturningSelection() async {
         let initial = makeLocation(latitude: 44.78, longitude: 20.44, altitude: 0)
         var resolved = initial
         resolved.altitude = 321
         let resolver = FindingLocationResolverStub(result: resolved)
-        let selected = expectation(description: "location selected")
-        var receivedLocation: FindingEditorLocation?
         let sut = makeSUT(
             initialLocation: initial,
-            resolver: resolver,
-            onSelect: {
-                receivedLocation = $0
-                selected.fulfill()
-            }
+            resolver: resolver
         )
 
-        sut.confirmSelection()
+        let receivedLocation = await sut.confirmSelection()
 
-        await fulfillment(of: [selected], timeout: 1)
         XCTAssertEqual(resolver.receivedLocations, [initial])
         XCTAssertEqual(receivedLocation, resolved)
         XCTAssertFalse(sut.isResolvingAltitude)
@@ -82,16 +75,14 @@ final class FindingLocationViewModelTests: XCTestCase {
     private func makeSUT(
         initialLocation: FindingEditorLocation? = nil,
         observer: FindingLocationObserverStub = FindingLocationObserverStub(),
-        resolver: FindingLocationResolverStub = FindingLocationResolverStub(),
-        onSelect: @escaping (FindingEditorLocation) -> Void = { _ in }
+        resolver: FindingLocationResolverStub = FindingLocationResolverStub()
     ) -> FindingLocationViewModel {
         FindingLocationViewModel(
             initialLocation: initialLocation,
             useCases: FindingLocationUseCases(
                 observeCurrentLocation: observer,
                 resolveLocation: resolver
-            ),
-            onSelect: onSelect
+            )
         )
     }
 

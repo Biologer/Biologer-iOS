@@ -15,28 +15,25 @@ final class FindingEditorViewModelTests: XCTestCase {
 
     func test_saveWaitsForSuccessConfirmationBeforeCompletingCreate() {
         let draft = makeDraft()
-        var savedIDs: [UUID] = []
         let context = makeSUT(
             draft: draft,
-            mode: .create,
-            onSaved: { savedIDs.append($0) }
+            mode: .create
         )
         context.sut.load()
 
         context.sut.save()
 
         XCTAssertEqual(context.saveFinding.receivedDrafts, [draft])
-        XCTAssertEqual(savedIDs, [])
         XCTAssertEqual(
             context.sut.alert?.kind,
             .saveSuccess(isEditing: false)
         )
 
-        context.sut.confirmAlert(
+        let savedID = context.sut.confirmAlert(
             FindingEditorAlert(kind: .saveSuccess(isEditing: false))
         )
 
-        XCTAssertEqual(savedIDs, [draft.id])
+        XCTAssertEqual(savedID, draft.id)
         XCTAssertNil(context.sut.alert)
     }
 
@@ -55,11 +52,7 @@ final class FindingEditorViewModelTests: XCTestCase {
 
     func test_savePublishesValidationFailureWithoutCompleting() {
         let draft = makeDraft()
-        var completionCount = 0
-        let context = makeSUT(
-            draft: draft,
-            onSaved: { _ in completionCount += 1 }
-        )
+        let context = makeSUT(draft: draft)
         context.saveFinding.result = .failure(
             FindingEditorValidationError.taxonRequired
         )
@@ -71,33 +64,24 @@ final class FindingEditorViewModelTests: XCTestCase {
             context.sut.alert?.kind,
             .validation(.taxonRequired)
         )
-        XCTAssertEqual(completionCount, 0)
+        XCTAssertNil(
+            context.sut.confirmAlert(
+                FindingEditorAlert(kind: .validation(.taxonRequired))
+            )
+        )
     }
 
-    func test_navigationActionsForwardCurrentData() {
+    func test_presentationActionsReturnCurrentData() {
         let draft = makeDraft()
-        var location: FindingEditorLocation?
-        var taxonSearchCallCount = 0
-        var photoSource: FindingEditorPhotoSource?
-        var shownPhotoIndex: Int?
-        let context = makeSUT(
-            draft: draft,
-            onSelectLocation: { location = $0 },
-            onSelectTaxon: { taxonSearchCallCount += 1 },
-            onAddPhoto: { photoSource = $0 },
-            onShowPhotos: { _, index in shownPhotoIndex = index }
-        )
+        let context = makeSUT(draft: draft)
         context.sut.load()
 
-        context.sut.requestLocationSelection()
-        context.sut.requestTaxonSelection()
-        context.sut.requestPhoto(from: .photoLibrary)
-        context.sut.showPhoto(at: 0)
+        let canAddPhoto = context.sut.canAddPhoto()
+        let photoPresentation = context.sut.photoPresentation(at: 0)
 
-        XCTAssertEqual(location, draft.location)
-        XCTAssertEqual(taxonSearchCallCount, 1)
-        XCTAssertEqual(photoSource, .photoLibrary)
-        XCTAssertEqual(shownPhotoIndex, 0)
+        XCTAssertTrue(canAddPhoto)
+        XCTAssertEqual(photoPresentation?.0, draft.photos)
+        XCTAssertEqual(photoPresentation?.1, 0)
     }
 
     func test_photoLimitPreventsFourthPhotoRequest() {
@@ -109,16 +93,12 @@ final class FindingEditorViewModelTests: XCTestCase {
                 remoteURL: nil
             )
         }
-        var requestCount = 0
-        let context = makeSUT(
-            draft: draft,
-            onAddPhoto: { _ in requestCount += 1 }
-        )
+        let context = makeSUT(draft: draft)
         context.sut.load()
 
-        context.sut.requestPhoto(from: .camera)
+        let canAddPhoto = context.sut.canAddPhoto()
 
-        XCTAssertEqual(requestCount, 0)
+        XCTAssertFalse(canAddPhoto)
         XCTAssertEqual(context.sut.alert?.kind, .photoLimit)
     }
 
@@ -178,11 +158,6 @@ final class FindingEditorViewModelTests: XCTestCase {
     private func makeSUT(
         draft: FindingEditorDraft,
         mode: FindingEditorMode = .create,
-        onSaved: @escaping (UUID) -> Void = { _ in },
-        onSelectLocation: @escaping (FindingEditorLocation?) -> Void = { _ in },
-        onSelectTaxon: @escaping () -> Void = {},
-        onAddPhoto: @escaping (FindingEditorPhotoSource) -> Void = { _ in },
-        onShowPhotos: @escaping ([FindingEditorPhoto], Int) -> Void = { _, _ in },
         onUnsavedChangesChanged: @escaping (Bool) -> Void = { _ in }
     ) -> FindingEditorViewModelTestContext {
         let loadFinding = FindingEditorLoadUseCaseStub(draft: draft)
@@ -191,11 +166,6 @@ final class FindingEditorViewModelTests: XCTestCase {
             mode: mode,
             loadFinding: loadFinding,
             saveFinding: saveFinding,
-            onSaved: onSaved,
-            onSelectLocation: onSelectLocation,
-            onSelectTaxon: onSelectTaxon,
-            onAddPhoto: onAddPhoto,
-            onShowPhotos: onShowPhotos,
             onUnsavedChangesChanged: onUnsavedChangesChanged
         )
         return FindingEditorViewModelTestContext(

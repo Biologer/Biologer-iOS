@@ -7,10 +7,7 @@ final class FindingTaxonSearchViewModelTests: XCTestCase {
     func test_queryPublishesDebouncedResults() async {
         let expected = makeTaxon(id: 1, name: "Salamandra salamandra")
         let search = FindingTaxonSearchUseCaseStub(result: .success([expected]))
-        let sut = FindingTaxonSearchViewModel(
-            searchTaxa: search,
-            onSelect: { _ in }
-        )
+        let sut = FindingTaxonSearchViewModel(searchTaxa: search)
         let loaded = expectation(description: "debounced search loaded")
         let observation = sut.$state.sink { state in
             if state == .results { loaded.fulfill() }
@@ -25,30 +22,26 @@ final class FindingTaxonSearchViewModelTests: XCTestCase {
     }
 
     func test_customNameCreatesTaxonWithoutAPIID() {
-        var selectedTaxon: FindingEditorTaxon?
         let sut = FindingTaxonSearchViewModel(
-            searchTaxa: FindingTaxonSearchUseCaseStub(result: .success([])),
-            onSelect: { selectedTaxon = $0 }
+            searchTaxa: FindingTaxonSearchUseCaseStub(result: .success([]))
         )
         sut.query = "  Unknown species  "
 
-        sut.useCustomName()
+        let selectedTaxon = sut.customTaxon()
 
         XCTAssertNil(selectedTaxon?.apiID)
         XCTAssertEqual(selectedTaxon?.name, "Unknown species")
     }
 
-    func test_selectForwardsDatabaseTaxon() {
-        let taxon = makeTaxon(id: 1, name: "Alcedo atthis")
-        var selectedTaxon: FindingEditorTaxon?
+    func test_shortCustomNameDoesNotCreateTaxon() {
         let sut = FindingTaxonSearchViewModel(
-            searchTaxa: FindingTaxonSearchUseCaseStub(result: .success([])),
-            onSelect: { selectedTaxon = $0 }
+            searchTaxa: FindingTaxonSearchUseCaseStub(result: .success([]))
         )
+        sut.query = " A "
 
-        sut.select(taxon)
+        let selectedTaxon = sut.customTaxon()
 
-        XCTAssertEqual(selectedTaxon, taxon)
+        XCTAssertNil(selectedTaxon)
     }
 
     private func makeTaxon(id: Int, name: String) -> FindingEditorTaxon {

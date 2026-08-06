@@ -27,8 +27,7 @@ struct FindingEditorScreen_Previews: PreviewProvider {
         }
         let repository = PreviewFindingEditorRepository(draft: draft)
 
-        return FindingEditorFlow(
-            mode: mode,
+        let useCases = FindingEditorUseCases(
             loadFinding: DefaultLoadFindingEditorUseCase(
                 repository: repository
             ),
@@ -38,11 +37,17 @@ struct FindingEditorScreen_Previews: PreviewProvider {
             searchTaxa: DefaultSearchFindingTaxaUseCase(
                 repository: PreviewFindingTaxonSearchRepository()
             ),
-            locationUseCases: FindingLocationUseCases(
+            location: FindingLocationUseCases(
                 observeCurrentLocation: PreviewObserveCurrentFindingLocationUseCase(),
                 resolveLocation: PreviewResolveFindingLocationUseCase()
-            ),
-            taxonSyncComposition: TaxonSyncPreviewFactory.makeComposition(),
+            )
+        )
+
+        return FindingEditorBuilder(
+            useCases: useCases,
+            taxonSyncComposition: TaxonSyncPreviewFactory.makeComposition()
+        ).makeFlow(
+            mode: mode,
             onSaved: onSaved,
             onUnsavedChangesChanged: onUnsavedChangesChanged
         )

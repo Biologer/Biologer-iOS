@@ -1,11 +1,19 @@
 import SwiftUI
 
 struct ListOfFindingsScreen: View {
-    @StateObject private var viewModel: ListOfFindingsViewModel
+    @ObservedObject private var viewModel: ListOfFindingsViewModel
     @State private var deletionSelection: FindingDeletionSelection?
+    private let onAddFinding: () -> Void
+    private let onSelectFinding: Observer<UUID>
 
-    init(viewModel: ListOfFindingsViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+    init(
+        viewModel: ListOfFindingsViewModel,
+        onAddFinding: @escaping () -> Void,
+        onSelectFinding: @escaping Observer<UUID>
+    ) {
+        self.viewModel = viewModel
+        self.onAddFinding = onAddFinding
+        self.onSelectFinding = onSelectFinding
     }
 
     var body: some View {
@@ -48,7 +56,10 @@ struct ListOfFindingsScreen: View {
             "Common.title.warning".localized,
             isPresented: submissionWarningIsPresented
         ) {
-            Button("Common.btn.ok".localized) {}
+            Button("Common.btn.ok".localized) {
+                guard viewModel.confirmSubmissionWarning() else { return }
+                onAddFinding()
+            }
         } message: {
             Text("ListOfFindings.popUpUserVerified.description".localized)
         }
@@ -108,7 +119,10 @@ struct ListOfFindingsScreen: View {
                     isSelectionActive: viewModel.isSelectionActive,
                     isSelected: viewModel.selectedFindingIDs.contains(finding.id),
                     isDestructiveSelection: viewModel.isDeletionSelectionActive,
-                    onSelect: { viewModel.didSelectFinding(finding) },
+                    onSelect: {
+                        guard viewModel.canSelectFinding(finding) else { return }
+                        onSelectFinding(finding.id)
+                    },
                     onToggleSelection: {
                         viewModel.toggleSelection(for: finding)
                     },
@@ -153,7 +167,10 @@ struct ListOfFindingsScreen: View {
     }
 
     private var addFindingButton: some View {
-        Button(action: viewModel.didTapAddFinding) {
+        Button {
+            guard viewModel.canAddFinding() else { return }
+            onAddFinding()
+        } label: {
             HStack(spacing: BiologerSpacing.xSmall) {
                 Image(systemName: "plus")
                 Text("ListOfFindings.add".localized)

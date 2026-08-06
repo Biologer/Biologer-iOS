@@ -41,10 +41,7 @@ struct AppRootFlow: View {
     }
 
     private var authorizationFlow: some View {
-        AuthorizationFlow(
-            authorizationUseCases: composition.authorizationUseCases,
-            shouldPresentHelp: !composition.tutorialRepository.wasPresented,
-            onHelpCompleted: { _ in composition.tutorialRepository.markPresented() },
+        composition.authorizationBuilder.makeFlow(
             onAuthorizationSuccess: { _ in viewModel.authorizationSucceeded() }
         )
     }
@@ -75,9 +72,7 @@ struct AppRootFlow: View {
     }
 
     private var taxonSyncFlow: some View {
-        TaxonSyncFlow(
-            useCases: composition.taxonSyncComposition.useCases,
-            scopeProvider: composition.taxonSyncComposition.scopeProvider,
+        composition.taxonSyncBuilder.makeFlow(
             onContinue: { viewModel.showMain() }
         )
     }

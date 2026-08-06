@@ -108,8 +108,7 @@ struct LicenseSelectionScreen: View {
             updateSelectedViewModel(with: selectedItem)
         }
 
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 300_000_000)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             onSelectionChanged?(selectedItem)
         }
     }
@@ -125,98 +124,6 @@ private extension Array where Element == CheckMarkItem {
             var updatedItem = item
             updatedItem.changeIsSelected(value: item.id == selectedItem.id)
             return updatedItem
-        }
-    }
-}
-
-struct LicenseSelectionScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            PreviewContainer(
-                selectedItem: PreviewData.dataLicenses[0],
-                items: PreviewData.dataLicenses
-            )
-            .previewDisplayName("Data license")
-
-            PreviewContainer(
-                selectedItem: PreviewData.imageLicenses[1],
-                items: PreviewData.imageLicenses
-            )
-            .previewDisplayName("Image license")
-        }
-    }
-
-    private struct PreviewContainer: View {
-        @State private var selectedItem: CheckMarkItem
-        private let items: [CheckMarkItem]
-
-        init(selectedItem: CheckMarkItem, items: [CheckMarkItem]) {
-            _selectedItem = State(initialValue: selectedItem)
-            self.items = items
-        }
-
-        var body: some View {
-            NavigationView {
-                LicenseSelectionScreen(
-                    selectedItem: $selectedItem,
-                    items: items
-                )
-                .navigationTitle(selectedItem.placeholder)
-            }
-        }
-    }
-
-    private enum PreviewData {
-        static var dataLicenses: [CheckMarkItem] {
-            [
-                CheckMarkItem(
-                    id: 10,
-                    title: "Creative Commons Attribution-ShareAlike",
-                    placeholder: "Data license",
-                    type: .data,
-                    isSelected: true
-                ),
-                CheckMarkItem(
-                    id: 20,
-                    title: "Creative Commons Attribution",
-                    placeholder: "Data license",
-                    type: .data,
-                    isSelected: false
-                ),
-                CheckMarkItem(
-                    id: 30,
-                    title: "Creative Commons Zero",
-                    placeholder: "Data license",
-                    type: .data,
-                    isSelected: false
-                )
-            ]
-        }
-
-        static var imageLicenses: [CheckMarkItem] {
-            [
-                CheckMarkItem(
-                    id: 10,
-                    title: "Creative Commons Attribution-ShareAlike",
-                    placeholder: "Image license",
-                    type: .image,
-                    isSelected: false
-                ),
-                CheckMarkItem(
-                    id: 20,
-                    title: "Creative Commons Attribution",
-                    placeholder: "Image license",
-                    type: .image,
-                    isSelected: true
-                ),
-                CheckMarkItem(
-                    id: 30,
-                    title: "All rights reserved",
-                    placeholder: "Image license",
-                    type: .image,
-                    isSelected: false
-                )
-            ]
         }
     }
 }

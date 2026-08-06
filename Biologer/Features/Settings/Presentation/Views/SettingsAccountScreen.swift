@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct SettingsAccountScreen: View {
-    @StateObject private var viewModel: SettingsAccountViewModel
+    @ObservedObject private var viewModel: SettingsAccountViewModel
     @State private var isLogoutConfirmationPresented = false
     @State private var isDeleteConfirmationPresented = false
 
     init(viewModel: SettingsAccountViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -91,13 +91,7 @@ struct SettingsAccountScreen: View {
         .navigationTitle("Settings.lb.userAccount".localized)
         .navigationBarTitleDisplayMode(.inline)
         .tint(BiologerColors.accent)
-        .disabled(viewModel.isLoading)
-        .overlay {
-            if viewModel.isLoading {
-                ProgressView()
-                    .controlSize(.large)
-            }
-        }
+        .biologerLoadingOverlay(isPresented: viewModel.isLoading)
         .alert("Logout.lb.doYouWantLogout".localized, isPresented: $isLogoutConfirmationPresented) {
             Button("Common.btn.cancel".localized, role: .cancel) {}
             Button("Logout.btn.logout".localized, role: .destructive) {
@@ -110,22 +104,13 @@ struct SettingsAccountScreen: View {
                 Task { await viewModel.deleteAccount() }
             }
         }
-        .alert(
-            "API.lb.error".localized,
-            isPresented: Binding(
-                get: { viewModel.errorMessage != nil },
-                set: { isPresented in
-                    if !isPresented {
-                        viewModel.dismissError()
-                    }
-                }
+        .sheet(isPresented: errorSheetBinding) {
+            BiologerResultSheet(
+                style: .failure,
+                title: "API.lb.error".localized,
+                message: viewModel.errorMessage ?? "",
+                onConfirm: viewModel.dismissError
             )
-        ) {
-            Button("Common.btn.ok".localized) {
-                viewModel.dismissError()
-            }
-        } message: {
-            Text(viewModel.errorMessage ?? "")
         }
     }
 
@@ -175,5 +160,16 @@ struct SettingsAccountScreen: View {
         )
         .shadow(color: BiologerColors.brandStrong.opacity(0.24), radius: 12, y: 6)
         .accessibilityElement(children: .combine)
+    }
+
+    private var errorSheetBinding: Binding<Bool> {
+        Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { isPresented in
+                if !isPresented {
+                    viewModel.dismissError()
+                }
+            }
+        )
     }
 }

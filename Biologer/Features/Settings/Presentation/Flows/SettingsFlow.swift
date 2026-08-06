@@ -1,58 +1,24 @@
 import SwiftUI
 
-enum SettingsDestination: Hashable {
-    case projectName
-    case license(SettingsLicenseKind)
-    case automaticDownload
-    case taxonSync
-    case help
-    case about
-    case account
-}
-
 struct SettingsFlow: View {
-    private let useCases: SettingsUseCases
-    private let accountContextProvider: () -> SettingsAccountContext
-    private let appVersion: String
-    private let onDownloadTaxa: Observer<Void>
-    private let accountUseCase: UserAccountUseCase
-    private let logoutUseCase: LogoutUseCase
-    private let taxonSyncComposition: TaxonSyncComposition
-
-    @StateObject private var settingsViewModel: SettingsScreenViewModel
     @State private var path: [SettingsDestination] = []
+    @StateObject private var viewModel: SettingsFlowViewModel
+
+    private let onDownloadTaxa: Observer<Void>
 
     init(
-        useCases: SettingsUseCases,
-        accountContextProvider: @escaping () -> SettingsAccountContext,
-        appVersion: String,
-        onDownloadTaxa: @escaping Observer<Void>,
-        accountUseCase: UserAccountUseCase,
-        logoutUseCase: LogoutUseCase,
-        taxonSyncComposition: TaxonSyncComposition
+        viewModel: SettingsFlowViewModel,
+        onDownloadTaxa: @escaping Observer<Void>
     ) {
-        self.useCases = useCases
-        self.accountContextProvider = accountContextProvider
-        self.appVersion = appVersion
         self.onDownloadTaxa = onDownloadTaxa
-        self.accountUseCase = accountUseCase
-        self.logoutUseCase = logoutUseCase
-        self.taxonSyncComposition = taxonSyncComposition
-        _settingsViewModel = StateObject(
-            wrappedValue: SettingsScreenViewModel(
-                preferencesUseCase: useCases.preferences,
-                taxonDataUseCase: useCases.taxonData
-            )
-        )
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
         NavigationStack(path: $path) {
             SettingsScreen(
-                viewModel: settingsViewModel,
-                onSelectDestination: { destination in
-                    path.append(destination)
-                },
+                viewModel: viewModel.settingsViewModel,
+                onSelectDestination: { path.append($0) },
                 onDownloadTaxa: onDownloadTaxa
             )
             .navigationDestination(for: SettingsDestination.self) { destination in
@@ -66,48 +32,36 @@ struct SettingsFlow: View {
         switch destination {
         case .projectName:
             ProjectNameSettingsScreen(
-                viewModel: ProjectNameSettingsViewModel(useCase: useCases.preferences),
+                viewModel: viewModel.projectNameViewModel,
                 onSaved: { _ in
-                    settingsViewModel.reload()
+                    viewModel.settingsViewModel.reload()
                     goBack()
                 }
             )
         case .license(let kind):
             LicenseSettingsScreen(
-                viewModel: LicenseSettingsViewModel(
-                    kind: kind,
-                    useCase: useCases.licenses
-                )
+                viewModel: viewModel.licenseViewModel(for: kind)
             )
         case .automaticDownload:
             AutomaticDownloadSettingsScreen(
-                viewModel: AutomaticDownloadSettingsViewModel(
-                    useCase: useCases.preferences
-                )
+                viewModel: viewModel.automaticDownloadViewModel
             )
         case .taxonSync:
             TaxonSyncFlow(
-                useCases: taxonSyncComposition.useCases,
-                scopeProvider: taxonSyncComposition.scopeProvider
+                viewModel: viewModel.taxonSyncViewModel
             )
         case .help:
             BiologerHelpScreen(onDone: { _ in goBack() })
                 .navigationTitle("Settings.support.help".localized)
                 .navigationBarTitleDisplayMode(.inline)
         case .about:
-            let context = accountContextProvider()
             SettingsAboutScreen(
-                environment: context.environment,
-                version: appVersion,
+                viewModel: viewModel.aboutViewModel,
                 onBack: { _ in goBack() }
             )
         case .account:
             SettingsAccountScreen(
-                viewModel: SettingsAccountViewModel(
-                    context: accountContextProvider(),
-                    accountUseCase: accountUseCase,
-                    logoutUseCase: logoutUseCase
-                )
+                viewModel: viewModel.accountViewModel
             )
         }
     }

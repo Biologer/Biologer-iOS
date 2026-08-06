@@ -13,54 +13,81 @@ struct AuthorizationFlowPreview: PreviewProvider {
 }
 
 private struct PreviewAuthorizationFlow: View {
-    private let shouldPresentHelp: Bool
-    private let useCases: AuthorizationUseCases
-
-    @State private var event: PreviewAuthorizationEvent?
+    private let viewModel: AuthorizationFlowViewModel
 
     init(shouldPresentHelp: Bool) {
-        self.shouldPresentHelp = shouldPresentHelp
-        useCases = PreviewAuthorizationComposition.makeUseCases()
+        viewModel = PreviewAuthorizationComposition.makeFlowViewModel(
+            shouldPresentHelp: shouldPresentHelp
+        )
     }
 
     var body: some View {
         AuthorizationFlow(
-            authorizationUseCases: useCases,
-            shouldPresentHelp: shouldPresentHelp,
-            onHelpCompleted: { _ in
-                showEvent(
-                    title: "Help completed",
-                    message: "The preview switched to the login screen."
-                )
-            },
-            onAuthorizationSuccess: { _ in
-                showEvent(
-                    title: "Authorization succeeded",
-                    message: "The mocked authorization request completed successfully."
-                )
-            },
+            viewModel: viewModel,
+            onHelpCompleted: { _ in },
+            onAuthorizationSuccess: { _ in }
         )
-        .alert(item: $event) { event in
-            Alert(
-                title: Text(event.title),
-                message: Text(event.message),
-                dismissButton: .default(Text("OK"))
+    }
+}
+
+@MainActor
+enum PreviewAuthorizationComposition {
+    static func makeFlowViewModel(
+        shouldPresentHelp: Bool = false
+    ) -> AuthorizationFlowViewModel {
+        let environmentFactory = EnvironmentViewModelFactory()
+        let defaultEnvironment = environmentFactory.createEnvironment(type: .serbia)
+        let useCases = makeUseCases()
+        return AuthorizationFlowViewModel(
+            selectEnvironment: useCases.selectEnvironment,
+            shouldPresentHelp: shouldPresentHelp,
+            defaultEnvironment: defaultEnvironment,
+            environments: environmentFactory.createAllEnvironments(),
+            loginViewModel: LoginScreenViewModel(
+                environmentViewModel: defaultEnvironment,
+                useCase: useCases.login
+            ),
+            registrationFlowViewModel: makeRegistrationFlowViewModel(
+                useCases: useCases,
+                environmentImage: defaultEnvironment.image
             )
-        }
+        )
     }
 
-    private func showEvent(title: String, message: String) {
-        event = PreviewAuthorizationEvent(title: title, message: message)
+    static func makeRegistrationFlowViewModel(
+        useCases: AuthorizationUseCases? = nil,
+        environmentImage: String? = nil
+    ) -> RegistrationFlowViewModel {
+        let useCases = useCases ?? makeUseCases()
+        let environmentImage = environmentImage
+            ?? EnvironmentViewModelFactory()
+                .createEnvironment(type: .serbia)
+                .image
+        let draft = RegistrationDraft()
+        let dataLicenses = CheckMarkItemMapper.getDataLicense()
+        let imageLicenses = CheckMarkItemMapper.getImageLicense()
+        return RegistrationFlowViewModel(
+            environmentImage: environmentImage,
+            dataLicenses: CheckMarkItemMapper.getDataLicense(),
+            imageLicenses: CheckMarkItemMapper.getImageLicense(),
+            personalInfoViewModel: RegistrationPersonalInfoViewModel(
+                user: draft,
+                validator: useCases.registration
+            ),
+            credentialsViewModel: RegistrationCredentialsViewModel(
+                user: draft,
+                validator: useCases.registration
+            ),
+            licenseConsentViewModel: RegistrationLicenseConsentViewModel(
+                user: draft,
+                topImage: environmentImage,
+                registerUserUseCase: useCases.registration,
+                dataLicense: dataLicenses[0],
+                imageLicense: imageLicenses[0]
+            )
+        )
     }
-}
 
-private struct PreviewAuthorizationEvent: Identifiable {
-    let id = UUID()
-    let title: String
-    let message: String
-}
-
-private enum PreviewAuthorizationComposition {
     static func makeUseCases() -> AuthorizationUseCases {
         let loginRepository = PreviewLoginUserRepository()
         let registerRepository = PreviewRegisterUserRepository()
@@ -82,12 +109,23 @@ private enum PreviewAuthorizationComposition {
             ),
             selectEnvironmentUseCase: DefaultSelectAuthorizationEnvironmentUseCase(
                 repository: environmentRepository
+            ),
+            tutorial: DefaultAuthorizationTutorialUseCase(
+                repository: PreviewAuthorizationTutorialRepository()
             )
         )
     }
 }
 
-private final class PreviewLoginUserRepository: LoginUserRepository {
+final class PreviewAuthorizationTutorialRepository: AuthorizationTutorialRepository {
+    var wasPresented = false
+
+    func markPresented() {
+        wasPresented = true
+    }
+}
+
+final class PreviewLoginUserRepository: LoginUserRepository {
     func login(
         email: String,
         password: String
@@ -96,7 +134,7 @@ private final class PreviewLoginUserRepository: LoginUserRepository {
     }
 }
 
-private final class PreviewRegisterUserRepository: RegisterUserRepository {
+final class PreviewRegisterUserRepository: RegisterUserRepository {
     func createUser(
         request: RegistrationRequest
     ) async throws(AuthorizationFailure) {
@@ -104,7 +142,7 @@ private final class PreviewRegisterUserRepository: RegisterUserRepository {
     }
 }
 
-private final class PreviewRegistrationLicensePreferenceRepository:
+final class PreviewRegistrationLicensePreferenceRepository:
     RegistrationLicensePreferenceRepository {
 
     private var preferences: [RegistrationLicensePreference] = []
@@ -115,7 +153,7 @@ private final class PreviewRegistrationLicensePreferenceRepository:
     }
 }
 
-private final class PreviewAuthorizationEnvironmentRepository:
+final class PreviewAuthorizationEnvironmentRepository:
     AuthorizationEnvironmentRepository {
 
     private var selectedEnvironment: AppEnvironment?

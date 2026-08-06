@@ -1,7 +1,13 @@
 import SwiftUI
 
 struct FindingLocationDetailsScreen: View {
-    @ObservedObject var viewModel: FindingLocationDetailsViewModel
+    @StateObject private var viewModel: FindingLocationDetailsViewModel
+
+    init(location: FindingDetailsLocation) {
+        _viewModel = StateObject(
+            wrappedValue: FindingLocationDetailsViewModel(location: location)
+        )
+    }
 
     var body: some View {
         ZStack(alignment: .bottom) {

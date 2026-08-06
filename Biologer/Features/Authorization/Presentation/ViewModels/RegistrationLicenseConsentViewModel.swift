@@ -30,10 +30,6 @@ public final class RegistrationLicenseConsentViewModel: ObservableObject {
     public var topImage: String
     @Published public var acceptPPCheckMark: Bool = false
 
-    private let onReadPrivacyPolicy: Observer<Void>
-    private let onDataLicense: Observer<CheckMarkItem>
-    private let onImageLicense: Observer<CheckMarkItem>
-    private let onSuccess: Observer<Void>
     private let registerUserUseCase: RegisterUserUseCase
 
 
@@ -42,33 +38,13 @@ public final class RegistrationLicenseConsentViewModel: ObservableObject {
         topImage: String,
         registerUserUseCase: RegisterUserUseCase,
         dataLicense: CheckMarkItem,
-        imageLicense: CheckMarkItem,
-        onReadPrivacyPolicy: @escaping Observer<Void>,
-        onDataLicense: @escaping Observer<CheckMarkItem>,
-        onImageLicense: @escaping Observer<CheckMarkItem>,
-        onSuccess: @escaping Observer<Void>
+        imageLicense: CheckMarkItem
     ) {
         self.user = user
         self.topImage = topImage
         self.registerUserUseCase = registerUserUseCase
         self.dataLicense = dataLicense
         self.imageLicense = imageLicense
-        self.onReadPrivacyPolicy = onReadPrivacyPolicy
-        self.onDataLicense = onDataLicense
-        self.onImageLicense = onImageLicense
-        self.onSuccess = onSuccess
-    }
-
-    public func dataLicenseTapped() {
-        onDataLicense((dataLicense))
-    }
-
-    public func privacyPolicyTapped() {
-        onReadPrivacyPolicy(())
-    }
-
-    public func imageLicenseTapped() {
-        onImageLicense((imageLicense))
     }
 
     public func registerTapped() async {
@@ -105,7 +81,6 @@ public final class RegistrationLicenseConsentViewModel: ObservableObject {
 
     public func confirmRegistrationSuccess() {
         registrationPopup = nil
-        onSuccess(())
     }
 }
 

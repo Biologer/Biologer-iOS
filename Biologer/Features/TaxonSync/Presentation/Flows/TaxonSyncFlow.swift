@@ -5,11 +5,10 @@ struct TaxonSyncFlow: View {
     private let onContinue: (() -> Void)?
 
     init(
-        useCases: TaxonSyncUseCases,
-        scopeProvider: TaxonCatalogScopeProviding,
+        viewModel: TaxonSyncViewModel,
         onContinue: (() -> Void)? = nil
     ) {
-        _viewModel = StateObject(wrappedValue: TaxonSyncViewModel(useCases: useCases, scopeProvider: scopeProvider))
+        _viewModel = StateObject(wrappedValue: viewModel)
         self.onContinue = onContinue
     }
 

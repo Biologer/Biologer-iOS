@@ -1,10 +1,15 @@
 import SwiftUI
 
 struct RegistrationPersonalInfoScreen: View {
-    @StateObject private var loader: RegistrationPersonalInfoViewModel
+    @ObservedObject private var loader: RegistrationPersonalInfoViewModel
+    private let onNext: () -> Void
 
-    init(loader: RegistrationPersonalInfoViewModel) {
-        _loader = StateObject(wrappedValue: loader)
+    init(
+        loader: RegistrationPersonalInfoViewModel,
+        onNext: @escaping () -> Void
+    ) {
+        self.loader = loader
+        self.onNext = onNext
     }
 
     var body: some View {
@@ -51,7 +56,10 @@ struct RegistrationPersonalInfoScreen: View {
                     )
                 }
 
-                Button(action: loader.nextButtonTapped) {
+                Button {
+                    guard loader.nextButtonTapped() else { return }
+                    onNext()
+                } label: {
                     Label(
                         "Register.one.btn.next".localized,
                         systemImage: "arrow.right"
@@ -64,44 +72,5 @@ struct RegistrationPersonalInfoScreen: View {
         }
         .biologerPageBackground()
         .navigationBarBackButtonHidden(true)
-    }
-}
-
-struct RegistrationPersonalInfoScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        RegistrationPersonalInfoScreen(
-            loader: RegistrationPersonalInfoViewModel(
-                user: RegistrationDraft(),
-                validator: StubRegistrationUseCase(),
-                onNextTapped: { _ in }
-            )
-        )
-    }
-
-    private final class StubRegistrationUseCase: RegistrationUseCase {
-        func validatePersonalInfo(
-            firstName: String,
-            lastName: String,
-            institution: String
-        ) throws(RegisterUserValidationError) -> RegistrationPersonalInfo {
-            RegistrationPersonalInfo(
-                firstName: firstName,
-                lastName: lastName,
-                institution: institution
-            )
-        }
-
-        func validateCredentials(
-            email: String,
-            password: String,
-            repeatedPassword: String
-        ) throws(RegisterUserValidationError) -> RegistrationCredentials {
-            RegistrationCredentials(email: email, password: password)
-        }
-
-        func createUser(
-            request: RegistrationRequest
-        ) async throws(AuthorizationFailure) {
-        }
     }
 }

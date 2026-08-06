@@ -24,17 +24,17 @@ struct FindingDetailsScreen_Previews: PreviewProvider {
 
         return NavigationStack {
             FindingDetailsScreen(
-                viewModel: FindingDetailsViewModel(
-                    findingID: details.id,
+                findingID: details.id,
+                useCases: FindingDetailsUseCases(
                     getFindingDetails: DefaultGetFindingDetailsUseCase(
                         repository: repository
                     ),
                     uploadFindings: uploadFindings,
-                    checkSubmissionAccess: PreviewFindingSubmissionAccessUseCase(),
-                    onEditFinding: { _ in },
-                    onShowLocation: { _ in },
-                    onShowPhotos: { _, _ in }
-                )
+                    checkSubmissionAccess: PreviewFindingSubmissionAccessUseCase()
+                ),
+                onEditFinding: { _ in },
+                onShowLocation: { _ in },
+                onShowPhotos: { _, _ in }
             )
         }
     }

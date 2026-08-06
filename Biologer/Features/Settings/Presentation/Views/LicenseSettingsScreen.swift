@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct LicenseSettingsScreen: View {
-    @StateObject private var viewModel: LicenseSettingsViewModel
+    @ObservedObject private var viewModel: LicenseSettingsViewModel
 
     init(viewModel: LicenseSettingsViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     var body: some View {

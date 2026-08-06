@@ -2,21 +2,15 @@ import SwiftUI
 
 struct SettingsAboutScreen: View {
     @SwiftUI.Environment(\.openURL) private var openURL
-    @StateObject private var viewModel: SettingsAboutViewModel
+    @ObservedObject private var viewModel: SettingsAboutViewModel
     let onBack: Observer<Void>
 
     init(
-        environment: String,
-        version: String,
+        viewModel: SettingsAboutViewModel,
         onBack: @escaping Observer<Void>
     ) {
         self.onBack = onBack
-        _viewModel = StateObject(
-            wrappedValue: SettingsAboutViewModel(
-                environment: environment,
-                version: version
-            )
-        )
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -76,17 +70,10 @@ struct SettingsAboutScreen: View {
             .padding(.bottom, 32)
         }
         .biologerPageBackground()
-        .navigationTitle("Settings.support.about".localized)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .tint(BiologerColors.accent)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { onBack(()) }) {
-                    Image(systemName: "chevron.left")
-                }
-            }
-        }
+        .biologerNavigationBar(
+            title: "Settings.support.about".localized,
+            onBack: { onBack(()) }
+        )
     }
 
     private var brandHeader: some View {

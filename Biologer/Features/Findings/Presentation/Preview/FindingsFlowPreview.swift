@@ -20,24 +20,31 @@ struct FindingsFlow_Previews: PreviewProvider {
         let repository = PreviewFindingsFlowRepository(
             findings: previewFindings
         )
-        let listUseCases = FindingsUseCases(
-            getFindings: DefaultGetFindingsUseCase(repository: repository),
-            deleteFinding: DefaultDeleteFindingUseCase(repository: repository),
-            deleteFindings: DefaultDeleteFindingsUseCase(repository: repository),
-            deleteAllFindings: DefaultDeleteAllFindingsUseCase(repository: repository)
-        )
         let uploadFindings = PreviewUploadFindingsUseCase(
             onUpload: repository.markAsUploaded
         )
-
-        return FindingsFlow(
-            controller: FindingsFlowController(),
-            listUseCases: listUseCases,
-            getFindingDetails: DefaultGetFindingDetailsUseCase(
-                repository: repository
+        let submissionAccess = PreviewFindingSubmissionAccessUseCase()
+        let useCases = FindingsUseCases(
+            list: ListOfFindingsUseCases(
+                getFindings: DefaultGetFindingsUseCase(repository: repository),
+                deleteFinding: DefaultDeleteFindingUseCase(repository: repository),
+                deleteFindings: DefaultDeleteFindingsUseCase(repository: repository),
+                deleteAllFindings: DefaultDeleteAllFindingsUseCase(repository: repository),
+                uploadFindings: uploadFindings,
+                checkSubmissionAccess: submissionAccess
             ),
-            uploadFindings: uploadFindings,
-            checkSubmissionAccess: PreviewFindingSubmissionAccessUseCase(),
+            details: FindingDetailsUseCases(
+                getFindingDetails: DefaultGetFindingDetailsUseCase(
+                    repository: repository
+                ),
+                uploadFindings: uploadFindings,
+                checkSubmissionAccess: submissionAccess
+            )
+        )
+        let controller = FindingsFlowController()
+
+        return FindingsBuilder(useCases: useCases).makeFlow(
+            controller: controller,
             onAddFinding: onAddFinding,
             onEditFinding: onEditFinding
         )

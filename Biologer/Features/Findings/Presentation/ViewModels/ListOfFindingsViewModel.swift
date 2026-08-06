@@ -35,26 +35,14 @@ final class ListOfFindingsViewModel: ObservableObject {
     @Published private(set) var selectionMode: FindingsSelectionMode?
     @Published private(set) var selectedFindingIDs: Set<UUID> = []
     @Published private(set) var uploadState: FindingUploadViewState = .idle
-    @Published private(set) var navigationFindingID: UUID?
     @Published private(set) var submissionWarning: FindingSubmissionWarning?
 
-    private let useCases: FindingsUseCases
-    private let uploadFindings: UploadFindingsUseCase
-    private let checkSubmissionAccess: CheckFindingSubmissionAccessUseCase
-    private let onAddFinding: () -> Void
+    private let useCases: ListOfFindingsUseCases
     private var filterBeforeSelection: FindingsListFilter?
     private var uploadTask: Task<Void, Never>?
 
-    init(
-        useCases: FindingsUseCases,
-        onAddFinding: @escaping () -> Void,
-        uploadFindings: UploadFindingsUseCase,
-        checkSubmissionAccess: CheckFindingSubmissionAccessUseCase
-    ) {
+    init(useCases: ListOfFindingsUseCases) {
         self.useCases = useCases
-        self.onAddFinding = onAddFinding
-        self.uploadFindings = uploadFindings
-        self.checkSubmissionAccess = checkSubmissionAccess
     }
 
     var isUploading: Bool {
@@ -109,22 +97,19 @@ final class ListOfFindingsViewModel: ObservableObject {
         }
     }
 
-    func didTapAddFinding() {
-        guard !isUploading, !isSelectionActive else { return }
-        guard checkSubmissionAccess.execute() else {
+    func canAddFinding() -> Bool {
+        guard !isUploading, !isSelectionActive else { return false }
+        guard useCases.checkSubmissionAccess.execute() else {
             submissionWarning = .createFinding
-            return
+            return false
         }
-        onAddFinding()
+        return true
     }
 
-    func didSelectFinding(_ finding: FindingSummary) {
-        guard !isUploading, !isSelectionActive else { return }
-        navigationFindingID = finding.id
-    }
-
-    func didHandleFindingNavigation() {
-        navigationFindingID = nil
+    func canSelectFinding(_ finding: FindingSummary) -> Bool {
+        !isUploading
+            && !isSelectionActive
+            && findings.contains(where: { $0.id == finding.id })
     }
 
     func selectFilter(_ filter: FindingsListFilter) {
@@ -133,7 +118,7 @@ final class ListOfFindingsViewModel: ObservableObject {
     }
 
     func beginUploadSelection() {
-        guard checkSubmissionAccess.execute() else {
+        guard useCases.checkSubmissionAccess.execute() else {
             submissionWarning = .uploadFindings
             return
         }
@@ -177,7 +162,7 @@ final class ListOfFindingsViewModel: ObservableObject {
     }
 
     func uploadSelectedFindings() {
-        guard checkSubmissionAccess.execute() else {
+        guard useCases.checkSubmissionAccess.execute() else {
             submissionWarning = .uploadFindings
             return
         }
@@ -242,13 +227,14 @@ final class ListOfFindingsViewModel: ObservableObject {
         }
     }
 
-    func dismissSubmissionWarning() {
-        let warning = submissionWarning
+    func confirmSubmissionWarning() -> Bool {
+        let shouldContinue = submissionWarning == .createFinding
         submissionWarning = nil
+        return shouldContinue
+    }
 
-        if warning == .createFinding {
-            onAddFinding()
-        }
+    func dismissSubmissionWarning() {
+        submissionWarning = nil
     }
 
     private func startUpload(ids: [UUID]) {
@@ -265,7 +251,7 @@ final class ListOfFindingsViewModel: ObservableObject {
             guard let self else { return }
 
             do {
-                try await uploadFindings.execute(ids: ids) { [weak self] progress in
+                try await useCases.uploadFindings.execute(ids: ids) { [weak self] progress in
                     await MainActor.run {
                         self?.uploadState = .uploading(progress)
                     }

@@ -1,10 +1,21 @@
 import SwiftUI
 
 struct FindingLocationScreen: View {
-    @ObservedObject private var viewModel: FindingLocationViewModel
+    @StateObject private var viewModel: FindingLocationViewModel
+    private let onSelect: Observer<FindingEditorLocation>
 
-    init(viewModel: FindingLocationViewModel) {
-        self.viewModel = viewModel
+    init(
+        initialLocation: FindingEditorLocation?,
+        useCases: FindingLocationUseCases,
+        onSelect: @escaping Observer<FindingEditorLocation>
+    ) {
+        _viewModel = StateObject(
+            wrappedValue: FindingLocationViewModel(
+                initialLocation: initialLocation,
+                useCases: useCases
+            )
+        )
+        self.onSelect = onSelect
     }
 
     var body: some View {
@@ -128,7 +139,12 @@ struct FindingLocationScreen: View {
                 }
             }
 
-            Button(action: viewModel.confirmSelection) {
+            Button {
+                Task {
+                    guard let location = await viewModel.confirmSelection() else { return }
+                    onSelect(location)
+                }
+            } label: {
                 HStack(spacing: BiologerSpacing.xSmall) {
                     if viewModel.isResolvingAltitude {
                         ProgressView().tint(.white)

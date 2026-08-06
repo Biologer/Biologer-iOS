@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct AutomaticDownloadSettingsScreen: View {
-    @StateObject private var viewModel: AutomaticDownloadSettingsViewModel
+    @ObservedObject private var viewModel: AutomaticDownloadSettingsViewModel
 
     init(viewModel: AutomaticDownloadSettingsViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     var body: some View {

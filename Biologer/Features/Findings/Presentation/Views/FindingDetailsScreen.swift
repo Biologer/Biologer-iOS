@@ -2,9 +2,26 @@ import SwiftUI
 
 struct FindingDetailsScreen: View {
     @StateObject private var viewModel: FindingDetailsViewModel
+    private let onEditFinding: Observer<UUID>
+    private let onShowLocation: Observer<FindingDetailsLocation>
+    private let onShowPhotos: ([FindingPhoto], Int) -> Void
 
-    init(viewModel: FindingDetailsViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+    init(
+        findingID: UUID,
+        useCases: FindingDetailsUseCases,
+        onEditFinding: @escaping Observer<UUID>,
+        onShowLocation: @escaping Observer<FindingDetailsLocation>,
+        onShowPhotos: @escaping ([FindingPhoto], Int) -> Void
+    ) {
+        _viewModel = StateObject(
+            wrappedValue: FindingDetailsViewModel(
+                findingID: findingID,
+                useCases: useCases
+            )
+        )
+        self.onEditFinding = onEditFinding
+        self.onShowLocation = onShowLocation
+        self.onShowPhotos = onShowPhotos
     }
 
     var body: some View {
@@ -55,13 +72,13 @@ struct FindingDetailsScreen: View {
             LazyVStack(spacing: BiologerSpacing.large) {
                 FindingDetailsHero(
                     details: details,
-                    onTapPhoto: { viewModel.didTapPhoto(at: 0) }
+                    onTapPhoto: { showPhoto(at: 0) }
                 )
 
                 if details.photos.count > 1 {
                     FindingDetailsPhotoGallery(
-                        photos: details.photos,
-                        onTapPhoto: viewModel.didTapPhoto
+                    photos: details.photos,
+                    onTapPhoto: showPhoto
                     )
                 }
 
@@ -160,7 +177,7 @@ struct FindingDetailsScreen: View {
 
             FindingDetailsDivider()
 
-            Button(action: viewModel.didTapShowLocation) {
+            Button(action: showLocation) {
                 HStack(spacing: BiologerSpacing.xSmall) {
                     Image(systemName: "map")
                     Text("FindingDetails.action.showOnMap".localized)
@@ -283,7 +300,7 @@ struct FindingDetailsScreen: View {
                 .disabled(viewModel.isUploading)
             }
 
-            Button(action: viewModel.didTapEdit) {
+            Button(action: editFinding) {
                 HStack(spacing: BiologerSpacing.xSmall) {
                     Image(systemName: "pencil")
                     Text("FindingDetails.action.edit".localized)
@@ -363,6 +380,21 @@ struct FindingDetailsScreen: View {
 
     private func containsNotes(_ details: FindingDetails) -> Bool {
         !noteValues(details).isEmpty
+    }
+
+    private func editFinding() {
+        guard let findingID = viewModel.editableFindingID() else { return }
+        onEditFinding(findingID)
+    }
+
+    private func showLocation() {
+        guard let location = viewModel.selectedLocation() else { return }
+        onShowLocation(location)
+    }
+
+    private func showPhoto(at index: Int) {
+        guard let presentation = viewModel.photoPresentation(at: index) else { return }
+        onShowPhotos(presentation.0, presentation.1)
     }
 
     private func noteValues(_ details: FindingDetails) -> [FindingNoteValue] {

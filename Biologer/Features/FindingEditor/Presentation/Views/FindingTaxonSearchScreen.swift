@@ -1,11 +1,17 @@
 import SwiftUI
 
 struct FindingTaxonSearchScreen: View {
-    @StateObject private var viewModel: FindingTaxonSearchViewModel
+    @ObservedObject private var viewModel: FindingTaxonSearchViewModel
+    private let onSelectTaxon: Observer<FindingEditorTaxon>
     private let onTaxonSync: (() -> Void)?
 
-    init(viewModel: FindingTaxonSearchViewModel, onTaxonSync: (() -> Void)? = nil) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+    init(
+        viewModel: FindingTaxonSearchViewModel,
+        onSelectTaxon: @escaping Observer<FindingEditorTaxon>,
+        onTaxonSync: (() -> Void)? = nil
+    ) {
+        self.viewModel = viewModel
+        self.onSelectTaxon = onSelectTaxon
         self.onTaxonSync = onTaxonSync
     }
 
@@ -88,7 +94,10 @@ struct FindingTaxonSearchScreen: View {
     }
 
     private var customNameButton: some View {
-        Button(action: viewModel.useCustomName) {
+        Button {
+            guard let taxon = viewModel.customTaxon() else { return }
+            onSelectTaxon(taxon)
+        } label: {
             HStack(spacing: BiologerSpacing.small) {
                 BiologerIconBadge(systemImage: "pencil", size: 38)
                 VStack(alignment: .leading, spacing: BiologerSpacing.xxSmall) {
@@ -112,7 +121,7 @@ struct FindingTaxonSearchScreen: View {
     }
 
     private func taxonRow(_ taxon: FindingEditorTaxon) -> some View {
-        Button { viewModel.select(taxon) } label: {
+        Button { onSelectTaxon(taxon) } label: {
             HStack(spacing: BiologerSpacing.small) {
                 BiologerIconBadge(systemImage: "leaf.fill", size: 38)
                 Text(taxon.name)

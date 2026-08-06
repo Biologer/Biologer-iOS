@@ -1,19 +1,15 @@
 import Foundation
-import RealmSwift
 
 @MainActor
 final class FindingEditorBuilder {
-    private let realmConfiguration: Realm.Configuration
-    private let altitudeRepository: FindingAltitudeRepository
+    private let useCases: FindingEditorUseCases
     private let taxonSyncComposition: TaxonSyncComposition
 
     init(
-        realmConfiguration: Realm.Configuration = RealmManager.realmConfig(),
-        altitudeRepository: FindingAltitudeRepository,
+        useCases: FindingEditorUseCases,
         taxonSyncComposition: TaxonSyncComposition
     ) {
-        self.realmConfiguration = realmConfiguration
-        self.altitudeRepository = altitudeRepository
+        self.useCases = useCases
         self.taxonSyncComposition = taxonSyncComposition
     }
 
@@ -22,35 +18,26 @@ final class FindingEditorBuilder {
         onSaved: @escaping Observer<UUID>,
         onUnsavedChangesChanged: @escaping Observer<Bool>
     ) -> FindingEditorFlow {
-        let editorRepository = RealmFindingEditorRepository(
-            configuration: realmConfiguration
+        let flowViewModel = FindingEditorFlowViewModel(
+            editorViewModel: FindingEditorViewModel(
+                mode: mode,
+                loadFinding: useCases.loadFinding,
+                saveFinding: useCases.saveFinding,
+                onUnsavedChangesChanged: onUnsavedChangesChanged
+            ),
+            taxonSearchViewModel: FindingTaxonSearchViewModel(
+                searchTaxa: useCases.searchTaxa
+            ),
+            taxonSyncViewModel: TaxonSyncViewModel(
+                useCases: taxonSyncComposition.useCases,
+                scopeProvider: taxonSyncComposition.scopeProvider
+            )
         )
-        let taxonRepository = RealmFindingTaxonSearchRepository(
-            configuration: realmConfiguration
-        )
-        let locationRepository = CoreLocationFindingCurrentLocationRepository()
+
         return FindingEditorFlow(
-            mode: mode,
-            loadFinding: DefaultLoadFindingEditorUseCase(
-                repository: editorRepository
-            ),
-            saveFinding: DefaultSaveFindingEditorUseCase(
-                repository: editorRepository
-            ),
-            searchTaxa: DefaultSearchFindingTaxaUseCase(
-                repository: taxonRepository
-            ),
-            locationUseCases: FindingLocationUseCases(
-                observeCurrentLocation: DefaultObserveCurrentFindingLocationUseCase(
-                    repository: locationRepository
-                ),
-                resolveLocation: DefaultResolveFindingLocationUseCase(
-                    altitudeRepository: altitudeRepository
-                )
-            ),
-            taxonSyncComposition: taxonSyncComposition,
-            onSaved: onSaved,
-            onUnsavedChangesChanged: onUnsavedChangesChanged
+            viewModel: flowViewModel,
+            locationUseCases: useCases.location,
+            onSaved: onSaved
         )
     }
 }

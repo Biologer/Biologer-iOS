@@ -14,33 +14,21 @@ struct AuthorizationFlow: View {
         case registration
     }
 
-    @State
-    private var selectedEnvironment: EnvironmentViewModel = EnvironmentViewModelFactory().createEnvironment(type: .serbia)
+    @State private var path: NavigationPath = .init()
+    @StateObject private var viewModel: AuthorizationFlowViewModel
 
-    @State
-    private var path: NavigationPath = .init()
-
-    @StateObject
-    private var viewModel: AuthorizationFlowViewModel
-    @State private var errorAlert: AuthorizationAlert?
     @SwiftUI.Environment(\.openURL) private var openURL
 
-    private let authorizationUseCases: AuthorizationUseCases
+    private let onHelpCompleted: Observer<Void>
     private let onAuthorizationSuccess: Observer<Void>
 
     init(
-        authorizationUseCases: AuthorizationUseCases,
-        shouldPresentHelp: Bool,
+        viewModel: AuthorizationFlowViewModel,
         onHelpCompleted: @escaping Observer<Void>,
         onAuthorizationSuccess: @escaping Observer<Void>
     ) {
-        self.authorizationUseCases = authorizationUseCases
-        _viewModel = StateObject(
-            wrappedValue: AuthorizationFlowViewModel(
-                shouldPresentHelp: shouldPresentHelp,
-                onHelpCompleted: onHelpCompleted
-            )
-        )
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.onHelpCompleted = onHelpCompleted
         self.onAuthorizationSuccess = onAuthorizationSuccess
     }
 
@@ -56,11 +44,12 @@ struct AuthorizationFlow: View {
                     }
                 }
         }
-        .alert(item: $errorAlert) { alert in
-            Alert(
-                title: Text(alert.title),
-                message: Text(alert.message),
-                dismissButton: .default(Text("Common.btn.ok".localized))
+        .sheet(item: $viewModel.result) { result in
+            BiologerResultSheet(
+                style: .failure,
+                title: result.title,
+                message: result.message,
+                onConfirm: viewModel.dismissResult
             )
         }
     }
@@ -69,7 +58,8 @@ struct AuthorizationFlow: View {
     private var initialScreen: some View {
         if viewModel.isHelpPresented {
             BiologerHelpScreen { _ in
-                viewModel.completeHelp()
+                guard viewModel.completeHelp() else { return }
+                onHelpCompleted(())
             }
             .navigationBarBackButtonHidden(true)
         } else {
@@ -79,62 +69,46 @@ struct AuthorizationFlow: View {
 
     private var loginScreen: some View {
         LoginScreen(
-            environmentViewModel: selectedEnvironment,
-            viewModel: LoginScreenViewModel(
-                environmentViewModel: selectedEnvironment,
-                useCase: authorizationUseCases.login,
-                onSelectEnvironmentTapped: {
-                    path.append(Screen.environments)
-                },
-                onLoginSuccess: {
-                    onAuthorizationSuccess(())
-                },
-                onRegisterTapped: {
-                    path.append(Screen.registration)
-                },
-                onForgotPasswordTapped: {
-                    openExternalPage(path: "/password/reset")
-                },
-                onLoginError: { error in
-                    errorAlert = AuthorizationAlert(
-                        title: error.summary.isEmpty ? "API.lb.error".localized : error.summary,
-                        message: error.message
-                    )
-                }
-            ))
-            .authorizationNavigationBar()
+            environmentViewModel: viewModel.selectedEnvironment,
+            viewModel: viewModel.loginViewModel,
+            onSelectEnvironment: { path.append(Screen.environments) },
+            onLoginSuccess: { onAuthorizationSuccess(()) },
+            onLoginError: viewModel.present,
+            onRegister: { path.append(Screen.registration) },
+            onForgotPassword: { openExternalPage(.forgotPassword) }
+        )
+            .biologerNavigationBar()
             .onAppear {
-                authorizationUseCases.selectEnvironment(selectedEnvironment.env)
+                viewModel.prepareLogin()
             }
     }
 
     private var environmentsScreen: some View {
         EnvironmentSelectionScreen(
-            selectedEnvironment: $selectedEnvironment,
-            environments: EnvironmentViewModelFactory().createAllEnvironments(),
+            selectedEnvironment: Binding(
+                get: { viewModel.selectedEnvironment },
+                set: viewModel.selectEnvironment
+            ),
+            environments: viewModel.environments,
             close: {
                 goBack()
             }
         )
-        .authorizationNavigationBar(
+        .biologerNavigationBar(
             title: "Env.nav.title".localized,
             onBack: {
                 goBack()
             }
         )
-        .onChange(of: selectedEnvironment) { environment in
-            authorizationUseCases.selectEnvironment(environment.env)
-        }
     }
 
     // MARK: - Register Steps Screens
     private var registrationFlow: some View {
         RegistrationFlow(
             path: $path,
-            registrationUseCase: authorizationUseCases.registration,
-            environmentImage: selectedEnvironment.image,
+            viewModel: viewModel.registrationFlowViewModel,
             onPrivacyPolicy: { _ in
-                openExternalPage(path: "/pages/privacy-policy")
+                openExternalPage(.privacyPolicy)
             },
             registrationSuccess: {
                 onAuthorizationSuccess(())
@@ -146,22 +120,8 @@ struct AuthorizationFlow: View {
         path.removeLast()
     }
 
-    private func openExternalPage(path: String) {
-        guard let url = URL(
-            string: "https://\(selectedEnvironment.env.host)\(selectedEnvironment.env.path)\(path)"
-        ) else {
-            errorAlert = AuthorizationAlert(
-                title: "API.lb.error".localized,
-                message: "API.lb.parsingError".localized
-            )
-            return
-        }
+    private func openExternalPage(_ page: AuthorizationExternalPage) {
+        guard let url = viewModel.externalURL(for: page) else { return }
         openURL(url)
     }
-}
-
-private struct AuthorizationAlert: Identifiable {
-    let id = UUID()
-    let title: String
-    let message: String
 }

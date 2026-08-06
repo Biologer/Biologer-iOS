@@ -18,21 +18,22 @@ struct ListOfFindingsScreen_Previews: PreviewProvider {
 
     private static func makeScreen(findings: [FindingSummary]) -> some View {
         let repository = PreviewFindingsRepository(findings: findings)
-        let useCases = FindingsUseCases(
+        let useCases = ListOfFindingsUseCases(
             getFindings: DefaultGetFindingsUseCase(repository: repository),
             deleteFinding: DefaultDeleteFindingUseCase(repository: repository),
             deleteFindings: DefaultDeleteFindingsUseCase(repository: repository),
-            deleteAllFindings: DefaultDeleteAllFindingsUseCase(repository: repository)
-        )
-        let viewModel = ListOfFindingsViewModel(
-            useCases: useCases,
-            onAddFinding: {},
+            deleteAllFindings: DefaultDeleteAllFindingsUseCase(repository: repository),
             uploadFindings: PreviewUploadFindingsUseCase(),
             checkSubmissionAccess: PreviewFindingSubmissionAccessUseCase()
         )
+        let viewModel = ListOfFindingsViewModel(useCases: useCases)
 
         return NavigationStack {
-            ListOfFindingsScreen(viewModel: viewModel)
+            ListOfFindingsScreen(
+                viewModel: viewModel,
+                onAddFinding: {},
+                onSelectFinding: { _ in }
+            )
         }
     }
 

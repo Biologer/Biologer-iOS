@@ -2,87 +2,70 @@ import Foundation
 
 @MainActor
 final class SettingsBuilder {
-    private let settingsStorage: SettingsStorage
-    private let dataLicenseStorage: LicenseStorage
-    private let imageLicenseStorage: LicenseStorage
-    private let environmentStorage: EnvironmentStorage
-    private let userStorage: UserStorage
-    private let taxonSyncComposition: TaxonSyncComposition
+    private let useCases: SettingsUseCases
+    private let accountContextProvider: () -> SettingsAccountContext
+    private let appVersion: String
     private let accountUseCase: UserAccountUseCase
     private let logoutUseCase: LogoutUseCase
+    private let taxonSyncComposition: TaxonSyncComposition
 
     init(
-        settingsStorage: SettingsStorage,
-        dataLicenseStorage: LicenseStorage,
-        imageLicenseStorage: LicenseStorage,
-        environmentStorage: EnvironmentStorage,
-        userStorage: UserStorage,
-        taxonSyncComposition: TaxonSyncComposition,
+        useCases: SettingsUseCases,
+        accountContextProvider: @escaping () -> SettingsAccountContext,
+        appVersion: String,
         accountUseCase: UserAccountUseCase,
-        logoutUseCase: LogoutUseCase
+        logoutUseCase: LogoutUseCase,
+        taxonSyncComposition: TaxonSyncComposition
     ) {
-        self.settingsStorage = settingsStorage
-        self.dataLicenseStorage = dataLicenseStorage
-        self.imageLicenseStorage = imageLicenseStorage
-        self.environmentStorage = environmentStorage
-        self.userStorage = userStorage
-        self.taxonSyncComposition = taxonSyncComposition
+        self.useCases = useCases
+        self.accountContextProvider = accountContextProvider
+        self.appVersion = appVersion
         self.accountUseCase = accountUseCase
         self.logoutUseCase = logoutUseCase
+        self.taxonSyncComposition = taxonSyncComposition
     }
 
     func makeFlow(
         onDownloadTaxa: @escaping Observer<Void>
     ) -> SettingsFlow {
-        let environment = currentEnvironment()
-        return SettingsFlow(
-            useCases: makeUseCases(),
-            accountContextProvider: { [weak self] in
-                SettingsAccountContext(
-                    email: self?.userStorage.getUser()?.email ?? "",
-                    username: self?.userStorage.getUser()?.fullName ?? "",
-                    environment: self?.currentEnvironment() ?? environment
-                )
-            },
-            appVersion: currentAppVersion(),
-            onDownloadTaxa: onDownloadTaxa,
-            accountUseCase: accountUseCase,
-            logoutUseCase: logoutUseCase,
-            taxonSyncComposition: taxonSyncComposition
-        )
-    }
-
-    private func makeUseCases() -> SettingsUseCases {
-        SettingsUseCases(
-            preferences: DefaultSettingsPreferencesUseCase(
-                repository: StoredSettingsPreferencesRepository(storage: settingsStorage)
+        let context = accountContextProvider()
+        let flowViewModel = SettingsFlowViewModel(
+            settingsViewModel: SettingsScreenViewModel(
+                preferencesUseCase: useCases.preferences,
+                taxonDataUseCase: useCases.taxonData
             ),
-            licenses: DefaultSettingsLicenseUseCase(
-                repository: StoredSettingsLicenseRepository(
-                    dataLicenseStorage: dataLicenseStorage,
-                    imageLicenseStorage: imageLicenseStorage
-                )
+            projectNameViewModel: ProjectNameSettingsViewModel(
+                useCase: useCases.preferences
             ),
-            taxonData: DefaultSettingsTaxonDataUseCase(
-                repository: RealmDownloadedTaxaRepository()
+            dataLicenseViewModel: LicenseSettingsViewModel(
+                kind: .data,
+                useCase: useCases.licenses
+            ),
+            imageLicenseViewModel: LicenseSettingsViewModel(
+                kind: .image,
+                useCase: useCases.licenses
+            ),
+            automaticDownloadViewModel: AutomaticDownloadSettingsViewModel(
+                useCase: useCases.preferences
+            ),
+            taxonSyncViewModel: TaxonSyncViewModel(
+                useCases: taxonSyncComposition.useCases,
+                scopeProvider: taxonSyncComposition.scopeProvider
+            ),
+            aboutViewModel: SettingsAboutViewModel(
+                environment: context.environment,
+                version: appVersion
+            ),
+            accountViewModel: SettingsAccountViewModel(
+                context: context,
+                accountUseCase: accountUseCase,
+                logoutUseCase: logoutUseCase
             )
         )
-    }
 
-    private func currentEnvironment() -> String {
-        guard let environment = environmentStorage.getEnvironment() else {
-            return ""
-        }
-        return "https://\(environment.host)"
-    }
-
-    private func currentAppVersion() -> String {
-        guard
-            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
-        else {
-            return ""
-        }
-        return "\("AboutBiologer.lb.appVersion".localized) \(version) (\(build))"
+        return SettingsFlow(
+            viewModel: flowViewModel,
+            onDownloadTaxa: onDownloadTaxa
+        )
     }
 }

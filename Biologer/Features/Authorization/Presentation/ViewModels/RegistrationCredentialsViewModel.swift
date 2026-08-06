@@ -19,22 +19,19 @@ public final class RegistrationCredentialsViewModel: ObservableObject {
     private let user: RegistrationDraft
 
     private let validator: RegistrationCredentialsValidating
-    private let onNextTapped: Observer<Void>
 
     init(
         user: RegistrationDraft,
-        validator: RegistrationCredentialsValidating,
-        onNextTapped: @escaping Observer<Void>
+        validator: RegistrationCredentialsValidating
     ) {
         self.validator = validator
-        self.onNextTapped = onNextTapped
         self.user = user
         email = user.email
         password = user.password
         repeatedPassword = user.password
     }
 
-    func nextButtonTapped() {
+    func nextButtonTapped() -> Bool {
         validateFields()
     }
 
@@ -53,7 +50,7 @@ public final class RegistrationCredentialsViewModel: ObservableObject {
         repeatedPasswordError = nil
     }
 
-    private func validateFields() {
+    private func validateFields() -> Bool {
         do throws(RegisterUserValidationError) {
             let credentials = try validator.validateCredentials(
                 email: email,
@@ -65,9 +62,10 @@ public final class RegistrationCredentialsViewModel: ObservableObject {
             setEmailValid()
             setPasswordValid()
             setRepeatPasswordValid()
-            onNextTapped(())
+            return true
         } catch {
             handle(error)
+            return false
         }
     }
 

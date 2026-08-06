@@ -47,14 +47,11 @@ final class FindingLocationViewModel: ObservableObject {
 
     private let observeCurrentLocation: ObserveCurrentFindingLocationUseCase
     private let resolveLocation: ResolveFindingLocationUseCase
-    private let onSelect: (FindingEditorLocation) -> Void
     private var didStart = false
-    private var resolveTask: Task<Void, Never>?
 
     init(
         initialLocation: FindingEditorLocation?,
-        useCases: FindingLocationUseCases,
-        onSelect: @escaping (FindingEditorLocation) -> Void
+        useCases: FindingLocationUseCases
     ) {
         selectedLocation = initialLocation
         status = initialLocation == nil ? .idle : .ready
@@ -64,7 +61,6 @@ final class FindingLocationViewModel: ObservableObject {
         )
         observeCurrentLocation = useCases.observeCurrentLocation
         resolveLocation = useCases.resolveLocation
-        self.onSelect = onSelect
     }
 
     var canConfirm: Bool {
@@ -94,8 +90,6 @@ final class FindingLocationViewModel: ObservableObject {
 
     func stop() {
         observeCurrentLocation.stop()
-        resolveTask?.cancel()
-        resolveTask = nil
         isResolvingAltitude = false
         didStart = false
     }
@@ -124,17 +118,14 @@ final class FindingLocationViewModel: ObservableObject {
         status = .ready
     }
 
-    func confirmSelection() {
-        guard let selectedLocation, !isResolvingAltitude else { return }
+    func confirmSelection() async -> FindingEditorLocation? {
+        guard let selectedLocation, !isResolvingAltitude else { return nil }
         isResolvingAltitude = true
-        resolveTask?.cancel()
-        resolveTask = Task { [weak self] in
-            guard let self else { return }
-            let resolvedLocation = await resolveLocation.execute(selectedLocation)
-            guard !Task.isCancelled else { return }
-            isResolvingAltitude = false
-            onSelect(resolvedLocation)
-        }
+        defer { isResolvingAltitude = false }
+
+        let resolvedLocation = await resolveLocation.execute(selectedLocation)
+        guard !Task.isCancelled else { return nil }
+        return resolvedLocation
     }
 
     private func receiveCurrentLocation(_ location: FindingEditorLocation) {

@@ -51,7 +51,7 @@ struct FindingEditorDraft: Equatable {
     }
 }
 
-struct FindingEditorLocation: Equatable {
+struct FindingEditorLocation: Equatable, Hashable {
     var latitude: Double
     var longitude: Double
     var altitude: Double

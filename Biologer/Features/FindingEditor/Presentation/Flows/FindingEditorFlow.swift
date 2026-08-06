@@ -1,130 +1,127 @@
 import SwiftUI
 
-private struct FindingEditorGalleryPresentation: Identifiable {
-    let id = UUID()
-    let photos: [FindingPhoto]
-    let initialIndex: Int
-}
-
-private struct FindingEditorPhotoPickerPresentation: Identifiable {
-    let id = UUID()
-    let source: FindingEditorPhotoSource
-}
-
-@MainActor
-private final class FindingEditorFlowNavigation: ObservableObject {
-    @Published var photoGallery: FindingEditorGalleryPresentation?
-    @Published var photoPicker: FindingEditorPhotoPickerPresentation?
-    @Published var showsTaxonSearch = false
-    @Published var showsTaxonSync = false
-    @Published var showsLocationSelection = false
-}
-
 @MainActor
 struct FindingEditorFlow: View {
-    @StateObject private var navigation: FindingEditorFlowNavigation
-    @StateObject private var viewModel: FindingEditorViewModel
-    private let searchTaxa: SearchFindingTaxaUseCase
+    private enum Destination: Hashable {
+        case taxonSearch
+        case taxonSync
+        case location(FindingEditorLocation?)
+    }
+
+    private struct GalleryPresentation: Identifiable {
+        let id = UUID()
+        let photos: [FindingPhoto]
+        let initialIndex: Int
+    }
+
+    private struct PhotoPickerPresentation: Identifiable {
+        let id = UUID()
+        let source: FindingEditorPhotoSource
+    }
+
+    @State private var path: [Destination] = []
+    @State private var photoGallery: GalleryPresentation?
+    @State private var photoPicker: PhotoPickerPresentation?
+    @StateObject private var viewModel: FindingEditorFlowViewModel
+
     private let locationUseCases: FindingLocationUseCases
-    private let taxonSyncComposition: TaxonSyncComposition
+    private let onSaved: Observer<UUID>
 
     init(
-        mode: FindingEditorMode,
-        loadFinding: LoadFindingEditorUseCase,
-        saveFinding: SaveFindingEditorUseCase,
-        searchTaxa: SearchFindingTaxaUseCase,
+        viewModel: FindingEditorFlowViewModel,
         locationUseCases: FindingLocationUseCases,
-        taxonSyncComposition: TaxonSyncComposition,
-        onSaved: @escaping (UUID) -> Void,
-        onUnsavedChangesChanged: @escaping (Bool) -> Void = { _ in }
+        onSaved: @escaping Observer<UUID>
     ) {
-        let navigation = FindingEditorFlowNavigation()
-        self.searchTaxa = searchTaxa
+        _viewModel = StateObject(wrappedValue: viewModel)
         self.locationUseCases = locationUseCases
-        self.taxonSyncComposition = taxonSyncComposition
-        _navigation = StateObject(wrappedValue: navigation)
-        _viewModel = StateObject(
-            wrappedValue: FindingEditorViewModel(
-                mode: mode,
-                loadFinding: loadFinding,
-                saveFinding: saveFinding,
-                onSaved: onSaved,
-                onSelectLocation: { _ in
-                    navigation.showsLocationSelection = true
-                },
-                onSelectTaxon: { navigation.showsTaxonSearch = true },
-                onAddPhoto: { source in
-                    navigation.photoPicker = FindingEditorPhotoPickerPresentation(
-                        source: source
-                    )
-                },
-                onShowPhotos: { photos, initialIndex in
-                    navigation.photoGallery = FindingEditorGalleryPresentation(
-                        photos: photos.map {
-                            FindingPhoto(
-                                name: $0.name,
-                                imageData: $0.imageData,
-                                remoteURL: $0.remoteURL
-                            )
-                        },
-                        initialIndex: initialIndex
-                    )
-                },
-                onUnsavedChangesChanged: onUnsavedChangesChanged
-            )
-        )
+        self.onSaved = onSaved
     }
 
     var body: some View {
-        NavigationStack {
-            FindingEditorScreen(viewModel: viewModel)
-                .navigationDestination(isPresented: $navigation.showsTaxonSearch) {
-                    FindingTaxonSearchScreen(
-                        viewModel: FindingTaxonSearchViewModel(
-                            searchTaxa: searchTaxa,
-                            onSelect: { taxon in
-                                viewModel.selectTaxon(taxon)
-                                navigation.showsTaxonSearch = false
-                            }
-                        ),
-                        onTaxonSync: {
-                            navigation.showsTaxonSync = true
-                        }
-                    )
-                }
-                .navigationDestination(isPresented: $navigation.showsTaxonSync) {
-                    TaxonSyncFlow(
-                        useCases: taxonSyncComposition.useCases,
-                        scopeProvider: taxonSyncComposition.scopeProvider
-                    )
-                }
-                .navigationDestination(isPresented: $navigation.showsLocationSelection) {
-                    FindingLocationFlow(
-                        initialLocation: viewModel.draft.location,
-                        useCases: locationUseCases,
-                        onSelect: { location in
-                            viewModel.updateLocation(location)
-                            navigation.showsLocationSelection = false
-                        }
-                    )
-                }
+        NavigationStack(path: $path) {
+            FindingEditorScreen(
+                viewModel: viewModel.editorViewModel,
+                onSaved: onSaved,
+                onSelectLocation: { location in
+                    path.append(.location(location))
+                },
+                onSelectTaxon: {
+                    path.append(.taxonSearch)
+                },
+                onAddPhoto: { source in
+                    photoPicker = PhotoPickerPresentation(source: source)
+                },
+                onShowPhotos: showPhotos
+            )
+            .navigationDestination(for: Destination.self) { destination in
+                destinationView(destination)
+            }
         }
-        .sheet(item: $navigation.photoPicker) { presentation in
+        .sheet(item: $photoPicker) { presentation in
             FindingEditorImagePicker(
                 source: presentation.source,
                 onSelect: { photo in
-                    viewModel.addPhoto(photo)
-                    navigation.photoPicker = nil
+                    viewModel.editorViewModel.addPhoto(photo)
+                    photoPicker = nil
                 },
-                onCancel: { navigation.photoPicker = nil }
+                onCancel: { photoPicker = nil }
             )
         }
-        .fullScreenCover(item: $navigation.photoGallery) { presentation in
+        .fullScreenCover(item: $photoGallery) { presentation in
             FindingPhotoGalleryScreen(
                 photos: presentation.photos,
                 initialIndex: presentation.initialIndex,
-                onClose: { navigation.photoGallery = nil }
+                onClose: { photoGallery = nil }
             )
         }
+    }
+
+    @ViewBuilder
+    private func destinationView(_ destination: Destination) -> some View {
+        switch destination {
+        case .taxonSearch:
+            FindingTaxonSearchScreen(
+                viewModel: viewModel.taxonSearchViewModel,
+                onSelectTaxon: { taxon in
+                    viewModel.editorViewModel.selectTaxon(taxon)
+                    goBack()
+                },
+                onTaxonSync: {
+                    path.append(.taxonSync)
+                }
+            )
+        case .taxonSync:
+            TaxonSyncFlow(viewModel: viewModel.taxonSyncViewModel)
+        case .location(let initialLocation):
+            FindingLocationScreen(
+                initialLocation: initialLocation,
+                useCases: locationUseCases,
+                onSelect: { location in
+                    viewModel.editorViewModel.updateLocation(location)
+                    goBack()
+                }
+            )
+        }
+    }
+
+    private func showPhotos(
+        _ photos: [FindingEditorPhoto],
+        initialIndex: Int
+    ) {
+        photoGallery = GalleryPresentation(
+            photos: photos.map {
+                FindingPhoto(
+                    name: $0.name,
+                    imageData: $0.imageData,
+                    remoteURL: $0.remoteURL
+                )
+            },
+            initialIndex: initialIndex
+        )
+    }
+
+    private func goBack() {
+        guard !path.isEmpty else { return }
+        path.removeLast()
     }
 }

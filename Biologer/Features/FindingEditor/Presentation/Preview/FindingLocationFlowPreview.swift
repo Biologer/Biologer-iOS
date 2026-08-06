@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct FindingLocationFlow_Previews: PreviewProvider {
+struct FindingLocationScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            FindingLocationFlow(
+            FindingLocationScreen(
                 initialLocation: FindingEditorLocation(
                     latitude: 44.78657,
                     longitude: 20.44892,

@@ -2,11 +2,11 @@ import SwiftUI
 
 struct BiologerHelpScreen: View {
     @StateObject private var viewModel: HelpScreenViewModel
+    private let onDone: Observer<Void>
 
     init(onDone: @escaping Observer<Void>) {
-        _viewModel = StateObject(
-            wrappedValue: HelpScreenViewModel(onDone: onDone)
-        )
+        _viewModel = StateObject(wrappedValue: HelpScreenViewModel())
+        self.onDone = onDone
     }
 
     var body: some View {
@@ -36,7 +36,7 @@ struct BiologerHelpScreen: View {
 
                 navigationButton(
                     systemImage: isLastPage ? "checkmark" : "chevron.right",
-                    action: viewModel.nextTapped
+                    action: nextTapped
                 )
             }
         }
@@ -54,6 +54,11 @@ struct BiologerHelpScreen: View {
     private var pageIndicator: String {
         guard !viewModel.items.isEmpty else { return "0 / 0" }
         return "\(viewModel.currentPageIndex + 1) / \(viewModel.items.count)"
+    }
+
+    private func nextTapped() {
+        guard viewModel.nextTapped() else { return }
+        onDone(())
     }
 
     private func helpCard(_ item: HelpItemViewModel) -> some View {

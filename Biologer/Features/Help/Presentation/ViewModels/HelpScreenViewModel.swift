@@ -7,21 +7,18 @@ public struct HelpItemViewModel: Hashable, Identifiable {
     var image: String
 }
 
+@MainActor
 public final class HelpScreenViewModel: ObservableObject {
     var items: [HelpItemViewModel] = HelpItemManager.createHelpItems()
     @Published var currentPageIndex: Int = 0
 
-    private let onDone: Observer<Void>
-
-    init(onDone: @escaping Observer<Void>) {
-        self.onDone = onDone
-    }
-
-    func nextTapped() {
+    @discardableResult
+    func nextTapped() -> Bool {
         if currentPageIndex < items.count - 1 {
             currentPageIndex += 1
+            return false
         } else {
-            onDone(())
+            return true
         }
     }
 

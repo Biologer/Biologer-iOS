@@ -1,5 +1,5 @@
 //
-//  EnvironmentViewModel.swift
+//  EnvironmentViewModelFactory.swift
 //  Biologer
 //
 //  Created by Nikola Popovic on 17.4.21..
@@ -73,35 +73,5 @@ public final class EnvironmentViewModelFactory {
             createEnvironment(type: .montenegro),
             createEnvironment(type: .develop)
         ]
-    }
-}
-
-public class EnvironmentViewModel: Identifiable, Codable, Equatable {
-    public static func == (lhs: EnvironmentViewModel, rhs: EnvironmentViewModel) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-     public let id: Int
-     public let title: String
-     public let image: String
-     public let env: AppEnvironment
-     public var isSelected: Bool
-    
-    init(
-        id: Int,
-        title: String,
-        image: String,
-        env: AppEnvironment,
-        isSelected: Bool
-    ) {
-        self.id = id
-        self.title = title
-        self.env = env
-        self.image = image
-        self.isSelected = isSelected
-    }
-    
-    public func changeIsSelected(value: Bool ) {
-        isSelected = value
     }
 }

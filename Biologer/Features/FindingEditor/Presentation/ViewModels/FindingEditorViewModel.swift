@@ -45,11 +45,6 @@ final class FindingEditorViewModel: ObservableObject {
 
     private let loadFinding: LoadFindingEditorUseCase
     private let saveFinding: SaveFindingEditorUseCase
-    private let onSaved: (UUID) -> Void
-    private let onSelectLocation: (FindingEditorLocation?) -> Void
-    private let onSelectTaxon: () -> Void
-    private let onAddPhoto: (FindingEditorPhotoSource) -> Void
-    private let onShowPhotos: ([FindingEditorPhoto], Int) -> Void
     private let onUnsavedChangesChanged: (Bool) -> Void
     private var didLoad = false
     private var savedFindingID: UUID?
@@ -59,21 +54,11 @@ final class FindingEditorViewModel: ObservableObject {
         mode: FindingEditorMode,
         loadFinding: LoadFindingEditorUseCase,
         saveFinding: SaveFindingEditorUseCase,
-        onSaved: @escaping (UUID) -> Void,
-        onSelectLocation: @escaping (FindingEditorLocation?) -> Void,
-        onSelectTaxon: @escaping () -> Void,
-        onAddPhoto: @escaping (FindingEditorPhotoSource) -> Void,
-        onShowPhotos: @escaping ([FindingEditorPhoto], Int) -> Void,
         onUnsavedChangesChanged: @escaping (Bool) -> Void = { _ in }
     ) {
         self.mode = mode
         self.loadFinding = loadFinding
         self.saveFinding = saveFinding
-        self.onSaved = onSaved
-        self.onSelectLocation = onSelectLocation
-        self.onSelectTaxon = onSelectTaxon
-        self.onAddPhoto = onAddPhoto
-        self.onShowPhotos = onShowPhotos
         self.onUnsavedChangesChanged = onUnsavedChangesChanged
     }
 
@@ -144,20 +129,12 @@ final class FindingEditorViewModel: ObservableObject {
         draft.developmentStage = nil
     }
 
-    func requestLocationSelection() {
-        onSelectLocation(draft.location)
-    }
-
-    func requestTaxonSelection() {
-        onSelectTaxon()
-    }
-
-    func requestPhoto(from source: FindingEditorPhotoSource) {
+    func canAddPhoto() -> Bool {
         guard draft.photos.count < 3 else {
             alert = FindingEditorAlert(kind: .photoLimit)
-            return
+            return false
         }
-        onAddPhoto(source)
+        return true
     }
 
     func addPhoto(_ photo: FindingEditorPhoto) {
@@ -172,9 +149,9 @@ final class FindingEditorViewModel: ObservableObject {
         draft.photos.removeAll { $0.id == id }
     }
 
-    func showPhoto(at index: Int) {
-        guard draft.photos.indices.contains(index) else { return }
-        onShowPhotos(draft.photos, index)
+    func photoPresentation(at index: Int) -> ([FindingEditorPhoto], Int)? {
+        guard draft.photos.indices.contains(index) else { return nil }
+        return (draft.photos, index)
     }
 
     func toggleObservation(id: Int) {
@@ -188,16 +165,16 @@ final class FindingEditorViewModel: ObservableObject {
         alert = nil
     }
 
-    func confirmAlert(_ alert: FindingEditorAlert) {
+    func confirmAlert(_ alert: FindingEditorAlert) -> UUID? {
         guard case .saveSuccess = alert.kind else {
             dismissAlert()
-            return
+            return nil
         }
 
         self.alert = nil
-        guard let savedFindingID else { return }
+        guard let savedFindingID else { return nil }
         self.savedFindingID = nil
-        onSaved(savedFindingID)
+        return savedFindingID
     }
 
     private func updateUnsavedChangesState() {

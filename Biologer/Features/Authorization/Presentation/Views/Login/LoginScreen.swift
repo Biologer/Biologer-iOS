@@ -2,15 +2,30 @@ import SwiftUI
 
 struct LoginScreen: View {
     private let environmentViewModel: EnvironmentViewModel
+    private let onSelectEnvironment: () -> Void
+    private let onLoginSuccess: () -> Void
+    private let onLoginError: Observer<AuthorizationFailure>
+    private let onRegister: () -> Void
+    private let onForgotPassword: () -> Void
 
-    @StateObject private var viewModel: LoginScreenViewModel
+    @ObservedObject private var viewModel: LoginScreenViewModel
 
     init(
         environmentViewModel: EnvironmentViewModel,
-        viewModel: LoginScreenViewModel
+        viewModel: LoginScreenViewModel,
+        onSelectEnvironment: @escaping () -> Void,
+        onLoginSuccess: @escaping () -> Void,
+        onLoginError: @escaping Observer<AuthorizationFailure>,
+        onRegister: @escaping () -> Void,
+        onForgotPassword: @escaping () -> Void
     ) {
         self.environmentViewModel = environmentViewModel
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.onSelectEnvironment = onSelectEnvironment
+        self.onLoginSuccess = onLoginSuccess
+        self.onLoginError = onLoginError
+        self.onRegister = onRegister
+        self.onForgotPassword = onForgotPassword
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -51,7 +66,14 @@ struct LoginScreen: View {
 
                     Button {
                         Task {
-                            await viewModel.login()
+                            switch await viewModel.login() {
+                            case .success:
+                                onLoginSuccess()
+                            case .authorizationFailure(let error):
+                                onLoginError(error)
+                            case .validationFailure:
+                                break
+                            }
                         }
                     } label: {
                         Label(
@@ -67,7 +89,7 @@ struct LoginScreen: View {
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
 
-                            Button(action: viewModel.register) {
+                            Button(action: onRegister) {
                                 Text("Login.btn.register".localized)
                                     .font(.subheadline.weight(.semibold))
                                     .foregroundColor(BiologerColors.sectionTitle)
@@ -75,7 +97,7 @@ struct LoginScreen: View {
                             .buttonStyle(.plain)
                         }
 
-                        Button(action: viewModel.forgotPassword) {
+                        Button(action: onForgotPassword) {
                             Text("Login.btn.forgotPassword".localized)
                                 .font(.subheadline.weight(.semibold))
                                 .foregroundColor(BiologerColors.sectionTitle)
@@ -90,7 +112,7 @@ struct LoginScreen: View {
             }
 
             if viewModel.isLoading {
-                AuthorizationLoadingOverlay()
+                BiologerLoadingOverlay()
             }
         }
         .biologerPageBackground()
@@ -103,7 +125,7 @@ struct LoginScreen: View {
     }
 
     private var environmentCard: some View {
-        Button(action: viewModel.selectEnvironment) {
+        Button(action: onSelectEnvironment) {
             HStack(spacing: BiologerSpacing.small) {
                 Image(viewModel.environmentViewModel.image)
                     .resizable()
@@ -132,33 +154,5 @@ struct LoginScreen: View {
             .biologerCard()
         }
         .buttonStyle(.plain)
-    }
-}
-
-struct LoginScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginScreen(
-            environmentViewModel: EnvironmentViewModelFactory()
-                .createEnvironment(type: .croatia),
-            viewModel: LoginScreenViewModel(
-                environmentViewModel: EnvironmentViewModelFactory()
-                    .createEnvironment(type: .croatia),
-                useCase: StubLoginUseCase(),
-                onSelectEnvironmentTapped: {},
-                onLoginSuccess: {},
-                onRegisterTapped: {},
-                onForgotPasswordTapped: {},
-                onLoginError: { _ in }
-            )
-        )
-    }
-
-    private final class StubLoginUseCase: LoginUserUseCase {
-        func login(
-            email: String,
-            username: String,
-            password: String
-        ) async throws(LoginError) {
-        }
     }
 }

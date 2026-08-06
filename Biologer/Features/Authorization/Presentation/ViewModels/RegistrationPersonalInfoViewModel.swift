@@ -18,22 +18,19 @@ public final class RegistrationPersonalInfoViewModel: ObservableObject {
     private let user: RegistrationDraft
 
     private let validator: RegistrationPersonalInfoValidating
-    private let onNextTapped: Observer<Void>
 
     init(
         user: RegistrationDraft,
-        validator: RegistrationPersonalInfoValidating,
-        onNextTapped: @escaping Observer<Void>
+        validator: RegistrationPersonalInfoValidating
     ) {
         self.validator = validator
-        self.onNextTapped = onNextTapped
         self.user = user
         firstName = user.username
         lastName = user.lastname
         institution = user.institution
     }
 
-    func nextButtonTapped() {
+    func nextButtonTapped() -> Bool {
         validateFields()
     }
 
@@ -51,7 +48,7 @@ public final class RegistrationPersonalInfoViewModel: ObservableObject {
         self.institution = institution
     }
 
-    private func validateFields() {
+    private func validateFields() -> Bool {
         do throws(RegisterUserValidationError) {
             let personalInfo = try validator.validatePersonalInfo(
                 firstName: firstName,
@@ -62,9 +59,10 @@ public final class RegistrationPersonalInfoViewModel: ObservableObject {
             user.lastname = personalInfo.lastName
             user.institution = personalInfo.institution
             setAllFieldsAreValid()
-            onNextTapped(())
+            return true
         } catch {
             handle(error)
+            return false
         }
     }
 

@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+enum LoginSubmissionResult: Equatable {
+    case success
+    case validationFailure
+    case authorizationFailure(AuthorizationFailure)
+}
+
 @MainActor
 public final class LoginScreenViewModel: ObservableObject {
 
@@ -18,40 +24,13 @@ public final class LoginScreenViewModel: ObservableObject {
     @Published public private(set) var passwordError: String?
 
     private let useCase: LoginUserUseCase
-    private let onSelectEnvironmentTapped: Observer<Void>
-    private let onLoginSuccess: Observer<Void>
-    private let onLoginError: Observer<AuthorizationFailure>
-    private let onRegisterTapped: Observer<Void>
-    private let onForgotPasswordTapped: Observer<Void>
 
     init(
         environmentViewModel: EnvironmentViewModel,
-        useCase: LoginUserUseCase,
-        onSelectEnvironmentTapped: @escaping Observer<Void>,
-        onLoginSuccess: @escaping Observer<Void>,
-        onRegisterTapped: @escaping Observer<Void>,
-        onForgotPasswordTapped: @escaping Observer<Void>,
-        onLoginError: @escaping Observer<AuthorizationFailure>,
+        useCase: LoginUserUseCase
     ) {
         self.environmentViewModel = environmentViewModel
-        self.onSelectEnvironmentTapped = onSelectEnvironmentTapped
         self.useCase = useCase
-        self.onLoginSuccess = onLoginSuccess
-        self.onLoginError = onLoginError
-        self.onRegisterTapped = onRegisterTapped
-        self.onForgotPasswordTapped = onForgotPasswordTapped
-    }
-
-    public func selectEnvironment() {
-        onSelectEnvironmentTapped(())
-    }
-
-    public func register() {
-        onRegisterTapped(())
-    }
-
-    public func forgotPassword() {
-        onForgotPasswordTapped(())
     }
 
     public func updateEnvironment(_ environmentViewModel: EnvironmentViewModel) {
@@ -68,7 +47,7 @@ public final class LoginScreenViewModel: ObservableObject {
         passwordError = nil
     }
 
-    public func login() async {
+    func login() async -> LoginSubmissionResult {
         isLoading = true
         do throws(LoginError) {
             try await useCase.login(
@@ -79,18 +58,21 @@ public final class LoginScreenViewModel: ObservableObject {
             setEmailIsValid()
             setPasswordValid()
             isLoading = false
-            onLoginSuccess(())
+            return .success
         } catch let error {
             isLoading = false
             switch error {
             case .invalidUsername:
                 setEmailRequired()
+                return .validationFailure
             case .invalidEmail:
                 setEmailIsNotValidFormat()
+                return .validationFailure
             case .invalidPassword:
                 setPasswordIsNotValid()
+                return .validationFailure
             case .authorizationFailed(let error):
-                onLoginError(error)
+                return .authorizationFailure(error)
             }
         }
     }

@@ -16,15 +16,12 @@ final class FindingTaxonSearchViewModel: ObservableObject {
     @Published private(set) var state: FindingTaxonSearchState = .idle
 
     private let searchTaxa: SearchFindingTaxaUseCase
-    private let onSelect: (FindingEditorTaxon) -> Void
     private var cancellables = Set<AnyCancellable>()
 
     init(
-        searchTaxa: SearchFindingTaxaUseCase,
-        onSelect: @escaping (FindingEditorTaxon) -> Void
+        searchTaxa: SearchFindingTaxaUseCase
     ) {
         self.searchTaxa = searchTaxa
-        self.onSelect = onSelect
 
         $query
             .removeDuplicates()
@@ -43,20 +40,14 @@ final class FindingTaxonSearchViewModel: ObservableObject {
         normalizedQuery.count >= 2
     }
 
-    func select(_ taxon: FindingEditorTaxon) {
-        onSelect(taxon)
-    }
-
-    func useCustomName() {
-        guard canUseCustomName else { return }
-        onSelect(
-            FindingEditorTaxon(
-                apiID: nil,
-                name: normalizedQuery,
-                usesAtlasCodes: false,
-                developmentStages: [],
-                translations: []
-            )
+    func customTaxon() -> FindingEditorTaxon? {
+        guard canUseCustomName else { return nil }
+        return FindingEditorTaxon(
+            apiID: nil,
+            name: normalizedQuery,
+            usesAtlasCodes: false,
+            developmentStages: [],
+            translations: []
         )
     }
 

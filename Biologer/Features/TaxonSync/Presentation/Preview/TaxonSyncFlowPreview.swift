@@ -62,8 +62,10 @@ struct TaxonSyncFlowPreview: View {
         )
         NavigationStack {
             TaxonSyncFlow(
-                useCases: composition.useCases,
-                scopeProvider: composition.scopeProvider,
+                viewModel: TaxonSyncViewModel(
+                    useCases: composition.useCases,
+                    scopeProvider: composition.scopeProvider
+                ),
                 onContinue: showsContinueAction ? {} : nil
             )
         }

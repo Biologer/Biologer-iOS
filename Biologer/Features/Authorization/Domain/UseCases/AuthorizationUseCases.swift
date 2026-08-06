@@ -3,19 +3,39 @@ import Foundation
 struct AuthorizationUseCases {
     let login: LoginUserUseCase
     let registration: RegistrationUseCase
-    private let selectEnvironmentUseCase: SelectAuthorizationEnvironmentUseCase
+    let selectEnvironment: SelectAuthorizationEnvironmentUseCase
+    let tutorial: AuthorizationTutorialUseCase
 
     init(
         login: LoginUserUseCase,
         registration: RegistrationUseCase,
-        selectEnvironmentUseCase: SelectAuthorizationEnvironmentUseCase
+        selectEnvironmentUseCase: SelectAuthorizationEnvironmentUseCase,
+        tutorial: AuthorizationTutorialUseCase
     ) {
         self.login = login
         self.registration = registration
-        self.selectEnvironmentUseCase = selectEnvironmentUseCase
+        selectEnvironment = selectEnvironmentUseCase
+        self.tutorial = tutorial
+    }
+}
+
+protocol AuthorizationTutorialUseCase {
+    var shouldPresent: Bool { get }
+    func markPresented()
+}
+
+final class DefaultAuthorizationTutorialUseCase: AuthorizationTutorialUseCase {
+    private let repository: AuthorizationTutorialRepository
+
+    init(repository: AuthorizationTutorialRepository) {
+        self.repository = repository
     }
 
-    func selectEnvironment(_ environment: AppEnvironment) {
-        selectEnvironmentUseCase.select(environment)
+    var shouldPresent: Bool {
+        !repository.wasPresented
+    }
+
+    func markPresented() {
+        repository.markPresented()
     }
 }

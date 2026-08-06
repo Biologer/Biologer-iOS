@@ -1,12 +1,12 @@
 import SwiftUI
 
-private struct AuthorizationNavigationBarModifier: ViewModifier {
+private struct BiologerNavigationBarModifier: ViewModifier {
     let title: String?
     let onBack: (() -> Void)?
 
     func body(content: Content) -> some View {
         content
-            .navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(onBack != nil)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(BiologerColors.pageBackground, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
@@ -35,12 +35,12 @@ private struct AuthorizationNavigationBarModifier: ViewModifier {
 }
 
 extension View {
-    func authorizationNavigationBar(
+    func biologerNavigationBar(
         title: String? = nil,
         onBack: (() -> Void)? = nil
     ) -> some View {
         modifier(
-            AuthorizationNavigationBarModifier(
+            BiologerNavigationBarModifier(
                 title: title,
                 onBack: onBack
             )

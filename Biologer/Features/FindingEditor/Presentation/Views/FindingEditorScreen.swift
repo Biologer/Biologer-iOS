@@ -2,9 +2,26 @@ import SwiftUI
 
 struct FindingEditorScreen: View {
     @ObservedObject private var viewModel: FindingEditorViewModel
+    private let onSaved: Observer<UUID>
+    private let onSelectLocation: Observer<FindingEditorLocation?>
+    private let onSelectTaxon: () -> Void
+    private let onAddPhoto: Observer<FindingEditorPhotoSource>
+    private let onShowPhotos: ([FindingEditorPhoto], Int) -> Void
 
-    init(viewModel: FindingEditorViewModel) {
+    init(
+        viewModel: FindingEditorViewModel,
+        onSaved: @escaping Observer<UUID>,
+        onSelectLocation: @escaping Observer<FindingEditorLocation?>,
+        onSelectTaxon: @escaping () -> Void,
+        onAddPhoto: @escaping Observer<FindingEditorPhotoSource>,
+        onShowPhotos: @escaping ([FindingEditorPhoto], Int) -> Void
+    ) {
         self.viewModel = viewModel
+        self.onSaved = onSaved
+        self.onSelectLocation = onSelectLocation
+        self.onSelectTaxon = onSelectTaxon
+        self.onAddPhoto = onAddPhoto
+        self.onShowPhotos = onShowPhotos
     }
 
     var body: some View {
@@ -19,7 +36,8 @@ struct FindingEditorScreen: View {
                     title: Text(alertTitle(alert)),
                     message: Text(alertMessage(alert)),
                     dismissButton: .default(Text("Common.btn.ok".localized)) {
-                        viewModel.confirmAlert(alert)
+                        guard let findingID = viewModel.confirmAlert(alert) else { return }
+                        onSaved(findingID)
                     }
                 )
             }
@@ -102,7 +120,9 @@ struct FindingEditorScreen: View {
                 }
             }
 
-            Button(action: viewModel.requestLocationSelection) {
+            Button {
+                onSelectLocation(viewModel.draft.location)
+            } label: {
                 HStack(spacing: BiologerSpacing.xSmall) {
                     Image(systemName: "map")
                     Text("FindingEditor.location.set".localized)
@@ -119,9 +139,9 @@ struct FindingEditorScreen: View {
         ) {
             FindingEditorPhotoSection(
                 photos: viewModel.draft.photos,
-                onCamera: { viewModel.requestPhoto(from: .camera) },
-                onLibrary: { viewModel.requestPhoto(from: .photoLibrary) },
-                onOpen: viewModel.showPhoto,
+                onCamera: { requestPhoto(from: .camera) },
+                onLibrary: { requestPhoto(from: .photoLibrary) },
+                onOpen: showPhoto,
                 onDelete: viewModel.removePhoto
             )
         }
@@ -132,7 +152,7 @@ struct FindingEditorScreen: View {
             title: "FindingEditor.section.taxon".localized,
             systemImage: "leaf"
         ) {
-            Button(action: viewModel.requestTaxonSelection) {
+            Button(action: onSelectTaxon) {
                 HStack(spacing: BiologerSpacing.small) {
                     BiologerIconBadge(systemImage: "text.magnifyingglass", size: 38)
 
@@ -378,6 +398,16 @@ struct FindingEditorScreen: View {
                 name: "NestingAtlasCode.title.\($0)".localized
             )
         }
+    }
+
+    private func requestPhoto(from source: FindingEditorPhotoSource) {
+        guard viewModel.canAddPhoto() else { return }
+        onAddPhoto(source)
+    }
+
+    private func showPhoto(at index: Int) {
+        guard let presentation = viewModel.photoPresentation(at: index) else { return }
+        onShowPhotos(presentation.0, presentation.1)
     }
 
     private func locationValue(

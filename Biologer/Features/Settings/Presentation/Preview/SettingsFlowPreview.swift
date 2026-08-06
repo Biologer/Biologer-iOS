@@ -30,7 +30,7 @@ struct SettingsFlow_Previews: PreviewProvider {
             )
         )
 
-        return SettingsFlow(
+        return SettingsBuilder(
             useCases: useCases,
             accountContextProvider: {
                 SettingsAccountContext(
@@ -40,7 +40,6 @@ struct SettingsFlow_Previews: PreviewProvider {
                 )
             },
             appVersion: "Version: 3.0.4 (Preview)",
-            onDownloadTaxa: onDownloadTaxa,
             accountUseCase: PreviewUserAccountUseCase(),
             logoutUseCase: PreviewLogoutUseCase(),
             taxonSyncComposition: TaxonSyncPreviewFactory.makeComposition(
@@ -51,7 +50,7 @@ struct SettingsFlow_Previews: PreviewProvider {
                     lastSuccessfulSyncTimestamp: nil
                 ))
             )
-        )
+        ).makeFlow(onDownloadTaxa: onDownloadTaxa)
     }
 }
 

@@ -16,30 +16,15 @@ final class FindingDetailsViewModel: ObservableObject {
     @Published private(set) var showsSubmissionWarning = false
 
     private let findingID: UUID
-    private let getFindingDetails: GetFindingDetailsUseCase
-    private let uploadFindings: UploadFindingsUseCase
-    private let checkSubmissionAccess: CheckFindingSubmissionAccessUseCase
-    private let onEditFinding: (UUID) -> Void
-    private let onShowLocation: (FindingDetailsLocation) -> Void
-    private let onShowPhotos: ([FindingPhoto], Int) -> Void
+    private let useCases: FindingDetailsUseCases
     private var uploadTask: Task<Void, Never>?
 
     init(
         findingID: UUID,
-        getFindingDetails: GetFindingDetailsUseCase,
-        uploadFindings: UploadFindingsUseCase,
-        checkSubmissionAccess: CheckFindingSubmissionAccessUseCase,
-        onEditFinding: @escaping (UUID) -> Void,
-        onShowLocation: @escaping (FindingDetailsLocation) -> Void,
-        onShowPhotos: @escaping ([FindingPhoto], Int) -> Void
+        useCases: FindingDetailsUseCases
     ) {
         self.findingID = findingID
-        self.getFindingDetails = getFindingDetails
-        self.uploadFindings = uploadFindings
-        self.checkSubmissionAccess = checkSubmissionAccess
-        self.onEditFinding = onEditFinding
-        self.onShowLocation = onShowLocation
-        self.onShowPhotos = onShowPhotos
+        self.useCases = useCases
     }
 
     var isUploading: Bool {
@@ -58,7 +43,7 @@ final class FindingDetailsViewModel: ObservableObject {
         loadState = .loading
 
         do {
-            details = try getFindingDetails.execute(id: findingID)
+            details = try useCases.getFindingDetails.execute(id: findingID)
             loadState = .content
         } catch {
             details = nil
@@ -66,31 +51,29 @@ final class FindingDetailsViewModel: ObservableObject {
         }
     }
 
-    func didTapEdit() {
-        guard !isUploading else { return }
-        onEditFinding(findingID)
+    func editableFindingID() -> UUID? {
+        isUploading ? nil : findingID
     }
 
-    func didTapShowLocation() {
-        guard !isUploading, let location = details?.location else { return }
-        onShowLocation(location)
+    func selectedLocation() -> FindingDetailsLocation? {
+        guard !isUploading else { return nil }
+        return details?.location
     }
 
-    func didTapPhoto(at index: Int) {
+    func photoPresentation(at index: Int) -> ([FindingPhoto], Int)? {
         guard
             !isUploading,
             let photos = details?.photos,
             photos.indices.contains(index)
         else {
-            return
+            return nil
         }
-
-        onShowPhotos(photos, index)
+        return (photos, index)
     }
 
     func didTapUpload() {
         guard details?.uploadStatus == .pending, !isUploading else { return }
-        guard checkSubmissionAccess.execute() else {
+        guard useCases.checkSubmissionAccess.execute() else {
             showsSubmissionWarning = true
             return
         }
@@ -105,7 +88,7 @@ final class FindingDetailsViewModel: ObservableObject {
             guard let self else { return }
 
             do {
-                try await uploadFindings.execute(ids: [findingID]) { [weak self] progress in
+                try await useCases.uploadFindings.execute(ids: [findingID]) { [weak self] progress in
                     await MainActor.run {
                         self?.uploadState = .uploading(progress)
                     }

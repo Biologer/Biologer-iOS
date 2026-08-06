@@ -3,17 +3,29 @@ import SwiftUI
 struct RegistrationLicenseConsentScreen: View {
     private let dataLicense: CheckMarkItem
     private let imageLicense: CheckMarkItem
+    private let onPrivacyPolicy: () -> Void
+    private let onDataLicense: Observer<CheckMarkItem>
+    private let onImageLicense: Observer<CheckMarkItem>
+    private let onRegistrationSuccess: () -> Void
 
-    @StateObject private var viewModel: RegistrationLicenseConsentViewModel
+    @ObservedObject private var viewModel: RegistrationLicenseConsentViewModel
 
     init(
         viewModel: RegistrationLicenseConsentViewModel,
         dataLicense: CheckMarkItem,
-        imageLicense: CheckMarkItem
+        imageLicense: CheckMarkItem,
+        onPrivacyPolicy: @escaping () -> Void,
+        onDataLicense: @escaping Observer<CheckMarkItem>,
+        onImageLicense: @escaping Observer<CheckMarkItem>,
+        onRegistrationSuccess: @escaping () -> Void
     ) {
         self.dataLicense = dataLicense
         self.imageLicense = imageLicense
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.onPrivacyPolicy = onPrivacyPolicy
+        self.onDataLicense = onDataLicense
+        self.onImageLicense = onImageLicense
+        self.onRegistrationSuccess = onRegistrationSuccess
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -43,14 +55,14 @@ struct RegistrationLicenseConsentScreen: View {
                                 title: viewModel.dataLicense.title,
                                 subtitle: viewModel.dataLicense.placeholder,
                                 systemImage: "doc.text",
-                                action: viewModel.dataLicenseTapped
+                                action: { onDataLicense(viewModel.dataLicense) }
                             )
 
                             AuthorizationNavigationCard(
                                 title: viewModel.imageLicense.title,
                                 subtitle: viewModel.imageLicense.placeholder,
                                 systemImage: "photo",
-                                action: viewModel.imageLicenseTapped
+                                action: { onImageLicense(viewModel.imageLicense) }
                             )
                         }
 
@@ -63,7 +75,7 @@ struct RegistrationLicenseConsentScreen: View {
                             .padding(BiologerSpacing.regular)
                             .biologerCard()
 
-                        Button(action: viewModel.privacyPolicyTapped) {
+                        Button(action: onPrivacyPolicy) {
                             Label(
                                 "Register.three.btn.privacyPolicy".localized,
                                 systemImage: "doc.text.magnifyingglass"
@@ -117,7 +129,7 @@ struct RegistrationLicenseConsentScreen: View {
             }
 
             if viewModel.isLoading {
-                AuthorizationLoadingOverlay()
+                BiologerLoadingOverlay()
             }
         }
         .biologerPageBackground()
@@ -135,8 +147,8 @@ struct RegistrationLicenseConsentScreen: View {
         .sheet(item: $viewModel.registrationPopup) { popup in
             switch popup {
             case .error(let error):
-                AuthorizationResultSheet(
-                    isSuccess: false,
+                BiologerResultSheet(
+                    style: .failure,
                     title: error.summary.isEmpty
                         ? "API.lb.error".localized
                         : error.summary,
@@ -144,60 +156,16 @@ struct RegistrationLicenseConsentScreen: View {
                     onConfirm: viewModel.dismissRegistrationPopup
                 )
             case .success:
-                AuthorizationResultSheet(
-                    isSuccess: true,
+                BiologerResultSheet(
+                    style: .success,
                     title: "Register.three.successPopUp.title".localized,
                     message: "Register.three.successPopUp.description".localized,
-                    onConfirm: viewModel.confirmRegistrationSuccess
+                    onConfirm: {
+                        viewModel.confirmRegistrationSuccess()
+                        onRegistrationSuccess()
+                    }
                 )
             }
-        }
-    }
-}
-
-struct RegistrationLicenseConsentScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        RegistrationLicenseConsentScreen(
-            viewModel: RegistrationLicenseConsentViewModel(
-                user: RegistrationDraft(),
-                topImage: "serbia_flag",
-                registerUserUseCase: StubRegistrationUseCase(),
-                dataLicense: CheckMarkItemMapper.getDataLicense()[0],
-                imageLicense: CheckMarkItemMapper.getImageLicense()[0],
-                onReadPrivacyPolicy: { _ in },
-                onDataLicense: { _ in },
-                onImageLicense: { _ in },
-                onSuccess: { _ in }
-            ),
-            dataLicense: CheckMarkItemMapper.getDataLicense()[0],
-            imageLicense: CheckMarkItemMapper.getImageLicense()[0]
-        )
-    }
-
-    private final class StubRegistrationUseCase: RegistrationUseCase {
-        func validatePersonalInfo(
-            firstName: String,
-            lastName: String,
-            institution: String
-        ) throws(RegisterUserValidationError) -> RegistrationPersonalInfo {
-            RegistrationPersonalInfo(
-                firstName: firstName,
-                lastName: lastName,
-                institution: institution
-            )
-        }
-
-        func validateCredentials(
-            email: String,
-            password: String,
-            repeatedPassword: String
-        ) throws(RegisterUserValidationError) -> RegistrationCredentials {
-            RegistrationCredentials(email: email, password: password)
-        }
-
-        func createUser(
-            request: RegistrationRequest
-        ) async throws(AuthorizationFailure) {
         }
     }
 }

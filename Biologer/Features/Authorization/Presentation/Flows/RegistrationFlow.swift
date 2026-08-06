@@ -16,36 +16,25 @@ struct RegistrationFlow: View {
         case dataLicense
     }
 
-    @StateObject
-    private var registrationUser: RegistrationDraft
+    @ObservedObject
+    private var viewModel: RegistrationFlowViewModel
 
     @Binding
     private var path: NavigationPath
 
-    @State
-    private var selectedImageLicense: CheckMarkItem = CheckMarkItemMapper.getImageLicense()[0]
-
-    @State
-    private var selectedDataLicense: CheckMarkItem = CheckMarkItemMapper.getDataLicense()[0]
-
-    private let registrationUseCase: RegistrationUseCase
-    private let environmentImage: String
     private let onPrivacyPolicy: Observer<Void>
     private let registrationSuccess: Observer<Void>
 
     init(
         path: Binding<NavigationPath>,
-        registrationUseCase: RegistrationUseCase,
-        environmentImage: String,
+        viewModel: RegistrationFlowViewModel,
         onPrivacyPolicy: @escaping Observer<Void>,
         registrationSuccess: @escaping Observer<Void>
     ) {
-        self.registrationUseCase = registrationUseCase
-        self.environmentImage = environmentImage
         self.onPrivacyPolicy = onPrivacyPolicy
         self.registrationSuccess = registrationSuccess
         _path = path
-        _registrationUser = .init(wrappedValue: RegistrationDraft())
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -58,13 +47,13 @@ struct RegistrationFlow: View {
                     thirdStepScreen
                 case .imageLicense:
                     LicenseSelectionScreen(
-                        selectedItem: $selectedImageLicense,
-                        items: CheckMarkItemMapper.getImageLicense(),
+                        selectedItem: $viewModel.selectedImageLicense,
+                        items: viewModel.imageLicenses,
                         onSelectionChanged: { _ in
                             goBack()
                         }
                     )
-                    .authorizationNavigationBar(
+                    .biologerNavigationBar(
                         title: "ImgLicense.nav.title".localized,
                         onBack: {
                             goBack()
@@ -72,13 +61,13 @@ struct RegistrationFlow: View {
                     )
                 case .dataLicense:
                     LicenseSelectionScreen(
-                        selectedItem: $selectedDataLicense,
-                        items: CheckMarkItemMapper.getDataLicense(),
+                        selectedItem: $viewModel.selectedDataLicense,
+                        items: viewModel.dataLicenses,
                         onSelectionChanged: { _ in
                             goBack()
                         }
                     )
-                    .authorizationNavigationBar(
+                    .biologerNavigationBar(
                         title: "DataLicense.nav.title".localized,
                         onBack: {
                             goBack()
@@ -91,14 +80,12 @@ struct RegistrationFlow: View {
     // MARK: - Register Steps Screens
     private var firstStepScreen: some View {
         RegistrationPersonalInfoScreen(
-            loader: RegistrationPersonalInfoViewModel(
-                user: registrationUser,
-                validator: registrationUseCase,
-                onNextTapped: {
-                    path.append(Screen.secondStep)
-                })
+            loader: viewModel.personalInfoViewModel,
+            onNext: {
+                path.append(Screen.secondStep)
+            }
         )
-        .authorizationNavigationBar(
+        .biologerNavigationBar(
             title: "Register.one.nav.title".localized,
             onBack: {
                 goBack()
@@ -108,14 +95,12 @@ struct RegistrationFlow: View {
 
     private var secondStepScreen: some View {
         RegistrationCredentialsScreen(
-            viewModel: RegistrationCredentialsViewModel(
-                user: registrationUser,
-                validator: registrationUseCase,
-                onNextTapped: {
-                    path.append(Screen.thirdStep)
-                })
+            viewModel: viewModel.credentialsViewModel,
+            onNext: {
+                path.append(Screen.thirdStep)
+            }
         )
-        .authorizationNavigationBar(
+        .biologerNavigationBar(
             title: "Register.two.nav.title".localized,
             onBack: {
                 goBack()
@@ -125,29 +110,15 @@ struct RegistrationFlow: View {
 
     private var thirdStepScreen: some View {
         RegistrationLicenseConsentScreen(
-            viewModel: RegistrationLicenseConsentViewModel(
-                user: registrationUser,
-                topImage: environmentImage,
-                registerUserUseCase: registrationUseCase,
-                dataLicense: selectedDataLicense,
-                imageLicense: selectedImageLicense,
-                onReadPrivacyPolicy: {
-                    onPrivacyPolicy(())
-                },
-                onDataLicense: { dataLicense in
-                    path.append(Screen.dataLicense)
-                },
-                onImageLicense: { imageLicense in
-                    path.append(Screen.imageLicense)
-                },
-                onSuccess: { _ in
-                    registrationSuccess(())
-                }
-            ),
-            dataLicense: selectedDataLicense,
-            imageLicense: selectedImageLicense
+            viewModel: viewModel.licenseConsentViewModel,
+            dataLicense: viewModel.selectedDataLicense,
+            imageLicense: viewModel.selectedImageLicense,
+            onPrivacyPolicy: { onPrivacyPolicy(()) },
+            onDataLicense: { _ in path.append(Screen.dataLicense) },
+            onImageLicense: { _ in path.append(Screen.imageLicense) },
+            onRegistrationSuccess: { registrationSuccess(()) }
         )
-        .authorizationNavigationBar(
+        .biologerNavigationBar(
             title: "Register.three.nav.title".localized,
             onBack: {
                 goBack()
