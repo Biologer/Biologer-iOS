@@ -43,7 +43,7 @@ struct FindingEditorScreen_Previews: PreviewProvider {
             )
         )
 
-        return FindingEditorBuilder(
+        return FindingEditorFlowBuilder(
             useCases: useCases,
             taxonSyncComposition: TaxonSyncPreviewFactory.makeComposition()
         ).makeFlow(

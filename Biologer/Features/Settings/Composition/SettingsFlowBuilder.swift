@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-final class SettingsBuilder {
+final class SettingsFlowBuilder {
     private let useCases: SettingsUseCases
     private let accountContextProvider: () -> SettingsAccountContext
     private let appVersion: String

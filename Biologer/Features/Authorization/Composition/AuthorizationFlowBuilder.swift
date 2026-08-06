@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-final class AuthorizationBuilder {
+final class AuthorizationFlowBuilder {
     private let useCases: AuthorizationUseCases
     private let environmentFactory: EnvironmentViewModelFactory
 

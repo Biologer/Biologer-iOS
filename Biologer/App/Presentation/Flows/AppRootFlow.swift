@@ -41,38 +41,19 @@ struct AppRootFlow: View {
     }
 
     private var authorizationFlow: some View {
-        composition.authorizationBuilder.makeFlow(
+        composition.authorizationFlowBuilder.makeFlow(
             onAuthorizationSuccess: { _ in viewModel.authorizationSucceeded() }
         )
     }
 
     private var mainFlow: some View {
-        MainTabFlow(
-            navigation: MainTabNavigation(
-                findingsFlowController: composition.findingsFlowController
-            ),
-            makeFindings: { onAddFinding, onEditFinding in
-                composition.findingsBuilder.makeFlow(
-                    controller: composition.findingsFlowController,
-                    onAddFinding: onAddFinding,
-                    onEditFinding: onEditFinding
-                )
-            },
-            makeEditor: { mode, onSaved, onUnsavedChangesChanged in
-                composition.findingEditorBuilder.makeFlow(
-                    mode: mode,
-                    onSaved: onSaved,
-                    onUnsavedChangesChanged: onUnsavedChangesChanged
-                )
-            },
-            settings: composition.settingsBuilder.makeFlow(
-                onDownloadTaxa: { _ in viewModel.showTaxonSync() }
-            )
+        composition.mainTabFlowBuilder.makeFlow(
+            onDownloadTaxa: { _ in viewModel.showTaxonSync() }
         )
     }
 
     private var taxonSyncFlow: some View {
-        composition.taxonSyncBuilder.makeFlow(
+        composition.taxonSyncFlowBuilder.makeFlow(
             onContinue: { viewModel.showMain() }
         )
     }

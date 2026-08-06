@@ -1,9 +1,22 @@
 import Foundation
 
 @MainActor
-final class FindingEditorBuilder {
+protocol FindingEditorFlowBuilding {
+    func makeFlow(
+        mode: FindingEditorMode,
+        onSaved: @escaping Observer<UUID>,
+        onUnsavedChangesChanged: @escaping Observer<Bool>
+    ) -> FindingEditorFlow
+}
+
+@MainActor
+final class FindingEditorFlowBuilder: FindingEditorFlowBuilding {
     private let useCases: FindingEditorUseCases
     private let taxonSyncComposition: TaxonSyncComposition
+
+    var locationUseCases: FindingLocationUseCases {
+        useCases.location
+    }
 
     init(
         useCases: FindingEditorUseCases,
@@ -18,7 +31,19 @@ final class FindingEditorBuilder {
         onSaved: @escaping Observer<UUID>,
         onUnsavedChangesChanged: @escaping Observer<Bool>
     ) -> FindingEditorFlow {
-        let flowViewModel = FindingEditorFlowViewModel(
+        FindingEditorFlow(
+            mode: mode,
+            flowBuilder: self,
+            onSaved: onSaved,
+            onUnsavedChangesChanged: onUnsavedChangesChanged
+        )
+    }
+
+    func makeViewModel(
+        mode: FindingEditorMode,
+        onUnsavedChangesChanged: @escaping Observer<Bool>
+    ) -> FindingEditorFlowViewModel {
+        FindingEditorFlowViewModel(
             editorViewModel: FindingEditorViewModel(
                 mode: mode,
                 loadFinding: useCases.loadFinding,
@@ -32,12 +57,6 @@ final class FindingEditorBuilder {
                 useCases: taxonSyncComposition.useCases,
                 scopeProvider: taxonSyncComposition.scopeProvider
             )
-        )
-
-        return FindingEditorFlow(
-            viewModel: flowViewModel,
-            locationUseCases: useCases.location,
-            onSaved: onSaved
         )
     }
 }

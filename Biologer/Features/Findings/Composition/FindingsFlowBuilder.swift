@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-final class FindingsBuilder {
+final class FindingsFlowBuilder {
     private let useCases: FindingsUseCases
 
     init(useCases: FindingsUseCases) {

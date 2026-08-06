@@ -74,8 +74,8 @@ final class AppRootComposition {
         )
     }()
 
-    lazy var authorizationBuilder: AuthorizationBuilder = {
-        AuthorizationBuilder(
+    lazy var authorizationFlowBuilder: AuthorizationFlowBuilder = {
+        AuthorizationFlowBuilder(
             useCases: authorizationUseCases
         )
     }()
@@ -130,8 +130,8 @@ final class AppRootComposition {
         )
     }()
 
-    lazy var taxonSyncBuilder: TaxonSyncBuilder = {
-        TaxonSyncBuilder(composition: taxonSyncComposition)
+    lazy var taxonSyncFlowBuilder: TaxonSyncFlowBuilder = {
+        TaxonSyncFlowBuilder(composition: taxonSyncComposition)
     }()
 
     // MARK: - Findings
@@ -188,8 +188,8 @@ final class AppRootComposition {
         )
     }()
 
-    lazy var findingsBuilder: FindingsBuilder = {
-        FindingsBuilder(useCases: findingsUseCases)
+    lazy var findingsFlowBuilder: FindingsFlowBuilder = {
+        FindingsFlowBuilder(useCases: findingsUseCases)
     }()
 
     lazy var findingsFlowController: FindingsFlowController = {
@@ -240,8 +240,8 @@ final class AppRootComposition {
         )
     }()
 
-    lazy var findingEditorBuilder: FindingEditorBuilder = {
-        FindingEditorBuilder(
+    lazy var findingEditorFlowBuilder: FindingEditorFlowBuilder = {
+        FindingEditorFlowBuilder(
             useCases: findingEditorUseCases,
             taxonSyncComposition: taxonSyncComposition
         )
@@ -278,8 +278,8 @@ final class AppRootComposition {
         )
     }()
 
-    lazy var settingsBuilder: SettingsBuilder = {
-        SettingsBuilder(
+    lazy var settingsFlowBuilder: SettingsFlowBuilder = {
+        SettingsFlowBuilder(
             useCases: settingsUseCases,
             accountContextProvider: { [weak self] in
                 SettingsAccountContext(
@@ -292,6 +292,17 @@ final class AppRootComposition {
             accountUseCase: accountUseCase,
             logoutUseCase: logoutUseCase,
             taxonSyncComposition: taxonSyncComposition
+        )
+    }()
+
+    // MARK: - Main Tab
+
+    lazy var mainTabFlowBuilder: MainTabFlowBuilder = {
+        MainTabFlowBuilder(
+            findingsFlowBuilder: findingsFlowBuilder,
+            findingEditorFlowBuilder: findingEditorFlowBuilder,
+            settingsFlowBuilder: settingsFlowBuilder,
+            findingsFlowController: findingsFlowController
         )
     }()
 

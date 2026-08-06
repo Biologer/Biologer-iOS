@@ -28,12 +28,18 @@ struct FindingEditorFlow: View {
     private let onSaved: Observer<UUID>
 
     init(
-        viewModel: FindingEditorFlowViewModel,
-        locationUseCases: FindingLocationUseCases,
-        onSaved: @escaping Observer<UUID>
+        mode: FindingEditorMode,
+        flowBuilder: FindingEditorFlowBuilder,
+        onSaved: @escaping Observer<UUID>,
+        onUnsavedChangesChanged: @escaping Observer<Bool>
     ) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-        self.locationUseCases = locationUseCases
+        _viewModel = StateObject(
+            wrappedValue: flowBuilder.makeViewModel(
+                mode: mode,
+                onUnsavedChangesChanged: onUnsavedChangesChanged
+            )
+        )
+        locationUseCases = flowBuilder.locationUseCases
         self.onSaved = onSaved
     }
 

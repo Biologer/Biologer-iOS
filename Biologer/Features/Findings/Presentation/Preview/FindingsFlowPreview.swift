@@ -43,7 +43,7 @@ struct FindingsFlow_Previews: PreviewProvider {
         )
         let controller = FindingsFlowController()
 
-        return FindingsBuilder(useCases: useCases).makeFlow(
+        return FindingsFlowBuilder(useCases: useCases).makeFlow(
             controller: controller,
             onAddFinding: onAddFinding,
             onEditFinding: onEditFinding

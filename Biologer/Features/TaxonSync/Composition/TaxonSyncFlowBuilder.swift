@@ -1,5 +1,5 @@
 @MainActor
-final class TaxonSyncBuilder {
+final class TaxonSyncFlowBuilder {
     private let composition: TaxonSyncComposition
 
     init(composition: TaxonSyncComposition) {

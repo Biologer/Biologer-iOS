@@ -30,7 +30,7 @@ struct SettingsFlow_Previews: PreviewProvider {
             )
         )
 
-        return SettingsBuilder(
+        return SettingsFlowBuilder(
             useCases: useCases,
             accountContextProvider: {
                 SettingsAccountContext(
