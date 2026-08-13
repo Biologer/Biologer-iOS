@@ -14,7 +14,7 @@ final class AuthorizationFlowBuilder {
     }
 
     func makeFlow(
-        onAuthorizationSuccess: @escaping () -> Void
+        onAuthorizationSuccess: @escaping () async -> Void
     ) -> AuthorizationFlow {
         let defaultEnvironment = environmentFactory.createEnvironment(type: .serbia)
         let registrationDraft = RegistrationDraft()

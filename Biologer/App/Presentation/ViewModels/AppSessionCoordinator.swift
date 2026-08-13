@@ -50,30 +50,34 @@ final class AppSessionCoordinator: ObservableObject {
 
     /// Observes session changes for as long as the owning SwiftUI task is alive.
     func observeSession() async {
-        for await sessionState in sessionStore.observeState() {
+        let stream = await sessionStore.observeState()
+        for await sessionState in stream {
             guard !Task.isCancelled else { return }
 
             // Splash owns the launch transition and will apply the latest snapshot.
             guard state != .launching else { continue }
-            guard sessionState == sessionStore.state else { continue }
+            let currentSessionState = await sessionStore.currentState()
+            guard sessionState == currentSessionState else {
+                continue
+            }
             handle(sessionState)
         }
     }
 
     /// Leaves the splash screen by applying the SessionStore's initial snapshot.
-    func finishLaunching() {
-        handle(sessionStore.state)
+    func finishLaunching() async {
+        handle(await sessionStore.currentState())
     }
 
     /// Refreshes authentication after the authorization flow persists new tokens.
     /// Root navigation continues only through the SessionStore observer.
-    func authorizationSucceeded() {
-        sessionStore.synchronize()
+    func authorizationSucceeded() async {
+        await sessionStore.synchronize()
     }
 
-    func retryPreparation() {
+    func retryPreparation() async {
         guard case .preparationFailed = state else { return }
-        guard sessionStore.state == .authenticated else {
+        guard await sessionStore.currentState() == .authenticated else {
             handle(.unauthenticated)
             return
         }
@@ -89,18 +93,18 @@ final class AppSessionCoordinator: ObservableObject {
         transition(to: .ready)
     }
 
-    func logout() {
-        logoutUseCase.logout()
+    func logout() async {
+        await logoutUseCase.logout()
     }
 
     /// Prepares authenticated data while the root view is in `.preparing`.
     /// Leaving that state cancels the SwiftUI task that awaits this method.
     func prepareSession() async {
-        guard canApplyPreparationResult else { return }
+        guard await canApplyPreparationResult() else { return }
 
         do {
             try await prepareSessionUseCase.execute()
-            guard canApplyPreparationResult else { return }
+            guard await canApplyPreparationResult() else { return }
 
             guard let scope = taxonScopeProvider.currentScope() else {
                 transition(to: .ready)
@@ -110,7 +114,7 @@ final class AppSessionCoordinator: ObservableObject {
             let taxonState = await getTaxonSyncStateUseCase.execute(
                 scope: scope
             )
-            guard canApplyPreparationResult else { return }
+            guard await canApplyPreparationResult() else { return }
 
             transition(
                 to: isTaxonCatalogReady(taxonState)
@@ -118,7 +122,7 @@ final class AppSessionCoordinator: ObservableObject {
                     : .taxonSyncRequired
             )
         } catch {
-            guard canApplyPreparationResult else { return }
+            guard await canApplyPreparationResult() else { return }
             transition(to: .preparationFailed(message: error.message))
         }
     }
@@ -138,10 +142,9 @@ final class AppSessionCoordinator: ObservableObject {
 
     /// An async result may update root state only while its authenticated
     /// preparation is still current. Cancellation rejects work whose view ended.
-    private var canApplyPreparationResult: Bool {
-        !Task.isCancelled &&
-        sessionStore.state == .authenticated &&
-        state == .preparing
+    private func canApplyPreparationResult() async -> Bool {
+        guard !Task.isCancelled, state == .preparing else { return false }
+        return await sessionStore.currentState() == .authenticated
     }
 
     private func transition(to newState: AppSessionState) {

@@ -23,13 +23,13 @@ struct RegistrationFlow: View {
     private var path: NavigationPath
 
     private let onPrivacyPolicy: () -> Void
-    private let registrationSuccess: () -> Void
+    private let registrationSuccess: () async -> Void
 
     init(
         path: Binding<NavigationPath>,
         viewModel: RegistrationFlowViewModel,
         onPrivacyPolicy: @escaping () -> Void,
-        registrationSuccess: @escaping () -> Void
+        registrationSuccess: @escaping () async -> Void
     ) {
         self.onPrivacyPolicy = onPrivacyPolicy
         self.registrationSuccess = registrationSuccess

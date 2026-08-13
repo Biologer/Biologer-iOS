@@ -4,7 +4,7 @@ struct RegistrationLicenseConsentScreen: View {
     private let onPrivacyPolicy: () -> Void
     private let onDataLicense: (CheckMarkItem) -> Void
     private let onImageLicense: (CheckMarkItem) -> Void
-    private let onRegistrationSuccess: () -> Void
+    private let onRegistrationSuccess: () async -> Void
 
     @ObservedObject private var viewModel: RegistrationLicenseConsentViewModel
 
@@ -13,7 +13,7 @@ struct RegistrationLicenseConsentScreen: View {
         onPrivacyPolicy: @escaping () -> Void,
         onDataLicense: @escaping (CheckMarkItem) -> Void,
         onImageLicense: @escaping (CheckMarkItem) -> Void,
-        onRegistrationSuccess: @escaping () -> Void
+        onRegistrationSuccess: @escaping () async -> Void
     ) {
         self.onPrivacyPolicy = onPrivacyPolicy
         self.onDataLicense = onDataLicense
@@ -140,8 +140,10 @@ struct RegistrationLicenseConsentScreen: View {
                     title: "Register.three.successPopUp.title".localized,
                     message: "Register.three.successPopUp.description".localized,
                     onConfirm: {
-                        viewModel.confirmRegistrationSuccess()
-                        onRegistrationSuccess()
+                        Task {
+                            viewModel.confirmRegistrationSuccess()
+                            await onRegistrationSuccess()
+                        }
                     }
                 )
             }

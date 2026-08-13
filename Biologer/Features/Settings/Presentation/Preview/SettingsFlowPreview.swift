@@ -71,7 +71,7 @@ private final class PreviewUserAccountUseCase: UserAccountUseCase {
 }
 
 private final class PreviewLogoutUseCase: LogoutUseCase {
-    func logout() {}
+    func logout() async {}
 }
 
 private final class PreviewSettingsPreferencesRepository: SettingsPreferencesRepository {

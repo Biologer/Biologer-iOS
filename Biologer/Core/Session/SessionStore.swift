@@ -8,8 +8,8 @@ enum SessionState: Equatable, Sendable {
     case authenticated
 }
 
-protocol SessionStore: AnyObject {
-    var state: SessionState { get }
+protocol SessionStore: Actor {
+    func currentState() -> SessionState
     func observeState() -> AsyncStream<SessionState>
     func synchronize()
     func markAuthenticated()
@@ -18,43 +18,37 @@ protocol SessionStore: AnyObject {
 
 /// Application-level source of truth for whether a session exists.
 /// TokenStorage remains the persistence mechanism.
-final class DefaultSessionStore: SessionStore {
+actor DefaultSessionStore: SessionStore {
     private let tokenStorage: TokenStorage
-    private let lock = NSLock()
-    private var storedState: SessionState
+    private var state: SessionState
     private var continuations: [
         UUID: AsyncStream<SessionState>.Continuation
     ] = [:]
 
-    var state: SessionState {
-        lock.lock()
-        defer { lock.unlock() }
-        return storedState
-    }
-
     init(tokenStorage: TokenStorage) {
         self.tokenStorage = tokenStorage
-        storedState = Self.resolveState(from: tokenStorage)
+        state = Self.resolveState(from: tokenStorage)
+    }
+
+    func currentState() -> SessionState {
+        state
     }
 
     func observeState() -> AsyncStream<SessionState> {
         let subscriptionID = UUID()
+        let (stream, continuation) = AsyncStream.makeStream(
+            of: SessionState.self
+        )
 
-        return AsyncStream { [weak self] continuation in
-            guard let self else {
-                continuation.finish()
-                return
+        continuation.onTermination = { [weak self] _ in
+            Task {
+                await self?.removeContinuation(id: subscriptionID)
             }
-
-            continuation.onTermination = { [weak self] _ in
-                self?.removeContinuation(id: subscriptionID)
-            }
-
-            lock.lock()
-            continuations[subscriptionID] = continuation
-            continuation.yield(storedState)
-            lock.unlock()
         }
+
+        continuations[subscriptionID] = continuation
+        continuation.yield(state)
+        return stream
     }
 
     func synchronize() {
@@ -65,17 +59,12 @@ final class DefaultSessionStore: SessionStore {
     func markUnauthenticated() { update(.unauthenticated) }
 
     private func update(_ newState: SessionState) {
-        lock.lock()
-        defer { lock.unlock() }
-
-        guard storedState != newState else { return }
-        storedState = newState
+        guard state != newState else { return }
+        state = newState
         continuations.values.forEach { $0.yield(newState) }
     }
 
     private func removeContinuation(id: UUID) {
-        lock.lock()
-        defer { lock.unlock() }
         continuations[id] = nil
     }
 

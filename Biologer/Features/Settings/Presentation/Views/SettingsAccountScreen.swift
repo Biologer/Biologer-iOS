@@ -92,7 +92,7 @@ struct SettingsAccountScreen: View {
         .alert("Logout.lb.doYouWantLogout".localized, isPresented: $isLogoutConfirmationPresented) {
             Button("Common.btn.cancel".localized, role: .cancel) {}
             Button("Logout.btn.logout".localized, role: .destructive) {
-                viewModel.logout()
+                Task { await viewModel.logout() }
             }
         }
         .alert("DeleteAccount.lb.doYouWantLogout".localized, isPresented: $isDeleteConfirmationPresented) {

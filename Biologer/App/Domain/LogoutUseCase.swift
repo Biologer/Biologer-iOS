@@ -1,7 +1,7 @@
 import Foundation
 
 protocol LogoutUseCase {
-    func logout()
+    func logout() async
 }
 
 protocol LogoutLocalDataDeleting {
@@ -26,10 +26,10 @@ final class DefaultLogoutUseCase: LogoutUseCase {
         self.sessionStore = sessionStore
     }
 
-    func logout() {
+    func logout() async {
         tokenStorage.delete()
         userStorage.delete()
         localDataDeleting.deleteLocalData()
-        sessionStore?.markUnauthenticated()
+        await sessionStore?.markUnauthenticated()
     }
 }

@@ -21,13 +21,13 @@ struct AuthorizationFlow: View {
     @SwiftUI.Environment(\.openURL) private var openURL
 
     private let onHelpCompleted: () -> Void
-    private let onAuthorizationSuccess: () -> Void
+    private let onAuthorizationSuccess: () async -> Void
 
     init(
         viewModel: AuthorizationFlowViewModel,
         shouldPresentHelp: Bool,
         onHelpCompleted: @escaping () -> Void,
-        onAuthorizationSuccess: @escaping () -> Void
+        onAuthorizationSuccess: @escaping () async -> Void
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         _isHelpPresented = State(initialValue: shouldPresentHelp)

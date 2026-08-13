@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct SplashScreen: View {
-    private let onSplashScreenDone: () -> Void
+    private let onSplashScreenDone: () async -> Void
 
-    init(onSplashScreenDone: @escaping () -> Void) {
+    init(onSplashScreenDone: @escaping () async -> Void) {
         self.onSplashScreenDone = onSplashScreenDone
     }
 
@@ -20,7 +20,7 @@ struct SplashScreen: View {
         .task {
             try? await Task.sleep(nanoseconds: 1_000_000_000)
             guard !Task.isCancelled else { return }
-            onSplashScreenDone()
+            await onSplashScreenDone()
         }
     }
 }

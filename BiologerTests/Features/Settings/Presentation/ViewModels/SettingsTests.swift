@@ -198,13 +198,13 @@ final class SettingsTests: XCTestCase {
         XCTAssertEqual(sut.resetAlert?.id, SettingsResetAlert.completed.id)
     }
 
-    func test_accountViewModel_logoutWhenRequested_invokesLogoutUseCase() {
+    func test_accountViewModel_logoutWhenRequested_invokesLogoutUseCase() async {
         // Given
         let logoutUseCase = SettingsLogoutUseCaseSpy()
         let sut = makeAccountViewModel(logoutUseCase: logoutUseCase)
 
         // When
-        sut.logout()
+        await sut.logout()
 
         // Then
         XCTAssertEqual(logoutUseCase.logoutCallCount, 1)
@@ -329,7 +329,7 @@ private final class SettingsAccountUseCaseSpy: UserAccountUseCase {
 private final class SettingsLogoutUseCaseSpy: LogoutUseCase {
     private(set) var logoutCallCount = 0
 
-    func logout() {
+    func logout() async {
         logoutCallCount += 1
     }
 }

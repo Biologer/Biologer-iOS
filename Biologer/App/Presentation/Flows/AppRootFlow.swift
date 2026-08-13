@@ -20,7 +20,7 @@ struct AppRootFlow: View {
             switch coordinator.state {
             case .launching:
                 SplashScreen {
-                    coordinator.finishLaunching()
+                    await coordinator.finishLaunching()
                 }
 
             case .authorizationRequired:

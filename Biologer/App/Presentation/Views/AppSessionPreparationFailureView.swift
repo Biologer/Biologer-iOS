@@ -2,8 +2,8 @@ import SwiftUI
 
 struct AppSessionPreparationFailureView: View {
     let message: String
-    let onRetry: () -> Void
-    let onLogout: () -> Void
+    let onRetry: () async -> Void
+    let onLogout: () async -> Void
 
     var body: some View {
         VStack(spacing: BiologerSpacing.regular) {
@@ -28,14 +28,17 @@ struct AppSessionPreparationFailureView: View {
             }
 
             VStack(spacing: BiologerSpacing.small) {
-                Button("TaxonSync.action.retry".localized, action: onRetry)
+                Button("TaxonSync.action.retry".localized) {
+                    Task { await onRetry() }
+                }
                     .buttonStyle(BiologerActionButtonStyle())
 
                 Button(
                     "Logout.btn.logout".localized,
-                    role: .destructive,
-                    action: onLogout
-                )
+                    role: .destructive
+                ) {
+                    Task { await onLogout() }
+                }
                 .buttonStyle(
                     BiologerActionButtonStyle(
                         role: .destructive,

@@ -2,47 +2,50 @@ import XCTest
 @testable import Biologer
 
 final class LogoutUseCaseTests: XCTestCase {
-    func test_sessionStore_startsUnauthenticatedWithoutPersistedToken() {
+    func test_sessionStore_startsUnauthenticatedWithoutPersistedToken() async {
         let tokenStorage = TokenStorageSpy()
 
         let sut = DefaultSessionStore(tokenStorage: tokenStorage)
+        let state = await sut.currentState()
 
-        XCTAssertEqual(sut.state, .unauthenticated)
+        XCTAssertEqual(state, .unauthenticated)
     }
 
-    func test_sessionStore_startsAuthenticatedWithPersistedToken() {
+    func test_sessionStore_startsAuthenticatedWithPersistedToken() async {
         let tokenStorage = TokenStorageSpy()
         tokenStorage.token = AuthToken(accessToken: "access", refreshToken: "refresh")
 
         let sut = DefaultSessionStore(tokenStorage: tokenStorage)
+        let state = await sut.currentState()
 
-        XCTAssertEqual(sut.state, .authenticated)
+        XCTAssertEqual(state, .authenticated)
     }
 
-    func test_sessionStore_marksUnauthenticatedAfterSessionExpiration() {
+    func test_sessionStore_marksUnauthenticatedAfterSessionExpiration() async {
         let tokenStorage = TokenStorageSpy()
         tokenStorage.token = AuthToken(accessToken: "access", refreshToken: "refresh")
         let sut = DefaultSessionStore(tokenStorage: tokenStorage)
 
-        sut.markUnauthenticated()
+        await sut.markUnauthenticated()
+        let state = await sut.currentState()
 
-        XCTAssertEqual(sut.state, .unauthenticated)
+        XCTAssertEqual(state, .unauthenticated)
     }
 
     func test_sessionStore_observationEmitsInitialStateAndChanges() async {
         let tokenStorage = TokenStorageSpy()
         let sut = DefaultSessionStore(tokenStorage: tokenStorage)
-        var iterator = sut.observeState().makeAsyncIterator()
+        var iterator = await sut.observeState().makeAsyncIterator()
 
         let initialState = await iterator.next()
-        sut.markAuthenticated()
+        await sut.markAuthenticated()
         let authenticatedState = await iterator.next()
 
         XCTAssertEqual(initialState, .unauthenticated)
         XCTAssertEqual(authenticatedState, .authenticated)
     }
 
-    func test_logout_clearsSessionAndLocalData() {
+    func test_logout_clearsSessionAndLocalData() async {
         let tokenStorage = TokenStorageSpy()
         let userStorage = LogoutUserStorageSpy()
         let localDataDeleting = LogoutLocalDataDeletingSpy()
@@ -52,7 +55,7 @@ final class LogoutUseCaseTests: XCTestCase {
             localDataDeleting: localDataDeleting
         )
 
-        sut.logout()
+        await sut.logout()
 
         XCTAssertTrue(tokenStorage.didDelete)
         XCTAssertTrue(userStorage.didDelete)

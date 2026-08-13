@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LoginScreen: View {
     private let onSelectEnvironment: () -> Void
-    private let onLoginSuccess: () -> Void
+    private let onLoginSuccess: () async -> Void
     private let onLoginError: (AuthorizationFailure) -> Void
     private let onRegister: () -> Void
     private let onForgotPassword: () -> Void
@@ -12,7 +12,7 @@ struct LoginScreen: View {
     init(
         viewModel: LoginScreenViewModel,
         onSelectEnvironment: @escaping () -> Void,
-        onLoginSuccess: @escaping () -> Void,
+        onLoginSuccess: @escaping () async -> Void,
         onLoginError: @escaping (AuthorizationFailure) -> Void,
         onRegister: @escaping () -> Void,
         onForgotPassword: @escaping () -> Void
@@ -64,7 +64,7 @@ struct LoginScreen: View {
                     Task {
                         switch await viewModel.login() {
                         case .success:
-                            onLoginSuccess()
+                            await onLoginSuccess()
                         case .authorizationFailure(let error):
                             onLoginError(error)
                         case .validationFailure:

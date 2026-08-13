@@ -26,8 +26,8 @@ final class SettingsAccountViewModel: ObservableObject {
         self.logoutUseCase = logoutUseCase
     }
 
-    func logout() {
-        logoutUseCase.logout()
+    func logout() async {
+        await logoutUseCase.logout()
     }
 
     func deleteAccount() async {
@@ -41,7 +41,7 @@ final class SettingsAccountViewModel: ObservableObject {
             try await accountUseCase.deleteCurrentUser(
                 deleteObservations: shouldDeleteObservations
             )
-            logoutUseCase.logout()
+            await logoutUseCase.logout()
         } catch {
             errorMessage = error.message
         }

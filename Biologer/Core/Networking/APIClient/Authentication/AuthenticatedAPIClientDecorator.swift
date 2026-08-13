@@ -94,7 +94,8 @@ final class AuthenticatedAPIClientDecorator: APIClientProtocol {
     @MainActor
     private func invalidateSession(
         expectedSession: TokenSnapshot? = nil,
-        expectedAccessToken: String? = nil) {
+        expectedAccessToken: String? = nil
+    ) async {
         guard let currentToken = tokenStorage.getToken() else { return }
 
         if let expectedSession,
@@ -109,7 +110,7 @@ final class AuthenticatedAPIClientDecorator: APIClientProtocol {
         }
 
         tokenStorage.delete()
-        sessionStore?.markUnauthenticated()
+        await sessionStore?.markUnauthenticated()
         onSessionExpired()
     }
 }

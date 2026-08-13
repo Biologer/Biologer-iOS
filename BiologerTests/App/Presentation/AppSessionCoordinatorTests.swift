@@ -3,11 +3,11 @@ import XCTest
 
 @MainActor
 final class AppSessionCoordinatorTests: XCTestCase {
-    func test_finishLaunching_withoutAuthenticatedSession_requiresAuthorization() {
+    func test_finishLaunching_withoutAuthenticatedSession_requiresAuthorization() async {
         let sessionStore = AppSessionStoreSpy(state: .unauthenticated)
         let sut = makeSUT(sessionStore: sessionStore)
 
-        sut.finishLaunching()
+        await sut.finishLaunching()
 
         XCTAssertEqual(sut.state, .authorizationRequired)
     }
@@ -19,7 +19,7 @@ final class AppSessionCoordinatorTests: XCTestCase {
             scope: nil
         )
 
-        sut.finishLaunching()
+        await sut.finishLaunching()
         XCTAssertEqual(sut.state, .preparing)
 
         await sut.prepareSession()
@@ -28,20 +28,22 @@ final class AppSessionCoordinatorTests: XCTestCase {
     }
 
     func test_authorizationSucceeded_routesThroughSessionStoreChange() async {
-        let sessionStore = AppSessionStoreSpy(state: .unauthenticated)
-        sessionStore.stateOnSynchronize = .authenticated
+        let sessionStore = AppSessionStoreSpy(
+            state: .unauthenticated,
+            stateOnSynchronize: .authenticated
+        )
         let sut = makeSUT(
             sessionStore: sessionStore,
             scope: nil
         )
         let observationTask = Task { await sut.observeSession() }
         defer { observationTask.cancel() }
-        await waitUntil { sessionStore.isObserved }
+        await waitUntil { await sessionStore.isObserved() }
 
-        sut.finishLaunching()
+        await sut.finishLaunching()
         XCTAssertEqual(sut.state, .authorizationRequired)
 
-        sut.authorizationSucceeded()
+        await sut.authorizationSucceeded()
         await waitUntil { sut.state == .preparing }
         await sut.prepareSession()
 
@@ -62,7 +64,7 @@ final class AppSessionCoordinatorTests: XCTestCase {
             taxonState: .idle(status)
         )
 
-        sut.finishLaunching()
+        await sut.finishLaunching()
         await sut.prepareSession()
 
         XCTAssertEqual(sut.state, .taxonSyncRequired)
@@ -77,7 +79,7 @@ final class AppSessionCoordinatorTests: XCTestCase {
             prepareSessionUseCase: prepareSessionUseCase
         )
 
-        sut.finishLaunching()
+        await sut.finishLaunching()
         await sut.prepareSession()
 
         XCTAssertEqual(
@@ -96,13 +98,13 @@ final class AppSessionCoordinatorTests: XCTestCase {
         )
         let observationTask = Task { await sut.observeSession() }
         defer { observationTask.cancel() }
-        await waitUntil { sessionStore.isObserved }
+        await waitUntil { await sessionStore.isObserved() }
 
-        sut.finishLaunching()
+        await sut.finishLaunching()
         let preparationTask = Task { await sut.prepareSession() }
         await waitUntil { prepareSessionUseCase.callCount == 1 }
 
-        sessionStore.send(.unauthenticated)
+        await sessionStore.send(.unauthenticated)
         await waitUntil { sut.state == .authorizationRequired }
 
         prepareSessionUseCase.completeCall(at: 0, with: .success(()))
@@ -119,7 +121,7 @@ final class AppSessionCoordinatorTests: XCTestCase {
             scope: nil
         )
 
-        sut.finishLaunching()
+        await sut.finishLaunching()
         let firstTask = Task { await sut.prepareSession() }
         await waitUntil { prepareSessionUseCase.callCount == 1 }
         prepareSessionUseCase.completeCall(
@@ -132,7 +134,7 @@ final class AppSessionCoordinatorTests: XCTestCase {
             .preparationFailed(message: "prepare failed")
         )
 
-        sut.retryPreparation()
+        await sut.retryPreparation()
         XCTAssertEqual(sut.state, .preparing)
 
         let retryTask = Task { await sut.prepareSession() }
@@ -174,12 +176,12 @@ final class AppSessionCoordinatorTests: XCTestCase {
     }
 
     private func waitUntil(
-        _ condition: @escaping @MainActor () -> Bool,
+        _ condition: @escaping @MainActor () async -> Bool,
         file: StaticString = #filePath,
         line: UInt = #line
     ) async {
         for _ in 0..<100 {
-            if condition() { return }
+            if await condition() { return }
             await Task.yield()
         }
 
@@ -187,31 +189,40 @@ final class AppSessionCoordinatorTests: XCTestCase {
     }
 }
 
-private final class AppSessionStoreSpy: SessionStore {
-    private(set) var state: SessionState
-    private(set) var isObserved = false
-    var stateOnSynchronize: SessionState?
+private actor AppSessionStoreSpy: SessionStore {
+    private var state: SessionState
+    private var observationStarted = false
+    private let stateOnSynchronize: SessionState?
 
     private var continuation: AsyncStream<SessionState>.Continuation?
 
-    init(state: SessionState) {
+    init(
+        state: SessionState,
+        stateOnSynchronize: SessionState? = nil
+    ) {
         self.state = state
+        self.stateOnSynchronize = stateOnSynchronize
+    }
+
+    func currentState() -> SessionState {
+        state
+    }
+
+    func isObserved() -> Bool {
+        observationStarted
     }
 
     func observeState() -> AsyncStream<SessionState> {
-        AsyncStream { [weak self] continuation in
-            guard let self else {
-                continuation.finish()
-                return
-            }
-
-            self.continuation = continuation
-            isObserved = true
-            continuation.yield(state)
-            continuation.onTermination = { [weak self] _ in
-                self?.continuation = nil
-            }
+        let (stream, continuation) = AsyncStream.makeStream(
+            of: SessionState.self
+        )
+        self.continuation = continuation
+        observationStarted = true
+        continuation.yield(state)
+        continuation.onTermination = { [weak self] _ in
+            Task { await self?.removeContinuation() }
         }
+        return stream
     }
 
     func synchronize() {
@@ -230,6 +241,10 @@ private final class AppSessionStoreSpy: SessionStore {
     func send(_ newState: SessionState) {
         state = newState
         continuation?.yield(newState)
+    }
+
+    private func removeContinuation() {
+        continuation = nil
     }
 }
 
@@ -280,5 +295,5 @@ private struct AppSessionTaxonScopeProviderStub: TaxonCatalogScopeProviding {
 }
 
 private final class AppSessionLogoutUseCaseSpy: LogoutUseCase {
-    func logout() {}
+    func logout() async {}
 }
