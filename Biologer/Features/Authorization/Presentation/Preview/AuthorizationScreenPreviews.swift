@@ -6,7 +6,6 @@ struct LoginScreen_Previews: PreviewProvider {
             .createEnvironment(type: .croatia)
 
         LoginScreen(
-            environmentViewModel: environment,
             viewModel: LoginScreenViewModel(
                 environmentViewModel: environment,
                 useCase: PreviewAuthorizationComposition.makeUseCases().login
@@ -49,8 +48,6 @@ struct RegistrationLicenseConsentScreen_Previews: PreviewProvider {
 
         RegistrationLicenseConsentScreen(
             viewModel: flowViewModel.licenseConsentViewModel,
-            dataLicense: flowViewModel.selectedDataLicense,
-            imageLicense: flowViewModel.selectedImageLicense,
             onPrivacyPolicy: {},
             onDataLicense: { _ in },
             onImageLicense: { _ in },

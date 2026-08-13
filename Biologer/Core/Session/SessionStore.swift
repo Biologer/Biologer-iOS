@@ -10,7 +10,7 @@ enum SessionState: Equatable, Sendable {
 
 protocol SessionStore: AnyObject {
     var state: SessionState { get }
-    var onStateChange: ((SessionState) -> Void)? { get set }
+    func observeState() -> AsyncStream<SessionState>
     func synchronize()
     func markAuthenticated()
     func markUnauthenticated()
@@ -20,12 +20,41 @@ protocol SessionStore: AnyObject {
 /// TokenStorage remains the persistence mechanism.
 final class DefaultSessionStore: SessionStore {
     private let tokenStorage: TokenStorage
-    private(set) var state: SessionState
-    var onStateChange: ((SessionState) -> Void)?
+    private let lock = NSLock()
+    private var storedState: SessionState
+    private var continuations: [
+        UUID: AsyncStream<SessionState>.Continuation
+    ] = [:]
+
+    var state: SessionState {
+        lock.lock()
+        defer { lock.unlock() }
+        return storedState
+    }
 
     init(tokenStorage: TokenStorage) {
         self.tokenStorage = tokenStorage
-        state = Self.resolveState(from: tokenStorage)
+        storedState = Self.resolveState(from: tokenStorage)
+    }
+
+    func observeState() -> AsyncStream<SessionState> {
+        let subscriptionID = UUID()
+
+        return AsyncStream { [weak self] continuation in
+            guard let self else {
+                continuation.finish()
+                return
+            }
+
+            continuation.onTermination = { [weak self] _ in
+                self?.removeContinuation(id: subscriptionID)
+            }
+
+            lock.lock()
+            continuations[subscriptionID] = continuation
+            continuation.yield(storedState)
+            lock.unlock()
+        }
     }
 
     func synchronize() {
@@ -36,9 +65,18 @@ final class DefaultSessionStore: SessionStore {
     func markUnauthenticated() { update(.unauthenticated) }
 
     private func update(_ newState: SessionState) {
-        guard state != newState else { return }
-        state = newState
-        onStateChange?(newState)
+        lock.lock()
+        defer { lock.unlock() }
+
+        guard storedState != newState else { return }
+        storedState = newState
+        continuations.values.forEach { $0.yield(newState) }
+    }
+
+    private func removeContinuation(id: UUID) {
+        lock.lock()
+        defer { lock.unlock() }
+        continuations[id] = nil
     }
 
     private static func resolveState(

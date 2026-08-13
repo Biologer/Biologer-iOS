@@ -7,7 +7,6 @@ final class AppSessionCoordinatorTests: XCTestCase {
         let sessionStore = AppSessionStoreSpy(state: .unauthenticated)
         let sut = makeSUT(sessionStore: sessionStore)
 
-        sut.startObservingSession()
         sut.finishLaunching()
 
         XCTAssertEqual(sut.state, .authorizationRequired)
@@ -20,10 +19,12 @@ final class AppSessionCoordinatorTests: XCTestCase {
             scope: nil
         )
 
-        sut.startObservingSession()
         sut.finishLaunching()
+        XCTAssertEqual(sut.state, .preparing)
 
-        await waitUntil { sut.state == .ready }
+        await sut.prepareSession()
+
+        XCTAssertEqual(sut.state, .ready)
     }
 
     func test_authorizationSucceeded_routesThroughSessionStoreChange() async {
@@ -33,14 +34,18 @@ final class AppSessionCoordinatorTests: XCTestCase {
             sessionStore: sessionStore,
             scope: nil
         )
+        let observationTask = Task { await sut.observeSession() }
+        defer { observationTask.cancel() }
+        await waitUntil { sessionStore.isObserved }
 
-        sut.startObservingSession()
         sut.finishLaunching()
         XCTAssertEqual(sut.state, .authorizationRequired)
 
         sut.authorizationSucceeded()
+        await waitUntil { sut.state == .preparing }
+        await sut.prepareSession()
 
-        await waitUntil { sut.state == .ready }
+        XCTAssertEqual(sut.state, .ready)
     }
 
     func test_finishLaunching_whenTaxonCatalogIsNotReady_requiresTaxonSync() async {
@@ -57,10 +62,10 @@ final class AppSessionCoordinatorTests: XCTestCase {
             taxonState: .idle(status)
         )
 
-        sut.startObservingSession()
         sut.finishLaunching()
+        await sut.prepareSession()
 
-        await waitUntil { sut.state == .taxonSyncRequired }
+        XCTAssertEqual(sut.state, .taxonSyncRequired)
     }
 
     func test_prepareSession_whenPreparationFails_exposesFailureState() async {
@@ -72,12 +77,13 @@ final class AppSessionCoordinatorTests: XCTestCase {
             prepareSessionUseCase: prepareSessionUseCase
         )
 
-        sut.startObservingSession()
         sut.finishLaunching()
+        await sut.prepareSession()
 
-        await waitUntil {
-            sut.state == .preparationFailed(message: "prepare failed")
-        }
+        XCTAssertEqual(
+            sut.state,
+            .preparationFailed(message: "prepare failed")
+        )
     }
 
     func test_sessionExpiration_ignoresSuspendedPreparationResult() async {
@@ -88,21 +94,24 @@ final class AppSessionCoordinatorTests: XCTestCase {
             prepareSessionUseCase: prepareSessionUseCase,
             scope: nil
         )
+        let observationTask = Task { await sut.observeSession() }
+        defer { observationTask.cancel() }
+        await waitUntil { sessionStore.isObserved }
 
-        sut.startObservingSession()
         sut.finishLaunching()
+        let preparationTask = Task { await sut.prepareSession() }
         await waitUntil { prepareSessionUseCase.callCount == 1 }
 
         sessionStore.send(.unauthenticated)
         await waitUntil { sut.state == .authorizationRequired }
 
         prepareSessionUseCase.completeCall(at: 0, with: .success(()))
-        await Task.yield()
+        await preparationTask.value
 
         XCTAssertEqual(sut.state, .authorizationRequired)
     }
 
-    func test_retryPreparation_ignoresResultFromCancelledAttempt() async {
+    func test_retryPreparation_startsNewPreparationAfterFailure() async {
         let prepareSessionUseCase = AppSessionSuspendedPrepareUseCase()
         let sut = makeSUT(
             sessionStore: AppSessionStoreSpy(state: .authenticated),
@@ -110,19 +119,28 @@ final class AppSessionCoordinatorTests: XCTestCase {
             scope: nil
         )
 
-        sut.startObservingSession()
         sut.finishLaunching()
+        let firstTask = Task { await sut.prepareSession() }
         await waitUntil { prepareSessionUseCase.callCount == 1 }
+        prepareSessionUseCase.completeCall(
+            at: 0,
+            with: .failure(SettingsDataFailure(message: "prepare failed"))
+        )
+        await firstTask.value
+        XCTAssertEqual(
+            sut.state,
+            .preparationFailed(message: "prepare failed")
+        )
 
         sut.retryPreparation()
-        await waitUntil { prepareSessionUseCase.callCount == 2 }
-
-        prepareSessionUseCase.completeCall(at: 0, with: .success(()))
-        await Task.yield()
         XCTAssertEqual(sut.state, .preparing)
 
+        let retryTask = Task { await sut.prepareSession() }
+        await waitUntil { prepareSessionUseCase.callCount == 2 }
         prepareSessionUseCase.completeCall(at: 1, with: .success(()))
-        await waitUntil { sut.state == .ready }
+        await retryTask.value
+
+        XCTAssertEqual(sut.state, .ready)
     }
 
     private func makeSUT(
@@ -171,11 +189,29 @@ final class AppSessionCoordinatorTests: XCTestCase {
 
 private final class AppSessionStoreSpy: SessionStore {
     private(set) var state: SessionState
-    var onStateChange: ((SessionState) -> Void)?
+    private(set) var isObserved = false
     var stateOnSynchronize: SessionState?
+
+    private var continuation: AsyncStream<SessionState>.Continuation?
 
     init(state: SessionState) {
         self.state = state
+    }
+
+    func observeState() -> AsyncStream<SessionState> {
+        AsyncStream { [weak self] continuation in
+            guard let self else {
+                continuation.finish()
+                return
+            }
+
+            self.continuation = continuation
+            isObserved = true
+            continuation.yield(state)
+            continuation.onTermination = { [weak self] _ in
+                self?.continuation = nil
+            }
+        }
     }
 
     func synchronize() {
@@ -193,7 +229,7 @@ private final class AppSessionStoreSpy: SessionStore {
 
     func send(_ newState: SessionState) {
         state = newState
-        onStateChange?(newState)
+        continuation?.yield(newState)
     }
 }
 

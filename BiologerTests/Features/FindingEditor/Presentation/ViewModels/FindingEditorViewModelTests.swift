@@ -13,6 +13,15 @@ final class FindingEditorViewModelTests: XCTestCase {
         XCTAssertEqual(context.sut.loadState, .content)
     }
 
+    func test_load_whenContentIsAlreadyLoaded_doesNotLoadAgain() {
+        let context = makeSUT(draft: makeDraft())
+
+        context.sut.load()
+        context.sut.load()
+
+        XCTAssertEqual(context.loadFinding.callCount, 1)
+    }
+
     func test_saveWaitsForSuccessConfirmationBeforeCompletingCreate() {
         let draft = makeDraft()
         let context = makeSUT(
@@ -170,6 +179,7 @@ final class FindingEditorViewModelTests: XCTestCase {
         )
         return FindingEditorViewModelTestContext(
             sut: sut,
+            loadFinding: loadFinding,
             saveFinding: saveFinding
         )
     }
@@ -197,18 +207,21 @@ final class FindingEditorViewModelTests: XCTestCase {
 @MainActor
 private struct FindingEditorViewModelTestContext {
     let sut: FindingEditorViewModel
+    let loadFinding: FindingEditorLoadUseCaseStub
     let saveFinding: FindingEditorSaveUseCaseSpy
 }
 
 private final class FindingEditorLoadUseCaseStub: LoadFindingEditorUseCase {
     let draft: FindingEditorDraft
+    private(set) var callCount = 0
 
     init(draft: FindingEditorDraft) {
         self.draft = draft
     }
 
     func execute(mode: FindingEditorMode) throws -> FindingEditorDraft {
-        draft
+        callCount += 1
+        return draft
     }
 }
 

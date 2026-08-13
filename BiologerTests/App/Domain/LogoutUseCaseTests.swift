@@ -29,6 +29,19 @@ final class LogoutUseCaseTests: XCTestCase {
         XCTAssertEqual(sut.state, .unauthenticated)
     }
 
+    func test_sessionStore_observationEmitsInitialStateAndChanges() async {
+        let tokenStorage = TokenStorageSpy()
+        let sut = DefaultSessionStore(tokenStorage: tokenStorage)
+        var iterator = sut.observeState().makeAsyncIterator()
+
+        let initialState = await iterator.next()
+        sut.markAuthenticated()
+        let authenticatedState = await iterator.next()
+
+        XCTAssertEqual(initialState, .unauthenticated)
+        XCTAssertEqual(authenticatedState, .authenticated)
+    }
+
     func test_logout_clearsSessionAndLocalData() {
         let tokenStorage = TokenStorageSpy()
         let userStorage = LogoutUserStorageSpy()

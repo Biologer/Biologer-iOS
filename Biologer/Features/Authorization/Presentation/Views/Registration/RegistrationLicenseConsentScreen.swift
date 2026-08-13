@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct RegistrationLicenseConsentScreen: View {
-    private let dataLicense: CheckMarkItem
-    private let imageLicense: CheckMarkItem
     private let onPrivacyPolicy: () -> Void
     private let onDataLicense: (CheckMarkItem) -> Void
     private let onImageLicense: (CheckMarkItem) -> Void
@@ -12,15 +10,11 @@ struct RegistrationLicenseConsentScreen: View {
 
     init(
         viewModel: RegistrationLicenseConsentViewModel,
-        dataLicense: CheckMarkItem,
-        imageLicense: CheckMarkItem,
         onPrivacyPolicy: @escaping () -> Void,
         onDataLicense: @escaping (CheckMarkItem) -> Void,
         onImageLicense: @escaping (CheckMarkItem) -> Void,
         onRegistrationSuccess: @escaping () -> Void
     ) {
-        self.dataLicense = dataLicense
-        self.imageLicense = imageLicense
         self.onPrivacyPolicy = onPrivacyPolicy
         self.onDataLicense = onDataLicense
         self.onImageLicense = onImageLicense
@@ -129,16 +123,6 @@ struct RegistrationLicenseConsentScreen: View {
         .biologerPageBackground()
         .biologerLoadingOverlay(isPresented: viewModel.isLoading)
         .navigationBarBackButtonHidden(true)
-        .onAppear {
-            viewModel.updateDataLicense(dataLicense)
-            viewModel.updateImageLicense(imageLicense)
-        }
-        .onChange(of: dataLicense) { license in
-            viewModel.updateDataLicense(license)
-        }
-        .onChange(of: imageLicense) { license in
-            viewModel.updateImageLicense(license)
-        }
         .sheet(item: $viewModel.registrationPopup) { popup in
             switch popup {
             case .error(let error):

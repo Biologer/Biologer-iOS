@@ -1,22 +1,29 @@
 import XCTest
 @testable import Biologer
 
+@MainActor
 final class FindingLocationUseCasesTests: XCTestCase {
-    func test_observeCurrentLocationForwardsUpdatesAndStop() {
+    func test_observeCurrentLocationForwardsUpdatesAndStopsOnCancellation() async {
         let expected = makeLocation(altitude: 120)
         let repository = FindingCurrentLocationRepositorySpy()
-        let sut = DefaultObserveCurrentFindingLocationUseCase(repository: repository)
-        var receivedLocation: FindingEditorLocation?
-
-        sut.start(
-            onLocation: { receivedLocation = $0 },
-            onError: { _ in XCTFail("Unexpected location error") }
+        let sut = DefaultObserveCurrentFindingLocationUseCase(
+            repository: repository
         )
-        repository.send(expected)
-        sut.stop()
+        var receivedEvent: FindingCurrentLocationEvent?
+        let observationTask = Task {
+            for await event in sut.execute() {
+                receivedEvent = event
+            }
+        }
+        await waitUntil { repository.startCallCount == 1 }
 
-        XCTAssertEqual(receivedLocation, expected)
-        XCTAssertEqual(repository.startCallCount, 1)
+        repository.send(expected)
+        await waitUntil { receivedEvent != nil }
+        observationTask.cancel()
+        await observationTask.value
+        await waitUntil { repository.stopCallCount == 1 }
+
+        XCTAssertEqual(receivedEvent, .location(expected))
         XCTAssertEqual(repository.stopCallCount, 1)
     }
 
@@ -57,6 +64,19 @@ final class FindingLocationUseCasesTests: XCTestCase {
             accuracy: 5
         )
     }
+
+    private func waitUntil(
+        _ condition: @escaping @MainActor () -> Bool,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) async {
+        for _ in 0..<100 {
+            if condition() { return }
+            await Task.yield()
+        }
+
+        XCTFail("Condition was not satisfied.", file: file, line: line)
+    }
 }
 
 private final class FindingCurrentLocationRepositorySpy:
@@ -75,6 +95,7 @@ private final class FindingCurrentLocationRepositorySpy:
 
     func stop() {
         stopCallCount += 1
+        onLocation = nil
     }
 
     func send(_ location: FindingEditorLocation) {
@@ -84,7 +105,9 @@ private final class FindingCurrentLocationRepositorySpy:
 
 private final class FindingAltitudeRepositoryStub: FindingAltitudeRepository {
     let result: Result<Double, FindingAltitudeRepositoryError>
-    private(set) var receivedCoordinates: [(latitude: Double, longitude: Double)] = []
+    private(set) var receivedCoordinates: [
+        (latitude: Double, longitude: Double)
+    ] = []
 
     init(result: Result<Double, FindingAltitudeRepositoryError>) {
         self.result = result

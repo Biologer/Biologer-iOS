@@ -33,6 +33,13 @@ final class CoreLocationFindingCurrentLocationRepository: NSObject,
     }
 
     func stop() {
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { [weak self] in
+                self?.stop()
+            }
+            return
+        }
+
         manager.stopUpdatingLocation()
         onLocation = nil
         onError = nil

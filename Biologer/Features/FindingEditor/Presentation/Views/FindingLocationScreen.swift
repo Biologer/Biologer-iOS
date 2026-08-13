@@ -40,8 +40,9 @@ struct FindingLocationScreen: View {
             selectionCard
         }
         .biologerScreen(title: "FindingEditor.location.title".localized)
-        .onAppear(perform: viewModel.start)
-        .onDisappear(perform: viewModel.stop)
+        .task {
+            await viewModel.observeLocation()
+        }
     }
 
     @ViewBuilder

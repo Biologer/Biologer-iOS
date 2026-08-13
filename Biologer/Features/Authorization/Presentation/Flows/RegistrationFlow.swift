@@ -111,8 +111,6 @@ struct RegistrationFlow: View {
     private var thirdStepScreen: some View {
         RegistrationLicenseConsentScreen(
             viewModel: viewModel.licenseConsentViewModel,
-            dataLicense: viewModel.selectedDataLicense,
-            imageLicense: viewModel.selectedImageLicense,
             onPrivacyPolicy: onPrivacyPolicy,
             onDataLicense: { _ in path.append(Screen.dataLicense) },
             onImageLicense: { _ in path.append(Screen.imageLicense) },

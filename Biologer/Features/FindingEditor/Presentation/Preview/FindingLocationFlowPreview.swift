@@ -22,12 +22,9 @@ struct FindingLocationScreen_Previews: PreviewProvider {
 }
 
 private final class LocationPreviewObserver: ObserveCurrentFindingLocationUseCase {
-    func start(
-        onLocation: @escaping (FindingEditorLocation) -> Void,
-        onError: @escaping (FindingLocationRepositoryError) -> Void
-    ) {}
-
-    func stop() {}
+    func execute() -> AsyncStream<FindingCurrentLocationEvent> {
+        AsyncStream { $0.finish() }
+    }
 }
 
 private final class LocationPreviewResolver: ResolveFindingLocationUseCase {

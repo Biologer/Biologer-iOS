@@ -47,7 +47,6 @@ final class FindingLocationViewModel: ObservableObject {
 
     private let observeCurrentLocation: ObserveCurrentFindingLocationUseCase
     private let resolveLocation: ResolveFindingLocationUseCase
-    private var didStart = false
 
     init(
         initialLocation: FindingEditorLocation?,
@@ -67,31 +66,21 @@ final class FindingLocationViewModel: ObservableObject {
         selectedLocation != nil && !isResolvingAltitude
     }
 
-    func start() {
-        guard !didStart else { return }
-        didStart = true
+    func observeLocation() async {
         if selectedLocation == nil {
             status = .locating
         }
 
-        observeCurrentLocation.start(
-            onLocation: { [weak self] location in
-                Task { @MainActor in
-                    self?.receiveCurrentLocation(location)
-                }
-            },
-            onError: { [weak self] error in
-                Task { @MainActor in
-                    self?.receiveLocationError(error)
-                }
-            }
-        )
-    }
+        for await event in observeCurrentLocation.execute() {
+            guard !Task.isCancelled else { return }
 
-    func stop() {
-        observeCurrentLocation.stop()
-        isResolvingAltitude = false
-        didStart = false
+            switch event {
+            case .location(let location):
+                receiveCurrentLocation(location)
+            case .failure(let error):
+                receiveLocationError(error)
+            }
+        }
     }
 
     func selectCoordinate(latitude: Double, longitude: Double) {

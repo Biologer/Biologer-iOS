@@ -15,7 +15,8 @@ struct TaxonSyncFlow: View {
     var body: some View {
         TaxonSyncScreen(viewModel: viewModel, onContinue: onContinue)
             .biologerScreen(title: "TaxonSync.title".localized)
-            .onAppear { viewModel.onAppear() }
-            .onDisappear { viewModel.onDisappear() }
+            .task {
+                await viewModel.observeState()
+            }
     }
 }

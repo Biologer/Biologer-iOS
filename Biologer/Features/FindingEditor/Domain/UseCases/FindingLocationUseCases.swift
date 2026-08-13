@@ -3,13 +3,13 @@ struct FindingLocationUseCases {
     let resolveLocation: ResolveFindingLocationUseCase
 }
 
-protocol ObserveCurrentFindingLocationUseCase: AnyObject {
-    func start(
-        onLocation: @escaping (FindingEditorLocation) -> Void,
-        onError: @escaping (FindingLocationRepositoryError) -> Void
-    )
+enum FindingCurrentLocationEvent: Equatable {
+    case location(FindingEditorLocation)
+    case failure(FindingLocationRepositoryError)
+}
 
-    func stop()
+protocol ObserveCurrentFindingLocationUseCase: AnyObject {
+    func execute() -> AsyncStream<FindingCurrentLocationEvent>
 }
 
 final class DefaultObserveCurrentFindingLocationUseCase: ObserveCurrentFindingLocationUseCase {
@@ -19,15 +19,21 @@ final class DefaultObserveCurrentFindingLocationUseCase: ObserveCurrentFindingLo
         self.repository = repository
     }
 
-    func start(
-        onLocation: @escaping (FindingEditorLocation) -> Void,
-        onError: @escaping (FindingLocationRepositoryError) -> Void
-    ) {
-        repository.start(onLocation: onLocation, onError: onError)
-    }
+    func execute() -> AsyncStream<FindingCurrentLocationEvent> {
+        AsyncStream { [weak repository] continuation in
+            guard let repository else {
+                continuation.finish()
+                return
+            }
 
-    func stop() {
-        repository.stop()
+            continuation.onTermination = { [weak repository] _ in
+                repository?.stop()
+            }
+            repository.start(
+                onLocation: { continuation.yield(.location($0)) },
+                onError: { continuation.yield(.failure($0)) }
+            )
+        }
     }
 }
 

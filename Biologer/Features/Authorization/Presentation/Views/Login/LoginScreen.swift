@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct LoginScreen: View {
-    private let environmentViewModel: EnvironmentViewModel
     private let onSelectEnvironment: () -> Void
     private let onLoginSuccess: () -> Void
     private let onLoginError: (AuthorizationFailure) -> Void
@@ -11,7 +10,6 @@ struct LoginScreen: View {
     @ObservedObject private var viewModel: LoginScreenViewModel
 
     init(
-        environmentViewModel: EnvironmentViewModel,
         viewModel: LoginScreenViewModel,
         onSelectEnvironment: @escaping () -> Void,
         onLoginSuccess: @escaping () -> Void,
@@ -19,7 +17,6 @@ struct LoginScreen: View {
         onRegister: @escaping () -> Void,
         onForgotPassword: @escaping () -> Void
     ) {
-        self.environmentViewModel = environmentViewModel
         self.onSelectEnvironment = onSelectEnvironment
         self.onLoginSuccess = onLoginSuccess
         self.onLoginError = onLoginError
@@ -111,12 +108,6 @@ struct LoginScreen: View {
         }
         .biologerPageBackground()
         .biologerLoadingOverlay(isPresented: viewModel.isLoading)
-        .onAppear {
-            viewModel.updateEnvironment(environmentViewModel)
-        }
-        .onChange(of: environmentViewModel) { environment in
-            viewModel.updateEnvironment(environment)
-        }
     }
 
     private var environmentCard: some View {

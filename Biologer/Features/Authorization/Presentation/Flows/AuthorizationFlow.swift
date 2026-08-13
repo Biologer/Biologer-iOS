@@ -73,7 +73,6 @@ struct AuthorizationFlow: View {
 
     private var loginScreen: some View {
         LoginScreen(
-            environmentViewModel: viewModel.selectedEnvironment,
             viewModel: viewModel.loginViewModel,
             onSelectEnvironment: { path.append(Screen.environments) },
             onLoginSuccess: onAuthorizationSuccess,

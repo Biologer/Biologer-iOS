@@ -46,7 +46,6 @@ final class FindingEditorViewModel: ObservableObject {
     private let loadFinding: LoadFindingEditorUseCase
     private let saveFinding: SaveFindingEditorUseCase
     private let onUnsavedChangesChanged: (Bool) -> Void
-    private var didLoad = false
     private var savedFindingID: UUID?
     private var loadedDraft: FindingEditorDraft?
 
@@ -72,8 +71,7 @@ final class FindingEditorViewModel: ObservableObject {
     }
 
     func load() {
-        guard !didLoad else { return }
-        didLoad = true
+        guard loadState == .idle else { return }
         loadState = .loading
 
         do {
@@ -88,7 +86,8 @@ final class FindingEditorViewModel: ObservableObject {
     }
 
     func retryLoad() {
-        didLoad = false
+        guard loadState == .failure else { return }
+        loadState = .idle
         load()
     }
 

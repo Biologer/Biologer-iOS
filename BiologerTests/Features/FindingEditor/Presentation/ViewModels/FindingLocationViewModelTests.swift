@@ -3,32 +3,36 @@ import XCTest
 
 @MainActor
 final class FindingLocationViewModelTests: XCTestCase {
-    func test_startSelectsFirstCurrentLocationAndStopEndsObservation() async {
+    func test_observeLocation_selectsFirstCurrentLocationAndStopsOnCancellation() async {
         let current = makeLocation(latitude: 44.8, longitude: 20.4, altitude: 120)
         let observer = FindingLocationObserverStub()
         let sut = makeSUT(observer: observer)
+        let observationTask = Task { await sut.observeLocation() }
+        await waitUntil { observer.isObserved }
 
-        sut.start()
         observer.send(current)
-        await Task.yield()
-        sut.stop()
+        await waitUntil { sut.currentLocation == current }
+
+        observationTask.cancel()
+        await observationTask.value
 
         XCTAssertEqual(sut.selectedLocation, current)
         XCTAssertEqual(sut.currentLocation, current)
         XCTAssertEqual(sut.status, .ready)
         XCTAssertEqual(sut.cameraTarget.latitude, current.latitude)
         XCTAssertEqual(sut.cameraTarget.longitude, current.longitude)
-        XCTAssertEqual(observer.stopCallCount, 1)
+        XCTAssertEqual(observer.terminationCount, 1)
     }
 
     func test_manualSelectionRemainsAvailableWhenAuthorizationIsDenied() async {
         let observer = FindingLocationObserverStub()
         let sut = makeSUT(observer: observer)
+        let observationTask = Task { await sut.observeLocation() }
+        defer { observationTask.cancel() }
+        await waitUntil { observer.isObserved }
 
-        sut.start()
         observer.fail(.authorizationDenied)
-        await Task.yield()
-        XCTAssertEqual(sut.status, .authorizationDenied)
+        await waitUntil { sut.status == .authorizationDenied }
 
         sut.selectCoordinate(latitude: 43.32, longitude: 21.89)
 
@@ -43,9 +47,11 @@ final class FindingLocationViewModelTests: XCTestCase {
         let current = makeLocation(latitude: 45.26, longitude: 19.83, altitude: 82)
         let observer = FindingLocationObserverStub()
         let sut = makeSUT(observer: observer)
-        sut.start()
+        let observationTask = Task { await sut.observeLocation() }
+        defer { observationTask.cancel() }
+        await waitUntil { observer.isObserved }
         observer.send(current)
-        await Task.yield()
+        await waitUntil { sut.currentLocation == current }
         sut.selectCoordinate(latitude: 43.32, longitude: 21.89)
 
         sut.useCurrentLocation()
@@ -98,31 +104,48 @@ final class FindingLocationViewModelTests: XCTestCase {
             accuracy: 5
         )
     }
+
+    private func waitUntil(
+        _ condition: @escaping @MainActor () -> Bool,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) async {
+        for _ in 0..<100 {
+            if condition() { return }
+            await Task.yield()
+        }
+
+        XCTFail("Condition was not satisfied.", file: file, line: line)
+    }
 }
 
 private final class FindingLocationObserverStub: ObserveCurrentFindingLocationUseCase {
-    private var onLocation: ((FindingEditorLocation) -> Void)?
-    private var onError: ((FindingLocationRepositoryError) -> Void)?
-    private(set) var stopCallCount = 0
+    private var continuation: AsyncStream<FindingCurrentLocationEvent>.Continuation?
+    private(set) var isObserved = false
+    private(set) var terminationCount = 0
 
-    func start(
-        onLocation: @escaping (FindingEditorLocation) -> Void,
-        onError: @escaping (FindingLocationRepositoryError) -> Void
-    ) {
-        self.onLocation = onLocation
-        self.onError = onError
-    }
+    func execute() -> AsyncStream<FindingCurrentLocationEvent> {
+        AsyncStream { [weak self] continuation in
+            guard let self else {
+                continuation.finish()
+                return
+            }
 
-    func stop() {
-        stopCallCount += 1
+            self.continuation = continuation
+            isObserved = true
+            continuation.onTermination = { [weak self] _ in
+                self?.continuation = nil
+                self?.terminationCount += 1
+            }
+        }
     }
 
     func send(_ location: FindingEditorLocation) {
-        onLocation?(location)
+        continuation?.yield(.location(location))
     }
 
     func fail(_ error: FindingLocationRepositoryError) {
-        onError?(error)
+        continuation?.yield(.failure(error))
     }
 }
 

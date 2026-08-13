@@ -12,30 +12,20 @@ final class TaxonSyncViewModel: ObservableObject {
 
     private let useCases: TaxonSyncUseCases
     private let scopeProvider: TaxonCatalogScopeProviding
-    private var observationTask: Task<Void, Never>?
 
     init(useCases: TaxonSyncUseCases, scopeProvider: TaxonCatalogScopeProviding) {
         self.useCases = useCases
         self.scopeProvider = scopeProvider
     }
 
-    func onAppear() {
-        guard observationTask == nil, let scope = scopeProvider.currentScope() else { return }
+    func observeState() async {
+        guard let scope = scopeProvider.currentScope() else { return }
 
-        observationTask = Task { [weak self] in
-            guard let self else { return }
-            self.state = await self.useCases.getState.execute(scope: scope)
-            let stream = await self.useCases.observeState.execute(scope: scope)
-            for await nextState in stream {
-                guard !Task.isCancelled else { return }
-                self.state = nextState
-            }
+        let stream = await useCases.observeState.execute(scope: scope)
+        for await nextState in stream {
+            guard !Task.isCancelled else { return }
+            state = nextState
         }
-    }
-
-    func onDisappear() {
-        observationTask?.cancel()
-        observationTask = nil
     }
 
     func perform(_ action: Action) {

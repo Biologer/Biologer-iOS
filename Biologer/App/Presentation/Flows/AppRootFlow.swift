@@ -28,6 +28,9 @@ struct AppRootFlow: View {
 
             case .preparing:
                 BiologerActivityIndicator(size: .large)
+                    .task {
+                        await coordinator.prepareSession()
+                    }
 
             case .preparationFailed(let message):
                 AppSessionPreparationFailureView(
@@ -43,11 +46,8 @@ struct AppRootFlow: View {
                 mainFlow
             }
         }
-        .onAppear {
-            coordinator.startObservingSession()
-        }
-        .onDisappear {
-            coordinator.stopObservingSession()
+        .task {
+            await coordinator.observeSession()
         }
     }
 

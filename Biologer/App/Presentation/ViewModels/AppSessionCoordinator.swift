@@ -34,9 +34,6 @@ final class AppSessionCoordinator: ObservableObject {
     private let taxonScopeProvider: TaxonCatalogScopeProviding
     private let logoutUseCase: LogoutUseCase
 
-    private var isObservingSession = false
-    private var preparationTask: Task<Void, Never>?
-
     init(
         sessionStore: SessionStore,
         prepareSessionUseCase: PrepareSessionUseCase,
@@ -51,21 +48,16 @@ final class AppSessionCoordinator: ObservableObject {
         self.logoutUseCase = logoutUseCase
     }
 
-    func startObservingSession() {
-        guard !isObservingSession else { return }
-        isObservingSession = true
+    /// Observes session changes for as long as the owning SwiftUI task is alive.
+    func observeSession() async {
+        for await sessionState in sessionStore.observeState() {
+            guard !Task.isCancelled else { return }
 
-        sessionStore.onStateChange = { [weak self] sessionState in
-            Task { @MainActor [weak self] in
-                self?.handle(sessionState)
-            }
+            // Splash owns the launch transition and will apply the latest snapshot.
+            guard state != .launching else { continue }
+            guard sessionState == sessionStore.state else { continue }
+            handle(sessionState)
         }
-    }
-
-    func stopObservingSession() {
-        guard isObservingSession else { return }
-        isObservingSession = false
-        sessionStore.onStateChange = nil
     }
 
     /// Leaves the splash screen by applying the SessionStore's initial snapshot.
@@ -80,16 +72,16 @@ final class AppSessionCoordinator: ObservableObject {
     }
 
     func retryPreparation() {
+        guard case .preparationFailed = state else { return }
         guard sessionStore.state == .authenticated else {
             handle(.unauthenticated)
             return
         }
 
-        beginPreparation()
+        transition(to: .preparing)
     }
 
     func showTaxonSync() {
-        preparationTask?.cancel()
         transition(to: .taxonSyncRequired)
     }
 
@@ -98,32 +90,14 @@ final class AppSessionCoordinator: ObservableObject {
     }
 
     func logout() {
-        preparationTask?.cancel()
         logoutUseCase.logout()
     }
 
-    private func handle(_ sessionState: SessionState) {
-        switch sessionState {
-        case .unauthenticated:
-            preparationTask?.cancel()
-            transition(to: .authorizationRequired)
+    /// Prepares authenticated data while the root view is in `.preparing`.
+    /// Leaving that state cancels the SwiftUI task that awaits this method.
+    func prepareSession() async {
+        guard canApplyPreparationResult else { return }
 
-        case .authenticated:
-            beginPreparation()
-        }
-    }
-
-    private func beginPreparation() {
-        preparationTask?.cancel()
-        transition(to: .preparing)
-
-        preparationTask = Task { [weak self] in
-            guard let self else { return }
-            await self.prepareAuthenticatedSession()
-        }
-    }
-
-    private func prepareAuthenticatedSession() async {
         do {
             try await prepareSessionUseCase.execute()
             guard canApplyPreparationResult else { return }
@@ -149,8 +123,21 @@ final class AppSessionCoordinator: ObservableObject {
         }
     }
 
-    /// An async result may update root state only while its original authenticated
-    /// preparation is still current. Cancellation also rejects an older retry task.
+    private func handle(_ sessionState: SessionState) {
+        switch sessionState {
+        case .unauthenticated:
+            transition(to: .authorizationRequired)
+
+        case .authenticated:
+            guard state == .launching || state == .authorizationRequired else {
+                return
+            }
+            transition(to: .preparing)
+        }
+    }
+
+    /// An async result may update root state only while its authenticated
+    /// preparation is still current. Cancellation rejects work whose view ended.
     private var canApplyPreparationResult: Bool {
         !Task.isCancelled &&
         sessionStore.state == .authenticated &&

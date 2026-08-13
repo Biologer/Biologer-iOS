@@ -145,12 +145,9 @@ struct FindingEditorScreen_Previews: PreviewProvider {
 
 private final class PreviewObserveCurrentFindingLocationUseCase:
     ObserveCurrentFindingLocationUseCase {
-    func start(
-        onLocation: @escaping (FindingEditorLocation) -> Void,
-        onError: @escaping (FindingLocationRepositoryError) -> Void
-    ) {}
-
-    func stop() {}
+    func execute() -> AsyncStream<FindingCurrentLocationEvent> {
+        AsyncStream { $0.finish() }
+    }
 }
 
 private final class PreviewResolveFindingLocationUseCase: ResolveFindingLocationUseCase {
