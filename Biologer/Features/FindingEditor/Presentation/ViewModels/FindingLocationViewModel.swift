@@ -71,7 +71,8 @@ final class FindingLocationViewModel: ObservableObject {
             status = .locating
         }
 
-        for await event in observeCurrentLocation.execute() {
+        let stream = await observeCurrentLocation.execute()
+        for await event in stream {
             guard !Task.isCancelled else { return }
 
             switch event {

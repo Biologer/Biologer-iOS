@@ -9,7 +9,7 @@ enum FindingCurrentLocationEvent: Equatable {
 }
 
 protocol ObserveCurrentFindingLocationUseCase: AnyObject {
-    func execute() -> AsyncStream<FindingCurrentLocationEvent>
+    func execute() async -> AsyncStream<FindingCurrentLocationEvent>
 }
 
 final class DefaultObserveCurrentFindingLocationUseCase: ObserveCurrentFindingLocationUseCase {
@@ -19,21 +19,22 @@ final class DefaultObserveCurrentFindingLocationUseCase: ObserveCurrentFindingLo
         self.repository = repository
     }
 
-    func execute() -> AsyncStream<FindingCurrentLocationEvent> {
-        AsyncStream { [weak repository] continuation in
-            guard let repository else {
-                continuation.finish()
-                return
-            }
+    func execute() async -> AsyncStream<FindingCurrentLocationEvent> {
+        let (stream, continuation) = AsyncStream.makeStream(
+            of: FindingCurrentLocationEvent.self
+        )
 
-            continuation.onTermination = { [weak repository] _ in
-                repository?.stop()
+        continuation.onTermination = { [weak repository] _ in
+            Task {
+                await repository?.stop()
             }
-            repository.start(
-                onLocation: { continuation.yield(.location($0)) },
-                onError: { continuation.yield(.failure($0)) }
-            )
         }
+
+        await repository.start(
+            onLocation: { continuation.yield(.location($0)) },
+            onError: { continuation.yield(.failure($0)) }
+        )
+        return stream
     }
 }
 

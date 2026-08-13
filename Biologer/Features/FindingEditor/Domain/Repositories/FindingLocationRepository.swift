@@ -14,9 +14,9 @@ protocol FindingCurrentLocationRepository: AnyObject {
     func start(
         onLocation: @escaping (FindingEditorLocation) -> Void,
         onError: @escaping (FindingLocationRepositoryError) -> Void
-    )
+    ) async
 
-    func stop()
+    func stop() async
 }
 
 protocol FindingAltitudeRepository {

@@ -124,7 +124,7 @@ private final class FindingLocationObserverStub: ObserveCurrentFindingLocationUs
     private(set) var isObserved = false
     private(set) var terminationCount = 0
 
-    func execute() -> AsyncStream<FindingCurrentLocationEvent> {
+    func execute() async -> AsyncStream<FindingCurrentLocationEvent> {
         AsyncStream { [weak self] continuation in
             guard let self else {
                 continuation.finish()

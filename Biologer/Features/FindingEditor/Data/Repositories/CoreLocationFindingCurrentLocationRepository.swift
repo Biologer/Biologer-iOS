@@ -1,5 +1,6 @@
 import CoreLocation
 
+@MainActor
 final class CoreLocationFindingCurrentLocationRepository: NSObject,
     FindingCurrentLocationRepository {
     private let manager: CLLocationManager
@@ -16,7 +17,7 @@ final class CoreLocationFindingCurrentLocationRepository: NSObject,
     func start(
         onLocation: @escaping (FindingEditorLocation) -> Void,
         onError: @escaping (FindingLocationRepositoryError) -> Void
-    ) {
+    ) async {
         self.onLocation = onLocation
         self.onError = onError
 
@@ -32,21 +33,15 @@ final class CoreLocationFindingCurrentLocationRepository: NSObject,
         }
     }
 
-    func stop() {
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async { [weak self] in
-                self?.stop()
-            }
-            return
-        }
-
+    func stop() async {
         manager.stopUpdatingLocation()
         onLocation = nil
         onError = nil
     }
 }
 
-extension CoreLocationFindingCurrentLocationRepository: CLLocationManagerDelegate {
+extension CoreLocationFindingCurrentLocationRepository:
+    @MainActor CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:

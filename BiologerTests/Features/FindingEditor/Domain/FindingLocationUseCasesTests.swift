@@ -11,7 +11,8 @@ final class FindingLocationUseCasesTests: XCTestCase {
         )
         var receivedEvent: FindingCurrentLocationEvent?
         let observationTask = Task {
-            for await event in sut.execute() {
+            let stream = await sut.execute()
+            for await event in stream {
                 receivedEvent = event
             }
         }
@@ -79,6 +80,7 @@ final class FindingLocationUseCasesTests: XCTestCase {
     }
 }
 
+@MainActor
 private final class FindingCurrentLocationRepositorySpy:
     FindingCurrentLocationRepository {
     private(set) var startCallCount = 0
@@ -88,12 +90,12 @@ private final class FindingCurrentLocationRepositorySpy:
     func start(
         onLocation: @escaping (FindingEditorLocation) -> Void,
         onError: @escaping (FindingLocationRepositoryError) -> Void
-    ) {
+    ) async {
         startCallCount += 1
         self.onLocation = onLocation
     }
 
-    func stop() {
+    func stop() async {
         stopCallCount += 1
         onLocation = nil
     }

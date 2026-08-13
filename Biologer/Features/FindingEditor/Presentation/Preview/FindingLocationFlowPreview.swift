@@ -22,7 +22,7 @@ struct FindingLocationScreen_Previews: PreviewProvider {
 }
 
 private final class LocationPreviewObserver: ObserveCurrentFindingLocationUseCase {
-    func execute() -> AsyncStream<FindingCurrentLocationEvent> {
+    func execute() async -> AsyncStream<FindingCurrentLocationEvent> {
         AsyncStream { $0.finish() }
     }
 }

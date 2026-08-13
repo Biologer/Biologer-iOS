@@ -145,7 +145,7 @@ struct FindingEditorScreen_Previews: PreviewProvider {
 
 private final class PreviewObserveCurrentFindingLocationUseCase:
     ObserveCurrentFindingLocationUseCase {
-    func execute() -> AsyncStream<FindingCurrentLocationEvent> {
+    func execute() async -> AsyncStream<FindingCurrentLocationEvent> {
         AsyncStream { $0.finish() }
     }
 }
