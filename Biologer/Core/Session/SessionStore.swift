@@ -1,8 +1,10 @@
 import Foundation
 
 enum SessionState: Equatable, Sendable {
-    case checking
+    /// No valid persisted credentials are available.
     case unauthenticated
+
+    /// Valid persisted credentials are available for protected requests.
     case authenticated
 }
 
@@ -18,22 +20,16 @@ protocol SessionStore: AnyObject {
 /// TokenStorage remains the persistence mechanism.
 final class DefaultSessionStore: SessionStore {
     private let tokenStorage: TokenStorage
-    private(set) var state: SessionState = .checking
+    private(set) var state: SessionState
     var onStateChange: ((SessionState) -> Void)?
 
     init(tokenStorage: TokenStorage) {
         self.tokenStorage = tokenStorage
-        synchronize()
+        state = Self.resolveState(from: tokenStorage)
     }
 
     func synchronize() {
-        if let token = tokenStorage.getToken(),
-           !token.accessToken.isEmpty,
-           !token.refreshToken.isEmpty {
-            update(.authenticated)
-        } else {
-            update(.unauthenticated)
-        }
+        update(Self.resolveState(from: tokenStorage))
     }
 
     func markAuthenticated() { update(.authenticated) }
@@ -43,5 +39,18 @@ final class DefaultSessionStore: SessionStore {
         guard state != newState else { return }
         state = newState
         onStateChange?(newState)
+    }
+
+    private static func resolveState(
+        from tokenStorage: TokenStorage
+    ) -> SessionState {
+        guard let token = tokenStorage.getToken(),
+              !token.accessToken.isEmpty,
+              !token.refreshToken.isEmpty
+        else {
+            return .unauthenticated
+        }
+
+        return .authenticated
     }
 }

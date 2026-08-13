@@ -4,70 +4,68 @@ import SwiftUI
 struct AppRootFlow: View {
     let composition: AppRootComposition
 
-    @StateObject private var viewModel: AppRootViewModel
+    @StateObject private var coordinator: AppSessionCoordinator
 
     init(
         composition: AppRootComposition
     ) {
         self.composition = composition
-        _viewModel = StateObject(wrappedValue: composition.rootViewModel)
+        _coordinator = StateObject(
+            wrappedValue: composition.appSessionCoordinator
+        )
     }
 
     var body: some View {
         Group {
-            switch viewModel.state {
+            switch coordinator.state {
             case .launching:
                 SplashScreen {
-                    viewModel.finishLaunching()
+                    coordinator.finishLaunching()
                 }
-            case .authorization:
+
+            case .authorizationRequired:
                 authorizationFlow
-            case .preparingSession:
+
+            case .preparing:
                 BiologerActivityIndicator(size: .large)
-                    .task { await viewModel.prepareSession() }
-            case .taxonSync:
+
+            case .preparationFailed(let message):
+                AppSessionPreparationFailureView(
+                    message: message,
+                    onRetry: coordinator.retryPreparation,
+                    onLogout: coordinator.logout
+                )
+
+            case .taxonSyncRequired:
                 taxonSyncFlow
-            case .main:
+
+            case .ready:
                 mainFlow
             }
         }
         .onAppear {
-            viewModel.startObservingSession()
+            coordinator.startObservingSession()
         }
         .onDisappear {
-            viewModel.stopObservingSession()
+            coordinator.stopObservingSession()
         }
-        .alert(item: $viewModel.alert, content: makeAlert)
     }
 
     private var authorizationFlow: some View {
         composition.authorizationFlowBuilder.makeFlow(
-            onAuthorizationSuccess: viewModel.authorizationSucceeded
+            onAuthorizationSuccess: coordinator.authorizationSucceeded
         )
     }
 
     private var mainFlow: some View {
         composition.mainTabFlowBuilder.makeFlow(
-            onDownloadTaxa: viewModel.showTaxonSync
+            onDownloadTaxa: coordinator.showTaxonSync
         )
     }
 
     private var taxonSyncFlow: some View {
         composition.taxonSyncFlowBuilder.makeFlow(
-            onContinue: { viewModel.showMain() }
-        )
-    }
-
-    private func makeAlert(_ alert: AppRootAlert) -> Alert {
-        Alert(
-            title: Text("API.lb.error".localized),
-            message: Text(alert.message),
-            primaryButton: .default(Text("TaxonSync.action.retry".localized)) {
-                Task { await viewModel.prepareSession() }
-            },
-            secondaryButton: .destructive(Text("Logout.btn.logout".localized)) {
-                viewModel.logout()
-            }
+            onContinue: coordinator.continueAfterTaxonSync
         )
     }
 }

@@ -4,8 +4,8 @@ import Foundation
 final class AppRootComposition {
     // MARK: - App Root
 
-    lazy var rootViewModel: AppRootViewModel = {
-        AppRootViewModel(
+    lazy var appSessionCoordinator: AppSessionCoordinator = {
+        AppSessionCoordinator(
             sessionStore: sessionStore,
             prepareSessionUseCase: prepareSessionUseCase,
             getTaxonSyncStateUseCase: taxonSyncUseCases.getState,
