@@ -76,10 +76,33 @@ struct TaxonSyncScreen: View {
 
     private func progressCard(_ progress: TaxonSyncProgress) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack { Text("TaxonSync.progress.title".localized).font(.subheadline.weight(.semibold)); Spacer(); Text("\(Int(progress.fractionCompleted * 100))%") }
-            ProgressView(value: progress.fractionCompleted).tint(BiologerColors.brandStrong)
-            HStack { Text(String(format: "TaxonSync.progress.taxa".localized, progress.importedTaxaCount, progress.totalTaxaCount)); Spacer(); Text(String(format: "TaxonSync.progress.pages".localized, progress.completedPages, progress.totalPages)) }
-                .font(.caption).foregroundStyle(BiologerColors.textPrimary.opacity(0.7))
+            HStack {
+                Text("TaxonSync.progress.title".localized)
+                    .font(.subheadline.weight(.semibold))
+                Spacer()
+                Text("\(Int(progress.fractionCompleted * 100))%")
+            }
+            ProgressView(value: progress.fractionCompleted)
+                .tint(BiologerColors.brandStrong)
+            HStack {
+                Text(
+                    String(
+                        format: "TaxonSync.progress.taxa".localized,
+                        progress.importedTaxaCount,
+                        progress.totalTaxaCount
+                    )
+                )
+                Spacer()
+                Text(
+                    String(
+                        format: "TaxonSync.progress.pages".localized,
+                        progress.completedPages,
+                        progress.totalPages
+                    )
+                )
+            }
+            .font(.caption)
+            .foregroundStyle(BiologerColors.textPrimary.opacity(0.7))
         }
         .padding(16)
         .biologerCard()
