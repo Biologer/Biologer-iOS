@@ -16,7 +16,7 @@ struct TaxonSyncScreen: View {
                 statusCard
                 if let progress = viewModel.progress { progressCard(progress) }
                 actions
-                if let onContinue {
+                if let onContinue, viewModel.canContinue {
                     Button("TaxonSync.action.continue".localized, action: onContinue)
                         .buttonStyle(BiologerActionButtonStyle(isFilled: false))
                         .padding(.top, 4)
@@ -25,6 +25,10 @@ struct TaxonSyncScreen: View {
             .padding(16)
         }
         .biologerPageBackground()
+        .biologerScreen(title: "TaxonSync.title".localized)
+        .task {
+            await viewModel.observeState()
+        }
     }
 
     private var header: some View {

@@ -42,7 +42,7 @@ enum TaxonSyncPreviewFactory {
     }
 }
 
-struct TaxonSyncFlowPreview: View {
+struct TaxonSyncScreenPreview: View {
     private let previewState: TaxonSyncState
     private let showsContinueAction: Bool
 
@@ -61,7 +61,7 @@ struct TaxonSyncFlowPreview: View {
             state: previewState
         )
         NavigationStack {
-            TaxonSyncFlow(
+            TaxonSyncScreen(
                 viewModel: TaxonSyncViewModel(
                     useCases: composition.useCases,
                     scopeProvider: composition.scopeProvider
@@ -72,10 +72,10 @@ struct TaxonSyncFlowPreview: View {
     }
 }
 
-#Preview("Partial catalog") { TaxonSyncFlowPreview() }
+#Preview("Partial catalog") { TaxonSyncScreenPreview() }
 
 #Preview("Startup - empty catalog") {
-    TaxonSyncFlowPreview(
+    TaxonSyncScreenPreview(
         state: .idle(.init(
             scope: .init(environmentHost: "api.biologer.org"),
             availability: .empty,
@@ -87,7 +87,7 @@ struct TaxonSyncFlowPreview: View {
 }
 
 #Preview("Downloading") {
-    TaxonSyncFlowPreview(state: .working(
+    TaxonSyncScreenPreview(state: .working(
         phase: .downloading,
         progress: .init(
             completedPages: 18,
@@ -99,7 +99,7 @@ struct TaxonSyncFlowPreview: View {
 }
 
 #Preview("Paused") {
-    TaxonSyncFlowPreview(state: .paused(.init(
+    TaxonSyncScreenPreview(state: .paused(.init(
         completedPages: 31,
         totalPages: 64,
         importedTaxaCount: 3_260,
@@ -108,7 +108,7 @@ struct TaxonSyncFlowPreview: View {
 }
 
 #Preview("Updates available") {
-    TaxonSyncFlowPreview(state: .updateAvailable(.init(
+    TaxonSyncScreenPreview(state: .updateAvailable(.init(
         scope: .init(environmentHost: "api.biologer.org"),
         changedTaxaCount: 128,
         totalPages: 4

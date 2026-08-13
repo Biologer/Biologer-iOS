@@ -103,6 +103,15 @@ final class TaxonSyncViewModel: ObservableObject {
         return false
     }
 
+    var canContinue: Bool {
+        switch state {
+        case .idle(let status), .completed(let status):
+            return status.availability == .ready
+        default:
+            return false
+        }
+    }
+
     private func availabilityTitle(_ availability: TaxonCatalogAvailability) -> String {
         switch availability {
         case .empty:

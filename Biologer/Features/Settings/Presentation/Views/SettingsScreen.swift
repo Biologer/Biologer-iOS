@@ -3,7 +3,6 @@ import SwiftUI
 struct SettingsScreen: View {
     @ObservedObject var viewModel: SettingsScreenViewModel
     let onSelectDestination: (SettingsDestination) -> Void
-    let onDownloadTaxa: () -> Void
 
     var body: some View {
         ScrollView {

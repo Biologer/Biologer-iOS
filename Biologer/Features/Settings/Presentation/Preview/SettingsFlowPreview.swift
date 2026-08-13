@@ -12,9 +12,7 @@ struct SettingsFlow_Previews: PreviewProvider {
         }
     }
 
-    static func makeSettingsFlow(
-        onDownloadTaxa: @escaping () -> Void = {}
-    ) -> SettingsFlow {
+    static func makeSettingsFlow() -> SettingsFlow {
         let preferencesRepository = PreviewSettingsPreferencesRepository()
         let licenseRepository = PreviewSettingsLicenseRepository()
         let taxonDataRepository = PreviewDownloadedTaxaRepository()
@@ -50,7 +48,7 @@ struct SettingsFlow_Previews: PreviewProvider {
                     lastSuccessfulSyncTimestamp: nil
                 ))
             )
-        ).makeFlow(onDownloadTaxa: onDownloadTaxa)
+        ).makeFlow()
     }
 }
 

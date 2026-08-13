@@ -97,7 +97,7 @@ struct FindingEditorFlow: View {
                 }
             )
         case .taxonSync:
-            TaxonSyncFlow(viewModel: viewModel.taxonSyncViewModel)
+            TaxonSyncScreen(viewModel: viewModel.taxonSyncViewModel)
         case .location(let initialLocation):
             FindingLocationScreen(
                 initialLocation: initialLocation,

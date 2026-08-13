@@ -130,10 +130,6 @@ final class AppRootComposition {
         )
     }()
 
-    lazy var taxonSyncFlowBuilder: TaxonSyncFlowBuilder = {
-        TaxonSyncFlowBuilder(composition: taxonSyncComposition)
-    }()
-
     // MARK: - Findings
 
     private lazy var findingsRepository = {

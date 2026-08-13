@@ -19,9 +19,7 @@ final class MainTabFlowBuilder {
         self.findingsFlowController = findingsFlowController
     }
 
-    func makeFlow(
-        onDownloadTaxa: @escaping () -> Void
-    ) -> MainTabFlow {
+    func makeFlow() -> MainTabFlow {
         let viewModel = MainTabFlowViewModel(
             findingsFlowController: findingsFlowController
         )
@@ -34,9 +32,7 @@ final class MainTabFlowBuilder {
                 viewModel.openEditEditor(id: findingID)
             }
         )
-        let settingsFlow = settingsFlowBuilder.makeFlow(
-            onDownloadTaxa: onDownloadTaxa
-        )
+        let settingsFlow = settingsFlowBuilder.makeFlow()
 
         return MainTabFlow(
             viewModel: viewModel,

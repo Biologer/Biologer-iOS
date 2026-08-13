@@ -4,13 +4,7 @@ struct SettingsFlow: View {
     @State private var path: [SettingsDestination] = []
     @StateObject private var viewModel: SettingsFlowViewModel
 
-    private let onDownloadTaxa: () -> Void
-
-    init(
-        viewModel: SettingsFlowViewModel,
-        onDownloadTaxa: @escaping () -> Void
-    ) {
-        self.onDownloadTaxa = onDownloadTaxa
+    init(viewModel: SettingsFlowViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -18,8 +12,7 @@ struct SettingsFlow: View {
         NavigationStack(path: $path) {
             SettingsScreen(
                 viewModel: viewModel.settingsViewModel,
-                onSelectDestination: { path.append($0) },
-                onDownloadTaxa: onDownloadTaxa
+                onSelectDestination: { path.append($0) }
             )
             .navigationDestination(for: SettingsDestination.self) { destination in
                 destinationView(destination)
@@ -47,7 +40,7 @@ struct SettingsFlow: View {
                 viewModel: viewModel.automaticDownloadViewModel
             )
         case .taxonSync:
-            TaxonSyncFlow(
+            TaxonSyncScreen(
                 viewModel: viewModel.taxonSyncViewModel
             )
         case .help:

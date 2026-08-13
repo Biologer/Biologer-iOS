@@ -25,9 +25,7 @@ final class SettingsFlowBuilder {
         self.taxonSyncComposition = taxonSyncComposition
     }
 
-    func makeFlow(
-        onDownloadTaxa: @escaping () -> Void
-    ) -> SettingsFlow {
+    func makeFlow() -> SettingsFlow {
         let context = accountContextProvider()
         let flowViewModel = SettingsFlowViewModel(
             settingsViewModel: SettingsScreenViewModel(
@@ -63,9 +61,6 @@ final class SettingsFlowBuilder {
             )
         )
 
-        return SettingsFlow(
-            viewModel: flowViewModel,
-            onDownloadTaxa: onDownloadTaxa
-        )
+        return SettingsFlow(viewModel: flowViewModel)
     }
 }

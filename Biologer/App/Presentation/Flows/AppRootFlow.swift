@@ -5,6 +5,7 @@ struct AppRootFlow: View {
     let composition: AppRootComposition
 
     @StateObject private var coordinator: AppSessionCoordinator
+    @StateObject private var taxonSyncViewModel: TaxonSyncViewModel
 
     init(
         composition: AppRootComposition
@@ -12,6 +13,12 @@ struct AppRootFlow: View {
         self.composition = composition
         _coordinator = StateObject(
             wrappedValue: composition.appSessionCoordinator
+        )
+        _taxonSyncViewModel = StateObject(
+            wrappedValue: TaxonSyncViewModel(
+                useCases: composition.taxonSyncComposition.useCases,
+                scopeProvider: composition.taxonSyncComposition.scopeProvider
+            )
         )
     }
 
@@ -40,7 +47,7 @@ struct AppRootFlow: View {
                 )
 
             case .taxonSyncRequired:
-                taxonSyncFlow
+                taxonSyncScreen
 
             case .ready:
                 mainFlow
@@ -58,13 +65,12 @@ struct AppRootFlow: View {
     }
 
     private var mainFlow: some View {
-        composition.mainTabFlowBuilder.makeFlow(
-            onDownloadTaxa: coordinator.showTaxonSync
-        )
+        composition.mainTabFlowBuilder.makeFlow()
     }
 
-    private var taxonSyncFlow: some View {
-        composition.taxonSyncFlowBuilder.makeFlow(
+    private var taxonSyncScreen: some View {
+        TaxonSyncScreen(
+            viewModel: taxonSyncViewModel,
             onContinue: coordinator.continueAfterTaxonSync
         )
     }

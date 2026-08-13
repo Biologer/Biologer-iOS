@@ -85,10 +85,6 @@ final class AppSessionCoordinator: ObservableObject {
         transition(to: .preparing)
     }
 
-    func showTaxonSync() {
-        transition(to: .taxonSyncRequired)
-    }
-
     func continueAfterTaxonSync() {
         transition(to: .ready)
     }
