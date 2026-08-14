@@ -30,20 +30,20 @@ final class AppSessionCoordinator: ObservableObject {
 
     private let sessionStore: SessionStore
     private let prepareSessionUseCase: PrepareSessionUseCase
-    private let getTaxonSyncStateUseCase: GetTaxonSyncStateUseCase
+    private let taxonSyncStateProvider: TaxonSyncStateProviding
     private let taxonScopeProvider: TaxonCatalogScopeProviding
     private let logoutUseCase: LogoutUseCase
 
     init(
         sessionStore: SessionStore,
         prepareSessionUseCase: PrepareSessionUseCase,
-        getTaxonSyncStateUseCase: GetTaxonSyncStateUseCase,
+        taxonSyncStateProvider: TaxonSyncStateProviding,
         taxonScopeProvider: TaxonCatalogScopeProviding,
         logoutUseCase: LogoutUseCase
     ) {
         self.sessionStore = sessionStore
         self.prepareSessionUseCase = prepareSessionUseCase
-        self.getTaxonSyncStateUseCase = getTaxonSyncStateUseCase
+        self.taxonSyncStateProvider = taxonSyncStateProvider
         self.taxonScopeProvider = taxonScopeProvider
         self.logoutUseCase = logoutUseCase
     }
@@ -107,13 +107,13 @@ final class AppSessionCoordinator: ObservableObject {
                 return
             }
 
-            let taxonState = await getTaxonSyncStateUseCase.execute(
+            let taxonState = await taxonSyncStateProvider.state(
                 scope: scope
             )
             guard await canApplyPreparationResult() else { return }
 
             transition(
-                to: isTaxonCatalogReady(taxonState)
+                to: taxonState.hasUsableCatalog
                     ? .ready
                     : .taxonSyncRequired
             )
@@ -148,13 +148,4 @@ final class AppSessionCoordinator: ObservableObject {
         state = newState
     }
 
-    private func isTaxonCatalogReady(_ state: TaxonSyncState) -> Bool {
-        switch state {
-        case .idle(let status), .completed(let status):
-            return status.availability == .ready
-
-        default:
-            return false
-        }
-    }
 }

@@ -5,14 +5,8 @@ import Foundation
 /// A cycle is intentionally foreground/cooperative: pause waits for the current page,
 /// and no iOS background task is scheduled here. The persisted checkpoint is what makes
 /// a later resume safe after suspension or process termination.
-actor TaxonSyncController: TaxonSyncControlling {
+actor TaxonSyncController: TaxonSyncService {
     typealias TimestampProvider = @Sendable () -> Int64
-
-    private struct PendingUpdate {
-        let firstPage: TaxonSyncPage
-        let updatedAfter: Int64
-        let startedAt: Int64
-    }
 
     private let catalogRepository: TaxonCatalogRepository
     private let initialCatalogRepository: InitialTaxonCatalogRepository
@@ -24,8 +18,8 @@ actor TaxonSyncController: TaxonSyncControlling {
     private let pageSize: Int
     private let timestampProvider: TimestampProvider
 
-    private var pendingUpdates: [TaxonCatalogScope: PendingUpdate] = [:]
-    private var pauseRequests: Set<TaxonCatalogScope> = []
+    private var pendingUpdates: [TaxonCatalogScope: TaxonSyncPendingUpdate] = [:]
+    private var requestedPauseScopes: Set<TaxonCatalogScope> = []
     private var activeScope: TaxonCatalogScope?
 
     init(
@@ -58,17 +52,22 @@ actor TaxonSyncController: TaxonSyncControlling {
         scope: TaxonCatalogScope
     ) async -> TaxonSyncState {
         if let cachedState = stateStore.state(for: scope) {
-            switch cachedState {
+            switch cachedState.operation {
             case .working, .updateAvailable, .waitingForNetwork, .paused:
-                return cachedState
+                let refreshedState = makeState(
+                    scope: scope,
+                    operation: cachedState.operation
+                )
+                stateStore.store(refreshedState, scope: scope)
+                return refreshedState
             case .idle, .completed, .failed:
                 break
             }
         }
 
-        // Stable states are rebuilt from persistence each time an entry point opens.
-        // This keeps the UI correct if Settings or logout deleted the shared Realm data.
-        let state = makeInitialState(scope: scope)
+        // Catalog readiness is rebuilt whenever an entry point opens. Transient
+        // operation state is preserved, while reset/logout changes remain visible.
+        let state = makeState(scope: scope, operation: .idle)
         stateStore.store(state, scope: scope)
         return state
     }
@@ -115,7 +114,7 @@ actor TaxonSyncController: TaxonSyncControlling {
         }
 
         activeScope = scope
-        pauseRequests.remove(scope)
+        requestedPauseScopes.remove(scope)
         defer {
             activeScope = nil
         }
@@ -128,7 +127,7 @@ actor TaxonSyncController: TaxonSyncControlling {
     }
 
     func pause(scope: TaxonCatalogScope) async {
-        pauseRequests.insert(scope)
+        requestedPauseScopes.insert(scope)
 
         guard activeScope != scope else {
             return
@@ -150,7 +149,7 @@ actor TaxonSyncController: TaxonSyncControlling {
     }
 
     func resume(scope: TaxonCatalogScope) async {
-        pauseRequests.remove(scope)
+        requestedPauseScopes.remove(scope)
 
         guard activeScope != scope else {
             return
@@ -209,7 +208,11 @@ actor TaxonSyncController: TaxonSyncControlling {
                 scope: scope,
                 metadata: metadata
             )
-            publish(.completed(status), scope: scope)
+            publish(
+                .completed,
+                catalogStatus: status,
+                scope: scope
+            )
             return .upToDate(status)
         }
 
@@ -218,7 +221,7 @@ actor TaxonSyncController: TaxonSyncControlling {
             changedTaxaCount: page.totalEntries,
             totalPages: page.lastPage
         )
-        pendingUpdates[scope] = PendingUpdate(
+        pendingUpdates[scope] = TaxonSyncPendingUpdate(
             firstPage: page,
             updatedAfter: updatedAfter,
             startedAt: startedAt
@@ -291,134 +294,153 @@ actor TaxonSyncController: TaxonSyncControlling {
         scope: TaxonCatalogScope,
         metadata initialMetadata: TaxonSyncMetadata
     ) async throws(TaxonSyncFailure) {
-        var metadata = initialMetadata
-        var nextPage: Int
-        var importedTaxaCount: Int
-        var updatedAfter: Int64
-        var startedAt: Int64
-        var knownProgress: TaxonSyncProgress?
-        var cachedPage: TaxonSyncPage?
-        var cyclePageSize: Int
+        var cycle = try makeRemoteSyncCycle(
+            scope: scope,
+            metadata: initialMetadata
+        )
 
+        // Each iteration owns one page. It exits only after a safe persisted boundary:
+        // no changes, final page committed, pause requested, or an error is thrown.
+        while true {
+            publish(
+                .working(phase: .downloading, progress: cycle.progress),
+                scope: scope
+            )
+
+            // Publishing and Realm work are synchronous actor-isolated calls. Yielding
+            // here gives a queued `pause` call a chance to record its request before
+            // the next page begins, including when the first page is already cached.
+            await Task.yield()
+
+            if pauseSyncIfRequested(
+                scope: scope,
+                progress: cycle.progress
+            ) {
+                return
+            }
+
+            let page = try await fetchNextRemotePage(
+                scope: scope,
+                cachedPage: cycle.consumeCachedPage(),
+                request: cycle.request
+            )
+
+            try pageValidator.validate(
+                page,
+                expectedPage: cycle.nextPage
+            )
+
+            guard !page.entries.isEmpty else {
+                try completeSync(
+                    scope: scope,
+                    metadata: &cycle.metadata,
+                    startedAt: cycle.startedAt
+                )
+                return
+            }
+
+            publish(
+                .working(phase: .importing, progress: cycle.progress),
+                scope: scope
+            )
+
+            // PageImporter persists the checkpoint only after this page is in Realm.
+            let importResult = try pageImporter.importPage(
+                page,
+                scope: scope,
+                metadata: cycle.metadata,
+                previouslyImportedTaxaCount: cycle.importedTaxaCount,
+                pageSize: cycle.pageSize,
+                updatedAfter: cycle.updatedAfter,
+                startedAt: cycle.startedAt
+            )
+            pendingUpdates.removeValue(forKey: scope)
+
+            let didCompleteCycle = cycle.advance(after: importResult)
+            if didCompleteCycle {
+                try publishCompletedSync(
+                    scope: scope,
+                    metadata: cycle.metadata
+                )
+                return
+            }
+
+            // A page already in Realm is never rolled back. Pause only after its
+            // checkpoint has been saved, so resume can continue with the next page.
+            if pauseSyncIfRequested(
+                scope: scope,
+                progress: cycle.progress
+            ) {
+                return
+            }
+        }
+    }
+
+    private func makeRemoteSyncCycle(
+        scope: TaxonCatalogScope,
+        metadata initialMetadata: TaxonSyncMetadata
+    ) throws(TaxonSyncFailure) -> TaxonRemoteSyncCycle {
+        var metadata = initialMetadata
+
+        // Corrupted or obsolete resume data must not influence a new cycle.
         if let checkpoint = metadata.checkpoint,
            !checkpoint.isValid {
             metadata.checkpoint = nil
             try metadataRepository.saveMetadata(metadata)
         }
 
-        // Priority is: persisted resume point, an in-memory checked page, then a new cycle.
-        if let checkpoint = metadata.checkpoint {
-            guard checkpoint.nextPage <= checkpoint.totalPages else {
-                try completeSync(
-                    scope: scope,
-                    metadata: &metadata,
-                    startedAt: checkpoint.startedAt
-                )
-                return
-            }
-
-            nextPage = checkpoint.nextPage
-            importedTaxaCount = checkpoint.importedTaxaCount
-            updatedAfter = checkpoint.updatedAfter
-            startedAt = checkpoint.startedAt
-            knownProgress = checkpoint.progress
-            cyclePageSize = max(checkpoint.perPage, 1)
-        } else if let pendingUpdate = pendingUpdates[scope],
-                  pendingUpdate.updatedAfter == metadata.effectiveUpdatedAfter {
-            nextPage = 1
-            importedTaxaCount = 0
-            updatedAfter = pendingUpdate.updatedAfter
-            startedAt = pendingUpdate.startedAt
-            knownProgress = nil
-            cachedPage = pendingUpdate.firstPage
-            cyclePageSize = pageSize
-        } else {
-            pendingUpdates.removeValue(forKey: scope)
-            nextPage = 1
-            importedTaxaCount = 0
-            updatedAfter = metadata.effectiveUpdatedAfter
-            startedAt = timestampProvider()
-            knownProgress = nil
-            cyclePageSize = pageSize
+        // A persisted checkpoint is the strongest source because it survives process
+        // termination and describes the exact next page and request baseline.
+        if let resumedCycle = TaxonRemoteSyncCycle(
+            resuming: metadata
+        ) {
+            return resumedCycle
         }
 
-        while true {
-            publish(
-                .working(phase: .downloading, progress: knownProgress),
-                scope: scope
-            )
-            await Task.yield()
-
-            if pauseRequests.contains(scope) {
-                publish(.paused(knownProgress), scope: scope)
-                return
-            }
-
-            let page: TaxonSyncPage
-
-            if let currentCachedPage = cachedPage {
-                page = currentCachedPage
-                cachedPage = nil
-            } else {
-                page = try await updatesRepository.fetchPage(
-                    scope: scope,
-                    request: TaxonSyncPageRequest(
-                        page: nextPage,
-                        perPage: cyclePageSize,
-                        updatedAfter: updatedAfter
-                    )
-                )
-            }
-
-            try pageValidator.validate(page, expectedPage: nextPage)
-
-            guard !page.entries.isEmpty else {
-                try completeSync(
-                    scope: scope,
-                    metadata: &metadata,
-                    startedAt: startedAt
-                )
-                return
-            }
-
-            publish(
-                .working(phase: .importing, progress: knownProgress),
-                scope: scope
-            )
-            // PageImporter persists the checkpoint only after this page is in Realm.
-            let importResult = try pageImporter.importPage(
-                page,
-                scope: scope,
+        // `checkForUpdates` may already have downloaded page one. It is safe to reuse
+        // only while its `updatedAfter` baseline still matches the current metadata.
+        if let pendingUpdate = pendingUpdates[scope],
+           pendingUpdate.updatedAfter == metadata.effectiveUpdatedAfter {
+            return TaxonRemoteSyncCycle(
                 metadata: metadata,
-                previouslyImportedTaxaCount: importedTaxaCount,
-                pageSize: cyclePageSize,
-                updatedAfter: updatedAfter,
-                startedAt: startedAt
+                pendingUpdate: pendingUpdate,
+                pageSize: pageSize
             )
-            metadata = importResult.metadata
-            importedTaxaCount = importResult.importedTaxaCount
-            pendingUpdates.removeValue(forKey: scope)
-
-            if importResult.isComplete {
-                try publishCompletedSync(
-                    scope: scope,
-                    metadata: metadata
-                )
-                return
-            }
-
-            guard let checkpoint = importResult.checkpoint else {
-                throw .unknown
-            }
-
-            knownProgress = checkpoint.progress
-            nextPage = checkpoint.nextPage
-
-            if pauseRequests.contains(scope) {
-                publish(.paused(knownProgress), scope: scope)
-                return
-            }
         }
+
+        pendingUpdates.removeValue(forKey: scope)
+        return TaxonRemoteSyncCycle(
+            metadata: metadata,
+            pageSize: pageSize,
+            startedAt: timestampProvider()
+        )
+    }
+
+    private func fetchNextRemotePage(
+        scope: TaxonCatalogScope,
+        cachedPage: TaxonSyncPage?,
+        request: TaxonSyncPageRequest
+    ) async throws(TaxonSyncFailure) -> TaxonSyncPage {
+        if let cachedPage {
+            return cachedPage
+        }
+
+        return try await updatesRepository.fetchPage(
+            scope: scope,
+            request: request
+        )
+    }
+
+    private func pauseSyncIfRequested(
+        scope: TaxonCatalogScope,
+        progress: TaxonSyncProgress?
+    ) -> Bool {
+        guard requestedPauseScopes.contains(scope) else {
+            return false
+        }
+
+        publish(.paused(progress), scope: scope)
+        return true
     }
 
     private func completeSync(
@@ -443,19 +465,28 @@ actor TaxonSyncController: TaxonSyncControlling {
             scope: scope,
             metadata: metadata
         )
-        publish(.completed(status), scope: scope)
+        publish(
+            .completed,
+            catalogStatus: status,
+            scope: scope
+        )
     }
 
-    private func makeInitialState(
-        scope: TaxonCatalogScope
+    private func makeState(
+        scope: TaxonCatalogScope,
+        operation: TaxonSyncOperation
     ) -> TaxonSyncState {
         do {
             let metadata = try metadataRepository.loadMetadata(scope: scope)
-            return .idle(
-                try makeStatus(scope: scope, metadata: metadata)
+            return TaxonSyncState(
+                catalogStatus: try makeStatus(scope: scope, metadata: metadata),
+                operation: operation
             )
         } catch {
-            return .failed(failure: error, progress: nil)
+            return TaxonSyncState(
+                catalogStatus: nil,
+                operation: .failed(failure: error, progress: nil)
+            )
         }
     }
 
@@ -468,8 +499,6 @@ actor TaxonSyncController: TaxonSyncControlling {
 
         if localTaxaCount == 0 {
             availability = .empty
-        } else if metadata.checkpoint != nil {
-            availability = .partial
         } else if metadata.lastSuccessfulSyncTimestamp != nil {
             availability = .ready
         } else if metadata.initialCatalogTimestamp != nil {
@@ -512,10 +541,33 @@ actor TaxonSyncController: TaxonSyncControlling {
     }
 
     private func publish(
-        _ state: TaxonSyncState,
+        _ operation: TaxonSyncOperation,
+        catalogStatus: TaxonCatalogStatus? = nil,
         scope: TaxonCatalogScope
     ) {
-        stateStore.publish(state, scope: scope)
+        let cachedStatus = stateStore.state(for: scope)?.catalogStatus
+        let currentStatus: TaxonCatalogStatus?
+
+        if let catalogStatus {
+            currentStatus = catalogStatus
+        } else {
+            do {
+                currentStatus = try makeStatus(
+                    scope: scope,
+                    metadata: metadataRepository.loadMetadata(scope: scope)
+                )
+            } catch {
+                currentStatus = cachedStatus
+            }
+        }
+
+        stateStore.publish(
+            TaxonSyncState(
+                catalogStatus: currentStatus,
+                operation: operation
+            ),
+            scope: scope
+        )
     }
 
     private func removeSubscription(id: UUID) {

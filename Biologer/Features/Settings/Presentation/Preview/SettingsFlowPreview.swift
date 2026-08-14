@@ -41,12 +41,15 @@ struct SettingsFlow_Previews: PreviewProvider {
             accountUseCase: PreviewUserAccountUseCase(),
             logoutUseCase: PreviewLogoutUseCase(),
             taxonSyncComposition: TaxonSyncPreviewFactory.makeComposition(
-                state: .idle(.init(
-                    scope: .init(environmentHost: "api.biologer.org"),
-                    availability: .ready,
-                    localTaxaCount: 1240,
-                    lastSuccessfulSyncTimestamp: nil
-                ))
+                state: TaxonSyncState(
+                    catalogStatus: .init(
+                        scope: .init(environmentHost: "api.biologer.org"),
+                        availability: .ready,
+                        localTaxaCount: 1_240,
+                        lastSuccessfulSyncTimestamp: nil
+                    ),
+                    operation: .idle
+                )
             )
         ).makeFlow()
     }

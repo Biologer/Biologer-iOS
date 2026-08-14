@@ -53,10 +53,7 @@ final class FindingEditorFlowBuilder: FindingEditorFlowBuilding {
             taxonSearchViewModel: FindingTaxonSearchViewModel(
                 searchTaxa: useCases.searchTaxa
             ),
-            taxonSyncViewModel: TaxonSyncViewModel(
-                useCases: taxonSyncComposition.useCases,
-                scopeProvider: taxonSyncComposition.scopeProvider
-            )
+            taxonSyncViewModel: taxonSyncComposition.makeViewModel()
         )
     }
 }

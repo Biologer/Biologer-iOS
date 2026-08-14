@@ -8,7 +8,7 @@ final class AppRootComposition {
         AppSessionCoordinator(
             sessionStore: sessionStore,
             prepareSessionUseCase: prepareSessionUseCase,
-            getTaxonSyncStateUseCase: taxonSyncUseCases.getState,
+            taxonSyncStateProvider: taxonSyncController,
             taxonScopeProvider: taxonScopeProvider,
             logoutUseCase: logoutUseCase
         )
@@ -108,24 +108,13 @@ final class AppRootComposition {
         )
     }()
 
-    private lazy var taxonSyncUseCases: TaxonSyncUseCases = {
-        TaxonSyncUseCases(
-            getState: DefaultGetTaxonSyncStateUseCase(controller: taxonSyncController),
-            observeState: DefaultObserveTaxonSyncStateUseCase(controller: taxonSyncController),
-            checkForUpdates: DefaultCheckTaxonUpdatesUseCase(controller: taxonSyncController),
-            start: DefaultStartTaxonSyncUseCase(controller: taxonSyncController),
-            pause: DefaultPauseTaxonSyncUseCase(controller: taxonSyncController),
-            resume: DefaultResumeTaxonSyncUseCase(controller: taxonSyncController)
-        )
-    }()
-
     private lazy var taxonScopeProvider: TaxonCatalogScopeProviding = {
         EnvironmentTaxonCatalogScopeProvider(environmentStorage: environmentStorage)
     }()
 
     lazy var taxonSyncComposition: TaxonSyncComposition = {
         TaxonSyncComposition(
-            useCases: taxonSyncUseCases,
+            service: taxonSyncController,
             scopeProvider: taxonScopeProvider
         )
     }()

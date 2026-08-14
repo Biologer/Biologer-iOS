@@ -14,9 +14,11 @@ struct TaxonSyncScreen: View {
             VStack(spacing: 18) {
                 header
                 statusCard
-                if let progress = viewModel.progress { progressCard(progress) }
+                if let progress = viewModel.viewState.progress {
+                    progressCard(progress)
+                }
                 actions
-                if let onContinue, viewModel.canContinue {
+                if let onContinue, viewModel.viewState.canContinue {
                     Button("TaxonSync.action.continue".localized, action: onContinue)
                         .buttonStyle(BiologerActionButtonStyle(isFilled: false))
                         .padding(.top, 4)
@@ -49,15 +51,19 @@ struct TaxonSyncScreen: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(viewModel.statusTitle).font(.headline).foregroundStyle(BiologerColors.textPrimary)
-                    Text(viewModel.statusMessage).font(.subheadline).foregroundStyle(BiologerColors.textPrimary.opacity(0.7))
+                    Text(viewModel.viewState.statusTitle)
+                        .font(.headline)
+                        .foregroundStyle(BiologerColors.textPrimary)
+                    Text(viewModel.viewState.statusMessage)
+                        .font(.subheadline)
+                        .foregroundStyle(
+                            BiologerColors.textPrimary.opacity(0.7)
+                        )
                 }
                 Spacer()
                 Image(systemName: "arrow.triangle.2.circlepath").font(.title2).foregroundStyle(BiologerColors.brandStrong)
             }
-            if case .idle(let status) = viewModel.state {
-                metadata(status)
-            } else if case .completed(let status) = viewModel.state {
+            if let status = viewModel.viewState.catalogStatus {
                 metadata(status)
             }
         }
@@ -110,11 +116,12 @@ struct TaxonSyncScreen: View {
 
     private var actions: some View {
         VStack(spacing: 10) {
-            if let primary = viewModel.primaryAction {
+            if let primary = viewModel.viewState.primaryAction {
                 Button(primary.title) { viewModel.perform(primary.action) }
                     .buttonStyle(BiologerActionButtonStyle())
+                    .disabled(!primary.isEnabled)
             }
-            if viewModel.canPause {
+            if viewModel.viewState.canPause {
                 Button("TaxonSync.action.pause".localized) { viewModel.perform(.pause) }
                     .buttonStyle(BiologerActionButtonStyle(isFilled: false))
             }

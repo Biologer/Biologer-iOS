@@ -15,10 +15,7 @@ struct AppRootFlow: View {
             wrappedValue: composition.appSessionCoordinator
         )
         _taxonSyncViewModel = StateObject(
-            wrappedValue: TaxonSyncViewModel(
-                useCases: composition.taxonSyncComposition.useCases,
-                scopeProvider: composition.taxonSyncComposition.scopeProvider
-            )
+            wrappedValue: composition.taxonSyncComposition.makeViewModel()
         )
     }
 

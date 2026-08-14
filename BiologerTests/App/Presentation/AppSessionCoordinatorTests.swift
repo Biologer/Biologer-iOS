@@ -61,13 +61,39 @@ final class AppSessionCoordinatorTests: XCTestCase {
         let sut = makeSUT(
             sessionStore: AppSessionStoreSpy(state: .authenticated),
             scope: scope,
-            taxonState: .idle(status)
+            taxonState: TaxonSyncState(
+                catalogStatus: status,
+                operation: .idle
+            )
         )
 
         await sut.finishLaunching()
         await sut.prepareSession()
 
         XCTAssertEqual(sut.state, .taxonSyncRequired)
+    }
+
+    func test_finishLaunching_withInitialCatalog_allowsOfflineEntry() async {
+        let scope = TaxonCatalogScope(environmentHost: "api.biologer.org")
+        let status = TaxonCatalogStatus(
+            scope: scope,
+            availability: .initialCatalogLoaded,
+            localTaxaCount: 100,
+            lastSuccessfulSyncTimestamp: nil
+        )
+        let sut = makeSUT(
+            sessionStore: AppSessionStoreSpy(state: .authenticated),
+            scope: scope,
+            taxonState: TaxonSyncState(
+                catalogStatus: status,
+                operation: .waitingForNetwork(nil)
+            )
+        )
+
+        await sut.finishLaunching()
+        await sut.prepareSession()
+
+        XCTAssertEqual(sut.state, .ready)
     }
 
     func test_prepareSession_whenPreparationFails_exposesFailureState() async {
@@ -155,19 +181,20 @@ final class AppSessionCoordinatorTests: XCTestCase {
         ),
         taxonState: TaxonSyncState? = nil
     ) -> AppSessionCoordinator {
-        let resolvedTaxonState = taxonState ?? .idle(
-            TaxonCatalogStatus(
+        let resolvedTaxonState = taxonState ?? TaxonSyncState(
+            catalogStatus: TaxonCatalogStatus(
                 scope: scope ?? TaxonCatalogScope(environmentHost: "unused"),
                 availability: .ready,
                 localTaxaCount: 1,
                 lastSuccessfulSyncTimestamp: nil
-            )
+            ),
+            operation: .idle
         )
 
         return AppSessionCoordinator(
             sessionStore: sessionStore,
             prepareSessionUseCase: prepareSessionUseCase,
-            getTaxonSyncStateUseCase: AppSessionTaxonStateUseCaseStub(
+            taxonSyncStateProvider: AppSessionTaxonStateProviderStub(
                 state: resolvedTaxonState
             ),
             taxonScopeProvider: AppSessionTaxonScopeProviderStub(scope: scope),
@@ -278,11 +305,16 @@ private final class AppSessionSuspendedPrepareUseCase: PrepareSessionUseCase {
     }
 }
 
-private struct AppSessionTaxonStateUseCaseStub: GetTaxonSyncStateUseCase {
-    let state: TaxonSyncState
+private final class AppSessionTaxonStateProviderStub:
+    TaxonSyncStateProviding {
+    let snapshot: TaxonSyncState
 
-    func execute(scope: TaxonCatalogScope) async -> TaxonSyncState {
-        state
+    init(state: TaxonSyncState) {
+        self.snapshot = state
+    }
+
+    func state(scope: TaxonCatalogScope) async -> TaxonSyncState {
+        snapshot
     }
 }
 

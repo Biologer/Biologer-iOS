@@ -1,6 +1,13 @@
-/// Composition output shared by all future TaxonSync entry points.
-/// The controller is intentionally hidden; consumers depend on use-case protocols.
+/// Shared dependencies and ViewModel construction for every TaxonSync entry point.
 struct TaxonSyncComposition {
-    let useCases: TaxonSyncUseCases
+    let service: TaxonSyncService
     let scopeProvider: TaxonCatalogScopeProviding
+
+    @MainActor
+    func makeViewModel() -> TaxonSyncViewModel {
+        TaxonSyncViewModel(
+            service: service,
+            scopeProvider: scopeProvider
+        )
+    }
 }

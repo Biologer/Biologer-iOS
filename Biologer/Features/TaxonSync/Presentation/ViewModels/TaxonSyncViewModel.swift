@@ -3,168 +3,142 @@ import SwiftUI
 
 @MainActor
 final class TaxonSyncViewModel: ObservableObject {
-    enum Action {
-        case check, start, pause, resume
-    }
+    @Published private(set) var viewState: TaxonSyncViewState
 
-    @Published private(set) var state: TaxonSyncState?
-    @Published private(set) var errorMessage: String?
-
-    private let useCases: TaxonSyncUseCases
+    private let service: TaxonSyncService
     private let scopeProvider: TaxonCatalogScopeProviding
+    private let viewStateMapper: TaxonSyncViewStateMapper
 
-    init(useCases: TaxonSyncUseCases, scopeProvider: TaxonCatalogScopeProviding) {
-        self.useCases = useCases
+    private var state: TaxonSyncState?
+    private var stateScope: TaxonCatalogScope?
+    private var actionFailure: TaxonSyncFailure?
+    private var primaryActionTask: Task<Void, Never>?
+    private var primaryActionScope: TaxonCatalogScope?
+
+    init(
+        service: TaxonSyncService,
+        scopeProvider: TaxonCatalogScopeProviding,
+        viewStateMapper: TaxonSyncViewStateMapper = TaxonSyncViewStateMapper()
+    ) {
+        self.service = service
         self.scopeProvider = scopeProvider
+        self.viewStateMapper = viewStateMapper
+        self.viewState = viewStateMapper.map(
+            state: nil,
+            actionFailure: nil,
+            isPerformingPrimaryAction: false
+        )
     }
 
+    /// The screen owns this observation task; disappearing cancels only the subscription.
     func observeState() async {
-        guard let scope = scopeProvider.currentScope() else { return }
+        guard let scope = scopeProvider.currentScope() else {
+            resetState()
+            return
+        }
 
-        let stream = await useCases.observeState.execute(scope: scope)
+        prepareForObservation(scope: scope)
+        let stream = await service.observe(scope: scope)
+
         for await nextState in stream {
             guard !Task.isCancelled else { return }
-            state = nextState
-        }
-    }
-
-    func perform(_ action: Action) {
-        guard let scope = scopeProvider.currentScope() else { return }
-        errorMessage = nil
-
-        Task { [weak self] in
-            guard let self else { return }
-            switch action {
-            case .check:
-                do { _ = try await self.useCases.checkForUpdates.execute(scope: scope) }
-                catch { self.errorMessage = self.message(for: error as? TaxonSyncFailure ?? .unknown) }
-            case .start:
-                await self.useCases.start.execute(scope: scope)
-            case .pause:
-                await self.useCases.pause.execute(scope: scope)
-            case .resume:
-                await self.useCases.resume.execute(scope: scope)
+            guard scopeProvider.currentScope() == scope else {
+                resetState(ifCurrentScopeIs: scope)
+                return
             }
+
+            state = nextState
+            updateViewState()
         }
     }
 
-    var statusTitle: String {
-        switch state {
-        case .idle(let status), .completed(let status): return availabilityTitle(status.availability)
-        case .working(let phase, _): return phaseTitle(phase)
-        case .updateAvailable: return "TaxonSync.status.update.title".localized
-        case .waitingForNetwork: return "TaxonSync.status.waiting.title".localized
-        case .paused: return "TaxonSync.status.paused.title".localized
-        case .failed: return "TaxonSync.status.failed.title".localized
-        case .none: return "TaxonSync.title".localized
+    func perform(_ action: TaxonSyncAction) {
+        guard let scope = scopeProvider.currentScope(), stateScope == scope else {
+            return
+        }
+
+        if action == .pause {
+            Task { await service.pause(scope: scope) }
+            return
+        }
+
+        guard primaryActionTask == nil else { return }
+        actionFailure = nil
+        primaryActionScope = scope
+        updateViewState(isPerformingPrimaryAction: true)
+
+        // This task belongs to the ViewModel, not the screen observation, so an active
+        // sync may continue after navigating back while the parent flow still owns it.
+        primaryActionTask = Task { [weak self] in
+            guard let self else { return }
+            await self.execute(action, scope: scope)
+            self.finishPrimaryAction(scope: scope)
         }
     }
 
-    var statusMessage: String {
-        switch state {
-        case .idle(let status), .completed(let status):
-            return availabilityMessage(status.availability)
-        case .working: return "TaxonSync.status.working.message".localized
-        case .updateAvailable(let update): return String(format: "TaxonSync.status.update.message".localized, update.changedTaxaCount)
-        case .waitingForNetwork: return "TaxonSync.status.waiting.message".localized
-        case .paused: return "TaxonSync.status.paused.message".localized
-        case .failed(let failure, _): return errorMessage ?? message(for: failure)
-        case .none: return "TaxonSync.status.default.message".localized
+    private func execute(
+        _ action: TaxonSyncAction,
+        scope: TaxonCatalogScope
+    ) async {
+        switch action {
+        case .check:
+            do {
+                _ = try await service.checkForUpdates(scope: scope)
+            } catch let failure {
+                guard stateScope == scope else { return }
+                actionFailure = failure
+            }
+        case .start:
+            await service.start(scope: scope)
+        case .resume:
+            await service.resume(scope: scope)
+        case .pause:
+            break
         }
     }
 
-    var progress: TaxonSyncProgress? {
-        switch state {
-        case .working(_, let progress), .waitingForNetwork(let progress), .paused(let progress), .failed(_, let progress): return progress
-        default: return nil
-        }
+    private func prepareForObservation(scope: TaxonCatalogScope) {
+        guard stateScope != scope else { return }
+
+        primaryActionTask?.cancel()
+        primaryActionTask = nil
+        primaryActionScope = nil
+        stateScope = scope
+        state = nil
+        actionFailure = nil
+        updateViewState()
     }
 
-    var primaryAction: (title: String, action: Action)? {
-        switch state {
-        case .updateAvailable: return ("TaxonSync.action.download".localized, .start)
-        case .paused, .waitingForNetwork: return ("TaxonSync.action.resume".localized, .resume)
-        case .failed(_, let progress):
-            return ("TaxonSync.action.retry".localized, progress == nil ? .start : .resume)
-        case .idle(let status):
-            return status.availability == .empty
-                ? ("TaxonSync.action.downloadDatabase".localized, .start)
-                : ("TaxonSync.action.check".localized, .check)
-        case .completed:
-            return ("TaxonSync.action.check".localized, .check)
-        default: return nil
-        }
+    private func resetState(ifCurrentScopeIs scope: TaxonCatalogScope) {
+        guard stateScope == scope else { return }
+        resetState()
     }
 
-    var canPause: Bool {
-        if case .working(let phase, _) = state {
-            return phase == .downloading || phase == .importing
-        }
-        return false
+    private func resetState() {
+        primaryActionTask?.cancel()
+        primaryActionTask = nil
+        primaryActionScope = nil
+        stateScope = nil
+        state = nil
+        actionFailure = nil
+        updateViewState()
     }
 
-    var canContinue: Bool {
-        switch state {
-        case .idle(let status), .completed(let status):
-            return status.availability == .ready
-        default:
-            return false
-        }
+    private func finishPrimaryAction(scope: TaxonCatalogScope) {
+        guard primaryActionScope == scope else { return }
+        primaryActionTask = nil
+        primaryActionScope = nil
+        updateViewState()
     }
 
-    private func availabilityTitle(_ availability: TaxonCatalogAvailability) -> String {
-        switch availability {
-        case .empty:
-            return "TaxonSync.status.empty.title".localized
-        case .initialCatalogLoaded:
-            return "TaxonSync.status.initial.title".localized
-        case .partial:
-            return "TaxonSync.status.partial.title".localized
-        case .ready:
-            return "TaxonSync.status.ready.title".localized
-        }
-    }
-
-    private func phaseTitle(_ phase: TaxonSyncPhase) -> String {
-        switch phase {
-        case .loadingInitialCatalog:
-            return "TaxonSync.phase.initial".localized
-        case .checking:
-            return "TaxonSync.phase.checking".localized
-        case .downloading:
-            return "TaxonSync.phase.downloading".localized
-        case .importing:
-            return "TaxonSync.phase.importing".localized
-        }
-    }
-
-    private func availabilityMessage(
-        _ availability: TaxonCatalogAvailability
-    ) -> String {
-        switch availability {
-        case .empty:
-            return "TaxonSync.status.empty.message".localized
-        case .initialCatalogLoaded:
-            return "TaxonSync.status.initial.message".localized
-        case .partial:
-            return "TaxonSync.status.partial.message".localized
-        case .ready:
-            return "TaxonSync.status.ready.message".localized
-        }
-    }
-
-    private func message(for failure: TaxonSyncFailure) -> String {
-        switch failure {
-        case .networkUnavailable:
-            return "TaxonSync.error.network".localized
-        case .unauthorized:
-            return "TaxonSync.error.unauthorized".localized
-        case .initialCatalogUnavailable:
-            return "TaxonSync.error.initial".localized
-        case .localPersistence:
-            return "TaxonSync.error.persistence".localized
-        default:
-            return "TaxonSync.status.failed.message".localized
-        }
+    private func updateViewState(
+        isPerformingPrimaryAction: Bool? = nil
+    ) {
+        viewState = viewStateMapper.map(
+            state: state,
+            actionFailure: actionFailure,
+            isPerformingPrimaryAction: isPerformingPrimaryAction
+                ?? (primaryActionTask != nil)
+        )
     }
 }
