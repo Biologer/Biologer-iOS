@@ -31,7 +31,7 @@ final class DefaultSettingsPreferencesUseCase: SettingsPreferencesUseCase {
 
     func saveProjectName(_ projectName: String) {
         var preferences = repository.load()
-        preferences.projectName = projectName.trimmingCharacters(in: .whitespacesAndNewlines)
+        preferences.projectName = projectName
         repository.save(preferences)
     }
 

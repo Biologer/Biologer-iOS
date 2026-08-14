@@ -169,7 +169,7 @@ struct SettingsScreen: View {
     }
 
     private var projectName: String {
-        let name = viewModel.preferences.projectName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let name = viewModel.preferences.projectName
         return name.isEmpty ? "-" : name
     }
 

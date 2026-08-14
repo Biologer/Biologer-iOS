@@ -11,7 +11,10 @@ final class ProjectNameSettingsViewModel: ObservableObject {
     }
 
     func save() {
-        useCase.saveProjectName(projectName)
-        projectName = projectName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let normalizedProjectName = projectName.trimmingCharacters(
+            in: .whitespacesAndNewlines
+        )
+        projectName = normalizedProjectName
+        useCase.saveProjectName(normalizedProjectName)
     }
 }

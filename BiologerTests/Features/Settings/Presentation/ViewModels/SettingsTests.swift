@@ -96,13 +96,24 @@ final class SettingsTests: XCTestCase {
         XCTAssertEqual(repository.savedPreferences?.defaultsToAdult, false)
     }
 
-    func test_preferencesUseCaseTrimsAndSavesProjectName() {
+    func test_preferencesUseCaseSavesProjectName() {
         let repository = SettingsPreferencesRepositorySpy()
         let sut = DefaultSettingsPreferencesUseCase(repository: repository)
 
-        sut.saveProjectName("  Field project  ")
+        sut.saveProjectName("Field project")
 
         XCTAssertEqual(repository.savedPreferences?.projectName, "Field project")
+    }
+
+    func test_projectNameViewModelSave_normalizesNameBeforeSaving() {
+        let useCase = SettingsPreferencesUseCaseSpy()
+        let sut = ProjectNameSettingsViewModel(useCase: useCase)
+        sut.projectName = "  Field project\n"
+
+        sut.save()
+
+        XCTAssertEqual(sut.projectName, "Field project")
+        XCTAssertEqual(useCase.savedProjectName, "Field project")
     }
 
     func test_preferencesUseCaseSavesAutomaticDownloadSelection() {
@@ -392,13 +403,16 @@ private final class SettingsPreferencesUseCaseSpy: SettingsPreferencesUseCase {
         projectName: "",
         automaticTaxonDownload: .alwaysAskUser
     )
+    private(set) var savedProjectName: String?
 
     func preferences() -> SettingsPreferences {
         storedPreferences
     }
 
     func set(_ isEnabled: Bool, for toggle: SettingsToggle) {}
-    func saveProjectName(_ projectName: String) {}
+    func saveProjectName(_ projectName: String) {
+        savedProjectName = projectName
+    }
     func selectAutomaticTaxonDownload(_ option: AutomaticTaxonDownload) {}
 }
 
