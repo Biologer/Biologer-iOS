@@ -89,7 +89,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
         }
         let sut = RemoteAccessTokenRefresher(
             client: client,
-            environmentStorage: TestEnvironmentStorage(),
+            environmentProvider: TestEnvironmentProvider(),
             tokenStorage: storage
         )
 
@@ -112,7 +112,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
         }
         let sut = RemoteAccessTokenRefresher(
             client: client,
-            environmentStorage: TestEnvironmentStorage(),
+            environmentProvider: TestEnvironmentProvider(),
             tokenStorage: storage
         )
 
@@ -133,7 +133,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
         }
         let sut = RemoteAccessTokenRefresher(
             client: client,
-            environmentStorage: TestEnvironmentStorage(),
+            environmentProvider: TestEnvironmentProvider(),
             tokenStorage: storage
         )
 
@@ -166,7 +166,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
         }
         let sut = RemoteAccessTokenRefresher(
             client: client,
-            environmentStorage: TestEnvironmentStorage(),
+            environmentProvider: TestEnvironmentProvider(),
             tokenStorage: storage
         )
 
@@ -200,7 +200,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
         let client = APIClientStub { _ in throw expectedError }
         let sut = RemoteAccessTokenRefresher(
             client: client,
-            environmentStorage: TestEnvironmentStorage(),
+            environmentProvider: TestEnvironmentProvider(),
             tokenStorage: storage
         )
 
@@ -223,7 +223,7 @@ final class RefreshTokenMechanismTests: XCTestCase {
         let client = BlockingAPIClient(response: RefreshTokenResponse(accessToken: "new", refreshToken: "rotated"))
         let sut = RemoteAccessTokenRefresher(
             client: client,
-            environmentStorage: TestEnvironmentStorage(),
+            environmentProvider: TestEnvironmentProvider(),
             tokenStorage: storage
         )
         let session = TokenSnapshot(accessToken: "old", refreshToken: "refresh")
@@ -414,11 +414,16 @@ private final class TestTokenStorage: TokenStorage, @unchecked Sendable {
     func delete() { lock.withLock { token = nil } }
 }
 
-private final class TestEnvironmentStorage: EnvironmentStorage {
-    func getEnvironment() -> AppEnvironment? {
-        AppEnvironment(host: "example.com", path: "", clientSecret: "secret", cliendId: "client")
+private final class TestEnvironmentProvider: CurrentEnvironmentProviding {
+    func currentEnvironment() -> AppEnvironment? {
+        AppEnvironment(
+            id: .development,
+            host: "example.com",
+            path: "",
+            clientSecret: "secret",
+            clientId: "client"
+        )
     }
-    func saveEnvironment(env: AppEnvironment) {}
 }
 
 private final class APIClientStub: APIClientProtocol, @unchecked Sendable {

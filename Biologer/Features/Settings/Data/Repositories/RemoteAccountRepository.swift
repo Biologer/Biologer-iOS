@@ -2,11 +2,14 @@ import Foundation
 
 final class RemoteAccountRepository: AccountRepository {
     private let client: APIClientProtocol
-    private let environmentStorage: EnvironmentStorage
+    private let environmentProvider: CurrentEnvironmentProviding
 
-    init(client: APIClientProtocol, environmentStorage: EnvironmentStorage) {
+    init(
+        client: APIClientProtocol,
+        environmentProvider: CurrentEnvironmentProviding
+    ) {
         self.client = client
-        self.environmentStorage = environmentStorage
+        self.environmentProvider = environmentProvider
     }
 
     func loadCurrentUser() async throws(SettingsDataFailure) -> User {
@@ -44,7 +47,7 @@ final class RemoteAccountRepository: AccountRepository {
     }
 
     private func environmentHost() throws(SettingsDataFailure) -> String {
-        guard let environment = environmentStorage.getEnvironment() else {
+        guard let environment = environmentProvider.currentEnvironment() else {
             throw SettingsDataFailure(message: "API.lb.envError".localized)
         }
         return environment.host

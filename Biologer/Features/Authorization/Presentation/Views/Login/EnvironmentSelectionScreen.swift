@@ -1,21 +1,23 @@
 import SwiftUI
 
 struct EnvironmentSelectionScreen: View {
-    @Binding var selectedEnvironment: EnvironmentViewModel
-    @State private var environments: [EnvironmentViewModel]
     @State private var isSelectionLocked = false
 
+    private let selectedEnvironment: EnvironmentOption
+    private let environments: [EnvironmentOption]
+    private let onSelect: (EnvironmentOption) -> Bool
     private let close: () -> Void
 
     init(
-        selectedEnvironment: Binding<EnvironmentViewModel>,
-        environments: [EnvironmentViewModel],
+        selectedEnvironment: EnvironmentOption,
+        environments: [EnvironmentOption],
+        onSelect: @escaping (EnvironmentOption) -> Bool,
         close: @escaping () -> Void
     ) {
-        _selectedEnvironment = selectedEnvironment
-        _environments = State(initialValue: environments)
+        self.selectedEnvironment = selectedEnvironment
+        self.environments = environments
+        self.onSelect = onSelect
         self.close = close
-        updateSelectedEnvironment()
     }
 
     var body: some View {
@@ -36,21 +38,15 @@ struct EnvironmentSelectionScreen: View {
         }
         .biologerPageBackground()
         .navigationBarBackButtonHidden(true)
-        .onChange(of: selectedEnvironment) { _ in
-            updateSelectedEnvironment()
-        }
     }
 
-    private func environmentCard(_ environment: EnvironmentViewModel) -> some View {
+    private func environmentCard(_ environment: EnvironmentOption) -> some View {
         let isSelected = environment.id == selectedEnvironment.id
 
         return BiologerSelectionCard(
             title: environment.title,
-            subtitle: environment.env.host,
             isSelected: isSelected,
             verticalAlignment: .center,
-            subtitleFont: .caption,
-            subtitleLineLimit: 1,
             indicatorTopPadding: 0,
             action: { select(environment) }
         ) {
@@ -62,25 +58,20 @@ struct EnvironmentSelectionScreen: View {
         .allowsHitTesting(!isSelectionLocked)
     }
 
-    private func select(_ environment: EnvironmentViewModel) {
+    private func select(_ environment: EnvironmentOption) {
         guard !isSelectionLocked else { return }
         isSelectionLocked = true
 
-        withAnimation(.easeInOut(duration: 0.18)) {
-            selectedEnvironment = environment
-            updateSelectedEnvironment()
+        let didSelect = withAnimation(.easeInOut(duration: 0.18)) {
+            onSelect(environment)
+        }
+        guard didSelect else {
+            isSelectionLocked = false
+            return
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             close()
-        }
-    }
-
-    private func updateSelectedEnvironment() {
-        for (index, environment) in environments.enumerated() {
-            environments[index].changeIsSelected(
-                value: environment.id == selectedEnvironment.id
-            )
         }
     }
 }

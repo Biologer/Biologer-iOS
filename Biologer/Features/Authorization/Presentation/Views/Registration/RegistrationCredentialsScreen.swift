@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct RegistrationCredentialsScreen: View {
-    @ObservedObject private var viewModel: RegistrationCredentialsViewModel
+    @ObservedObject private var viewModel: RegistrationFlowViewModel
     private let onNext: () -> Void
 
     init(
-        viewModel: RegistrationCredentialsViewModel,
+        viewModel: RegistrationFlowViewModel,
         onNext: @escaping () -> Void
     ) {
         self.viewModel = viewModel
@@ -25,7 +25,7 @@ struct RegistrationCredentialsScreen: View {
                 VStack(spacing: BiologerSpacing.small) {
                     AuthorizationTextField(
                         text: Binding(
-                            get: { viewModel.email },
+                            get: { viewModel.draft.email },
                             set: viewModel.updateEmail
                         ),
                         placeholder: "Register.two.tf.email.placeholder".localized,
@@ -37,7 +37,7 @@ struct RegistrationCredentialsScreen: View {
 
                     AuthorizationTextField(
                         text: Binding(
-                            get: { viewModel.password },
+                            get: { viewModel.draft.password },
                             set: viewModel.updatePassword
                         ),
                         placeholder: "Register.two.tf.password.placeholder".localized,
@@ -49,7 +49,7 @@ struct RegistrationCredentialsScreen: View {
 
                     AuthorizationTextField(
                         text: Binding(
-                            get: { viewModel.repeatedPassword },
+                            get: { viewModel.draft.repeatedPassword },
                             set: viewModel.updateRepeatedPassword
                         ),
                         placeholder: "Register.two.tf.repeatPassword.placeholder".localized,
@@ -61,7 +61,7 @@ struct RegistrationCredentialsScreen: View {
                 }
 
                 Button {
-                    guard viewModel.nextButtonTapped() else { return }
+                    guard viewModel.validateCredentials() else { return }
                     onNext()
                 } label: {
                     Label(

@@ -7,10 +7,10 @@ struct LoginScreen: View {
     private let onRegister: () -> Void
     private let onForgotPassword: () -> Void
 
-    @ObservedObject private var viewModel: LoginScreenViewModel
+    @ObservedObject private var viewModel: LoginFlowViewModel
 
     init(
-        viewModel: LoginScreenViewModel,
+        viewModel: LoginFlowViewModel,
         onSelectEnvironment: @escaping () -> Void,
         onLoginSuccess: @escaping () async -> Void,
         onLoginError: @escaping (AuthorizationFailure) -> Void,
@@ -29,7 +29,7 @@ struct LoginScreen: View {
         ScrollView {
             VStack(spacing: BiologerSpacing.large) {
                 AuthorizationBrandHeader(
-                    environmentImage: viewModel.environmentViewModel.image
+                    environmentImage: viewModel.selectedEnvironment.image
                 )
 
                 VStack(spacing: BiologerSpacing.small) {
@@ -113,7 +113,7 @@ struct LoginScreen: View {
     private var environmentCard: some View {
         Button(action: onSelectEnvironment) {
             HStack(spacing: BiologerSpacing.small) {
-                Image(viewModel.environmentViewModel.image)
+                Image(viewModel.selectedEnvironment.image)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
@@ -124,7 +124,7 @@ struct LoginScreen: View {
                         .foregroundColor(BiologerColors.sectionTitle)
                         .tracking(0.4)
 
-                    Text(viewModel.environmentViewModel.title)
+                    Text(viewModel.selectedEnvironment.title)
                         .font(.body.weight(.medium))
                         .foregroundColor(BiologerColors.textPrimary)
                 }

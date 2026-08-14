@@ -1,6 +1,6 @@
 enum SettingsDestination: Hashable {
     case projectName
-    case license(SettingsLicenseKind)
+    case license(LicenseKind)
     case automaticDownload
     case taxonSync
     case help

@@ -32,7 +32,7 @@ final class SettingsFlowViewModel: ObservableObject {
     }
 
     func licenseViewModel(
-        for kind: SettingsLicenseKind
+        for kind: LicenseKind
     ) -> LicenseSettingsViewModel {
         switch kind {
         case .data:

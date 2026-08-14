@@ -2,21 +2,21 @@ import Foundation
 
 final class RemoteRegisterUserRepository: RegisterUserRepository {
     private let client: APIClientProtocol
-    private let environmentStorage: EnvironmentStorage
+    private let environmentProvider: CurrentEnvironmentProviding
     private let tokenStorage: TokenStorage
 
     init(
         client: APIClientProtocol,
-        environmentStorage: EnvironmentStorage,
+        environmentProvider: CurrentEnvironmentProviding,
         tokenStorage: TokenStorage
     ) {
         self.client = client
-        self.environmentStorage = environmentStorage
+        self.environmentProvider = environmentProvider
         self.tokenStorage = tokenStorage
     }
 
     func createUser(request: RegistrationRequest) async throws(AuthorizationFailure) {
-        guard let environment = environmentStorage.getEnvironment() else {
+        guard let environment = environmentProvider.currentEnvironment() else {
             throw AuthorizationFailure(message: "API.lb.envError".localized)
         }
 

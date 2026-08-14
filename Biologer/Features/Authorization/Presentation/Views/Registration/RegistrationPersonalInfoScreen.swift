@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct RegistrationPersonalInfoScreen: View {
-    @ObservedObject private var loader: RegistrationPersonalInfoViewModel
+    @ObservedObject private var viewModel: RegistrationFlowViewModel
     private let onNext: () -> Void
 
     init(
-        loader: RegistrationPersonalInfoViewModel,
+        viewModel: RegistrationFlowViewModel,
         onNext: @escaping () -> Void
     ) {
-        self.loader = loader
+        self.viewModel = viewModel
         self.onNext = onNext
     }
 
@@ -25,30 +25,30 @@ struct RegistrationPersonalInfoScreen: View {
                 VStack(spacing: BiologerSpacing.small) {
                     AuthorizationTextField(
                         text: Binding(
-                            get: { loader.firstName },
-                            set: loader.updateFirstName
+                            get: { viewModel.draft.firstName },
+                            set: viewModel.updateFirstName
                         ),
                         placeholder: "Register.one.tf.name.placeholder".localized,
-                        errorText: loader.firstNameError,
+                        errorText: viewModel.firstNameError,
                         systemImage: "person",
                         textContentType: .givenName
                     )
 
                     AuthorizationTextField(
                         text: Binding(
-                            get: { loader.lastName },
-                            set: loader.updateLastName
+                            get: { viewModel.draft.lastName },
+                            set: viewModel.updateLastName
                         ),
                         placeholder: "Register.one.tf.surname.placeholder".localized,
-                        errorText: loader.lastNameError,
+                        errorText: viewModel.lastNameError,
                         systemImage: "person",
                         textContentType: .familyName
                     )
 
                     AuthorizationTextField(
                         text: Binding(
-                            get: { loader.institution },
-                            set: loader.updateInstitution
+                            get: { viewModel.draft.institution },
+                            set: viewModel.updateInstitution
                         ),
                         placeholder: "Register.one.tf.institution.placeholder".localized,
                         systemImage: "building.2",
@@ -57,7 +57,7 @@ struct RegistrationPersonalInfoScreen: View {
                 }
 
                 Button {
-                    guard loader.nextButtonTapped() else { return }
+                    guard viewModel.validatePersonalInfo() else { return }
                     onNext()
                 } label: {
                     Label(

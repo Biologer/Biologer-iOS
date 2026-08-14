@@ -3,18 +3,18 @@ import Foundation
 struct AuthorizationUseCases {
     let login: LoginUserUseCase
     let registration: RegistrationUseCase
-    let selectEnvironment: SelectAuthorizationEnvironmentUseCase
+    let environmentSelection: AuthorizationEnvironmentSelectionUseCase
     let tutorial: AuthorizationTutorialUseCase
 
     init(
         login: LoginUserUseCase,
         registration: RegistrationUseCase,
-        selectEnvironmentUseCase: SelectAuthorizationEnvironmentUseCase,
+        environmentSelection: AuthorizationEnvironmentSelectionUseCase,
         tutorial: AuthorizationTutorialUseCase
     ) {
         self.login = login
         self.registration = registration
-        selectEnvironment = selectEnvironmentUseCase
+        self.environmentSelection = environmentSelection
         self.tutorial = tutorial
     }
 }

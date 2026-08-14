@@ -23,12 +23,10 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         sut = RealmFindingUploadRepository(
             configuration: configuration,
             remoteRepository: remoteRepository,
-            dataLicenseStorage: FindingUploadLicenseStorageStub(
-                license: makeLicense(id: 30, type: .data)
+            licenseStorage: FindingUploadLicenseStorageStub(
+                ids: [.data: 30, .image: 40]
             ),
-            imageLicenseStorage: FindingUploadLicenseStorageStub(
-                license: makeLicense(id: 40, type: .image)
-            ),
+            licenseOptionsProvider: DefaultLicenseOptionsProvider(),
             settingsStorage: FindingUploadSettingsStorageStub(settings: settings)
         )
     }
@@ -286,18 +284,6 @@ final class RealmFindingUploadRepositoryTests: XCTestCase {
         return finding
     }
 
-    private func makeLicense(
-        id: Int,
-        type: CheckMarkItemType
-    ) -> CheckMarkItem {
-        CheckMarkItem(
-            id: id,
-            title: "License",
-            placeholder: "",
-            type: type,
-            isSelected: true
-        )
-    }
 }
 
 private final class FindingRemoteUploadRepositorySpy: FindingRemoteUploadRepository {
@@ -328,20 +314,21 @@ private final class FindingRemoteUploadRepositorySpy: FindingRemoteUploadReposit
     }
 }
 
-private final class FindingUploadLicenseStorageStub: LicenseStorage {
-    private var license: CheckMarkItem?
+private final class FindingUploadLicenseStorageStub: LicensePreferenceStorage {
+    private var ids: [LicenseKind: Int]
 
-    init(license: CheckMarkItem?) {
-        self.license = license
+    init(ids: [LicenseKind: Int]) {
+        self.ids = ids
     }
 
-    func getLicense() -> CheckMarkItem? {
-        license
+    func selectedLicenseID(for kind: LicenseKind) -> Int? {
+        ids[kind]
     }
 
-    func saveLicense(license: CheckMarkItem) {
-        self.license = license
+    func saveSelectedLicenseID(_ id: Int, for kind: LicenseKind) {
+        ids[kind] = id
     }
+
 }
 
 private final class FindingUploadSettingsStorageStub: SettingsStorage {

@@ -2,17 +2,17 @@ import SwiftUI
 
 struct RegistrationLicenseConsentScreen: View {
     private let onPrivacyPolicy: () -> Void
-    private let onDataLicense: (CheckMarkItem) -> Void
-    private let onImageLicense: (CheckMarkItem) -> Void
+    private let onDataLicense: () -> Void
+    private let onImageLicense: () -> Void
     private let onRegistrationSuccess: () async -> Void
 
-    @ObservedObject private var viewModel: RegistrationLicenseConsentViewModel
+    @ObservedObject private var viewModel: RegistrationFlowViewModel
 
     init(
-        viewModel: RegistrationLicenseConsentViewModel,
+        viewModel: RegistrationFlowViewModel,
         onPrivacyPolicy: @escaping () -> Void,
-        onDataLicense: @escaping (CheckMarkItem) -> Void,
-        onImageLicense: @escaping (CheckMarkItem) -> Void,
+        onDataLicense: @escaping () -> Void,
+        onImageLicense: @escaping () -> Void,
         onRegistrationSuccess: @escaping () async -> Void
     ) {
         self.onPrivacyPolicy = onPrivacyPolicy
@@ -33,8 +33,8 @@ struct RegistrationLicenseConsentScreen: View {
                     )
                     .padding(.top, BiologerSpacing.small)
 
-                    if !viewModel.topImage.isEmpty {
-                        Image(viewModel.topImage)
+                    if !viewModel.environmentImage.isEmpty {
+                        Image(viewModel.environmentImage)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 48, height: 48)
@@ -45,17 +45,17 @@ struct RegistrationLicenseConsentScreen: View {
 
                     VStack(spacing: BiologerSpacing.small) {
                         AuthorizationNavigationCard(
-                            title: viewModel.dataLicense.title,
-                            subtitle: viewModel.dataLicense.placeholder,
+                            title: viewModel.selectedDataLicense.title,
+                            subtitle: viewModel.selectedDataLicense.details,
                             systemImage: "doc.text",
-                            action: { onDataLicense(viewModel.dataLicense) }
+                            action: onDataLicense
                         )
 
                         AuthorizationNavigationCard(
-                            title: viewModel.imageLicense.title,
-                            subtitle: viewModel.imageLicense.placeholder,
+                            title: viewModel.selectedImageLicense.title,
+                            subtitle: viewModel.selectedImageLicense.details,
                             systemImage: "photo",
-                            action: { onImageLicense(viewModel.imageLicense) }
+                            action: onImageLicense
                         )
                     }
 
@@ -80,18 +80,18 @@ struct RegistrationLicenseConsentScreen: View {
 
                     Toggle(
                         "Register.three.lb.acceptPrivacyPolicy".localized,
-                        isOn: $viewModel.acceptPPCheckMark
+                        isOn: $viewModel.acceptsPrivacyPolicy
                     )
                     .font(.body)
                     .foregroundColor(BiologerColors.textPrimary)
                     .tint(BiologerColors.accent)
                     .padding(BiologerSpacing.regular)
                     .biologerCard(
-                        isSelected: viewModel.acceptPPCheckMark
+                        isSelected: viewModel.acceptsPrivacyPolicy
                     )
 
-                    if !viewModel.errorLabel.isEmpty {
-                        Text(viewModel.errorLabel)
+                    if !viewModel.privacyPolicyError.isEmpty {
+                        Text(viewModel.privacyPolicyError)
                             .font(.footnote.weight(.medium))
                             .foregroundColor(BiologerColors.destructive)
                             .multilineTextAlignment(.center)
@@ -100,7 +100,7 @@ struct RegistrationLicenseConsentScreen: View {
 
                     Button {
                         Task {
-                            await viewModel.registerTapped()
+                            await viewModel.register()
                         }
                     } label: {
                         Label(

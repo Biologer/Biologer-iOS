@@ -7,15 +7,18 @@ protocol FindingRemoteUploadRepository {
 
 final class RemoteFindingUploadRepository: FindingRemoteUploadRepository {
     private let client: APIClientProtocol
-    private let environmentStorage: EnvironmentStorage
+    private let environmentProvider: CurrentEnvironmentProviding
 
-    init(client: APIClientProtocol, environmentStorage: EnvironmentStorage) {
+    init(
+        client: APIClientProtocol,
+        environmentProvider: CurrentEnvironmentProviding
+    ) {
         self.client = client
-        self.environmentStorage = environmentStorage
+        self.environmentProvider = environmentProvider
     }
 
     func uploadFinding(_ body: FindingRequestBody) async throws(FindingUploadFailure) {
-        guard let environment = environmentStorage.getEnvironment() else {
+        guard let environment = environmentProvider.currentEnvironment() else {
             throw FindingUploadFailure(message: "API.lb.envError".localized)
         }
 
@@ -31,7 +34,7 @@ final class RemoteFindingUploadRepository: FindingRemoteUploadRepository {
     }
 
     func uploadImage(_ imageData: Data) async throws(FindingUploadFailure) -> String {
-        guard let environment = environmentStorage.getEnvironment() else {
+        guard let environment = environmentProvider.currentEnvironment() else {
             throw FindingUploadFailure(message: "API.lb.envError".localized)
         }
 

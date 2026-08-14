@@ -94,37 +94,41 @@ private final class PreviewSettingsPreferencesRepository: SettingsPreferencesRep
 
 private final class PreviewSettingsLicenseRepository: SettingsLicenseRepository {
     private let dataOptions = [
-        SettingsLicenseOption(
+        LicenseOption(
             id: 1,
+            kind: .data,
             title: "CC BY 4.0",
             details: "Others may share and adapt the data with attribution."
         ),
-        SettingsLicenseOption(
+        LicenseOption(
             id: 2,
+            kind: .data,
             title: "CC BY-SA 4.0",
             details: "Adaptations must be shared under the same license."
         )
     ]
 
     private let imageOptions = [
-        SettingsLicenseOption(
+        LicenseOption(
             id: 3,
+            kind: .image,
             title: "CC BY-NC 4.0",
             details: "Images may be reused for non-commercial purposes."
         ),
-        SettingsLicenseOption(
+        LicenseOption(
             id: 4,
+            kind: .image,
             title: "All rights reserved",
             details: "Permission is required before an image can be reused."
         )
     ]
 
-    private var selectedOptionIDs: [SettingsLicenseKind: Int] = [
+    private var selectedOptionIDs: [LicenseKind: Int] = [
         .data: 1,
         .image: 3
     ]
 
-    func options(for kind: SettingsLicenseKind) -> [SettingsLicenseOption] {
+    func options(for kind: LicenseKind) -> [LicenseOption] {
         switch kind {
         case .data:
             dataOptions
@@ -133,13 +137,13 @@ private final class PreviewSettingsLicenseRepository: SettingsLicenseRepository 
         }
     }
 
-    func selectedOption(for kind: SettingsLicenseKind) -> SettingsLicenseOption {
+    func selectedOption(for kind: LicenseKind) -> LicenseOption {
         let availableOptions = options(for: kind)
         let selectedID = selectedOptionIDs[kind]
         return availableOptions.first(where: { $0.id == selectedID }) ?? availableOptions[0]
     }
 
-    func save(_ option: SettingsLicenseOption, for kind: SettingsLicenseKind) {
+    func save(_ option: LicenseOption, for kind: LicenseKind) {
         guard options(for: kind).contains(where: { $0.id == option.id }) else {
             return
         }

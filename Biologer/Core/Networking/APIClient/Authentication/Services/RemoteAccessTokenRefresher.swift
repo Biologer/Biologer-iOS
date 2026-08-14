@@ -2,16 +2,16 @@ import Foundation
 
 final class RemoteAccessTokenRefresher: AccessTokenRefreshing {
     private let client: APIClientProtocol
-    private let environmentStorage: EnvironmentStorage
+    private let environmentProvider: CurrentEnvironmentProviding
     private let tokenStorage: TokenStorage
 
     init(
         client: APIClientProtocol,
-        environmentStorage: EnvironmentStorage,
+        environmentProvider: CurrentEnvironmentProviding,
         tokenStorage: TokenStorage
     ) {
         self.client = client
-        self.environmentStorage = environmentStorage
+        self.environmentProvider = environmentProvider
         self.tokenStorage = tokenStorage
     }
 
@@ -19,7 +19,7 @@ final class RemoteAccessTokenRefresher: AccessTokenRefreshing {
         guard
             let storedToken = tokenStorage.getToken(),
             !storedToken.refreshToken.isEmpty,
-            let environment = environmentStorage.getEnvironment()
+            let environment = environmentProvider.currentEnvironment()
         else {
             throw AccessTokenRefreshError.sessionExpired(nil)
         }

@@ -7,7 +7,9 @@ final class RemoteAccountRepositoryTests: XCTestCase {
         let client = AccountAPIClientStub(response: makeProfileResponse())
         let sut = RemoteAccountRepository(
             client: client,
-            environmentStorage: AccountEnvironmentStorageStub(environment: makeEnvironment())
+            environmentProvider: AccountEnvironmentProviderStub(
+                environment: makeEnvironment()
+            )
         )
 
         // When
@@ -31,7 +33,7 @@ final class RemoteAccountRepositoryTests: XCTestCase {
         let client = AccountAPIClientStub(response: makeProfileResponse())
         let sut = RemoteAccountRepository(
             client: client,
-            environmentStorage: AccountEnvironmentStorageStub(environment: nil)
+            environmentProvider: AccountEnvironmentProviderStub(environment: nil)
         )
 
         // When
@@ -50,7 +52,9 @@ final class RemoteAccountRepositoryTests: XCTestCase {
         let client = AccountAPIClientStub(response: EmptyAPIResponse())
         let sut = RemoteAccountRepository(
             client: client,
-            environmentStorage: AccountEnvironmentStorageStub(environment: makeEnvironment())
+            environmentProvider: AccountEnvironmentProviderStub(
+                environment: makeEnvironment()
+            )
         )
 
         // When
@@ -87,10 +91,11 @@ final class RemoteAccountRepositoryTests: XCTestCase {
 
     private func makeEnvironment() -> Biologer.AppEnvironment {
         Biologer.AppEnvironment(
+            id: .development,
             host: "api.biologer.org",
             path: "",
             clientSecret: "secret",
-            cliendId: "client"
+            clientId: "client"
         )
     }
 }
@@ -109,16 +114,14 @@ private final class AccountAPIClientStub: APIClientProtocol {
     }
 }
 
-private final class AccountEnvironmentStorageStub: EnvironmentStorage {
+private final class AccountEnvironmentProviderStub: CurrentEnvironmentProviding {
     private let environment: Biologer.AppEnvironment?
 
     init(environment: Biologer.AppEnvironment?) {
         self.environment = environment
     }
 
-    func getEnvironment() -> Biologer.AppEnvironment? {
+    func currentEnvironment() -> Biologer.AppEnvironment? {
         environment
     }
-
-    func saveEnvironment(env: Biologer.AppEnvironment) {}
 }

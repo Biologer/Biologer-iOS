@@ -1,14 +1,14 @@
 import Foundation
 
 final class LicenseSettingsViewModel: ObservableObject {
-    let kind: SettingsLicenseKind
-    let options: [SettingsLicenseOption]
+    let kind: LicenseKind
+    let options: [LicenseOption]
     @Published private(set) var selectedOptionID: Int
 
     private let useCase: SettingsLicenseUseCase
 
     init(
-        kind: SettingsLicenseKind,
+        kind: LicenseKind,
         useCase: SettingsLicenseUseCase
     ) {
         self.kind = kind
@@ -26,7 +26,7 @@ final class LicenseSettingsViewModel: ObservableObject {
         }
     }
 
-    func select(_ option: SettingsLicenseOption) {
+    func select(_ option: LicenseOption) {
         useCase.select(option, for: kind)
         selectedOptionID = option.id
     }

@@ -1,43 +1,27 @@
-//
-//  LicenseSelectionScreen.swift
-//  Biologer
-//
-//  Created by Nikola Popovic on 7. 7. 2026..
-//
-
 import SwiftUI
 
 struct LicenseSelectionScreen: View {
+    @Binding private var selectedID: Int
+    @State private var isSelectionLocked = false
 
-    @State
-    private var items: [CheckMarkItem]
-
-    @Binding
-    private var selectedItem: CheckMarkItem
-
-    @State
-    private var isSelectionLocked = false
-
-    private let onSelectionChanged: ((CheckMarkItem) -> Void)?
+    private let items: [LicenseOption]
+    private let onSelectionChanged: ((Int) -> Void)?
 
     init(
-        selectedItem: Binding<CheckMarkItem>,
-        items: [CheckMarkItem],
-        onSelectionChanged: ((CheckMarkItem) -> Void)? = nil
+        selectedID: Binding<Int>,
+        items: [LicenseOption],
+        onSelectionChanged: ((Int) -> Void)? = nil
     ) {
-        _selectedItem = selectedItem
-        _items = State(initialValue: items.selecting(selectedItem.wrappedValue))
+        _selectedID = selectedID
+        self.items = items
         self.onSelectionChanged = onSelectionChanged
     }
 
     var body: some View {
         ScrollView {
             LazyVStack(spacing: BiologerSpacing.small) {
-                BiologerIconBadge(
-                    systemImage: headerIcon,
-                    size: 64
-                )
-                .padding(.vertical, BiologerSpacing.small)
+                BiologerIconBadge(systemImage: headerIcon, size: 64)
+                    .padding(.vertical, BiologerSpacing.small)
 
                 ForEach(items) { item in
                     licenseCard(item)
@@ -48,58 +32,37 @@ struct LicenseSelectionScreen: View {
         }
         .biologerPageBackground()
         .navigationBarBackButtonHidden(true)
-        .onChange(of: selectedItem) { item in
-            updateSelectedViewModel(with: item)
-        }
     }
 
     private var headerIcon: String {
-        items.first?.type == .image ? "photo.fill" : "doc.text.fill"
+        items.first?.kind == .image ? "photo.fill" : "doc.text.fill"
     }
 
-    private func licenseCard(_ item: CheckMarkItem) -> some View {
+    private func licenseCard(_ item: LicenseOption) -> some View {
         BiologerSelectionCard(
             title: item.title,
-            subtitle: item.placeholder,
-            isSelected: item.isSelected,
+            subtitle: item.details,
+            isSelected: item.id == selectedID,
             subtitleFont: .caption,
             action: { select(item) }
         ) {
             BiologerIconBadge(
-                systemImage: item.type == .image ? "photo" : "doc.text"
+                systemImage: item.kind == .image ? "photo" : "doc.text"
             )
         }
         .allowsHitTesting(!isSelectionLocked)
     }
 
-    private func select(_ item: CheckMarkItem) {
+    private func select(_ item: LicenseOption) {
         guard !isSelectionLocked else { return }
         isSelectionLocked = true
 
-        var selectedItem = item
-        selectedItem.changeIsSelected(value: true)
-
         withAnimation(.easeInOut(duration: 0.18)) {
-            self.selectedItem = selectedItem
-            updateSelectedViewModel(with: selectedItem)
+            selectedID = item.id
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            onSelectionChanged?(selectedItem)
-        }
-    }
-
-    private func updateSelectedViewModel(with item: CheckMarkItem) {
-        items = items.selecting(item)
-    }
-}
-
-private extension Array where Element == CheckMarkItem {
-    func selecting(_ selectedItem: CheckMarkItem) -> [CheckMarkItem] {
-        map { item in
-            var updatedItem = item
-            updatedItem.changeIsSelected(value: item.id == selectedItem.id)
-            return updatedItem
+            onSelectionChanged?(item.id)
         }
     }
 }

@@ -68,22 +68,29 @@ final class SettingsTests: XCTestCase {
         XCTAssertEqual(sut.settings.language, "sr-Latn")
     }
 
-    func test_licenseStorage_whenSavingLicense_returnsPersistedLicense() throws {
+    func test_licenseStorage_whenSavingLicenseID_returnsPersistedID() throws {
         // Given
         let suiteName = "UserDefaultsLicenseStorageTests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
         defer { defaults.removePersistentDomain(forName: suiteName) }
-        let license = try XCTUnwrap(CheckMarkItemMapper.getDataLicense().last)
-        let sut = UserDefaultsLicenseStorage(
-            key: "license.test.key",
-            defaults: defaults
+        let optionsProvider = DefaultLicenseOptionsProvider()
+        let license = try XCTUnwrap(optionsProvider.options(for: .data).last)
+        let sut = UserDefaultsLicensePreferenceStorage(
+            defaults: defaults,
+            keys: UserDefaultsLicensePreferenceKeys(
+                dataID: "license.data.id.test",
+                imageID: "license.image.id.test",
+                legacyData: "license.data.legacy.test",
+                legacyImage: "license.image.legacy.test"
+            ),
+            optionsProvider: optionsProvider
         )
 
         // When
-        sut.saveLicense(license: license)
+        sut.saveSelectedLicenseID(license.id, for: .data)
 
         // Then
-        XCTAssertEqual(sut.getLicense(), license)
+        XCTAssertEqual(sut.selectedLicenseID(for: .data), license.id)
     }
 
     func test_preferencesUseCaseUpdatesSelectedToggle() {
@@ -127,7 +134,12 @@ final class SettingsTests: XCTestCase {
 
     func test_licenseUseCaseDelegatesSelectionToRepository() {
         let repository = SettingsLicenseRepositorySpy()
-        let option = SettingsLicenseOption(id: 20, title: "License", details: "Details")
+        let option = LicenseOption(
+            id: 20,
+            kind: .image,
+            title: "License",
+            details: "Details"
+        )
         let sut = DefaultSettingsLicenseUseCase(repository: repository)
 
         sut.select(option, for: .image)
@@ -164,18 +176,18 @@ final class SettingsTests: XCTestCase {
     }
 
     func test_storedLicenseRepositoryPersistsSelectedImageLicense() throws {
-        let dataStorage = SettingsLicenseStorageSpy()
-        let imageStorage = SettingsLicenseStorageSpy()
+        let optionsProvider = DefaultLicenseOptionsProvider()
+        let storage = SettingsLicensePreferenceStorageSpy()
         let sut = StoredSettingsLicenseRepository(
-            dataLicenseStorage: dataStorage,
-            imageLicenseStorage: imageStorage
+            optionsProvider: optionsProvider,
+            storage: storage
         )
         let option = try XCTUnwrap(sut.options(for: .image).last)
 
         sut.save(option, for: .image)
 
-        XCTAssertNil(dataStorage.savedLicense)
-        XCTAssertEqual(imageStorage.savedLicense?.id, option.id)
+        XCTAssertEqual(storage.savedIDs[.image], option.id)
+        XCTAssertNil(storage.savedIDs[.data])
     }
 
     func test_settingsViewModelShowsEmptyAlertWithoutDeletingTaxa() {
@@ -365,19 +377,24 @@ private final class SettingsPreferencesRepositorySpy: SettingsPreferencesReposit
 }
 
 private final class SettingsLicenseRepositorySpy: SettingsLicenseRepository {
-    let option = SettingsLicenseOption(id: 10, title: "License", details: "Details")
-    private(set) var savedOption: SettingsLicenseOption?
-    private(set) var savedKind: SettingsLicenseKind?
+    let option = LicenseOption(
+        id: 10,
+        kind: .data,
+        title: "License",
+        details: "Details"
+    )
+    private(set) var savedOption: LicenseOption?
+    private(set) var savedKind: LicenseKind?
 
-    func options(for kind: SettingsLicenseKind) -> [SettingsLicenseOption] {
+    func options(for kind: LicenseKind) -> [LicenseOption] {
         [option]
     }
 
-    func selectedOption(for kind: SettingsLicenseKind) -> SettingsLicenseOption {
+    func selectedOption(for kind: LicenseKind) -> LicenseOption {
         option
     }
 
-    func save(_ option: SettingsLicenseOption, for kind: SettingsLicenseKind) {
+    func save(_ option: LicenseOption, for kind: LicenseKind) {
         savedOption = option
         savedKind = kind
     }
@@ -447,16 +464,15 @@ private final class SettingsStorageSpy: SettingsStorage {
     }
 }
 
-private final class SettingsLicenseStorageSpy: LicenseStorage {
-    private var license: CheckMarkItem?
-    private(set) var savedLicense: CheckMarkItem?
+private final class SettingsLicensePreferenceStorageSpy: LicensePreferenceStorage {
+    private(set) var savedIDs: [LicenseKind: Int] = [:]
 
-    func getLicense() -> CheckMarkItem? {
-        license
+    func selectedLicenseID(for kind: LicenseKind) -> Int? {
+        savedIDs[kind]
     }
 
-    func saveLicense(license: CheckMarkItem) {
-        self.license = license
-        savedLicense = license
+    func saveSelectedLicenseID(_ id: Int, for kind: LicenseKind) {
+        savedIDs[kind] = id
     }
+
 }

@@ -2,18 +2,21 @@ import Foundation
 
 final class RemoteFindingAltitudeRepository: FindingAltitudeRepository {
     private let client: APIClientProtocol
-    private let environmentStorage: EnvironmentStorage
+    private let environmentProvider: CurrentEnvironmentProviding
 
-    init(client: APIClientProtocol, environmentStorage: EnvironmentStorage) {
+    init(
+        client: APIClientProtocol,
+        environmentProvider: CurrentEnvironmentProviding
+    ) {
         self.client = client
-        self.environmentStorage = environmentStorage
+        self.environmentProvider = environmentProvider
     }
 
     func altitude(
         latitude: Double,
         longitude: Double
     ) async throws(FindingAltitudeRepositoryError) -> Double {
-        guard let environment = environmentStorage.getEnvironment() else {
+        guard let environment = environmentProvider.currentEnvironment() else {
             throw .environmentUnavailable
         }
 

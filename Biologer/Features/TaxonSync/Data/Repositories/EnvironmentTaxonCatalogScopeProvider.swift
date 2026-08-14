@@ -1,12 +1,12 @@
 final class EnvironmentTaxonCatalogScopeProvider: TaxonCatalogScopeProviding {
-    private let environmentStorage: EnvironmentStorage
+    private let environmentProvider: CurrentEnvironmentProviding
 
-    init(environmentStorage: EnvironmentStorage) {
-        self.environmentStorage = environmentStorage
+    init(environmentProvider: CurrentEnvironmentProviding) {
+        self.environmentProvider = environmentProvider
     }
 
     func currentScope() -> TaxonCatalogScope? {
-        guard let environment = environmentStorage.getEnvironment() else {
+        guard let environment = environmentProvider.currentEnvironment() else {
             return nil
         }
 

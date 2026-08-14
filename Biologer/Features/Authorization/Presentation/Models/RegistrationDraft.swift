@@ -1,18 +1,26 @@
-//
-//  RegistrationDraft.swift
-//  Biologer
-//
-//  Created by Nikola Popovic on 7. 7. 2026..
-//
+/// In-memory values entered across the registration steps.
+struct RegistrationDraft: Equatable {
+    /// User's given name.
+    var firstName = ""
 
-import Combine
+    /// User's family name.
+    var lastName = ""
 
-public final class RegistrationDraft: ObservableObject {
-    @Published public var username: String = ""
-    @Published public var lastname: String = ""
-    @Published public var institution: String = ""
-    @Published public var email: String = ""
-    @Published public var password: String = ""
-    @Published public var dataLicense: CheckMarkItem = CheckMarkItem(id: 1, title: "", placeholder: "", type: .data, isSelected: false)
-    @Published public var imageLicense: CheckMarkItem = CheckMarkItem(id: 1, title: "", placeholder: "", type: .image, isSelected: false)
+    /// Optional institution displayed on the user's account.
+    var institution = ""
+
+    /// Email used for the new account.
+    var email = ""
+
+    /// Password sent when registration is submitted.
+    var password = ""
+
+    /// Local-only confirmation of `password`.
+    var repeatedPassword = ""
+
+    /// Stable identifier of the selected data license.
+    var dataLicenseID: Int
+
+    /// Stable identifier of the selected image license.
+    var imageLicenseID: Int
 }

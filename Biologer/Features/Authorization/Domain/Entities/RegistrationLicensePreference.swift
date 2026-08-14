@@ -1,11 +1,9 @@
 import Foundation
 
-enum RegistrationLicenseKind: Equatable {
-    case data
-    case image
-}
-
 struct RegistrationLicensePreference: Equatable {
+    /// Backend identifier of the license selected during registration.
     let id: Int
-    let kind: RegistrationLicenseKind
+
+    /// Resource category to which the selected license applies.
+    let kind: LicenseKind
 }

@@ -1,7 +1,7 @@
 protocol SettingsLicenseUseCase {
-    func options(for kind: SettingsLicenseKind) -> [SettingsLicenseOption]
-    func selectedOption(for kind: SettingsLicenseKind) -> SettingsLicenseOption
-    func select(_ option: SettingsLicenseOption, for kind: SettingsLicenseKind)
+    func options(for kind: LicenseKind) -> [LicenseOption]
+    func selectedOption(for kind: LicenseKind) -> LicenseOption
+    func select(_ option: LicenseOption, for kind: LicenseKind)
 }
 
 final class DefaultSettingsLicenseUseCase: SettingsLicenseUseCase {
@@ -11,15 +11,15 @@ final class DefaultSettingsLicenseUseCase: SettingsLicenseUseCase {
         self.repository = repository
     }
 
-    func options(for kind: SettingsLicenseKind) -> [SettingsLicenseOption] {
+    func options(for kind: LicenseKind) -> [LicenseOption] {
         repository.options(for: kind)
     }
 
-    func selectedOption(for kind: SettingsLicenseKind) -> SettingsLicenseOption {
+    func selectedOption(for kind: LicenseKind) -> LicenseOption {
         repository.selectedOption(for: kind)
     }
 
-    func select(_ option: SettingsLicenseOption, for kind: SettingsLicenseKind) {
+    func select(_ option: LicenseOption, for kind: LicenseKind) {
         repository.save(option, for: kind)
     }
 }

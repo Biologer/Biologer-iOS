@@ -2,25 +2,25 @@ import Foundation
 
 final class RemoteObservationRepository: ObservationRepository {
     private let client: APIClientProtocol
-    private let environmentStorage: EnvironmentStorage
+    private let environmentProvider: CurrentEnvironmentProviding
     private let userDefaults: UserDefaults
     private let date: () -> Date
 
     init(
         client: APIClientProtocol,
-        environmentStorage: EnvironmentStorage,
+        environmentProvider: CurrentEnvironmentProviding,
         userDefaults: UserDefaults = .standard,
         date: @escaping () -> Date = Date.init
     ) {
         self.client = client
-        self.environmentStorage = environmentStorage
+        self.environmentProvider = environmentProvider
         self.userDefaults = userDefaults
         self.date = date
     }
 
     func getObservationTypes() async throws(SettingsDataFailure) -> ObservationDataResponse {
         do {
-            guard let environment = environmentStorage.getEnvironment() else {
+            guard let environment = environmentProvider.currentEnvironment() else {
                 throw SettingsDataFailure(message: "API.lb.envError".localized)
             }
 

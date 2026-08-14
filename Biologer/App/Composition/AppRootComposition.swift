@@ -23,7 +23,7 @@ final class AppRootComposition {
     private lazy var loginRepository: LoginUserRepository = {
         RemoteLoginUserRepository(
             client: apiClient,
-            environmentStorage: environmentStorage,
+            environmentProvider: currentEnvironmentProvider,
             tokenStorage: tokenStorage
         )
     }()
@@ -31,7 +31,7 @@ final class AppRootComposition {
     private lazy var registerUserRepository: RegisterUserRepository = {
         RemoteRegisterUserRepository(
             client: apiClient,
-            environmentStorage: environmentStorage,
+            environmentProvider: currentEnvironmentProvider,
             tokenStorage: tokenStorage
         )
     }()
@@ -39,14 +39,15 @@ final class AppRootComposition {
     private lazy var registrationLicenseRepository:
         RegistrationLicensePreferenceRepository = {
         StoredRegistrationLicensePreferenceRepository(
-            dataLicenseStorage: dataLicenseStorage,
-            imageLicenseStorage: imageLicenseStorage
+            storage: licensePreferenceStorage
         )
     }()
 
-    private lazy var authorizationEnvironmentRepository:
-        AuthorizationEnvironmentRepository = {
-        StoredAuthorizationEnvironmentRepository(storage: environmentStorage)
+    private lazy var authorizationEnvironmentSelectionRepository:
+        AuthorizationEnvironmentSelectionRepository = {
+        StoredAuthorizationEnvironmentSelectionRepository(
+            storage: environmentSelectionStorage
+        )
     }()
 
     private lazy var tutorialRepository: AuthorizationTutorialRepository = {
@@ -65,8 +66,8 @@ final class AppRootComposition {
                     repository: registerUserRepository
                 )
             ),
-            selectEnvironmentUseCase: DefaultSelectAuthorizationEnvironmentUseCase(
-                repository: authorizationEnvironmentRepository
+            environmentSelection: DefaultAuthorizationEnvironmentSelectionUseCase(
+                repository: authorizationEnvironmentSelectionRepository
             ),
             tutorial: DefaultAuthorizationTutorialUseCase(
                 repository: tutorialRepository
@@ -74,9 +75,12 @@ final class AppRootComposition {
         )
     }()
 
-    lazy var authorizationFlowBuilder: AuthorizationFlowBuilder = {
-        AuthorizationFlowBuilder(
-            useCases: authorizationUseCases
+    lazy var unauthenticatedFlowBuilder: UnauthenticatedFlowBuilder = {
+        UnauthenticatedFlowBuilder(
+            useCases: authorizationUseCases,
+            environmentOptionsProvider: environmentOptionsProvider,
+            licenseOptionsProvider: licenseOptionsProvider,
+            urlProvider: authorizationURLProvider
         )
     }()
 
@@ -109,7 +113,9 @@ final class AppRootComposition {
     }()
 
     private lazy var taxonScopeProvider: TaxonCatalogScopeProviding = {
-        EnvironmentTaxonCatalogScopeProvider(environmentStorage: environmentStorage)
+        EnvironmentTaxonCatalogScopeProvider(
+            environmentProvider: currentEnvironmentProvider
+        )
     }()
 
     lazy var taxonSyncComposition: TaxonSyncComposition = {
@@ -128,7 +134,7 @@ final class AppRootComposition {
     private lazy var remoteFindingUploadRepository: FindingRemoteUploadRepository = {
         RemoteFindingUploadRepository(
             client: authenticatedAPIClient,
-            environmentStorage: environmentStorage
+            environmentProvider: currentEnvironmentProvider
         )
     }()
 
@@ -136,8 +142,8 @@ final class AppRootComposition {
         RealmFindingUploadRepository(
             configuration: RealmManager.realmConfig(),
             remoteRepository: remoteFindingUploadRepository,
-            dataLicenseStorage: dataLicenseStorage,
-            imageLicenseStorage: imageLicenseStorage,
+            licenseStorage: licensePreferenceStorage,
+            licenseOptionsProvider: licenseOptionsProvider,
             settingsStorage: settingsStorage
         )
     }()
@@ -199,7 +205,7 @@ final class AppRootComposition {
     private lazy var findingAltitudeRepository: FindingAltitudeRepository = {
         RemoteFindingAltitudeRepository(
             client: authenticatedAPIClient,
-            environmentStorage: environmentStorage
+            environmentProvider: currentEnvironmentProvider
         )
     }()
 
@@ -240,8 +246,8 @@ final class AppRootComposition {
 
     private lazy var settingsLicenseRepository: SettingsLicenseRepository = {
         StoredSettingsLicenseRepository(
-            dataLicenseStorage: dataLicenseStorage,
-            imageLicenseStorage: imageLicenseStorage
+            optionsProvider: licenseOptionsProvider,
+            storage: licensePreferenceStorage
         )
     }()
 
@@ -296,7 +302,7 @@ final class AppRootComposition {
     private lazy var accountRepository: AccountRepository = {
         RemoteAccountRepository(
             client: authenticatedAPIClient,
-            environmentStorage: environmentStorage
+            environmentProvider: currentEnvironmentProvider
         )
     }()
 
@@ -310,7 +316,7 @@ final class AppRootComposition {
     private lazy var observationRepository: ObservationRepository = {
         RemoteObservationRepository(
             client: authenticatedAPIClient,
-            environmentStorage: environmentStorage
+            environmentProvider: currentEnvironmentProvider
         )
     }()
 
@@ -334,13 +340,41 @@ final class AppRootComposition {
     // MARK: - Storage
 
     private lazy var tokenStorage: TokenStorage = KeychainTokenStorage()
-    private lazy var environmentStorage: EnvironmentStorage = KeychainEnvironmentStorage()
-    private lazy var userStorage: UserStorage = UserDefaultsUserStorage()
-    private lazy var dataLicenseStorage: LicenseStorage = {
-        UserDefaultsLicenseStorage(key: "dataLicense.key")
+    private lazy var environmentConfigurationProvider:
+        EnvironmentConfigurationProviding = {
+        DefaultEnvironmentConfigurationProvider()
     }()
-    private lazy var imageLicenseStorage: LicenseStorage = {
-        UserDefaultsLicenseStorage(key: "imageLicense.key")
+    private lazy var environmentOptionsProvider: EnvironmentOptionsProviding = {
+        DefaultEnvironmentOptionsProvider(
+            configurationProvider: environmentConfigurationProvider
+        )
+    }()
+    private lazy var environmentSelectionStorage: EnvironmentSelectionStorage = {
+        KeychainEnvironmentSelectionStorage(
+            configurationProvider: environmentConfigurationProvider,
+            dataStore: KeychainEnvironmentSecureDataStore(),
+            keys: .production
+        )
+    }()
+    private lazy var currentEnvironmentProvider: CurrentEnvironmentProviding = {
+        DefaultCurrentEnvironmentProvider(
+            selectionStorage: environmentSelectionStorage,
+            configurationProvider: environmentConfigurationProvider
+        )
+    }()
+    private lazy var authorizationURLProvider: AuthorizationURLProviding = {
+        DefaultAuthorizationURLProvider(
+            configurationProvider: environmentConfigurationProvider
+        )
+    }()
+    private lazy var userStorage: UserStorage = UserDefaultsUserStorage()
+    private lazy var licenseOptionsProvider: LicenseOptionsProviding = {
+        DefaultLicenseOptionsProvider()
+    }()
+    private lazy var licensePreferenceStorage: LicensePreferenceStorage = {
+        UserDefaultsLicensePreferenceStorage(
+            optionsProvider: licenseOptionsProvider
+        )
     }()
     private lazy var settingsStorage: SettingsStorage = {
         let storage = UserDefaultsSettingsStorage()
@@ -359,7 +393,7 @@ final class AppRootComposition {
     private lazy var authenticatedAPIClient: APIClientProtocol = {
         let refresher = RemoteAccessTokenRefresher(
             client: apiClient,
-            environmentStorage: environmentStorage,
+            environmentProvider: currentEnvironmentProvider,
             tokenStorage: tokenStorage
         )
         return AuthenticatedAPIClientDecorator(
@@ -373,7 +407,7 @@ final class AppRootComposition {
     // MARK: - Helpers
 
     private func currentEnvironment() -> String {
-        guard let environment = environmentStorage.getEnvironment() else {
+        guard let environment = currentEnvironmentProvider.currentEnvironment() else {
             return ""
         }
         return "https://\(environment.host)"

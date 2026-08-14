@@ -35,7 +35,7 @@ struct LicenseSettingsScreen: View {
         }
     }
 
-    private func optionCard(_ option: SettingsLicenseOption) -> some View {
+    private func optionCard(_ option: LicenseOption) -> some View {
         let isSelected = viewModel.selectedOptionID == option.id
 
         return BiologerSelectionCard(

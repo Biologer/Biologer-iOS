@@ -28,7 +28,7 @@ struct AppRootFlow: View {
                 }
 
             case .authorizationRequired:
-                authorizationFlow
+                unauthenticatedFlow
 
             case .preparing:
                 BiologerActivityIndicator(size: .large)
@@ -55,8 +55,8 @@ struct AppRootFlow: View {
         }
     }
 
-    private var authorizationFlow: some View {
-        composition.authorizationFlowBuilder.makeFlow(
+    private var unauthenticatedFlow: some View {
+        composition.unauthenticatedFlowBuilder.makeFlow(
             onAuthorizationSuccess: coordinator.authorizationSucceeded
         )
     }

@@ -10,32 +10,30 @@ private enum RealmFindingUploadRepositoryError: Error {
 final class RealmFindingUploadRepository: FindingUploadRepository {
     private let configuration: Realm.Configuration
     private let remoteRepository: FindingRemoteUploadRepository
-    private let dataLicenseStorage: LicenseStorage
-    private let imageLicenseStorage: LicenseStorage
+    private let licenseStorage: LicensePreferenceStorage
+    private let licenseOptionsProvider: LicenseOptionsProviding
     private let settingsStorage: SettingsStorage
 
     init(
         configuration: Realm.Configuration,
         remoteRepository: FindingRemoteUploadRepository,
-        dataLicenseStorage: LicenseStorage,
-        imageLicenseStorage: LicenseStorage,
+        licenseStorage: LicensePreferenceStorage,
+        licenseOptionsProvider: LicenseOptionsProviding,
         settingsStorage: SettingsStorage
     ) {
         self.configuration = configuration
         self.remoteRepository = remoteRepository
-        self.dataLicenseStorage = dataLicenseStorage
-        self.imageLicenseStorage = imageLicenseStorage
+        self.licenseStorage = licenseStorage
+        self.licenseOptionsProvider = licenseOptionsProvider
         self.settingsStorage = settingsStorage
     }
 
     func upload(id: UUID) async throws {
         let snapshots = try makeSnapshots(id: id)
-        let imageLicenseID = imageLicenseStorage.getLicense()?.id
-            ?? CheckMarkItemMapper.getImageLicense().first?.id
-            ?? 10
-        let dataLicenseID = dataLicenseStorage.getLicense()?.id
-            ?? CheckMarkItemMapper.getDataLicense().first?.id
-            ?? 10
+        let imageLicenseID = licenseStorage.selectedLicenseID(for: .image)
+            ?? licenseOptionsProvider.defaultOption(for: .image).id
+        let dataLicenseID = licenseStorage.selectedLicenseID(for: .data)
+            ?? licenseOptionsProvider.defaultOption(for: .data).id
         let projectName = settingsStorage.getSettings()?.projectName ?? ""
 
         for snapshot in snapshots {

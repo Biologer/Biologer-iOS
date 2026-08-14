@@ -69,7 +69,7 @@ final class AppSessionCoordinator: ObservableObject {
         handle(await sessionStore.currentState())
     }
 
-    /// Refreshes authentication after the authorization flow persists new tokens.
+    /// Refreshes the session after login or registration persists new tokens.
     /// Root navigation continues only through the SessionStore observer.
     func authorizationSucceeded() async {
         await sessionStore.synchronize()
