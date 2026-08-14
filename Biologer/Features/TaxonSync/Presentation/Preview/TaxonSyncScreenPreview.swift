@@ -71,27 +71,36 @@ enum TaxonSyncPreviewFactory {
     }
 }
 
+@MainActor
 struct TaxonSyncScreenPreview: View {
-    private let previewState: TaxonSyncState
+    /// The preview owns the ViewModel for the same reason as a production flow:
+    /// SwiftUI body recomputation must not recreate its observation state.
+    @StateObject private var viewModel: TaxonSyncViewModel
+
     private let showsContinueAction: Bool
 
     init(
         state: TaxonSyncState? = nil,
         showsContinueAction: Bool = false
     ) {
-        previewState = state ?? makePreviewState(availability: .partial)
+        let composition = TaxonSyncPreviewFactory.makeComposition(
+            state: state ?? makePreviewState(availability: .partial)
+        )
+        _viewModel = StateObject(
+            wrappedValue: composition.makeViewModel()
+        )
         self.showsContinueAction = showsContinueAction
     }
 
     var body: some View {
-        let composition = TaxonSyncPreviewFactory.makeComposition(
-            state: previewState
-        )
         NavigationStack {
             TaxonSyncScreen(
-                viewModel: composition.makeViewModel(),
+                viewModel: viewModel,
                 onContinue: showsContinueAction ? {} : nil
             )
+        }
+        .task {
+            await viewModel.observeState()
         }
     }
 }

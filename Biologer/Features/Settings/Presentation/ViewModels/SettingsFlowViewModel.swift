@@ -7,7 +7,6 @@ final class SettingsFlowViewModel: ObservableObject {
     let dataLicenseViewModel: LicenseSettingsViewModel
     let imageLicenseViewModel: LicenseSettingsViewModel
     let automaticDownloadViewModel: AutomaticDownloadSettingsViewModel
-    let taxonSyncViewModel: TaxonSyncViewModel
     let aboutViewModel: SettingsAboutViewModel
     let accountViewModel: SettingsAccountViewModel
 
@@ -17,7 +16,6 @@ final class SettingsFlowViewModel: ObservableObject {
         dataLicenseViewModel: LicenseSettingsViewModel,
         imageLicenseViewModel: LicenseSettingsViewModel,
         automaticDownloadViewModel: AutomaticDownloadSettingsViewModel,
-        taxonSyncViewModel: TaxonSyncViewModel,
         aboutViewModel: SettingsAboutViewModel,
         accountViewModel: SettingsAccountViewModel
     ) {
@@ -26,7 +24,6 @@ final class SettingsFlowViewModel: ObservableObject {
         self.dataLicenseViewModel = dataLicenseViewModel
         self.imageLicenseViewModel = imageLicenseViewModel
         self.automaticDownloadViewModel = automaticDownloadViewModel
-        self.taxonSyncViewModel = taxonSyncViewModel
         self.aboutViewModel = aboutViewModel
         self.accountViewModel = accountViewModel
     }

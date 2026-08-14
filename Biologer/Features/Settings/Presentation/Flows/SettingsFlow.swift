@@ -4,19 +4,31 @@ struct SettingsFlow: View {
     @State private var path: [SettingsDestination] = []
     @StateObject private var viewModel: SettingsFlowViewModel
 
-    init(viewModel: SettingsFlowViewModel) {
+    /// The flow owns one Taxon Sync ViewModel so observation and progress remain
+    /// alive after the detailed Taxon Sync screen is closed.
+    @StateObject private var taxonSyncViewModel: TaxonSyncViewModel
+
+    init(
+        viewModel: SettingsFlowViewModel,
+        taxonSyncViewModel: TaxonSyncViewModel
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        _taxonSyncViewModel = StateObject(wrappedValue: taxonSyncViewModel)
     }
 
     var body: some View {
         NavigationStack(path: $path) {
             SettingsScreen(
                 viewModel: viewModel.settingsViewModel,
+                taxonSyncViewState: taxonSyncViewModel.viewState,
                 onSelectDestination: { path.append($0) }
             )
             .navigationDestination(for: SettingsDestination.self) { destination in
                 destinationView(destination)
             }
+        }
+        .task {
+            await taxonSyncViewModel.observeState()
         }
     }
 
@@ -41,7 +53,7 @@ struct SettingsFlow: View {
             )
         case .taxonSync:
             TaxonSyncScreen(
-                viewModel: viewModel.taxonSyncViewModel
+                viewModel: taxonSyncViewModel
             )
         case .help:
             BiologerHelpScreen(onDone: goBack)

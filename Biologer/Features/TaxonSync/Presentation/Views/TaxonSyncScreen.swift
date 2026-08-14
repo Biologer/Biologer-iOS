@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TaxonSyncScreen: View {
+    /// The screen observes the ViewModel owned by its parent flow and does not
+    /// restart either state observation or synchronization when it is rebuilt.
     @ObservedObject var viewModel: TaxonSyncViewModel
     let onContinue: (() -> Void)?
 
@@ -28,9 +30,6 @@ struct TaxonSyncScreen: View {
         }
         .biologerPageBackground()
         .biologerScreen(title: "TaxonSync.title".localized)
-        .task {
-            await viewModel.observeState()
-        }
     }
 
     private var header: some View {
@@ -82,14 +81,12 @@ struct TaxonSyncScreen: View {
 
     private func progressCard(_ progress: TaxonSyncProgress) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Text("TaxonSync.progress.title".localized)
-                    .font(.subheadline.weight(.semibold))
-                Spacer()
-                Text("\(Int(progress.fractionCompleted * 100))%")
-            }
-            ProgressView(value: progress.fractionCompleted)
-                .tint(BiologerColors.brandStrong)
+            BiologerProgressSummary(
+                title: "TaxonSync.progress.title".localized,
+                progress: progress.fractionCompleted,
+                valueText: "\(Int(progress.fractionCompleted * 100))%",
+                showsActivityIndicator: viewModel.viewState.canPause
+            )
             HStack {
                 Text(
                     String(

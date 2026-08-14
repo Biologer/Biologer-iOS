@@ -9,10 +9,33 @@ struct SettingsFlow_Previews: PreviewProvider {
             makeSettingsFlow()
                 .preferredColorScheme(.dark)
                 .previewDisplayName("Settings  - Dark")
+
+            makeSettingsFlow(
+                taxonState: TaxonSyncState(
+                    catalogStatus: .init(
+                        scope: .init(environmentHost: "api.biologer.org"),
+                        availability: .initialCatalogLoaded,
+                        localTaxaCount: 1_840,
+                        lastSuccessfulSyncTimestamp: nil
+                    ),
+                    operation: .working(
+                        phase: .downloading,
+                        progress: .init(
+                            completedPages: 18,
+                            totalPages: 64,
+                            importedTaxaCount: 1_842,
+                            totalTaxaCount: 6_400
+                        )
+                    )
+                )
+            )
+            .previewDisplayName("Settings - Taxon Download")
         }
     }
 
-    static func makeSettingsFlow() -> SettingsFlow {
+    static func makeSettingsFlow(
+        taxonState: TaxonSyncState? = nil
+    ) -> SettingsFlow {
         let preferencesRepository = PreviewSettingsPreferencesRepository()
         let licenseRepository = PreviewSettingsLicenseRepository()
         let taxonDataRepository = PreviewDownloadedTaxaRepository()
@@ -41,7 +64,7 @@ struct SettingsFlow_Previews: PreviewProvider {
             accountUseCase: PreviewUserAccountUseCase(),
             logoutUseCase: PreviewLogoutUseCase(),
             taxonSyncComposition: TaxonSyncPreviewFactory.makeComposition(
-                state: TaxonSyncState(
+                state: taxonState ?? TaxonSyncState(
                     catalogStatus: .init(
                         scope: .init(environmentHost: "api.biologer.org"),
                         availability: .ready,

@@ -46,7 +46,6 @@ final class SettingsFlowBuilder {
             automaticDownloadViewModel: AutomaticDownloadSettingsViewModel(
                 useCase: useCases.preferences
             ),
-            taxonSyncViewModel: taxonSyncComposition.makeViewModel(),
             aboutViewModel: SettingsAboutViewModel(
                 environment: context.environment,
                 version: appVersion
@@ -58,6 +57,9 @@ final class SettingsFlowBuilder {
             )
         )
 
-        return SettingsFlow(viewModel: flowViewModel)
+        return SettingsFlow(
+            viewModel: flowViewModel,
+            taxonSyncViewModel: taxonSyncComposition.makeViewModel()
+        )
     }
 }

@@ -242,30 +242,16 @@ struct ListOfFindingsScreen: View {
     private func uploadProgressCard(
         _ progress: FindingUploadProgress
     ) -> some View {
-        VStack(alignment: .leading, spacing: BiologerSpacing.small) {
-            HStack(spacing: BiologerSpacing.small) {
-                BiologerActivityIndicator()
-
-                Text("ListOfFindings.upload.progress.title".localized)
-                    .font(.body.weight(.semibold))
-                    .foregroundColor(BiologerColors.textPrimary)
-
-                Spacer()
-
-                Text(
-                    String(
-                        format: "ListOfFindings.upload.progress.count".localized,
-                        progress.completedCount,
-                        progress.totalCount
-                    )
-                )
-                .font(.subheadline.monospacedDigit().weight(.medium))
-                .foregroundColor(.secondary)
-            }
-
-            ProgressView(value: progress.fractionCompleted)
-                .tint(BiologerColors.accent)
-        }
+        BiologerProgressSummary(
+            title: "ListOfFindings.upload.progress.title".localized,
+            progress: progress.fractionCompleted,
+            valueText: String(
+                format: "ListOfFindings.upload.progress.count".localized,
+                progress.completedCount,
+                progress.totalCount
+            ),
+            showsActivityIndicator: true
+        )
         .padding(BiologerSpacing.regular)
         .frame(maxWidth: .infinity)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18))

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsScreen: View {
     @ObservedObject var viewModel: SettingsScreenViewModel
+    let taxonSyncViewState: TaxonSyncViewState
     let onSelectDestination: (SettingsDestination) -> Void
 
     var body: some View {
@@ -73,11 +74,7 @@ struct SettingsScreen: View {
 
                     rowDivider
 
-                    actionRow(
-                        title: "Settings.lb.downloadTaxa.title".localized,
-                        systemImage: "arrow.down.to.line",
-                        action: { onSelectDestination(.taxonSync) }
-                    )
+                    taxonSyncRow
 
                     rowDivider
 
@@ -251,6 +248,40 @@ struct SettingsScreen: View {
                 )
 
                 Spacer(minLength: 8)
+            }
+            .contentShape(Rectangle())
+            .padding(.horizontal, 16)
+            .padding(.vertical, 13)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var taxonSyncRow: some View {
+        Button(action: { onSelectDestination(.taxonSync) }) {
+            VStack(alignment: .leading, spacing: BiologerSpacing.small) {
+                HStack(spacing: BiologerSpacing.small) {
+                    rowLabel(
+                        title: "Settings.lb.downloadTaxa.title".localized,
+                        systemImage: "arrow.down.to.line",
+                        tint: BiologerColors.accent
+                    )
+
+                    Spacer(minLength: BiologerSpacing.xSmall)
+
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.bold))
+                        .foregroundColor(Color(uiColor: .tertiaryLabel))
+                }
+
+                if let progress = taxonSyncViewState.progress {
+                    BiologerProgressSummary(
+                        title: taxonSyncViewState.statusTitle,
+                        progress: progress.fractionCompleted,
+                        valueText: "\(Int(progress.fractionCompleted * 100))%",
+                        showsActivityIndicator: taxonSyncViewState.canPause
+                    )
+                    .padding(.leading, 34 + BiologerSpacing.small)
+                }
             }
             .contentShape(Rectangle())
             .padding(.horizontal, 16)

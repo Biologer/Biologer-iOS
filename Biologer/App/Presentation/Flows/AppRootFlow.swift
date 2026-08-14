@@ -5,6 +5,9 @@ struct AppRootFlow: View {
     let composition: AppRootComposition
 
     @StateObject private var coordinator: AppSessionCoordinator
+
+    /// The root flow owns this ViewModel while Taxon Sync blocks app entry, so
+    /// synchronization is not restarted by updates to the screen hierarchy.
     @StateObject private var taxonSyncViewModel: TaxonSyncViewModel
 
     init(
@@ -70,5 +73,8 @@ struct AppRootFlow: View {
             viewModel: taxonSyncViewModel,
             onContinue: coordinator.continueAfterTaxonSync
         )
+        .task {
+            await taxonSyncViewModel.observeState()
+        }
     }
 }
