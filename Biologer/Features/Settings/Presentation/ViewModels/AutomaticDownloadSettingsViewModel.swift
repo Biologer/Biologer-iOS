@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class AutomaticDownloadSettingsViewModel: ObservableObject {
     let options = AutomaticTaxonDownload.allCases
     @Published private(set) var selectedOption: AutomaticTaxonDownload

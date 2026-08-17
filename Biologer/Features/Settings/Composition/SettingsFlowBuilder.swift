@@ -1,6 +1,5 @@
 import Foundation
 
-@MainActor
 final class SettingsFlowBuilder {
     private let useCases: SettingsUseCases
     private let accountContextProvider: () -> SettingsAccountContext
@@ -25,6 +24,7 @@ final class SettingsFlowBuilder {
         self.taxonSyncComposition = taxonSyncComposition
     }
 
+    @MainActor
     func makeFlow() -> SettingsFlow {
         let context = accountContextProvider()
         let flowViewModel = SettingsFlowViewModel(

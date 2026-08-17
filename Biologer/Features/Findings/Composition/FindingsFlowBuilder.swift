@@ -1,6 +1,5 @@
 import Foundation
 
-@MainActor
 final class FindingsFlowBuilder {
     private let useCases: FindingsUseCases
 
@@ -8,6 +7,7 @@ final class FindingsFlowBuilder {
         self.useCases = useCases
     }
 
+    @MainActor
     func makeFlow(
         controller: FindingsFlowController,
         onAddFinding: @escaping () -> Void,

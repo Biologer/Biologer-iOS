@@ -1,7 +1,7 @@
 import Foundation
 
-@MainActor
 protocol FindingEditorFlowBuilding {
+    @MainActor
     func makeFlow(
         mode: FindingEditorMode,
         onSaved: @escaping (UUID) -> Void,
@@ -9,7 +9,6 @@ protocol FindingEditorFlowBuilding {
     ) -> FindingEditorFlow
 }
 
-@MainActor
 final class FindingEditorFlowBuilder: FindingEditorFlowBuilding {
     private let useCases: FindingEditorUseCases
     private let taxonSyncComposition: TaxonSyncComposition
@@ -26,6 +25,7 @@ final class FindingEditorFlowBuilder: FindingEditorFlowBuilding {
         self.taxonSyncComposition = taxonSyncComposition
     }
 
+    @MainActor
     func makeFlow(
         mode: FindingEditorMode,
         onSaved: @escaping (UUID) -> Void,
@@ -39,6 +39,7 @@ final class FindingEditorFlowBuilder: FindingEditorFlowBuilding {
         )
     }
 
+    @MainActor
     func makeViewModel(
         mode: FindingEditorMode,
         onUnsavedChangesChanged: @escaping (Bool) -> Void

@@ -1,6 +1,5 @@
 import Foundation
 
-@MainActor
 final class MainTabFlowBuilder {
     private let findingsFlowBuilder: FindingsFlowBuilder
     private let findingEditorFlowBuilder: FindingEditorFlowBuilder
@@ -19,6 +18,7 @@ final class MainTabFlowBuilder {
         self.findingsFlowController = findingsFlowController
     }
 
+    @MainActor
     func makeFlow() -> MainTabFlow {
         let viewModel = MainTabFlowViewModel(
             findingsFlowController: findingsFlowController

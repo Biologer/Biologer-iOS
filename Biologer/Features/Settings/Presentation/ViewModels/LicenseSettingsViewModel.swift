@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class LicenseSettingsViewModel: ObservableObject {
     let kind: LicenseKind
     let options: [LicenseOption]

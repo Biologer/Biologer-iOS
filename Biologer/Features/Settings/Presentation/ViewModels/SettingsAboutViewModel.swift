@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class SettingsAboutViewModel: ObservableObject {
     let currentDatabaseDescription = "AboutBiologer.lb.currentlyDB".localized
     let logoImageName = "biologer_logo_icon"

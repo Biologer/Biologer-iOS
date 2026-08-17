@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class ProjectNameSettingsViewModel: ObservableObject {
     @Published var projectName: String
 

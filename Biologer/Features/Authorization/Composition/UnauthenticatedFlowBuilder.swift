@@ -1,4 +1,3 @@
-@MainActor
 final class UnauthenticatedFlowBuilder {
     private let useCases: AuthorizationUseCases
     private let environmentOptionsProvider: EnvironmentOptionsProviding
@@ -17,6 +16,7 @@ final class UnauthenticatedFlowBuilder {
         self.urlProvider = urlProvider
     }
 
+    @MainActor
     func makeFlow(
         onAuthorizationSuccess: @escaping () async -> Void
     ) -> UnauthenticatedFlow {

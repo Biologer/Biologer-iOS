@@ -17,6 +17,7 @@ enum SettingsResetAlert: Identifiable {
     }
 }
 
+@MainActor
 final class SettingsScreenViewModel: ObservableObject {
     @Published private(set) var preferences: SettingsPreferences
     @Published var resetAlert: SettingsResetAlert?
